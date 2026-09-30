@@ -1,0 +1,27 @@
+# Datasets are downloaded separately (see README / CLAUDE.md), not stored in git
+data/
+
+# Local agent skill copies (the shared ones live in .claude/skills/)
+.agents/
+
+# JavaScript packages (reinstall with npm install)
+node_modules/
+
+# Python virtual environment and compiled cache files
+.venv/
+__pycache__/
+
+# Secret settings such as API keys
+.env
+.env.*
+
+# Extra: each person's own Claude Code settings (shared skills in .claude/skills/ ARE committed)
+.claude/settings.local.json
+
+# Extra: playwright-cli snapshots, screenshots and browser data from local testing
+.playwright/
+.playwright-cli/
+
+# Extra: operating system clutter
+Thumbs.db
+.DS_Store
