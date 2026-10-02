@@ -58,6 +58,7 @@
   // letters would break its conjuncts (ಕ್ಷ, ತ್ತ) and vowel signs.
   function textEffect(el) {
     if (reduce()) return;
+    gsap.killTweensOf(el.querySelectorAll(".te-word"));   // stop the last run before its words are thrown away
     const text = el.textContent;
     el.textContent = "";
     const words = text.split(/(\s+)/).map((part) => {

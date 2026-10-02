@@ -310,7 +310,7 @@ function renderStatus(risk, lang) {
   // Smooth change of level: colours cross-fade (CSS), the words settle in.
   if (changed && !M.reduce()) {
     M.gsap.fromTo(["#status-icon", "#status-text"], { opacity: 0, y: 6 },
-      { opacity: 1, y: 0, duration: 0.5, ease: "power2.out", stagger: 0.05 });
+      { opacity: 1, y: 0, duration: 0.5, ease: "power2.out", stagger: 0.05, overwrite: "auto" });
   }
   state.level = risk.level;
 }
@@ -397,8 +397,20 @@ function loadTicks(key) {
   try { return new Set(JSON.parse(localStorage.getItem(`meenuraksha-ticks:${key}`)) || []); } catch { return new Set(); }
 }
 
+const MAX_TICK_LISTS = 30;        // ticks are kept for the last 30 different alerts only
+
 function saveTicks(key, ticks) {
-  try { localStorage.setItem(`meenuraksha-ticks:${key}`, JSON.stringify([...ticks])); } catch { /* storage blocked */ }
+  try {
+    localStorage.setItem(`meenuraksha-ticks:${key}`, JSON.stringify([...ticks]));
+    const keys = [];
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i);
+      if (k.startsWith("meenuraksha-ticks:")) keys.push(k);
+    }
+    // localStorage has no dates; drop the extra lists that aren't the one just saved.
+    keys.filter((k) => k !== `meenuraksha-ticks:${key}`).slice(0, Math.max(0, keys.length - MAX_TICK_LISTS))
+      .forEach((k) => localStorage.removeItem(k));
+  } catch { /* storage blocked */ }
 }
 
 function renderChecklist(list, progress, risk, source, lang) {
@@ -845,5 +857,5 @@ setLanguage(loadLanguage());
 
 // The welcome screen (welcome.js) calls start() when the farmer presses Start.
 // Without a welcome screen, start straight away.
-window.MeenuRaksha = { start, setLanguage };
+window.MeenuRaksha = { start, setLanguage, historyCount: () => state.history.length };   // historyCount: for ?debug
 if (!document.getElementById("welcome")) start();

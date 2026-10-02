@@ -325,13 +325,6 @@ main {
   .status-danger::after { animation: none; opacity: 0; }
 }
 
-/* ---- Performance on cheap phones ----
-   Readings change every update. Containment keeps a change inside one card
-   from making the browser re-lay-out the whole page, and sections scrolled out
-   of view skip rendering until they come back (content-visibility). */
-.card, .reading, .status-banner, .countdown { contain: layout paint; }
-.chart-card, .readings { content-visibility: auto; contain-intrinsic-size: auto 420px; }
-
 /* ---- Bottom toolbar: tonight's weather (real forecast, not simulated) ----
    Darkest-water footer colour (DESIGN.md footer-region). Stays at the bottom of
    the screen on tablets and computers; on phones it sits at the end of the page
@@ -548,3 +541,18 @@ main {
 @media (prefers-reduced-motion: reduce) {
   .health-arc { transition: none; }
 }
+
+/* ---- Debug panel (only with ?debug in the address, see debug.js) ---- */
+.debug-panel {
+  position: fixed; left: 8px; bottom: 8px; z-index: 50;
+  max-width: calc(100vw - 16px); max-height: 70vh; overflow: auto;
+  padding: 0.5rem 0.75rem;
+  background: var(--surface); color: var(--text);
+  border: 2px solid var(--primary); border-radius: 12px;
+  font-size: 0.9375rem; line-height: 1.4; font-variant-numeric: tabular-nums;
+}
+.debug-title { font-weight: 700; margin-bottom: 0.25rem; }
+.debug-panel table { border-collapse: collapse; }
+.debug-panel th, .debug-panel td { padding: 0.125rem 0.5rem; text-align: right; }
+.debug-panel tbody th { text-align: left; font-weight: 500; color: var(--text-secondary); }
+.debug-panel .debug-grew td { background: var(--primary); color: var(--on-primary); font-weight: 700; }   /* not a status colour: dev tool */

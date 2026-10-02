@@ -80,7 +80,7 @@ def test_welcome_screen_and_gsap_are_local_files():
 def test_animated_dashboard_files_are_local():
     html = client.get("/").text
     for path in ("/vendor/chartjs/chart.umd.min.js", "/motion.js", "/pond-view.js", "/gauge.js", "/do-chart.js",
-                 "/health-ring.js", "/history.js", "/voice.js"):
+                 "/health-ring.js", "/history.js", "/voice.js", "/debug.js"):
         assert f'src="{path}"' in html, path
         assert client.get(path).status_code == 200, path
     assert "Chart.js v4.5.1" in client.get("/vendor/chartjs/chart.umd.min.js").text
@@ -109,7 +109,7 @@ def test_text_effect_never_splits_kannada_letters():
 def test_page_has_no_em_dashes():
     # design-taste-frontend rule: no em/en dashes in visible text.
     for path in ("/", "/app.js", "/welcome.js", "/motion.js", "/pond-view.js", "/gauge.js", "/do-chart.js",
-                 "/health-ring.js", "/history.js", "/voice.js"):
+                 "/health-ring.js", "/history.js", "/voice.js", "/debug.js"):
         assert "—" not in client.get(path).text and "–" not in client.get(path).text, path
 
 
@@ -160,3 +160,18 @@ def test_paused_demo_resumes_with_the_same_readings():
 
 def test_simulator_rejects_unknown_scenario():
     assert client.get("/api/simulator/stream", params={"scenario": "tsunami"}).status_code == 422
+
+
+def test_no_css_containment():
+    # contain / content-visibility were removed while chasing an Edge crash
+    # (STATUS_BREAKPOINT). Keep them out until that is understood.
+    css = client.get("/styles.css").text
+    assert "content-visibility" not in css and "contain:" not in css and "contain-intrinsic" not in css
+
+
+def test_debug_script_loads_first_and_is_opt_in():
+    html = client.get("/").text
+    scripts = [line.split('"')[1] for line in html.splitlines() if "<script src=" in line]
+    assert scripts[0] == "/debug.js"            # must wrap setTimeout before other scripts use it
+    js = client.get("/debug.js").text
+    assert 'has("debug")' in js

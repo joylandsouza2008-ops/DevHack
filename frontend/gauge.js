@@ -72,7 +72,7 @@
       needle.setAttribute("transform", `rotate(${rotation} ${CX} ${CY})`);
       return;
     }
-    gsap.to(needle, { rotation, svgOrigin: `${CX} ${CY}`, duration: 1.2, ease: "power3.inOut" });
+    gsap.to(needle, { rotation, svgOrigin: `${CX} ${CY}`, duration: 1.2, ease: "power3.inOut", overwrite: "auto" });
   }
 
   window.RiskGauge = { init, setLevel, setWords };

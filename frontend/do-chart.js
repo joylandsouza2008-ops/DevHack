@@ -139,7 +139,7 @@
     if (!chart || value === null || value === undefined) return;
     const { labels, datasets: [set] } = chart.data;
     labels.push(label); set.data.push(value);
-    if (labels.length > MAX_POINTS) { labels.shift(); set.data.shift(); }
+    while (labels.length > MAX_POINTS) { labels.shift(); set.data.shift(); }   // hard cap: memory stays flat
     chart.options.scales.y.max = Math.max(16, Math.ceil(Math.max(...set.data) + 1));
     scheduleUpdate();
   }

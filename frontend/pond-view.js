@@ -27,8 +27,10 @@
     unknown: { speed: 0.6,  depth: [60, 130], tilt: 0,   tail: 0.7 },
   };
 
+  const MAX_BUBBLES = 12;           // never more bubbles than this on screen
+
   let root, stopTop, stopBottom, bubbleLayer, fishes = [], level = null;
-  let visible = true, tweens = [];
+  let visible = true, tweens = [], bubbleTimer = null;
 
   const el = (name, attrs) => {
     const node = document.createElementNS(NS, name);
@@ -124,6 +126,7 @@
   // there gasping, instead of drifting off the edge. Leaving Danger: swim on.
   function gatherAtSurface() {
     fishes.forEach((fish, i) => {
+      dropSway(fish);                          // never two sway animations on one fish
       fish.swim.pause();
       const spot = W * (0.22 + 0.56 * (fishes.length === 1 ? 0.5 : i / (fishes.length - 1)));
       fish.sway = gsap.timeline()
@@ -133,21 +136,34 @@
     });
   }
 
+  function dropSway(fish) {
+    if (!fish.sway) return;
+    fish.sway.kill();
+    const i = tweens.indexOf(fish.sway);
+    if (i !== -1) tweens.splice(i, 1);
+    fish.sway = null;
+  }
+
   function swimOn() {
     fishes.forEach((fish) => {
       if (!fish.sway) return;
-      fish.sway.kill();
-      tweens.splice(tweens.indexOf(fish.sway), 1);
-      fish.sway = null;
+      dropSway(fish);
       fish.swim.kill();
       lap(fish, gsap.getProperty(fish.lane, "x"));
     });
   }
 
   // Bubbles rise from the fish mouths to the surface while fish gasp (Danger).
+  // Only ONE bubble loop runs at a time (bubbleTimer), and it stops when Danger ends.
+  function stopBubbles() {
+    if (bubbleTimer) bubbleTimer.kill();
+    bubbleTimer = null;
+  }
+
   function bubble() {
+    bubbleTimer = null;
     if (level !== "danger" || reduce()) return;
-    if (visible) {
+    if (visible && bubbleLayer.childElementCount < MAX_BUBBLES) {
       const fish = fishes[Math.floor(Math.random() * fishes.length)];
       const x = gsap.getProperty(fish.lane, "x") + 18 * fish.dir * fish.scale;
       const y = gsap.getProperty(fish.depth, "y") - 6;
@@ -155,7 +171,7 @@
       bubbleLayer.append(b);
       gsap.to(b, { attr: { cy: SURFACE }, opacity: 0, duration: 0.9 + Math.random() * 0.6, ease: "power1.out", onComplete: () => b.remove() });
     }
-    gsap.delayedCall(lowPower ? 0.9 : 0.5, bubble);
+    bubbleTimer = gsap.delayedCall(lowPower ? 0.9 : 0.5, bubble);
   }
 
   function setLevel(next) {
@@ -177,18 +193,21 @@
       return;
     }
 
-    const ease = "power2.inOut";
+    // overwrite: "auto" stops the previous level's change on the same property,
+    // so quick level changes never stack up running animations.
+    const ease = "power2.inOut", overwrite = "auto";
     const duration = first ? 0 : 1.5;              // calm change, never a jump
-    gsap.to(stopTop, { attr: { "stop-color": water.top }, duration, ease });
-    gsap.to(stopBottom, { attr: { "stop-color": water.bottom }, duration, ease });
+    gsap.to(stopTop, { attr: { "stop-color": water.top }, duration, ease, overwrite });
+    gsap.to(stopBottom, { attr: { "stop-color": water.bottom }, duration, ease, overwrite });
     if (level === "danger") gatherAtSurface(); else swimOn();
     fishes.forEach((fish) => {
       fish.speed = b.speed;                        // later laps use the new speed too
-      if (level !== "danger") gsap.to(fish.swim, { timeScale: b.speed, duration: duration || 0.01, ease });
-      gsap.to(fish.tailTween, { timeScale: b.tail / 0.45, duration: duration || 0.01 });
-      gsap.to(fish.depth, { y: depthFor(fish, level), duration: first ? 0 : 2, ease });
-      gsap.to(fish.body, { rotation: b.tilt, svgOrigin: "0 0", duration: first ? 0 : 1.2, ease });
+      if (level !== "danger") gsap.to(fish.swim, { timeScale: b.speed, duration: duration || 0.01, ease, overwrite });
+      gsap.to(fish.tailTween, { timeScale: b.tail / 0.45, duration: duration || 0.01, overwrite });
+      gsap.to(fish.depth, { y: depthFor(fish, level), duration: first ? 0 : 2, ease, overwrite });
+      gsap.to(fish.body, { rotation: b.tilt, svgOrigin: "0 0", duration: first ? 0 : 1.2, ease, overwrite });
     });
+    stopBubbles();
     if (level === "danger") bubble();
   }
 

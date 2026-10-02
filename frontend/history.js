@@ -51,7 +51,7 @@
   function load() {
     try {
       const list = JSON.parse(localStorage.getItem(STORAGE_KEY));
-      return Array.isArray(list) ? list : [];
+      return Array.isArray(list) ? list.slice(0, MAX_ENTRIES) : [];
     } catch {
       return [];                               // nothing saved, or storage blocked
     }
