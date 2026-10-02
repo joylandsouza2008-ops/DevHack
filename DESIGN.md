@@ -1,20 +1,20 @@
 ---
 version: alpha
 name: pond-design-system
-description: A calm, water-toned design system for a pond and fish-health app. Deep pond blue ({colors.primary}) anchors every primary action on a clean white canvas, soft water and reed tints (blue, teal, green) give feature cards a natural feel, and a strict three-level status palette — Safe green, Warning amber, Danger red — is reserved for pond and fish condition readings only. Type is set large for readability outdoors and on low-end phones, and every text style is tuned to render Kannada (ಕನ್ನಡ) script as comfortably as English.
+description: A calm, deep-water design system for a pond and fish-health app, in a dark theme. Light pond blue ({colors.primary}) marks every primary action on a near-black water background ({colors.background}), deep indigo-blue ({colors.secondary}) fills banners and highlighted cards, and a strict three-level status palette (Safe green, Warning amber, Danger red) is reserved for pond and fish condition readings only. Type is set large for readability outdoors and on low-end phones, and every text style is tuned to render Kannada (ಕನ್ನಡ) script as comfortably as English.
 
 colors:
-  primary: "#0b4f6c"
-  primary-pressed: "#083a50"
-  on-primary: "#ffffff"
-  brand-teal: "#0e7c7b"
-  teal-light: "#d4f1ef"
-  brand-water: "#1d6fa5"
-  water-light: "#dff1f6"
-  brand-reed: "#2f8a5b"
-  reed-light: "#dcf3ea"
-  moss-dark: "#0b5e4a"
-  sand-light: "#f6f1e4"
+  # Brand palette (Realtime Colors)
+  background: "#06131a"
+  text: "#def0f8"
+  primary: "#88cce6"
+  primary-pressed: "#a8daee"
+  on-primary: "#06131a"
+  secondary: "#1f2f91"
+  on-secondary: "#def0f8"
+  accent: "#22d3ee"          # aqua: decorative highlights only (see Colors)
+  on-accent: "#06131a"       # light text on aqua fails (1.5:1)
+  # Status: unchanged
   safe: "#1a7f37"
   safe-bg: "#e6f4ea"
   safe-text: "#0d4d20"
@@ -25,22 +25,17 @@ colors:
   danger: "#c62828"
   danger-bg: "#fdecea"
   danger-text: "#7f1414"
-  canvas: "#ffffff"
-  surface: "#f3f8fa"
-  surface-soft: "#f8fbfc"
-  surface-featured: "#e8f4f8"
-  hairline: "#d5e2e7"
-  hairline-soft: "#e6eef1"
-  hairline-strong: "#a9bfc8"
-  ink-deep: "#0a1f29"
-  ink: "#0f2a36"
-  charcoal: "#1e3a46"
-  slate: "#3f5a66"
-  steel: "#56707b"
-  muted: "#7b929c"
-  on-dark: "#ffffff"
-  on-dark-muted: "#b8cbd3"
-  footer-bg: "#0a1f29"
+  on-status: "#ffffff"       # text on the solid Safe / Danger colours
+  # Dark-theme surfaces and text, derived from the palette (all contrast-checked)
+  surface: "#081820"         # top bar, sections
+  canvas: "#0a1b23"          # cards, inputs
+  hairline: "#1e3742"
+  hairline-soft: "#152c36"
+  hairline-strong: "#5a7f8f"  # input and control borders (4.1:1 on canvas)
+  text-secondary: "#a9c6d3"
+  text-tertiary: "#86a7b5"
+  muted: "#5f7c89"           # disabled only
+  footer-bg: "#030b10"
 
 typography:
   hero-display:
@@ -170,9 +165,9 @@ components:
   button-primary-disabled:
     backgroundColor: "{colors.hairline}"
     textColor: "{colors.muted}"
-  button-teal:
-    backgroundColor: "{colors.brand-teal}"
-    textColor: "{colors.on-primary}"
+  button-secondary-filled:
+    backgroundColor: "{colors.secondary}"
+    textColor: "{colors.on-secondary}"
     typography: "{typography.button-md}"
     rounded: "{rounded.full}"
     padding: "14px 28px"
@@ -187,34 +182,27 @@ components:
     border: "2px solid {colors.primary}"
   button-danger:
     backgroundColor: "{colors.danger}"
-    textColor: "{colors.on-primary}"
-    typography: "{typography.button-md}"
-    rounded: "{rounded.full}"
-    padding: "14px 28px"
-    minHeight: 52px
-  button-on-dark:
-    backgroundColor: "{colors.on-dark}"
-    textColor: "{colors.primary}"
+    textColor: "{colors.on-status}"
     typography: "{typography.button-md}"
     rounded: "{rounded.full}"
     padding: "14px 28px"
     minHeight: 52px
   button-ghost:
     backgroundColor: "transparent"
-    textColor: "{colors.ink}"
+    textColor: "{colors.text}"
     typography: "{typography.button-md}"
     rounded: "{rounded.md}"
     padding: "10px 14px"
     minHeight: 48px
   button-link:
     backgroundColor: "transparent"
-    textColor: "{colors.brand-water}"
+    textColor: "{colors.primary}"
     typography: "{typography.body-md-medium}"
     padding: "0"
     textDecoration: underline
   button-icon-circular:
     backgroundColor: "{colors.canvas}"
-    textColor: "{colors.ink}"
+    textColor: "{colors.text}"
     rounded: "{rounded.full}"
     size: 48px
     border: "1px solid {colors.hairline-strong}"
@@ -228,26 +216,17 @@ components:
     rounded: "{rounded.xxxl}"
     padding: "{spacing.xxl}"
     border: "1px solid {colors.hairline}"
-  card-feature-water:
-    backgroundColor: "{colors.water-light}"
-    textColor: "{colors.ink}"
+  card-feature-secondary:
+    backgroundColor: "{colors.secondary}"
+    textColor: "{colors.on-secondary}"
     rounded: "{rounded.xxxl}"
     padding: "{spacing.xxl}"
-  card-feature-teal:
-    backgroundColor: "{colors.teal-light}"
-    textColor: "{colors.ink}"
+  card-feature-deep:
+    backgroundColor: "{colors.surface}"
+    textColor: "{colors.text}"
     rounded: "{rounded.xxxl}"
     padding: "{spacing.xxl}"
-  card-feature-reed:
-    backgroundColor: "{colors.reed-light}"
-    textColor: "{colors.ink}"
-    rounded: "{rounded.xxxl}"
-    padding: "{spacing.xxl}"
-  card-feature-sand:
-    backgroundColor: "{colors.sand-light}"
-    textColor: "{colors.ink}"
-    rounded: "{rounded.xxxl}"
-    padding: "{spacing.xxl}"
+    border: "1px solid {colors.hairline}"
   card-pond:
     backgroundColor: "{colors.canvas}"
     rounded: "{rounded.xl}"
@@ -256,14 +235,14 @@ components:
     borderLeft: "6px solid {status color}"
   card-stat:
     backgroundColor: "transparent"
-    textColor: "{colors.ink}"
+    textColor: "{colors.text}"
     typography: "{typography.stat-display}"
     padding: "{spacing.lg}"
   card-highlighted:
-    backgroundColor: "{colors.surface-featured}"
+    backgroundColor: "{colors.secondary}"
     rounded: "{rounded.xl}"
     padding: "{spacing.xxl}"
-    border: "2px solid {colors.brand-water}"
+    border: "2px solid {colors.primary}"
   status-banner-safe:
     backgroundColor: "{colors.safe-bg}"
     textColor: "{colors.safe-text}"
@@ -290,7 +269,7 @@ components:
     icon: alert-octagon
   badge-safe:
     backgroundColor: "{colors.safe}"
-    textColor: "{colors.on-primary}"
+    textColor: "{colors.on-status}"
     typography: "{typography.caption-bold}"
     rounded: "{rounded.full}"
     padding: "6px 14px"
@@ -302,25 +281,19 @@ components:
     padding: "6px 14px"
   badge-danger:
     backgroundColor: "{colors.danger}"
-    textColor: "{colors.on-primary}"
+    textColor: "{colors.on-status}"
     typography: "{typography.caption-bold}"
     rounded: "{rounded.full}"
     padding: "6px 14px"
-  badge-tag-water:
-    backgroundColor: "{colors.water-light}"
-    textColor: "{colors.primary}"
-    typography: "{typography.caption-bold}"
-    rounded: "{rounded.full}"
-    padding: "6px 14px"
-  badge-tag-reed:
-    backgroundColor: "{colors.reed-light}"
-    textColor: "{colors.moss-dark}"
+  badge-tag:
+    backgroundColor: "{colors.secondary}"
+    textColor: "{colors.on-secondary}"
     typography: "{typography.caption-bold}"
     rounded: "{rounded.full}"
     padding: "6px 14px"
   text-input:
     backgroundColor: "{colors.canvas}"
-    textColor: "{colors.ink}"
+    textColor: "{colors.text}"
     typography: "{typography.body-md}"
     rounded: "{rounded.md}"
     padding: "{spacing.sm} {spacing.md}"
@@ -328,15 +301,15 @@ components:
     minHeight: 52px
   text-input-focused:
     backgroundColor: "{colors.canvas}"
-    textColor: "{colors.ink}"
-    border: "2px solid {colors.brand-water}"
+    textColor: "{colors.text}"
+    border: "2px solid {colors.primary}"
   text-input-error:
     backgroundColor: "{colors.canvas}"
-    textColor: "{colors.ink}"
+    textColor: "{colors.text}"
     border: "2px solid {colors.danger}"
   search-pill:
     backgroundColor: "{colors.surface}"
-    textColor: "{colors.steel}"
+    textColor: "{colors.text-tertiary}"
     typography: "{typography.body-md}"
     rounded: "{rounded.md}"
     padding: "{spacing.xs} {spacing.md}"
@@ -344,7 +317,7 @@ components:
     border: "1px solid {colors.hairline}"
   filter-dropdown:
     backgroundColor: "{colors.canvas}"
-    textColor: "{colors.ink}"
+    textColor: "{colors.text}"
     typography: "{typography.body-sm-medium}"
     rounded: "{rounded.full}"
     padding: "{spacing.xs} {spacing.md}"
@@ -352,7 +325,7 @@ components:
     border: "1px solid {colors.hairline-strong}"
   pill-tab:
     backgroundColor: "{colors.canvas}"
-    textColor: "{colors.slate}"
+    textColor: "{colors.text-secondary}"
     typography: "{typography.body-sm-medium}"
     rounded: "{rounded.full}"
     padding: "{spacing.xs} {spacing.lg}"
@@ -365,20 +338,20 @@ components:
     border: "1px solid {colors.primary}"
   language-toggle:
     backgroundColor: "{colors.surface}"
-    textColor: "{colors.ink}"
+    textColor: "{colors.text}"
     typography: "{typography.body-sm-medium}"
     rounded: "{rounded.full}"
     padding: "4px"
     minHeight: 48px
   data-table:
     backgroundColor: "{colors.canvas}"
-    textColor: "{colors.ink}"
+    textColor: "{colors.text}"
     typography: "{typography.body-md}"
     rounded: "{rounded.md}"
     border: "1px solid {colors.hairline}"
   data-row:
     backgroundColor: "{colors.canvas}"
-    textColor: "{colors.ink}"
+    textColor: "{colors.text}"
     padding: "{spacing.md} {spacing.lg}"
     border: "0 0 1px {colors.hairline-soft} solid"
   faq-accordion-item:
@@ -387,87 +360,89 @@ components:
     padding: "{spacing.xl}"
     border: "0 0 1px {colors.hairline} solid"
   hero-band:
-    backgroundColor: "{colors.canvas}"
-    textColor: "{colors.ink}"
+    backgroundColor: "{colors.background}"
+    textColor: "{colors.text}"
     typography: "{typography.hero-display}"
     rounded: "0"
     padding: "{spacing.hero}"
-  cta-banner-dark:
-    backgroundColor: "{colors.primary}"
-    textColor: "{colors.on-primary}"
+  cta-banner:
+    backgroundColor: "{colors.secondary}"
+    textColor: "{colors.on-secondary}"
     rounded: "{rounded.feature}"
     padding: "{spacing.section}"
   footer-region:
     backgroundColor: "{colors.footer-bg}"
-    textColor: "{colors.on-dark}"
+    textColor: "{colors.text}"
     typography: "{typography.body-sm}"
     padding: "{spacing.section} {spacing.xxl}"
   footer-link:
     backgroundColor: "transparent"
-    textColor: "{colors.on-dark-muted}"
+    textColor: "{colors.text-secondary}"
     typography: "{typography.body-sm}"
     padding: "{spacing.xs} 0"
 ---
 
 ## Overview
 
-This is a calm, water-toned design system for a pond and fish-health app. It is used by pond owners and fish farmers, often outdoors, on phones, and in either Kannada or English. Every screen opens on a clean white canvas. The main action is always a deep pond-blue pill button ({colors.primary}). Soft water, teal and reed tints give feature cards a natural, outdoor feel. The palette is only blues, teals and greens: there is no purple or lavender anywhere in the system.
+This is a calm, deep-water design system for a pond and fish-health app. It is used by pond owners and fish farmers, often outdoors, on phones, and in either Kannada or English. It uses a **dark theme**: every screen sits on near-black water ({colors.background}) with light, cool text ({colors.text}). The main action is always a light pond-blue pill button ({colors.primary}) with dark text. Deep indigo-blue ({colors.secondary}) fills banners, tags and highlighted cards. The palette comes from Realtime Colors; there is no purple or lavender anywhere in the system.
 
-The most important job of the interface is to make pond condition clear at a glance. Green, amber and red mean only one thing each: **Safe**, **Warning** and **Danger**. These colors never appear as decoration, and each status always comes with an icon and a word, never color alone.
+The most important job of the interface is to make pond condition clear at a glance. Green, amber and red mean only one thing each: **Safe**, **Warning** and **Danger**. These colors never appear as decoration, and each status always comes with an icon and a word, never color alone. On the dark page, status banners keep their light backgrounds, so alerts are the brightest thing on screen.
 
 Text is set larger than a typical web app: body text is 18px, and nothing that must be read is smaller than 15px. Every style is tuned so Kannada (ಕನ್ನಡ) renders as comfortably as English, with generous line height and no negative letter-spacing.
 
 **Key Characteristics:**
-- White canvas with deep pond-blue pill CTAs ({colors.primary} + `{rounded.full}`)
-- Water, teal, reed and sand tints for feature cards
+- Near-black water background with light pond-blue pill CTAs ({colors.primary} + `{rounded.full}`)
+- Deep indigo-blue ({colors.secondary}) for banners, tags and highlighted cards, always with light text
 - A strict Safe/Warning/Danger palette used only for condition status, always paired with an icon and a label
 - Large, readable type: 18px body, 52px-tall buttons, 48px minimum touch targets
 - Noto Sans + Noto Sans Kannada on every surface, with line heights tall enough for Kannada vowel signs and conjuncts
-- Deep-water dark footer ({colors.footer-bg})
+- Darkest-water footer ({colors.footer-bg})
 
 ## Colors
 
-### Brand & Accent
-- **Pond Blue** ({colors.primary}): Primary buttons, active tabs, dark CTA banners. White text on it measures 8.9:1.
-- **Pond Blue Pressed** ({colors.primary-pressed}): Pressed state for primary actions.
-- **Water Blue** ({colors.brand-water}): Links, focus rings, highlighted-card border. 5.4:1 on white.
-- **Water Light** ({colors.water-light}): Pale blue feature-card and tag background.
-- **Teal** ({colors.brand-teal}): Secondary filled button. White text on it measures 5.0:1.
-- **Teal Light** ({colors.teal-light}): Pale teal feature-card background.
-- **Reed Green** ({colors.brand-reed}): Decorative accent for illustrations and icons only. Not for status.
-- **Reed Light** ({colors.reed-light}): Pale green feature-card and tag background.
-- **Moss Dark** ({colors.moss-dark}): Text on reed-tinted chips.
-- **Sand Light** ({colors.sand-light}): Warm, neutral feature-card background (a pond-bank tone) for variety.
+All contrast ratios below are measured (WCAG 2.x formula). Text needs at least 4.5:1; borders, stripes and icons need at least 3:1.
 
-### Status (Safe / Warning / Danger)
+### Brand palette
+| Token | Hex | Use | Contrast |
+|---|---|---|---|
+| **Background** ({colors.background}) | `#06131a` | Page background | text on it 16.1:1 |
+| **Text** ({colors.text}) | `#def0f8` | Headlines and body text | 15.0:1 on cards |
+| **Primary** ({colors.primary}) | `#88cce6` | Primary buttons, active tabs, links, focus rings, highlighted-card borders | 10.6:1 on background; dark text on it 10.6:1 |
+| **Primary Pressed** ({colors.primary-pressed}) | `#a8daee` | Pressed state of primary buttons | dark text on it 12.5:1 |
+| **On Primary** ({colors.on-primary}) | `#06131a` | Text on primary | |
+| **Secondary** ({colors.secondary}) | `#1f2f91` | **Fill only**: simulated-data banner, tags, highlighted cards, CTA banners | text on it 9.6:1; **1.7:1 on the background, so never as text or a border** |
+| **Accent** ({colors.accent}) | `#22d3ee` | Decorative highlights only (see below) | 10.4:1 on the background, 9.7:1 on cards; dark ({colors.on-accent}) text on it 10.4:1; **light text on it 1.5:1, never** |
+
+**How to use the accent (aqua):** it is clearly different from all three status colors (OKLab difference 31 from Safe, 28 from Warning, 42 from Danger; 15+ is clearly different), and it is not orange, so it can't be mistaken for amber Warning. But it is **almost the same color as primary** (difference 6.2, and 1.2 for color-blind viewers), so the two can't be told apart by color. Use aqua only for decorative highlights (water shimmer, an icon accent, a highlight line in an illustration). Never use it to mean something different from primary, never as the only difference between two states, and never on anything clickable: clickable things are always {colors.primary}. Text on an aqua fill is always dark ({colors.on-accent}).
+
+### Status (Safe / Warning / Danger), unchanged
 These colors are reserved for pond and fish condition: water quality, oxygen, temperature, pH, ammonia and alerts.
 
 | Level | Solid | Background | Text on background | Icon | Contrast |
 |---|---|---|---|---|---|
-| **Safe** | {colors.safe} `#1a7f37` | {colors.safe-bg} | {colors.safe-text} | check-circle | white on solid 5.1:1 · text on bg 8.8:1 |
-| **Warning** | {colors.warning} `#f5a524` | {colors.warning-bg} | {colors.warning-text} | alert-triangle | dark ink on solid 9.1:1 · text on bg 7.4:1 |
-| **Danger** | {colors.danger} `#c62828` | {colors.danger-bg} | {colors.danger-text} | alert-octagon | white on solid 5.6:1 · text on bg 9.1:1 |
+| **Safe** | {colors.safe} `#1a7f37` | {colors.safe-bg} | {colors.safe-text} | check-circle | white ({colors.on-status}) on solid 5.1:1 · text on bg 8.8:1 · solid vs page 3.7:1 |
+| **Warning** | {colors.warning} `#f5a524` | {colors.warning-bg} | {colors.warning-text} | alert-triangle | dark ({colors.on-warning}) on solid 9.1:1 · text on bg 7.4:1 · solid vs page 9.2:1 |
+| **Danger** | {colors.danger} `#c62828` | {colors.danger-bg} | {colors.danger-text} | alert-octagon | white ({colors.on-status}) on solid 5.6:1 · text on bg 9.1:1 · solid vs page 3.4:1 |
 
+- Status colors are always used as these fixed pairs. **Status text colors only ever sit on their own light status background**: Danger text directly on the dark page is 1.8:1 and unreadable.
+- On cards ({colors.canvas}) the solid colors still pass 3:1 as left-border stripes (Safe 3.5, Warning 8.6, Danger 3.1).
 - Text on the amber Warning solid is always dark ({colors.on-warning}). White text on amber fails contrast.
 - Red and green look alike to color-blind users. The **icon shape and the word** (Safe / ಸುರಕ್ಷಿತ, Warning / ಎಚ್ಚರಿಕೆ, Danger / ಅಪಾಯ) are what carry the meaning; color only reinforces it.
 
 ### Surface
-- **Canvas White** ({colors.canvas}): Page background and primary card surface.
-- **Surface** ({colors.surface}): Subtle, slightly blue-tinted section backgrounds and search-field rest.
-- **Surface Soft** ({colors.surface-soft}): Quieter section divisions.
-- **Surface Featured** ({colors.surface-featured}): Pale water tint for a highlighted card.
-- **Hairline** ({colors.hairline}): 1px borders and dividers.
-- **Hairline Soft** ({colors.hairline-soft}): Quieter table-row dividers.
-- **Hairline Strong** ({colors.hairline-strong}): Input borders.
+- **Background** ({colors.background}): Page background.
+- **Surface** ({colors.surface}): Top bar and section backgrounds.
+- **Canvas** ({colors.canvas}): Cards and inputs.
+- **Hairline** ({colors.hairline}) / **Hairline Soft** ({colors.hairline-soft}): Decorative 1px borders and dividers.
+- **Hairline Strong** ({colors.hairline-strong}): Input and control borders (4.1:1 on cards, 4.4:1 on the background).
+- **Footer** ({colors.footer-bg}): Darkest water, for the footer.
 
 ### Text
-- **Ink Deep** ({colors.ink-deep}): Headlines on tinted cards.
-- **Ink** ({colors.ink}): Primary headlines and body text (15:1 on white).
-- **Charcoal** ({colors.charcoal}): Body emphasis.
-- **Slate** ({colors.slate}): Secondary text and metadata (7.3:1).
-- **Steel** ({colors.steel}): Tertiary text and placeholders (5.3:1). This is the lightest color allowed for readable text.
-- **Muted** ({colors.muted}): Disabled labels only (3.3:1). Never use it for text people need to read.
-- **On Dark** ({colors.on-dark}) / **On Dark Muted** ({colors.on-dark-muted}): Text on the dark footer and CTA banners.
+- **Text** ({colors.text}): Headlines and body text (15.0:1 on cards).
+- **Text Secondary** ({colors.text-secondary}): Secondary text and metadata (9.8:1 on cards).
+- **Text Tertiary** ({colors.text-tertiary}): Tertiary text and placeholders (6.9:1 on cards). This is the dimmest color allowed for readable text.
+- **Muted** ({colors.muted}): Disabled labels only (4.0:1). Never use it for text people need to read.
+- **On Secondary** ({colors.on-secondary}): Text on secondary fills (9.6:1).
 
 ## Typography
 
@@ -565,7 +540,7 @@ The system is mostly flat, like still water. Depth is used sparingly.
 | `{rounded.lg}` | 12px | Status banners |
 | `{rounded.xl}` | 16px | Standard and pond cards |
 | `{rounded.xxl}` | 20px | Larger cards |
-| `{rounded.xxxl}` | 28px | Tinted feature cards |
+| `{rounded.xxxl}` | 28px | Feature cards |
 | `{rounded.feature}` | 32px | Dark CTA banner |
 | `{rounded.full}` | 9999px | All buttons, pill tabs, badges |
 
@@ -575,54 +550,54 @@ The system is mostly flat, like still water. Depth is used sparingly.
 
 ### Buttons
 
-**`button-primary`**: the pond-blue pill used for the main action on a screen ("Check pond", "Save reading").
+**`button-primary`**: the light pond-blue pill used for the main action on a screen ("Check pond", "Save reading").
 - Background `{colors.primary}`, text `{colors.on-primary}`, `{typography.button-md}`, padding `14px 28px`, min-height 52px, `{rounded.full}`.
 - Pressed state: `{colors.primary-pressed}`. Disabled: `{colors.hairline}` background with `{colors.muted}` text.
 
-**`button-teal`**: teal pill for a secondary filled action.
+**`button-secondary-filled`**: deep indigo-blue ({colors.secondary}) pill with light text, for a secondary filled action.
 
-**`button-secondary`**: an outlined pill with a 2px `{colors.primary}` border and pond-blue text.
+**`button-secondary`**: an outlined pill with a 2px `{colors.primary}` border and `{colors.primary}` text.
 
 **`button-danger`**: red pill, used only for destructive or emergency actions ("Delete pond", "Call for help").
 
-**`button-on-dark`**: white pill on dark banners.
+**`button-danger`** uses white ({colors.on-status}) text on `{colors.danger}`, never `{colors.on-primary}`, which is dark.
 
 **`button-ghost`**: quiet rectangular button, min-height 48px.
 
-**`button-link`**: underlined inline link in `{colors.brand-water}`.
+**`button-link`**: underlined inline link in `{colors.primary}`.
 
 **`button-icon-circular`**: 48×48px circular icon button. It always has an `aria-label` in the current language.
 
-**Focus**: every interactive element shows a 3px `{colors.brand-water}` outline with a 2px offset on `:focus-visible`.
+**Focus**: every interactive element shows a 3px `{colors.primary}` outline with a 2px offset on `:focus-visible`.
 
 ### Cards & Containers
 
-**`card-base`**: white card with a 16px radius and a hairline border.
+**`card-base`**: `{colors.canvas}` card with a 16px radius and a hairline border.
 
-**`card-feature`** and the tinted variants **`card-feature-water`**, **`card-feature-teal`**, **`card-feature-reed`** and **`card-feature-sand`**: 28px radius, 32px padding, `{colors.ink}` text. Tints are decorative only, so a reed-green card doesn't mean "safe".
+**`card-feature`** and the variants **`card-feature-secondary`** (indigo-blue fill, light text) and **`card-feature-deep`** (`{colors.surface}` with a hairline border): 28px radius, 32px padding. These are decorative, so a feature card never means a status.
 
-**`card-pond`**: the core dashboard card for one pond. It has a white background, a hairline border, and a **6px left border in the pond's current status color**. It shows the pond name (`heading-3`), a status badge, 2–4 key readings in `stat-display`, and a "last updated" caption.
+**`card-pond`**: the core dashboard card for one pond. It has a `{colors.canvas}` background, a hairline border, and a **6px left border in the pond's current status color**. It shows the pond name (`heading-3`), a status badge, 2–4 key readings in `stat-display`, and a "last updated" caption.
 
 **`card-stat`**: a single large reading ("6.2 mg/L") in `stat-display`, with its label and unit beneath in `body-sm`.
 
-**`card-highlighted`**: a pale water background with a 2px `{colors.brand-water}` border, for a recommended or featured item.
+**`card-highlighted`**: a pale water background with a 2px `{colors.primary}` border, for a recommended or featured item.
 
 ### Status
 
 **`status-banner-safe` / `status-banner-warning` / `status-banner-danger`**: full-width banners at the top of a pond screen.
-- Tinted background, 2px solid border in the status color, `{typography.status-label}` text in the matching dark text color, and a 24px leading icon.
+- The status's own light background, 2px solid border in the status color, `{typography.status-label}` text in the matching dark text color, and a 24px leading icon. On the dark page these are the brightest elements on screen.
 - Structure: **icon + status word + one-line reason + next step**. For example: ⚠ **Warning**: Oxygen is low (4.1 mg/L). Run the aerator.
 - Danger banners use `role="alert"`. Safe and Warning banners use `role="status"`.
 
 **`badge-safe` / `badge-warning` / `badge-danger`**: solid pill badges with an icon and a word. The Warning badge uses dark text.
 
-**`badge-tag-water` / `badge-tag-reed`**: neutral category tags such as fish species or pond type. These are never used to show status.
+**`badge-tag`**: neutral category tag (indigo-blue fill, light text) such as fish species or pond type. Never used to show status.
 
 ### Inputs & Forms
 
-**`text-input`**: white field with a strong hairline border, `{typography.body-md}`, min-height 52px, and the label always visible above it (not placeholder-only).
+**`text-input`**: `{colors.canvas}` field with a `{colors.hairline-strong}` border (4.1:1), `{typography.body-md}`, min-height 52px, and the label always visible above it (not placeholder-only).
 
-**`text-input-focused`**: 2px `{colors.brand-water}` border.
+**`text-input-focused`**: 2px `{colors.primary}` border.
 
 **`text-input-error`**: 2px `{colors.danger}` border plus an error message below in `{colors.danger-text}` with an icon.
 
@@ -632,9 +607,9 @@ Numeric inputs for readings use `inputmode="decimal"` and show the unit as a suf
 
 ### Tabs & Toggles
 
-**`pill-tab`** / **`pill-tab-active`**: inactive tabs have `{colors.slate}` text on white; the active tab is `{colors.primary}` with white text. Min-height 48px.
+**`pill-tab`** / **`pill-tab-active`**: inactive tabs have `{colors.text-secondary}` text on `{colors.canvas}`; the active tab is `{colors.primary}` with dark `{colors.on-primary}` text. Min-height 48px.
 
-**`language-toggle`**: a segmented pill, **ಕನ್ನಡ | English**. The active segment is `{colors.primary}` with white text.
+**`language-toggle`**: a segmented pill, **ಕನ್ನಡ | English**. The active segment is `{colors.primary}` with dark `{colors.on-primary}` text.
 
 ### Tables
 
@@ -642,7 +617,7 @@ Numeric inputs for readings use `inputmode="decimal"` and show the unit as a suf
 
 ### Navigation
 
-**Top bar**: sticky white bar, ~64px tall (it grows if Kannada labels wrap), with the app name in text on the left and the language toggle plus a primary action on the right. Below 1024px it collapses to a menu button.
+**Top bar**: sticky `{colors.surface}` bar, ~64px tall (it grows if Kannada labels wrap), with the app name in text on the left and the language toggle plus a primary action on the right. Below 1024px it collapses to a menu button.
 
 **Bottom navigation (mobile app screens)**: 3–5 items, each with an icon and a text label (never icon-only), and 56px-tall targets.
 
@@ -650,14 +625,14 @@ Numeric inputs for readings use `inputmode="decimal"` and show the unit as a suf
 
 **`hero-band`**: centered `hero-display` headline, subtitle, button row and a pond illustration below.
 
-**`cta-banner-dark`**: deep pond-blue banner (`{colors.primary}`) with a `{rounded.feature}` radius, a centered headline and a `button-on-dark`.
+**`cta-banner`**: deep indigo-blue banner (`{colors.secondary}`) with a `{rounded.feature}` radius, a centered headline and a `button-primary`.
 
-**`footer-region`** / **`footer-link`**: deep-water footer (`{colors.footer-bg}`) with `{colors.on-dark-muted}` links at 16px.
+**`footer-region`** / **`footer-link`**: deep-water footer (`{colors.footer-bg}`) with `{colors.text-secondary}` links at 16px.
 
 ## Do's and Don'ts
 
 ### Do
-- Use `{colors.primary}` pond blue for the one main action on each screen
+- Use `{colors.primary}` light pond blue for the one main action on each screen
 - Keep green, amber and red strictly for Safe / Warning / Danger, always with an icon and a word
 - Put dark text ({colors.on-warning}) on amber
 - Keep body text at 18px and use nothing readable below 15px
@@ -668,6 +643,11 @@ Numeric inputs for readings use `inputmode="decimal"` and show the unit as a suf
 ### Don't
 - Don't use purple, violet or lavender anywhere
 - Don't use status colors for decoration, branding or category tags
+- Don't use the accent ({colors.accent}) on buttons or links, or as the only difference from primary: the two look almost the same
+- Don't put light text on the accent; use {colors.on-accent} (dark)
+- Don't use secondary ({colors.secondary}) as text or as a border on the dark background (1.7:1); it is a fill only
+- Don't put status text colors (e.g. {colors.danger-text}) directly on the dark page; only on their own light status background
+- Don't use {colors.on-primary} (dark) for text on status colors; use {colors.on-status}
 - Don't rely on color alone to show status
 - Don't use negative letter-spacing, ALL-CAPS labels or line heights below 1.2
 - Don't give buttons or tabs fixed widths, which clip Kannada labels
@@ -702,13 +682,13 @@ Numeric inputs for readings use `inputmode="decimal"` and show the unit as a suf
 3. Run `npx @google/design.md lint DESIGN.md` after edits
 4. Add new variants as separate `components:` entries
 5. Default to `{typography.body-md}` (18px) for body text
-6. Any new color must be a blue, teal or green, must pass 4.5:1 for text, and must not look like a status color
+6. Any new color must come from the brand palette (or be derived from it), must pass 4.5:1 for text (3:1 for borders and icons) on the dark background, and must not look like a status color
 7. Use pill-shaped buttons (`{rounded.full}`) everywhere
 8. Check every new component in both Kannada and English before calling it done
 
 ## Known Gaps
 
-- Dark-mode token values are not yet defined
+- Only the dark theme is defined. A light theme (e.g. for bright outdoor sunlight) is not yet designed
 - Animation timings are not set; use 150–200ms ease and respect `prefers-reduced-motion`
 - Exact Safe/Warning/Danger thresholds (oxygen, pH, temperature, ammonia) belong in the app's domain logic, not in this file
 - Charts for reading history need their own palette spec; reuse the status colors only for threshold bands
