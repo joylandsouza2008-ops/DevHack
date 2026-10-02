@@ -44,6 +44,19 @@ const TEXT = {
     crashRisk: (level) => `Oxygen crash risk: ${level}`,
     weatherDetails: (c, w, t) => `Day cloud ${c}% · Night wind ${w} km/h · Night ${t} °C · Forecast: Open-Meteo`,
     weatherOffline: (when) => (when ? `Offline: showing the forecast saved on ${when}.` : "Offline."),
+    actionsTitle: "What to do now",
+    actionsSource: "Based on FAO, TNAU and university extension guides. No chemicals.",
+    actionsProgress: (done, total) => (done === total ? `All ${total} done.` : `${done} of ${total} done`),
+    alertTitle: "Alert preview",
+    previewNote: "Preview only. No real SMS or WhatsApp message is sent.",
+    alertFor: "Alert for", alertForLive: "Live pond", alertForKit: "Test kit",
+    kitTitle: "Enter test-kit readings",
+    kitHelp: "Type the numbers from your pond test kit. Leave a box empty if you did not test it.",
+    kitDO: "Dissolved oxygen", kitNoUnit: "no unit", kitTemp: "Water temperature", kitAmmonia: "Total ammonia",
+    kitCheck: "Check readings", kitClear: "Clear",
+    kitEmpty: "Enter at least one reading.",
+    kitBadNumber: "Use numbers only, like 6.5.",
+    kitFailed: "Could not check the readings. Please try again.",
   },
   kn: {
     appName: "ಮೀನುರಕ್ಷಾ",
@@ -80,6 +93,19 @@ const TEXT = {
     crashRisk: (level) => `ಆಮ್ಲಜನಕ ಕುಸಿತದ ಅಪಾಯ: ${level}`,
     weatherDetails: (c, w, t) => `ಹಗಲಿನ ಮೋಡ ${c}% · ರಾತ್ರಿ ಗಾಳಿ ${w} km/h · ರಾತ್ರಿ ${t} °C · ಮುನ್ಸೂಚನೆ: Open-Meteo`,
     weatherOffline: (when) => (when ? `ಆಫ್‌ಲೈನ್: ${when} ರಂದು ಉಳಿಸಿದ ಮುನ್ಸೂಚನೆ ತೋರಿಸಲಾಗುತ್ತಿದೆ.` : "ಆಫ್‌ಲೈನ್."),
+    actionsTitle: "ಈಗ ಏನು ಮಾಡಬೇಕು",
+    actionsSource: "FAO, TNAU ಮತ್ತು ವಿಶ್ವವಿದ್ಯಾಲಯದ ಕೃಷಿ ವಿಸ್ತರಣಾ ಮಾರ್ಗದರ್ಶಿಗಳನ್ನು ಆಧರಿಸಿದೆ. ಯಾವುದೇ ರಾಸಾಯನಿಕಗಳಿಲ್ಲ.",
+    actionsProgress: (done, total) => (done === total ? `ಎಲ್ಲಾ ${total} ಮುಗಿದಿವೆ.` : `${total} ರಲ್ಲಿ ${done} ಮುಗಿದಿದೆ`),
+    alertTitle: "ಎಚ್ಚರಿಕೆ ಸಂದೇಶದ ಮುನ್ನೋಟ",
+    previewNote: "ಮುನ್ನೋಟ ಮಾತ್ರ. ಯಾವುದೇ ನಿಜವಾದ SMS ಅಥವಾ WhatsApp ಸಂದೇಶ ಕಳುಹಿಸುವುದಿಲ್ಲ.",
+    alertFor: "ಯಾವುದಕ್ಕೆ ಎಚ್ಚರಿಕೆ", alertForLive: "ಲೈವ್ ಕೊಳ", alertForKit: "ಟೆಸ್ಟ್ ಕಿಟ್",
+    kitTitle: "ಟೆಸ್ಟ್ ಕಿಟ್ ಅಳತೆಗಳನ್ನು ನಮೂದಿಸಿ",
+    kitHelp: "ನಿಮ್ಮ ಕೊಳದ ಟೆಸ್ಟ್ ಕಿಟ್‌ನ ಸಂಖ್ಯೆಗಳನ್ನು ಬರೆಯಿರಿ. ಪರೀಕ್ಷಿಸದಿದ್ದರೆ ಆ ಡಬ್ಬಿಯನ್ನು ಖಾಲಿ ಬಿಡಿ.",
+    kitDO: "ಕರಗಿದ ಆಮ್ಲಜನಕ", kitNoUnit: "ಘಟಕ ಇಲ್ಲ", kitTemp: "ನೀರಿನ ತಾಪಮಾನ", kitAmmonia: "ಒಟ್ಟು ಅಮೋನಿಯಾ",
+    kitCheck: "ಅಳತೆ ಪರಿಶೀಲಿಸಿ", kitClear: "ಅಳಿಸಿ",
+    kitEmpty: "ಕನಿಷ್ಠ ಒಂದು ಅಳತೆ ನಮೂದಿಸಿ.",
+    kitBadNumber: "ಸಂಖ್ಯೆಗಳನ್ನು ಮಾತ್ರ ಬರೆಯಿರಿ, ಉದಾ: 6.5.",
+    kitFailed: "ಅಳತೆ ಪರಿಶೀಲಿಸಲು ಆಗಲಿಲ್ಲ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.",
   },
 };
 
@@ -111,6 +137,7 @@ const state = {
   lang: "kn", source: null, paused: false, last: null,
   station: "station1", level: null, chartTime: null, effectsReady: false,
   weather: null,
+  manual: null, alertChannel: "sms", alertSource: "simulated",
 };
 
 const $ = (id) => document.getElementById(id);
@@ -146,6 +173,8 @@ function setLanguage(lang) {
   }
   if (state.last) render(state.last);
   renderWeather();
+  renderManual();
+  renderAlert();
 }
 
 // ---------------------------------------------------------------- helpers
@@ -294,6 +323,149 @@ function render(data) {
   const errors = risk.sensor_errors.map((e) => e.message[lang]);
   $("sensor-errors").hidden = errors.length === 0;
   $("sensor-errors").textContent = errors.join(" ");
+
+  const box = $("actions-card");
+  box.hidden = !risk.actions || risk.actions.length === 0;
+  if (!box.hidden) renderChecklist($("action-list"), $("actions-progress"), risk, data.source, lang);
+  renderAlert();
+}
+
+// ---------------------------------------------------------------- action checklist (Warning and Danger)
+// Rebuilt only when the problem changes, not on every reading, so ticks and
+// keyboard focus stay put. Ticks are remembered in this browser per problem:
+// a new alert (different level or cause) starts a fresh list.
+
+function checklistKey(risk, source) {
+  return `${source}|${risk.level}|${risk.actions.map((a) => a.id).join(",")}`;
+}
+
+function loadTicks(key) {
+  try { return new Set(JSON.parse(localStorage.getItem(`meenuraksha-ticks:${key}`)) || []); } catch { return new Set(); }
+}
+
+function saveTicks(key, ticks) {
+  try { localStorage.setItem(`meenuraksha-ticks:${key}`, JSON.stringify([...ticks])); } catch { /* storage blocked */ }
+}
+
+function renderChecklist(list, progress, risk, source, lang) {
+  const key = checklistKey(risk, source);
+  if (list.dataset.key === `${key}|${lang}`) return;
+  list.dataset.key = `${key}|${lang}`;
+  const ticks = loadTicks(key);
+  const total = risk.actions.length;
+  const update = () => { progress.textContent = TEXT[state.lang].actionsProgress(ticks.size, total); };
+  list.replaceChildren(...risk.actions.map((action) => {
+    const item = document.createElement("li");
+    item.innerHTML =
+      `<label class="action-item"><input type="checkbox">` +
+      `<span class="action-box" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>` +
+      `<span class="action-text"></span></label>`;
+    item.querySelector(".action-text").textContent = action[lang];
+    const box = item.querySelector("input");
+    box.checked = ticks.has(action.id);
+    box.addEventListener("change", () => {
+      if (box.checked) ticks.add(action.id); else ticks.delete(action.id);
+      saveTicks(key, ticks);
+      update();
+    });
+    return item;
+  }));
+  update();
+}
+
+// ---------------------------------------------------------------- SMS / WhatsApp preview (nothing is sent)
+
+function escapeHTML(text) {
+  return text.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+}
+
+// WhatsApp shows *bold* and _italic_; SMS is plain text.
+function whatsappHTML(text) {
+  return escapeHTML(text).replace(/\*([^*\n]+)\*/g, "<strong>$1</strong>").replace(/_([^_\n]+)_/g, "<em>$1</em>");
+}
+
+function renderAlert() {
+  const lang = state.lang;
+  const data = state.alertSource === "manual" ? state.manual : state.last;
+  const channel = state.alertChannel;
+  const bubble = $("alert-bubble");
+  const text = data && data.alert ? data.alert[channel][lang] : TEXT[lang].connecting;
+  const key = `${channel}|${text}`;
+  $("phone-app").textContent = `${channel === "sms" ? "SMS" : "WhatsApp"} · ${TEXT[lang].appName}`;
+  $("phone-time").textContent = data ? clock(new Date(data.time)) : "";
+  if (bubble.dataset.key === key) return;
+  bubble.dataset.key = key;
+  bubble.className = `bubble bubble-${channel}${data && data.alert && !data.alert.send ? " bubble-none" : ""}`;
+  if (channel === "whatsapp") bubble.innerHTML = whatsappHTML(text);
+  else bubble.textContent = text;
+}
+
+function pick(groupId, attribute, value) {
+  document.querySelectorAll(`#${groupId} button`).forEach((b) => {
+    b.setAttribute("aria-pressed", String(b.dataset[attribute] === value));
+  });
+}
+
+// ---------------------------------------------------------------- manual test-kit entry
+// Graded by the same classifier on the server (POST /api/manual). Always shown
+// with the "Manual test-kit reading" label, separate from the simulated pond.
+
+const KIT_FIELDS = ["dissolved_oxygen", "ph", "temperature", "ammonia"];
+
+function showKitError(key) {
+  const el = $("kit-form-error");
+  el.hidden = !key;
+  el.dataset.key = key || "";
+  el.textContent = key ? TEXT[state.lang][key] : "";
+}
+
+async function submitKit(event) {
+  event.preventDefault();
+  const form = $("kit-form");
+  const values = {};
+  for (const name of KIT_FIELDS) {
+    const input = form.elements[name];
+    if (input.validity.badInput) { showKitError("kitBadNumber"); input.focus(); return; }
+    if (input.value.trim() !== "") values[name] = Number(input.value);
+  }
+  if (Object.keys(values).length === 0) { showKitError("kitEmpty"); form.elements.dissolved_oxygen.focus(); return; }
+  showKitError(null);
+  try {
+    const response = await fetch("/api/manual", {
+      method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(values),
+    });
+    if (!response.ok) throw new Error(response.statusText);
+    state.manual = await response.json();
+  } catch {
+    showKitError("kitFailed");
+    return;
+  }
+  $("alert-source-picker").querySelector('[data-source="manual"]').disabled = false;
+  renderManual();
+  renderAlert();
+  $("kit-status").focus();
+}
+
+function renderManual() {
+  const errorEl = $("kit-form-error");
+  if (errorEl.dataset.key) errorEl.textContent = TEXT[state.lang][errorEl.dataset.key];
+  const data = state.manual;
+  $("kit-result").hidden = !data;
+  if (!data) return;
+  const lang = state.lang;
+  const risk = data.risk;
+  $("kit-label").textContent = data.label[lang];
+  $("kit-time").textContent = ` · ${formatTime(data.time)}`;
+  $("kit-status").className = `status-banner status-${risk.level}`;
+  $("kit-status-icon").innerHTML = ICONS[risk.level] || "";
+  $("kit-status-level").textContent = risk.level_name[lang];
+  $("kit-status-summary").textContent = risk.summary[lang];
+  const errors = risk.sensor_errors.map((e) => e.message[lang]);
+  $("kit-errors").hidden = errors.length === 0;
+  $("kit-errors").textContent = errors.join(" ");
+  const hasActions = risk.actions.length > 0;
+  $("kit-actions-box").hidden = !hasActions;
+  if (hasActions) renderChecklist($("kit-action-list"), $("kit-actions-progress"), risk, data.source, lang);
 }
 
 function showMessage(key) {
@@ -457,6 +629,23 @@ document.querySelectorAll(".pond-option").forEach((b) => {
 $("restart").addEventListener("click", start);
 $("scenario").addEventListener("change", start);
 $("pause").addEventListener("click", togglePause);
+$("kit-form").addEventListener("submit", submitKit);
+$("kit-form").addEventListener("reset", () => showKitError(null));
+$("kit-status").tabIndex = -1;
+document.querySelectorAll("#channel-picker button").forEach((b) => {
+  b.addEventListener("click", () => {
+    state.alertChannel = b.dataset.channel;
+    pick("channel-picker", "channel", b.dataset.channel);
+    renderAlert();
+  });
+});
+document.querySelectorAll("#alert-source-picker button").forEach((b) => {
+  b.addEventListener("click", () => {
+    state.alertSource = b.dataset.source;
+    pick("alert-source-picker", "source", b.dataset.source);
+    renderAlert();
+  });
+});
 
 setLanguage(loadLanguage());
 

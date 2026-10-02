@@ -101,6 +101,14 @@
         </div>
       </section>
 
+      <!-- Action checklist: only in Warning and Danger. Built by checklist() in app.js. -->
+      <section class="card actions-card" id="actions-card" aria-labelledby="actions-title" hidden>
+        <h2 id="actions-title" data-i18n="actionsTitle">What to do now</h2>
+        <p class="actions-progress" id="actions-progress" aria-live="polite"></p>
+        <ol class="action-list" id="action-list"></ol>
+        <p class="actions-source" data-i18n="actionsSource">Based on FAO, TNAU and university extension guides. No chemicals.</p>
+      </section>
+
       <div class="overview">
         <section class="card pond-card in-view" aria-labelledby="pond-view-title">
           <h2 id="pond-view-title" class="text-effect" data-i18n="pondViewTitle">Pond view</h2>
@@ -129,6 +137,34 @@
         <p id="ttd-message" class="ttd-message">-</p>
       </section>
 
+      <!-- SMS / WhatsApp PREVIEW. Nothing is sent: it only shows the text a farmer would get. -->
+      <section class="card alert-card in-view" aria-labelledby="alert-title">
+        <h2 id="alert-title" class="text-effect" data-i18n="alertTitle">Alert preview</h2>
+        <p class="preview-note">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm1 15h-2v-6h2v6Zm0-8h-2V7h2v2Z"/></svg>
+          <span data-i18n="previewNote">Preview only. No real SMS or WhatsApp message is sent.</span>
+        </p>
+        <div class="alert-controls">
+          <div class="segmented" role="group" aria-label="Message type" id="channel-picker">
+            <button type="button" data-channel="sms" aria-pressed="true">SMS</button>
+            <button type="button" data-channel="whatsapp" aria-pressed="false">WhatsApp</button>
+          </div>
+          <div class="segmented" role="group" aria-labelledby="alert-for-label" id="alert-source-picker">
+            <span class="visually-hidden" id="alert-for-label" data-i18n="alertFor">Alert for</span>
+            <button type="button" data-source="simulated" aria-pressed="true" data-i18n="alertForLive">Live pond</button>
+            <button type="button" data-source="manual" aria-pressed="false" data-i18n="alertForKit" disabled>Test kit</button>
+          </div>
+        </div>
+        <div class="phone" aria-label="Phone screen">
+          <div class="phone-top"><span class="phone-speaker"></span></div>
+          <div class="phone-screen">
+            <p class="phone-app" id="phone-app">SMS · MeenuRaksha</p>
+            <div class="bubble" id="alert-bubble"></div>
+            <p class="phone-time" id="phone-time"></p>
+          </div>
+        </div>
+      </section>
+
       <section class="card chart-card in-view" aria-labelledby="chart-title">
         <h2 id="chart-title" class="text-effect" data-i18n="chartTitle">Dissolved oxygen, last 12 hours</h2>
         <div class="chart-wrap">
@@ -143,6 +179,55 @@
       </section>
 
       <p class="sensor-errors" id="sensor-errors" hidden></p>
+
+      <!-- Manual test-kit entry. Results are marked "manual", never mixed with the simulated pond. -->
+      <section class="card kit-card in-view" aria-labelledby="kit-title">
+        <h2 id="kit-title" class="text-effect" data-i18n="kitTitle">Enter test-kit readings</h2>
+        <p class="kit-help" data-i18n="kitHelp">Type the numbers from your pond test kit. Leave a box empty if you did not test it.</p>
+        <form class="kit-form" id="kit-form" novalidate>
+          <label class="kit-field">
+            <span class="kit-label" data-i18n="kitDO">Dissolved oxygen</span>
+            <span class="kit-input"><input type="number" inputmode="decimal" step="any" name="dissolved_oxygen" id="kit-do" autocomplete="off"><span class="kit-unit">mg/L</span></span>
+          </label>
+          <label class="kit-field">
+            <span class="kit-label">pH</span>
+            <span class="kit-input"><input type="number" inputmode="decimal" step="any" name="ph" id="kit-ph" autocomplete="off"><span class="kit-unit" data-i18n="kitNoUnit">no unit</span></span>
+          </label>
+          <label class="kit-field">
+            <span class="kit-label" data-i18n="kitTemp">Water temperature</span>
+            <span class="kit-input"><input type="number" inputmode="decimal" step="any" name="temperature" id="kit-temp" autocomplete="off"><span class="kit-unit">°C</span></span>
+          </label>
+          <label class="kit-field">
+            <span class="kit-label" data-i18n="kitAmmonia">Total ammonia</span>
+            <span class="kit-input"><input type="number" inputmode="decimal" step="any" name="ammonia" id="kit-ammonia" autocomplete="off"><span class="kit-unit">mg/L</span></span>
+          </label>
+          <div class="kit-buttons">
+            <button type="submit" class="button-primary" data-i18n="kitCheck">Check readings</button>
+            <button type="reset" class="button-secondary" data-i18n="kitClear">Clear</button>
+          </div>
+        </form>
+        <p class="kit-form-error" id="kit-form-error" role="alert" hidden></p>
+
+        <div class="kit-result" id="kit-result" hidden>
+          <p class="manual-tag">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M3 17.3V21h3.7l11-11-3.7-3.7-11 11Zm17.7-10.1a1 1 0 0 0 0-1.4l-2.5-2.5a1 1 0 0 0-1.4 0l-1.8 1.8 3.7 3.7 2-1.6Z"/></svg>
+            <strong id="kit-label">Manual test-kit reading</strong><span id="kit-time"></span>
+          </p>
+          <div class="status-banner status-unknown" id="kit-status" role="status">
+            <span class="status-icon" id="kit-status-icon" aria-hidden="true"></span>
+            <div>
+              <p class="status-level" id="kit-status-level"></p>
+              <p class="status-summary" id="kit-status-summary"></p>
+            </div>
+          </div>
+          <p class="sensor-errors" id="kit-errors" hidden></p>
+          <div class="kit-actions" id="kit-actions-box" hidden>
+            <h3 data-i18n="actionsTitle">What to do now</h3>
+            <p class="actions-progress" id="kit-actions-progress" aria-live="polite"></p>
+            <ol class="action-list" id="kit-action-list"></ol>
+          </div>
+        </div>
+      </section>
     </main>
 
     <!-- Bottom toolbar. Tonight's weather is REAL (Open-Meteo forecast), not simulated.

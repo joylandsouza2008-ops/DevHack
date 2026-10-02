@@ -62,6 +62,11 @@ PAIRS = [
     ("text", "footer-bg", TEXT, "tonight's weather message in the bottom toolbar"),
     ("text-secondary", "footer-bg", TEXT, "tonight's weather title and details"),
     ("primary", "footer-bg", NON_TEXT, "moon icon in the bottom toolbar"),
+    ("text", "surface", TEXT, "checklist items, test-kit inputs, SMS preview screen"),
+    ("text-tertiary", "surface", TEXT, "time in the phone preview"),
+    ("hairline-strong", "surface", NON_TEXT, "checklist item and test-kit input borders"),
+    ("primary", "surface", NON_TEXT, "unticked checklist box"),
+    ("primary", "card", NON_TEXT, "manual-reading tag border, form message stripe"),
     # Status colours (unchanged) against the new dark surfaces
     ("safe", "card", NON_TEXT, "Safe stripe on reading cards"),
     ("warning", "card", NON_TEXT, "Warning stripe on reading cards"),

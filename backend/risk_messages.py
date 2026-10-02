@@ -93,6 +93,12 @@ SENSOR_ERROR = {
     "kn": "{name} ಅಳತೆ ತಪ್ಪಾಗಿರುವಂತೆ ಕಾಣುತ್ತಿದೆ ({value}). ಸೆನ್ಸರ್ ಪರಿಶೀಲಿಸಿ.",
 }
 
+# Same, for readings a farmer typed in from a test kit (source="manual").
+TEST_KIT_ERROR = {
+    "en": "{name} reading looks impossible ({value}). Check your test kit and test again.",
+    "kn": "{name} ಅಳತೆ ಅಸಾಧ್ಯವೆಂದು ಕಾಣುತ್ತಿದೆ ({value}). ನಿಮ್ಮ ಟೆಸ್ಟ್ ಕಿಟ್ ಪರಿಶೀಲಿಸಿ ಮತ್ತೆ ಪರೀಕ್ಷಿಸಿ.",
+}
+
 AMMONIA_NEEDS_PH_AND_TEMPERATURE = {
     "en": "Ammonia could not be checked because pH or temperature is missing.",
     "kn": "pH ಅಥವಾ ತಾಪಮಾನ ಇಲ್ಲದ ಕಾರಣ ಅಮೋನಿಯಾ ಪರಿಶೀಲಿಸಲು ಆಗಲಿಲ್ಲ.",
@@ -129,4 +135,9 @@ TIME_TO_DANGER = {
 NO_VALID_READINGS = {
     "en": "No valid readings. Check the sensors.",
     "kn": "ಸರಿಯಾದ ಅಳತೆಗಳು ಇಲ್ಲ. ಸೆನ್ಸರ್‌ಗಳನ್ನು ಪರಿಶೀಲಿಸಿ.",
+}
+
+NO_VALID_TEST_KIT_READINGS = {
+    "en": "No valid readings. Check your test kit.",
+    "kn": "ಸರಿಯಾದ ಅಳತೆಗಳು ಇಲ್ಲ. ನಿಮ್ಮ ಟೆಸ್ಟ್ ಕಿಟ್ ಪರಿಶೀಲಿಸಿ.",
 }

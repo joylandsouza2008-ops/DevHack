@@ -8,7 +8,8 @@ then open http://127.0.0.1:8000 (the page) or http://127.0.0.1:8000/docs
 
 Endpoints:
     GET  /api/health                 is the server running?
-    POST /api/risk                   current risk + reasons for one set of readings
+    POST /api/risk                   current risk + reasons + action checklist for one set of readings
+    POST /api/manual                 the same for readings typed in from a test kit (marked "manual")
     POST /api/time-to-danger         "time until danger" from recent DO readings
     GET  /api/simulator/scenarios    available demo scenarios and ponds
     GET  /api/simulator/stream       live stream of SIMULATED readings (Server-Sent Events)
@@ -33,6 +34,8 @@ from fastapi.responses import StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
+from backend.actions import checklist
+from backend.alerts import POND_NAMES, compose_alert
 from backend.do_features import STEP_MINUTES
 from backend.risk_classifier import classify
 from backend.simulator import SCENARIOS, SIMULATED, SIMULATED_LABEL, simulate_readings
@@ -42,6 +45,11 @@ from backend.weather import tonight_crash_risk
 FRONTEND_DIR = Path(__file__).resolve().parent.parent / "frontend"
 STATIONS = ("station1", "station2", "station3")
 HISTORY_HOURS = 2          # simulated readings generated before the stream starts, for the trend
+
+# Readings a farmer types in from a test kit. Always shown with this label,
+# so they are never confused with simulated readings.
+MANUAL = "manual"
+MANUAL_LABEL = {"en": "Manual test-kit reading", "kn": "ಕೈಯಿಂದ ನಮೂದಿಸಿದ ಟೆಸ್ಟ್ ಕಿಟ್ ಅಳತೆ"}
 
 app = FastAPI(title="MeenuRaksha API",
               description="Pond water-quality early warning for small aquaculture farmers.")
@@ -59,6 +67,14 @@ class Readings(BaseModel):
     turbidity: float | None = Field(None, description="sensor units, information only", examples=[30.0])
 
 
+class TestKitReadings(BaseModel):
+    """Readings typed in from a cheap pond test kit. Leave out anything not tested."""
+    dissolved_oxygen: float | None = Field(None, description="mg/L", examples=[4.5])
+    ph: float | None = Field(None, examples=[7.5])
+    temperature: float | None = Field(None, description="°C", examples=[29.0])
+    ammonia: float | None = Field(None, description="mg/L total ammonia", examples=[0.5])
+
+
 class DOReading(BaseModel):
     time: datetime
     dissolved_oxygen: float | None = Field(None, description="mg/L")
@@ -71,6 +87,13 @@ class DOHistory(BaseModel):
 
 # ----------------------------------------------------------------- API
 
+def assess(reading: dict, source: str = "sensor") -> dict:
+    """Risk result plus the action checklist (empty when Safe)."""
+    risk = classify(reading, source=source).to_dict()
+    risk["actions"] = checklist(risk)
+    return risk
+
+
 @app.get("/api/health")
 def health() -> dict:
     return {"status": "ok"}
@@ -79,7 +102,27 @@ def health() -> dict:
 @app.post("/api/risk")
 def current_risk(readings: Readings) -> dict:
     """Safe / Warning / Danger for these readings, with the reason in English and Kannada."""
-    return classify(readings.model_dump(exclude_none=True)).to_dict()
+    return assess(readings.model_dump(exclude_none=True))
+
+
+@app.post("/api/manual")
+def manual_reading(readings: TestKitReadings) -> dict:
+    """
+    Readings from a test kit, graded by the same classifier. Impossible values
+    say "check your test kit". Marked source = "manual" with its own label.
+    """
+    values = readings.model_dump(exclude_none=True)
+    if not values:
+        raise HTTPException(status_code=422, detail="Enter at least one reading.")
+    risk = assess(values, source=MANUAL)
+    return {
+        "source": MANUAL,
+        "label": MANUAL_LABEL,
+        "time": datetime.now().isoformat(timespec="minutes"),
+        "reading": values,
+        "risk": risk,
+        "alert": compose_alert(risk, label=MANUAL_LABEL),
+    }
 
 
 @app.post("/api/time-to-danger")
@@ -146,6 +189,8 @@ async def simulator_stream(
         for i in steps:
             row = sim.iloc[i]
             reading = row.drop("source").to_dict()
+            risk = assess(reading)
+            ttd = estimate_time_to_danger(sim["dissolved_oxygen"].iloc[: i + 1])
             payload = {
                 "source": SIMULATED,
                 "label": SIMULATED_LABEL,
@@ -153,8 +198,10 @@ async def simulator_stream(
                 "scenario": scenario,
                 "time": sim.index[i].isoformat(),
                 "reading": reading,
-                "risk": classify(reading).to_dict(),
-                "time_to_danger": estimate_time_to_danger(sim["dissolved_oxygen"].iloc[: i + 1]),
+                "risk": risk,
+                "time_to_danger": ttd,
+                # Preview only: no real SMS or WhatsApp message is sent.
+                "alert": compose_alert(risk, ttd, SIMULATED_LABEL, POND_NAMES[station]),
             }
             yield f"event: reading\ndata: {json.dumps(payload, ensure_ascii=False)}\n\n"
             if interval:

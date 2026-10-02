@@ -121,7 +121,7 @@ def _reason(parameter: str, direction: str, level: str, value: float, unit: str)
     return {lang: text.format(value=_fmt(value), unit=unit).strip() for lang, text in template.items()}
 
 
-def classify(reading: dict, thresholds: dict | None = None) -> RiskResult:
+def classify(reading: dict, thresholds: dict | None = None, source: str = "sensor") -> RiskResult:
     """
     Grade one set of readings.
 
@@ -132,8 +132,13 @@ def classify(reading: dict, thresholds: dict | None = None) -> RiskResult:
         ammonia           mg/L TOTAL ammonia (converted to NH3 here)
         nitrate           mg/L NO3 (converted to NO3-N here)
         turbidity         sensor units, information only
+
+    `source` only changes the wording of impossible readings: "sensor" says
+    "Check the sensor", "manual" (typed in from a test kit) says "Check your test kit".
     """
     cfg = thresholds if thresholds is not None else load_thresholds()
+    manual = source == "manual"
+    error_text = msg.TEST_KIT_ERROR if manual else msg.SENSOR_ERROR
 
     # Step 1: drop missing values and impossible readings (sensor faults).
     valid: dict[str, float] = {}
@@ -148,7 +153,7 @@ def classify(reading: dict, thresholds: dict | None = None) -> RiskResult:
                 "parameter": parameter,
                 "reading": value,
                 "message": {lang: text.format(name=name[lang], value=_fmt(value))
-                            for lang, text in msg.SENSOR_ERROR.items()},
+                            for lang, text in error_text.items()},
             })
             continue
         valid[parameter] = value
@@ -186,7 +191,8 @@ def classify(reading: dict, thresholds: dict | None = None) -> RiskResult:
     checked = [p for p in graded if p.level in LEVEL_ORDER]
     if not checked:
         return RiskResult(level="unknown", level_name=msg.LEVEL_NAMES["unknown"],
-                          summary=dict(msg.NO_VALID_READINGS), parameters=graded,
+                          summary=dict(msg.NO_VALID_TEST_KIT_READINGS if manual else msg.NO_VALID_READINGS),
+                          parameters=graded,
                           info=info, sensor_errors=sensor_errors)
 
     worst = max(checked, key=lambda p: LEVEL_ORDER[p.level]).level
