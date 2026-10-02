@@ -16,14 +16,20 @@ Built for DevHack 2026, problem statement 1.1.
 | `backend/risk_classifier.py` | Rule-based classifier: readings → risk level + reason |
 | `backend/risk_messages.py` | Farmer-facing alert text in English and Kannada |
 | `backend/do_features.py` | Builds the DO-forecast inputs from recent readings (shared by training and app) |
-| `backend/do_forecast.py` | Loads the saved model, forecasts DO 1/3/6 h ahead, adds future risk level |
+| `backend/do_forecast.py` | Loads the saved model, forecasts DO 1/3/6 h ahead (experiment only, not shown in the app) |
+| `backend/time_to_danger.py` | "Time until danger": if DO is falling, when it may reach 3 mg/L (English + Kannada) |
 | `backend/simulator.py` | **Simulated** demo readings (normal day / night oxygen crash). Demo only, never for accuracy |
+| `backend/main.py` | FastAPI web server: API endpoints + serves the page |
 | `ml/train_do_forecast.py` | Trains and evaluates the DO forecast (`python -m ml.train_do_forecast`) |
 | `ml/experiment_3h_average.py` | Experiment: forecasting the 3-hour average DO (not adopted, see docs) |
+| `ml/evaluate_time_to_danger.py` | Checks "time until danger" on real Pondsdata (`python -m ml.evaluate_time_to_danger`) |
 | `models/` | Saved DO forecast model and its test scores |
 | `tests/` | Automated tests (`python -m pytest`) |
 | `docs/thresholds.md` | Threshold table, decisions and sources (for the presentation) |
 | `docs/do_forecast.md` | DO forecast method, results and chart (for the presentation) |
+| `docs/time_to_danger.md` | "Time until danger" method and results on real + simulated data |
+| `docs/screenshots/` | App screenshots (simulated demo) |
+| `frontend/` | The web page (`index.html`, `styles.css`, `app.js`) |
 | `frontend/fonts/` | Noto Sans + Noto Sans Kannada, bundled so the app works offline |
 | `.claude/skills/` | Shared Claude Code skills for the team |
 | `data/` | Datasets. **Not in git**: download them yourself (steps below) |
@@ -46,7 +52,12 @@ pip install -r requirements.txt
 
 # Run the tests
 python -m pytest
+
+# Start the app, then open http://127.0.0.1:8000  (API docs: http://127.0.0.1:8000/docs)
+uvicorn backend.main:app --reload
 ```
+
+The app shows **simulated** demo data, clearly labelled "Simulated data". Pick a pond and a scenario (Normal day / Night oxygen crash). Each second of real time is 20 minutes of simulated time.
 
 On Windows, if printing Kannada text in the terminal gives a `UnicodeEncodeError`, run `set PYTHONIOENCODING=utf-8` first (PowerShell: `$env:PYTHONIOENCODING="utf-8"`).
 

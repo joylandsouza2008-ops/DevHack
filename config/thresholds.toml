@@ -63,6 +63,18 @@ safe    = { below = 10.0 }     # S: Camargo et al. 2005, 10 mg NO3-N/L "can adve
 warning = {}                   # J: no Danger level; catla 24 h LC50 is ~1,480 mg/L (Tilak et al. 2002)
 plausible = { min = 0.0, max = 500.0 }  # checked on the NO3 reading
 
+[time_to_danger]
+# "Time until danger": if dissolved oxygen has been falling, estimate when it
+# reaches the Danger level (dissolved_oxygen.warning.min above, 3 mg/L), by
+# fitting a straight line through the recent readings. All values: J.
+window_hours = 2.0          # look at the last 2 hours of readings
+min_span_hours = 1.0        # ... which must cover at least 1 hour
+min_readings = 4            # ... with at least 4 readings
+min_fall_per_hour = 0.3     # slower falls (mg/L per hour) count as "not falling"
+min_r_squared = 0.6         # how well the readings follow a straight line (0–1). Below this the
+                            # "fall" is just readings jumping around (sensor noise), not a trend
+max_hours_ahead = 6.0       # don't predict further ahead than this
+
 [turbidity]
 # Shown to farmers as information only. Sources give limits in Secchi-disc
 # centimetres (40–60 cm best), but the sensor reports a different unit

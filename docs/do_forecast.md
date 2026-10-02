@@ -1,5 +1,7 @@
 # Dissolved-oxygen forecast — method and results
 
+> **Not shown in the farmer-facing app.** The typical error (±4.5 mg/L) is wider than the whole Warning band (3–5 mg/L), so a forecast value would mislead farmers. This page documents it as an honest experiment. The app shows a simpler ["time until danger"](time_to_danger.md) estimate instead.
+
 ![3-hours-ahead forecast vs actual, and average error per method](figures/do_forecast.png)
 
 ## What it does

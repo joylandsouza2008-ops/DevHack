@@ -4,4 +4,7 @@ openpyxl            # lets pandas open the .xlsx dataset
 scikit-learn==1.9.1 # DO forecast model. Pinned: the saved model file only loads reliably with the same version
 joblib              # saving / loading the trained model
 matplotlib          # charts for the presentation
+fastapi             # the web API (backend/main.py)
+uvicorn             # runs the FastAPI server
+httpx               # used by FastAPI's TestClient in tests/test_api.py
 pytest              # running the tests in tests/

@@ -1,0 +1,153 @@
+/* MeenuRaksha basic page. Colours, sizes and rules come from DESIGN.md. */
+
+:root {
+  --primary: #0b4f6c;
+  --primary-pressed: #083a50;
+  --on-primary: #ffffff;
+  --brand-water: #1d6fa5;
+  --water-light: #dff1f6;
+  --safe: #1a7f37;      --safe-bg: #e6f4ea;    --safe-text: #0d4d20;
+  --warning: #f5a524;   --warning-bg: #fff3dc; --warning-text: #7a4100;  --on-warning: #1a1200;
+  --danger: #c62828;    --danger-bg: #fdecea;  --danger-text: #7f1414;
+  --canvas: #ffffff;
+  --surface: #f3f8fa;
+  --hairline: #d5e2e7;
+  --hairline-strong: #a9bfc8;
+  --ink: #0f2a36;
+  --slate: #3f5a66;
+  --steel: #56707b;
+  --font: "Noto Sans", "Noto Sans Kannada", "Tunga", "Nirmala UI", system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--surface);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 1.125rem;          /* 18px body text */
+  line-height: 1.7;             /* tall enough for Kannada vowel signs */
+}
+
+h2 { font-size: 1.375rem; font-weight: 600; line-height: 1.45; margin: 0 0 0.5rem; }
+p { margin: 0; }
+
+button, select { font: inherit; }
+:focus-visible { outline: 3px solid var(--brand-water); outline-offset: 2px; }
+
+/* ---- Top bar ---- */
+.top-bar {
+  display: flex; flex-wrap: wrap; gap: 0.75rem;
+  align-items: center; justify-content: space-between;
+  padding: 0.75rem 1rem;
+  background: var(--canvas);
+  border-bottom: 1px solid var(--hairline);
+}
+.brand { display: flex; flex-direction: column; }
+.app-name { font-size: 1.625rem; font-weight: 600; line-height: 1.3; color: var(--primary); }
+.tagline { font-size: 1rem; color: var(--slate); }
+
+.language-toggle {
+  display: inline-flex; padding: 4px; gap: 4px;
+  background: var(--surface); border-radius: 9999px;
+}
+.language-toggle button {
+  min-height: 48px; padding: 0 1.25rem;
+  border: 0; border-radius: 9999px;
+  background: transparent; color: var(--ink); font-weight: 500; cursor: pointer;
+}
+.language-toggle button[aria-pressed="true"] { background: var(--primary); color: var(--on-primary); }
+
+/* ---- Layout ---- */
+main {
+  max-width: 1100px; margin: 0 auto;
+  padding: 1.25rem 1rem 3rem;
+  display: flex; flex-direction: column; gap: 1.25rem;
+}
+
+/* ---- Simulated-data banner: always visible ---- */
+.simulated-banner {
+  display: flex; gap: 0.75rem; align-items: flex-start;
+  padding: 0.75rem 1rem;
+  background: var(--water-light); color: var(--primary);
+  border: 2px dashed var(--brand-water); border-radius: 12px;
+  font-weight: 500;
+}
+.simulated-banner svg { width: 24px; height: 24px; flex: none; fill: currentColor; margin-top: 0.2rem; }
+
+/* ---- Controls ---- */
+.controls { display: flex; flex-wrap: wrap; gap: 1rem; align-items: flex-end; }
+.controls label { display: flex; flex-direction: column; gap: 0.25rem; font-weight: 500; }
+.controls select {
+  min-height: 52px; min-width: 12rem; padding: 0 1rem;
+  border: 1px solid var(--hairline-strong); border-radius: 8px;
+  background: var(--canvas); color: var(--ink);
+}
+.button-primary, .button-secondary {
+  min-height: 52px; padding: 0 1.75rem; border-radius: 9999px;
+  font-weight: 600; cursor: pointer;
+}
+.button-primary { background: var(--primary); color: var(--on-primary); border: 0; }
+.button-primary:active { background: var(--primary-pressed); }
+.button-secondary { background: transparent; color: var(--primary); border: 2px solid var(--primary); }
+
+.sim-clock { color: var(--slate); }
+
+/* ---- Status banner (icon + word + reason, never colour alone) ---- */
+.status-banner {
+  display: flex; gap: 1rem; align-items: flex-start;
+  padding: 1rem 1.25rem;
+  border: 2px solid var(--hairline-strong); border-radius: 12px;
+  background: var(--canvas);
+}
+.status-icon svg { width: 40px; height: 40px; display: block; }
+.status-level { font-size: 1.625rem; font-weight: 700; line-height: 1.35; }
+.status-summary { font-size: 1.125rem; font-weight: 500; }
+
+.status-safe    { background: var(--safe-bg);    border-color: var(--safe);    color: var(--safe-text); }
+.status-warning { background: var(--warning-bg); border-color: var(--warning); color: var(--warning-text); }
+.status-danger  { background: var(--danger-bg);  border-color: var(--danger);  color: var(--danger-text); }
+.status-safe .status-icon    { color: var(--safe); }
+.status-warning .status-icon { color: var(--warning-text); }
+.status-danger .status-icon  { color: var(--danger); }
+
+/* ---- Cards ---- */
+.card {
+  background: var(--canvas);
+  border: 1px solid var(--hairline); border-radius: 16px;
+  padding: 1.25rem 1.5rem;
+}
+.ttd-message { font-size: 1.25rem; font-weight: 500; }
+.ttd-message.ttd-alert { color: var(--danger-text); }
+
+.readings {
+  display: grid; gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
+}
+.reading {
+  background: var(--canvas);
+  border: 1px solid var(--hairline); border-left: 6px solid var(--hairline-strong);
+  border-radius: 16px; padding: 1rem 1.25rem;
+  display: flex; flex-direction: column; gap: 0.25rem;
+}
+.reading.level-safe    { border-left-color: var(--safe); }
+.reading.level-warning { border-left-color: var(--warning); }
+.reading.level-danger  { border-left-color: var(--danger); }
+.reading-name { font-size: 1rem; font-weight: 500; color: var(--slate); }
+.reading-value { font-size: 2.25rem; font-weight: 600; line-height: 1.2; font-variant-numeric: tabular-nums; }
+.reading-unit { font-size: 1.125rem; font-weight: 400; color: var(--slate); margin-left: 0.25rem; }
+
+.badge {
+  align-self: flex-start;
+  display: inline-flex; align-items: center; gap: 0.35rem;
+  padding: 0.25rem 0.875rem; border-radius: 9999px;
+  font-size: 0.9375rem; font-weight: 600; line-height: 1.6;
+}
+.badge svg { width: 18px; height: 18px; }
+.badge-safe    { background: var(--safe);    color: #fff; }
+.badge-warning { background: var(--warning); color: var(--on-warning); }
+.badge-danger  { background: var(--danger);  color: #fff; }
+.badge-info    { background: var(--water-light); color: var(--primary); }
+
+.sensor-errors { color: var(--danger-text); font-weight: 500; }

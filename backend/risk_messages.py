@@ -98,6 +98,34 @@ AMMONIA_NEEDS_PH_AND_TEMPERATURE = {
     "kn": "pH ಅಥವಾ ತಾಪಮಾನ ಇಲ್ಲದ ಕಾರಣ ಅಮೋನಿಯಾ ಪರಿಶೀಲಿಸಲು ಆಗಲಿಲ್ಲ.",
 }
 
+# --- Time until danger (backend/time_to_danger.py) -----------------------
+# {rate} mg/L per hour, {duration}/{duration_kn} e.g. "about 2 hours",
+# {clock} e.g. "03:20", {danger} the danger level, {hours} the look-ahead limit.
+TIME_TO_DANGER = {
+    "danger_expected": {
+        "en": "Oxygen is falling (about {rate} mg/L per hour). At this rate it may reach the danger "
+              "level ({danger} mg/L) in {duration}, around {clock}. Get the aerator ready now.",
+        "kn": "ಆಮ್ಲಜನಕ ಕಡಿಮೆಯಾಗುತ್ತಿದೆ (ಗಂಟೆಗೆ ಸುಮಾರು {rate} mg/L). ಇದೇ ವೇಗದಲ್ಲಿ {duration_kn} "
+              "({clock} ಹೊತ್ತಿಗೆ) ಅಪಾಯದ ಮಟ್ಟ ({danger} mg/L) ತಲುಪಬಹುದು. ಈಗಲೇ ಏರೇಟರ್ ಸಿದ್ಧಪಡಿಸಿ.",
+    },
+    "already_danger": {
+        "en": "Oxygen is already at the danger level.",
+        "kn": "ಆಮ್ಲಜನಕ ಈಗಾಗಲೇ ಅಪಾಯದ ಮಟ್ಟದಲ್ಲಿದೆ.",
+    },
+    "falling_slowly": {
+        "en": "Oxygen is falling slowly. No danger expected in the next {hours} hours.",
+        "kn": "ಆಮ್ಲಜನಕ ನಿಧಾನವಾಗಿ ಕಡಿಮೆಯಾಗುತ್ತಿದೆ. ಮುಂದಿನ {hours} ಗಂಟೆಗಳಲ್ಲಿ ಅಪಾಯ ನಿರೀಕ್ಷಿಸಿಲ್ಲ.",
+    },
+    "not_falling": {
+        "en": "Oxygen is not falling.",
+        "kn": "ಆಮ್ಲಜನಕ ಕಡಿಮೆಯಾಗುತ್ತಿಲ್ಲ.",
+    },
+    "not_enough_data": {
+        "en": "Not enough recent oxygen readings to estimate.",
+        "kn": "ಅಂದಾಜು ಮಾಡಲು ಇತ್ತೀಚಿನ ಆಮ್ಲಜನಕ ಅಳತೆಗಳು ಸಾಕಷ್ಟಿಲ್ಲ.",
+    },
+}
+
 NO_VALID_READINGS = {
     "en": "No valid readings. Check the sensors.",
     "kn": "ಸರಿಯಾದ ಅಳತೆಗಳು ಇಲ್ಲ. ಸೆನ್ಸರ್‌ಗಳನ್ನು ಪರಿಶೀಲಿಸಿ.",

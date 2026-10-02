@@ -1,0 +1,30 @@
+{
+  "data": "Kaggle Pondsdata, 'Ponds data.csv' (real readings only)",
+  "settings": {
+    "window_hours": 2.0,
+    "min_span_hours": 1.0,
+    "min_readings": 4,
+    "min_fall_per_hour": 0.3,
+    "min_r_squared": 0.6,
+    "max_hours_ahead": 6.0,
+    "danger_level_mg_l": 3.0,
+    "timing_tolerance_hours": 1.0
+  },
+  "moments_checked": 72435,
+  "status_share_pct": {
+    "not_falling": 96.4,
+    "danger_expected": 3.4,
+    "falling_slowly": 0.1,
+    "already_danger": 0.1,
+    "not_enough_data": 0.0
+  },
+  "alerts": 2442,
+  "alert_episodes": 1857,
+  "alert_episodes_per_pond_per_day": 1.7,
+  "alerts_correct_pct": 1.0,
+  "alerts_well_timed_pct": 0.2,
+  "chance_level_pct": 1.6,
+  "danger_events": 71,
+  "danger_events_caught_pct": 26.8,
+  "median_lead_time_hours": 2.33
+}
