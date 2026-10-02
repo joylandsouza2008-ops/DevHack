@@ -149,7 +149,7 @@
     if (!gsap) return;
     const lights = [...welcome.querySelectorAll(".pond-caustics, .pond-light")];
     gsap.killTweensOf([...lights, ...fishes.flatMap((f) => [f.el, f.body, f.tail]), ...ripples]);
-    gsap.ticker.fps(60);
+    // Leave the frame rate as is: low-power phones keep 30 fps for the dashboard too (motion.js).
   }
 
   // Follow the setting if it changes while the welcome screen is open.

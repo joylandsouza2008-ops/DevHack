@@ -204,3 +204,127 @@ main {
   background: var(--danger-bg); color: var(--danger-text);
   font-weight: 500;
 }
+
+/* ================================================================
+   Animated dashboard (motion.js, pond-view.js, gauge.js, do-chart.js)
+   ================================================================ */
+
+.control-label { font-weight: 500; }
+
+/* ---- Pond picker: Animated Background + Border Trail ---- */
+.pond-picker { display: flex; flex-direction: column; gap: 0.25rem; }
+.pond-options {
+  position: relative;               /* the highlight is positioned inside this */
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px;
+  padding: 4px;
+  background: var(--card); border: 1px solid var(--hairline-strong); border-radius: 9999px;
+}
+.pond-option {
+  position: relative; z-index: 1;   /* above the sliding highlight */
+  min-height: 48px; padding: 0 1.1rem;
+  border: 0; border-radius: 9999px; background: transparent;
+  color: var(--text); font-weight: 600; white-space: nowrap; cursor: pointer;
+}
+.pond-option[aria-pressed="true"] { color: var(--on-secondary); }
+.pond-highlight {
+  position: absolute; top: 0; left: 0; width: 0; height: 0;
+  background: var(--secondary); border-radius: 9999px;
+}
+.border-trail { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.border-trail rect { fill: none; stroke: var(--primary); stroke-width: 2.5; stroke-linecap: round; }
+
+/* ---- Status banner: smooth level change, gentle pulse in Danger (no flashing) ---- */
+.status-banner {
+  position: relative;
+  transition: background-color 0.5s ease, border-color 0.5s ease, color 0.5s ease;
+}
+.status-danger::after {
+  content: ""; position: absolute; inset: -2px; border-radius: inherit;
+  border: 2px solid var(--danger); pointer-events: none;
+  animation: danger-breathe 2.6s ease-out infinite;   /* about 0.4 per second: far below flashing */
+}
+@keyframes danger-breathe {
+  0%   { opacity: 0.6; transform: scale(1); }
+  70%  { opacity: 0;   transform: scale(1.025); }
+  100% { opacity: 0;   transform: scale(1.025); }
+}
+
+/* ---- Overview: pond view + gauge ---- */
+.overview { display: grid; gap: 1.25rem; grid-template-columns: 1fr; }
+@media (min-width: 768px) { .overview { grid-template-columns: 3fr 2fr; } }
+.overview .card { display: flex; flex-direction: column; gap: 0.75rem; }
+
+.te-word { display: inline-block; }   /* lets each word of a heading move (Text Effect) */
+
+.pond-view { aspect-ratio: 16 / 9; border-radius: 12px; overflow: hidden; background: #0e2630; }
+.pv-svg { display: block; width: 100%; height: 100%; }
+.pv-svg path:not(.pv-surface-line):not(.pv-floor) { fill: #04161e; }
+.pv-eye { fill: var(--text-tertiary); }
+.pv-surface-line { fill: none; stroke: rgba(222, 240, 248, 0.45); stroke-width: 1.5; }
+.pv-floor { fill: rgba(3, 10, 14, 0.45); }
+.pv-bubble { fill: none; stroke: rgba(222, 240, 248, 0.75); stroke-width: 1; }
+.pond-caption { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.75rem; }
+
+.gauge { position: relative; width: 100%; max-width: 340px; margin: 0 auto; padding-top: 1.6rem; }
+.gauge-svg { display: block; width: 100%; height: auto; overflow: visible; }
+.gauge-arc { fill: none; stroke-width: 16; opacity: 0.3; transition: opacity 0.6s ease, stroke-width 0.6s ease; }
+.gauge-arc.is-active { opacity: 1; stroke-width: 20; }
+.gauge-arc-safe { stroke: var(--safe); }
+.gauge-arc-warning { stroke: var(--warning); }
+.gauge-arc-danger { stroke: var(--danger); }
+.gauge-needle { fill: var(--text); }
+.gauge-word {
+  position: absolute; font-size: 0.9375rem; font-weight: 600; line-height: 1.4;
+  color: var(--text-tertiary); transition: color 0.6s ease;
+}
+.gauge-word.is-active { color: var(--text); }
+.gauge-word-safe { left: 0; bottom: 0; }
+.gauge-word-warning { left: 50%; top: 0; transform: translateX(-50%); }
+.gauge-word-danger { right: 0; bottom: 0; }
+.gauge-label {
+  align-self: center; display: inline-flex; align-items: center; gap: 0.5rem;
+  min-height: 2.75rem; padding: 0.25rem 1.25rem; border-radius: 9999px;
+  font-size: 1.25rem; font-weight: 700;
+}
+.gauge-label svg { width: 24px; height: 24px; }
+.gauge-label-safe    { background: var(--safe);    color: var(--on-status); }
+.gauge-label-warning { background: var(--warning); color: var(--on-warning); }
+.gauge-label-danger  { background: var(--danger);  color: var(--on-status); }
+
+/* ---- Countdown (time until danger) ---- */
+.ttd-card { display: flex; flex-direction: column; gap: 0.75rem; }
+.countdown {
+  display: grid; gap: 0.125rem;
+  padding: 1rem 1.25rem; border-radius: 12px;
+  background: var(--warning-bg); color: var(--warning-text);   /* unchanged status pair */
+  border: 2px solid var(--warning);
+}
+.countdown[hidden] { display: none; }
+.countdown-label { font-weight: 600; }
+.countdown-value {
+  font-size: clamp(2rem, 6vw, 2.75rem); font-weight: 700; line-height: 1.25;
+  font-variant-numeric: tabular-nums;
+}
+.countdown-urgent .countdown-value { font-size: clamp(2.25rem, 7vw, 3.25rem); }
+.countdown-at { font-size: 1.125rem; font-weight: 500; }
+
+/* ---- Oxygen chart ---- */
+.chart-card { display: flex; flex-direction: column; gap: 0.75rem; }
+.chart-wrap { position: relative; height: 280px; }
+@media (max-width: 480px) { .chart-wrap { height: 230px; } }
+.chart-summary { color: var(--text-secondary); font-size: 1rem; }
+
+.reading-number { font-variant-numeric: tabular-nums; }
+
+/* ---- Reduce motion: everything still, changes appear at once ---- */
+@media (prefers-reduced-motion: reduce) {
+  .status-banner, .gauge-arc, .gauge-word { transition: none; }
+  .status-danger::after { animation: none; opacity: 0; }
+}
+
+/* ---- Performance on cheap phones ----
+   Readings change every update. Containment keeps a change inside one card
+   from making the browser re-lay-out the whole page, and sections scrolled out
+   of view skip rendering until they come back (content-visibility). */
+.card, .reading, .status-banner, .countdown { contain: layout paint; }
+.chart-card, .readings { content-visibility: auto; contain-intrinsic-size: auto 420px; }

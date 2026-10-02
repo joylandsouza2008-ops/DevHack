@@ -108,6 +108,7 @@ async def simulator_stream(
     hours: int = Query(36, ge=1, le=72, description="simulated hours to play"),
     interval: float = Query(1.0, ge=0, le=10, description="real seconds between readings"),
     count: int | None = Query(None, ge=1, description="stop after this many readings (for tests)"),
+    skip: int = Query(0, ge=0, description="readings to skip, to resume a paused demo with the same `start`"),
     seed: int = 0,
 ):
     """
@@ -123,7 +124,9 @@ async def simulator_stream(
                                 scenario=scenario, seed=seed)
     except FileNotFoundError as e:
         raise HTTPException(status_code=503, detail=str(e))
-    first_index = int(sim.index.searchsorted(first))
+    # The scenario (e.g. when the night crash happens) depends on `start`, so a
+    # resumed demo keeps the same `start` and skips the readings already shown.
+    first_index = int(sim.index.searchsorted(first)) + skip
     steps = range(first_index, len(sim) if count is None else min(len(sim), first_index + count))
 
     async def events():

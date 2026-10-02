@@ -77,9 +77,37 @@ def test_welcome_screen_and_gsap_are_local_files():
         assert client.get(path).status_code == 200
 
 
+def test_animated_dashboard_files_are_local():
+    html = client.get("/").text
+    for path in ("/vendor/chartjs/chart.umd.min.js", "/motion.js", "/pond-view.js", "/gauge.js", "/do-chart.js"):
+        assert f'src="{path}"' in html, path
+        assert client.get(path).status_code == 200, path
+    assert "Chart.js v4.5.1" in client.get("/vendor/chartjs/chart.umd.min.js").text
+    # Scripts load in dependency order: libraries, effects, components, then the app.
+    order = [html.index(f'src="{p}"') for p in ("/vendor/gsap/gsap.min.js", "/vendor/chartjs/chart.umd.min.js",
+                                                  "/motion.js", "/pond-view.js", "/gauge.js", "/do-chart.js",
+                                                  "/app.js", "/welcome.js")]
+    assert order == sorted(order)
+
+
+def test_every_status_shows_icon_and_word_not_colour_alone():
+    # The pond view caption and gauge label reuse the badge (icon + word), never colour only.
+    app = client.get("/app.js").text
+    assert "function badgeHTML(level, lang)" in app and "ICONS[level]" in app and "LEVEL_WORDS[level][lang]" in app
+    for target in ('$("pond-view-badge")', '$("gauge-label")', "c.badge"):
+        assert target in app
+
+
+def test_text_effect_never_splits_kannada_letters():
+    # Splitting Kannada into letters breaks conjuncts: the Text Effect splits on spaces only.
+    motion = client.get("/motion.js").text
+    assert "text.split(/(\\s+)/)" in motion
+    assert ".split(\"\")" not in motion and "Array.from(text)" not in motion
+
+
 def test_page_has_no_em_dashes():
     # design-taste-frontend rule: no em/en dashes in visible text.
-    for path in ("/", "/app.js", "/welcome.js"):
+    for path in ("/", "/app.js", "/welcome.js", "/motion.js", "/pond-view.js", "/gauge.js", "/do-chart.js"):
         assert "—" not in client.get(path).text and "–" not in client.get(path).text, path
 
 
@@ -114,6 +142,18 @@ def test_simulator_stream_crash_warns_before_danger():
     first_alert = next(d["time"] for d in readings if d["time_to_danger"]["status"] == "danger_expected")
     first_danger = next(d["time"] for d in readings if d["risk"]["level"] == "danger")
     assert first_alert < first_danger
+
+
+@pytest.mark.skipif(not DATA_FILE.exists(), reason="Pondsdata not downloaded (see README)")
+def test_paused_demo_resumes_with_the_same_readings():
+    # Pause/Resume in the app: same `start`, skip what was shown. The crash night must not move.
+    params = {"scenario": "oxygen_crash", "interval": 0, "start": "2026-10-02T18:00:00"}
+    full = [d for n, d in read_events(client.get("/api/simulator/stream", params={**params, "count": 30})) if n == "reading"]
+    resumed = [d for n, d in read_events(client.get("/api/simulator/stream", params={**params, "count": 12, "skip": 18}))
+               if n == "reading"]
+    assert [d["time"] for d in resumed] == [d["time"] for d in full[18:30]]
+    assert [d["reading"]["dissolved_oxygen"] for d in resumed] == [d["reading"]["dissolved_oxygen"] for d in full[18:30]]
+    assert any(d["risk"]["level"] == "danger" for d in resumed)       # 03:20 lies inside the resumed part
 
 
 def test_simulator_rejects_unknown_scenario():

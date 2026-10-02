@@ -159,6 +159,31 @@ def test_text_and_controls_stay_readable_over_the_brightest_wave(name):
     assert contrast(C["primary"], brightest) >= NON_TEXT, "outlined button / focus ring over the waves"
 
 
+# ---------------------------------------------------------------- animated dashboard
+
+CHART_BAND_ALPHA = 0.14     # frontend/do-chart.js: status colour fill behind the line
+
+
+@pytest.mark.parametrize("status", ["safe", "warning", "danger"])
+def test_chart_band_words_are_readable(status):
+    band = over(C[status], C["card"], CHART_BAND_ALPHA)
+    assert contrast(C["text-secondary"], band) >= TEXT, f"band word on the {status} band"
+    assert contrast(C["primary"], band) >= NON_TEXT, f"oxygen line over the {status} band"
+
+
+def test_chart_band_alpha_matches_the_code():
+    js = (STYLES.parent / "do-chart.js").read_text(encoding="utf-8")
+    assert f"hexToRgba(z.colour, {CHART_BAND_ALPHA})" in js
+
+
+def test_gauge_and_pond_picker_text():
+    assert contrast(C["text-tertiary"], C["card"]) >= TEXT        # inactive gauge zone words
+    assert contrast(C["text"], C["card"]) >= TEXT                 # active gauge word, pond names
+    assert contrast(C["on-secondary"], C["secondary"]) >= TEXT    # selected pond (sliding highlight)
+    assert contrast(C["primary"], C["secondary"]) >= NON_TEXT     # border trail on the highlight
+    assert contrast(C["warning-text"], C["warning-bg"]) >= TEXT   # countdown box
+
+
 @pytest.mark.parametrize("name", ["background-desktop", "background-phone"])
 def test_brand_waves_keep_the_original_shapes(name):
     strip = lambda s: re.sub(r'fill="#[0-9a-fA-F]{6}"', "", s)

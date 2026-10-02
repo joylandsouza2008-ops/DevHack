@@ -70,16 +70,18 @@
       </p>
 
       <section class="controls" aria-label="Demo controls">
+        <div class="pond-picker">
+          <span class="control-label" id="pond-label" data-i18n="pond">Pond</span>
+          <!-- Animated Background: one highlight slides behind the chosen pond; it carries the Border Trail. -->
+          <div class="pond-options" id="pond-options" role="group" aria-labelledby="pond-label">
+            <span class="pond-highlight" id="pond-highlight" aria-hidden="true"></span>
+            <button type="button" class="pond-option" data-station="station1" aria-pressed="true"><span data-i18n="pond1">Pond 1</span></button>
+            <button type="button" class="pond-option" data-station="station2" aria-pressed="false"><span data-i18n="pond2">Pond 2</span></button>
+            <button type="button" class="pond-option" data-station="station3" aria-pressed="false"><span data-i18n="pond3">Pond 3</span></button>
+          </div>
+        </div>
         <label>
-          <span data-i18n="pond">Pond</span>
-          <select id="station">
-            <option value="station1" data-i18n="pond1">Pond 1</option>
-            <option value="station2" data-i18n="pond2">Pond 2</option>
-            <option value="station3" data-i18n="pond3">Pond 3</option>
-          </select>
-        </label>
-        <label>
-          <span data-i18n="scenario">Scenario</span>
+          <span class="control-label" data-i18n="scenario">Scenario</span>
           <select id="scenario">
             <option value="normal" data-i18n="scenarioNormal">Normal day</option>
             <option value="oxygen_crash" data-i18n="scenarioCrash">Night oxygen crash</option>
@@ -93,19 +95,50 @@
 
       <section id="status" class="status-banner status-unknown" role="status" aria-live="polite" tabindex="-1">
         <span class="status-icon" id="status-icon" aria-hidden="true"></span>
-        <div>
+        <div class="status-text" id="status-text">
           <p class="status-level" id="status-level" data-i18n="connecting">Connecting…</p>
           <p class="status-summary" id="status-summary"></p>
         </div>
       </section>
 
-      <section class="card" aria-labelledby="ttd-title">
-        <h2 id="ttd-title" data-i18n="ttdTitle">Time until danger</h2>
+      <div class="overview">
+        <section class="card pond-card in-view" aria-labelledby="pond-view-title">
+          <h2 id="pond-view-title" class="text-effect" data-i18n="pondViewTitle">Pond view</h2>
+          <div class="pond-view" id="pond-view" role="img" aria-labelledby="pond-view-text"></div>
+          <p class="pond-caption">
+            <span class="badge" id="pond-view-badge"></span>
+            <span id="pond-view-text"></span>
+          </p>
+        </section>
+
+        <section class="card gauge-card in-view" aria-labelledby="gauge-title">
+          <h2 id="gauge-title" class="text-effect" data-i18n="gaugeTitle">Risk level</h2>
+          <div class="gauge" id="gauge" role="img" aria-labelledby="gauge-label"></div>
+          <p class="gauge-label" id="gauge-label"></p>
+        </section>
+      </div>
+
+      <section class="card ttd-card in-view" aria-labelledby="ttd-title">
+        <h2 id="ttd-title" class="text-effect" data-i18n="ttdTitle">Time until danger</h2>
+        <!-- Countdown: shown while danger is expected; the numbers count down smoothly. -->
+        <div class="countdown" id="countdown" hidden>
+          <p class="countdown-label" data-i18n="countdownLabel">Danger expected in</p>
+          <p class="countdown-value" id="countdown-value" aria-live="off"></p>
+          <p class="countdown-at" id="countdown-at"></p>
+        </div>
         <p id="ttd-message" class="ttd-message">-</p>
       </section>
 
+      <section class="card chart-card in-view" aria-labelledby="chart-title">
+        <h2 id="chart-title" class="text-effect" data-i18n="chartTitle">Dissolved oxygen, last 12 hours</h2>
+        <div class="chart-wrap">
+          <canvas id="do-chart" role="img" aria-labelledby="chart-summary"></canvas>
+        </div>
+        <p class="chart-summary" id="chart-summary"></p>
+      </section>
+
       <section aria-labelledby="readings-title">
-        <h2 id="readings-title" data-i18n="readingsTitle">Latest readings</h2>
+        <h2 id="readings-title" class="text-effect" data-i18n="readingsTitle">Latest readings</h2>
         <div class="readings" id="readings"></div>
       </section>
 
@@ -115,6 +148,11 @@
 
   <!-- All scripts are local files: the app works offline. -->
   <script src="/vendor/gsap/gsap.min.js"></script>
+  <script src="/vendor/chartjs/chart.umd.min.js"></script>
+  <script src="/motion.js"></script>
+  <script src="/pond-view.js"></script>
+  <script src="/gauge.js"></script>
+  <script src="/do-chart.js"></script>
   <script src="/app.js"></script>
   <script src="/welcome.js"></script>
 </body>
