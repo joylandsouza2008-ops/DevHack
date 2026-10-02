@@ -36,9 +36,12 @@
 
 * { box-sizing: border-box; }
 
+/* Page colour on <html>, not <body>: a body background would paint over the
+   background waves (.page-bg, z-index -1). */
+html { background: var(--background); }
+
 body {
   margin: 0;
-  background: var(--background);
   color: var(--text);
   font-family: var(--font);
   font-size: 1.125rem;          /* 18px body text */
@@ -50,6 +53,30 @@ p { margin: 0; }
 
 button, select { font: inherit; }
 :focus-visible { outline: 3px solid var(--primary); outline-offset: 2px; }
+
+/* ---- Background waves (artwork by the project team, frontend/assets) ----
+   Desktop file on wide screens, phone file on phones; the browser only
+   downloads the one that matches. Uses the *-brand.svg copies made by
+   tools/recolor_backgrounds.py: same waves, recoloured from primary (back)
+   to secondary (front). The originals' purple, pink and coral-red waves would
+   sit behind the reading cards and look like Danger, and DESIGN.md rules out
+   purple. Low opacity keeps it a quiet backdrop; cards stay fully opaque. */
+.page-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: url("/assets/background-desktop-brand.svg") center bottom / cover no-repeat;
+  opacity: 0.16;               /* control edges keep 3:1 over the brightest wave (tests/test_contrast.py) */
+}
+@media (max-width: 767px) {
+  .page-bg { background-image: url("/assets/background-phone-brand.svg"); }
+}
+/* Not needed under the welcome screen; also off for high-contrast users. */
+body.has-welcome .page-bg { display: none; }
+@media (prefers-contrast: more), (forced-colors: active) {
+  .page-bg { display: none; }
+}
 
 /* ---- Top bar ---- */
 .top-bar {

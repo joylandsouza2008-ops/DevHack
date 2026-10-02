@@ -44,6 +44,11 @@
     </div>
   </section>
 
+  <!-- Dashboard background waves (decoration). Outside .dashboard on purpose: the
+       Start transition leaves a transform on .dashboard, which would stop
+       position: fixed from staying put while the page scrolls. -->
+  <div class="page-bg" aria-hidden="true"></div>
+
   <!-- ============ Dashboard (inert until Start is pressed) ============ -->
   <div class="dashboard" id="dashboard" inert>
     <header class="top-bar">

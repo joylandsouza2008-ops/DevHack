@@ -31,6 +31,8 @@ Built for DevHack 2026, problem statement 1.1.
 | `docs/screenshots/` | App screenshots (simulated demo) |
 | `frontend/` | The web page: `index.html`, dashboard (`styles.css`, `app.js`), welcome screen (`welcome.css`, `welcome.js`) |
 | `frontend/vendor/gsap/` | GSAP 3.15.0 animation library, bundled locally (works offline) |
+| `frontend/assets/` | Dashboard background waves: original artwork + brand-blue copies (`*-brand.svg`) used by the app |
+| `tools/recolor_backgrounds.py` | Regenerates the brand-blue wave copies after the artwork is edited |
 | `frontend/fonts/` | Noto Sans + Noto Sans Kannada, bundled so the app works offline |
 | `.claude/skills/` | Shared Claude Code skills for the team |
 | `data/` | Datasets. **Not in git**: download them yourself (steps below) |
