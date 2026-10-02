@@ -1,0 +1,124 @@
+{
+  "data": "Kaggle Pondsdata, 'Ponds data.csv', 3 ponds, Feb 2022 – Jan 2023, 20-min readings",
+  "split": {
+    "train": {
+      "rows": 53456,
+      "from": "2022-02-01 00:20:00",
+      "to": "2022-10-06 17:40:00"
+    },
+    "val": {
+      "rows": 11410,
+      "from": "2022-10-07 00:00:00",
+      "to": "2022-11-28 19:40:00"
+    },
+    "test": {
+      "rows": 9731,
+      "from": "2022-11-29 02:00:00",
+      "to": "2023-01-21 04:00:00"
+    }
+  },
+  "results": {
+    "1h": {
+      "persistence": {
+        "mae_mg_l": 5.944,
+        "within_1_mg_l_pct": 11.0,
+        "risk_level_match_pct": 94.5,
+        "unsafe_caught_pct": 5.7,
+        "flag_precision_pct": 5.7
+      },
+      "recent_average": {
+        "mae_mg_l": 4.502,
+        "within_1_mg_l_pct": 11.2,
+        "risk_level_match_pct": 97.1,
+        "unsafe_caught_pct": 0.0,
+        "flag_precision_pct": null,
+        "window": "do_mean_24h"
+      },
+      "model": {
+        "mae_mg_l": 4.486,
+        "within_1_mg_l_pct": 10.9,
+        "risk_level_match_pct": 97.1,
+        "unsafe_caught_pct": 0.0,
+        "flag_precision_pct": null,
+        "type": "gradient boosting",
+        "validation_mae_mg_l": {
+          "linear (Ridge)": 4.342,
+          "gradient boosting": 4.333
+        }
+      },
+      "test_rows": 9718
+    },
+    "3h": {
+      "persistence": {
+        "mae_mg_l": 5.938,
+        "within_1_mg_l_pct": 11.4,
+        "risk_level_match_pct": 94.7,
+        "unsafe_caught_pct": 8.9,
+        "flag_precision_pct": 8.9
+      },
+      "recent_average": {
+        "mae_mg_l": 4.5,
+        "within_1_mg_l_pct": 11.3,
+        "risk_level_match_pct": 97.1,
+        "unsafe_caught_pct": 0.0,
+        "flag_precision_pct": null,
+        "window": "do_mean_24h"
+      },
+      "model": {
+        "mae_mg_l": 4.485,
+        "within_1_mg_l_pct": 10.9,
+        "risk_level_match_pct": 97.1,
+        "unsafe_caught_pct": 0.0,
+        "flag_precision_pct": null,
+        "type": "gradient boosting",
+        "validation_mae_mg_l": {
+          "linear (Ridge)": 4.341,
+          "gradient boosting": 4.336
+        }
+      },
+      "test_rows": 9700
+    },
+    "6h": {
+      "persistence": {
+        "mae_mg_l": 5.929,
+        "within_1_mg_l_pct": 11.4,
+        "risk_level_match_pct": 94.5,
+        "unsafe_caught_pct": 6.0,
+        "flag_precision_pct": 6.0
+      },
+      "recent_average": {
+        "mae_mg_l": 4.5,
+        "within_1_mg_l_pct": 11.3,
+        "risk_level_match_pct": 97.1,
+        "unsafe_caught_pct": 0.0,
+        "flag_precision_pct": null,
+        "window": "do_mean_24h"
+      },
+      "model": {
+        "mae_mg_l": 4.482,
+        "within_1_mg_l_pct": 11.3,
+        "risk_level_match_pct": 97.1,
+        "unsafe_caught_pct": 0.0,
+        "flag_precision_pct": null,
+        "type": "gradient boosting",
+        "validation_mae_mg_l": {
+          "linear (Ridge)": 4.344,
+          "gradient boosting": 4.331
+        }
+      },
+      "test_rows": 9673
+    }
+  },
+  "feature_importance_3h_mae_increase_mg_l": {
+    "do_mean_24h": 0.034,
+    "ph_mean_3h": 0.027,
+    "temp_mean_3h": 0.005,
+    "do_mean_6h": 0.003,
+    "do_std_3h": 0.002,
+    "do_mean_3h": 0.001,
+    "do_mean_1h": 0.0,
+    "do_now": -0.0,
+    "hour_cos": -0.0,
+    "hour_sin": -0.001
+  }
+}
