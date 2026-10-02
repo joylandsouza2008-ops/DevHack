@@ -82,3 +82,15 @@ max_hours_ahead = 6.0       # don't predict further ahead than this
 unit = "NTU"
 use_for_risk = false
 plausible = { min = 0.0, max = 1000.0 }
+
+# ---------------------------------------------------------------------------
+# Tonight's oxygen crash risk, from the weather forecast (backend/weather.py).
+# Not a pond reading: these rate the WEATHER that is known to cause night-time
+# oxygen crashes. Each condition that is met is one "risk factor":
+#   0 factors -> Low,  1 factor -> Medium,  2 or 3 factors -> High
+# The causes are sourced (FAO, UF/IFAS); the cut-off numbers are our judgement.
+# Full explanation: docs/night_crash.md
+[night_crash]
+cloudy_day_min_cloud_pct = 75   # J: mean cloud cover 06:00-18:00 before tonight at or above this = "cloudy day"
+still_night_max_wind_kmh = 7    # J: mean wind 18:00-06:00 below this = "still night" (Beaufort "light breeze" starts at 4 knots = 7 km/h)
+warm_night_min_temp_c    = 28   # J: mean air temp 18:00-06:00 at or above this = "warm night"

@@ -38,6 +38,12 @@ const TEXT = {
     duration: (h, m) => (h ? `${h} h ${String(m).padStart(2, "0")} min` : `${m} min`),
     around: (clock) => `around ${clock}`,
     chartSummary: (now, min) => `Now ${now} mg/L. Lowest in this period: ${min} mg/L.`,
+    weatherTitle: "Tonight's weather",
+    weatherLoading: "Checking the forecast…",
+    weatherUnavailable: "No internet and no saved forecast. Tonight's weather is not known.",
+    crashRisk: (level) => `Oxygen crash risk: ${level}`,
+    weatherDetails: (c, w, t) => `Day cloud ${c}% · Night wind ${w} km/h · Night ${t} °C · Forecast: Open-Meteo`,
+    weatherOffline: (when) => (when ? `Offline: showing the forecast saved on ${when}.` : "Offline."),
   },
   kn: {
     appName: "ಮೀನುರಕ್ಷಾ",
@@ -68,6 +74,12 @@ const TEXT = {
     duration: (h, m) => (h ? `${h} ಗಂಟೆ ${String(m).padStart(2, "0")} ನಿಮಿಷ` : `${m} ನಿಮಿಷ`),
     around: (clock) => `ಸುಮಾರು ${clock} ಹೊತ್ತಿಗೆ`,
     chartSummary: (now, min) => `ಈಗ ${now} mg/L. ಈ ಅವಧಿಯ ಕನಿಷ್ಠ: ${min} mg/L.`,
+    weatherTitle: "ಇಂದು ರಾತ್ರಿಯ ಹವಾಮಾನ",
+    weatherLoading: "ಮುನ್ಸೂಚನೆ ನೋಡಲಾಗುತ್ತಿದೆ…",
+    weatherUnavailable: "ಇಂಟರ್ನೆಟ್ ಇಲ್ಲ, ಉಳಿಸಿದ ಮುನ್ಸೂಚನೆಯೂ ಇಲ್ಲ. ಇಂದು ರಾತ್ರಿಯ ಹವಾಮಾನ ತಿಳಿದಿಲ್ಲ.",
+    crashRisk: (level) => `ಆಮ್ಲಜನಕ ಕುಸಿತದ ಅಪಾಯ: ${level}`,
+    weatherDetails: (c, w, t) => `ಹಗಲಿನ ಮೋಡ ${c}% · ರಾತ್ರಿ ಗಾಳಿ ${w} km/h · ರಾತ್ರಿ ${t} °C · ಮುನ್ಸೂಚನೆ: Open-Meteo`,
+    weatherOffline: (when) => (when ? `ಆಫ್‌ಲೈನ್: ${when} ರಂದು ಉಳಿಸಿದ ಮುನ್ಸೂಚನೆ ತೋರಿಸಲಾಗುತ್ತಿದೆ.` : "ಆಫ್‌ಲೈನ್."),
   },
 };
 
@@ -98,6 +110,7 @@ const LEVEL_WORDS = {
 const state = {
   lang: "kn", source: null, paused: false, last: null,
   station: "station1", level: null, chartTime: null, effectsReady: false,
+  weather: null,
 };
 
 const $ = (id) => document.getElementById(id);
@@ -132,6 +145,7 @@ function setLanguage(lang) {
     moveHighlight(true);                       // option widths change with the language
   }
   if (state.last) render(state.last);
+  renderWeather();
 }
 
 // ---------------------------------------------------------------- helpers
@@ -289,6 +303,55 @@ function showMessage(key) {
   $("status-summary").textContent = "";
 }
 
+// ---------------------------------------------------------------- tonight's weather (bottom toolbar)
+// Real forecast, not simulated. The server falls back to its saved forecast when
+// there is no internet; if even the server can't be reached, the copy saved in
+// this browser is shown. Either way the note says "offline".
+
+const WEATHER_KEY = "meenuraksha-weather";
+const CRASH_BADGE = { low: "safe", medium: "warning", high: "danger" };   // same colour + icon pairs as the status
+
+async function loadWeather() {
+  try {
+    const response = await fetch("/api/weather/tonight");
+    if (!response.ok) throw new Error(response.statusText);
+    state.weather = await response.json();
+    if (state.weather.status === "ok") {
+      try { localStorage.setItem(WEATHER_KEY, JSON.stringify(state.weather)); } catch { /* storage blocked */ }
+    }
+  } catch {
+    let saved = null;
+    try { saved = JSON.parse(localStorage.getItem(WEATHER_KEY)); } catch { /* nothing saved */ }
+    state.weather = saved ? { ...saved, offline: true }
+      : { status: "unavailable", offline: true, saved_at: null,
+          message: { en: TEXT.en.weatherUnavailable, kn: TEXT.kn.weatherUnavailable } };
+  }
+  renderWeather();
+}
+
+function renderWeather() {
+  const w = state.weather;
+  if (!w) return;
+  const lang = state.lang;
+  const ok = w.status === "ok";
+  const badge = $("weather-badge");
+  badge.hidden = !ok;
+  if (ok) {
+    const level = CRASH_BADGE[w.level];
+    badge.className = `badge weather-badge badge-${level}`;
+    badge.innerHTML = `${ICONS[level]}${TEXT[lang].crashRisk(w.level_name[lang])}`;
+  }
+  $("weather-place").textContent = w.location ? ` · ${w.location[lang]}` : "";
+  const message = $("weather-message");
+  message.removeAttribute("data-i18n");
+  message.textContent = w.message[lang];
+  $("weather-details").textContent = ok
+    ? TEXT[lang].weatherDetails(w.day_cloud_cover_pct, w.night_wind_speed_kmh, w.night_temperature_c) : "";
+  const offline = $("weather-offline");
+  offline.hidden = !w.offline;
+  offline.textContent = TEXT[lang].weatherOffline(w.saved_at ? formatTime(w.saved_at) : null);
+}
+
 // ---------------------------------------------------------------- pond picker
 
 function activePondButton() {
@@ -328,6 +391,8 @@ function initEffects() {
     if (heading) M.textEffect(heading);
   });
   renderPondAndGauge("unknown", state.lang);
+  loadWeather();
+  setInterval(loadWeather, 30 * 60 * 1000);     // the server re-downloads at most every 30 minutes
 }
 
 // ---------------------------------------------------------------- stream

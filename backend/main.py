@@ -12,6 +12,7 @@ Endpoints:
     POST /api/time-to-danger         "time until danger" from recent DO readings
     GET  /api/simulator/scenarios    available demo scenarios and ponds
     GET  /api/simulator/stream       live stream of SIMULATED readings (Server-Sent Events)
+    GET  /api/weather/tonight        tonight's oxygen crash risk from the real weather forecast
     /                                the web page (files in frontend/)
 
 The DO forecast model is deliberately NOT exposed: its typical error (±4.5 mg/L)
@@ -36,6 +37,7 @@ from backend.do_features import STEP_MINUTES
 from backend.risk_classifier import classify
 from backend.simulator import SCENARIOS, SIMULATED, SIMULATED_LABEL, simulate_readings
 from backend.time_to_danger import estimate_time_to_danger
+from backend.weather import tonight_crash_risk
 
 FRONTEND_DIR = Path(__file__).resolve().parent.parent / "frontend"
 STATIONS = ("station1", "station2", "station3")
@@ -86,6 +88,17 @@ def time_to_danger(history: DOHistory) -> dict:
     series = pd.Series({r.time: r.dissolved_oxygen for r in history.readings}, dtype="float64")
     series.index = pd.to_datetime(series.index)
     return estimate_time_to_danger(series)
+
+
+@app.get("/api/weather/tonight")
+def weather_tonight() -> dict:
+    """
+    Tonight's oxygen crash risk (Low / Medium / High) for Mangaluru, from the
+    Open-Meteo forecast. With no internet it uses the last saved forecast and
+    says offline = true. A plain `def` (not async) so a slow download never
+    blocks the simulator stream.
+    """
+    return tonight_crash_risk()
 
 
 @app.get("/api/simulator/scenarios")

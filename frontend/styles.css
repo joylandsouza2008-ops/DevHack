@@ -24,6 +24,7 @@
   --text-secondary: #a9c6d3;
   --text-tertiary: #86a7b5;
   --muted: #5f7c89;
+  --footer-bg: #030b10;      /* darkest water: bottom toolbar */
 
   /* Status: unchanged. Text colours only ever sit on their own light background. */
   --safe: #1a7f37;      --safe-bg: #e6f4ea;    --safe-text: #0d4d20;
@@ -328,3 +329,35 @@ main {
    of view skip rendering until they come back (content-visibility). */
 .card, .reading, .status-banner, .countdown { contain: layout paint; }
 .chart-card, .readings { content-visibility: auto; contain-intrinsic-size: auto 420px; }
+
+/* ---- Bottom toolbar: tonight's weather (real forecast, not simulated) ----
+   Darkest-water footer colour (DESIGN.md footer-region). Stays at the bottom of
+   the screen on tablets and computers; on phones it sits at the end of the page
+   so it never covers the pond status. */
+.bottom-toolbar {
+  background: var(--footer-bg);
+  border-top: 1px solid var(--hairline);
+  padding: 0.75rem 1rem;
+}
+@media (min-width: 768px) {
+  .bottom-toolbar { position: sticky; bottom: 0; z-index: 5; }
+}
+.weather-tonight {
+  max-width: 1100px; margin: 0 auto;
+  display: flex; gap: 0.75rem; align-items: flex-start;
+}
+.weather-icon { flex: none; color: var(--primary); margin-top: 0.15rem; }
+.weather-icon svg { width: 28px; height: 28px; display: block; }
+.weather-body { display: flex; flex-direction: column; gap: 0.25rem; min-width: 0; }
+.weather-title { font-size: 1rem; font-weight: 600; line-height: 1.5; margin: 0; color: var(--text-secondary); }
+.weather-line { display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem 0.75rem; }
+.weather-message { font-size: 1.125rem; font-weight: 500; color: var(--text); }
+.weather-details { font-size: 1rem; color: var(--text-secondary); }
+.weather-details:empty { display: none; }
+.weather-offline {
+  align-self: flex-start;
+  padding: 0.125rem 0.75rem;
+  background: var(--secondary); color: var(--on-secondary);
+  border: 2px dashed var(--primary); border-radius: 9999px;
+  font-size: 1rem; font-weight: 600;
+}

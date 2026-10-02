@@ -19,6 +19,8 @@ The numbers live in [`config/thresholds.toml`](../config/thresholds.toml). Chang
 
 Edges: a value exactly on a Safe boundary (e.g. DO = 5.0, pH = 8.5, 32 °C) counts as **Safe**. 35 °C counts as **Danger**.
 
+Tonight's oxygen crash risk from the weather forecast has its own rules and sources: see [night_crash.md](night_crash.md).
+
 ## Decisions made
 
 | Decision | Choice | Why |

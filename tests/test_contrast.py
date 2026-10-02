@@ -59,6 +59,9 @@ PAIRS = [
     ("hairline-strong", "background", NON_TEXT, "status banner border before data"),
     ("primary", "background", NON_TEXT, "focus ring"),
     ("primary", "secondary", NON_TEXT, "dashed border of the simulated banner"),
+    ("text", "footer-bg", TEXT, "tonight's weather message in the bottom toolbar"),
+    ("text-secondary", "footer-bg", TEXT, "tonight's weather title and details"),
+    ("primary", "footer-bg", NON_TEXT, "moon icon in the bottom toolbar"),
     # Status colours (unchanged) against the new dark surfaces
     ("safe", "card", NON_TEXT, "Safe stripe on reading cards"),
     ("warning", "card", NON_TEXT, "Warning stripe on reading cards"),

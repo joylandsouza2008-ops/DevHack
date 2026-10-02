@@ -144,6 +144,25 @@
 
       <p class="sensor-errors" id="sensor-errors" hidden></p>
     </main>
+
+    <!-- Bottom toolbar. Tonight's weather is REAL (Open-Meteo forecast), not simulated.
+         With no internet it shows the last saved forecast and says "offline". -->
+    <footer class="bottom-toolbar" aria-label="Toolbar">
+      <section class="weather-tonight" id="weather-tonight" aria-labelledby="weather-title">
+        <span class="weather-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M14.5 3a7 7 0 1 0 6.5 9.6A5.5 5.5 0 0 1 14.5 3Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+        </span>
+        <div class="weather-body">
+          <h2 class="weather-title" id="weather-title"><span data-i18n="weatherTitle">Tonight's weather</span><span class="weather-place" id="weather-place"></span></h2>
+          <p class="weather-line">
+            <span class="badge weather-badge" id="weather-badge" hidden></span>
+            <span class="weather-message" id="weather-message" data-i18n="weatherLoading">Checking the forecast…</span>
+          </p>
+          <p class="weather-details" id="weather-details"></p>
+          <p class="weather-offline" id="weather-offline" hidden></p>
+        </div>
+      </section>
+    </footer>
   </div>
 
   <!-- All scripts are local files: the app works offline. -->
