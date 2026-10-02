@@ -2,74 +2,115 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>MeenuRaksha — Pond early warning</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0a1f29">
+  <title>MeenuRaksha: pond early warning</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%230b4f6c' d='M12 2s7 7.6 7 12.5A7 7 0 0 1 5 14.5C5 9.6 12 2 12 2Z'/%3E%3C/svg%3E">
   <link rel="stylesheet" href="/fonts/fonts.css">
   <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/welcome.css">
 </head>
-<body>
-  <header class="top-bar">
-    <div class="brand">
-      <span class="app-name" data-i18n="appName">MeenuRaksha</span>
-      <span class="tagline" data-i18n="tagline">Pond water early warning</span>
+<body class="has-welcome">
+
+  <!-- ============ Welcome screen (shown first, removed after Start) ============ -->
+  <section class="welcome" id="welcome" aria-labelledby="welcome-title">
+    <!-- Pond scene: decoration only, hidden from screen readers. Built by welcome.js. -->
+    <div class="pond" id="pond" aria-hidden="true">
+      <div class="pond-light"></div>
+      <div class="pond-caustics pond-caustics-a"></div>
+      <div class="pond-caustics pond-caustics-b"></div>
+      <div class="pond-fish" id="pond-fish"></div>
+      <div class="pond-ripples" id="pond-ripples"></div>
+      <div class="pond-scrim"></div>
     </div>
-    <div class="language-toggle" role="group" aria-label="Language / ಭಾಷೆ">
-      <button type="button" data-lang="kn" lang="kn">ಕನ್ನಡ</button>
-      <button type="button" data-lang="en" lang="en">English</button>
-    </div>
-  </header>
 
-  <main>
-    <!-- Always visible: everything on this page comes from the simulator. -->
-    <p class="simulated-banner" id="simulated-banner">
-      <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm1 15h-2v-6h2v6Zm0-8h-2V7h2v2Z"/></svg>
-      <span><strong id="simulated-label">Simulated data</strong> — <span data-i18n="simulatedNote">not a real pond. For demonstration only.</span></span>
-    </p>
-
-    <section class="controls" aria-label="Demo controls">
-      <label>
-        <span data-i18n="pond">Pond</span>
-        <select id="station">
-          <option value="station1" data-i18n="pond1">Pond 1</option>
-          <option value="station2" data-i18n="pond2">Pond 2</option>
-          <option value="station3" data-i18n="pond3">Pond 3</option>
-        </select>
-      </label>
-      <label>
-        <span data-i18n="scenario">Scenario</span>
-        <select id="scenario">
-          <option value="normal" data-i18n="scenarioNormal">Normal day</option>
-          <option value="oxygen_crash" data-i18n="scenarioCrash">Night oxygen crash</option>
-        </select>
-      </label>
-      <button type="button" class="button-primary" id="restart" data-i18n="restart">Restart</button>
-      <button type="button" class="button-secondary" id="pause" data-i18n="pause">Pause</button>
-    </section>
-
-    <p class="sim-clock"><span data-i18n="simTime">Simulated time</span>: <strong id="sim-time">—</strong></p>
-
-    <section id="status" class="status-banner status-unknown" role="status" aria-live="polite">
-      <span class="status-icon" id="status-icon" aria-hidden="true"></span>
-      <div>
-        <p class="status-level" id="status-level" data-i18n="connecting">Connecting…</p>
-        <p class="status-summary" id="status-summary"></p>
+    <div class="welcome-bar">
+      <div class="language-toggle language-toggle-on-dark" role="group" aria-label="Language / ಭಾಷೆ">
+        <button type="button" data-lang="kn" lang="kn">ಕನ್ನಡ</button>
+        <button type="button" data-lang="en" lang="en">English</button>
       </div>
-    </section>
+    </div>
 
-    <section class="card" aria-labelledby="ttd-title">
-      <h2 id="ttd-title" data-i18n="ttdTitle">Time until danger</h2>
-      <p id="ttd-message" class="ttd-message">—</p>
-    </section>
+    <div class="welcome-content" id="welcome-content">
+      <h1 class="welcome-title" id="welcome-title">
+        <span class="welcome-name" lang="en">MeenuRaksha</span>
+        <span class="welcome-name-kn" lang="kn">ಮೀನುರಕ್ಷಾ</span>
+      </h1>
+      <p class="welcome-tagline" data-i18n="welcomeTagline">Pond water warnings before your fish are in danger.</p>
+      <button type="button" class="welcome-start" id="welcome-start">
+        <span data-i18n="start">Start</span>
+        <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h12m-5-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </section>
 
-    <section aria-labelledby="readings-title">
-      <h2 id="readings-title" data-i18n="readingsTitle">Latest readings</h2>
-      <div class="readings" id="readings"></div>
-    </section>
+  <!-- ============ Dashboard (inert until Start is pressed) ============ -->
+  <div class="dashboard" id="dashboard" inert>
+    <header class="top-bar">
+      <div class="brand">
+        <span class="app-name" data-i18n="appName">MeenuRaksha</span>
+        <span class="tagline" data-i18n="tagline">Pond water early warning</span>
+      </div>
+      <div class="language-toggle" role="group" aria-label="Language / ಭಾಷೆ">
+        <button type="button" data-lang="kn" lang="kn">ಕನ್ನಡ</button>
+        <button type="button" data-lang="en" lang="en">English</button>
+      </div>
+    </header>
 
-    <p class="sensor-errors" id="sensor-errors" hidden></p>
-  </main>
+    <main>
+      <!-- Always visible: everything on this page comes from the simulator. -->
+      <p class="simulated-banner" id="simulated-banner">
+        <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm1 15h-2v-6h2v6Zm0-8h-2V7h2v2Z"/></svg>
+        <span><strong id="simulated-label">Simulated data</strong>. <span data-i18n="simulatedNote">Not a real pond. For demonstration only.</span></span>
+      </p>
 
+      <section class="controls" aria-label="Demo controls">
+        <label>
+          <span data-i18n="pond">Pond</span>
+          <select id="station">
+            <option value="station1" data-i18n="pond1">Pond 1</option>
+            <option value="station2" data-i18n="pond2">Pond 2</option>
+            <option value="station3" data-i18n="pond3">Pond 3</option>
+          </select>
+        </label>
+        <label>
+          <span data-i18n="scenario">Scenario</span>
+          <select id="scenario">
+            <option value="normal" data-i18n="scenarioNormal">Normal day</option>
+            <option value="oxygen_crash" data-i18n="scenarioCrash">Night oxygen crash</option>
+          </select>
+        </label>
+        <button type="button" class="button-primary" id="restart" data-i18n="restart">Restart</button>
+        <button type="button" class="button-secondary" id="pause" data-i18n="pause">Pause</button>
+      </section>
+
+      <p class="sim-clock"><span data-i18n="simTime">Simulated time</span>: <strong id="sim-time">-</strong></p>
+
+      <section id="status" class="status-banner status-unknown" role="status" aria-live="polite" tabindex="-1">
+        <span class="status-icon" id="status-icon" aria-hidden="true"></span>
+        <div>
+          <p class="status-level" id="status-level" data-i18n="connecting">Connecting…</p>
+          <p class="status-summary" id="status-summary"></p>
+        </div>
+      </section>
+
+      <section class="card" aria-labelledby="ttd-title">
+        <h2 id="ttd-title" data-i18n="ttdTitle">Time until danger</h2>
+        <p id="ttd-message" class="ttd-message">-</p>
+      </section>
+
+      <section aria-labelledby="readings-title">
+        <h2 id="readings-title" data-i18n="readingsTitle">Latest readings</h2>
+        <div class="readings" id="readings"></div>
+      </section>
+
+      <p class="sensor-errors" id="sensor-errors" hidden></p>
+    </main>
+  </div>
+
+  <!-- All scripts are local files: the app works offline. -->
+  <script src="/vendor/gsap/gsap.min.js"></script>
   <script src="/app.js"></script>
+  <script src="/welcome.js"></script>
 </body>
 </html>

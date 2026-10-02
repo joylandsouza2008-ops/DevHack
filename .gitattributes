@@ -1,0 +1,2 @@
+# Keep third-party files byte-identical to the published versions (no line-ending changes)
+frontend/vendor/** -text

@@ -29,7 +29,8 @@ Built for DevHack 2026, problem statement 1.1.
 | `docs/do_forecast.md` | DO forecast method, results and chart (for the presentation) |
 | `docs/time_to_danger.md` | "Time until danger" method and results on real + simulated data |
 | `docs/screenshots/` | App screenshots (simulated demo) |
-| `frontend/` | The web page (`index.html`, `styles.css`, `app.js`) |
+| `frontend/` | The web page: `index.html`, dashboard (`styles.css`, `app.js`), welcome screen (`welcome.css`, `welcome.js`) |
+| `frontend/vendor/gsap/` | GSAP 3.15.0 animation library, bundled locally (works offline) |
 | `frontend/fonts/` | Noto Sans + Noto Sans Kannada, bundled so the app works offline |
 | `.claude/skills/` | Shared Claude Code skills for the team |
 | `data/` | Datasets. **Not in git**: download them yourself (steps below) |

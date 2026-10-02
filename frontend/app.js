@@ -9,7 +9,9 @@ const TEXT = {
   en: {
     appName: "MeenuRaksha",
     tagline: "Pond water early warning",
-    simulatedNote: "not a real pond. For demonstration only.",
+    welcomeTagline: "Pond water warnings before your fish are in danger.",
+    start: "Start",
+    simulatedNote: "Not a real pond. For demonstration only.",
     pond: "Pond", pond1: "Pond 1", pond2: "Pond 2", pond3: "Pond 3",
     scenario: "Scenario", scenarioNormal: "Normal day", scenarioCrash: "Night oxygen crash",
     restart: "Restart", pause: "Pause", resume: "Resume",
@@ -24,6 +26,8 @@ const TEXT = {
   kn: {
     appName: "ಮೀನುರಕ್ಷಾ",
     tagline: "ಕೊಳದ ನೀರಿನ ಮುನ್ನೆಚ್ಚರಿಕೆ",
+    welcomeTagline: "ಮೀನುಗಳಿಗೆ ಅಪಾಯ ಬರುವ ಮೊದಲೇ ಕೊಳದ ನೀರಿನ ಎಚ್ಚರಿಕೆ.",
+    start: "ಪ್ರಾರಂಭಿಸಿ",
     simulatedNote: "ನಿಜವಾದ ಕೊಳವಲ್ಲ. ಪ್ರದರ್ಶನಕ್ಕಾಗಿ ಮಾತ್ರ.",
     pond: "ಕೊಳ", pond1: "ಕೊಳ 1", pond2: "ಕೊಳ 2", pond3: "ಕೊಳ 3",
     scenario: "ಸನ್ನಿವೇಶ", scenarioNormal: "ಸಾಮಾನ್ಯ ದಿನ", scenarioCrash: "ರಾತ್ರಿ ಆಮ್ಲಜನಕ ಕುಸಿತ",
@@ -82,7 +86,7 @@ function setLanguage(lang) {
 // ---------------------------------------------------------------- rendering
 
 function formatValue(parameter, value) {
-  if (value === null || value === undefined) return "—";
+  if (value === null || value === undefined) return "-";
   if (parameter === "ammonia") return value.toFixed(3);
   if (parameter === "ph") return value.toFixed(2);
   return value.toFixed(1);
@@ -208,4 +212,8 @@ $("pause").addEventListener("click", () => {
 });
 
 setLanguage(loadLanguage());
-start();
+
+// The welcome screen (welcome.js) calls start() when the farmer presses Start.
+// Without a welcome screen, start straight away.
+window.MeenuRaksha = { start, setLanguage };
+if (!document.getElementById("welcome")) start();

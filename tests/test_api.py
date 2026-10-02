@@ -64,6 +64,25 @@ def test_page_is_served_with_simulated_label_and_local_fonts():
     assert client.get("/app.js").status_code == 200
 
 
+def test_welcome_screen_and_gsap_are_local_files():
+    html = client.get("/").text
+    assert 'id="welcome"' in html and 'id="welcome-start"' in html
+    # Every script and stylesheet is a local path: nothing loads from the internet.
+    import re
+    for url in re.findall(r'(?:src|href)="([^"]+)"', html):
+        assert url.startswith(("/", "data:")), f"external resource: {url}"
+    gsap = client.get("/vendor/gsap/gsap.min.js")
+    assert gsap.status_code == 200 and "GSAP 3.15.0" in gsap.text
+    for path in ("/welcome.js", "/welcome.css"):
+        assert client.get(path).status_code == 200
+
+
+def test_page_has_no_em_dashes():
+    # design-taste-frontend rule: no em/en dashes in visible text.
+    for path in ("/", "/app.js", "/welcome.js"):
+        assert "—" not in client.get(path).text and "–" not in client.get(path).text, path
+
+
 def read_events(response):
     events = []
     for block in response.text.strip().split("\n\n"):
