@@ -101,12 +101,37 @@
         </div>
       </section>
 
+      <!-- Voice alert: reads the status aloud ONLY when the farmer taps it (voice.js). -->
+      <div class="voice-row">
+        <button type="button" class="button-secondary voice-button" id="voice-button" aria-describedby="voice-note">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4Z" fill="currentColor"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <span id="voice-button-text" data-i18n="voiceListen">Listen to alert</span>
+        </button>
+        <p class="voice-note" id="voice-note" role="status" hidden></p>
+      </div>
+
       <!-- Action checklist: only in Warning and Danger. Built by checklist() in app.js. -->
       <section class="card actions-card" id="actions-card" aria-labelledby="actions-title" hidden>
         <h2 id="actions-title" data-i18n="actionsTitle">What to do now</h2>
         <p class="actions-progress" id="actions-progress" aria-live="polite"></p>
         <ol class="action-list" id="action-list"></ol>
         <p class="actions-source" data-i18n="actionsSource">Based on FAO, TNAU and university extension guides. No chemicals.</p>
+      </section>
+
+      <!-- Pond health score 0-100. Always inside the status's range (backend/health_score.py). -->
+      <section class="card health-card in-view" aria-labelledby="health-title">
+        <div class="health-head">
+          <h2 id="health-title" class="text-effect" data-i18n="healthTitle">Pond health score</h2>
+          <span class="sim-tag" data-i18n="simulatedTag">Simulated data</span>
+        </div>
+        <div class="health-body">
+          <div class="health-ring" id="health-ring" role="img" aria-labelledby="health-text"></div>
+          <div class="health-info">
+            <span class="badge" id="health-badge" hidden></span>
+            <p class="health-text" id="health-text"></p>
+            <p class="health-scale" data-i18n="healthScale">Safe 75‑100 · Warning 40‑74 · Danger 0‑39</p>
+          </div>
+        </div>
       </section>
 
       <div class="overview">
@@ -228,6 +253,17 @@
           </div>
         </div>
       </section>
+
+      <!-- Alert history: saved in this browser (history.js), survives a refresh. -->
+      <section class="card history-card in-view" aria-labelledby="history-title">
+        <div class="history-head">
+          <h2 id="history-title" class="text-effect" data-i18n="historyTitle">Alert history</h2>
+          <button type="button" class="button-ghost" id="history-clear" data-i18n="historyClear" hidden>Clear history</button>
+        </div>
+        <p class="history-help" data-i18n="historyHelp">Past warnings, newest first. Saved on this phone only.</p>
+        <ol class="history-list" id="history-list"></ol>
+        <p class="history-empty" id="history-empty" data-i18n="historyEmpty">No warnings yet.</p>
+      </section>
     </main>
 
     <!-- Bottom toolbar. Tonight's weather is REAL (Open-Meteo forecast), not simulated.
@@ -257,6 +293,9 @@
   <script src="/pond-view.js"></script>
   <script src="/gauge.js"></script>
   <script src="/do-chart.js"></script>
+  <script src="/health-ring.js"></script>
+  <script src="/history.js"></script>
+  <script src="/voice.js"></script>
   <script src="/app.js"></script>
   <script src="/welcome.js"></script>
 </body>

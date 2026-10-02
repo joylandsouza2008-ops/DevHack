@@ -57,6 +57,28 @@ const TEXT = {
     kitEmpty: "Enter at least one reading.",
     kitBadNumber: "Use numbers only, like 6.5.",
     kitFailed: "Could not check the readings. Please try again.",
+    simulatedTag: "Simulated data",
+    healthTitle: "Pond health score",
+    healthScale: "Safe 75‑100 · Warning 40‑74 · Danger 0‑39",
+    healthText: {
+      safe: (s) => `${s} out of 100. All readings are in the safe range.`,
+      warning: (s) => `${s} out of 100. The water needs attention.`,
+      danger: (s) => `${s} out of 100. The water is dangerous for fish.`,
+      unknown: () => "Waiting for readings.",
+    },
+    voiceListen: "Listen to alert", voiceStop: "Stop",
+    voiceNoKannada: "Sorry, this phone has no Kannada voice, so the alert cannot be read aloud in Kannada. Please read the alert on the screen, or switch to English to hear it.",
+    voiceNoEnglish: "Sorry, this phone has no English voice. Please read the alert on the screen.",
+    voiceUnsupported: "Sorry, this browser cannot read aloud. Please read the alert on the screen.",
+    historyTitle: "Alert history",
+    historyHelp: "Past warnings, newest first. Saved on this phone only.",
+    historyEmpty: "No warnings yet.",
+    historyClear: "Clear history",
+    historyClearConfirm: "Delete all saved alerts from this phone?",
+    historyKit: "Test kit",
+    historySimTime: "Simulated time",
+    historyActionTaken: "Action taken:",
+    historyNoAction: "No action ticked yet.",
   },
   kn: {
     appName: "ಮೀನುರಕ್ಷಾ",
@@ -106,6 +128,28 @@ const TEXT = {
     kitEmpty: "ಕನಿಷ್ಠ ಒಂದು ಅಳತೆ ನಮೂದಿಸಿ.",
     kitBadNumber: "ಸಂಖ್ಯೆಗಳನ್ನು ಮಾತ್ರ ಬರೆಯಿರಿ, ಉದಾ: 6.5.",
     kitFailed: "ಅಳತೆ ಪರಿಶೀಲಿಸಲು ಆಗಲಿಲ್ಲ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.",
+    simulatedTag: "ಅನುಕರಿಸಿದ (ಸಿಮ್ಯುಲೇಟೆಡ್) ಡೇಟಾ",
+    healthTitle: "ಕೊಳದ ಆರೋಗ್ಯ ಅಂಕ",
+    healthScale: "ಸುರಕ್ಷಿತ 75‑100 · ಎಚ್ಚರಿಕೆ 40‑74 · ಅಪಾಯ 0‑39",
+    healthText: {
+      safe: (s) => `100 ರಲ್ಲಿ ${s}. ಎಲ್ಲಾ ಅಳತೆಗಳು ಸುರಕ್ಷಿತ ಮಟ್ಟದಲ್ಲಿವೆ.`,
+      warning: (s) => `100 ರಲ್ಲಿ ${s}. ನೀರಿನ ಕಡೆ ಗಮನ ಕೊಡಿ.`,
+      danger: (s) => `100 ರಲ್ಲಿ ${s}. ನೀರು ಮೀನುಗಳಿಗೆ ಅಪಾಯಕಾರಿಯಾಗಿದೆ.`,
+      unknown: () => "ಅಳತೆಗಳಿಗಾಗಿ ಕಾಯಲಾಗುತ್ತಿದೆ.",
+    },
+    voiceListen: "ಎಚ್ಚರಿಕೆ ಕೇಳಿ", voiceStop: "ನಿಲ್ಲಿಸಿ",
+    voiceNoKannada: "ಕ್ಷಮಿಸಿ, ಈ ಫೋನ್‌ನಲ್ಲಿ ಕನ್ನಡ ಧ್ವನಿ ಇಲ್ಲ, ಆದ್ದರಿಂದ ಎಚ್ಚರಿಕೆಯನ್ನು ಕನ್ನಡದಲ್ಲಿ ಓದಿ ಹೇಳಲು ಆಗುವುದಿಲ್ಲ. ದಯವಿಟ್ಟು ಪರದೆಯ ಮೇಲಿನ ಎಚ್ಚರಿಕೆಯನ್ನು ಓದಿ, ಅಥವಾ ಕೇಳಲು English ಆಯ್ಕೆಮಾಡಿ.",
+    voiceNoEnglish: "ಕ್ಷಮಿಸಿ, ಈ ಫೋನ್‌ನಲ್ಲಿ ಇಂಗ್ಲಿಷ್ ಧ್ವನಿ ಇಲ್ಲ. ದಯವಿಟ್ಟು ಪರದೆಯ ಮೇಲಿನ ಎಚ್ಚರಿಕೆಯನ್ನು ಓದಿ.",
+    voiceUnsupported: "ಕ್ಷಮಿಸಿ, ಈ ಬ್ರೌಸರ್ ಓದಿ ಹೇಳಲು ಆಗುವುದಿಲ್ಲ. ದಯವಿಟ್ಟು ಪರದೆಯ ಮೇಲಿನ ಎಚ್ಚರಿಕೆಯನ್ನು ಓದಿ.",
+    historyTitle: "ಎಚ್ಚರಿಕೆಗಳ ಇತಿಹಾಸ",
+    historyHelp: "ಹಿಂದಿನ ಎಚ್ಚರಿಕೆಗಳು, ಹೊಸದು ಮೊದಲು. ಈ ಫೋನ್‌ನಲ್ಲಿ ಮಾತ್ರ ಉಳಿಸಲಾಗಿದೆ.",
+    historyEmpty: "ಇನ್ನೂ ಯಾವುದೇ ಎಚ್ಚರಿಕೆ ಇಲ್ಲ.",
+    historyClear: "ಇತಿಹಾಸ ಅಳಿಸಿ",
+    historyClearConfirm: "ಈ ಫೋನ್‌ನಲ್ಲಿ ಉಳಿಸಿದ ಎಲ್ಲಾ ಎಚ್ಚರಿಕೆಗಳನ್ನು ಅಳಿಸಬೇಕೆ?",
+    historyKit: "ಟೆಸ್ಟ್ ಕಿಟ್",
+    historySimTime: "ಅನುಕರಿಸಿದ ಸಮಯ",
+    historyActionTaken: "ತೆಗೆದುಕೊಂಡ ಕ್ರಮ:",
+    historyNoAction: "ಇನ್ನೂ ಯಾವುದೇ ಕ್ರಮವನ್ನು ಗುರುತಿಸಿಲ್ಲ.",
   },
 };
 
@@ -138,10 +182,13 @@ const state = {
   station: "station1", level: null, chartTime: null, effectsReady: false,
   weather: null,
   manual: null, alertChannel: "sms", alertSource: "simulated",
+  history: [], historyKey: {}, voiceNote: null,
 };
 
 const $ = (id) => document.getElementById(id);
 const M = window.Motion;
+const H = window.AlertHistory;
+const V = window.VoiceAlert;
 
 // ---------------------------------------------------------------- language
 
@@ -154,6 +201,7 @@ function levelWords(lang) {
 }
 
 function setLanguage(lang) {
+  if (state.lang !== lang) { V.stop(); state.voiceNote = null; }   // don't keep talking in the old language
   state.lang = lang;
   try { localStorage.setItem("meenuraksha-lang", lang); } catch { /* storage blocked: ignore */ }
   document.documentElement.lang = lang;
@@ -175,6 +223,9 @@ function setLanguage(lang) {
   renderWeather();
   renderManual();
   renderAlert();
+  if (!state.last) renderHealth(null, "unknown", lang);
+  renderHistory();
+  renderVoice();
 }
 
 // ---------------------------------------------------------------- helpers
@@ -310,6 +361,8 @@ function render(data) {
 
   renderStatus(risk, lang);
   renderPondAndGauge(risk.level, lang);
+  renderHealth(risk.health_score, risk.level, lang);
+  recordHistory(data);
 
   const ttd = data.time_to_danger;
   renderCountdown(ttd, risk.level, lang);
@@ -328,6 +381,7 @@ function render(data) {
   box.hidden = !risk.actions || risk.actions.length === 0;
   if (!box.hidden) renderChecklist($("action-list"), $("actions-progress"), risk, data.source, lang);
   renderAlert();
+  $("voice-button").disabled = false;
 }
 
 // ---------------------------------------------------------------- action checklist (Warning and Danger)
@@ -367,6 +421,9 @@ function renderChecklist(list, progress, risk, source, lang) {
       if (box.checked) ticks.add(action.id); else ticks.delete(action.id);
       saveTicks(key, ticks);
       update();
+      state.history = H.markDone(state.history, key, ticks);   // ticks = "action taken" in the history
+      H.save(state.history);
+      renderHistory();
     });
     return item;
   }));
@@ -441,6 +498,8 @@ async function submitKit(event) {
     return;
   }
   $("alert-source-picker").querySelector('[data-source="manual"]').disabled = false;
+  state.historyKey.manual = null;               // every test-kit check is its own event
+  recordHistory(state.manual);
   renderManual();
   renderAlert();
   $("kit-status").focus();
@@ -473,6 +532,129 @@ function showMessage(key) {
   $("status-icon").innerHTML = "";
   $("status-level").textContent = TEXT[state.lang][key];
   $("status-summary").textContent = "";
+}
+
+// ---------------------------------------------------------------- pond health score (0-100 ring)
+// The score comes from the server (backend/health_score.py) and always sits
+// inside its status's range, so it can never disagree with the banner.
+
+function renderHealth(score, level, lang) {
+  if (!state.effectsReady) return;
+  const shown = score == null ? "unknown" : level;
+  window.HealthRing.set(score, shown);
+  const badge = $("health-badge");
+  badge.hidden = shown === "unknown";
+  if (!badge.hidden) setBadge(badge, shown, lang, `badge badge-${shown}`);
+  $("health-text").textContent = TEXT[lang].healthText[shown](score);
+}
+
+// ---------------------------------------------------------------- alert history (saved in this browser)
+// One entry each time a Warning or Danger alert starts (a new level or cause),
+// for the simulated pond and for test-kit checks. Ticked actions are stored
+// as "action taken".
+
+function recordHistory(data) {
+  const risk = data.risk;
+  if (risk.level !== "warning" && risk.level !== "danger") {
+    state.historyKey[data.source] = null;        // back to Safe: the next warning is a new event
+    return;
+  }
+  const key = checklistKey(risk, data.source);
+  const eventKey = `${data.station || ""}|${key}`;
+  if (state.historyKey[data.source] === eventKey) return;
+  state.historyKey[data.source] = eventKey;
+  const entry = { ...H.entryFrom(data, key), done: [...loadTicks(key)] };
+  state.history = H.addEntry(state.history, entry);
+  H.save(state.history);
+  renderHistory();
+}
+
+function make(tag, className, text) {
+  const node = document.createElement(tag);
+  if (className) node.className = className;
+  if (text !== undefined) node.textContent = text;
+  return node;
+}
+
+function historyItem(entry, lang) {
+  const t = TEXT[lang];
+  const simulated = entry.source === "simulated";
+  const item = make("li", `history-item level-${entry.level}`);
+  const meta = make("div", "history-meta");
+  const badge = make("span", `badge badge-${entry.level}`);
+  badge.innerHTML = badgeHTML(entry.level, lang);
+  meta.append(badge, make("span", "history-time",
+    simulated ? `${t.historySimTime}: ${formatTime(entry.time)}` : formatTime(entry.time)));
+  if (entry.station) meta.append(make("span", "history-where", t[entry.station.replace("station", "pond")] || entry.station));
+  meta.append(simulated ? make("span", "sim-tag", t.simulatedTag) : make("span", "badge badge-info", t.historyKit));
+
+  const actions = make("div", "history-actions");
+  actions.append(make("strong", "", `${t.historyActionTaken} `));
+  const done = entry.actions.filter((a) => entry.done.includes(a.id));
+  if (done.length) {
+    const list = make("ul");
+    list.append(...done.map((a) => make("li", "", a[lang])));
+    actions.append(list);
+  } else {
+    actions.append(t.historyNoAction);
+  }
+  item.append(meta, make("p", "history-cause", entry.summary[lang]), actions);
+  return item;
+}
+
+function renderHistory() {
+  $("history-list").replaceChildren(...state.history.map((e) => historyItem(e, state.lang)));
+  $("history-empty").hidden = state.history.length > 0;
+  $("history-clear").hidden = state.history.length === 0;
+}
+
+function clearHistory() {
+  if (!window.confirm(TEXT[state.lang].historyClearConfirm)) return;
+  state.history = [];
+  state.historyKey = {};
+  H.save(state.history);
+  renderHistory();
+}
+
+// ---------------------------------------------------------------- voice alert (plays only when tapped)
+
+// What is read aloud: "Simulated data. Pond 1. Danger. <reason>. <time until danger>."
+function alertSpeech(data, lang) {
+  const risk = data.risk;
+  const parts = [data.label[lang], TEXT[lang][data.station.replace("station", "pond")],
+    risk.level_name[lang], risk.summary[lang]];
+  const ttd = data.time_to_danger;
+  if (ttd && (ttd.status === "danger_expected" || ttd.status === "already_danger")) parts.push(ttd.message[lang]);
+  return parts.filter(Boolean).map((p) => p.trim().replace(/[.।]$/, "")).join(". ") + ".";
+}
+
+function setVoiceButton(on) {
+  $("voice-button").setAttribute("aria-pressed", String(on));
+  $("voice-button-text").textContent = TEXT[state.lang][on ? "voiceStop" : "voiceListen"];
+}
+
+function renderVoice() {
+  setVoiceButton($("voice-button").getAttribute("aria-pressed") === "true" && V.speaking());
+  $("voice-button").disabled = !state.last;
+  const note = $("voice-note");
+  note.hidden = !state.voiceNote;
+  note.textContent = state.voiceNote ? TEXT[state.lang][state.voiceNote] : "";
+}
+
+async function toggleVoice() {
+  if ($("voice-button").getAttribute("aria-pressed") === "true") {
+    V.stop();
+    setVoiceButton(false);
+    return;
+  }
+  if (!state.last) return;
+  const lang = state.lang;
+  const result = await V.speak(alertSpeech(state.last, lang), lang, () => setVoiceButton(false));
+  // Never fall back to another language: say politely why nothing plays.
+  state.voiceNote = result === "unsupported" ? "voiceUnsupported"
+    : result === "no-voice" ? (lang === "kn" ? "voiceNoKannada" : "voiceNoEnglish") : null;
+  setVoiceButton(result === "started");
+  renderVoice();
 }
 
 // ---------------------------------------------------------------- tonight's weather (bottom toolbar)
@@ -554,6 +736,7 @@ function initEffects() {
   window.RiskGauge.setWords(levelWords(state.lang));
   window.DOChart.init($("do-chart"));
   window.DOChart.setWords(levelWords(state.lang));
+  window.HealthRing.init($("health-ring"));
   moveHighlight(true);
   M.borderTrail($("pond-highlight"));           // Border Trail on the active pond card
   window.addEventListener("resize", () => moveHighlight(true));
@@ -563,6 +746,7 @@ function initEffects() {
     if (heading) M.textEffect(heading);
   });
   renderPondAndGauge("unknown", state.lang);
+  renderHealth(null, "unknown", state.lang);
   loadWeather();
   setInterval(loadWeather, 30 * 60 * 1000);     // the server re-downloads at most every 30 minutes
 }
@@ -597,9 +781,15 @@ function start() {
   state.chartTime = null;
   state.firstTime = null;
   state.shown = 0;
+  state.historyKey.simulated = null;
+  V.stop();
+  state.voiceNote = null;
   window.DOChart.reset();
   $("pause").textContent = TEXT[state.lang].pause;
   showMessage("connecting");
+  renderHealth(null, "unknown", state.lang);
+  setVoiceButton(false);
+  renderVoice();
   connect(null);
 }
 
@@ -646,6 +836,10 @@ document.querySelectorAll("#alert-source-picker button").forEach((b) => {
     renderAlert();
   });
 });
+
+$("history-clear").addEventListener("click", clearHistory);
+$("voice-button").addEventListener("click", toggleVoice);
+state.history = H.load();
 
 setLanguage(loadLanguage());
 

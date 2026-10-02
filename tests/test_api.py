@@ -79,7 +79,8 @@ def test_welcome_screen_and_gsap_are_local_files():
 
 def test_animated_dashboard_files_are_local():
     html = client.get("/").text
-    for path in ("/vendor/chartjs/chart.umd.min.js", "/motion.js", "/pond-view.js", "/gauge.js", "/do-chart.js"):
+    for path in ("/vendor/chartjs/chart.umd.min.js", "/motion.js", "/pond-view.js", "/gauge.js", "/do-chart.js",
+                 "/health-ring.js", "/history.js", "/voice.js"):
         assert f'src="{path}"' in html, path
         assert client.get(path).status_code == 200, path
     assert "Chart.js v4.5.1" in client.get("/vendor/chartjs/chart.umd.min.js").text
@@ -107,7 +108,8 @@ def test_text_effect_never_splits_kannada_letters():
 
 def test_page_has_no_em_dashes():
     # design-taste-frontend rule: no em/en dashes in visible text.
-    for path in ("/", "/app.js", "/welcome.js", "/motion.js", "/pond-view.js", "/gauge.js", "/do-chart.js"):
+    for path in ("/", "/app.js", "/welcome.js", "/motion.js", "/pond-view.js", "/gauge.js", "/do-chart.js",
+                 "/health-ring.js", "/history.js", "/voice.js"):
         assert "—" not in client.get(path).text and "–" not in client.get(path).text, path
 
 

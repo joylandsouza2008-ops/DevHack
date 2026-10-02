@@ -8,7 +8,7 @@ then open http://127.0.0.1:8000 (the page) or http://127.0.0.1:8000/docs
 
 Endpoints:
     GET  /api/health                 is the server running?
-    POST /api/risk                   current risk + reasons + action checklist for one set of readings
+    POST /api/risk                   current risk + reasons + action checklist + health score for one set of readings
     POST /api/manual                 the same for readings typed in from a test kit (marked "manual")
     POST /api/time-to-danger         "time until danger" from recent DO readings
     GET  /api/simulator/scenarios    available demo scenarios and ponds
@@ -37,6 +37,7 @@ from pydantic import BaseModel, Field
 from backend.actions import checklist
 from backend.alerts import POND_NAMES, compose_alert
 from backend.do_features import STEP_MINUTES
+from backend.health_score import health_score
 from backend.risk_classifier import classify
 from backend.simulator import SCENARIOS, SIMULATED, SIMULATED_LABEL, simulate_readings
 from backend.time_to_danger import estimate_time_to_danger
@@ -88,9 +89,10 @@ class DOHistory(BaseModel):
 # ----------------------------------------------------------------- API
 
 def assess(reading: dict, source: str = "sensor") -> dict:
-    """Risk result plus the action checklist (empty when Safe)."""
+    """Risk result plus the action checklist (empty when Safe) and the 0–100 health score."""
     risk = classify(reading, source=source).to_dict()
     risk["actions"] = checklist(risk)
+    risk["health_score"] = health_score(risk)
     return risk
 
 

@@ -144,3 +144,13 @@ def test_broken_saved_file_is_ignored(tmp_path):
 def test_endpoint(monkeypatch):
     monkeypatch.setattr(backend.main, "tonight_crash_risk", lambda: {"status": "ok", "level": "low"})
     assert TestClient(backend.main.app).get("/api/weather/tonight").json() == {"status": "ok", "level": "low"}
+
+
+def test_endpoint_without_internet_answers_quickly_and_offline():
+    # tests/conftest.py blocks the real internet, so this is what a farmer
+    # with no signal sees: no crash, no long wait, "offline".
+    import time
+    started = time.monotonic()
+    r = TestClient(backend.main.app).get("/api/weather/tonight").json()
+    assert time.monotonic() - started < 2
+    assert r["offline"] is True and r["status"] == "unavailable"

@@ -19,17 +19,20 @@ Built for DevHack 2026, problem statement 1.1.
 | `backend/do_forecast.py` | Loads the saved model, forecasts DO 1/3/6 h ahead (experiment only, not shown in the app) |
 | `backend/time_to_danger.py` | "Time until danger": if DO is falling, when it may reach 3 mg/L (English + Kannada) |
 | `backend/simulator.py` | **Simulated** demo readings (normal day / night oxygen crash). Demo only, never for accuracy |
+| `backend/health_score.py` | Pond health score 0–100, always inside its status's range (Safe 75–100, Warning 40–74, Danger 0–39) |
 | `backend/main.py` | FastAPI web server: API endpoints + serves the page |
 | `ml/train_do_forecast.py` | Trains and evaluates the DO forecast (`python -m ml.train_do_forecast`) |
 | `ml/experiment_3h_average.py` | Experiment: forecasting the 3-hour average DO (not adopted, see docs) |
 | `ml/evaluate_time_to_danger.py` | Checks "time until danger" on real Pondsdata (`python -m ml.evaluate_time_to_danger`) |
 | `models/` | Saved DO forecast model and its test scores |
-| `tests/` | Automated tests (`python -m pytest`) |
+| `tests/` | Automated tests (`python -m pytest`; browser-side logic: `node --test tests/js`). `tests/conftest.py` blocks the real internet and stops any test that runs over 60 s |
 | `docs/thresholds.md` | Threshold table, decisions and sources (for the presentation) |
 | `docs/do_forecast.md` | DO forecast method, results and chart (for the presentation) |
+| `docs/health_score.md` | How the 0–100 health score is worked out, with examples |
 | `docs/time_to_danger.md` | "Time until danger" method and results on real + simulated data |
 | `docs/screenshots/` | App screenshots (simulated demo) |
 | `frontend/` | The web page: `index.html`, dashboard (`styles.css`, `app.js`), welcome screen (`welcome.css`, `welcome.js`) |
+| `frontend/health-ring.js`, `history.js`, `voice.js` | Health score ring, alert history (saved in the browser), voice alerts (phone's own voices, only when tapped) |
 | `frontend/vendor/gsap/` | GSAP 3.15.0 animation library, bundled locally (works offline) |
 | `frontend/assets/` | Dashboard background waves: original artwork + brand-blue copies (`*-brand.svg`) used by the app |
 | `tools/recolor_backgrounds.py` | Regenerates the brand-blue wave copies after the artwork is edited |
@@ -55,6 +58,7 @@ pip install -r requirements.txt
 
 # Run the tests
 python -m pytest
+node --test tests/js          # browser-side logic (needs Node.js)
 
 # Start the app, then open http://127.0.0.1:8000  (API docs: http://127.0.0.1:8000/docs)
 uvicorn backend.main:app --reload
