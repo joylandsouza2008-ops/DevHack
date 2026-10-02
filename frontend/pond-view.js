@@ -5,6 +5,8 @@
 // The water tones are murky blues and greys, never the Safe/Warning/Danger
 // colours; the caption under the scene always shows the status icon + word.
 // Reduce motion: the same scene, still. Off screen: animation pauses.
+// Above the water is a thin strip of sky that follows the simulated time of
+// day (scene.js calls setSky), with the moon at night.
 
 (function () {
   "use strict";
@@ -29,7 +31,7 @@
 
   const MAX_BUBBLES = 12;           // never more bubbles than this on screen
 
-  let root, stopTop, stopBottom, bubbleLayer, fishes = [], level = null;
+  let root, stopTop, stopBottom, skyTop, skyBottom, moon, bubbleLayer, fishes = [], level = null;
   let visible = true, tweens = [], bubbleTimer = null;
 
   const el = (name, attrs) => {
@@ -58,8 +60,14 @@
     stopTop = el("stop", { offset: "0", "stop-color": WATER.unknown.top });
     stopBottom = el("stop", { offset: "1", "stop-color": WATER.unknown.bottom });
     grad.append(stopTop, stopBottom);
-    defs.append(grad);
-    svg.append(defs, el("rect", { width: W, height: H, fill: "url(#pv-water)" }));
+    const sky = el("linearGradient", { id: "pv-sky", x1: 0, y1: 0, x2: 0, y2: 1 });
+    skyTop = el("stop", { offset: "0", "stop-color": "#0a1a3d" });
+    skyBottom = el("stop", { offset: "1", "stop-color": "#16306a" });
+    sky.append(skyTop, skyBottom);
+    defs.append(grad, sky);
+    moon = el("path", { d: "M283 5 A6 6 0 1 0 287 14 A4.8 4.8 0 1 1 283 5 Z", class: "pv-moon", opacity: 0 });
+    svg.append(defs, el("rect", { width: W, height: H, fill: "url(#pv-water)" }),
+      el("rect", { width: W, height: SURFACE, fill: "url(#pv-sky)" }), moon);
 
     // Surface: a gentle wave line that slides sideways (drawn twice as wide).
     const surface = el("g", { class: "pv-surface" });
@@ -228,5 +236,20 @@
     }
   }
 
-  window.PondView = { init, setLevel };
+  // Sky colours from scene.js. overwrite: the newest sky always replaces the last change.
+  function setSky(top, horizon, night, instant) {
+    if (!root) return;
+    if (instant || reduce()) {
+      skyTop.setAttribute("stop-color", top);
+      skyBottom.setAttribute("stop-color", horizon);
+      moon.setAttribute("opacity", night.toFixed(2));
+      return;
+    }
+    const vars = { duration: 1.1, ease: "sine.inOut", overwrite: true };
+    gsap.to(skyTop, { attr: { "stop-color": top }, ...vars });
+    gsap.to(skyBottom, { attr: { "stop-color": horizon }, ...vars });
+    gsap.to(moon, { attr: { opacity: night }, ...vars });
+  }
+
+  window.PondView = { init, setLevel, setSky };
 })();

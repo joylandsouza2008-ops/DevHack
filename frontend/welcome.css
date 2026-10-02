@@ -68,6 +68,7 @@ body.has-welcome { overflow: hidden; }
 
 /* Fish: dark silhouettes seen from above, swimming under the surface. */
 .pond-fish { position: absolute; inset: 0; }
+.fish-flee { position: absolute; top: 0; left: 0; will-change: transform; }   /* pushed away from the cursor */
 .fish {
   position: absolute;
   top: 0;
@@ -167,11 +168,11 @@ body.has-welcome { overflow: hidden; }
   white-space: nowrap;
   cursor: pointer;
   box-shadow: 0 12px 32px -8px rgba(3, 10, 14, 0.6);
-  transition: transform 150ms ease, background-color 150ms ease;
+  transition: background-color 150ms ease, scale 150ms ease;   /* transform is left to the magnet (cursor-fx.js) */
 }
 .welcome-start svg { width: 26px; height: 26px; flex: none; }
 .welcome-start:hover { background: var(--primary-pressed); }
-.welcome-start:active { transform: scale(0.98); }
+.welcome-start:active { scale: 0.98; }
 .welcome-start:focus-visible { outline: 3px solid var(--text); outline-offset: 4px; }
 
 @media (max-width: 480px) {
@@ -181,5 +182,5 @@ body.has-welcome { overflow: hidden; }
 /* Reduce motion: the scene stays still (welcome.js also skips all animation). */
 @media (prefers-reduced-motion: reduce) {
   .welcome-start { transition: none; }
-  .ripple { display: none; }
+  .ripple, .fx-ripple { display: none; }
 }

@@ -47,6 +47,7 @@
   <!-- Dashboard background waves (decoration). Outside .dashboard on purpose: the
        Start transition leaves a transform on .dashboard, which would stop
        position: fixed from staying put while the page scrolls. -->
+  <div class="page-glow" aria-hidden="true"></div>
   <div class="page-bg" aria-hidden="true"></div>
 
   <!-- ============ Dashboard (inert until Start is pressed) ============ -->
@@ -91,7 +92,14 @@
         <button type="button" class="button-secondary" id="pause" data-i18n="pause">Pause</button>
       </section>
 
-      <p class="sim-clock"><span data-i18n="simTime">Simulated time</span>: <strong id="sim-time">-</strong></p>
+      <!-- Day/night pond scene (scene.js). The sky follows the SIMULATED time of day. -->
+      <section class="scene" id="scene" aria-labelledby="scene-clock">
+        <div class="scene-art" id="scene-art" aria-hidden="true"></div>
+        <div class="scene-chip">
+          <p class="sim-clock" id="scene-clock"><span data-i18n="simTime">Simulated time</span>: <strong id="sim-time">-</strong> <span class="scene-phase" id="scene-phase"></span></p>
+          <span class="sim-tag" data-i18n="simulatedTag">Simulated data</span>
+        </div>
+      </section>
 
       <section id="status" class="status-banner status-unknown" role="status" aria-live="polite" tabindex="-1">
         <span class="status-icon" id="status-icon" aria-hidden="true"></span>
@@ -118,23 +126,30 @@
         <p class="actions-source" data-i18n="actionsSource">Based on FAO, TNAU and university extension guides. No chemicals.</p>
       </section>
 
-      <!-- Pond health score 0-100. Always inside the status's range (backend/health_score.py). -->
-      <section class="card health-card in-view" aria-labelledby="health-title">
-        <div class="health-head">
-          <h2 id="health-title" class="text-effect" data-i18n="healthTitle">Pond health score</h2>
-          <span class="sim-tag" data-i18n="simulatedTag">Simulated data</span>
-        </div>
-        <div class="health-body">
-          <div class="health-ring" id="health-ring" role="img" aria-labelledby="health-text"></div>
-          <div class="health-info">
-            <span class="badge" id="health-badge" hidden></span>
-            <p class="health-text" id="health-text"></p>
-            <p class="health-scale" data-i18n="healthScale">Safe 75‑100 · Warning 40‑74 · Danger 0‑39</p>
+      <!-- Bento board: cards of different sizes (grid areas in styles.css). -->
+      <div class="board">
+        <!-- Pond health score 0-100. Always inside the status's range (backend/health_score.py). -->
+        <section class="card health-card in-view" data-doodle="fish" aria-labelledby="health-title">
+          <div class="health-head">
+            <h2 id="health-title" class="text-effect" data-i18n="healthTitle">Pond health score</h2>
+            <span class="sim-tag" data-i18n="simulatedTag">Simulated data</span>
           </div>
-        </div>
-      </section>
+          <div class="health-body">
+            <div class="health-ring" id="health-ring" role="img" aria-labelledby="health-text"></div>
+            <div class="health-info">
+              <span class="badge" id="health-badge" hidden></span>
+              <p class="health-text" id="health-text"></p>
+              <p class="health-scale" data-i18n="healthScale">Safe 75‑100 · Warning 40‑74 · Danger 0‑39</p>
+            </div>
+          </div>
+        </section>
 
-      <div class="overview">
+        <section class="card gauge-card in-view" aria-labelledby="gauge-title">
+          <h2 id="gauge-title" class="text-effect" data-i18n="gaugeTitle">Risk level</h2>
+          <div class="gauge" id="gauge" role="img" aria-labelledby="gauge-label"></div>
+          <p class="gauge-label" id="gauge-label"></p>
+        </section>
+
         <section class="card pond-card in-view" aria-labelledby="pond-view-title">
           <h2 id="pond-view-title" class="text-effect" data-i18n="pondViewTitle">Pond view</h2>
           <div class="pond-view" id="pond-view" role="img" aria-labelledby="pond-view-text"></div>
@@ -144,126 +159,119 @@
           </p>
         </section>
 
-        <section class="card gauge-card in-view" aria-labelledby="gauge-title">
-          <h2 id="gauge-title" class="text-effect" data-i18n="gaugeTitle">Risk level</h2>
-          <div class="gauge" id="gauge" role="img" aria-labelledby="gauge-label"></div>
-          <p class="gauge-label" id="gauge-label"></p>
+        <section class="card ttd-card in-view" aria-labelledby="ttd-title">
+          <h2 id="ttd-title" class="text-effect" data-i18n="ttdTitle">Time until danger</h2>
+          <!-- Countdown: shown while danger is expected; the numbers count down smoothly. -->
+          <div class="countdown" id="countdown" hidden>
+            <p class="countdown-label" data-i18n="countdownLabel">Danger expected in</p>
+            <p class="countdown-value" id="countdown-value" aria-live="off"></p>
+            <p class="countdown-at" id="countdown-at"></p>
+          </div>
+          <p id="ttd-message" class="ttd-message">-</p>
         </section>
-      </div>
 
-      <section class="card ttd-card in-view" aria-labelledby="ttd-title">
-        <h2 id="ttd-title" class="text-effect" data-i18n="ttdTitle">Time until danger</h2>
-        <!-- Countdown: shown while danger is expected; the numbers count down smoothly. -->
-        <div class="countdown" id="countdown" hidden>
-          <p class="countdown-label" data-i18n="countdownLabel">Danger expected in</p>
-          <p class="countdown-value" id="countdown-value" aria-live="off"></p>
-          <p class="countdown-at" id="countdown-at"></p>
-        </div>
-        <p id="ttd-message" class="ttd-message">-</p>
-      </section>
-
-      <!-- SMS / WhatsApp PREVIEW. Nothing is sent: it only shows the text a farmer would get. -->
-      <section class="card alert-card in-view" aria-labelledby="alert-title">
-        <h2 id="alert-title" class="text-effect" data-i18n="alertTitle">Alert preview</h2>
-        <p class="preview-note">
-          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm1 15h-2v-6h2v6Zm0-8h-2V7h2v2Z"/></svg>
-          <span data-i18n="previewNote">Preview only. No real SMS or WhatsApp message is sent.</span>
-        </p>
-        <div class="alert-controls">
-          <div class="segmented" role="group" aria-label="Message type" id="channel-picker">
-            <button type="button" data-channel="sms" aria-pressed="true">SMS</button>
-            <button type="button" data-channel="whatsapp" aria-pressed="false">WhatsApp</button>
+        <section class="card chart-card in-view" aria-labelledby="chart-title">
+          <h2 id="chart-title" class="text-effect" data-i18n="chartTitle">Dissolved oxygen, last 12 hours</h2>
+          <div class="chart-wrap">
+            <canvas id="do-chart" role="img" aria-labelledby="chart-summary"></canvas>
           </div>
-          <div class="segmented" role="group" aria-labelledby="alert-for-label" id="alert-source-picker">
-            <span class="visually-hidden" id="alert-for-label" data-i18n="alertFor">Alert for</span>
-            <button type="button" data-source="simulated" aria-pressed="true" data-i18n="alertForLive">Live pond</button>
-            <button type="button" data-source="manual" aria-pressed="false" data-i18n="alertForKit" disabled>Test kit</button>
-          </div>
-        </div>
-        <div class="phone" aria-label="Phone screen">
-          <div class="phone-top"><span class="phone-speaker"></span></div>
-          <div class="phone-screen">
-            <p class="phone-app" id="phone-app">SMS · MeenuRaksha</p>
-            <div class="bubble" id="alert-bubble"></div>
-            <p class="phone-time" id="phone-time"></p>
-          </div>
-        </div>
-      </section>
+          <p class="chart-summary" id="chart-summary"></p>
+        </section>
 
-      <section class="card chart-card in-view" aria-labelledby="chart-title">
-        <h2 id="chart-title" class="text-effect" data-i18n="chartTitle">Dissolved oxygen, last 12 hours</h2>
-        <div class="chart-wrap">
-          <canvas id="do-chart" role="img" aria-labelledby="chart-summary"></canvas>
-        </div>
-        <p class="chart-summary" id="chart-summary"></p>
-      </section>
-
-      <section aria-labelledby="readings-title">
-        <h2 id="readings-title" class="text-effect" data-i18n="readingsTitle">Latest readings</h2>
-        <div class="readings" id="readings"></div>
-      </section>
-
-      <p class="sensor-errors" id="sensor-errors" hidden></p>
-
-      <!-- Manual test-kit entry. Results are marked "manual", never mixed with the simulated pond. -->
-      <section class="card kit-card in-view" aria-labelledby="kit-title">
-        <h2 id="kit-title" class="text-effect" data-i18n="kitTitle">Enter test-kit readings</h2>
-        <p class="kit-help" data-i18n="kitHelp">Type the numbers from your pond test kit. Leave a box empty if you did not test it.</p>
-        <form class="kit-form" id="kit-form" novalidate>
-          <label class="kit-field">
-            <span class="kit-label" data-i18n="kitDO">Dissolved oxygen</span>
-            <span class="kit-input"><input type="number" inputmode="decimal" step="any" name="dissolved_oxygen" id="kit-do" autocomplete="off"><span class="kit-unit">mg/L</span></span>
-          </label>
-          <label class="kit-field">
-            <span class="kit-label">pH</span>
-            <span class="kit-input"><input type="number" inputmode="decimal" step="any" name="ph" id="kit-ph" autocomplete="off"><span class="kit-unit" data-i18n="kitNoUnit">no unit</span></span>
-          </label>
-          <label class="kit-field">
-            <span class="kit-label" data-i18n="kitTemp">Water temperature</span>
-            <span class="kit-input"><input type="number" inputmode="decimal" step="any" name="temperature" id="kit-temp" autocomplete="off"><span class="kit-unit">°C</span></span>
-          </label>
-          <label class="kit-field">
-            <span class="kit-label" data-i18n="kitAmmonia">Total ammonia</span>
-            <span class="kit-input"><input type="number" inputmode="decimal" step="any" name="ammonia" id="kit-ammonia" autocomplete="off"><span class="kit-unit">mg/L</span></span>
-          </label>
-          <div class="kit-buttons">
-            <button type="submit" class="button-primary" data-i18n="kitCheck">Check readings</button>
-            <button type="reset" class="button-secondary" data-i18n="kitClear">Clear</button>
-          </div>
-        </form>
-        <p class="kit-form-error" id="kit-form-error" role="alert" hidden></p>
-
-        <div class="kit-result" id="kit-result" hidden>
-          <p class="manual-tag">
-            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M3 17.3V21h3.7l11-11-3.7-3.7-11 11Zm17.7-10.1a1 1 0 0 0 0-1.4l-2.5-2.5a1 1 0 0 0-1.4 0l-1.8 1.8 3.7 3.7 2-1.6Z"/></svg>
-            <strong id="kit-label">Manual test-kit reading</strong><span id="kit-time"></span>
+        <!-- SMS / WhatsApp PREVIEW. Nothing is sent: it only shows the text a farmer would get. -->
+        <section class="card alert-card in-view" aria-labelledby="alert-title">
+          <h2 id="alert-title" class="text-effect" data-i18n="alertTitle">Alert preview</h2>
+          <p class="preview-note">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm1 15h-2v-6h2v6Zm0-8h-2V7h2v2Z"/></svg>
+            <span data-i18n="previewNote">Preview only. No real SMS or WhatsApp message is sent.</span>
           </p>
-          <div class="status-banner status-unknown" id="kit-status" role="status">
-            <span class="status-icon" id="kit-status-icon" aria-hidden="true"></span>
-            <div>
-              <p class="status-level" id="kit-status-level"></p>
-              <p class="status-summary" id="kit-status-summary"></p>
+          <div class="alert-controls">
+            <div class="segmented" role="group" aria-label="Message type" id="channel-picker">
+              <button type="button" data-channel="sms" aria-pressed="true">SMS</button>
+              <button type="button" data-channel="whatsapp" aria-pressed="false">WhatsApp</button>
+            </div>
+            <div class="segmented" role="group" aria-labelledby="alert-for-label" id="alert-source-picker">
+              <span class="visually-hidden" id="alert-for-label" data-i18n="alertFor">Alert for</span>
+              <button type="button" data-source="simulated" aria-pressed="true" data-i18n="alertForLive">Live pond</button>
+              <button type="button" data-source="manual" aria-pressed="false" data-i18n="alertForKit" disabled>Test kit</button>
             </div>
           </div>
-          <p class="sensor-errors" id="kit-errors" hidden></p>
-          <div class="kit-actions" id="kit-actions-box" hidden>
-            <h3 data-i18n="actionsTitle">What to do now</h3>
-            <p class="actions-progress" id="kit-actions-progress" aria-live="polite"></p>
-            <ol class="action-list" id="kit-action-list"></ol>
+          <div class="phone" aria-label="Phone screen">
+            <div class="phone-top"><span class="phone-speaker"></span></div>
+            <div class="phone-screen">
+              <p class="phone-app" id="phone-app">SMS · MeenuRaksha</p>
+              <div class="bubble" id="alert-bubble"></div>
+              <p class="phone-time" id="phone-time"></p>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <!-- Alert history: saved in this browser (history.js), survives a refresh. -->
-      <section class="card history-card in-view" aria-labelledby="history-title">
-        <div class="history-head">
-          <h2 id="history-title" class="text-effect" data-i18n="historyTitle">Alert history</h2>
-          <button type="button" class="button-ghost" id="history-clear" data-i18n="historyClear" hidden>Clear history</button>
-        </div>
-        <p class="history-help" data-i18n="historyHelp">Past warnings, newest first. Saved on this phone only.</p>
-        <ol class="history-list" id="history-list"></ol>
-        <p class="history-empty" id="history-empty" data-i18n="historyEmpty">No warnings yet.</p>
-      </section>
+        <section class="readings-block" aria-labelledby="readings-title">
+          <div class="readings-head" data-doodle="wave"><h2 id="readings-title" class="text-effect" data-i18n="readingsTitle">Latest readings</h2></div>
+          <div class="readings" id="readings"></div>
+          <p class="sensor-errors" id="sensor-errors" hidden></p>
+        </section>
+
+        <!-- Manual test-kit entry. Results are marked "manual", never mixed with the simulated pond. -->
+        <section class="card kit-card in-view" data-doodle="ripples" aria-labelledby="kit-title">
+          <h2 id="kit-title" class="text-effect" data-i18n="kitTitle">Enter test-kit readings</h2>
+          <p class="kit-help" data-i18n="kitHelp">Type the numbers from your pond test kit. Leave a box empty if you did not test it.</p>
+          <form class="kit-form" id="kit-form" novalidate>
+            <label class="kit-field">
+              <span class="kit-label" data-i18n="kitDO">Dissolved oxygen</span>
+              <span class="kit-input"><input type="number" inputmode="decimal" step="any" name="dissolved_oxygen" id="kit-do" autocomplete="off"><span class="kit-unit">mg/L</span></span>
+            </label>
+            <label class="kit-field">
+              <span class="kit-label">pH</span>
+              <span class="kit-input"><input type="number" inputmode="decimal" step="any" name="ph" id="kit-ph" autocomplete="off"><span class="kit-unit" data-i18n="kitNoUnit">no unit</span></span>
+            </label>
+            <label class="kit-field">
+              <span class="kit-label" data-i18n="kitTemp">Water temperature</span>
+              <span class="kit-input"><input type="number" inputmode="decimal" step="any" name="temperature" id="kit-temp" autocomplete="off"><span class="kit-unit">°C</span></span>
+            </label>
+            <label class="kit-field">
+              <span class="kit-label" data-i18n="kitAmmonia">Total ammonia</span>
+              <span class="kit-input"><input type="number" inputmode="decimal" step="any" name="ammonia" id="kit-ammonia" autocomplete="off"><span class="kit-unit">mg/L</span></span>
+            </label>
+            <div class="kit-buttons">
+              <button type="submit" class="button-primary" data-i18n="kitCheck">Check readings</button>
+              <button type="reset" class="button-secondary" data-i18n="kitClear">Clear</button>
+            </div>
+          </form>
+          <p class="kit-form-error" id="kit-form-error" role="alert" hidden></p>
+
+          <div class="kit-result" id="kit-result" hidden>
+            <p class="manual-tag">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M3 17.3V21h3.7l11-11-3.7-3.7-11 11Zm17.7-10.1a1 1 0 0 0 0-1.4l-2.5-2.5a1 1 0 0 0-1.4 0l-1.8 1.8 3.7 3.7 2-1.6Z"/></svg>
+              <strong id="kit-label">Manual test-kit reading</strong><span id="kit-time"></span>
+            </p>
+            <div class="status-banner status-unknown" id="kit-status" role="status">
+              <span class="status-icon" id="kit-status-icon" aria-hidden="true"></span>
+              <div>
+                <p class="status-level" id="kit-status-level"></p>
+                <p class="status-summary" id="kit-status-summary"></p>
+              </div>
+            </div>
+            <p class="sensor-errors" id="kit-errors" hidden></p>
+            <div class="kit-actions" id="kit-actions-box" hidden>
+              <h3 data-i18n="actionsTitle">What to do now</h3>
+              <p class="actions-progress" id="kit-actions-progress" aria-live="polite"></p>
+              <ol class="action-list" id="kit-action-list"></ol>
+            </div>
+          </div>
+        </section>
+
+        <!-- Alert history: saved in this browser (history.js), survives a refresh. -->
+        <section class="card history-card in-view" data-doodle="reeds" aria-labelledby="history-title">
+          <div class="history-head">
+            <h2 id="history-title" class="text-effect" data-i18n="historyTitle">Alert history</h2>
+            <button type="button" class="button-ghost" id="history-clear" data-i18n="historyClear" hidden>Clear history</button>
+          </div>
+          <p class="history-help" data-i18n="historyHelp">Past warnings, newest first. Saved on this phone only.</p>
+          <ol class="history-list" id="history-list"></ol>
+          <p class="history-empty" id="history-empty" data-i18n="historyEmpty">No warnings yet.</p>
+        </section>
+      </div>
     </main>
 
     <!-- Bottom toolbar. Tonight's weather is REAL (Open-Meteo forecast), not simulated.
@@ -291,12 +299,14 @@
   <script src="/vendor/gsap/gsap.min.js"></script>
   <script src="/vendor/chartjs/chart.umd.min.js"></script>
   <script src="/motion.js"></script>
+  <script src="/cursor-fx.js"></script>
   <script src="/pond-view.js"></script>
   <script src="/gauge.js"></script>
   <script src="/do-chart.js"></script>
   <script src="/health-ring.js"></script>
   <script src="/history.js"></script>
   <script src="/voice.js"></script>
+  <script src="/scene.js"></script>
   <script src="/app.js"></script>
   <script src="/welcome.js"></script>
 </body>

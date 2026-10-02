@@ -6,6 +6,11 @@
 //     layers instead of the browser repainting the page every frame.
 //   - Low-power devices get fewer fish, no tail wag and 30 frames per second.
 //   - On Start, every animation is stopped and the scene is removed.
+// Cursor / touch:
+//   - Fish swim away from the mouse cursor (or from a tap on phones), using
+//     gsap.quickTo: one reusable tween per fish and direction, never stacking.
+//   - Ripples follow the cursor, from a fixed pool of rings (cursor-fx.js).
+//   - The Start button is slightly magnetic.
 // Accessibility:
 //   - "Reduce motion" setting: a still pond, no entrance or exit animation.
 //   - The scene is decoration (aria-hidden); the dashboard is `inert` until Start.
@@ -32,6 +37,7 @@
 
   let running = false;   // true while the pond is animating
   let entered = false;   // true once Start was pressed
+  let pointerFx = null;  // AbortController for the cursor / tap listeners
 
   // ---------------------------------------------------------------- fish
 
@@ -51,12 +57,17 @@
   function makeFish(i) {
     const depth = i / Math.max(1, FISH_COUNT - 1);         // 0 = near the surface, 1 = deep
     const width = Math.round((smallScreen ? 70 : 96) * (1 - depth * 0.35));
+    // flee (moves away from the cursor) > fish (swims across, faces left/right) > body (drifts)
+    const flee = document.createElement("div");
+    flee.className = "fish-flee";
     const fish = document.createElement("div");
     fish.className = "fish";
     fish.innerHTML = `<div class="fish-body">${fishSvg(width)}</div>`;
     fish.style.opacity = String(0.62 - depth * 0.28);       // deeper fish are fainter
-    fishLayer.append(fish);
-    return { el: fish, body: fish.firstElementChild, tail: fish.querySelector(".fish-tail"), width, depth };
+    flee.append(fish);
+    fishLayer.append(flee);
+    return { el: fish, flee, body: fish.firstElementChild, tail: fish.querySelector(".fish-tail"), width,
+             height: Math.round(width * 0.42), depth, qx: null, qy: null, fleeing: false };
   }
 
   const fishes = Array.from({ length: FISH_COUNT }, (_, i) => makeFish(i));
@@ -104,6 +115,87 @@
     });
   }
 
+  // ---------------------------------------------------------------- fish flee from the cursor
+
+  const FLEE_RADIUS = smallScreen ? 130 : 170;   // px around the cursor that fish avoid
+  const FLEE_MAX = 120;                           // furthest a fish is pushed aside
+
+  function fleeFrom(px, py) {
+    fishes.forEach((f) => {
+      if (!f.qx) {
+        f.qx = gsap.quickTo(f.flee, "x", { duration: 0.9, ease: "power3.out" });
+        f.qy = gsap.quickTo(f.flee, "y", { duration: 0.9, ease: "power3.out" });
+      }
+      const ox = gsap.getProperty(f.flee, "x"), oy = gsap.getProperty(f.flee, "y");
+      const cx = gsap.getProperty(f.el, "x") + f.width / 2 + ox;
+      const cy = gsap.getProperty(f.el, "y") + gsap.getProperty(f.body, "y") + f.height / 2 + oy;
+      const dx = cx - px, dy = cy - py, dist = Math.hypot(dx, dy) || 1;
+      if (dist < FLEE_RADIUS) {
+        const push = Math.min(FLEE_MAX, (FLEE_RADIUS - dist) * 1.1);
+        f.qx(ox + (dx / dist) * push);
+        f.qy(oy + (dy / dist) * push);
+        f.fleeing = true;
+      } else if (f.fleeing && dist > FLEE_RADIUS * 1.6) {
+        f.qx(0); f.qy(0);                      // far enough: drift back onto its path
+        f.fleeing = false;
+      }
+    });
+  }
+
+  function settleFish() {
+    fishes.forEach((f) => { if (f.qx) { f.qx(0); f.qy(0); } f.fleeing = false; });
+  }
+
+  // ---------------------------------------------------------------- cursor and tap effects
+
+  let cursorPool = null, moveFrame = 0, lastMove = null, lastRipple = { x: -1e4, y: -1e4, at: 0 };
+  let settleCall = null;                       // only ONE pending "settle back" at a time
+
+  function onMove() {
+    moveFrame = 0;
+    const e = lastMove;
+    if (!running || !e) return;
+    fleeFrom(e.clientX, e.clientY);
+    const now = performance.now();
+    if (now - lastRipple.at > 120 && Math.hypot(e.clientX - lastRipple.x, e.clientY - lastRipple.y) > 60) {
+      lastRipple = { x: e.clientX, y: e.clientY, at: now };
+      cursorPool.spawn(e.clientX, e.clientY, 1);
+    }
+  }
+
+  function startPointerFx() {
+    const fx = window.CursorFX;
+    if (!fx || pointerFx) return;
+    pointerFx = new AbortController();
+    const opts = { passive: true, signal: pointerFx.signal };
+    cursorPool = fx.ripplePool(rippleLayer, lowPower ? 4 : 6);
+    welcome.addEventListener("pointermove", (e) => {
+      if (e.pointerType !== "mouse") return;
+      lastMove = e;
+      if (!moveFrame) moveFrame = requestAnimationFrame(onMove);   // at most once per frame
+    }, opts);
+    welcome.addEventListener("pointerleave", settleFish, opts);
+    // Phones: a tap makes a ripple and scares the fish for a moment.
+    welcome.addEventListener("pointerdown", (e) => {
+      if (e.pointerType === "mouse" || !running || e.target.closest("button")) return;
+      cursorPool.spawn(e.clientX, e.clientY, 1.3);
+      fleeFrom(e.clientX, e.clientY);
+      if (settleCall) settleCall.kill();
+      settleCall = gsap.delayedCall(1.4, settleFish);
+    }, opts);
+  }
+
+  function stopPointerFx() {
+    if (pointerFx) pointerFx.abort();
+    pointerFx = null;
+    if (moveFrame) cancelAnimationFrame(moveFrame);
+    moveFrame = 0;
+    if (settleCall) settleCall.kill();
+    settleCall = null;
+    if (cursorPool) cursorPool.destroy();
+    cursorPool = null;
+  }
+
   // ---------------------------------------------------------------- ripples
 
   const ripples = Array.from({ length: RIPPLE_COUNT }, () => {
@@ -142,13 +234,17 @@
     startLight();
     startFish();
     ripples.forEach((ring, i) => ripple(ring, 0.6 + i * 1.6));
+    startPointerFx();
   }
 
   function stopScene() {
     running = false;
     if (!gsap) return;
     const lights = [...welcome.querySelectorAll(".pond-caustics, .pond-light")];
-    gsap.killTweensOf([...lights, ...fishes.flatMap((f) => [f.el, f.body, f.tail]), ...ripples]);
+    stopPointerFx();
+    gsap.killTweensOf([...lights, ...fishes.flatMap((f) => [f.el, f.flee, f.body, f.tail]), ...ripples]);
+    gsap.set(fishes.map((f) => f.flee), { x: 0, y: 0 });
+    fishes.forEach((f) => { f.qx = f.qy = null; f.fleeing = false; });
     // Leave the frame rate as is: low-power phones keep 30 fps for the dashboard too (motion.js).
   }
 
@@ -185,8 +281,14 @@
   }
 
   startButton.addEventListener("click", enter);
+  if (window.CursorFX && gsap) window.CursorFX.bindMagnet(startButton);   // slightly magnetic
 
   // ---------------------------------------------------------------- go
+
+  // For the ?debug panel.
+  window.WelcomeFX = {
+    stats: () => ({ fleeing: entered ? 0 : fishes.filter((f) => f.fleeing).length }),
+  };
 
   startScene();
   if (gsap && !reduceMotion.matches) {

@@ -213,3 +213,44 @@ def test_danger_text_never_sits_on_the_dark_page():
     css = STYLES.read_text(encoding="utf-8")
     for rule in re.findall(r"\{[^}]*color:\s*var\(--danger-text\)[^}]*\}", css):
         assert "var(--danger-bg)" in rule, rule
+
+
+# ---------------------------------------------------------------- sky scene and cursor effects
+
+SCENE = STYLES.parent / "scene.js"
+
+
+def sky_colours() -> list[str]:
+    block = re.search(r"const SKY = \{(.*?)\};", SCENE.read_text(encoding="utf-8"), re.S).group(1)
+    return re.findall(r"#[0-9a-fA-F]{6}", block)
+
+
+def test_sky_colours_never_look_like_a_status_colour():
+    # Sunrise and sunset are shown with light and blue tones, never orange/red/green.
+    colours = sky_colours()
+    assert len(colours) == 12
+    for colour in colours:
+        for status in ("safe", "warning", "danger"):
+            assert hue_gap(colour, C[status]) >= 45, f"sky {colour} is close in hue to {status}"
+
+
+def test_scene_clock_chip_is_readable_over_the_brightest_sky():
+    # The chip is rgba(4, 12, 18, 0.84) over the sky; check it over the lightest sky colour.
+    brightest = max(sky_colours(), key=luminance)
+    chip = over("#040c12", brightest, 0.84)
+    assert contrast(C["text"], chip) >= TEXT
+    assert contrast(C["text-secondary"], chip) >= TEXT
+    assert contrast(C["primary"], chip) >= TEXT         # the phase word ("Night")
+    assert contrast(C["on-secondary"], C["secondary"]) >= TEXT   # "Simulated data" tag
+
+
+def test_text_stays_readable_under_the_spotlight_and_card_gradients():
+    # Spotlight (aqua, alpha read from styles.css) under the cursor, on top of the
+    # brightest card corners: the health card has its own 6% aqua glow too.
+    css = STYLES.read_text(encoding="utf-8")
+    spot = float(re.search(r"\.fx-spotlight \{[^}]*rgba\(34, 211, 238, ([0-9.]+)\)", css).group(1))
+    health = over(C["accent"], "#0c2430", 0.06)
+    for card in (C["card"], health, "#0b2029", over(C["secondary"], C["card"], 0.32)):
+        lit = over(C["accent"], card, spot)
+        assert contrast(C["text-tertiary"], lit) >= TEXT, card
+        assert contrast(C["text"], lit) >= TEXT, card

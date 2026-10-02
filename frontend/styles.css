@@ -138,7 +138,8 @@ main {
 .button-primary:active { background: var(--primary-pressed); }
 .button-secondary { background: transparent; color: var(--primary); border: 2px solid var(--primary); }
 
-.sim-clock { color: var(--text-secondary); }
+.sim-clock { color: var(--text-secondary); font-size: 1rem; line-height: 1.5; }
+.sim-clock strong { color: var(--text); font-variant-numeric: tabular-nums; }
 
 /* ---- Status banner (icon + word + reason, never colour alone) ---- */
 .status-banner {
@@ -252,16 +253,15 @@ main {
   100% { opacity: 0;   transform: scale(1.025); }
 }
 
-/* ---- Overview: pond view + gauge ---- */
-.overview { display: grid; gap: 1.25rem; grid-template-columns: 1fr; }
-@media (min-width: 768px) { .overview { grid-template-columns: 3fr 2fr; } }
-.overview .card { display: flex; flex-direction: column; gap: 0.75rem; }
+/* ---- Pond view + gauge cards ---- */
+.pond-card, .gauge-card { display: flex; flex-direction: column; gap: 0.75rem; }
 
 .te-word { display: inline-block; }   /* lets each word of a heading move (Text Effect) */
 
 .pond-view { aspect-ratio: 16 / 9; border-radius: 12px; overflow: hidden; background: #0e2630; }
 .pv-svg { display: block; width: 100%; height: 100%; }
-.pv-svg path:not(.pv-surface-line):not(.pv-floor) { fill: #04161e; }
+.pv-svg path:not(.pv-surface-line):not(.pv-floor):not(.pv-moon) { fill: #04161e; }
+.pv-moon { fill: var(--text); }
 .pv-eye { fill: var(--text-tertiary); }
 .pv-surface-line { fill: none; stroke: rgba(222, 240, 248, 0.45); stroke-width: 1.5; }
 .pv-floor { fill: rgba(3, 10, 14, 0.45); }
@@ -544,8 +544,9 @@ main {
 
 /* ---- Debug panel (only with ?debug in the address, see debug.js) ---- */
 .debug-panel {
-  position: fixed; left: 8px; bottom: 8px; z-index: 50;
+  position: fixed; right: 8px; bottom: 8px; z-index: 50;   /* right: the Start button is bottom-left */
   max-width: calc(100vw - 16px); max-height: 70vh; overflow: auto;
+  pointer-events: none;        /* read-only: taps and clicks go through to the page (it covers Start on phones) */
   padding: 0.5rem 0.75rem;
   background: var(--surface); color: var(--text);
   border: 2px solid var(--primary); border-radius: 12px;
@@ -556,3 +557,177 @@ main {
 .debug-panel th, .debug-panel td { padding: 0.125rem 0.5rem; text-align: right; }
 .debug-panel tbody th { text-align: left; font-weight: 500; color: var(--text-secondary); }
 .debug-panel .debug-grew td { background: var(--primary); color: var(--on-primary); font-weight: 700; }   /* not a status colour: dev tool */
+
+/* ================================================================
+   Personality pass: sky scene, bento board, hand-drawn touches,
+   cursor and tap effects (scene.js, cursor-fx.js).
+   Colour rules: blues, indigo, aqua and pale pearl only. Green, amber and
+   red stay reserved for Safe / Warning / Danger and are never decoration.
+   ================================================================ */
+
+/* ---- Page: deep water with a faint aqua light from the top right ---- */
+.page-glow {
+  position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(70% 45% at 92% -5%, rgba(34, 211, 238, 0.08), rgba(34, 211, 238, 0) 70%),
+    radial-gradient(60% 55% at 0% 100%, rgba(31, 47, 145, 0.26), rgba(31, 47, 145, 0) 72%);
+}
+body.has-welcome .page-glow { display: none; }
+
+/* ---- Every card: a positioned, clipped layer, so decoration (spotlight,
+   doodles, tap ink) can sit BEHIND the content with z-index: -1. ---- */
+.card { position: relative; isolation: isolate; overflow: hidden; }
+
+/* ---- Day/night scene ---- */
+.scene {
+  position: relative; isolation: isolate; overflow: hidden;
+  height: clamp(180px, 24vw, 250px);
+  border-radius: 28px; border: 1px solid var(--hairline);
+  background: #040b1e;
+}
+.scene-art { position: absolute; inset: 0; }
+.sky-layer, .scene-stars, .scene-land { position: absolute; inset: 0; width: 100%; height: 100%; }
+.sky-layer { will-change: opacity; }
+.scene-stars { fill: var(--text); opacity: 0; }
+.scene-stars g { animation: star-twinkle 3.4s ease-in-out infinite alternate; }
+.scene-stars .sc-stars-b { animation-duration: 4.7s; animation-delay: -2s; }
+@keyframes star-twinkle { from { opacity: 1; } to { opacity: 0.45; } }
+.is-low-power .scene-stars g { animation: none; }
+.scene-sun, .scene-moon, .scene-glint { position: absolute; top: 0; left: 0; opacity: 0; will-change: transform, opacity; }
+.scene-sun {
+  width: 96px; height: 96px; margin: -48px 0 0 -48px; border-radius: 50%;
+  background: radial-gradient(circle, #f4f9fc 0 27%, rgba(244, 249, 252, 0.4) 34%, rgba(244, 249, 252, 0) 70%);
+}
+.scene-moon {
+  width: 72px; height: 72px; margin: -36px 0 0 -36px; padding: 18px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(222, 240, 248, 0.18), rgba(222, 240, 248, 0) 68%);
+}
+.scene-moon svg { display: block; width: 100%; height: 100%; fill: var(--text); }
+.scene-glint {                     /* the sun or moon reflected on the water: broken bright lines */
+  width: 34px; height: 64px; margin-left: -17px;
+  background: repeating-linear-gradient(to bottom, rgba(222, 240, 248, 0.5) 0 2px, rgba(222, 240, 248, 0) 2px 7px);
+  -webkit-mask-image: radial-gradient(50% 50% at 50% 30%, #000 30%, transparent 100%);
+  mask-image: radial-gradient(50% 50% at 50% 30%, #000 30%, transparent 100%);
+}
+.sc-hills-far { fill: #16365c; opacity: 0.55; }
+.sc-hills-near { fill: #0a1e36; opacity: 0.85; }
+.sc-ink { fill: #04101a; }
+.sc-palm path, .sc-reeds path, .sc-pole { fill: none; stroke: #04101a; stroke-linecap: round; stroke-linejoin: round; }
+.sc-palm path { stroke-width: 4; }
+.sc-palm .sc-trunk { stroke-width: 6.5; }
+.sc-palm-far path { stroke-width: 3; }
+.sc-palm-far .sc-trunk { stroke-width: 4.5; }
+.sc-reeds path { stroke-width: 3; }
+.sc-pole { stroke-width: 2.5; }
+.sc-shimmer path, .sc-accent path { fill: none; stroke-linecap: round; }
+.sc-shimmer path { stroke: var(--primary); stroke-width: 2; opacity: 0.35; }
+.sc-accent path { stroke: var(--accent); stroke-width: 1.6; opacity: 0.45; }
+
+/* Clock + "Simulated data" on a solid dark chip, readable over any sky. */
+.scene-chip {
+  position: absolute; left: 1rem; top: 1rem; z-index: 1;
+  display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.75rem;
+  max-width: calc(100% - 2rem);
+  padding: 0.5rem 0.875rem;
+  background: rgba(4, 12, 18, 0.84); border: 1px solid rgba(222, 240, 248, 0.18); border-radius: 12px;
+}
+.scene-phase { color: var(--primary); font-weight: 600; }
+/* Narrow screens: the chip becomes a strip above the picture, so it never covers the sky. */
+@media (max-width: 899px) {
+  .scene { height: auto; display: flex; flex-direction: column; }
+  .scene-chip { position: static; order: -1; max-width: none; margin: 0; border: 0; border-bottom: 1px solid var(--hairline); border-radius: 0; background: #040c12; }
+  .scene-art { position: relative; height: clamp(170px, 34vw, 230px); }
+}
+@media (max-width: 480px) { .scene-chip { padding: 0.5rem 0.75rem; gap: 0.25rem 0.5rem; } }
+.scene-phase:empty { display: none; }
+
+/* The status banner rises over the bottom of the scene: the alert sits under the sky it happens in. */
+.scene + .status-banner { margin: -3.25rem 1rem 0; box-shadow: rgba(3, 10, 14, 0.5) 0 16px 40px -12px; }
+@media (max-width: 480px) { .scene + .status-banner { margin: -2.75rem 0.5rem 0; } }
+
+/* ---- Bento board: varied card sizes ----
+   Phones: one column in reading order. Tablets: two columns. Computers: six,
+   with wide and narrow cards side by side and the phone preview standing tall. */
+.board { display: grid; gap: 1.25rem; grid-template-columns: minmax(0, 1fr); align-items: start; }
+@media (min-width: 768px) {
+  .board {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas:
+      "health health" "gauge ttd" "pond pond" "chart chart"
+      "alert readings" "kit kit" "history history";
+  }
+  .board > .health-card { grid-area: health; }
+  .board > .gauge-card { grid-area: gauge; align-self: stretch; }
+  .board > .pond-card { grid-area: pond; }
+  .board > .ttd-card { grid-area: ttd; align-self: stretch; }
+  .board > .chart-card { grid-area: chart; }
+  .board > .alert-card { grid-area: alert; align-self: stretch; }
+  .board > .readings-block { grid-area: readings; }
+  .board > .kit-card { grid-area: kit; }
+  .board > .history-card { grid-area: history; align-self: stretch; }
+}
+@media (min-width: 1024px) {
+  .board {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    grid-template-areas:
+      "health health health health gauge gauge"
+      "pond pond pond pond ttd ttd"
+      "chart chart chart chart alert alert"
+      "readings readings readings readings alert alert"
+      "kit kit kit kit history history";
+  }
+}
+.readings-block { display: flex; flex-direction: column; gap: 0.75rem; min-width: 0; }
+.readings-head h2 { margin: 0; }
+
+/* ---- Card variety (DESIGN.md card-feature / card-feature-deep: decorative, never a status) ---- */
+.health-card {
+  border-radius: 28px; padding: 1.5rem 2rem;
+  background:
+    radial-gradient(110% 130% at 100% 0%, rgba(34, 211, 238, 0.06), rgba(34, 211, 238, 0) 55%),
+    linear-gradient(160deg, #0c2430, var(--card) 62%);
+}
+.pond-card { border-radius: 28px; background: var(--surface); }
+.alert-card { background: linear-gradient(180deg, rgba(31, 47, 145, 0.32), rgba(31, 47, 145, 0) 42%), var(--card); }
+.ttd-card { background: linear-gradient(200deg, #0b2029, var(--card) 55%); }
+@media (max-width: 480px) { .health-card { padding: 1.25rem; } }
+
+/* ---- Hand-drawn doodles (scene.js): aqua line drawings behind card content ---- */
+.doodle { position: absolute; z-index: -1; pointer-events: none; color: var(--accent); opacity: 0.26; }
+.doodle svg { display: block; width: 100%; height: auto; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.doodle-fish { right: 1.25rem; bottom: 0.75rem; width: 130px; }
+.doodle-reeds { right: 0.75rem; bottom: 0; width: 92px; }
+.doodle-ripples { right: 1rem; top: 0.75rem; width: 120px; }
+.doodle-wave { position: static; display: block; width: 7.5rem; opacity: 0.75; }
+.doodle-wave svg { height: 12px; stroke-width: 2.6; }
+@media (max-width: 480px) { .doodle:not(.doodle-wave) { display: none; } }
+
+/* ---- Cursor and tap effects (cursor-fx.js) ---- */
+.cursor-water { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
+.fx-ripple {
+  position: absolute; top: 0; left: 0;
+  width: 150px; height: 150px; margin: -75px 0 0 -75px;
+  border-radius: 50%; border: 1.5px solid rgba(136, 204, 230, 0.6);
+  opacity: 0; pointer-events: none; will-change: transform, opacity;
+}
+.fx-spotlight {                     /* Spotlight: soft aqua light under the cursor, behind the content */
+  position: absolute; top: 0; left: 0; z-index: -1;
+  width: 380px; height: 380px; margin: -190px 0 0 -190px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(34, 211, 238, 0.07), rgba(34, 211, 238, 0) 68%);   /* alpha checked in tests/test_contrast.py */
+  opacity: 0; pointer-events: none; will-change: transform, opacity;
+}
+.fx-ink {                           /* tap ripple on phones */
+  position: absolute; top: 0; left: 0; z-index: -1;
+  border-radius: 50%; background: rgba(136, 204, 230, 0.45);
+  opacity: 0; pointer-events: none;
+}
+/* Buttons host their own tap ink behind the label. */
+button { position: relative; isolation: isolate; overflow: hidden; }
+
+@media (prefers-reduced-motion: reduce) {
+  .scene-stars g { animation: none; }
+  .fx-ripple, .fx-spotlight, .fx-ink { display: none; }
+}
+@media (prefers-contrast: more), (forced-colors: active) {
+  .page-glow, .doodle, .cursor-water { display: none; }
+}

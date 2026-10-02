@@ -5,6 +5,8 @@
 //
 // Motion (motion.js, pond-view.js, gauge.js, do-chart.js) helps farmers notice
 // changes; every status is still shown as colour + icon + word.
+// scene.js draws the day/night sky for the simulated time; cursor-fx.js adds
+// the mouse and tap effects (never on the numbers themselves).
 
 "use strict";
 
@@ -218,6 +220,7 @@ function setLanguage(lang) {
     // Headings re-appear word by word in the new language (feedback for the switch).
     document.querySelectorAll("#dashboard .text-effect").forEach((h) => M.textEffect(h));
     moveHighlight(true);                       // option widths change with the language
+    window.Scene.setLanguage(lang);
   }
   if (state.last) render(state.last);
   renderWeather();
@@ -358,6 +361,7 @@ function render(data) {
   const risk = data.risk;
   $("simulated-label").textContent = data.label[lang];
   $("sim-time").textContent = formatTime(data.time);
+  window.Scene.setTime(data.time, lang);        // sky follows the simulated time of day
 
   renderStatus(risk, lang);
   renderPondAndGauge(risk.level, lang);
@@ -749,6 +753,8 @@ function initEffects() {
   window.DOChart.init($("do-chart"));
   window.DOChart.setWords(levelWords(state.lang));
   window.HealthRing.init($("health-ring"));
+  window.Scene.init();                          // day/night sky + hand-drawn doodles
+  window.CursorFX.init();                       // ripples, tilt, spotlight, magnetic buttons, tap ink
   moveHighlight(true);
   M.borderTrail($("pond-highlight"));           // Border Trail on the active pond card
   window.addEventListener("resize", () => moveHighlight(true));

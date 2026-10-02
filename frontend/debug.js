@@ -1,7 +1,8 @@
 // Debug panel, only with ?debug in the address (http://127.0.0.1:8000/?debug).
 // Shows live counts so you can watch whether anything keeps growing during a
 // long demo: chart points, history entries, page elements, running
-// animations, timers, and (in Edge / Chrome) JavaScript memory.
+// animations, timers, cursor/tap effects and the sky scene, and (in Edge /
+// Chrome) JavaScript memory.
 // Each line shows "now (at start) peak". Without ?debug this file does nothing.
 //
 // Loaded BEFORE the other scripts, so it can count every timer they start.
@@ -44,6 +45,16 @@
     ["CSS animations", () => (document.getAnimations ? document.getAnimations().length : 0)],
     ["Timers: timeouts", () => timeouts.size],
     ["Timers: intervals", () => intervals.size],
+    // Cursor / tap effects and the sky scene: all from fixed pools, so these must stay flat.
+    ["Ripple rings (fixed pools)", () => (window.CursorFX ? window.CursorFX.stats().rings : 0)],
+    ["Tap ink elements", () => (window.CursorFX ? window.CursorFX.stats().inks : 0)],
+    ["Ripples moving", () => (window.CursorFX ? window.CursorFX.stats().moving : 0)],
+    ["Spotlights", () => (window.CursorFX ? window.CursorFX.stats().spotlights : 0)],
+    ["Cards tilting", () => (window.CursorFX ? window.CursorFX.stats().tilting : 0)],
+    ["Buttons pulled (magnet)", () => (window.CursorFX ? window.CursorFX.stats().pulled : 0)],
+    ["Welcome fish fleeing", () => (window.WelcomeFX ? window.WelcomeFX.stats().fleeing : 0)],
+    ["Sky stars", () => (window.Scene ? window.Scene.stats().stars : 0)],
+    ["Sky changes running", () => (window.Scene ? window.Scene.stats().moving : 0)],
     ["Saved keys (localStorage)", () => { try { return localStorage.length; } catch { return 0; } }],
   ];
   if (performance.memory) METRICS.push(["JS memory (MB)", () => mb(performance.memory.usedJSHeapSize)]);
