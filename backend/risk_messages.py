@@ -38,8 +38,8 @@ REASONS = {
         "kn": "ಆಮ್ಲಜನಕ ತುಂಬಾ ಕಡಿಮೆ ಇದೆ ({value} {unit}). ಮೀನುಗಳು ಸಾಯಬಹುದು. ತಕ್ಷಣ ಏರೇಟರ್ ಚಾಲೂ ಮಾಡಿ ಮತ್ತು ಹೊಸ ನೀರು ಹಾಕಿ.",
     },
     ("ph", "low", "warning"): {
-        "en": "Water is acidic (pH {value}). Fish grow slowly. Ask your fisheries officer about adding lime.",
-        "kn": "ನೀರು ಆಮ್ಲೀಯವಾಗಿದೆ (pH {value}). ಮೀನುಗಳು ನಿಧಾನವಾಗಿ ಬೆಳೆಯುತ್ತವೆ. ಸುಣ್ಣ ಹಾಕುವ ಬಗ್ಗೆ ಮೀನುಗಾರಿಕೆ ಅಧಿಕಾರಿಯನ್ನು ಕೇಳಿ.",
+        "en": "Water is acidic (pH {value}). Fish grow slowly. Contact your fisheries officer for advice on correcting pH.",
+        "kn": "ನೀರು ಆಮ್ಲೀಯವಾಗಿದೆ (pH {value}). ಮೀನುಗಳು ನಿಧಾನವಾಗಿ ಬೆಳೆಯುತ್ತವೆ. pH ಸರಿಪಡಿಸುವ ಬಗ್ಗೆ ಸಲಹೆಗಾಗಿ ನಿಮ್ಮ ಮೀನುಗಾರಿಕೆ ಅಧಿಕಾರಿಯನ್ನು ಸಂಪರ್ಕಿಸಿ.",
     },
     ("ph", "low", "danger"): {
         "en": "Water is very acidic (pH {value}). Fish can die. Add fresh water and contact your fisheries officer today.",

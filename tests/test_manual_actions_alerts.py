@@ -174,3 +174,12 @@ def test_page_has_the_three_features_with_preview_label():
     html = client.get("/").text
     assert 'id="kit-form"' in html and 'id="actions-card"' in html and 'id="alert-bubble"' in html
     assert "No real SMS or WhatsApp message is sent" in html
+
+
+def test_alert_messages_do_not_suggest_lime():
+    # Alert messages are also sent in the SMS / WhatsApp preview: no chemical treatments there either.
+    from backend.risk_messages import REASONS
+    for message in REASONS.values():
+        assert not re.search(r"lime|ಸುಣ್ಣ", message["en"] + message["kn"], re.IGNORECASE)
+    low_ph = REASONS[("ph", "low", "warning")]
+    assert low_ph["en"].endswith("Contact your fisheries officer for advice on correcting pH.")
