@@ -25,8 +25,8 @@ body.has-welcome { overflow: hidden; }
   overflow: hidden;
   /* Lit water near the surface (top right) fading to deep water (bottom). */
   background:
-    radial-gradient(70% 55% at 0% 100%, rgba(29, 47, 138, 0.35), rgba(29, 47, 138, 0) 70%),
-    radial-gradient(120% 85% at 72% -12%, #3a96bf 0%, #1b6188 26%, #0d3452 56%, #04121f 100%);
+    radial-gradient(70% 55% at 0% 100%, rgba(161, 12, 159, 0.28), rgba(161, 12, 159, 0) 70%),   /* magenta accent: decoration */
+    radial-gradient(120% 85% at 72% -12%, #3f94c4 0%, #22558f 26%, #12206e 56%, #060351 100%);
 }
 
 /* Soft light coming down through the surface. */
@@ -34,9 +34,9 @@ body.has-welcome { overflow: hidden; }
   position: absolute;
   inset: -10% -10% 30% -10%;
   background:
-    linear-gradient(105deg, transparent 30%, rgba(224, 241, 251, 0.10) 38%, transparent 46%),
-    linear-gradient(98deg, transparent 52%, rgba(224, 241, 251, 0.07) 58%, transparent 64%),
-    linear-gradient(110deg, transparent 66%, rgba(224, 241, 251, 0.08) 71%, transparent 77%);
+    linear-gradient(105deg, transparent 30%, rgba(222, 240, 248, 0.10) 38%, transparent 46%),
+    linear-gradient(98deg, transparent 52%, rgba(222, 240, 248, 0.07) 58%, transparent 64%),
+    linear-gradient(110deg, transparent 66%, rgba(222, 240, 248, 0.08) 71%, transparent 77%);
   transform-origin: 60% 0%;
   will-change: opacity, transform;
 }
@@ -50,18 +50,18 @@ body.has-welcome { overflow: hidden; }
 }
 .pond-caustics-a {
   background-image:
-    radial-gradient(ellipse 18% 9% at 22% 30%, rgba(224, 241, 251, 0.16), transparent 70%),
-    radial-gradient(ellipse 12% 7% at 68% 18%, rgba(224, 241, 251, 0.12), transparent 70%),
-    radial-gradient(ellipse 15% 8% at 48% 62%, rgba(224, 241, 251, 0.10), transparent 70%),
-    radial-gradient(ellipse 10% 6% at 84% 74%, rgba(224, 241, 251, 0.12), transparent 70%);
+    radial-gradient(ellipse 18% 9% at 22% 30%, rgba(222, 240, 248, 0.16), transparent 70%),
+    radial-gradient(ellipse 12% 7% at 68% 18%, rgba(222, 240, 248, 0.12), transparent 70%),
+    radial-gradient(ellipse 15% 8% at 48% 62%, rgba(222, 240, 248, 0.10), transparent 70%),
+    radial-gradient(ellipse 10% 6% at 84% 74%, rgba(222, 240, 248, 0.12), transparent 70%);
   background-size: 770px 613px;   /* odd, unequal tile sizes so the repeat isn't visible */
   opacity: 0.42;
 }
 .pond-caustics-b {
   background-image:
-    radial-gradient(ellipse 14% 8% at 35% 55%, rgba(79, 195, 240, 0.10), transparent 70%),
-    radial-gradient(ellipse 20% 10% at 75% 35%, rgba(79, 195, 240, 0.08), transparent 70%),
-    radial-gradient(ellipse 9% 5% at 12% 82%, rgba(79, 195, 240, 0.10), transparent 70%);
+    radial-gradient(ellipse 14% 8% at 35% 55%, rgba(136, 204, 230, 0.10), transparent 70%),
+    radial-gradient(ellipse 20% 10% at 75% 35%, rgba(136, 204, 230, 0.08), transparent 70%),
+    radial-gradient(ellipse 9% 5% at 12% 82%, rgba(136, 204, 230, 0.10), transparent 70%);
   background-size: 1131px 887px;
   opacity: 0.32;
 }
@@ -88,7 +88,7 @@ body.has-welcome { overflow: hidden; }
   height: 160px;
   margin: -80px 0 0 -80px;
   border-radius: 50%;
-  border: 2px solid rgba(224, 241, 251, 0.5);
+  border: 2px solid rgba(222, 240, 248, 0.5);
   opacity: 0;
   will-change: transform, opacity;
 }
@@ -98,8 +98,8 @@ body.has-welcome { overflow: hidden; }
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(to top, rgba(4, 18, 31, 0.88) 0%, rgba(4, 18, 31, 0.45) 42%, rgba(4, 18, 31, 0) 72%),
-    linear-gradient(to right, rgba(4, 18, 31, 0.45) 0%, rgba(4, 18, 31, 0) 60%);
+    linear-gradient(to top, rgba(6, 3, 81, 0.88) 0%, rgba(6, 3, 81, 0.45) 42%, rgba(6, 3, 81, 0) 72%),
+    linear-gradient(to right, rgba(6, 3, 81, 0.45) 0%, rgba(6, 3, 81, 0) 60%);
 }
 
 /* ---------------- Language toggle (top right) ---------------- */
@@ -110,8 +110,8 @@ body.has-welcome { overflow: hidden; }
   padding: max(1rem, env(safe-area-inset-top)) max(1rem, env(safe-area-inset-right)) 0 1rem;
 }
 .language-toggle-on-dark {
-  background: rgba(4, 18, 31, 0.55);
-  border: 1px solid rgba(224, 241, 251, 0.3);
+  background: rgba(6, 3, 81, 0.55);
+  border: 1px solid rgba(222, 240, 248, 0.3);
 }
 .language-toggle-on-dark button { color: var(--text); }
 .language-toggle-on-dark button[aria-pressed="true"] { background: var(--primary); color: var(--on-primary); }

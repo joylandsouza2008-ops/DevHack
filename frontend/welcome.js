@@ -46,7 +46,7 @@
     const height = Math.round(width * 0.42);
     return (
       `<svg width="${width}" height="${height}" viewBox="0 0 100 42" aria-hidden="true" focusable="false">` +
-      `<g fill="#020b14">` +
+      `<g fill="#030226">` +
       `<path class="fish-tail" d="M25 21 L7 9 C10.5 16.5 10.5 25.5 7 33 Z"/>` +
       `<path d="M62 12.5 L55 3 L50 13 Z M62 29.5 L55 39 L50 29 Z"/>` +
       `<path d="M90 21 C86 12 72 9 56 10 C42 11 31 15 22 21 C31 27 42 31 56 32 C72 33 86 30 90 21 Z"/>` +

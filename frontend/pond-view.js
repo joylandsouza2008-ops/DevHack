@@ -61,8 +61,8 @@
     stopBottom = el("stop", { offset: "1", "stop-color": WATER.unknown.bottom });
     grad.append(stopTop, stopBottom);
     const sky = el("linearGradient", { id: "pv-sky", x1: 0, y1: 0, x2: 0, y2: 1 });
-    skyTop = el("stop", { offset: "0", "stop-color": "#08223f" });
-    skyBottom = el("stop", { offset: "1", "stop-color": "#12406f" });
+    skyTop = el("stop", { offset: "0", "stop-color": "#060351" });
+    skyBottom = el("stop", { offset: "1", "stop-color": "#1a1f7a" });
     sky.append(skyTop, skyBottom);
     defs.append(grad, sky);
     moon = el("path", { d: "M283 5 A6 6 0 1 0 287 14 A4.8 4.8 0 1 1 283 5 Z", class: "pv-moon", opacity: 0 });

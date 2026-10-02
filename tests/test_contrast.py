@@ -81,10 +81,8 @@ PAIRS = [
     ("primary", "background", TEXT, "outlined button text"),
     ("on-primary", "primary", TEXT, "primary button, active toggle"),
     ("on-primary", "primary-pressed", TEXT, "pressed primary button"),
-    ("on-secondary", "secondary", TEXT, "simulated-data banner, info badge"),
-    ("accent", "background", TEXT, "aqua accent on the page"),
-    ("accent", "card", TEXT, "aqua accent on cards"),
-    ("on-accent", "accent", TEXT, "text on an aqua fill"),
+    ("on-secondary", "secondary", TEXT, "simulated-data banner, info badge, selected pond (cyan fill)"),
+    ("on-accent", "accent", TEXT, "text on a magenta fill (not used today; the accent is decoration only)"),
     ("hairline-strong", "card", NON_TEXT, "select borders"),
     ("hairline-strong", "background", NON_TEXT, "status banner border before data"),
     ("primary", "background", NON_TEXT, "focus ring"),
@@ -140,11 +138,13 @@ def test_status_colours_unchanged(theme):
 
 
 def test_brand_palette_is_used():
+    # Dark theme: exactly the Realtime Colors palette chosen by the team.
     d, l = THEMES["dark"], THEMES["light"]
-    assert (d["background"], d["text"], d["primary"], d["secondary"], d["accent"]) == \
-        ("#04121f", "#e0f1fb", "#4fc3f0", "#1d2f8a", "#2bd2e3")
-    assert (l["background"], l["text"], l["primary"], l["secondary"], l["accent"]) == \
-        ("#e6f1f8", "#0a2233", "#06629a", "#24369c", "#0b6f97")
+    assert (d["text"], d["background"], d["primary"], d["secondary"], d["accent"]) == \
+        ("#def0f8", "#060351", "#88cce6", "#23bcd0", "#a10c9f")
+    # Light theme, made from it: indigo text, deepened pond blue, same cyan and magenta.
+    assert (l["text"], l["background"], l["primary"], l["secondary"], l["accent"]) == \
+        ("#060351", "#eceefa", "#17698e", "#23bcd0", "#a10c9f")
 
 
 def oklab(h: str) -> tuple[float, float, float]:
@@ -166,12 +166,68 @@ def hue_gap(a: str, b: str) -> float:
     return min(abs(ha - hb), 360 - abs(ha - hb))
 
 
+# Colour-blindness simulation: Machado, Oliveira & Fernandes (2009), full
+# severity, applied in linear RGB. Rows map (R, G, B) to what the viewer sees.
+CVD = {
+    "protanopia":   [[0.152286, 1.052583, -0.204868], [0.114503, 0.786281, 0.099216], [-0.003882, -0.048116, 1.051998]],
+    "deuteranopia": [[0.367322, 0.860646, -0.227968], [0.280085, 0.672501, 0.047413], [-0.011820, 0.042940, 0.968881]],
+    "tritanopia":   [[1.255528, -0.076749, -0.178779], [-0.078411, 0.930809, 0.147602], [0.004733, 0.691367, 0.303900]],
+}
+
+
+def simulate(hex_colour: str, kind: str) -> str:
+    lin = lambda c: c / 12.92 if c <= 0.04045 else ((c + 0.055) / 1.055) ** 2.4
+    enc = lambda c: 12.92 * c if c <= 0.0031308 else 1.055 * c ** (1 / 2.4) - 0.055
+    rgb = [lin(int(hex_colour[i:i + 2], 16) / 255) for i in (1, 3, 5)]
+    seen = [min(1, max(0, sum(row[k] * rgb[k] for k in range(3)))) for row in CVD[kind]]
+    return "#" + "".join(f"{round(enc(c) * 255):02x}" for c in seen)
+
+
+def colour_distance(a: str, b: str) -> float:
+    return 100 * math.dist(oklab(a), oklab(b))
+
+
 @both
-def test_accent_is_distinct_from_status_colours(theme):
-    # Aqua must never be mistaken for a status colour (the old red accent was, 1.5:1 from Danger).
-    t = THEMES[theme]
-    for status in ("safe", "warning", "danger"):
-        assert 100 * math.dist(oklab(t["accent"]), oklab(t[status])) >= 15, status
+@pytest.mark.parametrize("status", ["safe", "warning", "danger"])
+def test_accent_is_distinct_from_status_colours(theme, status):
+    # The magenta accent must never be mistaken for a status colour, for normal
+    # vision and for red-green colour blindness (protanopia, deuteranopia).
+    # 15+ = clearly different.
+    a, s = THEMES[theme]["accent"], THEMES[theme][status]
+    assert colour_distance(a, s) >= 15
+    for kind in ("protanopia", "deuteranopia"):
+        assert colour_distance(simulate(a, kind), simulate(s, kind)) >= 15, kind
+
+
+def test_accent_vs_danger_for_tritanopia_is_a_known_limit():
+    # Tritanopia (blue-yellow, about 1 in 10 000 people) turns this magenta into a
+    # dark rose close to Danger red: distance 12, below the 15 we want (DESIGN.md
+    # Known Gaps). That is acceptable only because the accent is decoration only:
+    # never a fill, stripe, badge or text, never next to a status (tests below).
+    # If the accent changes, this number must not get worse.
+    d = colour_distance(simulate(C["accent"], "tritanopia"), simulate(C["danger"], "tritanopia"))
+    assert d >= 11.5, f"{d:.1f}"
+
+
+DECORATION_ONLY = {".doodle", ".sc-accent path"}     # the only places the accent may appear
+
+
+def test_accent_is_decoration_only():
+    # Magenta is 2.7:1 on the dark page: never text, never a control. It is used
+    # only for doodles and scene lines (and, as rgba glows, in the token blocks).
+    css = CSS + (STYLES.parent / "welcome.css").read_text(encoding="utf-8")
+    for selector in re.findall(r"([^{}]+)\{[^}]*var\(--accent\)[^}]*\}", css):
+        selector = re.sub(r"/\*.*?\*/", "", selector, flags=re.S).strip()
+        assert selector in DECORATION_ONLY, selector
+    for name in (STYLES.parent).glob("*.js"):
+        assert "--accent" not in name.read_text(encoding="utf-8"), name.name
+
+
+def test_secondary_is_a_fill_only():
+    # Light theme: cyan is 2:1 on the page, so it must never be text or a border.
+    assert contrast(THEMES["light"]["secondary"], THEMES["light"]["background"]) < NON_TEXT   # documents why
+    for rule in re.findall(r"\{[^}]*\}", CSS):
+        assert not re.search(r"(?<![-\w])(color|border[\w-]*|outline|stroke):[^;]*var\(--secondary\)", rule), rule
 
 
 @both
@@ -306,7 +362,7 @@ def sky_colours() -> list[str]:
 
 
 def test_sky_colours_never_look_like_a_status_colour():
-    # Sunrise and sunset are shown with light and blue tones, never orange/red/green.
+    # Sunrise and sunset are shown with light, blue and orchid tones, never orange/red/green.
     colours = sky_colours()
     assert len(colours) == 12
     for colour in colours:
@@ -315,10 +371,10 @@ def test_sky_colours_never_look_like_a_status_colour():
 
 
 def test_scene_clock_chip_is_readable_over_the_brightest_sky():
-    # The chip is rgba(3, 12, 22, 0.84) over the sky; check it over the lightest sky colour.
-    assert "background: rgba(3, 12, 22, 0.84)" in CSS
+    # The chip is rgba(4, 2, 40, 0.84) over the sky; check it over the lightest sky colour.
+    assert "background: rgba(4, 2, 40, 0.84)" in CSS
     brightest = max(sky_colours(), key=luminance)
-    chip = over("#030c16", brightest, 0.84)
+    chip = over("#040228", brightest, 0.84)
     assert contrast(C["text"], chip) >= TEXT
     assert contrast(C["text-secondary"], chip) >= TEXT
     assert contrast(C["primary"], chip) >= TEXT         # the phase word ("Night")
@@ -329,10 +385,10 @@ def test_scene_clock_chip_is_readable_over_the_brightest_sky():
 def test_text_stays_readable_under_the_spotlight_and_card_gradients(theme):
     # Spotlight (--spot) under the cursor, on top of the brightest corner of each
     # card background: plain card, health card (with its glow), time-until-danger,
-    # alert preview (indigo tint).
+    # alert preview (cyan tint).
     t, a = THEMES[theme], ALPHAS[theme]
     glow, glow_alpha = a["card-glow"]
-    tint, tint_alpha = a["card-indigo-tint"]
+    tint, tint_alpha = a["card-secondary-tint"]
     spot, spot_alpha = a["spot"]
     for card in (t["card"], over(glow, t["card-deep-a"], glow_alpha), t["card-deep-b"], over(tint, t["card"], tint_alpha)):
         lit = over(spot, card, spot_alpha)

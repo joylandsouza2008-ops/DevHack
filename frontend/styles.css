@@ -1,9 +1,9 @@
 /* MeenuRaksha dashboard. Colours, sizes and rules come from DESIGN.md.
-   Two themes from the "Arabian Sea" palette: dark (default) and light, for
-   bright outdoor sunlight. The theme is set on <html data-theme="..."> by the
-   small script in index.html (saved choice, else the phone's setting) and by
-   the toggle in the top bar (app.js). Status colours (Safe / Warning / Danger)
-   are the same in both themes and always used as fixed pairs.
+   Two themes from the project palette (Realtime Colors): dark (default) and
+   light, for bright outdoor sunlight. The theme is set on <html data-theme="...">
+   by the small script in index.html (saved choice, else the phone's setting)
+   and by the toggle in the top bar (app.js). Status colours (Safe / Warning /
+   Danger) are the same in both themes and always used as fixed pairs.
    tests/test_contrast.py checks every pair below in BOTH themes. */
 
 /* Dark theme. Also used by .dark-scope: the pictures (welcome pond, sky scene,
@@ -12,42 +12,43 @@
 .dark-scope {
   color-scheme: dark;
 
-  /* Brand palette: Arabian Sea (deep ocean blue, cyan-blue, indigo) */
-  --background: #04121f;
-  --text: #e0f1fb;
-  --primary: #4fc3f0;
-  --primary-pressed: #86d6f5;
-  --on-primary: #04121f;
-  --secondary: #1d2f8a;       /* fill only, never text or borders on the background */
-  --on-secondary: #e0f1fb;
-  --edge-on-secondary: #4fc3f0;   /* dashed borders and the border trail on secondary fills */
-  --accent: #2bd2e3;          /* aqua: decorative highlights only; looks almost like primary (DESIGN.md) */
-  --on-accent: #04121f;
+  /* Brand palette (exact Realtime Colors values) */
+  --background: #060351;      /* deep indigo */
+  --text: #def0f8;
+  --primary: #88cce6;         /* light pond blue: every action */
+  --primary-pressed: #a8daee;
+  --on-primary: #060351;
+  --secondary: #23bcd0;       /* bright cyan FILL: banners, tags, highlights, always with dark text */
+  --on-secondary: #060351;
+  --edge-on-secondary: #060351;   /* dashed borders and the border trail on secondary fills */
+  --accent: #a10c9f;          /* magenta: DECORATION ONLY (doodles, glows, scene lines), never text or controls */
+  --on-accent: #def0f8;
 
   /* Surfaces and text, derived from the palette (contrast-checked) */
-  --surface: #06192a;
-  --card: #081c2c;
-  --hairline: #1b3a50;
-  --hairline-strong: #5d86a2;
-  --text-secondary: #a6c7dc;
-  --text-tertiary: #86aac2;
-  --muted: #5e7f94;
-  --footer-bg: #020b14;      /* darkest water: bottom toolbar */
+  --surface: #08054a;
+  --card: #07044a;            /* kept as dark as the page so the Danger stripe keeps 3:1 */
+  --hairline: #262470;
+  --hairline-strong: #6f73b8;
+  --text-secondary: #b3c6e6;
+  --text-tertiary: #9aa9d6;
+  --muted: #6a6fa6;
+  --footer-bg: #03022c;      /* darkest water: bottom toolbar */
 
   /* Amber has enough contrast on dark cards by itself: no extra edge. */
   --warning-edge: transparent;
 
   /* Decoration (never a status): glows, card tints, effects */
-  --glow-accent: rgba(43, 210, 227, 0.08);
-  --glow-indigo: rgba(29, 47, 138, 0.28);
-  --card-deep-a: #0a2638;
-  --card-deep-b: #0a2231;
-  --card-indigo-tint: rgba(29, 47, 138, 0.32);
-  --card-glow: rgba(43, 210, 227, 0.06);
-  --spot: rgba(43, 210, 227, 0.07);
-  --ripple: rgba(79, 195, 240, 0.55);
-  --ink: rgba(79, 195, 240, 0.4);
-  --shadow-lift: rgba(2, 8, 14, 0.5);
+  --glow-accent: rgba(161, 12, 159, 0.16);
+  --glow-secondary: rgba(35, 188, 208, 0.07);
+  --card-deep-a: #0d0a5e;
+  --card-deep-b: #0a0756;
+  --card-secondary-tint: rgba(35, 188, 208, 0.10);
+  --card-glow: rgba(161, 12, 159, 0.10);
+  --spot: rgba(161, 12, 159, 0.10);
+  --ripple: rgba(136, 204, 230, 0.55);
+  --ink: rgba(136, 204, 230, 0.4);
+  --shadow-lift: rgba(2, 1, 30, 0.55);
+  --doodle-opacity: 0.55;    /* magenta is only 2.7:1 on the dark page, so doodles need more opacity to show */
 
   /* Status: unchanged. Text colours only ever sit on their own light background. */
   --safe: #1a7f37;      --safe-bg: #e6f4ea;    --safe-text: #0d4d20;
@@ -58,43 +59,45 @@
   --font: "Noto Sans", "Noto Sans Kannada", "Tunga", "Nirmala UI", system-ui, sans-serif;
 }
 
-/* Light theme: pale water, dark navy text, deep cyan-blue actions. */
+/* Light theme, made from the same palette: the indigo becomes the text, the
+   pond blue is deepened for buttons, cyan and magenta are used as they are. */
 :root[data-theme="light"] {
   color-scheme: light;
 
-  --background: #e6f1f8;
-  --text: #0a2233;
-  --primary: #06629a;
-  --primary-pressed: #044a75;
-  --on-primary: #f3faff;
-  --secondary: #24369c;
-  --on-secondary: #eef3ff;
-  --edge-on-secondary: #eef3ff;   /* primary is too dark to show on the indigo fill here */
-  --accent: #0b6f97;
-  --on-accent: #f3faff;
+  --background: #eceefa;
+  --text: #060351;
+  --primary: #17698e;
+  --primary-pressed: #0f4f6c;
+  --on-primary: #f4fbfe;
+  --secondary: #23bcd0;       /* same cyan fill; only 2:1 on this page, so fill only, never text or a border */
+  --on-secondary: #060351;
+  --edge-on-secondary: #060351;
+  --accent: #a10c9f;
+  --on-accent: #f8f0fb;
 
-  --surface: #f2f8fc;
-  --card: #fbfdfe;
-  --hairline: #c6d9e5;
-  --hairline-strong: #5f7d90;
-  --text-secondary: #2d4b5e;
-  --text-tertiary: #45657a;
-  --muted: #8299a8;
-  --footer-bg: #d6e6f0;
+  --surface: #f6f7fd;
+  --card: #fcfcff;
+  --hairline: #d3d6ee;
+  --hairline-strong: #646a99;
+  --text-secondary: #2c2f6b;
+  --text-tertiary: #4a4e85;
+  --muted: #8d90b5;
+  --footer-bg: #dfe2f5;
 
   /* Amber is only 2:1 on light cards, so amber stripes get a dark amber edge (the unchanged warning-text). */
   --warning-edge: #7a4100;
 
-  --glow-accent: rgba(11, 111, 151, 0.08);
-  --glow-indigo: rgba(36, 54, 156, 0.08);
-  --card-deep-a: #e9f3fa;
-  --card-deep-b: #eef6fb;
-  --card-indigo-tint: rgba(36, 54, 156, 0.08);
-  --card-glow: rgba(11, 111, 151, 0.06);
-  --spot: rgba(11, 111, 151, 0.07);
-  --ripple: rgba(6, 98, 154, 0.45);
-  --ink: rgba(6, 98, 154, 0.22);
-  --shadow-lift: rgba(10, 34, 51, 0.16);
+  --glow-accent: rgba(161, 12, 159, 0.07);
+  --glow-secondary: rgba(35, 188, 208, 0.10);
+  --card-deep-a: #f1f0fc;
+  --card-deep-b: #f3f4fd;
+  --card-secondary-tint: rgba(35, 188, 208, 0.12);
+  --card-glow: rgba(161, 12, 159, 0.05);
+  --spot: rgba(161, 12, 159, 0.06);
+  --ripple: rgba(23, 105, 142, 0.45);
+  --ink: rgba(23, 105, 142, 0.22);
+  --shadow-lift: rgba(6, 3, 81, 0.16);
+  --doodle-opacity: 0.3;
 }
 
 /* Pictures that stay dark: text inside them must use the dark tokens too
@@ -127,9 +130,9 @@ button, select { font: inherit; }
    Desktop file on wide screens, phone file on phones; the browser only
    downloads the one that matches. Uses the *-brand.svg copies made by
    tools/recolor_backgrounds.py: same waves, recoloured from primary (back)
-   to secondary (front). The originals' purple, pink and coral-red waves would
-   sit behind the reading cards and look like Danger, and DESIGN.md rules out
-   purple. Low opacity keeps it a quiet backdrop; cards stay fully opaque. */
+   to secondary (front). The originals' pink and coral-red waves would sit
+   behind the reading cards and look like Danger. Low opacity keeps it a quiet
+   backdrop; cards stay fully opaque. */
 .page-bg {
   position: fixed;
   inset: 0;
@@ -647,7 +650,7 @@ main {
   position: fixed; inset: 0; z-index: -1; pointer-events: none;
   background:
     radial-gradient(70% 45% at 92% -5%, var(--glow-accent), transparent 70%),
-    radial-gradient(60% 55% at 0% 100%, var(--glow-indigo), transparent 72%);
+    radial-gradient(60% 55% at 0% 100%, var(--glow-secondary), transparent 72%);
 }
 body.has-welcome .page-glow { display: none; }
 
@@ -660,7 +663,7 @@ body.has-welcome .page-glow { display: none; }
   position: relative; isolation: isolate; overflow: hidden;
   height: clamp(180px, 24vw, 250px);
   border-radius: 28px; border: 1px solid var(--hairline);
-  background: #03101f;
+  background: #03022e;
 }
 .scene-art { position: absolute; inset: 0; }
 .sky-layer, .scene-stars, .scene-land { position: absolute; inset: 0; width: 100%; height: 100%; }
@@ -686,10 +689,10 @@ body.has-welcome .page-glow { display: none; }
   -webkit-mask-image: radial-gradient(50% 50% at 50% 30%, #000 30%, transparent 100%);
   mask-image: radial-gradient(50% 50% at 50% 30%, #000 30%, transparent 100%);
 }
-.sc-hills-far { fill: #133c62; opacity: 0.55; }
-.sc-hills-near { fill: #08213a; opacity: 0.85; }
-.sc-ink { fill: #030f1b; }
-.sc-palm path, .sc-reeds path, .sc-pole { fill: none; stroke: #030f1b; stroke-linecap: round; stroke-linejoin: round; }
+.sc-hills-far { fill: #22247a; opacity: 0.55; }
+.sc-hills-near { fill: #0e0b52; opacity: 0.85; }
+.sc-ink { fill: #04022a; }
+.sc-palm path, .sc-reeds path, .sc-pole { fill: none; stroke: #04022a; stroke-linecap: round; stroke-linejoin: round; }
 .sc-palm path { stroke-width: 4; }
 .sc-palm .sc-trunk { stroke-width: 6.5; }
 .sc-palm-far path { stroke-width: 3; }
@@ -698,7 +701,7 @@ body.has-welcome .page-glow { display: none; }
 .sc-pole { stroke-width: 2.5; }
 .sc-shimmer path, .sc-accent path { fill: none; stroke-linecap: round; }
 .sc-shimmer path { stroke: var(--primary); stroke-width: 2; opacity: 0.35; }
-.sc-accent path { stroke: var(--accent); stroke-width: 1.6; opacity: 0.45; }
+.sc-accent path { stroke: var(--accent); stroke-width: 1.8; opacity: 0.8; }
 
 /* Clock + "Simulated data" on a solid dark chip, readable over any sky. */
 .scene-chip {
@@ -706,13 +709,13 @@ body.has-welcome .page-glow { display: none; }
   display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.75rem;
   max-width: calc(100% - 2rem);
   padding: 0.5rem 0.875rem;
-  background: rgba(3, 12, 22, 0.84); border: 1px solid rgba(224, 241, 251, 0.18); border-radius: 12px;
+  background: rgba(4, 2, 40, 0.84); border: 1px solid rgba(222, 240, 248, 0.18); border-radius: 12px;
 }
 .scene-phase { color: var(--primary); font-weight: 600; }
 /* Narrow screens: the chip becomes a strip above the picture, so it never covers the sky. */
 @media (max-width: 899px) {
   .scene { height: auto; display: flex; flex-direction: column; }
-  .scene-chip { position: static; order: -1; max-width: none; margin: 0; border: 0; border-bottom: 1px solid var(--hairline); border-radius: 0; background: #030c16; }
+  .scene-chip { position: static; order: -1; max-width: none; margin: 0; border: 0; border-bottom: 1px solid var(--hairline); border-radius: 0; background: #040228; }
   .scene-art { position: relative; height: clamp(170px, 34vw, 230px); }
 }
 @media (max-width: 480px) { .scene-chip { padding: 0.5rem 0.75rem; gap: 0.25rem 0.5rem; } }
@@ -765,17 +768,17 @@ body.has-welcome .page-glow { display: none; }
     linear-gradient(160deg, var(--card-deep-a), var(--card) 62%);
 }
 .pond-card { border-radius: 28px; background: var(--surface); }
-.alert-card { background: linear-gradient(180deg, var(--card-indigo-tint), transparent 42%), var(--card); }
+.alert-card { background: linear-gradient(180deg, var(--card-secondary-tint), transparent 42%), var(--card); }
 .ttd-card { background: linear-gradient(200deg, var(--card-deep-b), var(--card) 55%); }
 @media (max-width: 480px) { .health-card { padding: 1.25rem; } }
 
 /* ---- Hand-drawn doodles (scene.js): aqua line drawings behind card content ---- */
-.doodle { position: absolute; z-index: -1; pointer-events: none; color: var(--accent); opacity: 0.26; }
+.doodle { position: absolute; z-index: -1; pointer-events: none; color: var(--accent); opacity: var(--doodle-opacity); }
 .doodle svg { display: block; width: 100%; height: auto; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
 .doodle-fish { right: 1.25rem; bottom: 0.75rem; width: 130px; }
 .doodle-reeds { right: 0.75rem; bottom: 0; width: 92px; }
 .doodle-ripples { right: 1rem; top: 0.75rem; width: 120px; }
-.doodle-wave { position: static; display: block; width: 7.5rem; opacity: 0.75; }
+.doodle-wave { position: static; display: block; width: 7.5rem; opacity: 0.9; }
 .doodle-wave svg { height: 12px; stroke-width: 2.6; }
 @media (max-width: 480px) { .doodle:not(.doodle-wave) { display: none; } }
 

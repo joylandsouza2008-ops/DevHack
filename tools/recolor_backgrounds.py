@@ -2,9 +2,9 @@
 Make brand-coloured copies of the dashboard background waves, one per theme.
 
 The original artwork (frontend/assets/background-desktop.svg and
-background-phone.svg) uses blue, purple, pink and coral-red waves. Coral-red
-behind the reading cards looks like the Danger colour, and DESIGN.md rules out
-purple. This script keeps the original files unchanged and writes copies where
+background-phone.svg) uses blue, purple, pink and coral-red waves. Pink and
+coral-red behind the reading cards look like the Danger colour. This script
+keeps the original files unchanged and writes copies where
 each wave keeps its own shape and layer, recoloured along a ramp from the brand
 primary (back waves) to the brand secondary (front waves):
 
@@ -25,8 +25,8 @@ ASSETS = Path(__file__).resolve().parent.parent / "frontend" / "assets"
 
 # suffix: (page background, back wave = primary, front wave = secondary)
 THEMES = {
-    "brand": ("#04121f", "#4fc3f0", "#1d2f8a"),   # dark theme (Arabian Sea)
-    "light": ("#e6f1f8", "#06629a", "#24369c"),   # light theme
+    "brand": ("#060351", "#88cce6", "#23bcd0"),   # dark theme
+    "light": ("#eceefa", "#17698e", "#23bcd0"),   # light theme
 }
 
 

@@ -31,7 +31,7 @@ Built for DevHack 2026, problem statement 1.1.
 | `docs/health_score.md` | How the 0–100 health score is worked out, with examples |
 | `docs/time_to_danger.md` | "Time until danger" method and results on real + simulated data |
 | `docs/screenshots/` | App screenshots (simulated demo) |
-| `frontend/` | The web page: `index.html`, dashboard (`styles.css`, `app.js`), welcome screen (`welcome.css`, `welcome.js`), day/night pond scene that follows the simulated time + hand-drawn doodles (`scene.js`), mouse and tap effects: water ripples, card tilt and spotlight, magnetic buttons (`cursor-fx.js`). Dark and light themes ("Arabian Sea" palette, toggle in the top bar); after changing theme colours re-run `python tools/recolor_backgrounds.py`. Add `?debug` to the address to see live counts |
+| `frontend/` | The web page: `index.html`, dashboard (`styles.css`, `app.js`), welcome screen (`welcome.css`, `welcome.js`), day/night pond scene that follows the simulated time + hand-drawn doodles (`scene.js`), mouse and tap effects: water ripples, card tilt and spotlight, magnetic buttons (`cursor-fx.js`). Dark and light themes (one Realtime Colors palette: indigo, pond blue, cyan, magenta decoration; toggle in the top bar); after changing theme colours re-run `python tools/recolor_backgrounds.py`. Add `?debug` to the address to see live counts |
 | `frontend/health-ring.js`, `history.js`, `voice.js` | Health score ring, alert history (saved in the browser), voice alerts (phone's own voices, only when tapped) |
 | `frontend/vendor/gsap/` | GSAP 3.15.0 animation library, bundled locally (works offline) |
 | `frontend/assets/` | Dashboard background waves: original artwork + brand-blue copies (`*-brand.svg`) used by the app |
