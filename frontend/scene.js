@@ -7,7 +7,7 @@
 // coastal Karnataka: Western Ghats hills, coconut palms, reeds and a small
 // country boat on the water.
 //
-// Colours: blues, indigo, aqua and pale pearl only. Sunrise and sunset are
+// Colours: the Arabian Sea palette's blues, indigo, aqua and pale pearl only. Sunrise and sunset are
 // shown by light and by the sun's position, never by orange, red or green,
 // because those colours mean Warning / Danger / Safe in this app (DESIGN.md).
 // tests/test_contrast.py checks the SKY colours below.
@@ -40,10 +40,10 @@
 
   // Sky gradient per phase: top of the sky, middle, and the glow at the horizon.
   const SKY = {
-    night: { top: "#040b1e", mid: "#0a1a3d", horizon: "#16306a" },
-    dawn:  { top: "#142a72", mid: "#3d6fae", horizon: "#cfe4f1" },
-    day:   { top: "#1f6fa3", mid: "#4c9cc8", horizon: "#a9dcee" },
-    dusk:  { top: "#0d1858", mid: "#26408f", horizon: "#7fb2cf" },
+    night: { top: "#03101f", mid: "#08223f", horizon: "#12406f" },
+    dawn:  { top: "#10307a", mid: "#3a7ab8", horizon: "#cde9f5" },
+    day:   { top: "#1679b6", mid: "#43a7d8", horizon: "#a6e0f2" },
+    dusk:  { top: "#0b1e62", mid: "#23489a", horizon: "#78b8d6" },
   };
 
   const SUN = [6.0, 18.4];          // hours the sun is above the horizon
@@ -117,9 +117,9 @@
   const LAND = `
     <defs>
       <linearGradient id="scene-water" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0" stop-color="#0a3042" stop-opacity="0.3"/>
-        <stop offset="0.3" stop-color="#062030" stop-opacity="0.7"/>
-        <stop offset="1" stop-color="#030b10" stop-opacity="0.97"/>
+        <stop offset="0" stop-color="#08344a" stop-opacity="0.3"/>
+        <stop offset="0.3" stop-color="#052238" stop-opacity="0.7"/>
+        <stop offset="1" stop-color="#020b14" stop-opacity="0.97"/>
       </linearGradient>
     </defs>
     <path class="sc-hills-far" d="M0 172 L0 126 C60 112 110 121 160 108 C220 93 262 113 320 104 C382 95 420 79 482 92 C540 104 582 87 640 96 C702 105 758 85 822 98 C880 110 942 99 1000 112 L1000 172 Z"/>

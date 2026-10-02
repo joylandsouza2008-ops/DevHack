@@ -16,6 +16,7 @@ const TEXT = {
     tagline: "Pond water early warning",
     welcomeTagline: "Pond water warnings before your fish are in danger.",
     start: "Start",
+    themeLight: "Light", themeDark: "Dark",
     simulatedNote: "Not a real pond. For demonstration only.",
     pond: "Pond", pond1: "Pond 1", pond2: "Pond 2", pond3: "Pond 3",
     scenario: "Scenario", scenarioNormal: "Normal day", scenarioCrash: "Night oxygen crash",
@@ -87,6 +88,7 @@ const TEXT = {
     tagline: "ಕೊಳದ ನೀರಿನ ಮುನ್ನೆಚ್ಚರಿಕೆ",
     welcomeTagline: "ಮೀನುಗಳಿಗೆ ಅಪಾಯ ಬರುವ ಮೊದಲೇ ಕೊಳದ ನೀರಿನ ಎಚ್ಚರಿಕೆ.",
     start: "ಪ್ರಾರಂಭಿಸಿ",
+    themeLight: "ತಿಳಿ", themeDark: "ಗಾಢ",
     simulatedNote: "ನಿಜವಾದ ಕೊಳವಲ್ಲ. ಪ್ರದರ್ಶನಕ್ಕಾಗಿ ಮಾತ್ರ.",
     pond: "ಕೊಳ", pond1: "ಕೊಳ 1", pond2: "ಕೊಳ 2", pond3: "ಕೊಳ 3",
     scenario: "ಸನ್ನಿವೇಶ", scenarioNormal: "ಸಾಮಾನ್ಯ ದಿನ", scenarioCrash: "ರಾತ್ರಿ ಆಮ್ಲಜನಕ ಕುಸಿತ",
@@ -210,7 +212,7 @@ function setLanguage(lang) {
   document.querySelectorAll("[data-i18n]").forEach((el) => {
     el.textContent = TEXT[lang][el.dataset.i18n];
   });
-  document.querySelectorAll(".language-toggle button").forEach((b) => {
+  document.querySelectorAll(".language-toggle button[data-lang]").forEach((b) => {
     b.setAttribute("aria-pressed", String(b.dataset.lang === lang));
   });
   $("pause").textContent = TEXT[lang][state.paused ? "resume" : "pause"];
@@ -229,6 +231,29 @@ function setLanguage(lang) {
   if (!state.last) renderHealth(null, "unknown", lang);
   renderHistory();
   renderVoice();
+}
+
+// ---------------------------------------------------------------- theme (light / dark)
+// The first theme is set before the page paints (small script in index.html):
+// the saved choice, else the phone's setting. The toggle saves the farmer's choice.
+
+const THEME_KEY = "meenuraksha-theme";
+const lightQuery = window.matchMedia("(prefers-color-scheme: light)");
+
+function savedTheme() {
+  try { const t = localStorage.getItem(THEME_KEY); return t === "light" || t === "dark" ? t : null; } catch { return null; }
+}
+
+function setTheme(theme, save) {
+  document.documentElement.setAttribute("data-theme", theme);
+  if (save) { try { localStorage.setItem(THEME_KEY, theme); } catch { /* storage blocked: ignore */ } }
+  document.querySelectorAll("#theme-toggle button").forEach((b) => {
+    b.setAttribute("aria-pressed", String(b.dataset.themeChoice === theme));
+  });
+  // Browser bar colour on phones follows the page background.
+  const background = getComputedStyle(document.documentElement).getPropertyValue("--background").trim();
+  document.querySelector('meta[name="theme-color"]').setAttribute("content", background);
+  if (state.effectsReady) window.DOChart.restyle();   // the chart draws on a canvas: it needs the new colours
 }
 
 // ---------------------------------------------------------------- helpers
@@ -828,7 +853,7 @@ function togglePause() {
 // ---------------------------------------------------------------- wiring
 
 buildReadingCards();
-document.querySelectorAll(".language-toggle button").forEach((b) => {
+document.querySelectorAll(".language-toggle button[data-lang]").forEach((b) => {
   b.addEventListener("click", () => setLanguage(b.dataset.lang));
 });
 document.querySelectorAll(".pond-option").forEach((b) => {
@@ -856,6 +881,12 @@ document.querySelectorAll("#alert-source-picker button").forEach((b) => {
 });
 
 $("history-clear").addEventListener("click", clearHistory);
+document.querySelectorAll("#theme-toggle button").forEach((b) => {
+  b.addEventListener("click", () => setTheme(b.dataset.themeChoice, true));
+});
+// No saved choice yet: follow the phone if its light/dark setting changes.
+lightQuery.addEventListener("change", (e) => { if (!savedTheme()) setTheme(e.matches ? "light" : "dark", false); });
+setTheme(document.documentElement.getAttribute("data-theme") === "light" ? "light" : "dark", false);
 $("voice-button").addEventListener("click", toggleVoice);
 state.history = H.load();
 

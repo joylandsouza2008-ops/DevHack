@@ -1,30 +1,53 @@
 /* MeenuRaksha dashboard. Colours, sizes and rules come from DESIGN.md.
-   Dark theme from the brand palette (Realtime Colors). Status colours
-   (Safe / Warning / Danger) are unchanged and always used as fixed pairs. */
+   Two themes from the "Arabian Sea" palette: dark (default) and light, for
+   bright outdoor sunlight. The theme is set on <html data-theme="..."> by the
+   small script in index.html (saved choice, else the phone's setting) and by
+   the toggle in the top bar (app.js). Status colours (Safe / Warning / Danger)
+   are the same in both themes and always used as fixed pairs.
+   tests/test_contrast.py checks every pair below in BOTH themes. */
 
-:root {
+/* Dark theme. Also used by .dark-scope: the pictures (welcome pond, sky scene,
+   pond view) stay dark in the light theme, because they show night water. */
+:root,
+.dark-scope {
   color-scheme: dark;
 
-  /* Brand palette */
-  --background: #06131a;
-  --text: #def0f8;
-  --primary: #88cce6;
-  --primary-pressed: #a8daee;
-  --on-primary: #06131a;
-  --secondary: #1f2f91;       /* fill only, never text or borders on the background (1.7:1) */
-  --on-secondary: #def0f8;
-  --accent: #22d3ee;          /* aqua: decorative highlights only; looks almost like primary (DESIGN.md) */
-  --on-accent: #06131a;
+  /* Brand palette: Arabian Sea (deep ocean blue, cyan-blue, indigo) */
+  --background: #04121f;
+  --text: #e0f1fb;
+  --primary: #4fc3f0;
+  --primary-pressed: #86d6f5;
+  --on-primary: #04121f;
+  --secondary: #1d2f8a;       /* fill only, never text or borders on the background */
+  --on-secondary: #e0f1fb;
+  --edge-on-secondary: #4fc3f0;   /* dashed borders and the border trail on secondary fills */
+  --accent: #2bd2e3;          /* aqua: decorative highlights only; looks almost like primary (DESIGN.md) */
+  --on-accent: #04121f;
 
-  /* Dark-theme surfaces and text, derived from the palette (contrast-checked) */
-  --surface: #081820;
-  --card: #0a1b23;
-  --hairline: #1e3742;
-  --hairline-strong: #5a7f8f;
-  --text-secondary: #a9c6d3;
-  --text-tertiary: #86a7b5;
-  --muted: #5f7c89;
-  --footer-bg: #030b10;      /* darkest water: bottom toolbar */
+  /* Surfaces and text, derived from the palette (contrast-checked) */
+  --surface: #06192a;
+  --card: #081c2c;
+  --hairline: #1b3a50;
+  --hairline-strong: #5d86a2;
+  --text-secondary: #a6c7dc;
+  --text-tertiary: #86aac2;
+  --muted: #5e7f94;
+  --footer-bg: #020b14;      /* darkest water: bottom toolbar */
+
+  /* Amber has enough contrast on dark cards by itself: no extra edge. */
+  --warning-edge: transparent;
+
+  /* Decoration (never a status): glows, card tints, effects */
+  --glow-accent: rgba(43, 210, 227, 0.08);
+  --glow-indigo: rgba(29, 47, 138, 0.28);
+  --card-deep-a: #0a2638;
+  --card-deep-b: #0a2231;
+  --card-indigo-tint: rgba(29, 47, 138, 0.32);
+  --card-glow: rgba(43, 210, 227, 0.06);
+  --spot: rgba(43, 210, 227, 0.07);
+  --ripple: rgba(79, 195, 240, 0.55);
+  --ink: rgba(79, 195, 240, 0.4);
+  --shadow-lift: rgba(2, 8, 14, 0.5);
 
   /* Status: unchanged. Text colours only ever sit on their own light background. */
   --safe: #1a7f37;      --safe-bg: #e6f4ea;    --safe-text: #0d4d20;
@@ -34,6 +57,49 @@
 
   --font: "Noto Sans", "Noto Sans Kannada", "Tunga", "Nirmala UI", system-ui, sans-serif;
 }
+
+/* Light theme: pale water, dark navy text, deep cyan-blue actions. */
+:root[data-theme="light"] {
+  color-scheme: light;
+
+  --background: #e6f1f8;
+  --text: #0a2233;
+  --primary: #06629a;
+  --primary-pressed: #044a75;
+  --on-primary: #f3faff;
+  --secondary: #24369c;
+  --on-secondary: #eef3ff;
+  --edge-on-secondary: #eef3ff;   /* primary is too dark to show on the indigo fill here */
+  --accent: #0b6f97;
+  --on-accent: #f3faff;
+
+  --surface: #f2f8fc;
+  --card: #fbfdfe;
+  --hairline: #c6d9e5;
+  --hairline-strong: #5f7d90;
+  --text-secondary: #2d4b5e;
+  --text-tertiary: #45657a;
+  --muted: #8299a8;
+  --footer-bg: #d6e6f0;
+
+  /* Amber is only 2:1 on light cards, so amber stripes get a dark amber edge (the unchanged warning-text). */
+  --warning-edge: #7a4100;
+
+  --glow-accent: rgba(11, 111, 151, 0.08);
+  --glow-indigo: rgba(36, 54, 156, 0.08);
+  --card-deep-a: #e9f3fa;
+  --card-deep-b: #eef6fb;
+  --card-indigo-tint: rgba(36, 54, 156, 0.08);
+  --card-glow: rgba(11, 111, 151, 0.06);
+  --spot: rgba(11, 111, 151, 0.07);
+  --ripple: rgba(6, 98, 154, 0.45);
+  --ink: rgba(6, 98, 154, 0.22);
+  --shadow-lift: rgba(10, 34, 51, 0.16);
+}
+
+/* Pictures that stay dark: text inside them must use the dark tokens too
+   (text colour is inherited already worked out from <body>, so set it again). */
+.dark-scope { color: var(--text); }
 
 * { box-sizing: border-box; }
 /* `hidden` must always win, even over `display: flex` on a component (e.g. .kit-result, .badge). */
@@ -75,6 +141,14 @@ button, select { font: inherit; }
 @media (max-width: 767px) {
   .page-bg { background-image: url("/assets/background-phone-brand.svg"); }
 }
+/* Light theme: the same waves recoloured for pale water (tools/recolor_backgrounds.py). */
+:root[data-theme="light"] .page-bg {
+  background-image: url("/assets/background-desktop-light.svg");
+  opacity: 0.1;                /* text keeps 4.5:1 over the darkest wave (tests/test_contrast.py) */
+}
+@media (max-width: 767px) {
+  :root[data-theme="light"] .page-bg { background-image: url("/assets/background-phone-light.svg"); }
+}
 /* Not needed under the welcome screen; also off for high-contrast users. */
 body.has-welcome .page-bg { display: none; }
 @media (prefers-contrast: more), (forced-colors: active) {
@@ -104,6 +178,9 @@ body.has-welcome .page-bg { display: none; }
   background: transparent; color: var(--text); font-weight: 500; cursor: pointer;
 }
 .language-toggle button[aria-pressed="true"] { background: var(--primary); color: var(--on-primary); }
+.top-bar-tools { display: flex; flex-wrap: wrap; gap: 0.5rem 0.75rem; align-items: center; }
+.theme-toggle button { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0 1rem; }
+.theme-toggle svg { width: 20px; height: 20px; flex: none; }
 
 /* ---- Layout ---- */
 main {
@@ -117,10 +194,10 @@ main {
   display: flex; gap: 0.75rem; align-items: flex-start;
   padding: 0.75rem 1rem;
   background: var(--secondary); color: var(--on-secondary);
-  border: 2px dashed var(--primary); border-radius: 12px;
+  border: 2px dashed var(--edge-on-secondary); border-radius: 12px;
   font-weight: 500;
 }
-.simulated-banner svg { width: 24px; height: 24px; flex: none; fill: var(--primary); margin-top: 0.2rem; }
+.simulated-banner svg { width: 24px; height: 24px; flex: none; fill: var(--edge-on-secondary); margin-top: 0.2rem; }
 
 /* ---- Controls ---- */
 .controls { display: flex; flex-wrap: wrap; gap: 1rem; align-items: flex-end; }
@@ -185,7 +262,7 @@ main {
   display: flex; flex-direction: column; gap: 0.25rem;
 }
 .reading.level-safe    { border-left-color: var(--safe); }
-.reading.level-warning { border-left-color: var(--warning); }
+.reading.level-warning { border-left-color: var(--warning); box-shadow: inset 2px 0 0 var(--warning-edge); }
 .reading.level-danger  { border-left-color: var(--danger); }
 .reading-name { font-size: 1rem; font-weight: 500; color: var(--text-secondary); }
 .reading-value { font-size: 2.25rem; font-weight: 600; line-height: 1.2; font-variant-numeric: tabular-nums; }
@@ -235,7 +312,7 @@ main {
   background: var(--secondary); border-radius: 9999px;
 }
 .border-trail { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
-.border-trail rect { fill: none; stroke: var(--primary); stroke-width: 2.5; stroke-linecap: round; }
+.border-trail rect { fill: none; stroke: var(--edge-on-secondary); stroke-width: 2.5; stroke-linecap: round; }
 
 /* ---- Status banner: smooth level change, gentle pulse in Danger (no flashing) ---- */
 .status-banner {
@@ -258,7 +335,7 @@ main {
 
 .te-word { display: inline-block; }   /* lets each word of a heading move (Text Effect) */
 
-.pond-view { aspect-ratio: 16 / 9; border-radius: 12px; overflow: hidden; background: #0e2630; }
+.pond-view { aspect-ratio: 16 / 9; border-radius: 12px; overflow: hidden; background: #0c2633; }
 .pv-svg { display: block; width: 100%; height: 100%; }
 .pv-svg path:not(.pv-surface-line):not(.pv-floor):not(.pv-moon) { fill: #04161e; }
 .pv-moon { fill: var(--text); }
@@ -353,7 +430,7 @@ main {
   align-self: flex-start;
   padding: 0.125rem 0.75rem;
   background: var(--secondary); color: var(--on-secondary);
-  border: 2px dashed var(--primary); border-radius: 9999px;
+  border: 2px dashed var(--edge-on-secondary); border-radius: 9999px;
   font-size: 1rem; font-weight: 600;
 }
 
@@ -395,9 +472,9 @@ main {
   display: flex; gap: 0.75rem; align-items: flex-start;
   padding: 0.5rem 1rem;
   background: var(--secondary); color: var(--on-secondary);
-  border: 2px dashed var(--primary); border-radius: 12px; font-weight: 600;
+  border: 2px dashed var(--edge-on-secondary); border-radius: 12px; font-weight: 600;
 }
-.preview-note svg { width: 22px; height: 22px; flex: none; fill: var(--primary); margin-top: 0.2rem; }
+.preview-note svg { width: 22px; height: 22px; flex: none; fill: var(--edge-on-secondary); margin-top: 0.2rem; }
 .alert-controls { display: flex; flex-wrap: wrap; gap: 0.75rem; }
 .segmented {
   display: inline-flex; padding: 4px; gap: 4px;
@@ -475,7 +552,7 @@ main {
   display: inline-flex; align-items: center;
   padding: 0.125rem 0.75rem;
   background: var(--secondary); color: var(--on-secondary);
-  border: 2px dashed var(--primary); border-radius: 12px;   /* not a pill: Kannada may wrap */
+  border: 2px dashed var(--edge-on-secondary); border-radius: 12px;   /* not a pill: Kannada may wrap */
   font-size: 0.9375rem; font-weight: 600; line-height: 1.6;
 }
 
@@ -528,7 +605,7 @@ main {
   width: 14px; height: 14px; border-radius: 50%; background: var(--hairline-strong);
   border: 3px solid var(--card);
 }
-.history-item.level-warning::before { background: var(--warning); }
+.history-item.level-warning::before { background: var(--warning); box-shadow: 0 0 0 1.5px var(--warning-edge); }
 .history-item.level-danger::before { background: var(--danger); }
 .history-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.375rem 0.75rem; }
 .history-time { font-weight: 600; font-variant-numeric: tabular-nums; }
@@ -569,8 +646,8 @@ main {
 .page-glow {
   position: fixed; inset: 0; z-index: -1; pointer-events: none;
   background:
-    radial-gradient(70% 45% at 92% -5%, rgba(34, 211, 238, 0.08), rgba(34, 211, 238, 0) 70%),
-    radial-gradient(60% 55% at 0% 100%, rgba(31, 47, 145, 0.26), rgba(31, 47, 145, 0) 72%);
+    radial-gradient(70% 45% at 92% -5%, var(--glow-accent), transparent 70%),
+    radial-gradient(60% 55% at 0% 100%, var(--glow-indigo), transparent 72%);
 }
 body.has-welcome .page-glow { display: none; }
 
@@ -583,7 +660,7 @@ body.has-welcome .page-glow { display: none; }
   position: relative; isolation: isolate; overflow: hidden;
   height: clamp(180px, 24vw, 250px);
   border-radius: 28px; border: 1px solid var(--hairline);
-  background: #040b1e;
+  background: #03101f;
 }
 .scene-art { position: absolute; inset: 0; }
 .sky-layer, .scene-stars, .scene-land { position: absolute; inset: 0; width: 100%; height: 100%; }
@@ -609,10 +686,10 @@ body.has-welcome .page-glow { display: none; }
   -webkit-mask-image: radial-gradient(50% 50% at 50% 30%, #000 30%, transparent 100%);
   mask-image: radial-gradient(50% 50% at 50% 30%, #000 30%, transparent 100%);
 }
-.sc-hills-far { fill: #16365c; opacity: 0.55; }
-.sc-hills-near { fill: #0a1e36; opacity: 0.85; }
-.sc-ink { fill: #04101a; }
-.sc-palm path, .sc-reeds path, .sc-pole { fill: none; stroke: #04101a; stroke-linecap: round; stroke-linejoin: round; }
+.sc-hills-far { fill: #133c62; opacity: 0.55; }
+.sc-hills-near { fill: #08213a; opacity: 0.85; }
+.sc-ink { fill: #030f1b; }
+.sc-palm path, .sc-reeds path, .sc-pole { fill: none; stroke: #030f1b; stroke-linecap: round; stroke-linejoin: round; }
 .sc-palm path { stroke-width: 4; }
 .sc-palm .sc-trunk { stroke-width: 6.5; }
 .sc-palm-far path { stroke-width: 3; }
@@ -629,20 +706,20 @@ body.has-welcome .page-glow { display: none; }
   display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.75rem;
   max-width: calc(100% - 2rem);
   padding: 0.5rem 0.875rem;
-  background: rgba(4, 12, 18, 0.84); border: 1px solid rgba(222, 240, 248, 0.18); border-radius: 12px;
+  background: rgba(3, 12, 22, 0.84); border: 1px solid rgba(224, 241, 251, 0.18); border-radius: 12px;
 }
 .scene-phase { color: var(--primary); font-weight: 600; }
 /* Narrow screens: the chip becomes a strip above the picture, so it never covers the sky. */
 @media (max-width: 899px) {
   .scene { height: auto; display: flex; flex-direction: column; }
-  .scene-chip { position: static; order: -1; max-width: none; margin: 0; border: 0; border-bottom: 1px solid var(--hairline); border-radius: 0; background: #040c12; }
+  .scene-chip { position: static; order: -1; max-width: none; margin: 0; border: 0; border-bottom: 1px solid var(--hairline); border-radius: 0; background: #030c16; }
   .scene-art { position: relative; height: clamp(170px, 34vw, 230px); }
 }
 @media (max-width: 480px) { .scene-chip { padding: 0.5rem 0.75rem; gap: 0.25rem 0.5rem; } }
 .scene-phase:empty { display: none; }
 
 /* The status banner rises over the bottom of the scene: the alert sits under the sky it happens in. */
-.scene + .status-banner { margin: -3.25rem 1rem 0; box-shadow: rgba(3, 10, 14, 0.5) 0 16px 40px -12px; }
+.scene + .status-banner { margin: -3.25rem 1rem 0; box-shadow: var(--shadow-lift) 0 16px 40px -12px; }
 @media (max-width: 480px) { .scene + .status-banner { margin: -2.75rem 0.5rem 0; } }
 
 /* ---- Bento board: varied card sizes ----
@@ -684,12 +761,12 @@ body.has-welcome .page-glow { display: none; }
 .health-card {
   border-radius: 28px; padding: 1.5rem 2rem;
   background:
-    radial-gradient(110% 130% at 100% 0%, rgba(34, 211, 238, 0.06), rgba(34, 211, 238, 0) 55%),
-    linear-gradient(160deg, #0c2430, var(--card) 62%);
+    radial-gradient(110% 130% at 100% 0%, var(--card-glow), transparent 55%),
+    linear-gradient(160deg, var(--card-deep-a), var(--card) 62%);
 }
 .pond-card { border-radius: 28px; background: var(--surface); }
-.alert-card { background: linear-gradient(180deg, rgba(31, 47, 145, 0.32), rgba(31, 47, 145, 0) 42%), var(--card); }
-.ttd-card { background: linear-gradient(200deg, #0b2029, var(--card) 55%); }
+.alert-card { background: linear-gradient(180deg, var(--card-indigo-tint), transparent 42%), var(--card); }
+.ttd-card { background: linear-gradient(200deg, var(--card-deep-b), var(--card) 55%); }
 @media (max-width: 480px) { .health-card { padding: 1.25rem; } }
 
 /* ---- Hand-drawn doodles (scene.js): aqua line drawings behind card content ---- */
@@ -707,18 +784,18 @@ body.has-welcome .page-glow { display: none; }
 .fx-ripple {
   position: absolute; top: 0; left: 0;
   width: 150px; height: 150px; margin: -75px 0 0 -75px;
-  border-radius: 50%; border: 1.5px solid rgba(136, 204, 230, 0.6);
+  border-radius: 50%; border: 1.5px solid var(--ripple);
   opacity: 0; pointer-events: none; will-change: transform, opacity;
 }
 .fx-spotlight {                     /* Spotlight: soft aqua light under the cursor, behind the content */
   position: absolute; top: 0; left: 0; z-index: -1;
   width: 380px; height: 380px; margin: -190px 0 0 -190px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(34, 211, 238, 0.07), rgba(34, 211, 238, 0) 68%);   /* alpha checked in tests/test_contrast.py */
+  background: radial-gradient(circle, var(--spot), transparent 68%);   /* --spot is checked in tests/test_contrast.py */
   opacity: 0; pointer-events: none; will-change: transform, opacity;
 }
 .fx-ink {                           /* tap ripple on phones */
   position: absolute; top: 0; left: 0; z-index: -1;
-  border-radius: 50%; background: rgba(136, 204, 230, 0.45);
+  border-radius: 50%; background: var(--ink);
   opacity: 0; pointer-events: none;
 }
 /* Buttons host their own tap ink behind the label. */

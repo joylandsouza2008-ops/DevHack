@@ -1,19 +1,20 @@
 ---
 version: alpha
 name: pond-design-system
-description: A calm, deep-water design system for a pond and fish-health app, in a dark theme. Light pond blue ({colors.primary}) marks every primary action on a near-black water background ({colors.background}), deep indigo-blue ({colors.secondary}) fills banners and highlighted cards, and a strict three-level status palette (Safe green, Warning amber, Danger red) is reserved for pond and fish condition readings only. Type is set large for readability outdoors and on low-end phones, and every text style is tuned to render Kannada (ಕನ್ನಡ) script as comfortably as English.
+description: A calm, deep-water design system for a pond and fish-health app, with an "Arabian Sea" palette in two themes. Dark (default) puts a bright cyan-blue ({colors.primary}) on deep ocean blue ({colors.background}); light, for bright outdoor sunlight, puts a deep cyan-blue ({colors.light-primary}) on pale water ({colors.light-background}). Indigo ({colors.secondary}) fills banners and highlighted cards, and a strict three-level status palette (Safe green, Warning amber, Danger red) is reserved for pond and fish condition readings only, identical in both themes. Type is set large for readability outdoors and on low-end phones, and every text style is tuned to render Kannada (ಕನ್ನಡ) script as comfortably as English.
 
 colors:
-  # Brand palette (Realtime Colors)
-  background: "#06131a"
-  text: "#def0f8"
-  primary: "#88cce6"
-  primary-pressed: "#a8daee"
-  on-primary: "#06131a"
-  secondary: "#1f2f91"
-  on-secondary: "#def0f8"
-  accent: "#22d3ee"          # aqua: decorative highlights only (see Colors)
-  on-accent: "#06131a"       # light text on aqua fails (1.5:1)
+  # Dark theme (default): Arabian Sea palette
+  background: "#04121f"
+  text: "#e0f1fb"
+  primary: "#4fc3f0"
+  primary-pressed: "#86d6f5"
+  on-primary: "#04121f"
+  secondary: "#1d2f8a"
+  on-secondary: "#e0f1fb"
+  edge-on-secondary: "#4fc3f0"   # dashed borders / border trail on secondary fills
+  accent: "#2bd2e3"          # aqua: decorative highlights only (see Colors)
+  on-accent: "#04121f"       # light text on aqua fails
   # Status: unchanged
   safe: "#1a7f37"
   safe-bg: "#e6f4ea"
@@ -27,15 +28,35 @@ colors:
   danger-text: "#7f1414"
   on-status: "#ffffff"       # text on the solid Safe / Danger colours
   # Dark-theme surfaces and text, derived from the palette (all contrast-checked)
-  surface: "#081820"         # top bar, sections
-  canvas: "#0a1b23"          # cards, inputs
-  hairline: "#1e3742"
-  hairline-soft: "#152c36"
-  hairline-strong: "#5a7f8f"  # input and control borders (4.1:1 on canvas)
-  text-secondary: "#a9c6d3"
-  text-tertiary: "#86a7b5"
-  muted: "#5f7c89"           # disabled only
-  footer-bg: "#030b10"
+  surface: "#06192a"         # top bar, sections
+  canvas: "#081c2c"          # cards, inputs (--card in styles.css)
+  hairline: "#1b3a50"
+  hairline-soft: "#122f43"
+  hairline-strong: "#5d86a2"  # input and control borders (4.5:1 on canvas)
+  text-secondary: "#a6c7dc"
+  text-tertiary: "#86aac2"
+  muted: "#5e7f94"           # disabled only
+  footer-bg: "#020b14"
+  # Light theme (bright sunlight). Status colours above are shared, unchanged.
+  light-background: "#e6f1f8"
+  light-text: "#0a2233"
+  light-primary: "#06629a"
+  light-primary-pressed: "#044a75"
+  light-on-primary: "#f3faff"
+  light-secondary: "#24369c"
+  light-on-secondary: "#eef3ff"
+  light-edge-on-secondary: "#eef3ff"
+  light-accent: "#0b6f97"
+  light-on-accent: "#f3faff"
+  light-surface: "#f2f8fc"
+  light-canvas: "#fbfdfe"
+  light-hairline: "#c6d9e5"
+  light-hairline-strong: "#5f7d90"
+  light-text-secondary: "#2d4b5e"
+  light-text-tertiary: "#45657a"
+  light-muted: "#8299a8"
+  light-footer-bg: "#d6e6f0"
+  light-warning-edge: "#7a4100"   # = warning-text: dark edge on amber stripes (amber is 2.0:1 on light cards)
 
 typography:
   hero-display:
@@ -384,14 +405,19 @@ components:
 
 ## Overview
 
-This is a calm, deep-water design system for a pond and fish-health app. It is used by pond owners and fish farmers, often outdoors, on phones, and in either Kannada or English. It uses a **dark theme**: every screen sits on near-black water ({colors.background}) with light, cool text ({colors.text}). The main action is always a light pond-blue pill button ({colors.primary}) with dark text. Deep indigo-blue ({colors.secondary}) fills banners, tags and highlighted cards. The palette comes from Realtime Colors; there is no purple or lavender anywhere in the system.
+This is a calm, deep-water design system for a pond and fish-health app. It is used by pond owners and fish farmers, often outdoors, on phones, and in either Kannada or English. The palette is **"Arabian Sea"** in two themes:
 
-The most important job of the interface is to make pond condition clear at a glance. Green, amber and red mean only one thing each: **Safe**, **Warning** and **Danger**. These colors never appear as decoration, and each status always comes with an icon and a word, never color alone. On the dark page, status banners keep their light backgrounds, so alerts are the brightest thing on screen.
+- **Dark (default):** deep ocean blue ({colors.background}) with light, cool text ({colors.text}). The main action is a bright cyan-blue pill ({colors.primary}) with dark text.
+- **Light, for bright outdoor sunlight:** pale water ({colors.light-background}) with dark navy text ({colors.light-text}). The main action is a deep cyan-blue pill ({colors.light-primary}) with light text.
+
+Indigo ({colors.secondary} / {colors.light-secondary}) fills banners, tags and highlighted cards in both. There is no purple or lavender anywhere in the system. The first theme follows the phone's light/dark setting; a **Light | Dark** toggle in the top bar overrides it and is remembered. The pictures (welcome pond, sky scene, pond view) show night water and stay dark in both themes.
+
+The most important job of the interface is to make pond condition clear at a glance. Green, amber and red mean only one thing each: **Safe**, **Warning** and **Danger**. These colors never appear as decoration, and each status always comes with an icon and a word, never color alone. Status colours are identical in both themes. On the dark page, status banners keep their light backgrounds, so alerts are the brightest thing on screen; on the light page their 2px solid status border sets them apart.
 
 Text is set larger than a typical web app: body text is 18px, and nothing that must be read is smaller than 15px. Every style is tuned so Kannada (ಕನ್ನಡ) renders as comfortably as English, with generous line height and no negative letter-spacing.
 
 **Key Characteristics:**
-- Near-black water background with light pond-blue pill CTAs ({colors.primary} + `{rounded.full}`)
+- Deep ocean blue (dark) or pale water (light) with cyan-blue pill CTAs ({colors.primary} + `{rounded.full}`)
 - Deep indigo-blue ({colors.secondary}) for banners, tags and highlighted cards, always with light text
 - A strict Safe/Warning/Danger palette used only for condition status, always paired with an icon and a label
 - Large, readable type: 18px body, 52px-tall buttons, 48px minimum touch targets
@@ -402,47 +428,74 @@ Text is set larger than a typical web app: body text is 18px, and nothing that m
 
 All contrast ratios below are measured (WCAG 2.x formula). Text needs at least 4.5:1; borders, stripes and icons need at least 3:1.
 
-### Brand palette
+### Brand palette: dark theme (default)
 | Token | Hex | Use | Contrast |
 |---|---|---|---|
-| **Background** ({colors.background}) | `#06131a` | Page background | text on it 16.1:1 |
-| **Text** ({colors.text}) | `#def0f8` | Headlines and body text | 15.0:1 on cards |
-| **Primary** ({colors.primary}) | `#88cce6` | Primary buttons, active tabs, links, focus rings, highlighted-card borders | 10.6:1 on background; dark text on it 10.6:1 |
-| **Primary Pressed** ({colors.primary-pressed}) | `#a8daee` | Pressed state of primary buttons | dark text on it 12.5:1 |
-| **On Primary** ({colors.on-primary}) | `#06131a` | Text on primary | |
-| **Secondary** ({colors.secondary}) | `#1f2f91` | **Fill only**: simulated-data banner, tags, highlighted cards, CTA banners | text on it 9.6:1; **1.7:1 on the background, so never as text or a border** |
-| **Accent** ({colors.accent}) | `#22d3ee` | Decorative highlights only (see below) | 10.4:1 on the background, 9.7:1 on cards; dark ({colors.on-accent}) text on it 10.4:1; **light text on it 1.5:1, never** |
+| **Background** ({colors.background}) | `#04121f` | Page background | text on it 16.3:1 |
+| **Text** ({colors.text}) | `#e0f1fb` | Headlines and body text | 15.0:1 on cards |
+| **Primary** ({colors.primary}) | `#4fc3f0` | Primary buttons, active tabs, links, focus rings, highlighted-card borders | 9.4:1 on background; dark text on it 9.4:1 |
+| **Primary Pressed** ({colors.primary-pressed}) | `#86d6f5` | Pressed state of primary buttons | dark text on it 11.7:1 |
+| **On Primary** ({colors.on-primary}) | `#04121f` | Text on primary | |
+| **Secondary** ({colors.secondary}) | `#1d2f8a` | **Fill only**: simulated-data banner, tags, highlighted cards, CTA banners | text on it 9.9:1; **1.6:1 on the background, so never as text or a border** |
+| **Edge on Secondary** ({colors.edge-on-secondary}) | `#4fc3f0` | Dashed borders and the border trail on secondary fills | 5.7:1 on secondary |
+| **Accent** ({colors.accent}) | `#2bd2e3` | Decorative highlights only (see below) | 10.3:1 on the background, 9.4:1 on cards; dark ({colors.on-accent}) text on it 10.3:1; **never light text on it** |
 
-**How to use the accent (aqua):** it is clearly different from all three status colors (OKLab difference 31 from Safe, 28 from Warning, 42 from Danger; 15+ is clearly different), and it is not orange, so it can't be mistaken for amber Warning. But it is **almost the same color as primary** (difference 6.2, and 1.2 for color-blind viewers), so the two can't be told apart by color. Use aqua only for decorative highlights (water shimmer, an icon accent, a highlight line in an illustration). Never use it to mean something different from primary, never as the only difference between two states, and never on anything clickable: clickable things are always {colors.primary}. Text on an aqua fill is always dark ({colors.on-accent}).
+### Brand palette: light theme (bright sunlight)
+| Token | Hex | Use | Contrast |
+|---|---|---|---|
+| **Background** ({colors.light-background}) | `#e6f1f8` | Page background | text on it 14.2:1 |
+| **Text** ({colors.light-text}) | `#0a2233` | Headlines and body text | 16.0:1 on cards |
+| **Primary** ({colors.light-primary}) | `#06629a` | Same jobs as dark primary | 5.7:1 on background; light text on it 6.2:1 |
+| **Primary Pressed** ({colors.light-primary-pressed}) | `#044a75` | Pressed primary buttons (darker, not lighter) | light text on it 8.9:1 |
+| **On Primary** ({colors.light-on-primary}) | `#f3faff` | Text on primary: **light** in this theme | |
+| **Secondary** ({colors.light-secondary}) | `#24369c` | Fill: simulated-data banner, tags, highlights | light text on it 9.1:1 |
+| **Edge on Secondary** ({colors.light-edge-on-secondary}) | `#eef3ff` | Dashed borders / border trail on secondary (light primary is too dark to show there) | 9.1:1 on secondary |
+| **Accent** ({colors.light-accent}) | `#0b6f97` | Decorative highlights only | 4.9:1 on the background, 5.5:1 on cards; light text on it 5.3:1 |
+| **Surface / Canvas** | `#f2f8fc` / `#fbfdfe` | Top bar and sections / cards and inputs | |
+| **Text Secondary / Tertiary** | `#2d4b5e` / `#45657a` | Secondary / tertiary text | 9.0:1 / 6.1:1 on cards |
+| **Hairline / Hairline Strong** | `#c6d9e5` / `#5f7d90` | Dividers / control borders | strong 4.3:1 on cards |
+| **Footer** ({colors.light-footer-bg}) | `#d6e6f0` | Bottom toolbar | |
+
+Tokens with no light value (status colours, the font) are shared by both themes.
+
+**How to use the accent (aqua):** in both themes it is clearly different from all three status colors (dark: OKLab difference 30 from Safe, 26 from Warning, 41 from Danger; light: 17, 37 and 29; 15+ is clearly different), and it is not orange, so it can't be mistaken for amber Warning. But it is **almost the same color as primary** (difference about 5), so the two can't be told apart by color. Use aqua only for decorative highlights (water shimmer, an icon accent, a highlight line in an illustration). Never use it to mean something different from primary, never as the only difference between two states, and never on anything clickable: clickable things are always {colors.primary}. Text on an aqua fill uses {colors.on-accent} (dark) in the dark theme and {colors.light-on-accent} (light) in the light theme.
 
 ### Status (Safe / Warning / Danger), unchanged
 These colors are reserved for pond and fish condition: water quality, oxygen, temperature, pH, ammonia and alerts.
 
 | Level | Solid | Background | Text on background | Icon | Contrast |
 |---|---|---|---|---|---|
-| **Safe** | {colors.safe} `#1a7f37` | {colors.safe-bg} | {colors.safe-text} | check-circle | white ({colors.on-status}) on solid 5.1:1 · text on bg 8.8:1 · solid vs page 3.7:1 |
-| **Warning** | {colors.warning} `#f5a524` | {colors.warning-bg} | {colors.warning-text} | alert-triangle | dark ({colors.on-warning}) on solid 9.1:1 · text on bg 7.4:1 · solid vs page 9.2:1 |
-| **Danger** | {colors.danger} `#c62828` | {colors.danger-bg} | {colors.danger-text} | alert-octagon | white ({colors.on-status}) on solid 5.6:1 · text on bg 9.1:1 · solid vs page 3.4:1 |
+| **Safe** | {colors.safe} `#1a7f37` | {colors.safe-bg} | {colors.safe-text} | check-circle | white ({colors.on-status}) on solid 5.1:1 · text on bg 8.8:1 · solid on cards: dark 3.4:1, light 5.0:1 |
+| **Warning** | {colors.warning} `#f5a524` | {colors.warning-bg} | {colors.warning-text} | alert-triangle | dark ({colors.on-warning}) on solid 9.1:1 · text on bg 7.4:1 · solid on cards: dark 8.5:1, **light 2.0:1** (see below) |
+| **Danger** | {colors.danger} `#c62828` | {colors.danger-bg} | {colors.danger-text} | alert-octagon | white ({colors.on-status}) on solid 5.6:1 · text on bg 9.1:1 · solid on cards: dark 3.1:1, light 5.5:1 |
 
 - Status colors are always used as these fixed pairs. **Status text colors only ever sit on their own light status background**: Danger text directly on the dark page is 1.8:1 and unreadable.
-- On cards ({colors.canvas}) the solid colors still pass 3:1 as left-border stripes (Safe 3.5, Warning 8.6, Danger 3.1).
+- On dark cards ({colors.canvas}) the solid colors pass 3:1 as left-border stripes (Safe 3.4, Warning 8.5, Danger 3.1).
+- **Light theme, amber:** amber is only 2.0:1 on light cards, so amber stripes and timeline dots get a 2px dark amber edge ({colors.light-warning-edge}, which is the unchanged warning-text, 8.0:1 on cards). Amber shapes without an edge (gauge arc, health ring) always sit next to the Warning word and icon.
 - Text on the amber Warning solid is always dark ({colors.on-warning}). White text on amber fails contrast.
 - Red and green look alike to color-blind users. The **icon shape and the word** (Safe / ಸುರಕ್ಷಿತ, Warning / ಎಚ್ಚರಿಕೆ, Danger / ಅಪಾಯ) are what carry the meaning; color only reinforces it.
 
-### Surface
+### Surface (dark theme values; the light theme's are in its table above)
 - **Background** ({colors.background}): Page background.
 - **Surface** ({colors.surface}): Top bar and section backgrounds.
 - **Canvas** ({colors.canvas}): Cards and inputs.
 - **Hairline** ({colors.hairline}) / **Hairline Soft** ({colors.hairline-soft}): Decorative 1px borders and dividers.
-- **Hairline Strong** ({colors.hairline-strong}): Input and control borders (4.1:1 on cards, 4.4:1 on the background).
+- **Hairline Strong** ({colors.hairline-strong}): Input and control borders (4.5:1 on cards, 4.9:1 on the background).
 - **Footer** ({colors.footer-bg}): Darkest water, for the footer.
 
 ### Text
 - **Text** ({colors.text}): Headlines and body text (15.0:1 on cards).
-- **Text Secondary** ({colors.text-secondary}): Secondary text and metadata (9.8:1 on cards).
-- **Text Tertiary** ({colors.text-tertiary}): Tertiary text and placeholders (6.9:1 on cards). This is the dimmest color allowed for readable text.
-- **Muted** ({colors.muted}): Disabled labels only (4.0:1). Never use it for text people need to read.
-- **On Secondary** ({colors.on-secondary}): Text on secondary fills (9.6:1).
+- **Text Secondary** ({colors.text-secondary}): Secondary text and metadata (9.7:1 on cards).
+- **Text Tertiary** ({colors.text-tertiary}): Tertiary text and placeholders (7.0:1 on cards). This is the dimmest color allowed for readable text.
+- **Muted** ({colors.muted}): Disabled labels only (dark 4.1:1, light 2.9:1). Never use it for text people need to read.
+- **On Secondary** ({colors.on-secondary}): Text on secondary fills (9.9:1).
+
+### Themes
+- `styles.css` defines the dark tokens on `:root, .dark-scope` and the light overrides on `:root[data-theme="light"]`. A small script in `index.html` sets `data-theme` before the first paint: the saved choice (`localStorage` key `meenuraksha-theme`), else `prefers-color-scheme`.
+- **Pictures stay dark:** the welcome pond, the sky scene and the pond view carry the `dark-scope` class, so they keep dark tokens on the light page.
+- **Background waves:** `tools/recolor_backgrounds.py` writes `*-brand.svg` (dark, 16% opacity) and `*-light.svg` (light, 10% opacity) from the theme tokens. Re-run it after changing primary, secondary or background.
+- **The sky scene** uses its own blues, indigo and pale pearl (`SKY` in `scene.js`); sunrise and sunset are light and position, never orange, red or green.
+- `tests/test_contrast.py` checks every pair in both themes, the waves, the sky and the card gradients.
 
 ## Typography
 
@@ -609,7 +662,9 @@ Numeric inputs for readings use `inputmode="decimal"` and show the unit as a suf
 
 **`pill-tab`** / **`pill-tab-active`**: inactive tabs have `{colors.text-secondary}` text on `{colors.canvas}`; the active tab is `{colors.primary}` with dark `{colors.on-primary}` text. Min-height 48px.
 
-**`language-toggle`**: a segmented pill, **ಕನ್ನಡ | English**. The active segment is `{colors.primary}` with dark `{colors.on-primary}` text.
+**`language-toggle`**: a segmented pill, **ಕನ್ನಡ | English**. The active segment is `{colors.primary}` with `{colors.on-primary}` text.
+
+**Theme toggle**: the same segmented pill, **Light | Dark** (ತಿಳಿ | ಗಾಢ), each with a sun or moon icon *and* the word, never icon only. It sits next to the language toggle in the top bar and remembers the choice.
 
 ### Tables
 
@@ -642,12 +697,14 @@ Numeric inputs for readings use `inputmode="decimal"` and show the unit as a suf
 
 ### Don't
 - Don't use purple, violet or lavender anywhere
+- Don't use green, amber or red decoratively, in either theme (sky, waves, glows and doodles included)
+- Don't put an amber stripe on a light card without its dark edge ({colors.light-warning-edge})
 - Don't use status colors for decoration, branding or category tags
 - Don't use the accent ({colors.accent}) on buttons or links, or as the only difference from primary: the two look almost the same
 - Don't put light text on the accent; use {colors.on-accent} (dark)
-- Don't use secondary ({colors.secondary}) as text or as a border on the dark background (1.7:1); it is a fill only
+- Don't use secondary ({colors.secondary}) as text or as a border on the dark background (1.6:1); it is a fill only
 - Don't put status text colors (e.g. {colors.danger-text}) directly on the dark page; only on their own light status background
-- Don't use {colors.on-primary} (dark) for text on status colors; use {colors.on-status}
+- Don't use {colors.on-primary} for text on status colors; use {colors.on-status} (or {colors.on-warning} on amber)
 - Don't rely on color alone to show status
 - Don't use negative letter-spacing, ALL-CAPS labels or line heights below 1.2
 - Don't give buttons or tabs fixed widths, which clip Kannada labels
@@ -682,13 +739,13 @@ Numeric inputs for readings use `inputmode="decimal"` and show the unit as a suf
 3. Run `npx @google/design.md lint DESIGN.md` after edits
 4. Add new variants as separate `components:` entries
 5. Default to `{typography.body-md}` (18px) for body text
-6. Any new color must come from the brand palette (or be derived from it), must pass 4.5:1 for text (3:1 for borders and icons) on the dark background, and must not look like a status color
+6. Any new color must come from the brand palette (or be derived from it), must pass 4.5:1 for text (3:1 for borders and icons) in **both** themes, and must not look like a status color. Add it to both theme blocks in `styles.css` and run `python -m pytest tests/test_contrast.py`
 7. Use pill-shaped buttons (`{rounded.full}`) everywhere
 8. Check every new component in both Kannada and English before calling it done
 
 ## Known Gaps
 
-- Only the dark theme is defined. A light theme (e.g. for bright outdoor sunlight) is not yet designed
+- In the light theme the gauge arc and health ring use plain amber for Warning (2.0:1 on cards); the word and icon beside them carry the meaning
 - Animation timings are not set; use 150–200ms ease and respect `prefers-reduced-motion`
 - Exact Safe/Warning/Danger thresholds (oxygen, pH, temperature, ammonia) belong in the app's domain logic, not in this file
 - Charts for reading history need their own palette spec; reuse the status colors only for threshold bands

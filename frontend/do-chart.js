@@ -87,6 +87,22 @@
     },
   };
 
+  // Colours come from the current theme's CSS variables. The bands and the
+  // latest-reading dot read them on every draw; these are set at init and
+  // again by restyle() when the theme changes.
+  function applyTheme() {
+    const o = chart.options.scales;
+    chart.data.datasets[0].borderColor = css("--primary");
+    o.y.grid.color = css("--hairline");
+    o.y.ticks.color = o.x.ticks.color = o.y.title.color = css("--text-secondary");
+  }
+
+  function restyle() {
+    if (!chart) return;
+    applyTheme();
+    chart.update("none");
+  }
+
   function init(canvas) {
     const Chart = window.Chart;
     if (!Chart) return;
@@ -126,6 +142,7 @@
       },
       plugins: [bands],
     });
+    applyTheme();
   }
 
   function reset() {
@@ -153,5 +170,5 @@
     return chart ? chart.data.datasets[0].data.slice() : [];
   }
 
-  window.DOChart = { init, reset, add, setWords, values };
+  window.DOChart = { init, reset, add, setWords, values, restyle };
 })();
