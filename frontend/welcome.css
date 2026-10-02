@@ -106,7 +106,10 @@ body.has-welcome { overflow: hidden; }
 .welcome-bar {
   position: relative;
   display: flex;
-  justify-content: flex-end;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;   /* team credit left, language right */
+  gap: 0.5rem 1rem;
   padding: max(1rem, env(safe-area-inset-top)) max(1rem, env(safe-area-inset-right)) 0 1rem;
 }
 .language-toggle-on-dark {

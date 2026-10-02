@@ -354,6 +354,13 @@ Numeric inputs for readings use `inputmode="decimal"` and show the unit as a suf
 
 **`cta-banner`**: bright cyan banner (`{colors.secondary}`, dark text) with a `{rounded.feature}` radius, a centered headline and a `button-primary`.
 
+**Team Orbit touches** (subtle space details from the team's name; the pond stays the main identity):
+- **Night sky:** a richer starfield, an occasional shooting star and a small satellite crossing slowly (the weather forecast relies on satellites). Night only; one element each, at most one waiting timer each.
+- **Health score ring:** a small glowing dot circles the ring, in pearl (pond blue in the light theme), never a status colour and never over the number.
+- **Loading states:** a small fish circling a water drop, shown only while loading ("Connecting…", tonight's weather).
+- **Credit:** a small static orbit-ring logo (a water drop with an orbit) and "Built by Team Orbit" / "ನಿರ್ಮಾಣ: ಟೀಮ್ ಆರ್ಬಿಟ್" on the welcome screen (on a dark chip) and in the footer.
+- None of them use status colours or the magenta accent, and all of them stop with "reduce motion" (the loader's fish rests beside the drop).
+
 **`footer-region`** / **`footer-link`**: deep-water footer (`{colors.footer-bg}`) with `{colors.text-secondary}` links at 16px.
 
 ## Do's and Don'ts

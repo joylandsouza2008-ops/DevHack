@@ -55,6 +55,12 @@
     ["Welcome fish fleeing", () => (window.WelcomeFX ? window.WelcomeFX.stats().fleeing : 0)],
     ["Sky stars", () => (window.Scene ? window.Scene.stats().stars : 0)],
     ["Sky changes running", () => (window.Scene ? window.Scene.stats().moving : 0)],
+    // Team Orbit touches: each is one element at most, so these stay 0 or 1.
+    ["Shooting star running", () => (window.Scene ? window.Scene.stats().meteor : 0)],
+    ["Satellite crossing", () => (window.Scene ? window.Scene.stats().satellite : 0)],
+    ["Sky timers waiting (max 2)", () => (window.Scene ? window.Scene.stats().timers : 0)],
+    ["Health orbit dot", () => (window.HealthRing && window.HealthRing.stats ? window.HealthRing.stats().orbiting : 0)],
+    ["Loaders spinning", () => [...document.querySelectorAll(".orbit-loader")].filter((l) => l.getClientRects().length).length],
     ["Saved keys (localStorage)", () => { try { return localStorage.length; } catch { return 0; } }],
   ];
   if (performance.memory) METRICS.push(["JS memory (MB)", () => mb(performance.memory.usedJSHeapSize)]);

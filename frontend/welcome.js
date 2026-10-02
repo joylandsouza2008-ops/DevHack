@@ -104,12 +104,14 @@
     fishes.forEach((fish) => {
       swim(fish, true);
       // Gentle drift up and down with a slight turn, like a fish steering.
-      gsap.to(fish.body, {
+      // Handles are kept: stopScene() kills these endless tweens by name
+      // (killTweensOf alone left the repeatRefresh drift running after Start).
+      fish.drift = gsap.to(fish.body, {
         y: "random(-18, 18)", rotation: "random(-5, 5)",
         duration: "random(3, 5)", ease: "sine.inOut", yoyo: true, repeat: -1, repeatRefresh: true,
       });
       if (!lowPower) {
-        gsap.fromTo(fish.tail, { rotation: -9 },
+        fish.wag = gsap.fromTo(fish.tail, { rotation: -9 },
           { rotation: 9, svgOrigin: "25 21", duration: 0.9 + fish.depth * 0.4, ease: "sine.inOut", yoyo: true, repeat: -1 });
       }
     });
@@ -242,6 +244,7 @@
     if (!gsap) return;
     const lights = [...welcome.querySelectorAll(".pond-caustics, .pond-light")];
     stopPointerFx();
+    fishes.forEach((f) => { if (f.drift) f.drift.kill(); if (f.wag) f.wag.kill(); f.drift = f.wag = null; });
     gsap.killTweensOf([...lights, ...fishes.flatMap((f) => [f.el, f.flee, f.body, f.tail]), ...ripples]);
     gsap.set(fishes.map((f) => f.flee), { x: 0, y: 0 });
     fishes.forEach((f) => { f.qx = f.qy = null; f.fleeing = false; });

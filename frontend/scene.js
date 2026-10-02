@@ -19,6 +19,15 @@
 //   - Fixed number of stars, built once. The twinkle is 2 CSS animations in
 //     total, off on low-power phones and with "reduce motion".
 //   - The boat bobs only while the scene is on screen.
+//
+// Team Orbit touches (subtle; the pond stays the main picture):
+//   - A richer starfield: three twinkle groups (3 CSS animations in total) and
+//     a few bright stars with a soft halo.
+//   - An occasional shooting star and a small satellite crossing slowly (our
+//     weather forecast comes from satellites). Each is ONE element made once.
+//     Each has ONE pending timer (gsap.delayedCall); a new run kills the old
+//     one first. They only start at night, while the scene is on screen, and
+//     never with "reduce motion". Low-power phones: fewer stars, rarer runs.
 //   - "Reduce motion" or low-power phones: changes appear at once, no tweening.
 
 (function () {
@@ -57,6 +66,7 @@
 
   let art, layers = {}, stars, sun, moon, glint, boat, boatTween = null;
   let phaseEl, starCount = 0, visible = true;
+  let nightFx, meteor, satellite, meteorRun = null, meteorCall = null, satTween = null, satCall = null;
   let current = null;               // last applied state, to skip repeat work
 
   // ---------------------------------------------------------------- maths
@@ -172,18 +182,89 @@
     return svg;
   }
 
+  // Fixed number of stars, built once: small ones in three twinkle groups,
+  // plus a few bright ones with a soft halo (no twinkle, no animation).
   function buildStars() {
     const rand = seeded(1802);
-    starCount = lowPower ? 22 : 40;
-    let a = "", b = "";
-    for (let i = 0; i < starCount; i++) {
+    const small = lowPower ? 30 : 64, bright = lowPower ? 4 : 7;
+    starCount = small + bright;
+    const groups = ["", "", ""];
+    for (let i = 0; i < small; i++) {
       const x = (rand() * VB_W).toFixed(1);
-      const y = (6 + rand() * (HORIZON - 70)).toFixed(1);
-      const r = (0.7 + rand() * 1.3).toFixed(2);
-      const dot = `<circle cx="${x}" cy="${y}" r="${r}"/>`;
-      if (i % 2) a += dot; else b += dot;
+      const y = (6 + rand() * (HORIZON - 64)).toFixed(1);
+      const r = (0.5 + rand() * 1.2).toFixed(2);
+      groups[i % 3] += `<circle cx="${x}" cy="${y}" r="${r}"/>`;
     }
-    return svgEl(`<g class="sc-stars-a">${a}</g><g class="sc-stars-b">${b}</g>`, "scene-stars", "xMidYMin slice");
+    let shine = "";
+    for (let i = 0; i < bright; i++) {
+      const x = (40 + rand() * (VB_W - 80)).toFixed(1);
+      const y = (10 + rand() * (HORIZON - 90)).toFixed(1);
+      shine += `<circle class="sc-halo" cx="${x}" cy="${y}" r="5.5"/><circle cx="${x}" cy="${y}" r="${(1.6 + rand() * 0.8).toFixed(2)}"/>`;
+    }
+    return svgEl(`<g class="sc-stars-a">${groups[0]}</g><g class="sc-stars-b">${groups[1]}</g>` +
+      `<g class="sc-stars-c">${groups[2]}</g><g class="sc-stars-bright">${shine}</g>`, "scene-stars", "xMidYMin slice");
+  }
+
+  // ---------------------------------------------------------------- shooting star + satellite
+
+  const NIGHT_MIN = 0.6;            // only when the sky is mostly night
+  const night = () => current && current.starAlpha >= NIGHT_MIN;
+  const canRun = () => visible && night() && !reduce();
+  const between = (a, b) => a + Math.random() * (b - a);
+
+  function stopNightFx() {
+    [meteorRun, meteorCall, satTween, satCall].forEach((t) => t && t.kill());
+    meteorRun = meteorCall = satTween = satCall = null;
+    if (gsap) gsap.set([meteor, satellite], { opacity: 0 });
+  }
+
+  // One shooting star: a short streak sliding down at an angle, fading in and out.
+  function shootingStar() {
+    meteorCall = null;
+    if (canRun()) {
+      if (meteorRun) meteorRun.kill();                    // never two at once
+      const w = art.clientWidth, h = art.clientHeight;
+      const x = between(0.15, 0.75) * w, y = between(0.06, 0.3) * h;
+      const angle = between(18, 32), dist = between(140, 220);
+      const rad = angle * Math.PI / 180;
+      meteorRun = gsap.timeline({ onComplete: () => { meteorRun = null; } })
+        .set(meteor, { x, y, rotation: angle, opacity: 0 })
+        .to(meteor, { x: x + Math.cos(rad) * dist, y: y + Math.sin(rad) * dist, duration: 0.85, ease: "power1.in" }, 0)
+        .to(meteor, { opacity: 1, duration: 0.12 }, 0)
+        .to(meteor, { opacity: 0, duration: 0.4 }, 0.45);
+    }
+    scheduleMeteor();
+  }
+
+  function scheduleMeteor() {
+    if (meteorCall) meteorCall.kill();
+    meteorCall = reduce() ? null : gsap.delayedCall(lowPower ? between(16, 30) : between(7, 16), shootingStar);
+  }
+
+  // One satellite pass: a small dot with panels crossing the sky slowly, left to right.
+  function satellitePass() {
+    satCall = null;
+    if (canRun()) {
+      if (satTween) satTween.kill();
+      const w = art.clientWidth, h = art.clientHeight;
+      const y0 = between(0.12, 0.3) * h, y1 = y0 + between(-0.08, 0.1) * h;
+      satTween = gsap.fromTo(satellite, { x: -20, y: y0, opacity: 0.9 },
+        { x: w + 20, y: y1, duration: 42, ease: "none", onComplete: () => { satTween = null; scheduleSatellite(); } });
+      return;                                              // the next pass is scheduled when this one ends
+    }
+    scheduleSatellite();
+  }
+
+  function scheduleSatellite() {
+    if (satCall) satCall.kill();
+    satCall = reduce() ? null : gsap.delayedCall(between(18, 36), satellitePass);
+  }
+
+  function startNightFx() {
+    stopNightFx();
+    if (reduce()) return;
+    scheduleMeteor();
+    satCall = gsap.delayedCall(4, satellitePass);         // first pass soon after the night begins
   }
 
   function build() {
@@ -208,7 +289,16 @@
     glint = document.createElement("div");
     glint.className = "scene-glint";
     const land = svgEl(LAND, "scene-land", "xMidYMax slice");
-    art.append(stars, sun, moon, land, glint);
+    // Night-only extras: their layer fades with the stars, so they vanish by day.
+    nightFx = document.createElement("div");
+    nightFx.className = "scene-night-fx";
+    meteor = document.createElement("div");
+    meteor.className = "scene-meteor";
+    satellite = document.createElement("div");
+    satellite.className = "scene-satellite";
+    satellite.innerHTML = `<svg viewBox="0 0 22 8" focusable="false"><rect x="0" y="2" width="7" height="4" rx="0.6"/><rect x="15" y="2" width="7" height="4" rx="0.6"/><rect x="8.5" y="1" width="5" height="6" rx="1.4"/></svg>`;
+    nightFx.append(meteor, satellite);
+    art.append(stars, nightFx, sun, moon, land, glint);
     boat = land.querySelector("#scene-boat");
     if (lowPower) art.classList.add("is-low-power");
     return true;
@@ -272,7 +362,7 @@
     }
 
     const starAlpha = Math.round((w.night + 0.25 * (w.dawn + w.dusk)) * 100) / 100;
-    if (!current || current.starAlpha !== starAlpha) set(stars, { opacity: starAlpha });
+    if (!current || current.starAlpha !== starAlpha) set([stars, nightFx], { opacity: starAlpha });
     set(sun, { x: sunPos.x, y: sunPos.y, opacity: sunAlpha });
     set(moon, { x: moonPos.x, y: moonPos.y, opacity: moonAlpha });
     set(glint, { x: lit.x, y: lit.horizonPx, opacity: Math.max(sunAlpha * 0.55, moonAlpha * 0.7) });
@@ -301,9 +391,12 @@
     new IntersectionObserver(([entry]) => {
       visible = entry.isIntersecting;
       if (boatTween) visible ? boatTween.resume() : boatTween.pause();
+      if (satTween) visible ? satTween.resume() : satTween.pause();   // off screen: no work
     }).observe(art);
+    startNightFx();
     reduceQuery.addEventListener("change", () => {
       setBoat();
+      startNightFx();                          // stops everything; restarts only without "reduce motion"
       current = null;                          // re-apply at once with the new setting
       if (lastTime !== null) apply(lastTime, lastLang);
     });
@@ -327,9 +420,14 @@
   }
 
   function stats() {
-    if (!art || !gsap) return { stars: 0, moving: 0 };
-    const moving = [...ORDER.map((p) => layers[p]), stars, sun, moon, glint].filter((t) => gsap.isTweening(t)).length;
-    return { stars: starCount, moving };
+    if (!art || !gsap) return { stars: 0, moving: 0, meteor: 0, satellite: 0, timers: 0 };
+    const moving = [...ORDER.map((p) => layers[p]), stars, nightFx, sun, moon, glint].filter((t) => gsap.isTweening(t)).length;
+    return {
+      stars: starCount, moving,
+      meteor: meteorRun && meteorRun.isActive() ? 1 : 0,
+      satellite: satTween && satTween.isActive() ? 1 : 0,
+      timers: (meteorCall ? 1 : 0) + (satCall ? 1 : 0),   // pending "next run" timers: at most 2
+    };
   }
 
   // ---------------------------------------------------------------- hand-drawn doodles

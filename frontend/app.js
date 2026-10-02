@@ -17,6 +17,7 @@ const TEXT = {
     welcomeTagline: "Pond water warnings before your fish are in danger.",
     start: "Start",
     themeLight: "Light", themeDark: "Dark",
+    builtBy: "Built by Team Orbit",
     simulatedNote: "Not a real pond. For demonstration only.",
     pond: "Pond", pond1: "Pond 1", pond2: "Pond 2", pond3: "Pond 3",
     scenario: "Scenario", scenarioNormal: "Normal day", scenarioCrash: "Night oxygen crash",
@@ -89,6 +90,7 @@ const TEXT = {
     welcomeTagline: "ಮೀನುಗಳಿಗೆ ಅಪಾಯ ಬರುವ ಮೊದಲೇ ಕೊಳದ ನೀರಿನ ಎಚ್ಚರಿಕೆ.",
     start: "ಪ್ರಾರಂಭಿಸಿ",
     themeLight: "ತಿಳಿ", themeDark: "ಗಾಢ",
+    builtBy: "ನಿರ್ಮಾಣ: ಟೀಮ್ ಆರ್ಬಿಟ್",
     simulatedNote: "ನಿಜವಾದ ಕೊಳವಲ್ಲ. ಪ್ರದರ್ಶನಕ್ಕಾಗಿ ಮಾತ್ರ.",
     pond: "ಕೊಳ", pond1: "ಕೊಳ 1", pond2: "ಕೊಳ 2", pond3: "ಕೊಳ 3",
     scenario: "ಸನ್ನಿವೇಶ", scenarioNormal: "ಸಾಮಾನ್ಯ ದಿನ", scenarioCrash: "ರಾತ್ರಿ ಆಮ್ಲಜನಕ ಕುಸಿತ",
@@ -166,6 +168,10 @@ const PARAMETERS = [
   ["nitrate", "mg/L", 1],
   ["turbidity", "NTU", 1],
 ];
+
+// Loading state: a small fish circling a water drop (CSS animation, so it
+// stops by itself when the loader is replaced or hidden; still with "reduce motion").
+const LOADER = '<svg class="orbit-loader" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><circle class="ol-path" cx="20" cy="21" r="15"/><path class="ol-drop" d="M20 11c0 0 6.5 7.2 6.5 11.6a6.5 6.5 0 0 1-13 0C13.5 18.2 20 11 20 11Z"/><g class="ol-fish"><path d="M26.5 6C24.4 3.5 20.8 3.1 18.2 4.4 17.2 4.9 16.6 5.6 16.2 6c.4.4 1 1.1 2 1.6 2.6 1.3 6.2.9 8.3-1.6ZM16.2 6 13 3.6l.7 2.4-.7 2.4Z"/></g></svg>';
 
 const ICONS = {
   safe: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm-1.5 14.5-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4-7 7Z"/></svg>',
@@ -570,7 +576,7 @@ function renderManual() {
 
 function showMessage(key) {
   $("status").className = "status-banner status-unknown";
-  $("status-icon").innerHTML = "";
+  $("status-icon").innerHTML = key === "connecting" ? LOADER : "";
   $("status-level").textContent = TEXT[state.lang][key];
   $("status-summary").textContent = "";
 }
@@ -727,6 +733,8 @@ async function loadWeather() {
 function renderWeather() {
   const w = state.weather;
   if (!w) return;
+  $("weather-loader").hidden = true;            // forecast (or saved copy) is here: moon instead of the loader
+  $("weather-moon").removeAttribute("hidden");   // an <svg>: the .hidden property doesn't exist on it
   const lang = state.lang;
   const ok = w.status === "ok";
   const badge = $("weather-badge");

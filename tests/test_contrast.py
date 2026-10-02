@@ -395,3 +395,34 @@ def test_text_stays_readable_under_the_spotlight_and_card_gradients(theme):
         assert contrast(t["text-tertiary"], lit) >= TEXT, f"{theme}: {card}"
         assert contrast(t["text"], lit) >= TEXT, f"{theme}: {card}"
         assert contrast(t["text-secondary"], lit) >= TEXT, f"{theme}: {card}"
+
+
+# ---------------------------------------------------------------- Team Orbit touches
+
+ORBIT_CSS = CSS[CSS.index("Team Orbit touches (scene.js"):]
+
+
+def test_team_credit_on_the_welcome_screen_and_in_the_footer():
+    html = (STYLES.parent / "index.html").read_text(encoding="utf-8")
+    assert html.count('data-i18n="builtBy">Built by Team Orbit') == 2
+    assert html.count('class="orbit-logo"') == 2
+
+
+def test_team_credit_chip_is_readable_over_the_brightest_welcome_water():
+    # Welcome pond: the brightest water is the first gradient stop (welcome.css).
+    welcome = (STYLES.parent / "welcome.css").read_text(encoding="utf-8")
+    brightest = re.search(r"at 72% -12%, (#[0-9a-fA-F]{6}) 0%", welcome).group(1)
+    assert "background: rgba(6, 3, 81, 0.6)" in ORBIT_CSS
+    chip = over("#060351", brightest, 0.6)
+    assert contrast(C["text"], chip) >= TEXT
+
+
+def test_space_touches_use_no_status_or_accent_colour():
+    # Satellite, shooting star, orbit dot, loader and logo: pearl and pond blue only.
+    assert not re.search(r"var\(--(safe|warning|danger|accent)", ORBIT_CSS)
+
+
+def test_space_touches_respect_reduce_motion():
+    reduce_block = ORBIT_CSS[ORBIT_CSS.index("@media (prefers-reduced-motion: reduce)"):]
+    assert ".ol-fish { animation: none; }" in reduce_block
+    assert ".scene-night-fx { display: none; }" in reduce_block
