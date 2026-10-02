@@ -13,3 +13,4 @@ Predicts pond water-quality risk (Safe / Warning / Danger) and shows alerts in K
 - Build the core (model + API + basic page) before animations.
 - Follow DESIGN.md for all styling.
 - After building UI, test it with playwright-cli and take screenshots.
+- Simulated data (backend/simulator.py) must be labelled "Simulated data" / "ಅನುಕರಿಸಿದ (ಸಿಮ್ಯುಲೇಟೆಡ್) ಡೇಟಾ" wherever the app shows it, and must never be used to train or report model accuracy.

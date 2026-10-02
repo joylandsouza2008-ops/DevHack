@@ -45,6 +45,27 @@ The dataset limits what any model can do here:
 
 **Conclusion:** the forecasting pipeline works and beats the "stays the same" baseline, but this dataset's DO readings are too noisy for short-term early warning. With real pond sensors, which show smooth daily oxygen cycles, the same pipeline can be retrained (`python -m ml.train_do_forecast`) without code changes.
 
+## Experiment: forecasting the 3-hour *average* DO instead
+
+Since single readings are so noisy, we also tried forecasting the **average DO over the next 3 hours** (and over hours 3–6). The pass rule was fixed **before** looking at results: keep it only if it has ≥ 10% less error than the **best** baseline, and isn't worse at flagging unsafe periods.
+
+| Average DO over the next 3 h (test period) | Average error |
+|---|---|
+| "DO stays the same" | 4.66 mg/L |
+| Recent average (24 h) | 1.43 mg/L |
+| Model (gradient boosting) | **1.35 mg/L** |
+| Best possible (knows each future day's true average) | 1.28 mg/L |
+
+Hours 3–6 gave the same numbers.
+
+**Result: not adopted.** The model has 71% less error than "DO stays the same", but only **5.5% less than a plain 24-hour average**, which is below the 10% bar. The big drop in error (4.5 → 1.35 mg/L) comes from averaging away sensor noise, not from the model. The test period also has **no** 3-hour periods below 5 mg/L, so warning ability can't be measured. The single-reading model above stays in use.
+
+Reproduce: `python -m ml.experiment_3h_average`
+
+## Simulated data is never used here
+
+All accuracy numbers on this page come from the real Pondsdata readings. The demo simulator (`backend/simulator.py`) is used only to drive the app demo. The training code refuses simulated data.
+
 ## Reproduce
 
 ```bash

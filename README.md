@@ -17,7 +17,9 @@ Built for DevHack 2026, problem statement 1.1.
 | `backend/risk_messages.py` | Farmer-facing alert text in English and Kannada |
 | `backend/do_features.py` | Builds the DO-forecast inputs from recent readings (shared by training and app) |
 | `backend/do_forecast.py` | Loads the saved model, forecasts DO 1/3/6 h ahead, adds future risk level |
+| `backend/simulator.py` | **Simulated** demo readings (normal day / night oxygen crash). Demo only, never for accuracy |
 | `ml/train_do_forecast.py` | Trains and evaluates the DO forecast (`python -m ml.train_do_forecast`) |
+| `ml/experiment_3h_average.py` | Experiment: forecasting the 3-hour average DO (not adopted, see docs) |
 | `models/` | Saved DO forecast model and its test scores |
 | `tests/` | Automated tests (`python -m pytest`) |
 | `docs/thresholds.md` | Threshold table, decisions and sources (for the presentation) |

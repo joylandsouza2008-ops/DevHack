@@ -48,6 +48,7 @@ from sklearn.preprocessing import StandardScaler
 from backend.do_features import (FEATURES, HORIZONS_HOURS, STEPS_PER_HOUR,
                                  build_features, to_regular_grid)
 from backend.risk_classifier import classify, in_range, load_thresholds
+from backend.simulator import reject_simulated  # accuracy must come from real data only
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA_FILE = ROOT / "data" / "Ponds data.csv"
@@ -96,6 +97,7 @@ def make_table(ponds: dict[str, pd.DataFrame]) -> pd.DataFrame:
     """One row per (station, time): features + actual future DO for each horizon."""
     parts = []
     for station, readings in ponds.items():
+        reject_simulated(readings)
         grid = to_regular_grid(readings)
         feats = build_features(grid)
         for h in HORIZONS_HOURS:
