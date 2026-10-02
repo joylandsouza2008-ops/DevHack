@@ -1,0 +1,6 @@
+# Project settings read by tools. For now it only tells pytest where the
+# tests are and to treat the project folder as the place to import from
+# (so tests can `import backend...`).
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

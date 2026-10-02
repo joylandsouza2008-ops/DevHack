@@ -1,0 +1,72 @@
+# MeenuRaksha — Safe / Warning / Danger thresholds for Indian major carp ponds
+#
+# This is the ONLY place threshold numbers live. Change a number here and the
+# classifier (backend/risk_classifier.py) picks it up — no code changes needed.
+# Full table with sources: docs/thresholds.md
+#
+# How a parameter is graded:
+#   1. If the reading is inside the [*.safe] range     -> Safe
+#   2. Otherwise, if it is inside the [*.warning] range -> Warning
+#   3. Otherwise                                        -> Danger
+# A range can use:
+#   min   = lowest allowed value (the value itself is allowed)
+#   max   = highest allowed value (the value itself is allowed)
+#   below = value must be LESS than this (the value itself is NOT allowed)
+# A range with no limits ({}) accepts everything — that is how a parameter
+# with no Danger level (nitrate) is written.
+#
+# Overall pond risk = the worst level among parameters with use_for_risk = true.
+#
+# Source key (see docs/thresholds.md): S = taken directly from a source,
+# J = our judgement, anchored to the sources.
+
+[dissolved_oxygen]
+unit = "mg/L"
+use_for_risk = true
+safe    = { min = 5.0 }        # S: FAO "preferred at least 5 mg/l"; TNAU "5 mg/l to saturation"
+warning = { min = 3.0 }        # S: FAO carp "minimum DO level: 3 mg/l"
+plausible = { min = 0.1, max = 30.0 }   # J: exactly 0 or above 30 = sensor fault
+
+[ph]
+unit = ""
+use_for_risk = true
+safe    = { min = 6.5, max = 8.5 }   # S: FAO "6.5 to 8.5 … most suitable for pond fish production"
+warning = { min = 5.5, max = 9.5 }   # J: FAO lethal limits are <4.5 and >=11; we warn earlier
+plausible = { min = 2.0, max = 12.0 }
+
+[temperature]
+unit = "°C"
+use_for_risk = true
+safe    = { min = 25.0, max = 32.0 }    # S: FAO catla "grows best at 25–32 °C"
+warning = { min = 20.0, below = 35.0 }  # J: below FAO "dangerous" 36 °C for carp
+plausible = { min = 5.0, max = 45.0 }   # J: 0 °C readings in the dataset are sensor faults
+
+[ammonia]
+# The sensor reports TOTAL ammonia. Only the un-ionised part (NH3) is toxic,
+# so the classifier converts total -> NH3 using pH and temperature
+# (Emerson et al. 1975) before comparing with these limits.
+unit = "mg/L NH3"
+input_unit = "mg/L total ammonia"
+use_for_risk = true
+safe    = { below = 0.02 }     # S: TNAU optimum NH3 0.02–0.05 mg/l
+warning = { max = 0.05 }       # S: TNAU upper limit. Cautious option: 0.035 (catla LC50, Tilak et al. 2002)
+plausible = { min = 0.0, max = 20.0 }   # checked on the TOTAL ammonia reading
+
+[nitrate]
+# Sensor reports nitrate as NO3 (ppm = mg/L). Limits are in NO3-N.
+# NO3 -> NO3-N: multiply by 14.007 / 62.004 = 0.2259
+unit = "mg/L NO3-N"
+input_unit = "mg/L NO3"
+input_to_nitrogen_factor = 0.2259
+use_for_risk = true
+safe    = { below = 10.0 }     # S: Camargo et al. 2005, 10 mg NO3-N/L "can adversely affect" fish long-term
+warning = {}                   # J: no Danger level; catla 24 h LC50 is ~1,480 mg/L (Tilak et al. 2002)
+plausible = { min = 0.0, max = 500.0 }  # checked on the NO3 reading
+
+[turbidity]
+# Shown to farmers as information only. Sources give limits in Secchi-disc
+# centimetres (40–60 cm best), but the sensor reports a different unit
+# (probably NTU), and the two cannot be converted.
+unit = "NTU"
+use_for_risk = false
+plausible = { min = 0.0, max = 1000.0 }

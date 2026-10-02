@@ -12,6 +12,11 @@ Built for DevHack 2026, problem statement 1.1.
 |---|---|
 | `CLAUDE.md` | Project brief and working rules for Claude Code |
 | `DESIGN.md` | Design system: colors, type, components, Kannada support |
+| `config/thresholds.toml` | All Safe / Warning / Danger threshold numbers, with their sources |
+| `backend/risk_classifier.py` | Rule-based classifier: readings → risk level + reason |
+| `backend/risk_messages.py` | Farmer-facing alert text in English and Kannada |
+| `tests/` | Automated tests (`python -m pytest`) |
+| `docs/thresholds.md` | Threshold table, decisions and sources (for the presentation) |
 | `frontend/fonts/` | Noto Sans + Noto Sans Kannada, bundled so the app works offline |
 | `.claude/skills/` | Shared Claude Code skills for the team |
 | `data/` | Datasets. **Not in git**: download them yourself (steps below) |
@@ -29,9 +34,14 @@ python -m venv .venv
 .venv\Scripts\activate        # Windows
 source .venv/bin/activate     # macOS / Linux
 
-# Install the packages needed to read the datasets
-pip install pandas openpyxl
+# Install the packages this project needs
+pip install -r requirements.txt
+
+# Run the tests
+python -m pytest
 ```
+
+On Windows, if printing Kannada text in the terminal gives a `UnicodeEncodeError`, run `set PYTHONIOENCODING=utf-8` first (PowerShell: `$env:PYTHONIOENCODING="utf-8"`).
 
 ## Datasets
 

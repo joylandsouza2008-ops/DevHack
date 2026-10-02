@@ -1,0 +1,4 @@
+# Python packages this project needs. Install with:  pip install -r requirements.txt
+pandas      # reading the datasets
+openpyxl    # lets pandas open the .xlsx dataset
+pytest      # running the tests in tests/
