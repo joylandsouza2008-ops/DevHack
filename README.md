@@ -1,5 +1,7 @@
 # MeenuRaksha
 
+**Live app:** https://meenuraksha.onrender.com
+
 Early-warning web app for small aquaculture farmers in coastal Karnataka.
 It predicts pond water-quality risk (**Safe / Warning / Danger**) and shows alerts in Kannada and English.
 Software only: sensor readings are simulated from public datasets.
