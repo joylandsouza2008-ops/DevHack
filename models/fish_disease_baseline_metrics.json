@@ -1,0 +1,302 @@
+{
+  "created": "2026-10-04T06:37:57+00:00",
+  "note": "Research only, not used by the app. Cleaned dataset #1 (docs/fish-disease-cleaning.md), 6 classes.",
+  "n_images": {
+    "train": {
+      "aeromoniasis": 39,
+      "bacterial_gill": 31,
+      "bacterial_red": 54,
+      "healthy": 74,
+      "parasitic": 51,
+      "saprolegniasis": 57
+    },
+    "val": {
+      "aeromoniasis": 9,
+      "bacterial_gill": 7,
+      "bacterial_red": 12,
+      "healthy": 16,
+      "parasitic": 11,
+      "saprolegniasis": 12
+    },
+    "test": {
+      "aeromoniasis": 8,
+      "bacterial_gill": 7,
+      "bacterial_red": 12,
+      "healthy": 16,
+      "parasitic": 11,
+      "saprolegniasis": 12
+    }
+  },
+  "small": {
+    "chosen_C": 0.01,
+    "val_macro_f1_by_C": {
+      "0.001": 0.6631,
+      "0.003": 0.6762,
+      "0.01": 0.72,
+      "0.03": 0.7038,
+      "0.1": 0.6835,
+      "0.3": 0.6835,
+      "1.0": 0.6613
+    },
+    "test": {
+      "accuracy": 0.6818181818181818,
+      "balanced_accuracy": 0.6843885281385281,
+      "macro_f1": 0.6622315592903828
+    },
+    "test_95pct_range": {
+      "accuracy": [
+        0.5625,
+        0.7878787878787878
+      ],
+      "balanced_accuracy": [
+        0.5757258640482326,
+        0.781657475490196
+      ],
+      "macro_f1": [
+        0.5198964646464647,
+        0.7540436250818443
+      ]
+    },
+    "per_class": {
+      "aeromoniasis": {
+        "precision": 0.6153846153846154,
+        "recall": 1.0,
+        "f1": 0.7619047619047619,
+        "n": 8
+      },
+      "bacterial_gill": {
+        "precision": 1.0,
+        "recall": 0.7142857142857143,
+        "f1": 0.8333333333333334,
+        "n": 7
+      },
+      "bacterial_red": {
+        "precision": 0.6,
+        "recall": 0.25,
+        "f1": 0.35294117647058826,
+        "n": 12
+      },
+      "saprolegniasis": {
+        "precision": 0.6,
+        "recall": 0.75,
+        "f1": 0.6666666666666666,
+        "n": 12
+      },
+      "parasitic": {
+        "precision": 0.5,
+        "recall": 0.45454545454545453,
+        "f1": 0.47619047619047616,
+        "n": 11
+      },
+      "healthy": {
+        "precision": 0.8333333333333334,
+        "recall": 0.9375,
+        "f1": 0.8823529411764706,
+        "n": 16
+      }
+    },
+    "confusion_matrix": [
+      [
+        8,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        5,
+        1,
+        1,
+        0,
+        0
+      ],
+      [
+        3,
+        0,
+        3,
+        2,
+        4,
+        0
+      ],
+      [
+        1,
+        0,
+        1,
+        9,
+        0,
+        1
+      ],
+      [
+        1,
+        0,
+        0,
+        3,
+        5,
+        2
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        1,
+        15
+      ]
+    ]
+  },
+  "background_only_small": {
+    "test": {
+      "accuracy": 0.5454545454545454,
+      "balanced_accuracy": 0.5097853535353535,
+      "macro_f1": 0.4690775828314269
+    },
+    "test_95pct_range": {
+      "accuracy": [
+        0.421875,
+        0.6714339019189765
+      ],
+      "balanced_accuracy": [
+        0.40362666847041845,
+        0.6048863636363636
+      ],
+      "macro_f1": [
+        0.35424402527527526,
+        0.5564176486047334
+      ]
+    }
+  },
+  "original_kaggle_split_small": {
+    "n_train": 1500,
+    "n_test": 600,
+    "accuracy": 1.0,
+    "balanced_accuracy": 1.0,
+    "macro_f1": 1.0
+  },
+  "large": {
+    "chosen_C": 0.01,
+    "val_macro_f1_by_C": {
+      "0.001": 0.4699,
+      "0.003": 0.5468,
+      "0.01": 0.6131,
+      "0.03": 0.5884,
+      "0.1": 0.5768,
+      "0.3": 0.5768,
+      "1.0": 0.5768
+    },
+    "test": {
+      "accuracy": 0.696969696969697,
+      "balanced_accuracy": 0.6852002164502164,
+      "macro_f1": 0.6640032679738562
+    },
+    "test_95pct_range": {
+      "accuracy": [
+        0.578125,
+        0.803030303030303
+      ],
+      "balanced_accuracy": [
+        0.5536952861952862,
+        0.7919454993535875
+      ],
+      "macro_f1": [
+        0.5067127840483103,
+        0.766842424596101
+      ]
+    },
+    "per_class": {
+      "aeromoniasis": {
+        "precision": 0.5833333333333334,
+        "recall": 0.875,
+        "f1": 0.7,
+        "n": 8
+      },
+      "bacterial_gill": {
+        "precision": 0.8,
+        "recall": 0.5714285714285714,
+        "f1": 0.6666666666666666,
+        "n": 7
+      },
+      "bacterial_red": {
+        "precision": 0.75,
+        "recall": 0.25,
+        "f1": 0.375,
+        "n": 12
+      },
+      "saprolegniasis": {
+        "precision": 0.6923076923076923,
+        "recall": 0.75,
+        "f1": 0.72,
+        "n": 12
+      },
+      "parasitic": {
+        "precision": 0.5714285714285714,
+        "recall": 0.7272727272727273,
+        "f1": 0.64,
+        "n": 11
+      },
+      "healthy": {
+        "precision": 0.8333333333333334,
+        "recall": 0.9375,
+        "f1": 0.8823529411764706,
+        "n": 16
+      }
+    },
+    "confusion_matrix": [
+      [
+        7,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      [
+        1,
+        4,
+        0,
+        1,
+        0,
+        1
+      ],
+      [
+        2,
+        0,
+        3,
+        2,
+        3,
+        2
+      ],
+      [
+        1,
+        1,
+        0,
+        9,
+        1,
+        0
+      ],
+      [
+        1,
+        0,
+        1,
+        1,
+        8,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        1,
+        15
+      ]
+    ]
+  },
+  "majority_class": {
+    "always_guess": "healthy",
+    "accuracy": 0.24242424242424243,
+    "balanced_accuracy": 0.16666666666666666,
+    "macro_f1": 0.06504065040650407
+  }
+}

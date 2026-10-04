@@ -1,0 +1,10 @@
+# Extra packages ONLY for training the fish-disease image model on a laptop.
+# Render does NOT install this file (it only uses requirements.txt), so the
+# web server stays small. Install with:
+#   pip install -r requirements.txt -r requirements-train.txt
+# CPU-only PyTorch (no NVIDIA GPU needed) comes from the extra index below.
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch               # neural-network library
+torchvision         # ready-made MobileNetV3 with ImageNet weights + image transforms
+ImageHash           # perceptual hashes, to find near-duplicate images
+opencv-python-headless  # keypoint matching, to find rotated/zoomed copies of the same photo

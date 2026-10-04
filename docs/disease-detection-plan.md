@@ -1,6 +1,9 @@
 # Image-based fish disease detection: research plan
 
-Status: **research only**. Nothing has been trained yet. Researched 4 October 2026.
+Status: **research only**, nothing in the app. Researched 4 October 2026.
+Steps 1–2 are done: [cleaning report](fish-disease-cleaning.md) and [baseline model](fish-disease-baseline.md).
+Changes from this plan: the "White tail" class is dropped (6 classes), and training runs on the laptop CPU, with the
+training packages in `requirements-train.txt` so Render never installs them.
 
 PS 1.1 mentions "image-based disease detection". The idea: a farmer photographs a sick-looking fish,
 and the app says which disease it *might* be, in Kannada and English, with advice to confirm with a

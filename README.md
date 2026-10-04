@@ -104,6 +104,16 @@ Or, with the [Kaggle CLI](https://github.com/Kaggle/kaggle-api) set up:
 kaggle datasets download -d apgopi/pondsdata -p data --unzip
 ```
 
+### 3. Fish disease photos (optional, research only)
+
+Only needed for the image experiments in [docs/fish-disease-cleaning.md](docs/fish-disease-cleaning.md) and
+[docs/fish-disease-baseline.md](docs/fish-disease-baseline.md); the app does not use them.
+
+1. Download https://www.kaggle.com/datasets/subirbiswas19/freshwater-fish-disease-aquaculture-in-south-asia (CC0) and unzip it into `data/fish-disease/`, so you get `data/fish-disease/Freshwater Fish Disease Aquaculture in south asia/{Train,Test}/`.
+2. Install the training packages (PyTorch etc.). They are in a separate file so the Render server never installs them:
+   `pip install -r requirements-train.txt`
+3. `python -m ml.clean_fish_disease`, then `python -m ml.train_fish_disease_baseline`.
+
 ### Check your download
 
 ```bash

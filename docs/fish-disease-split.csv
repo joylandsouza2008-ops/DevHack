@@ -1,0 +1,440 @@
+file,class,split,group,cropped,source
+test/aeromoniasis/Bacterial diseases - Aeromoniasis (111).jpg,aeromoniasis,test,g225,0,Train/Bacterial diseases - Aeromoniasis/Bacterial diseases - Aeromoniasis (111).jpg
+test/aeromoniasis/Bacterial diseases - Aeromoniasis (14).jpg,aeromoniasis,test,g114,0,Train/Bacterial diseases - Aeromoniasis/Bacterial diseases - Aeromoniasis (14).jpg
+test/aeromoniasis/Bacterial diseases - Aeromoniasis (201).jpg,aeromoniasis,test,g209,0,Train/Bacterial diseases - Aeromoniasis/Bacterial diseases - Aeromoniasis (201).jpg
+test/aeromoniasis/Bacterial diseases - Aeromoniasis (30).jpg,aeromoniasis,test,g171,0,Train/Bacterial diseases - Aeromoniasis/Bacterial diseases - Aeromoniasis (30).jpg
+test/aeromoniasis/Bacterial diseases - Aeromoniasis (37).jpg,aeromoniasis,test,g209,0,Train/Bacterial diseases - Aeromoniasis/Bacterial diseases - Aeromoniasis (37).jpg
+test/aeromoniasis/Bacterial diseases - Aeromoniasis (39).jpg,aeromoniasis,test,g221,0,Train/Bacterial diseases - Aeromoniasis/Bacterial diseases - Aeromoniasis (39).jpg
+test/aeromoniasis/Bacterial diseases - Aeromoniasis (4).jpg,aeromoniasis,test,g225,0,Train/Bacterial diseases - Aeromoniasis/Bacterial diseases - Aeromoniasis (4).jpg
+test/aeromoniasis/Bacterial diseases - Aeromoniasis (6).jpeg,aeromoniasis,test,g12,0,Train/Bacterial diseases - Aeromoniasis/Bacterial diseases - Aeromoniasis (6).jpeg
+test/bacterial_gill/Bacterial gill disease (13).jpeg,bacterial_gill,test,g280,0,Train/Bacterial gill disease/Bacterial gill disease (13).jpeg
+test/bacterial_gill/Bacterial gill disease (13).jpg,bacterial_gill,test,g342,0,Train/Bacterial gill disease/Bacterial gill disease (13).jpg
+test/bacterial_gill/Bacterial gill disease (18).jpg,bacterial_gill,test,g368,0,Train/Bacterial gill disease/Bacterial gill disease (18).jpg
+test/bacterial_gill/Bacterial gill disease (218).jpg,bacterial_gill,test,g491,0,Train/Bacterial gill disease/Bacterial gill disease (218).jpg
+test/bacterial_gill/Bacterial gill disease (4).png,bacterial_gill,test,g479,0,Train/Bacterial gill disease/Bacterial gill disease (4).png
+test/bacterial_gill/Bacterial gill disease (5).png,bacterial_gill,test,g491,0,Train/Bacterial gill disease/Bacterial gill disease (5).png
+test/bacterial_gill/Bacterial gill disease (9).jpeg,bacterial_gill,test,g272,0,Train/Bacterial gill disease/Bacterial gill disease (9).jpeg
+test/bacterial_red/Bacterial Red disease (1).jpeg,bacterial_red,test,g500,0,Train/Bacterial Red disease/Bacterial Red disease (1).jpeg
+test/bacterial_red/Bacterial Red disease (1).jpg,bacterial_red,test,g549,0,Train/Bacterial Red disease/Bacterial Red disease (1).jpg
+test/bacterial_red/Bacterial Red disease (111).jpg,bacterial_red,test,g622,0,Train/Bacterial Red disease/Bacterial Red disease (111).jpg
+test/bacterial_red/Bacterial Red disease (13).jpg,bacterial_red,test,g580,0,Train/Bacterial Red disease/Bacterial Red disease (13).jpg
+test/bacterial_red/Bacterial Red disease (16).jpg,bacterial_red,test,g594,0,Train/Bacterial Red disease/Bacterial Red disease (16).jpg
+test/bacterial_red/Bacterial Red disease (173).jpg,bacterial_red,test,g684,0,Train/Bacterial Red disease/Bacterial Red disease (173).jpg
+test/bacterial_red/Bacterial Red disease (2).jpg,bacterial_red,test,g515,0,Train/Bacterial Red disease/Bacterial Red disease (2).jpg
+test/bacterial_red/Bacterial Red disease (200).jpg,bacterial_red,test,g711,0,Train/Bacterial Red disease/Bacterial Red disease (200).jpg
+test/bacterial_red/Bacterial Red disease (224).jpg,bacterial_red,test,g735,0,Train/Bacterial Red disease/Bacterial Red disease (224).jpg
+test/bacterial_red/Bacterial Red disease (5).jpg,bacterial_red,test,g737,0,Train/Bacterial Red disease/Bacterial Red disease (5).jpg
+test/bacterial_red/Bacterial Red disease (6).png,bacterial_red,test,g742,0,Train/Bacterial Red disease/Bacterial Red disease (6).png
+test/bacterial_red/Bacterial Red disease (69).jpg,bacterial_red,test,g580,0,Train/Bacterial Red disease/Bacterial Red disease (69).jpg
+test/healthy/Healthy Fish (105).jpg,healthy,test,g1195,0,Train/Healthy Fish/Healthy Fish (105).jpg
+test/healthy/Healthy Fish (110).png,healthy,test,g1131,1,Train/Healthy Fish/Healthy Fish (110).jpg
+test/healthy/Healthy Fish (124).jpg,healthy,test,g1145,0,Train/Healthy Fish/Healthy Fish (124).jpg
+test/healthy/Healthy Fish (146).jpg,healthy,test,g1167,0,Train/Healthy Fish/Healthy Fish (146).jpg
+test/healthy/Healthy Fish (149).jpg,healthy,test,g1170,0,Train/Healthy Fish/Healthy Fish (149).jpg
+test/healthy/Healthy Fish (17).jpg,healthy,test,g1121,0,Train/Healthy Fish/Healthy Fish (17).jpg
+test/healthy/Healthy Fish (178).jpg,healthy,test,g1199,0,Train/Healthy Fish/Healthy Fish (178).jpg
+test/healthy/Healthy Fish (2).png,healthy,test,g1003,0,Train/Healthy Fish/Healthy Fish (2).png
+test/healthy/Healthy Fish (210).jpg,healthy,test,g1231,0,Train/Healthy Fish/Healthy Fish (210).jpg
+test/healthy/Healthy Fish (23).jpg,healthy,test,g1063,0,Train/Healthy Fish/Healthy Fish (23).jpg
+test/healthy/Healthy Fish (39).jpg,healthy,test,g1060,0,Train/Healthy Fish/Healthy Fish (39).jpg
+test/healthy/Healthy Fish (5).jpg,healthy,test,g1236,0,Train/Healthy Fish/Healthy Fish (5).jpg
+test/healthy/Healthy Fish (6).png,healthy,test,g1091,1,Train/Healthy Fish/Healthy Fish (6).jpeg
+test/healthy/Healthy Fish (64).jpg,healthy,test,g1163,0,Train/Healthy Fish/Healthy Fish (64).jpg
+test/healthy/Healthy Fish (7).png,healthy,test,g1176,1,Train/Healthy Fish/Healthy Fish (7).jpg
+test/healthy/Healthy Fish (9).jpeg,healthy,test,g1173,0,Train/Healthy Fish/Healthy Fish (9).jpeg
+test/parasitic/Parasitic diseases (138).jpg,parasitic,test,g1395,0,Train/Parasitic diseases/Parasitic diseases (138).jpg
+test/parasitic/Parasitic diseases (141).jpg,parasitic,test,g1398,0,Train/Parasitic diseases/Parasitic diseases (141).jpg
+test/parasitic/Parasitic diseases (142).jpg,parasitic,test,g1405,0,Train/Parasitic diseases/Parasitic diseases (142).jpg
+test/parasitic/Parasitic diseases (195).jpg,parasitic,test,g1452,0,Train/Parasitic diseases/Parasitic diseases (195).jpg
+test/parasitic/Parasitic diseases (235).jpg,parasitic,test,g1492,0,Train/Parasitic diseases/Parasitic diseases (235).jpg
+test/parasitic/Parasitic diseases (26).jpg,parasitic,test,g1433,0,Train/Parasitic diseases/Parasitic diseases (26).jpg
+test/parasitic/Parasitic diseases (28).jpg,parasitic,test,g1286,0,Train/Parasitic diseases/Parasitic diseases (28).jpg
+test/parasitic/Parasitic diseases (8).jpg,parasitic,test,g1496,0,Train/Parasitic diseases/Parasitic diseases (8).jpg
+test/parasitic/Parasitic diseases (83).jpg,parasitic,test,g1340,0,Train/Parasitic diseases/Parasitic diseases (83).jpg
+test/parasitic/Parasitic diseases (85).jpg,parasitic,test,g1342,0,Train/Parasitic diseases/Parasitic diseases (85).jpg
+test/parasitic/Parasitic diseases (86).jpg,parasitic,test,g1343,0,Train/Parasitic diseases/Parasitic diseases (86).jpg
+test/saprolegniasis/Fungal diseases Saprolegniasis (1).jpeg,saprolegniasis,test,g748,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (1).jpeg
+test/saprolegniasis/Fungal diseases Saprolegniasis (14).jpg,saprolegniasis,test,g829,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (14).jpg
+test/saprolegniasis/Fungal diseases Saprolegniasis (161).jpg,saprolegniasis,test,g922,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (161).jpg
+test/saprolegniasis/Fungal diseases Saprolegniasis (172).jpg,saprolegniasis,test,g933,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (172).jpg
+test/saprolegniasis/Fungal diseases Saprolegniasis (186).jpg,saprolegniasis,test,g947,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (186).jpg
+test/saprolegniasis/Fungal diseases Saprolegniasis (194).jpg,saprolegniasis,test,g955,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (194).jpg
+test/saprolegniasis/Fungal diseases Saprolegniasis (21).jpg,saprolegniasis,test,g883,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (21).jpg
+test/saprolegniasis/Fungal diseases Saprolegniasis (34).jpg,saprolegniasis,test,g795,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (34).jpg
+test/saprolegniasis/Fungal diseases Saprolegniasis (4).png,saprolegniasis,test,g865,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (4).png
+test/saprolegniasis/Fungal diseases Saprolegniasis (41).jpg,saprolegniasis,test,g802,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (41).jpg
+test/saprolegniasis/Fungal diseases Saprolegniasis (77).jpg,saprolegniasis,test,g838,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (77).jpg
+test/saprolegniasis/Fungal diseases Saprolegniasis (87).jpg,saprolegniasis,test,g865,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (87).jpg
+train/aeromoniasis/Bacterial diseases - Aeromoniasis (1).jpeg,aeromoniasis,train,g101,0,Train/Bacterial diseases - Aeromoniasis/Bacterial diseases - Aeromoniasis (1).jpeg
+train/aeromoniasis/Bacterial diseases - Aeromoniasis (1).png,aeromoniasis,train,g59,0,Train/Bacterial diseases - Aeromoniasis/Bacterial diseases - Aeromoniasis (1).png
+train/aeromoniasis/Bacterial diseases - Aeromoniasis (10).jpg,aeromoniasis,train,g68,0,Train/Bacterial diseases - Aeromoniasis/Bacterial diseases - Aeromoniasis (10).jpg
+train/aeromoniasis/Bacterial diseases - Aeromoniasis (107).jpg,aeromoniasis,train,g118,0,Train/Bacterial diseases - Aeromoniasis/Bacterial diseases - Aeromoniasis (107).jpg
+train/aeromoniasis/Bacterial diseases - Aeromoniasis (12).jpg,aeromoniasis,train,g80,0,Train/Bacterial diseases - Aeromoniasis/Bacterial diseases - Aeromoniasis (12).jpg
+train/aeromoniasis/Bacterial diseases - Aeromoniasis (133).jpg,aeromoniasis,train,g141,0,Train/Bacterial diseases - Aeromoniasis/Bacterial diseases - Aeromoniasis (133).jpg
+train/aeromoniasis/Bacterial diseases - Aeromoniasis (138).jpg,aeromoniasis,train,g149,0,Train/Bacterial diseases - Aeromoniasis/Bacterial diseases - Aeromoniasis (138).jpg
+train/aeromoniasis/Bacterial diseases - Aeromoniasis (143).jpg,aeromoniasis,train,g249,0,Train/Bacterial diseases - Aeromoniasis/Bacterial diseases - Aeromoniasis (143).jpg
+train/aeromoniasis/Bacterial diseases - Aeromoniasis (15).jpg,aeromoniasis,train,g90,0,Train/Bacterial diseases - Aeromoniasis/Bacterial diseases - Aeromoniasis (15).jpg
+train/aeromoniasis/Bacterial diseases - Aeromoniasis (171).jpg,aeromoniasis,train,g181,0,Train/Bacterial diseases - Aeromoniasis/Bacterial diseases - Aeromoniasis (171).jpg
+train/aeromoniasis/Bacterial diseases - Aeromoniasis (19).jpg,aeromoniasis,train,g118,0,Train/Bacterial diseases - Aeromoniasis/Bacterial diseases - Aeromoniasis (19).jpg
+train/aeromoniasis/Bacterial diseases - Aeromoniasis (193).jpg,aeromoniasis,train,g202,0,Train/Bacterial diseases - Aeromoniasis/Bacterial diseases - Aeromoniasis (193).jpg
+train/aeromoniasis/Bacterial diseases - Aeromoniasis (2).jpeg,aeromoniasis,train,g3,0,Train/Bacterial diseases - Aeromoniasis/Bacterial diseases - Aeromoniasis (2).jpeg
+train/aeromoniasis/Bacterial diseases - Aeromoniasis (2).jpg,aeromoniasis,train,g158,0,Train/Bacterial diseases - Aeromoniasis/Bacterial diseases - Aeromoniasis (2).jpg
+train/aeromoniasis/Bacterial diseases - Aeromoniasis (203).jpg,aeromoniasis,train,g213,0,Train/Bacterial diseases - Aeromoniasis/Bacterial diseases - Aeromoniasis (203).jpg
+train/aeromoniasis/Bacterial diseases - Aeromoniasis (204).jpg,aeromoniasis,train,g213,0,Train/Bacterial diseases - Aeromoniasis/Bacterial diseases - Aeromoniasis (204).jpg
+train/aeromoniasis/Bacterial diseases - Aeromoniasis (208).jpg,aeromoniasis,train,g216,0,Train/Bacterial diseases - Aeromoniasis/Bacterial diseases - Aeromoniasis (208).jpg
+train/aeromoniasis/Bacterial diseases - Aeromoniasis (21).jpg,aeromoniasis,train,g128,0,Train/Bacterial diseases - Aeromoniasis/Bacterial diseases - Aeromoniasis (21).jpg
+train/aeromoniasis/Bacterial diseases - Aeromoniasis (234).jpg,aeromoniasis,train,g242,0,Train/Bacterial diseases - Aeromoniasis/Bacterial diseases - Aeromoniasis (234).jpg
+train/aeromoniasis/Bacterial diseases - Aeromoniasis (24).jpg,aeromoniasis,train,g139,0,Train/Bacterial diseases - Aeromoniasis/Bacterial diseases - Aeromoniasis (24).jpg
+train/aeromoniasis/Bacterial diseases - Aeromoniasis (26).jpg,aeromoniasis,train,g145,0,Train/Bacterial diseases - Aeromoniasis/Bacterial diseases - Aeromoniasis (26).jpg
+train/aeromoniasis/Bacterial diseases - Aeromoniasis (27).jpg,aeromoniasis,train,g149,0,Train/Bacterial diseases - Aeromoniasis/Bacterial diseases - Aeromoniasis (27).jpg
+train/aeromoniasis/Bacterial diseases - Aeromoniasis (3).jpg,aeromoniasis,train,g216,0,Train/Bacterial diseases - Aeromoniasis/Bacterial diseases - Aeromoniasis (3).jpg
+train/aeromoniasis/Bacterial diseases - Aeromoniasis (31).jpg,aeromoniasis,train,g176,0,Train/Bacterial diseases - Aeromoniasis/Bacterial diseases - Aeromoniasis (31).jpg
+train/aeromoniasis/Bacterial diseases - Aeromoniasis (36).jpg,aeromoniasis,train,g202,0,Train/Bacterial diseases - Aeromoniasis/Bacterial diseases - Aeromoniasis (36).jpg
+train/aeromoniasis/Bacterial diseases - Aeromoniasis (38).jpg,aeromoniasis,train,g213,0,Train/Bacterial diseases - Aeromoniasis/Bacterial diseases - Aeromoniasis (38).jpg
+train/aeromoniasis/Bacterial diseases - Aeromoniasis (45).jpg,aeromoniasis,train,g59,0,Train/Bacterial diseases - Aeromoniasis/Bacterial diseases - Aeromoniasis (45).jpg
+train/aeromoniasis/Bacterial diseases - Aeromoniasis (47).jpg,aeromoniasis,train,g59,0,Train/Bacterial diseases - Aeromoniasis/Bacterial diseases - Aeromoniasis (47).jpg
+train/aeromoniasis/Bacterial diseases - Aeromoniasis (5).jpeg,aeromoniasis,train,g101,0,Train/Bacterial diseases - Aeromoniasis/Bacterial diseases - Aeromoniasis (5).jpeg
+train/aeromoniasis/Bacterial diseases - Aeromoniasis (58).jpg,aeromoniasis,train,g68,0,Train/Bacterial diseases - Aeromoniasis/Bacterial diseases - Aeromoniasis (58).jpg
+train/aeromoniasis/Bacterial diseases - Aeromoniasis (6).jpg,aeromoniasis,train,g181,0,Train/Bacterial diseases - Aeromoniasis/Bacterial diseases - Aeromoniasis (6).jpg
+train/aeromoniasis/Bacterial diseases - Aeromoniasis (7).jpg,aeromoniasis,train,g242,0,Train/Bacterial diseases - Aeromoniasis/Bacterial diseases - Aeromoniasis (7).jpg
+train/aeromoniasis/Bacterial diseases - Aeromoniasis (72).jpg,aeromoniasis,train,g80,0,Train/Bacterial diseases - Aeromoniasis/Bacterial diseases - Aeromoniasis (72).jpg
+train/aeromoniasis/Bacterial diseases - Aeromoniasis (78).jpg,aeromoniasis,train,g158,0,Train/Bacterial diseases - Aeromoniasis/Bacterial diseases - Aeromoniasis (78).jpg
+train/aeromoniasis/Bacterial diseases - Aeromoniasis (8).jpg,aeromoniasis,train,g249,0,Train/Bacterial diseases - Aeromoniasis/Bacterial diseases - Aeromoniasis (8).jpg
+train/aeromoniasis/Bacterial diseases - Aeromoniasis (82).jpg,aeromoniasis,train,g90,0,Train/Bacterial diseases - Aeromoniasis/Bacterial diseases - Aeromoniasis (82).jpg
+train/aeromoniasis/Bacterial diseases - Aeromoniasis (86).jpg,aeromoniasis,train,g242,0,Train/Bacterial diseases - Aeromoniasis/Bacterial diseases - Aeromoniasis (86).jpg
+train/aeromoniasis/Bacterial diseases - Aeromoniasis (9).jpg,aeromoniasis,train,g141,0,Train/Bacterial diseases - Aeromoniasis/Bacterial diseases - Aeromoniasis (9).jpg
+train/aeromoniasis/Bacterial diseases - Aeromoniasis (99).jpg,aeromoniasis,train,g216,0,Train/Bacterial diseases - Aeromoniasis/Bacterial diseases - Aeromoniasis (99).jpg
+train/bacterial_gill/Bacterial gill disease (1).jpeg,bacterial_gill,train,g365,0,Train/Bacterial gill disease/Bacterial gill disease (1).jpeg
+train/bacterial_gill/Bacterial gill disease (1).jpg,bacterial_gill,train,g427,0,Train/Bacterial gill disease/Bacterial gill disease (1).jpg
+train/bacterial_gill/Bacterial gill disease (10).jpeg,bacterial_gill,train,g328,0,Train/Bacterial gill disease/Bacterial gill disease (10).jpeg
+train/bacterial_gill/Bacterial gill disease (119).jpg,bacterial_gill,train,g390,0,Train/Bacterial gill disease/Bacterial gill disease (119).jpg
+train/bacterial_gill/Bacterial gill disease (12).jpeg,bacterial_gill,train,g278,0,Train/Bacterial gill disease/Bacterial gill disease (12).jpeg
+train/bacterial_gill/Bacterial gill disease (120).jpg,bacterial_gill,train,g395,0,Train/Bacterial gill disease/Bacterial gill disease (120).jpg
+train/bacterial_gill/Bacterial gill disease (122).jpg,bacterial_gill,train,g395,0,Train/Bacterial gill disease/Bacterial gill disease (122).jpg
+train/bacterial_gill/Bacterial gill disease (135).jpg,bacterial_gill,train,g406,0,Train/Bacterial gill disease/Bacterial gill disease (135).jpg
+train/bacterial_gill/Bacterial gill disease (138).jpg,bacterial_gill,train,g495,0,Train/Bacterial gill disease/Bacterial gill disease (138).jpg
+train/bacterial_gill/Bacterial gill disease (14).jpg,bacterial_gill,train,g456,0,Train/Bacterial gill disease/Bacterial gill disease (14).jpg
+train/bacterial_gill/Bacterial gill disease (15).jpg,bacterial_gill,train,g427,0,Train/Bacterial gill disease/Bacterial gill disease (15).jpg
+train/bacterial_gill/Bacterial gill disease (156).jpg,bacterial_gill,train,g427,0,Train/Bacterial gill disease/Bacterial gill disease (156).jpg
+train/bacterial_gill/Bacterial gill disease (170).jpg,bacterial_gill,train,g365,0,Train/Bacterial gill disease/Bacterial gill disease (170).jpg
+train/bacterial_gill/Bacterial gill disease (195).jpg,bacterial_gill,train,g466,0,Train/Bacterial gill disease/Bacterial gill disease (195).jpg
+train/bacterial_gill/Bacterial gill disease (198).jpg,bacterial_gill,train,g471,0,Train/Bacterial gill disease/Bacterial gill disease (198).jpg
+train/bacterial_gill/Bacterial gill disease (2).jpeg,bacterial_gill,train,g359,0,Train/Bacterial gill disease/Bacterial gill disease (2).jpeg
+train/bacterial_gill/Bacterial gill disease (2).jpg,bacterial_gill,train,g419,0,Train/Bacterial gill disease/Bacterial gill disease (2).jpg
+train/bacterial_gill/Bacterial gill disease (200).jpg,bacterial_gill,train,g471,0,Train/Bacterial gill disease/Bacterial gill disease (200).jpg
+train/bacterial_gill/Bacterial gill disease (21).jpg,bacterial_gill,train,g395,0,Train/Bacterial gill disease/Bacterial gill disease (21).jpg
+train/bacterial_gill/Bacterial gill disease (22).jpg,bacterial_gill,train,g402,0,Train/Bacterial gill disease/Bacterial gill disease (22).jpg
+train/bacterial_gill/Bacterial gill disease (3).jpg,bacterial_gill,train,g466,0,Train/Bacterial gill disease/Bacterial gill disease (3).jpg
+train/bacterial_gill/Bacterial gill disease (3).png,bacterial_gill,train,g471,0,Train/Bacterial gill disease/Bacterial gill disease (3).png
+train/bacterial_gill/Bacterial gill disease (4).jpeg,bacterial_gill,train,g487,0,Train/Bacterial gill disease/Bacterial gill disease (4).jpeg
+train/bacterial_gill/Bacterial gill disease (5).jpg,bacterial_gill,train,g406,0,Train/Bacterial gill disease/Bacterial gill disease (5).jpg
+train/bacterial_gill/Bacterial gill disease (6).jpeg,bacterial_gill,train,g265,0,Train/Bacterial gill disease/Bacterial gill disease (6).jpeg
+train/bacterial_gill/Bacterial gill disease (6).png,bacterial_gill,train,g390,0,Train/Bacterial gill disease/Bacterial gill disease (6).png
+train/bacterial_gill/Bacterial gill disease (7).jpg,bacterial_gill,train,g495,0,Train/Bacterial gill disease/Bacterial gill disease (7).jpg
+train/bacterial_gill/Bacterial gill disease (72).jpg,bacterial_gill,train,g456,0,Train/Bacterial gill disease/Bacterial gill disease (72).jpg
+train/bacterial_gill/Bacterial gill disease (75).jpg,bacterial_gill,train,g456,0,Train/Bacterial gill disease/Bacterial gill disease (75).jpg
+train/bacterial_gill/Bacterial gill disease (88).jpg,bacterial_gill,train,g359,0,Train/Bacterial gill disease/Bacterial gill disease (88).jpg
+train/bacterial_gill/Bacterial gill disease (94).jpg,bacterial_gill,train,g365,0,Train/Bacterial gill disease/Bacterial gill disease (94).jpg
+train/bacterial_red/Bacterial Red disease (10).jpg,bacterial_red,train,g566,0,Train/Bacterial Red disease/Bacterial Red disease (10).jpg
+train/bacterial_red/Bacterial Red disease (101).jpg,bacterial_red,train,g570,0,Train/Bacterial Red disease/Bacterial Red disease (101).jpg
+train/bacterial_red/Bacterial Red disease (104).jpg,bacterial_red,train,g570,0,Train/Bacterial Red disease/Bacterial Red disease (104).jpg
+train/bacterial_red/Bacterial Red disease (107).jpg,bacterial_red,train,g570,0,Train/Bacterial Red disease/Bacterial Red disease (107).jpg
+train/bacterial_red/Bacterial Red disease (11).jpg,bacterial_red,train,g570,0,Train/Bacterial Red disease/Bacterial Red disease (11).jpg
+train/bacterial_red/Bacterial Red disease (115).jpg,bacterial_red,train,g632,0,Train/Bacterial Red disease/Bacterial Red disease (115).jpg
+train/bacterial_red/Bacterial Red disease (116).jpg,bacterial_red,train,g627,0,Train/Bacterial Red disease/Bacterial Red disease (116).jpg
+train/bacterial_red/Bacterial Red disease (12).jpg,bacterial_red,train,g575,0,Train/Bacterial Red disease/Bacterial Red disease (12).jpg
+train/bacterial_red/Bacterial Red disease (121).jpg,bacterial_red,train,g632,0,Train/Bacterial Red disease/Bacterial Red disease (121).jpg
+train/bacterial_red/Bacterial Red disease (127).jpg,bacterial_red,train,g638,0,Train/Bacterial Red disease/Bacterial Red disease (127).jpg
+train/bacterial_red/Bacterial Red disease (134).jpg,bacterial_red,train,g650,0,Train/Bacterial Red disease/Bacterial Red disease (134).jpg
+train/bacterial_red/Bacterial Red disease (138).jpg,bacterial_red,train,g650,0,Train/Bacterial Red disease/Bacterial Red disease (138).jpg
+train/bacterial_red/Bacterial Red disease (14).jpg,bacterial_red,train,g682,0,Train/Bacterial Red disease/Bacterial Red disease (14).jpg
+train/bacterial_red/Bacterial Red disease (143).jpg,bacterial_red,train,g654,0,Train/Bacterial Red disease/Bacterial Red disease (143).jpg
+train/bacterial_red/Bacterial Red disease (147).jpg,bacterial_red,train,g661,0,Train/Bacterial Red disease/Bacterial Red disease (147).jpg
+train/bacterial_red/Bacterial Red disease (150).jpg,bacterial_red,train,g661,0,Train/Bacterial Red disease/Bacterial Red disease (150).jpg
+train/bacterial_red/Bacterial Red disease (157).jpg,bacterial_red,train,g668,0,Train/Bacterial Red disease/Bacterial Red disease (157).jpg
+train/bacterial_red/Bacterial Red disease (158).jpg,bacterial_red,train,g570,0,Train/Bacterial Red disease/Bacterial Red disease (158).jpg
+train/bacterial_red/Bacterial Red disease (165).jpg,bacterial_red,train,g676,0,Train/Bacterial Red disease/Bacterial Red disease (165).jpg
+train/bacterial_red/Bacterial Red disease (17).jpg,bacterial_red,train,g661,0,Train/Bacterial Red disease/Bacterial Red disease (17).jpg
+train/bacterial_red/Bacterial Red disease (176).jpg,bacterial_red,train,g692,0,Train/Bacterial Red disease/Bacterial Red disease (176).jpg
+train/bacterial_red/Bacterial Red disease (177).jpg,bacterial_red,train,g688,0,Train/Bacterial Red disease/Bacterial Red disease (177).jpg
+train/bacterial_red/Bacterial Red disease (18).jpg,bacterial_red,train,g609,0,Train/Bacterial Red disease/Bacterial Red disease (18).jpg
+train/bacterial_red/Bacterial Red disease (180).jpg,bacterial_red,train,g691,0,Train/Bacterial Red disease/Bacterial Red disease (180).jpg
+train/bacterial_red/Bacterial Red disease (193).jpg,bacterial_red,train,g704,0,Train/Bacterial Red disease/Bacterial Red disease (193).jpg
+train/bacterial_red/Bacterial Red disease (2).jpeg,bacterial_red,train,g708,0,Train/Bacterial Red disease/Bacterial Red disease (2).jpeg
+train/bacterial_red/Bacterial Red disease (20).jpg,bacterial_red,train,g638,0,Train/Bacterial Red disease/Bacterial Red disease (20).jpg
+train/bacterial_red/Bacterial Red disease (209).jpg,bacterial_red,train,g723,0,Train/Bacterial Red disease/Bacterial Red disease (209).jpg
+train/bacterial_red/Bacterial Red disease (21).jpg,bacterial_red,train,g627,0,Train/Bacterial Red disease/Bacterial Red disease (21).jpg
+train/bacterial_red/Bacterial Red disease (222).jpg,bacterial_red,train,g733,0,Train/Bacterial Red disease/Bacterial Red disease (222).jpg
+train/bacterial_red/Bacterial Red disease (235).jpg,bacterial_red,train,g747,0,Train/Bacterial Red disease/Bacterial Red disease (235).jpg
+train/bacterial_red/Bacterial Red disease (236).jpg,bacterial_red,train,g747,0,Train/Bacterial Red disease/Bacterial Red disease (236).jpg
+train/bacterial_red/Bacterial Red disease (25).jpg,bacterial_red,train,g650,0,Train/Bacterial Red disease/Bacterial Red disease (25).jpg
+train/bacterial_red/Bacterial Red disease (27).jpg,bacterial_red,train,g668,0,Train/Bacterial Red disease/Bacterial Red disease (27).jpg
+train/bacterial_red/Bacterial Red disease (29).jpg,bacterial_red,train,g682,0,Train/Bacterial Red disease/Bacterial Red disease (29).jpg
+train/bacterial_red/Bacterial Red disease (3).jpeg,bacterial_red,train,g661,0,Train/Bacterial Red disease/Bacterial Red disease (3).jpeg
+train/bacterial_red/Bacterial Red disease (31).jpg,bacterial_red,train,g692,0,Train/Bacterial Red disease/Bacterial Red disease (31).jpg
+train/bacterial_red/Bacterial Red disease (33).jpg,bacterial_red,train,g704,0,Train/Bacterial Red disease/Bacterial Red disease (33).jpg
+train/bacterial_red/Bacterial Red disease (4).jpeg,bacterial_red,train,g661,0,Train/Bacterial Red disease/Bacterial Red disease (4).jpeg
+train/bacterial_red/Bacterial Red disease (4).jpg,bacterial_red,train,g727,0,Train/Bacterial Red disease/Bacterial Red disease (4).jpg
+train/bacterial_red/Bacterial Red disease (4).png,bacterial_red,train,g723,0,Train/Bacterial Red disease/Bacterial Red disease (4).png
+train/bacterial_red/Bacterial Red disease (44).jpg,bacterial_red,train,g555,0,Train/Bacterial Red disease/Bacterial Red disease (44).jpg
+train/bacterial_red/Bacterial Red disease (47).jpg,bacterial_red,train,g558,0,Train/Bacterial Red disease/Bacterial Red disease (47).jpg
+train/bacterial_red/Bacterial Red disease (5).jpeg,bacterial_red,train,g632,0,Train/Bacterial Red disease/Bacterial Red disease (5).jpeg
+train/bacterial_red/Bacterial Red disease (5).png,bacterial_red,train,g733,0,Train/Bacterial Red disease/Bacterial Red disease (5).png
+train/bacterial_red/Bacterial Red disease (53).jpg,bacterial_red,train,g566,0,Train/Bacterial Red disease/Bacterial Red disease (53).jpg
+train/bacterial_red/Bacterial Red disease (55).jpg,bacterial_red,train,g566,0,Train/Bacterial Red disease/Bacterial Red disease (55).jpg
+train/bacterial_red/Bacterial Red disease (59).jpg,bacterial_red,train,g570,0,Train/Bacterial Red disease/Bacterial Red disease (59).jpg
+train/bacterial_red/Bacterial Red disease (63).jpg,bacterial_red,train,g575,0,Train/Bacterial Red disease/Bacterial Red disease (63).jpg
+train/bacterial_red/Bacterial Red disease (7).jpeg,bacterial_red,train,g668,0,Train/Bacterial Red disease/Bacterial Red disease (7).jpeg
+train/bacterial_red/Bacterial Red disease (7).jpg,bacterial_red,train,g747,0,Train/Bacterial Red disease/Bacterial Red disease (7).jpg
+train/bacterial_red/Bacterial Red disease (74).jpg,bacterial_red,train,g682,0,Train/Bacterial Red disease/Bacterial Red disease (74).jpg
+train/bacterial_red/Bacterial Red disease (78).jpg,bacterial_red,train,g661,0,Train/Bacterial Red disease/Bacterial Red disease (78).jpg
+train/bacterial_red/Bacterial Red disease (98).jpg,bacterial_red,train,g609,0,Train/Bacterial Red disease/Bacterial Red disease (98).jpg
+train/healthy/Healthy Fish (1).jpeg,healthy,train,g1043,0,Train/Healthy Fish/Healthy Fish (1).jpeg
+train/healthy/Healthy Fish (1).png,healthy,train,g1175,0,Train/Healthy Fish/Healthy Fish (1).png
+train/healthy/Healthy Fish (10).jpeg,healthy,train,g1188,0,Train/Healthy Fish/Healthy Fish (10).jpeg
+train/healthy/Healthy Fish (10).jpg,healthy,train,g1189,0,Train/Healthy Fish/Healthy Fish (10).jpg
+train/healthy/Healthy Fish (108).jpg,healthy,train,g1129,0,Train/Healthy Fish/Healthy Fish (108).jpg
+train/healthy/Healthy Fish (109).jpg,healthy,train,g1198,0,Train/Healthy Fish/Healthy Fish (109).jpg
+train/healthy/Healthy Fish (11).jpg,healthy,train,g1109,0,Train/Healthy Fish/Healthy Fish (11).jpg
+train/healthy/Healthy Fish (112).jpg,healthy,train,g1200,0,Train/Healthy Fish/Healthy Fish (112).jpg
+train/healthy/Healthy Fish (114).jpg,healthy,train,g1135,0,Train/Healthy Fish/Healthy Fish (114).jpg
+train/healthy/Healthy Fish (117).jpg,healthy,train,g1204,0,Train/Healthy Fish/Healthy Fish (117).jpg
+train/healthy/Healthy Fish (119).jpg,healthy,train,g1206,0,Train/Healthy Fish/Healthy Fish (119).jpg
+train/healthy/Healthy Fish (12).jpg,healthy,train,g1213,0,Train/Healthy Fish/Healthy Fish (12).jpg
+train/healthy/Healthy Fish (12).png,healthy,train,g1226,1,Train/Healthy Fish/Healthy Fish (12).jpeg
+train/healthy/Healthy Fish (125).jpg,healthy,train,g1211,0,Train/Healthy Fish/Healthy Fish (125).jpg
+train/healthy/Healthy Fish (126).jpg,healthy,train,g1212,0,Train/Healthy Fish/Healthy Fish (126).jpg
+train/healthy/Healthy Fish (128).jpg,healthy,train,g1215,0,Train/Healthy Fish/Healthy Fish (128).jpg
+train/healthy/Healthy Fish (13).jpeg,healthy,train,g1027,0,Train/Healthy Fish/Healthy Fish (13).jpeg
+train/healthy/Healthy Fish (13).jpg,healthy,train,g1239,0,Train/Healthy Fish/Healthy Fish (13).jpg
+train/healthy/Healthy Fish (134).jpg,healthy,train,g1222,0,Train/Healthy Fish/Healthy Fish (134).jpg
+train/healthy/Healthy Fish (135).jpg,healthy,train,g1156,0,Train/Healthy Fish/Healthy Fish (135).jpg
+train/healthy/Healthy Fish (14).jpg,healthy,train,g1030,0,Train/Healthy Fish/Healthy Fish (14).jpg
+train/healthy/Healthy Fish (148).jpg,healthy,train,g1169,0,Train/Healthy Fish/Healthy Fish (148).jpg
+train/healthy/Healthy Fish (15).jpeg,healthy,train,g1228,0,Train/Healthy Fish/Healthy Fish (15).jpeg
+train/healthy/Healthy Fish (151).jpg,healthy,train,g1172,0,Train/Healthy Fish/Healthy Fish (151).jpg
+train/healthy/Healthy Fish (154).jpg,healthy,train,g1175,0,Train/Healthy Fish/Healthy Fish (154).jpg
+train/healthy/Healthy Fish (16).jpg,healthy,train,g1097,0,Train/Healthy Fish/Healthy Fish (16).jpg
+train/healthy/Healthy Fish (167).jpg,healthy,train,g1188,0,Train/Healthy Fish/Healthy Fish (167).jpg
+train/healthy/Healthy Fish (17).jpeg,healthy,train,g1038,0,Train/Healthy Fish/Healthy Fish (17).jpeg
+train/healthy/Healthy Fish (18).png,healthy,train,g1048,1,Train/Healthy Fish/Healthy Fish (18).jpeg
+train/healthy/Healthy Fish (184).jpg,healthy,train,g1205,0,Train/Healthy Fish/Healthy Fish (184).jpg
+train/healthy/Healthy Fish (2).jpeg,healthy,train,g1175,0,Train/Healthy Fish/Healthy Fish (2).jpeg
+train/healthy/Healthy Fish (2).jpg,healthy,train,g1023,0,Train/Healthy Fish/Healthy Fish (2).jpg
+train/healthy/Healthy Fish (20).png,healthy,train,g1041,1,Train/Healthy Fish/Healthy Fish (20).jpg
+train/healthy/Healthy Fish (206).jpg,healthy,train,g1228,0,Train/Healthy Fish/Healthy Fish (206).jpg
+train/healthy/Healthy Fish (207).jpg,healthy,train,g1228,0,Train/Healthy Fish/Healthy Fish (207).jpg
+train/healthy/Healthy Fish (208).jpg,healthy,train,g1229,0,Train/Healthy Fish/Healthy Fish (208).jpg
+train/healthy/Healthy Fish (218).jpg,healthy,train,g1239,0,Train/Healthy Fish/Healthy Fish (218).jpg
+train/healthy/Healthy Fish (219).jpg,healthy,train,g1240,0,Train/Healthy Fish/Healthy Fish (219).jpg
+train/healthy/Healthy Fish (25).jpg,healthy,train,g1084,0,Train/Healthy Fish/Healthy Fish (25).jpg
+train/healthy/Healthy Fish (26).jpg,healthy,train,g1247,0,Train/Healthy Fish/Healthy Fish (26).jpg
+train/healthy/Healthy Fish (28).png,healthy,train,g1092,1,Train/Healthy Fish/Healthy Fish (28).jpg
+train/healthy/Healthy Fish (3).jpeg,healthy,train,g1004,0,Train/Healthy Fish/Healthy Fish (3).jpeg
+train/healthy/Healthy Fish (31).jpg,healthy,train,g1055,0,Train/Healthy Fish/Healthy Fish (31).jpg
+train/healthy/Healthy Fish (32).jpg,healthy,train,g1053,0,Train/Healthy Fish/Healthy Fish (32).jpg
+train/healthy/Healthy Fish (35).jpg,healthy,train,g1056,0,Train/Healthy Fish/Healthy Fish (35).jpg
+train/healthy/Healthy Fish (36).jpg,healthy,train,g1057,0,Train/Healthy Fish/Healthy Fish (36).jpg
+train/healthy/Healthy Fish (37).jpg,healthy,train,g1058,0,Train/Healthy Fish/Healthy Fish (37).jpg
+train/healthy/Healthy Fish (38).jpg,healthy,train,g1059,0,Train/Healthy Fish/Healthy Fish (38).jpg
+train/healthy/Healthy Fish (4).jpeg,healthy,train,g1029,0,Train/Healthy Fish/Healthy Fish (4).jpeg
+train/healthy/Healthy Fish (43).jpg,healthy,train,g1064,0,Train/Healthy Fish/Healthy Fish (43).jpg
+train/healthy/Healthy Fish (44).jpg,healthy,train,g1234,0,Train/Healthy Fish/Healthy Fish (44).jpg
+train/healthy/Healthy Fish (47).jpg,healthy,train,g1068,0,Train/Healthy Fish/Healthy Fish (47).jpg
+train/healthy/Healthy Fish (48).jpg,healthy,train,g1069,0,Train/Healthy Fish/Healthy Fish (48).jpg
+train/healthy/Healthy Fish (49).jpg,healthy,train,g1237,0,Train/Healthy Fish/Healthy Fish (49).jpg
+train/healthy/Healthy Fish (5).png,healthy,train,g1010,1,Train/Healthy Fish/Healthy Fish (5).jpeg
+train/healthy/Healthy Fish (51).jpg,healthy,train,g1072,0,Train/Healthy Fish/Healthy Fish (51).jpg
+train/healthy/Healthy Fish (52).png,healthy,train,g1165,1,Train/Healthy Fish/Healthy Fish (52).jpg
+train/healthy/Healthy Fish (53).jpg,healthy,train,g1074,0,Train/Healthy Fish/Healthy Fish (53).jpg
+train/healthy/Healthy Fish (55).jpg,healthy,train,g1076,0,Train/Healthy Fish/Healthy Fish (55).jpg
+train/healthy/Healthy Fish (58).png,healthy,train,g1079,1,Train/Healthy Fish/Healthy Fish (58).jpg
+train/healthy/Healthy Fish (59).jpg,healthy,train,g1080,0,Train/Healthy Fish/Healthy Fish (59).jpg
+train/healthy/Healthy Fish (6).png,healthy,train,g1014,0,Train/Healthy Fish/Healthy Fish (6).png
+train/healthy/Healthy Fish (67).jpg,healthy,train,g1244,0,Train/Healthy Fish/Healthy Fish (67).jpg
+train/healthy/Healthy Fish (69).jpg,healthy,train,g1158,0,Train/Healthy Fish/Healthy Fish (69).jpg
+train/healthy/Healthy Fish (7).jpeg,healthy,train,g1051,0,Train/Healthy Fish/Healthy Fish (7).jpeg
+train/healthy/Healthy Fish (73).jpg,healthy,train,g1245,0,Train/Healthy Fish/Healthy Fish (73).jpg
+train/healthy/Healthy Fish (74).png,healthy,train,g1246,1,Train/Healthy Fish/Healthy Fish (74).jpg
+train/healthy/Healthy Fish (8).jpeg,healthy,train,g1042,0,Train/Healthy Fish/Healthy Fish (8).jpeg
+train/healthy/Healthy Fish (8).jpg,healthy,train,g1108,0,Train/Healthy Fish/Healthy Fish (8).jpg
+train/healthy/Healthy Fish (82).jpg,healthy,train,g1103,0,Train/Healthy Fish/Healthy Fish (82).jpg
+train/healthy/Healthy Fish (83).jpg,healthy,train,g1224,0,Train/Healthy Fish/Healthy Fish (83).jpg
+train/healthy/Healthy Fish (86).jpg,healthy,train,g1181,0,Train/Healthy Fish/Healthy Fish (86).jpg
+train/healthy/Healthy Fish (94).jpg,healthy,train,g1115,0,Train/Healthy Fish/Healthy Fish (94).jpg
+train/healthy/Healthy Fish (95).png,healthy,train,g1186,1,Train/Healthy Fish/Healthy Fish (95).jpg
+train/parasitic/Parasitic diseases (1).jpg,parasitic,train,g1280,0,Train/Parasitic diseases/Parasitic diseases (1).jpg
+train/parasitic/Parasitic diseases (1).png,parasitic,train,g1296,0,Train/Parasitic diseases/Parasitic diseases (1).png
+train/parasitic/Parasitic diseases (104).jpg,parasitic,train,g1361,0,Train/Parasitic diseases/Parasitic diseases (104).jpg
+train/parasitic/Parasitic diseases (119).jpg,parasitic,train,g1381,0,Train/Parasitic diseases/Parasitic diseases (119).jpg
+train/parasitic/Parasitic diseases (12).jpg,parasitic,train,g1361,0,Train/Parasitic diseases/Parasitic diseases (12).jpg
+train/parasitic/Parasitic diseases (124).jpg,parasitic,train,g1381,0,Train/Parasitic diseases/Parasitic diseases (124).jpg
+train/parasitic/Parasitic diseases (128).jpg,parasitic,train,g1414,0,Train/Parasitic diseases/Parasitic diseases (128).jpg
+train/parasitic/Parasitic diseases (130).jpg,parasitic,train,g1414,0,Train/Parasitic diseases/Parasitic diseases (130).jpg
+train/parasitic/Parasitic diseases (139).jpg,parasitic,train,g1396,0,Train/Parasitic diseases/Parasitic diseases (139).jpg
+train/parasitic/Parasitic diseases (14).jpg,parasitic,train,g1338,0,Train/Parasitic diseases/Parasitic diseases (14).jpg
+train/parasitic/Parasitic diseases (149).jpg,parasitic,train,g1406,0,Train/Parasitic diseases/Parasitic diseases (149).jpg
+train/parasitic/Parasitic diseases (152).jpg,parasitic,train,g1409,0,Train/Parasitic diseases/Parasitic diseases (152).jpg
+train/parasitic/Parasitic diseases (154).jpg,parasitic,train,g1414,0,Train/Parasitic diseases/Parasitic diseases (154).jpg
+train/parasitic/Parasitic diseases (157).jpg,parasitic,train,g1414,0,Train/Parasitic diseases/Parasitic diseases (157).jpg
+train/parasitic/Parasitic diseases (159).jpg,parasitic,train,g1424,0,Train/Parasitic diseases/Parasitic diseases (159).jpg
+train/parasitic/Parasitic diseases (178).jpg,parasitic,train,g1440,0,Train/Parasitic diseases/Parasitic diseases (178).jpg
+train/parasitic/Parasitic diseases (18).jpg,parasitic,train,g1367,0,Train/Parasitic diseases/Parasitic diseases (18).jpg
+train/parasitic/Parasitic diseases (182).jpg,parasitic,train,g1440,0,Train/Parasitic diseases/Parasitic diseases (182).jpg
+train/parasitic/Parasitic diseases (186).jpg,parasitic,train,g1451,0,Train/Parasitic diseases/Parasitic diseases (186).jpg
+train/parasitic/Parasitic diseases (188).jpg,parasitic,train,g1451,0,Train/Parasitic diseases/Parasitic diseases (188).jpg
+train/parasitic/Parasitic diseases (197).jpg,parasitic,train,g1454,0,Train/Parasitic diseases/Parasitic diseases (197).jpg
+train/parasitic/Parasitic diseases (2).jpeg,parasitic,train,g1253,0,Train/Parasitic diseases/Parasitic diseases (2).jpeg
+train/parasitic/Parasitic diseases (206).jpg,parasitic,train,g1463,0,Train/Parasitic diseases/Parasitic diseases (206).jpg
+train/parasitic/Parasitic diseases (210).jpg,parasitic,train,g1472,0,Train/Parasitic diseases/Parasitic diseases (210).jpg
+train/parasitic/Parasitic diseases (213).jpg,parasitic,train,g1472,0,Train/Parasitic diseases/Parasitic diseases (213).jpg
+train/parasitic/Parasitic diseases (217).jpg,parasitic,train,g1474,0,Train/Parasitic diseases/Parasitic diseases (217).jpg
+train/parasitic/Parasitic diseases (22).jpg,parasitic,train,g1280,0,Train/Parasitic diseases/Parasitic diseases (22).jpg
+train/parasitic/Parasitic diseases (228).jpg,parasitic,train,g1485,0,Train/Parasitic diseases/Parasitic diseases (228).jpg
+train/parasitic/Parasitic diseases (23).jpg,parasitic,train,g1409,0,Train/Parasitic diseases/Parasitic diseases (23).jpg
+train/parasitic/Parasitic diseases (24).jpg,parasitic,train,g1414,0,Train/Parasitic diseases/Parasitic diseases (24).jpg
+train/parasitic/Parasitic diseases (3).jpg,parasitic,train,g1463,0,Train/Parasitic diseases/Parasitic diseases (3).jpg
+train/parasitic/Parasitic diseases (3).png,parasitic,train,g1381,0,Train/Parasitic diseases/Parasitic diseases (3).png
+train/parasitic/Parasitic diseases (35).jpg,parasitic,train,g1296,0,Train/Parasitic diseases/Parasitic diseases (35).jpg
+train/parasitic/Parasitic diseases (4).jpeg,parasitic,train,g1315,0,Train/Parasitic diseases/Parasitic diseases (4).jpeg
+train/parasitic/Parasitic diseases (4).jpg,parasitic,train,g1472,0,Train/Parasitic diseases/Parasitic diseases (4).jpg
+train/parasitic/Parasitic diseases (47).jpg,parasitic,train,g1311,0,Train/Parasitic diseases/Parasitic diseases (47).jpg
+train/parasitic/Parasitic diseases (5).jpeg,parasitic,train,g1258,0,Train/Parasitic diseases/Parasitic diseases (5).jpeg
+train/parasitic/Parasitic diseases (5).jpg,parasitic,train,g1474,0,Train/Parasitic diseases/Parasitic diseases (5).jpg
+train/parasitic/Parasitic diseases (58).jpg,parasitic,train,g1315,0,Train/Parasitic diseases/Parasitic diseases (58).jpg
+train/parasitic/Parasitic diseases (6).jpeg,parasitic,train,g1311,0,Train/Parasitic diseases/Parasitic diseases (6).jpeg
+train/parasitic/Parasitic diseases (6).jpg,parasitic,train,g1485,0,Train/Parasitic diseases/Parasitic diseases (6).jpg
+train/parasitic/Parasitic diseases (63).jpg,parasitic,train,g1361,0,Train/Parasitic diseases/Parasitic diseases (63).jpg
+train/parasitic/Parasitic diseases (7).jpeg,parasitic,train,g1262,0,Train/Parasitic diseases/Parasitic diseases (7).jpeg
+train/parasitic/Parasitic diseases (8).jpeg,parasitic,train,g1424,0,Train/Parasitic diseases/Parasitic diseases (8).jpeg
+train/parasitic/Parasitic diseases (87).jpg,parasitic,train,g1344,0,Train/Parasitic diseases/Parasitic diseases (87).jpg
+train/parasitic/Parasitic diseases (9).jpeg,parasitic,train,g1414,0,Train/Parasitic diseases/Parasitic diseases (9).jpeg
+train/parasitic/Parasitic diseases (9).jpg,parasitic,train,g1303,0,Train/Parasitic diseases/Parasitic diseases (9).jpg
+train/parasitic/Parasitic diseases (93).jpg,parasitic,train,g1463,0,Train/Parasitic diseases/Parasitic diseases (93).jpg
+train/parasitic/Parasitic diseases (96).jpg,parasitic,train,g1463,0,Train/Parasitic diseases/Parasitic diseases (96).jpg
+train/parasitic/Parasitic diseases (98).jpg,parasitic,train,g1361,0,Train/Parasitic diseases/Parasitic diseases (98).jpg
+train/parasitic/Parasitic diseases (99).jpg,parasitic,train,g1361,0,Train/Parasitic diseases/Parasitic diseases (99).jpg
+train/saprolegniasis/Fungal diseases Saprolegniasis (1).jpg,saprolegniasis,train,g859,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (1).jpg
+train/saprolegniasis/Fungal diseases Saprolegniasis (1).png,saprolegniasis,train,g799,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (1).png
+train/saprolegniasis/Fungal diseases Saprolegniasis (105).jpg,saprolegniasis,train,g962,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (105).jpg
+train/saprolegniasis/Fungal diseases Saprolegniasis (117).jpg,saprolegniasis,train,g878,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (117).jpg
+train/saprolegniasis/Fungal diseases Saprolegniasis (12).jpg,saprolegniasis,train,g821,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (12).jpg
+train/saprolegniasis/Fungal diseases Saprolegniasis (13).jpg,saprolegniasis,train,g961,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (13).jpg
+train/saprolegniasis/Fungal diseases Saprolegniasis (135).jpg,saprolegniasis,train,g901,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (135).jpg
+train/saprolegniasis/Fungal diseases Saprolegniasis (15).jpg,saprolegniasis,train,g831,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (15).jpg
+train/saprolegniasis/Fungal diseases Saprolegniasis (155).jpg,saprolegniasis,train,g917,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (155).jpg
+train/saprolegniasis/Fungal diseases Saprolegniasis (160).jpg,saprolegniasis,train,g921,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (160).jpg
+train/saprolegniasis/Fungal diseases Saprolegniasis (162).jpg,saprolegniasis,train,g923,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (162).jpg
+train/saprolegniasis/Fungal diseases Saprolegniasis (163).jpg,saprolegniasis,train,g924,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (163).jpg
+train/saprolegniasis/Fungal diseases Saprolegniasis (170).jpg,saprolegniasis,train,g931,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (170).jpg
+train/saprolegniasis/Fungal diseases Saprolegniasis (173).jpg,saprolegniasis,train,g935,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (173).jpg
+train/saprolegniasis/Fungal diseases Saprolegniasis (174).jpg,saprolegniasis,train,g935,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (174).jpg
+train/saprolegniasis/Fungal diseases Saprolegniasis (177).jpg,saprolegniasis,train,g941,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (177).jpg
+train/saprolegniasis/Fungal diseases Saprolegniasis (178).jpg,saprolegniasis,train,g941,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (178).jpg
+train/saprolegniasis/Fungal diseases Saprolegniasis (180).jpg,saprolegniasis,train,g941,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (180).jpg
+train/saprolegniasis/Fungal diseases Saprolegniasis (19).jpg,saprolegniasis,train,g962,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (19).jpg
+train/saprolegniasis/Fungal diseases Saprolegniasis (193).jpg,saprolegniasis,train,g954,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (193).jpg
+train/saprolegniasis/Fungal diseases Saprolegniasis (2).jpeg,saprolegniasis,train,g917,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (2).jpeg
+train/saprolegniasis/Fungal diseases Saprolegniasis (2).jpg,saprolegniasis,train,g931,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (2).jpg
+train/saprolegniasis/Fungal diseases Saprolegniasis (2).png,saprolegniasis,train,g935,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (2).png
+train/saprolegniasis/Fungal diseases Saprolegniasis (200).jpg,saprolegniasis,train,g961,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (200).jpg
+train/saprolegniasis/Fungal diseases Saprolegniasis (201).jpg,saprolegniasis,train,g962,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (201).jpg
+train/saprolegniasis/Fungal diseases Saprolegniasis (202).jpg,saprolegniasis,train,g962,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (202).jpg
+train/saprolegniasis/Fungal diseases Saprolegniasis (210).jpg,saprolegniasis,train,g971,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (210).jpg
+train/saprolegniasis/Fungal diseases Saprolegniasis (212).jpg,saprolegniasis,train,g971,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (212).jpg
+train/saprolegniasis/Fungal diseases Saprolegniasis (216).jpg,saprolegniasis,train,g977,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (216).jpg
+train/saprolegniasis/Fungal diseases Saprolegniasis (219).jpg,saprolegniasis,train,g984,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (219).jpg
+train/saprolegniasis/Fungal diseases Saprolegniasis (229).jpg,saprolegniasis,train,g990,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (229).jpg
+train/saprolegniasis/Fungal diseases Saprolegniasis (231).jpg,saprolegniasis,train,g997,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (231).jpg
+train/saprolegniasis/Fungal diseases Saprolegniasis (232).jpg,saprolegniasis,train,g997,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (232).jpg
+train/saprolegniasis/Fungal diseases Saprolegniasis (24).jpg,saprolegniasis,train,g901,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (24).jpg
+train/saprolegniasis/Fungal diseases Saprolegniasis (26).jpg,saprolegniasis,train,g913,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (26).jpg
+train/saprolegniasis/Fungal diseases Saprolegniasis (27).jpg,saprolegniasis,train,g917,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (27).jpg
+train/saprolegniasis/Fungal diseases Saprolegniasis (28).jpg,saprolegniasis,train,g920,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (28).jpg
+train/saprolegniasis/Fungal diseases Saprolegniasis (29).jpg,saprolegniasis,train,g941,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (29).jpg
+train/saprolegniasis/Fungal diseases Saprolegniasis (3).jpeg,saprolegniasis,train,g971,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (3).jpeg
+train/saprolegniasis/Fungal diseases Saprolegniasis (3).jpg,saprolegniasis,train,g962,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (3).jpg
+train/saprolegniasis/Fungal diseases Saprolegniasis (30).jpg,saprolegniasis,train,g949,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (30).jpg
+train/saprolegniasis/Fungal diseases Saprolegniasis (31).jpg,saprolegniasis,train,g954,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (31).jpg
+train/saprolegniasis/Fungal diseases Saprolegniasis (33).jpg,saprolegniasis,train,g799,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (33).jpg
+train/saprolegniasis/Fungal diseases Saprolegniasis (47).jpg,saprolegniasis,train,g809,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (47).jpg
+train/saprolegniasis/Fungal diseases Saprolegniasis (48).jpg,saprolegniasis,train,g809,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (48).jpg
+train/saprolegniasis/Fungal diseases Saprolegniasis (5).jpeg,saprolegniasis,train,g997,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (5).jpeg
+train/saprolegniasis/Fungal diseases Saprolegniasis (5).jpg,saprolegniasis,train,g977,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (5).jpg
+train/saprolegniasis/Fungal diseases Saprolegniasis (58).jpg,saprolegniasis,train,g821,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (58).jpg
+train/saprolegniasis/Fungal diseases Saprolegniasis (6).jpg,saprolegniasis,train,g984,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (6).jpg
+train/saprolegniasis/Fungal diseases Saprolegniasis (7).jpg,saprolegniasis,train,g990,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (7).jpg
+train/saprolegniasis/Fungal diseases Saprolegniasis (70).jpg,saprolegniasis,train,g831,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (70).jpg
+train/saprolegniasis/Fungal diseases Saprolegniasis (75).jpg,saprolegniasis,train,g962,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (75).jpg
+train/saprolegniasis/Fungal diseases Saprolegniasis (78).jpg,saprolegniasis,train,g962,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (78).jpg
+train/saprolegniasis/Fungal diseases Saprolegniasis (9).jpeg,saprolegniasis,train,g809,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (9).jpeg
+train/saprolegniasis/Fungal diseases Saprolegniasis (9).jpg,saprolegniasis,train,g805,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (9).jpg
+train/saprolegniasis/Fungal diseases Saprolegniasis (92).jpg,saprolegniasis,train,g853,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (92).jpg
+train/saprolegniasis/Fungal diseases Saprolegniasis (96).jpg,saprolegniasis,train,g859,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (96).jpg
+val/aeromoniasis/Bacterial diseases - Aeromoniasis (1).jpg,aeromoniasis,val,g52,0,Train/Bacterial diseases - Aeromoniasis/Bacterial diseases - Aeromoniasis (1).jpg
+val/aeromoniasis/Bacterial diseases - Aeromoniasis (125).jpg,aeromoniasis,val,g133,0,Train/Bacterial diseases - Aeromoniasis/Bacterial diseases - Aeromoniasis (125).jpg
+val/aeromoniasis/Bacterial diseases - Aeromoniasis (22).jpg,aeromoniasis,val,g133,0,Train/Bacterial diseases - Aeromoniasis/Bacterial diseases - Aeromoniasis (22).jpg
+val/aeromoniasis/Bacterial diseases - Aeromoniasis (23).jpg,aeromoniasis,val,g135,0,Train/Bacterial diseases - Aeromoniasis/Bacterial diseases - Aeromoniasis (23).jpg
+val/aeromoniasis/Bacterial diseases - Aeromoniasis (35).jpg,aeromoniasis,val,g234,0,Train/Bacterial diseases - Aeromoniasis/Bacterial diseases - Aeromoniasis (35).jpg
+val/aeromoniasis/Bacterial diseases - Aeromoniasis (4).jpeg,aeromoniasis,val,g8,0,Train/Bacterial diseases - Aeromoniasis/Bacterial diseases - Aeromoniasis (4).jpeg
+val/aeromoniasis/Bacterial diseases - Aeromoniasis (5).jpg,aeromoniasis,val,g229,0,Train/Bacterial diseases - Aeromoniasis/Bacterial diseases - Aeromoniasis (5).jpg
+val/aeromoniasis/Bacterial diseases - Aeromoniasis (63).jpg,aeromoniasis,val,g229,0,Train/Bacterial diseases - Aeromoniasis/Bacterial diseases - Aeromoniasis (63).jpg
+val/aeromoniasis/Bacterial diseases - Aeromoniasis (7).jpeg,aeromoniasis,val,g14,0,Train/Bacterial diseases - Aeromoniasis/Bacterial diseases - Aeromoniasis (7).jpeg
+val/bacterial_gill/Bacterial gill disease (1).png,bacterial_gill,val,g318,0,Train/Bacterial gill disease/Bacterial gill disease (1).png
+val/bacterial_gill/Bacterial gill disease (2).png,bacterial_gill,val,g435,0,Train/Bacterial gill disease/Bacterial gill disease (2).png
+val/bacterial_gill/Bacterial gill disease (3).jpeg,bacterial_gill,val,g333,0,Train/Bacterial gill disease/Bacterial gill disease (3).jpeg
+val/bacterial_gill/Bacterial gill disease (4).jpg,bacterial_gill,val,g478,0,Train/Bacterial gill disease/Bacterial gill disease (4).jpg
+val/bacterial_gill/Bacterial gill disease (62).jpg,bacterial_gill,val,g333,0,Train/Bacterial gill disease/Bacterial gill disease (62).jpg
+val/bacterial_gill/Bacterial gill disease (7).jpeg,bacterial_gill,val,g448,0,Train/Bacterial gill disease/Bacterial gill disease (7).jpeg
+val/bacterial_gill/Bacterial gill disease (8).jpg,bacterial_gill,val,g499,0,Train/Bacterial gill disease/Bacterial gill disease (8).jpg
+val/bacterial_red/Bacterial Red disease (1).png,bacterial_red,val,g550,0,Train/Bacterial Red disease/Bacterial Red disease (1).png
+val/bacterial_red/Bacterial Red disease (131).jpg,bacterial_red,val,g643,0,Train/Bacterial Red disease/Bacterial Red disease (131).jpg
+val/bacterial_red/Bacterial Red disease (140).jpg,bacterial_red,val,g651,0,Train/Bacterial Red disease/Bacterial Red disease (140).jpg
+val/bacterial_red/Bacterial Red disease (141).jpg,bacterial_red,val,g653,0,Train/Bacterial Red disease/Bacterial Red disease (141).jpg
+val/bacterial_red/Bacterial Red disease (2).png,bacterial_red,val,g657,0,Train/Bacterial Red disease/Bacterial Red disease (2).png
+val/bacterial_red/Bacterial Red disease (24).jpg,bacterial_red,val,g643,0,Train/Bacterial Red disease/Bacterial Red disease (24).jpg
+val/bacterial_red/Bacterial Red disease (3).png,bacterial_red,val,g712,0,Train/Bacterial Red disease/Bacterial Red disease (3).png
+val/bacterial_red/Bacterial Red disease (43).jpg,bacterial_red,val,g554,0,Train/Bacterial Red disease/Bacterial Red disease (43).jpg
+val/bacterial_red/Bacterial Red disease (6).jpg,bacterial_red,val,g516,0,Train/Bacterial Red disease/Bacterial Red disease (6).jpg
+val/bacterial_red/Bacterial Red disease (8).jpg,bacterial_red,val,g553,0,Train/Bacterial Red disease/Bacterial Red disease (8).jpg
+val/bacterial_red/Bacterial Red disease (8).png,bacterial_red,val,g596,0,Train/Bacterial Red disease/Bacterial Red disease (8).png
+val/bacterial_red/Bacterial Red disease (85).jpg,bacterial_red,val,g596,0,Train/Bacterial Red disease/Bacterial Red disease (85).jpg
+val/healthy/Healthy Fish (101).jpg,healthy,val,g1191,0,Train/Healthy Fish/Healthy Fish (101).jpg
+val/healthy/Healthy Fish (103).jpg,healthy,val,g1193,0,Train/Healthy Fish/Healthy Fish (103).jpg
+val/healthy/Healthy Fish (104).png,healthy,val,g1194,1,Train/Healthy Fish/Healthy Fish (104).jpg
+val/healthy/Healthy Fish (122).png,healthy,val,g1230,1,Train/Healthy Fish/Healthy Fish (122).jpg
+val/healthy/Healthy Fish (127).jpg,healthy,val,g1214,0,Train/Healthy Fish/Healthy Fish (127).jpg
+val/healthy/Healthy Fish (161).jpg,healthy,val,g1182,0,Train/Healthy Fish/Healthy Fish (161).jpg
+val/healthy/Healthy Fish (169).jpg,healthy,val,g1190,0,Train/Healthy Fish/Healthy Fish (169).jpg
+val/healthy/Healthy Fish (171).jpg,healthy,val,g1192,0,Train/Healthy Fish/Healthy Fish (171).jpg
+val/healthy/Healthy Fish (24).jpg,healthy,val,g1232,0,Train/Healthy Fish/Healthy Fish (24).jpg
+val/healthy/Healthy Fish (29).png,healthy,val,g1207,1,Train/Healthy Fish/Healthy Fish (29).jpg
+val/healthy/Healthy Fish (4).png,healthy,val,g1235,0,Train/Healthy Fish/Healthy Fish (4).png
+val/healthy/Healthy Fish (40).jpg,healthy,val,g1061,0,Train/Healthy Fish/Healthy Fish (40).jpg
+val/healthy/Healthy Fish (62).jpg,healthy,val,g1083,0,Train/Healthy Fish/Healthy Fish (62).jpg
+val/healthy/Healthy Fish (80).jpg,healthy,val,g1101,0,Train/Healthy Fish/Healthy Fish (80).jpg
+val/healthy/Healthy Fish (85).jpg,healthy,val,g1180,0,Train/Healthy Fish/Healthy Fish (85).jpg
+val/healthy/Healthy Fish (93).jpg,healthy,val,g1114,0,Train/Healthy Fish/Healthy Fish (93).jpg
+val/parasitic/Parasitic diseases (1).jpeg,parasitic,val,g1397,0,Train/Parasitic diseases/Parasitic diseases (1).jpeg
+val/parasitic/Parasitic diseases (13).jpg,parasitic,val,g1331,0,Train/Parasitic diseases/Parasitic diseases (13).jpg
+val/parasitic/Parasitic diseases (15).jpg,parasitic,val,g1345,0,Train/Parasitic diseases/Parasitic diseases (15).jpg
+val/parasitic/Parasitic diseases (163).jpg,parasitic,val,g1420,0,Train/Parasitic diseases/Parasitic diseases (163).jpg
+val/parasitic/Parasitic diseases (164).jpg,parasitic,val,g1421,0,Train/Parasitic diseases/Parasitic diseases (164).jpg
+val/parasitic/Parasitic diseases (168).jpg,parasitic,val,g1425,0,Train/Parasitic diseases/Parasitic diseases (168).jpg
+val/parasitic/Parasitic diseases (177).jpg,parasitic,val,g1434,0,Train/Parasitic diseases/Parasitic diseases (177).jpg
+val/parasitic/Parasitic diseases (2).jpg,parasitic,val,g1459,0,Train/Parasitic diseases/Parasitic diseases (2).jpg
+val/parasitic/Parasitic diseases (209).jpg,parasitic,val,g1466,0,Train/Parasitic diseases/Parasitic diseases (209).jpg
+val/parasitic/Parasitic diseases (224).jpg,parasitic,val,g1481,0,Train/Parasitic diseases/Parasitic diseases (224).jpg
+val/parasitic/Parasitic diseases (27).jpg,parasitic,val,g1285,0,Train/Parasitic diseases/Parasitic diseases (27).jpg
+val/saprolegniasis/Fungal diseases Saprolegniasis (11).jpg,saprolegniasis,val,g817,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (11).jpg
+val/saprolegniasis/Fungal diseases Saprolegniasis (136).jpg,saprolegniasis,val,g897,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (136).jpg
+val/saprolegniasis/Fungal diseases Saprolegniasis (139).jpg,saprolegniasis,val,g900,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (139).jpg
+val/saprolegniasis/Fungal diseases Saprolegniasis (164).jpg,saprolegniasis,val,g925,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (164).jpg
+val/saprolegniasis/Fungal diseases Saprolegniasis (17).jpg,saprolegniasis,val,g847,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (17).jpg
+val/saprolegniasis/Fungal diseases Saprolegniasis (197).jpg,saprolegniasis,val,g958,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (197).jpg
+val/saprolegniasis/Fungal diseases Saprolegniasis (20).jpg,saprolegniasis,val,g877,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (20).jpg
+val/saprolegniasis/Fungal diseases Saprolegniasis (22).jpg,saprolegniasis,val,g889,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (22).jpg
+val/saprolegniasis/Fungal diseases Saprolegniasis (25).jpg,saprolegniasis,val,g907,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (25).jpg
+val/saprolegniasis/Fungal diseases Saprolegniasis (51).jpg,saprolegniasis,val,g817,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (51).jpg
+val/saprolegniasis/Fungal diseases Saprolegniasis (71).jpg,saprolegniasis,val,g832,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (71).jpg
+val/saprolegniasis/Fungal diseases Saprolegniasis (86).jpg,saprolegniasis,val,g847,0,Train/Fungal diseases Saprolegniasis/Fungal diseases Saprolegniasis (86).jpg
