@@ -18,7 +18,7 @@ Built for DevHack 2026, problem statement 1.1.
 | `backend/do_features.py` | Builds the DO-forecast inputs from recent readings (shared by training and app) |
 | `backend/do_forecast.py` | Loads the saved model, forecasts DO 1/3/6 h ahead (experiment only, not shown in the app) |
 | `backend/time_to_danger.py` | "Time until danger": if DO is falling, when it may reach 3 mg/L (English + Kannada) |
-| `backend/simulator.py` | **Simulated** demo readings (normal day / night oxygen crash). Demo only, never for accuracy |
+| `backend/simulator.py` | **Simulated** demo readings (normal day / night oxygen crash). Demo only, never for accuracy. Without `data/` it uses fixed typical levels, so a fresh clone (and the online demo) still runs |
 | `backend/health_score.py` | Pond health score 0–100, always inside its status's range (Safe 75–100, Warning 40–74, Danger 0–39) |
 | `backend/main.py` | FastAPI web server: API endpoints + serves the page |
 | `ml/train_do_forecast.py` | Trains and evaluates the DO forecast (`python -m ml.train_do_forecast`) |
@@ -35,6 +35,8 @@ Built for DevHack 2026, problem statement 1.1.
 | `frontend/health-ring.js`, `history.js`, `voice.js` | Health score ring, alert history (saved in the browser), voice alerts (phone's own voices, only when tapped) |
 | `frontend/vendor/gsap/` | GSAP 3.15.0 animation library, bundled locally (works offline) |
 | `frontend/assets/` | Dashboard background waves: original artwork + brand-blue copies (`*-brand.svg`) used by the app |
+| `tools/kannada_review.py` | Regenerates `docs/kannada-review.md` (every Kannada string next to its English, by screen, for a native-speaker review) |
+| `render.yaml`, `docs/deploy.md` | Free online deployment on Render, with step-by-step setup and its limits |
 | `tools/recolor_backgrounds.py` | Regenerates the brand-blue wave copies after the artwork is edited |
 | `frontend/fonts/` | Noto Sans + Noto Sans Kannada, bundled so the app works offline |
 | `.claude/skills/` | Shared Claude Code skills for the team |
@@ -70,7 +72,7 @@ On Windows, if printing Kannada text in the terminal gives a `UnicodeEncodeError
 
 ## Datasets
 
-The `data/` folder is listed in `.gitignore`, so every teammate downloads the datasets once. After both steps below, it should look exactly like this (file names must match):
+The `data/` folder is listed in `.gitignore`, so every teammate downloads the datasets once. The app itself runs without them (the simulator falls back to fixed typical levels), but training, evaluation and some tests need them. After both steps below, it should look exactly like this (file names must match):
 
 ```
 data/

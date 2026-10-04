@@ -1,0 +1,16 @@
+# Render "Blueprint": tells render.com how to build and start the app.
+# Used once, when you create the service with New > Blueprint (see docs/deploy.md).
+services:
+  - type: web
+    name: meenuraksha
+    runtime: python
+    plan: free                     # free plan: sleeps after 15 min with no visitors, ~1 min to wake up
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn backend.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health
+    autoDeploy: true               # every push to main redeploys the site
+    envVars:
+      - key: PYTHON_VERSION        # same Python as on our laptops
+        value: 3.14.0
+      - key: PYTHONIOENCODING      # so Kannada text never breaks the server logs
+        value: utf-8

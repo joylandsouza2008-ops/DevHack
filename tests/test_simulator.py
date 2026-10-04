@@ -10,8 +10,8 @@ import pandas as pd
 import pytest
 
 from backend.risk_classifier import classify
-from backend.simulator import (DATA_FILE, SIMULATED_LABEL, is_simulated, reject_simulated,
-                               simulate_readings)
+from backend.simulator import (DATA_FILE, SIMULATED_LABEL, fallback_levels, is_simulated,
+                               reject_simulated, simulate_readings)
 
 
 def make_levels(do=12.5, ph=6.8, ammonia=0.04, nitrate=28.0, temperature=25.5, turbidity=30.0):
@@ -106,6 +106,18 @@ def test_crash_scenario_warns_hours_before_danger_then_recovers():
 def test_unknown_scenario_is_an_error():
     with pytest.raises(ValueError):
         simulate_readings(scenario="tsunami", levels=LEVELS)
+
+
+# --- Without the dataset (fresh clone / online demo) ---------------------
+
+@pytest.mark.parametrize("station", ["station1", "station2", "station3"])
+def test_fallback_levels_normal_is_safe_and_crash_reaches_danger(station):
+    normal = simulate_readings(station, start="2026-10-02 06:00", hours=48, levels=fallback_levels())
+    crash = simulate_readings(station, start="2026-10-02 06:00", hours=48, scenario="oxygen_crash",
+                              levels=fallback_levels())
+    assert set(risk_levels(normal)) == {"safe"}
+    assert "danger" in set(risk_levels(crash))
+    assert is_simulated(normal) and is_simulated(crash)
 
 
 # --- With the real dataset ----------------------------------------------

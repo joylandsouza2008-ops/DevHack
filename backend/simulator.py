@@ -16,6 +16,10 @@ pond temperature, and adds the daily rhythm real ponds have:
     dangerous level before dawn (the classic pond fish-kill pattern), then
     recovers in the morning. The Warning level is reached hours before Danger.
 
+If data/Ponds data.csv is missing (e.g. a fresh clone or the online demo:
+the dataset's licence is unknown, so it is not stored in git), fixed
+FALLBACK_LEVELS are used instead, so the demo still runs.
+
 Every reading is marked: column `source` = "simulated", and the DataFrame's
 `attrs["source"]` = "simulated". The app must show SIMULATED_LABEL with it.
 
@@ -60,6 +64,16 @@ HEALTHY_DAILY_RANGE = {
     "ph": (7.0, 8.0),                 # ±0.3 daily swing (+ noise) stays inside 6.5–8.5
     "ammonia": (None, 0.10),          # total; toxic NH3 stays < 0.02 even at pH 8.3 and 29.5 °C
     "nitrate": (None, 40.0),          # NO3; = 9.0 mg/L NO3-N (Safe < 10)
+}
+# Used when data/Ponds data.csv is missing. Our own typical healthy values (judgement,
+# not copied from the dataset), all inside HEALTHY_DAILY_RANGE. Same every day of the year.
+FALLBACK_LEVELS = {
+    "station1": {"dissolved_oxygen": 10.0, "temperature": POND_TEMPERATURE, "ph": 7.2,
+                 "ammonia": 0.04, "nitrate": 20.0, "turbidity": 28.0},
+    "station2": {"dissolved_oxygen": 10.5, "temperature": POND_TEMPERATURE, "ph": 7.3,
+                 "ammonia": 0.05, "nitrate": 22.0, "turbidity": 28.0},
+    "station3": {"dissolved_oxygen": 11.0, "temperature": POND_TEMPERATURE, "ph": 7.0,
+                 "ammonia": 0.08, "nitrate": 35.0, "turbidity": 38.0},
 }
 PH_AMPLITUDE = 0.3                 # ±0.3, follows oxygen
 CRASH_LOWEST_DO = 1.8              # mg/L reached at ~04:30 in the crash scenario
@@ -114,6 +128,13 @@ def daily_levels(path: Path = DATA_FILE) -> pd.DataFrame:
     return pd.concat(levels).reset_index(names="month_day").set_index(["station", "month_day"])
 
 
+def fallback_levels() -> pd.DataFrame:
+    """FALLBACK_LEVELS as a daily-level table (one "01-01" row per pond, used for every day)."""
+    return (pd.DataFrame.from_dict(FALLBACK_LEVELS, orient="index")
+            .rename_axis("station").assign(month_day="01-01")
+            .set_index("month_day", append=True))
+
+
 def _level_for(levels: pd.DataFrame, station: str, day: pd.Timestamp) -> pd.Series:
     """Daily level for a pond on the same calendar day (any year)."""
     table = levels.loc[station]
@@ -153,11 +174,13 @@ def simulate_readings(station: str = "station1", start="2026-10-02 06:00", hours
     hours:    how many hours to generate
     scenario: "normal" or "oxygen_crash"
     seed:     same seed -> same numbers, so the demo is repeatable
-    levels:   optional daily-level table (for tests); default reads Pondsdata
+    levels:   optional daily-level table (for tests); default reads Pondsdata,
+              or FALLBACK_LEVELS if it isn't downloaded
     """
     if scenario not in SCENARIOS:
         raise ValueError(f"scenario must be one of {SCENARIOS}")
-    levels = levels if levels is not None else daily_levels()
+    if levels is None:
+        levels = daily_levels() if DATA_FILE.exists() else fallback_levels()
     start = pd.Timestamp(start).floor(f"{STEP_MINUTES}min")
     times = pd.date_range(start, periods=hours * 60 // STEP_MINUTES, freq=f"{STEP_MINUTES}min")
     rng = np.random.default_rng(seed)
