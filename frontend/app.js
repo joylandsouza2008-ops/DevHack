@@ -18,6 +18,19 @@ const TEXT = {
     start: "Start",
     themeLight: "Light", themeDark: "Dark",
     builtBy: "Built by Team Orbit",
+    sourcesTitle: "Data sources", sourcesClose: "Close",
+    sourcesIntro: "This demo has no real pond sensors. It uses these open datasets and public services instead.",
+    sourcesPondsUse: "Real sensor readings from 3 fish ponds in Andhra Pradesh (2022-23). Used to make the simulated demo pond and to test our oxygen predictions.",
+    sourcesPondsLicence: "Licence: unknown (not stated by the uploader).",
+    sourcesMeteoUse: "Tonight's real weather forecast for Mangaluru, for the night oxygen-crash warning.",
+    sourcesMeteoLicence: "Licence: data CC BY 4.0. Free API, non-commercial use only.",
+    sourcesGuidesUse: "Published guides and research papers behind the Safe / Warning / Danger limits and the “What to do now” steps.",
+    sourcesGuidesLicence: "Copyright of each publisher. We cite their facts; we don't copy them.",
+    sourcesMendeleyUse: "Checked but not used: some values are impossible (e.g. water at 84 °C).",
+    sourcesMendeleyLicence: "Licence: CC BY 4.0.",
+    sourcesFishUse: "Fish disease photos for research only. Not used in the app.",
+    sourcesFishLicence: "Licence: CC0 (public domain).",
+    sourcesFull: "Full list with links and licences",
     simulatedNote: "Not a real pond. For demonstration only.",
     pond: "Pond", pond1: "Pond 1", pond2: "Pond 2", pond3: "Pond 3",
     scenario: "Scenario", scenarioNormal: "Normal day", scenarioCrash: "Night oxygen crash",
@@ -91,6 +104,19 @@ const TEXT = {
     start: "ಪ್ರಾರಂಭಿಸಿ",
     themeLight: "ತಿಳಿ", themeDark: "ಗಾಢ",
     builtBy: "ನಿರ್ಮಾಣ: ಟೀಮ್ ಆರ್ಬಿಟ್",
+    sourcesTitle: "ಡೇಟಾ ಮೂಲಗಳು", sourcesClose: "ಮುಚ್ಚಿ",
+    sourcesIntro: "ಈ ಪ್ರದರ್ಶನದಲ್ಲಿ ಕೊಳದ ನಿಜವಾದ ಸೆನ್ಸರ್‌ಗಳಿಲ್ಲ. ಬದಲಿಗೆ ಈ ಮುಕ್ತ ಡೇಟಾಸೆಟ್‌ಗಳು ಮತ್ತು ಸಾರ್ವಜನಿಕ ಸೇವೆಗಳನ್ನು ಬಳಸುತ್ತದೆ.",
+    sourcesPondsUse: "ಆಂಧ್ರಪ್ರದೇಶದ 3 ಮೀನು ಕೊಳಗಳ ನಿಜವಾದ ಸೆನ್ಸರ್ ಅಳತೆಗಳು (2022-23). ಅನುಕರಿಸಿದ (ಸಿಮ್ಯುಲೇಟೆಡ್) ಪ್ರದರ್ಶನ ಕೊಳವನ್ನು ಮಾಡಲು ಮತ್ತು ನಮ್ಮ ಆಮ್ಲಜನಕ ಮುನ್ಸೂಚನೆಗಳನ್ನು ಪರೀಕ್ಷಿಸಲು ಬಳಸಲಾಗಿದೆ.",
+    sourcesPondsLicence: "ಪರವಾನಗಿ: ತಿಳಿದಿಲ್ಲ (ಅಪ್‌ಲೋಡ್ ಮಾಡಿದವರು ತಿಳಿಸಿಲ್ಲ).",
+    sourcesMeteoUse: "ರಾತ್ರಿ ಆಮ್ಲಜನಕ ಕುಸಿತದ ಎಚ್ಚರಿಕೆಗಾಗಿ ಮಂಗಳೂರಿನ ಇಂದು ರಾತ್ರಿಯ ನಿಜವಾದ ಹವಾಮಾನ ಮುನ್ಸೂಚನೆ.",
+    sourcesMeteoLicence: "ಪರವಾನಗಿ: ಡೇಟಾ CC BY 4.0. ಉಚಿತ API, ವಾಣಿಜ್ಯೇತರ ಬಳಕೆಗೆ ಮಾತ್ರ.",
+    sourcesGuidesUse: "ಸುರಕ್ಷಿತ / ಎಚ್ಚರಿಕೆ / ಅಪಾಯ ಮಿತಿಗಳು ಮತ್ತು “ಈಗ ಏನು ಮಾಡಬೇಕು” ಹಂತಗಳಿಗೆ ಆಧಾರವಾದ ಪ್ರಕಟಿತ ಮಾರ್ಗದರ್ಶಿಗಳು ಮತ್ತು ಸಂಶೋಧನಾ ಲೇಖನಗಳು.",
+    sourcesGuidesLicence: "ಹಕ್ಕುಸ್ವಾಮ್ಯ ಆಯಾ ಪ್ರಕಾಶಕರದು. ನಾವು ಅವುಗಳ ಮಾಹಿತಿಯನ್ನು ಉಲ್ಲೇಖಿಸುತ್ತೇವೆ, ನಕಲು ಮಾಡುವುದಿಲ್ಲ.",
+    sourcesMendeleyUse: "ಪರಿಶೀಲಿಸಲಾಗಿದೆ, ಆದರೆ ಬಳಸಿಲ್ಲ: ಕೆಲವು ಮೌಲ್ಯಗಳು ಅಸಾಧ್ಯ (ಉದಾ: 84 °C ನೀರು).",
+    sourcesMendeleyLicence: "ಪರವಾನಗಿ: CC BY 4.0.",
+    sourcesFishUse: "ಮೀನು ರೋಗದ ಫೋಟೋಗಳು, ಸಂಶೋಧನೆಗೆ ಮಾತ್ರ. ಆಪ್‌ನಲ್ಲಿ ಬಳಸಿಲ್ಲ.",
+    sourcesFishLicence: "ಪರವಾನಗಿ: CC0 (ಸಾರ್ವಜನಿಕ ಸ್ವತ್ತು).",
+    sourcesFull: "ಲಿಂಕ್‌ಗಳು ಮತ್ತು ಪರವಾನಗಿಗಳ ಪೂರ್ಣ ಪಟ್ಟಿ",
     simulatedNote: "ನಿಜವಾದ ಕೊಳವಲ್ಲ. ಪ್ರದರ್ಶನಕ್ಕಾಗಿ ಮಾತ್ರ.",
     pond: "ಕೊಳ", pond1: "ಕೊಳ 1", pond2: "ಕೊಳ 2", pond3: "ಕೊಳ 3",
     scenario: "ಸನ್ನಿವೇಶ", scenarioNormal: "ಸಾಮಾನ್ಯ ದಿನ", scenarioCrash: "ರಾತ್ರಿ ಆಮ್ಲಜನಕ ಕುಸಿತ",
@@ -870,6 +896,12 @@ document.querySelectorAll(".pond-option").forEach((b) => {
 $("restart").addEventListener("click", start);
 $("scenario").addEventListener("change", start);
 $("pause").addEventListener("click", togglePause);
+// Data sources panel (footer button). <dialog> gives Esc-to-close and keeps focus inside.
+$("sources-open").addEventListener("click", () => $("sources-dialog").showModal());
+$("sources-close").addEventListener("click", () => $("sources-dialog").close());
+$("sources-dialog").addEventListener("click", (e) => {
+  if (e.target === e.currentTarget) e.currentTarget.close();   // tap outside the panel closes it
+});
 $("kit-form").addEventListener("submit", submitKit);
 $("kit-form").addEventListener("reset", () => showKitError(null));
 $("kit-status").tabIndex = -1;

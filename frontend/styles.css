@@ -870,6 +870,22 @@ button { position: relative; isolation: isolate; overflow: hidden; }
   color: var(--text);              /* checked over the brightest welcome water (tests/test_contrast.py) */
 }
 
+/* Data sources: footer button + panel (what we use instead of live sensors). */
+.sources-open { align-self: center; }
+.sources-dialog {
+  width: min(40rem, calc(100vw - 2rem)); max-height: calc(100dvh - 2rem);
+  padding: 1.5rem; border: 1px solid var(--hairline); border-radius: 16px;
+  background: var(--card); color: var(--text); line-height: 1.6;
+}
+.sources-dialog::backdrop { background: rgba(3, 2, 44, 0.7); }
+.sources-dialog h2 { margin: 0; font-size: 1.25rem; }
+.sources-dialog p { margin: 0.25rem 0; }
+.sources-head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 0.75rem; }
+.sources-list { list-style: none; margin: 1rem 0; padding: 0; display: grid; gap: 1rem; }
+.sources-list li { padding-top: 1rem; border-top: 1px solid var(--hairline); }
+.sources-list a, .sources-dialog > p > a { color: var(--primary); font-weight: 600; }
+.source-licence { color: var(--text-secondary); font-size: 0.9375rem; }
+
 /* Bottom toolbar: weather on the left, the team credit on the right (below it on phones). */
 .toolbar-row {
   max-width: 1100px; margin: 0 auto;

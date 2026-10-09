@@ -69,7 +69,8 @@ def test_welcome_screen_and_gsap_are_local_files():
     assert 'id="welcome"' in html and 'id="welcome-start"' in html
     # Every script and stylesheet is a local path: nothing loads from the internet.
     import re
-    for url in re.findall(r'(?:src|href)="([^"]+)"', html):
+    # (Plain <a> links, e.g. to the data sources, are not loaded by the page, so they may be external.)
+    for url in re.findall(r'(?:src|href)="([^"]+)"', re.sub(r"<a\s[^>]*>", "", html)):
         assert url.startswith(("/", "data:")), f"external resource: {url}"
     gsap = client.get("/vendor/gsap/gsap.min.js")
     assert gsap.status_code == 200 and "GSAP 3.15.0" in gsap.text

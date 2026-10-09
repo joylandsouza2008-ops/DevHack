@@ -2,6 +2,8 @@
 
 **Live app:** https://meenuraksha.onrender.com
 
+**Data sources:** every dataset, API and guide we use instead of live sensors, with licences: [docs/data-sources.md](docs/data-sources.md)
+
 Early-warning web app for small aquaculture farmers in coastal Karnataka.
 It predicts pond water-quality risk (**Safe / Warning / Danger**) and shows alerts in Kannada and English.
 Software only: sensor readings are simulated from public datasets.
@@ -28,6 +30,7 @@ Built for DevHack 2026, problem statement 1.1.
 | `ml/evaluate_time_to_danger.py` | Checks "time until danger" on real Pondsdata (`python -m ml.evaluate_time_to_danger`) |
 | `models/` | Saved DO forecast model and its test scores |
 | `tests/` | Automated tests (`python -m pytest`; browser-side logic: `node --test tests/js`). `tests/conftest.py` blocks the real internet and stops any test that runs over 60 s |
+| `docs/data-sources.md` | Every dataset, API and reference we use, what for, and its licence |
 | `docs/thresholds.md` | Threshold table, decisions and sources (for the presentation) |
 | `docs/do_forecast.md` | DO forecast method, results and chart (for the presentation) |
 | `docs/health_score.md` | How the 0–100 health score is worked out, with examples |
@@ -73,6 +76,8 @@ The app shows **simulated** demo data, clearly labelled "Simulated data". Pick a
 On Windows, if printing Kannada text in the terminal gives a `UnicodeEncodeError`, run `set PYTHONIOENCODING=utf-8` first (PowerShell: `$env:PYTHONIOENCODING="utf-8"`).
 
 ## Datasets
+
+Licences and what each one is used for: [docs/data-sources.md](docs/data-sources.md).
 
 The `data/` folder is listed in `.gitignore`, so every teammate downloads the datasets once. The app itself runs without them (the simulator falls back to fixed typical levels), but training, evaluation and some tests need them. After both steps below, it should look exactly like this (file names must match):
 

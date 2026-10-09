@@ -322,8 +322,46 @@
         </div>
       </section>
       <p class="team-credit"><svg class="orbit-logo" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path class="lg-drop" d="M16 8c0 0 5 5.6 5 9a5 5 0 0 1-10 0c0-3.4 5-9 5-9Z"/><ellipse class="lg-ring" cx="16" cy="17" rx="14" ry="5.5" transform="rotate(-18 16 17)"/><circle class="lg-moon" cx="29.3" cy="12.7" r="2.2"/></svg><span data-i18n="builtBy">Built by Team Orbit</span></p>
+      <button type="button" class="button-ghost sources-open" id="sources-open" aria-haspopup="dialog" data-i18n="sourcesTitle">Data sources</button>
       </div>
     </footer>
+
+    <!-- Data sources panel: what we use instead of live sensors (full list: docs/data-sources.md). -->
+    <dialog class="sources-dialog" id="sources-dialog" aria-labelledby="sources-title">
+      <div class="sources-head">
+        <h2 id="sources-title" data-i18n="sourcesTitle">Data sources</h2>
+        <button type="button" class="button-secondary" id="sources-close" data-i18n="sourcesClose">Close</button>
+      </div>
+      <p data-i18n="sourcesIntro">This demo has no real pond sensors. It uses these open datasets and public services instead.</p>
+      <ul class="sources-list">
+          <li>
+            <a href="https://www.kaggle.com/datasets/apgopi/pondsdata" target="_blank" rel="noopener">Pondsdata (Kaggle)</a>
+            <p><span data-i18n="sourcesPondsUse">Real sensor readings from 3 fish ponds in Andhra Pradesh (2022-23). Used to make the simulated demo pond and to test our oxygen predictions.</span></p>
+            <p class="source-licence"><span data-i18n="sourcesPondsLicence">Licence: unknown (not stated by the uploader).</span></p>
+          </li>
+          <li>
+            <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a>
+            <p><span data-i18n="sourcesMeteoUse">Tonight's real weather forecast for Mangaluru, for the night oxygen-crash warning.</span></p>
+            <p class="source-licence"><span data-i18n="sourcesMeteoLicence">Licence: data CC BY 4.0. Free API, non-commercial use only.</span></p>
+          </li>
+          <li>
+            <a href="https://github.com/joylandsouza2008-ops/DevHack/blob/main/docs/thresholds.md#sources" target="_blank" rel="noopener">FAO, TNAU, UF/IFAS, UGA Extension, UK Met Office</a>
+            <p><span data-i18n="sourcesGuidesUse">Published guides and research papers behind the Safe / Warning / Danger limits and the “What to do now” steps.</span></p>
+            <p class="source-licence"><span data-i18n="sourcesGuidesLicence">Copyright of each publisher. We cite their facts; we don't copy them.</span></p>
+          </li>
+          <li>
+            <a href="https://data.mendeley.com/datasets/y78ty2g293/2" target="_blank" rel="noopener">Aquaculture Water Quality Dataset (Mendeley)</a>
+            <p><span data-i18n="sourcesMendeleyUse">Checked but not used: some values are impossible (e.g. water at 84 °C).</span></p>
+            <p class="source-licence"><span data-i18n="sourcesMendeleyLicence">Licence: CC BY 4.0.</span></p>
+          </li>
+          <li>
+            <a href="https://www.kaggle.com/datasets/subirbiswas19/freshwater-fish-disease-aquaculture-in-south-asia" target="_blank" rel="noopener">Freshwater Fish Disease Aquaculture in South Asia (Kaggle)</a>
+            <p><span data-i18n="sourcesFishUse">Fish disease photos for research only. Not used in the app.</span></p>
+            <p class="source-licence"><span data-i18n="sourcesFishLicence">Licence: CC0 (public domain).</span></p>
+          </li>
+      </ul>
+      <p><a href="https://github.com/joylandsouza2008-ops/DevHack/blob/main/docs/data-sources.md" target="_blank" rel="noopener" data-i18n="sourcesFull">Full list with links and licences</a></p>
+    </dialog>
   </div>
 
   <!-- All scripts are local files: the app works offline. -->

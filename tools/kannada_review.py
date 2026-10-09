@@ -38,6 +38,7 @@ FRONTEND_SCREENS = [
     ("Test-kit readings", ["kit"]),
     ("Voice alert", ["voice"]),
     ("Alert history", ["history"]),
+    ("Data sources panel (footer)", ["sources"]),
 ]
 
 
