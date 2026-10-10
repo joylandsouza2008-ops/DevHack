@@ -31,6 +31,7 @@ from __future__ import annotations
 
 import asyncio
 import json
+import logging
 import time
 from datetime import datetime, timezone
 from pathlib import Path
@@ -42,7 +43,7 @@ from fastapi.responses import JSONResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
-from backend import assistant, diseases, sensor
+from backend import assistant, diseases, security, sensor
 from backend.actions import checklist
 from backend.ai_provider import provider_from_env
 from backend.alerts import POND_NAMES, compose_alert
@@ -53,6 +54,7 @@ from backend.simulator import SCENARIOS, SIMULATED, SIMULATED_LABEL, simulate_re
 from backend.time_to_danger import estimate_time_to_danger
 from backend.weather import tonight_crash_risk
 
+log = logging.getLogger("uvicorn.error")       # shows up in the server log next to uvicorn's own lines
 FRONTEND_DIR = Path(__file__).resolve().parent.parent / "frontend"
 STATIONS = ("station1", "station2", "station3")
 HISTORY_HOURS = 2          # simulated readings generated before the stream starts, for the trend
@@ -64,6 +66,9 @@ MANUAL_LABEL = {"en": "Manual test-kit reading", "kn": "ಕೈಯಿಂದ ನ�
 
 app = FastAPI(title="MeenuRaksha API",
               description="Pond water-quality early warning for small aquaculture farmers.")
+# Rate limits, request size limit and security headers for every request (docs/security.md).
+request_limiter = security.RequestLimiter()
+app.add_middleware(security.SecurityMiddleware, limiter=request_limiter)
 
 
 # ----------------------------------------------------------------- request shapes
@@ -133,7 +138,7 @@ class DOReading(BaseModel):
 
 class DOHistory(BaseModel):
     """Recent dissolved-oxygen readings for one pond (the last 1–2 hours is enough)."""
-    readings: list[DOReading] = Field(..., min_length=1)
+    readings: list[DOReading] = Field(..., min_length=1, max_length=500)
 
 
 # ----------------------------------------------------------------- API
@@ -199,10 +204,10 @@ assistant_limiter = assistant.RateLimiter()
 
 
 def _visitor(request: Request) -> str:
-    """Who is asking, for the per-visitor rate limit. Render puts the visitor's address first in
-    X-Forwarded-For. It can be faked, which is why there is also a daily total for everyone."""
-    forwarded = request.headers.get("x-forwarded-for", "")
-    return forwarded.split(",")[0].strip() or (request.client.host if request.client else "unknown")
+    """Who is asking, for the per-visitor rate limit (backend/security.py). It can be faked,
+    which is why there is also a daily total for everyone."""
+    return security.client_address(request.headers.get("x-forwarded-for", ""),
+                                   request.client.host if request.client else None)
 
 
 def _evaluate(page: PageReadings) -> list[dict]:
@@ -420,7 +425,9 @@ async def simulator_stream(
         sim = simulate_readings(station, start=history_start, hours=hours + HISTORY_HOURS,
                                 scenario=scenario, seed=seed)
     except FileNotFoundError as e:
-        raise HTTPException(status_code=503, detail=str(e))
+        # The full file path goes to the server log only, never to the visitor.
+        log.warning("Simulator data missing: %s", e)
+        raise HTTPException(status_code=503, detail="Simulated data is not available on this server.")
     # The scenario (e.g. when the night crash happens) depends on `start`, so a
     # resumed demo keeps the same `start` and skips the readings already shown.
     first_index = int(sim.index.searchsorted(first)) + skip

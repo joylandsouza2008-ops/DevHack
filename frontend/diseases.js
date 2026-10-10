@@ -59,7 +59,8 @@
     const eye = id === "aeromoniasis" ? '<circle class="eye-pop" cx="26" cy="29" r="5"/><circle class="pupil" cx="25" cy="29" r="2.4"/>'
       : '<circle class="pupil" cx="26" cy="29" r="2.4"/>';
     const gill = id === "flukes" ? "" : '<path class="line" d="M40 19Q47 34 40 49"/>';
-    return `<svg class="fish-art" viewBox="0 0 120 68" role="img" aria-label="${label}">` +
+    const safeLabel = label.replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);   // label comes from the server
+    return `<svg class="fish-art" viewBox="0 0 120 68" role="img" aria-label="${safeLabel}">` +
       `<path class="fin" d="M50 15Q60 3 72 14"/><path class="fin" d="M52 52Q58 62 66 54"/>` +
       `<path class="fish" d="${body}"/>${gill}${eye}${MARKS[id] || ""}</svg>`;
   }

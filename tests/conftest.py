@@ -68,6 +68,13 @@ def fake_weather_cache(monkeypatch, tmp_path):
 
 
 @pytest.fixture(autouse=True)
+def fresh_request_limits():
+    # Each test starts with empty rate-limit counts (backend/security.py).
+    import backend.main as main
+    main.request_limiter.clear()
+
+
+@pytest.fixture(autouse=True)
 def time_limit():
     faulthandler.dump_traceback_later(TEST_TIME_LIMIT, exit=True, file=sys.stderr)
     yield

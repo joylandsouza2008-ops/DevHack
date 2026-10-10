@@ -60,7 +60,7 @@
     ["Sky timers waiting (max 2)", () => (window.Scene ? window.Scene.stats().timers : 0)],
     ["Health orbit dot", () => (window.HealthRing && window.HealthRing.stats ? window.HealthRing.stats().orbiting : 0)],
     ["Loaders spinning", () => [...document.querySelectorAll(".orbit-loader")].filter((l) => l.getClientRects().length).length],
-    ["Saved keys (localStorage)", () => { try { return localStorage.length; } catch { return 0; } }],
+    ["Saved items (localStorage, count only)", () => { try { return localStorage.length; } catch { return 0; } }],
   ];
   if (performance.memory) METRICS.push(["JS memory (MB)", () => mb(performance.memory.usedJSHeapSize)]);
 

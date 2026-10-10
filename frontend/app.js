@@ -976,7 +976,8 @@ function renderWeather() {
   if (ok) {
     const level = CRASH_BADGE[w.level];
     badge.className = `badge weather-badge badge-${level}`;
-    badge.innerHTML = `${ICONS[level]}${TEXT[lang].crashRisk(w.level_name[lang])}`;
+    badge.innerHTML = ICONS[level] || "";                           // our own icon markup only
+    badge.append(TEXT[lang].crashRisk(w.level_name[lang]));          // server text: added as plain text
   }
   $("weather-place").textContent = w.location ? ` · ${w.location[lang]}` : "";
   const message = $("weather-message");

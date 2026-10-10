@@ -28,10 +28,12 @@ Built for DevHack 2026, problem statement 1.1.
 | `backend/main.py` | FastAPI web server: API endpoints + serves the page |
 | `backend/assistant.py`, `ai_provider.py`, `safety.py` | "Ask MeenuRaksha" assistant: answers only from the app's content, safety filter on every reply (no chemicals, doses or diagnosis), rate limit, ready answers when the AI is unavailable. Provider and key from environment variables |
 | `backend/diseases.py` | Fish disease guide: 9 carp-pond diseases (English + Kannada), symptom checker ("possible matches", never a diagnosis), diseases made more likely by risky readings. No medicines or doses |
+| `backend/security.py` | Security for every request: rate limits on the assistant and sensor API, request size limit, Content-Security-Policy and other security headers ([docs/security.md](docs/security.md)) |
 | `backend/sensor.py` | Live sensor: per-pond key check (key only in an environment variable), clock check, readings kept in memory |
 | `tools/fake_sensor.py` | Demo device: a pretend sensor that sends made-up readings every few seconds (labelled "Demo device") |
 | `docs/assistant.md` | Assistant safety rules, provider research and setup |
 | `docs/diseases.md` | Sources for every disease-guide entry, and why there's no photo check |
+| `docs/security.md` | Security checklist results: what was checked, fixed, or not applicable |
 | `docs/sensor-api.md` | Live sensor API, refusals, memory-only limits on free Render, ESP32 example |
 | `ml/train_do_forecast.py` | Trains and evaluates the DO forecast (`python -m ml.train_do_forecast`) |
 | `ml/experiment_3h_average.py` | Experiment: forecasting the 3-hour average DO (not adopted, see docs) |

@@ -12,6 +12,7 @@ import pytest
 from fastapi.testclient import TestClient
 
 from backend import sensor
+from backend import main
 from backend.main import app
 from tools import fake_sensor
 
@@ -27,6 +28,12 @@ def fresh_store(monkeypatch):
     sensor.store.clear()
     yield
     sensor.store.clear()
+
+
+@pytest.fixture
+def no_rate_limit(monkeypatch):
+    """For tests that send many readings at once (the rate limit is tested in tests/test_security.py)."""
+    monkeypatch.setattr(main.request_limiter, "limits", {rule: (10_000, 10_000) for rule in main.request_limiter.limits})
 
 
 def now_ist() -> str:
@@ -221,7 +228,7 @@ def test_ponds_are_kept_apart(monkeypatch):
     assert client.get("/api/sensor/pond3").json()["latest"] is None
 
 
-def test_store_forgets_everything_on_restart_and_keeps_a_limited_history():
+def test_store_forgets_everything_on_restart_and_keeps_a_limited_history(no_rate_limit):
     for i in range(sensor.HISTORY_LENGTH + 5):
         post(good_reading(dissolved_oxygen=5 + (i % 10) / 10))
     assert sensor.store.count("pond1") == sensor.HISTORY_LENGTH
@@ -247,7 +254,7 @@ def test_demo_device_readings_are_accepted_and_labelled_as_demo():
     assert "Demo device" in client.get("/api/sensor/pond1").json()["latest"]["alert"]["sms"]["en"]
 
 
-def test_demo_device_falling_scenario_reaches_danger():
+def test_demo_device_falling_scenario_reaches_danger(no_rate_limit):
     device = fake_sensor.FakeSensor(scenario="falling", seed=2)
     levels = []
     for _ in range(60):

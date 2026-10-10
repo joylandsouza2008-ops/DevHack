@@ -173,6 +173,8 @@ def test_no_css_containment():
 def test_debug_script_loads_first_and_is_opt_in():
     html = client.get("/").text
     scripts = [line.split('"')[1] for line in html.splitlines() if "<script src=" in line]
-    assert scripts[0] == "/debug.js"            # must wrap setTimeout before other scripts use it
+    # theme.js runs in <head> before the first paint; it starts no timers, so debug.js can come after it.
+    assert scripts[0] == "/theme.js" and "setTimeout" not in client.get("/theme.js").text
+    assert scripts[1] == "/debug.js"            # must wrap setTimeout before other scripts use it
     js = client.get("/debug.js").text
     assert 'has("debug")' in js
