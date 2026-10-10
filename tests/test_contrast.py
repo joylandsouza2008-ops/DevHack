@@ -87,14 +87,14 @@ PAIRS = [
     ("hairline-strong", "background", NON_TEXT, "status banner border before data"),
     ("primary", "background", NON_TEXT, "focus ring"),
     ("edge-on-secondary", "secondary", NON_TEXT, "dashed border of the simulated banner, border trail"),
-    ("text", "footer-bg", TEXT, "tonight's weather message in the bottom toolbar"),
-    ("text-secondary", "footer-bg", TEXT, "tonight's weather title and details"),
-    ("primary", "footer-bg", NON_TEXT, "moon icon in the bottom toolbar"),
-    ("text", "surface", TEXT, "checklist items, test-kit inputs, SMS preview screen"),
+    ("text", "footer-bg", TEXT, "active tab label in the phone tab bar, footer text"),
+    ("text-secondary", "footer-bg", TEXT, "tab labels in the phone tab bar, footer links"),
+    ("primary", "footer-bg", NON_TEXT, "active tab icon pill in the phone tab bar"),
+    ("text", "surface", TEXT, "checklist items, test-kit inputs, SMS preview screen, status strip before data"),
     ("text-tertiary", "surface", TEXT, "time in the phone preview"),
     ("hairline-strong", "surface", NON_TEXT, "checklist item and test-kit input borders"),
     ("primary", "surface", NON_TEXT, "unticked checklist box"),
-    ("primary", "card", NON_TEXT, "manual-reading tag border, form message stripe"),
+    ("primary", "card", NON_TEXT, "manual-reading tag border, form message stripe, weather moon icon"),
     # Status colours (unchanged) against the theme's cards
     ("safe", "card", NON_TEXT, "Safe stripe on reading cards"),
     ("warning", "card", NON_TEXT, "Warning stripe on reading cards"),
@@ -104,7 +104,7 @@ PAIRS = [
     ("danger-text", "danger-bg", TEXT, "Danger banner, time-until-danger alert, sensor errors"),
     ("on-status", "safe", TEXT, "Safe badge"),
     ("on-warning", "warning", TEXT, "Warning badge"),
-    ("on-status", "danger", TEXT, "Danger badge"),
+    ("on-status", "danger", TEXT, "Danger badge, Danger status strip on every page"),
 ]
 
 

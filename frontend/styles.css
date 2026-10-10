@@ -32,7 +32,7 @@
   --text-secondary: #b3c6e6;
   --text-tertiary: #9aa9d6;
   --muted: #6a6fa6;
-  --footer-bg: #03022c;      /* darkest water: bottom toolbar */
+  --footer-bg: #03022c;      /* darkest water: phone tab bar and footer */
 
   /* Amber has enough contrast on dark cards by itself: no extra edge. */
   --warning-edge: transparent;
@@ -395,28 +395,14 @@ main {
   .status-danger::after { animation: none; opacity: 0; }
 }
 
-/* ---- Bottom toolbar: tonight's weather (real forecast, not simulated) ----
-   Darkest-water footer colour (DESIGN.md footer-region). Stays at the bottom of
-   the screen on tablets and computers; on phones it sits at the end of the page
-   so it never covers the pond status. */
-.bottom-toolbar {
-  background: var(--footer-bg);
-  border-top: 1px solid var(--hairline);
-  padding: 0.75rem 1rem;
-}
-@media (min-width: 768px) {
-  .bottom-toolbar { position: sticky; bottom: 0; z-index: 5; }
-}
-.weather-tonight {
-  max-width: 1100px; margin: 0 auto;
-  display: flex; gap: 0.75rem; align-items: flex-start;
-}
+/* ---- Tonight's weather (real forecast, not simulated): a card on the Weather page ---- */
+.weather-tonight { display: flex; gap: 1rem; align-items: flex-start; }
 .weather-icon { flex: none; color: var(--primary); margin-top: 0.15rem; }
-.weather-icon svg { width: 28px; height: 28px; display: block; }
+.weather-icon svg { width: 36px; height: 36px; display: block; }
 .weather-body { display: flex; flex-direction: column; gap: 0.25rem; min-width: 0; }
-.weather-title { font-size: 1rem; font-weight: 600; line-height: 1.5; margin: 0; color: var(--text-secondary); }
+.weather-title { font-size: 1.375rem; font-weight: 600; line-height: 1.45; margin: 0; color: var(--text); }
 .weather-line { display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem 0.75rem; }
-.weather-message { font-size: 1.125rem; font-weight: 500; color: var(--text); }
+.weather-message { font-size: 1.25rem; font-weight: 500; color: var(--text); }
 .weather-details { font-size: 1rem; color: var(--text-secondary); }
 .weather-details:empty { display: none; }
 .weather-offline {
@@ -877,44 +863,35 @@ main {
 .scene + .status-banner { margin: -3.25rem 1rem 0; box-shadow: var(--shadow-lift) 0 16px 40px -12px; }
 @media (max-width: 480px) { .scene + .status-banner { margin: -2.75rem 0.5rem 0; } }
 
-/* ---- Bento board: varied card sizes ----
-   Phones: one column in reading order. Tablets: two columns. Computers: six,
-   with wide and narrow cards side by side and the phone preview standing tall. */
+/* ---- Bento boards: varied card sizes, one board per page ----
+   Phones: one column in reading order. Tablets: two columns. Computers: six
+   on the Pond page, with wide and narrow cards side by side. */
 .board { display: grid; gap: 1.25rem; grid-template-columns: minmax(0, 1fr); align-items: start; }
 @media (min-width: 768px) {
-  .board {
+  .board-pond {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    grid-template-areas:
-      "health health" "gauge ttd" "pond pond" "chart chart"
-      "alert readings" "live live" "kit kit" "history history" "assistant assistant" "guide guide";
+    grid-template-areas: "health health" "gauge ttd" "pond pond" "chart chart" "readings readings";
   }
-  .board > .health-card { grid-area: health; }
-  .board > .gauge-card { grid-area: gauge; align-self: stretch; }
-  .board > .pond-card { grid-area: pond; }
-  .board > .ttd-card { grid-area: ttd; align-self: stretch; }
-  .board > .chart-card { grid-area: chart; }
-  .board > .alert-card { grid-area: alert; align-self: stretch; }
-  .board > .readings-block { grid-area: readings; }
-  .board > .live-card { grid-area: live; }
-  .board > .kit-card { grid-area: kit; }
-  .board > .guide-card { grid-area: guide; }
-  .board > .assistant-card { grid-area: assistant; }
-  .board > .history-card { grid-area: history; align-self: stretch; }
+  .board-pond > .health-card { grid-area: health; }
+  .board-pond > .gauge-card { grid-area: gauge; align-self: stretch; }
+  .board-pond > .pond-card { grid-area: pond; }
+  .board-pond > .ttd-card { grid-area: ttd; align-self: stretch; }
+  .board-pond > .chart-card { grid-area: chart; }
+  .board-pond > .readings-block { grid-area: readings; }
 }
 @media (min-width: 1024px) {
-  .board {
+  .board-pond {
     grid-template-columns: repeat(6, minmax(0, 1fr));
     grid-template-areas:
       "health health health health gauge gauge"
       "pond pond pond pond ttd ttd"
-      "chart chart chart chart alert alert"
-      "readings readings readings readings alert alert"
-      "live live live live history history"
-      "kit kit kit kit history history"
-      "assistant assistant assistant assistant assistant assistant"
-      "guide guide guide guide guide guide";
+      "chart chart chart chart chart chart"
+      "readings readings readings readings readings readings";
   }
+  /* Alerts: phone preview beside the history. More: test kit beside the live sensor. */
+  .board-alerts, .board-more { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
+
 .readings-block { display: flex; flex-direction: column; gap: 0.75rem; min-width: 0; }
 .readings-head h2 { margin: 0; }
 
@@ -958,6 +935,129 @@ button { position: relative; isolation: isolate; overflow: hidden; }
 }
 
 /* ================================================================
+   Pages (router.js): Pond, Alerts, Weather, Diseases, Ask, More.
+   Phones: a tab bar fixed to the bottom of the screen. Computers: the same
+   tabs under the top bar. The status strip is on every page.
+   ================================================================ */
+.page { display: flex; flex-direction: column; gap: 1.25rem; min-width: 0; }
+.page-title {
+  margin: 0; font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 600; line-height: 1.35;
+}
+.page-title:focus { outline: none; }            /* focused by the router, not by the farmer */
+.page-title:focus-visible { outline: 3px solid var(--primary); outline-offset: 2px; }
+.page-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem 1rem; }
+.page-calm { color: var(--text-secondary); }
+
+/* Stays at the top while scrolling. No transform on it or its parents: that would
+   stop the fixed phone tab bar from staying put. */
+.sticky-head { position: sticky; top: 0; z-index: 30; }
+
+/* ---- Tab bar ---- */
+.tab-bar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 30;
+  display: grid; grid-template-columns: repeat(6, minmax(0, 1fr));
+  padding: 0.25rem 0.25rem calc(0.25rem + env(safe-area-inset-bottom));
+  background: var(--footer-bg); border-top: 1px solid var(--hairline);
+}
+.tab {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.125rem;
+  min-height: 56px; min-width: 0; padding: 0.25rem 0.125rem;
+  border-radius: 12px;
+  color: var(--text-secondary); text-decoration: none;
+  font-size: 0.9375rem; font-weight: 500; line-height: 1.3; text-align: center;
+}
+.tab svg {
+  width: 44px; height: 28px; padding: 2px 10px; flex: none;
+  border-radius: 9999px;
+}
+.tab[aria-current="page"] { color: var(--text); font-weight: 600; }
+.tab[aria-current="page"] svg { background: var(--primary); color: var(--on-primary); }
+.tab:active svg { background: var(--hairline); }
+.tab[aria-current="page"]:active svg { background: var(--primary-pressed); }
+/* Room at the bottom of the page so the fixed tab bar never covers anything. */
+.dashboard { padding-bottom: calc(68px + env(safe-area-inset-bottom)); }
+
+@media (min-width: 1024px) {
+  .tab-bar {
+    position: static; display: flex; justify-content: center; gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: var(--surface); border-top: 0; border-bottom: 1px solid var(--hairline);
+  }
+  .tab {
+    flex-direction: row; gap: 0.5rem; min-height: 48px; padding: 0 1.25rem;
+    border-radius: 9999px; font-size: 1rem;
+  }
+  .tab svg { width: 22px; height: 22px; padding: 0; background: none; }
+  .tab[aria-current="page"] { background: var(--primary); color: var(--on-primary); }
+  .tab[aria-current="page"] svg { background: none; color: inherit; }
+  .tab[aria-current="page"]:active { background: var(--primary-pressed); }
+  .tab:active svg, .tab[aria-current="page"]:active svg { background: none; }
+  .dashboard { padding-bottom: 0; }
+}
+/* The theme toggle lives on the More page on phones; the top bar keeps the language. */
+@media (max-width: 767px) { .top-theme { display: none; } }
+
+/* ---- Status strip: level + time until danger, on every page ---- */
+.status-strip {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem 0.75rem;
+  min-height: 52px; padding: 0.375rem 1rem;
+  background: var(--surface); color: var(--text);
+  border-bottom: 2px solid var(--hairline-strong);
+  text-decoration: none;
+  transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+}
+.strip-icon { display: flex; flex: none; }
+.strip-icon svg { width: 26px; height: 26px; }
+.strip-text { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 0.75rem; flex: 1 1 10rem; min-width: 0; }
+.strip-level { font-size: 1.125rem; font-weight: 700; line-height: 1.4; }
+.strip-detail { font-size: 1rem; font-weight: 500; line-height: 1.5; font-variant-numeric: tabular-nums; }
+.strip-sim {
+  padding: 0 0.625rem; border-radius: 12px;
+  background: var(--secondary); color: var(--on-secondary);
+  border: 2px dashed var(--edge-on-secondary);
+  font-size: 0.9375rem; font-weight: 600; line-height: 1.5;
+}
+.strip-go { width: 22px; height: 22px; flex: none; }
+/* Same fixed status pairs as the big banner. */
+.strip-safe    { background: var(--safe-bg);    color: var(--safe-text);    border-bottom-color: var(--safe); }
+.strip-warning { background: var(--warning-bg); color: var(--warning-text); border-bottom-color: var(--warning); }
+.strip-safe .strip-icon    { color: var(--safe); }
+.strip-warning .strip-icon { color: var(--warning-text); }
+/* Danger: solid red with white text, bigger, and a slow ring. Can't be missed. */
+.strip-danger {
+  background: var(--danger); color: var(--on-status);
+  border-bottom-color: var(--danger);
+  min-height: 60px;
+  animation: strip-breathe 2.6s ease-out infinite;   /* about 0.4 per second: far below flashing */
+}
+.strip-danger .strip-level { font-size: 1.375rem; }
+.strip-danger .strip-icon svg { width: 30px; height: 30px; }
+@keyframes strip-breathe {
+  0%   { box-shadow: inset 0 0 0 0 rgba(255, 255, 255, 0.55); }
+  70%  { box-shadow: inset 0 0 0 6px rgba(255, 255, 255, 0); }
+  100% { box-shadow: inset 0 0 0 6px rgba(255, 255, 255, 0); }
+}
+.status-strip:focus-visible { outline-offset: -4px; }
+.strip-danger:focus-visible { outline-color: var(--on-status); }
+@media (min-width: 1024px) {
+  .status-strip {
+    padding-left: max(1rem, calc((100% - 1100px) / 2 + 1rem));
+    padding-right: max(1rem, calc((100% - 1100px) / 2 + 1rem));
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .status-strip { transition: none; }
+  .strip-danger { animation: none; box-shadow: inset 0 0 0 3px var(--on-status); }   /* still marked, without movement */
+}
+
+/* ---- More page ---- */
+.settings-card { display: flex; flex-direction: column; gap: 1rem; }
+.settings-card h2 { margin: 0; }
+.setting { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem 1rem; }
+.about-links { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+.about-card h2 { margin-bottom: 0.75rem; }
+
+/* ================================================================
    Team Orbit touches (scene.js, health-ring.js, app.js). Subtle space
    details; the pond stays the main picture. Pearl and pond-blue only:
    never a status colour, and never the magenta accent (it stays on
@@ -998,7 +1098,7 @@ button { position: relative; isolation: isolate; overflow: hidden; }
   animation: ol-orbit 2.4s linear infinite;
 }
 @keyframes ol-orbit { to { transform: rotate(360deg); } }
-.weather-loader { display: block; width: 28px; height: 28px; }
+.weather-loader { display: block; width: 36px; height: 36px; }
 
 /* "Built by Team Orbit": small static orbit-ring logo (a water drop with an orbit). */
 .team-credit {
@@ -1034,20 +1134,13 @@ button { position: relative; isolation: isolate; overflow: hidden; }
 .terms-dialog h3 { margin: 1.25rem 0 0.25rem; font-size: 1.0625rem; }
 .terms-list { margin: 0.25rem 0; padding-left: 1.25rem; display: grid; gap: 0.5rem; }
 
-/* Bottom toolbar: weather on the left, the team credit on the right (below it on phones). */
-.toolbar-row {
-  max-width: 1100px; margin: 0 auto;
-  display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 0.5rem 1.5rem;
-}
-.toolbar-row .weather-tonight { margin: 0; flex: 1 1 28rem; max-width: none; }
-
 @media (prefers-reduced-motion: reduce) {
   .ol-fish { animation: none; }    /* the fish rests beside the drop */
   .scene-night-fx { display: none; }
 }
 
 /* Site footer: team, data sources, source code and a short privacy note.
-   Below the weather toolbar, on the darkest-water footer colour (DESIGN.md footer-region). */
+   At the end of every page, on the darkest-water footer colour (DESIGN.md footer-region). */
 .site-footer {
   background: var(--footer-bg);
   border-top: 1px solid var(--hairline);

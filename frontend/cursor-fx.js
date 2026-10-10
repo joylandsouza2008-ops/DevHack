@@ -34,7 +34,7 @@
   const MAX_TILT = 3;                         // degrees: gentle
   const MAGNET = ".button-primary, .button-secondary";
   // Where the background is covered: no water ripple there.
-  const SOLID = ".card, .reading, .status-banner, .scene, .top-bar, .bottom-toolbar, .controls, " +
+  const SOLID = ".card, .reading, .status-banner, .scene, .top-bar, .tab-bar, .status-strip, .controls, " +
                 ".simulated-banner, .voice-row, .sensor-errors, button, a, input, select, label, .debug-panel";
 
   const pools = [];

@@ -263,7 +263,10 @@
     stopScene();
     welcome.remove();                          // free the scene's memory and layers
     document.body.classList.remove("has-welcome");
-    document.getElementById("status").focus({ preventScroll: true });
+    // Focus the pond status, or the heading of the page the address asked for (#/alerts ...).
+    const status = document.getElementById("status");
+    if (status.getClientRects().length) status.focus({ preventScroll: true });
+    else if (window.Router) window.Router.focusPage();
   }
 
   function enter() {
@@ -280,7 +283,9 @@
       .to(content.children, { y: -24, opacity: 0, duration: 0.35, stagger: 0.05, ease: "power2.in" })
       .to(".pond", { scale: 1.08, duration: 0.9, ease: "power2.inOut" }, 0.1)
       .to(welcome, { opacity: 0, duration: 0.55, ease: "power2.out" }, 0.4)
-      .from(dashboard, { y: 18, duration: 0.6, ease: "power2.out" }, 0.45);
+      // clearProps: a transform left on .dashboard would pin the phone tab bar
+      // (position: fixed) to the page instead of the screen.
+      .from(dashboard, { y: 18, duration: 0.6, ease: "power2.out", clearProps: "transform" }, 0.45);
   }
 
   startButton.addEventListener("click", enter);

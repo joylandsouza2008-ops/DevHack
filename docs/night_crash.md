@@ -1,6 +1,6 @@
 # Tonight's oxygen crash risk — weather rules
 
-The bottom toolbar of the dashboard shows **Tonight's weather** for Mangaluru with an **oxygen crash risk** of **Low**, **Medium** or **High**. It is worked out from the free [Open-Meteo](https://open-meteo.com/) forecast (no API key) by `backend/weather.py`, and served at `GET /api/weather/tonight`.
+The **Weather** page of the app (`#/weather`) shows **Tonight's weather** for Mangaluru with an **oxygen crash risk** of **Low**, **Medium** or **High**. It is worked out from the free [Open-Meteo](https://open-meteo.com/) forecast (no API key) by `backend/weather.py`, and served at `GET /api/weather/tonight`.
 
 This is **real forecast data, not simulated data**. It is not a pond reading and it is never used to train or test a model. It only rates how much the *weather* favours a night-time oxygen crash.
 
@@ -34,7 +34,7 @@ The level uses the same colour + icon pairs as the pond status (green / amber / 
 
 - **Tonight** is 18:00 to 06:00 (Asia/Kolkata). Before 06:00, it is the night we are already in.
 - The server saves each forecast to `data/weather_cache.json` and re-downloads at most every 30 minutes.
-- **No internet:** the saved forecast is used and the toolbar says *"Offline: showing the forecast saved on …"*. The forecast covers three days, so a saved copy still works the next night. If nothing usable is saved, the toolbar says the weather is not known.
+- **No internet:** the saved forecast is used and the Weather page says *"Offline: showing the forecast saved on …"*. The forecast covers three days, so a saved copy still works the next night. If nothing usable is saved, it says the weather is not known.
 - The download gives up after 8 seconds and runs off the main loop, so the rest of the app (simulator, alerts, chart) works the same with or without internet.
 
 ## Limits

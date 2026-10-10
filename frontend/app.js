@@ -167,6 +167,17 @@ const TEXT = {
     historySimTime: "Simulated time",
     historyActionTaken: "Action taken:",
     historyNoAction: "No action ticked yet.",
+    tabPond: "Pond", tabAlerts: "Alerts", tabWeather: "Weather", tabDiseases: "Diseases", tabAsk: "Ask", tabMore: "More",
+    titleWeather: "Weather", titleDiseases: "Fish diseases", titleMore: "More",
+    stripDangerIn: (d) => `Danger in ${d}`,
+    stripNoDanger: "No danger expected",
+    stripActNow: "Act now: tap to see",
+    stripAttention: "Needs attention: tap to see",
+    alertsCalm: "Nothing to do now. Steps appear here when the pond has a Warning or Danger.",
+    weatherWhyTitle: "Why the weather matters",
+    weatherWhy: "Water plants make oxygen only in sunlight. After a cloudy day, on a calm, warm night, they use up oxygen and no wind mixes in fresh air, so oxygen is lowest just before sunrise. That is when fish die.",
+    settingsTitle: "Settings", settingsLanguage: "Language", settingsTheme: "Colours",
+    aboutTitle: "About this app",
   },
   kn: {
     appName: "AquaNexus",
@@ -324,6 +335,17 @@ const TEXT = {
     historySimTime: "ಅನುಕರಿಸಿದ ಸಮಯ",
     historyActionTaken: "ತೆಗೆದುಕೊಂಡ ಕ್ರಮ:",
     historyNoAction: "ಇನ್ನೂ ಯಾವುದೇ ಕ್ರಮವನ್ನು ಗುರುತಿಸಿಲ್ಲ.",
+    tabPond: "ಕೊಳ", tabAlerts: "ಎಚ್ಚರಿಕೆ", tabWeather: "ಹವೆ", tabDiseases: "ರೋಗ", tabAsk: "ಕೇಳಿ", tabMore: "ಇತರೆ",
+    titleWeather: "ಹವಾಮಾನ", titleDiseases: "ಮೀನು ರೋಗಗಳು", titleMore: "ಇನ್ನಷ್ಟು",
+    stripDangerIn: (d) => `ಅಪಾಯಕ್ಕೆ ಉಳಿದ ಸಮಯ: ${d}`,
+    stripNoDanger: "ಅಪಾಯದ ನಿರೀಕ್ಷೆ ಇಲ್ಲ",
+    stripActNow: "ಈಗಲೇ ಕ್ರಮ ಕೈಗೊಳ್ಳಿ: ನೋಡಲು ಒತ್ತಿ",
+    stripAttention: "ಗಮನ ಕೊಡಿ: ನೋಡಲು ಒತ್ತಿ",
+    alertsCalm: "ಈಗ ಮಾಡಬೇಕಾದ್ದು ಏನೂ ಇಲ್ಲ. ಕೊಳದಲ್ಲಿ ಎಚ್ಚರಿಕೆ ಅಥವಾ ಅಪಾಯ ಬಂದಾಗ ಹಂತಗಳು ಇಲ್ಲಿ ಕಾಣಿಸುತ್ತವೆ.",
+    weatherWhyTitle: "ಹವಾಮಾನ ಏಕೆ ಮುಖ್ಯ",
+    weatherWhy: "ನೀರಿನ ಸಸ್ಯಗಳು ಬಿಸಿಲಿನಲ್ಲಿ ಮಾತ್ರ ಆಮ್ಲಜನಕ ತಯಾರಿಸುತ್ತವೆ. ಮೋಡ ಕವಿದ ದಿನದ ನಂತರ, ಗಾಳಿ ಇಲ್ಲದ ಬೆಚ್ಚಗಿನ ರಾತ್ರಿಯಲ್ಲಿ ಅವು ಆಮ್ಲಜನಕವನ್ನು ಬಳಸಿಕೊಳ್ಳುತ್ತವೆ, ಹೊಸ ಗಾಳಿ ನೀರಿಗೆ ಬೆರೆಯುವುದಿಲ್ಲ. ಆದ್ದರಿಂದ ಸೂರ್ಯೋದಯಕ್ಕೆ ಸ್ವಲ್ಪ ಮೊದಲು ಆಮ್ಲಜನಕ ಅತ್ಯಂತ ಕಡಿಮೆ ಇರುತ್ತದೆ. ಆಗಲೇ ಮೀನುಗಳು ಸಾಯುತ್ತವೆ.",
+    settingsTitle: "ಸೆಟ್ಟಿಂಗ್‌ಗಳು", settingsLanguage: "ಭಾಷೆ", settingsTheme: "ಬಣ್ಣಗಳು",
+    aboutTitle: "ಈ ಆ್ಯಪ್ ಬಗ್ಗೆ",
   },
 };
 
@@ -356,7 +378,7 @@ const LEVEL_WORDS = {
 };
 
 const state = {
-  lang: "kn", source: null, paused: false, last: null,
+  lang: "kn", source: null, paused: false, last: null, message: "connecting",
   station: "station1", level: null, chartTime: null, effectsReady: false,
   weather: null,
   manual: null, alertChannel: "sms", alertSource: "simulated",
@@ -391,15 +413,19 @@ function setLanguage(lang) {
     b.setAttribute("aria-pressed", String(b.dataset.lang === lang));
   });
   $("pause").textContent = TEXT[lang][state.paused ? "resume" : "pause"];
+  const cap = (p) => p[0].toUpperCase() + p.slice(1);
+  window.Router.setTitles(Object.fromEntries(window.Router.PAGES.map((p) => [p, TEXT[lang][`title${cap(p)}`] || TEXT[lang][`tab${cap(p)}`]])));
   if (state.effectsReady) {
     window.RiskGauge.setWords(levelWords(lang));
     window.DOChart.setWords(levelWords(lang));
-    // Headings re-appear word by word in the new language (feedback for the switch).
-    document.querySelectorAll("#dashboard .text-effect").forEach((h) => M.textEffect(h));
+    // Headings on the page you see re-appear word by word in the new language
+    // (feedback for the switch). Hidden pages just get the new words.
+    document.querySelectorAll("#dashboard .page:not([hidden]) .text-effect").forEach((h) => M.textEffect(h));
     moveHighlight(true);                       // option widths change with the language
     window.Scene.setLanguage(lang);
   }
-  if (state.last) render(state.last);
+  if (state.last && !state.message) render(state.last);
+  else { if (state.message) showMessage(state.message); renderStrip(); }
   renderWeather();
   renderManual();
   renderLive();
@@ -425,7 +451,7 @@ function savedTheme() {
 function setTheme(theme, save) {
   document.documentElement.setAttribute("data-theme", theme);
   if (save) { try { localStorage.setItem(THEME_KEY, theme); } catch { /* storage blocked: ignore */ } }
-  document.querySelectorAll("#theme-toggle button").forEach((b) => {
+  document.querySelectorAll(".theme-toggle button").forEach((b) => {   // top bar and More page
     b.setAttribute("aria-pressed", String(b.dataset.themeChoice === theme));
   });
   // Browser bar colour on phones follows the page background.
@@ -518,7 +544,39 @@ function renderStatus(risk, lang) {
     M.gsap.fromTo(["#status-icon", "#status-text"], { opacity: 0, y: 6 },
       { opacity: 1, y: 0, duration: 0.5, ease: "power2.out", stagger: 0.05, overwrite: "auto" });
   }
+  // Not on the Pond page: screen readers still hear that the level changed.
+  if (changed && window.Router.current() !== "pond") {
+    $("strip-live").textContent = `${risk.level_name[lang]}. ${risk.summary[lang]}`;
+  }
   state.level = risk.level;
+}
+
+// ---------------------------------------------------------------- status strip (every page)
+// Level + time until danger, always at the top. Danger: solid red, can't be
+// missed. Tapping it opens the Pond page. Plain text, no counting animation.
+
+function stripCountdown(ttd, lang) {
+  const minutes = Math.max(10, Math.round((ttd.hours_to_danger * 60) / 10) * 10);
+  return TEXT[lang].stripDangerIn(TEXT[lang].duration(Math.floor(minutes / 60), minutes % 60));
+}
+
+// A message ("Connecting…", "Demo finished…") wins over the last reading, as in the big banner.
+function renderStrip() {
+  const lang = state.lang;
+  const data = state.message ? null : state.last;
+  const level = data ? data.risk.level : "unknown";
+  $("status-strip").className = `status-strip strip-${level}`;
+  $("strip-icon").innerHTML = data ? ICONS[level] || "" : "";
+  if (!data) {
+    $("strip-level").textContent = TEXT[lang][state.message || "connecting"];
+    $("strip-detail").textContent = "";
+    return;
+  }
+  const ttd = data.time_to_danger;
+  $("strip-level").textContent = data.risk.level_name[lang];
+  $("strip-detail").textContent = level === "danger" ? TEXT[lang].stripActNow
+    : ttd.status === "danger_expected" ? stripCountdown(ttd, lang)
+    : level === "warning" ? TEXT[lang].stripAttention : TEXT[lang].stripNoDanger;
 }
 
 function renderPondAndGauge(level, lang) {
@@ -562,6 +620,7 @@ function renderChart(data, lang) {
 function render(data) {
   const lang = state.lang;
   const risk = data.risk;
+  state.message = null;
   $("simulated-label").textContent = data.label[lang];
   $("sim-time").textContent = formatTime(data.time);
   window.Scene.setTime(data.time, lang);        // sky follows the simulated time of day
@@ -590,6 +649,8 @@ function render(data) {
   const box = $("actions-card");
   box.hidden = !risk.actions || risk.actions.length === 0;
   if (!box.hidden) renderChecklist($("action-list"), $("actions-progress"), risk, data.source, lang);
+  $("alerts-calm").hidden = !box.hidden;        // Alerts page: "nothing to do now" when Safe
+  renderStrip();
   renderAlert();
   $("voice-button").disabled = false;
 }
@@ -857,6 +918,8 @@ function renderLive() {
 }
 
 function showMessage(key) {
+  state.message = key;
+  renderStrip();
   $("status").className = "status-banner status-unknown";
   $("status-icon").innerHTML = key === "connecting" ? LOADER : "";
   $("status-level").textContent = TEXT[state.lang][key];
@@ -1046,6 +1109,7 @@ function activePondButton() {
 }
 
 function moveHighlight(instant = false) {
+  if ($("page-pond").hidden) return;            // can't measure a hidden page; done again when it opens
   M.animatedBackground($("pond-highlight"), activePondButton(), instant);
 }
 
@@ -1169,6 +1233,10 @@ $("terms-close").addEventListener("click", () => $("terms-dialog").close());
 $("terms-dialog").addEventListener("click", (e) => {
   if (e.target === e.currentTarget) e.currentTarget.close();   // tap outside the panel closes it
 });
+// The same two panels from the More page.
+document.querySelectorAll("[data-open-dialog]").forEach((b) => {
+  b.addEventListener("click", () => $(b.dataset.openDialog).showModal());
+});
 $("terms-sources").addEventListener("click", () => { $("terms-dialog").close(); $("sources-dialog").showModal(); });
 $("kit-form").addEventListener("submit", submitKit);
 $("kit-form").addEventListener("reset", () => showKitError(null));
@@ -1205,6 +1273,14 @@ window.Assistant.init(() => ({
   manual: state.manual ? state.manual.reading : null,
   live_sensor: state.live && state.live.latest ? state.live.latest.reading : null,
 }), loadLanguage(), TEXT[loadLanguage()]);
+
+// Pages (router.js). The simulator, history and checklist ticks live here in
+// app.js, so they carry on while you switch pages.
+window.Router.init();
+document.addEventListener("pagechange", (e) => {
+  // The pond picker was hidden, so its sliding highlight could not be measured.
+  if (e.detail.page === "pond" && state.effectsReady) moveHighlight(true);
+});
 
 setLanguage(loadLanguage());
 

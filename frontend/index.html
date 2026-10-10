@@ -79,8 +79,9 @@
         <span class="tagline" data-i18n="tagline">Pond water early warning</span>
       </div>
       <div class="top-bar-tools">
-        <!-- Light theme for bright sunlight, dark theme for evenings (icon + word, never icon only). -->
-        <div class="language-toggle theme-toggle" role="group" aria-label="Theme / ಬಣ್ಣ" id="theme-toggle">
+        <!-- Light theme for bright sunlight, dark theme for evenings (icon + word, never icon only).
+             Also on the More page; here only on wider screens. -->
+        <div class="language-toggle theme-toggle top-theme" role="group" aria-label="Theme / ಬಣ್ಣ" id="theme-toggle">
           <button type="button" data-theme-choice="light">
             <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
             <span data-i18n="themeLight">Light</span>
@@ -97,7 +98,54 @@
       </div>
     </header>
 
+    <!-- Stays at the top while scrolling: the page tabs (computers) and the pond status strip (every page). -->
+    <div class="sticky-head">
+      <!-- Page tabs (router.js). Phones: a tab bar at the bottom of the screen. Computers: under the top bar. -->
+      <nav class="tab-bar" id="tab-bar" aria-label="Pages">
+        <a href="#/pond" class="tab" data-tab="pond">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M3 12c2.6-4 6-5.5 9.5-5.5 3 0 5.6 1.4 7.5 3.6L22.5 7v10l-2.5-3.1C18.1 16.1 15.5 17.5 12.5 17.5 9 17.5 5.6 16 3 12Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="8" cy="11" r="1.3" fill="currentColor"/></svg>
+          <span data-i18n="tabPond">Pond</span>
+        </a>
+        <a href="#/alerts" class="tab" data-tab="alerts">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4l2-2Zm4 4h4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span data-i18n="tabAlerts">Alerts</span>
+        </a>
+        <a href="#/weather" class="tab" data-tab="weather">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M7 18.5h10.5a4 4 0 0 0 .4-8A6 6 0 0 0 6.4 9.3 4.6 4.6 0 0 0 7 18.5Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+          <span data-i18n="tabWeather">Weather</span>
+        </a>
+        <a href="#/diseases" class="tab" data-tab="diseases">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3 5 6v5.5c0 4.3 3 8 7 9.5 4-1.5 7-5.2 7-9.5V6l-7-3Zm0 5.5v6m-3-3h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span data-i18n="tabDiseases">Diseases</span>
+        </a>
+        <a href="#/ask" class="tab" data-tab="ask">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4V5Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M8 9.5h8M8 12.5h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <span data-i18n="tabAsk">Ask</span>
+        </a>
+        <a href="#/more" class="tab" data-tab="more">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="5.5" cy="12" r="1.8" fill="currentColor"/><circle cx="12" cy="12" r="1.8" fill="currentColor"/><circle cx="18.5" cy="12" r="1.8" fill="currentColor"/></svg>
+          <span data-i18n="tabMore">More</span>
+        </a>
+      </nav>
+
+      <!-- Compact status strip, on every page (app.js renderStrip). Tap: go to the Pond page. -->
+      <a href="#/pond" class="status-strip strip-unknown" id="status-strip">
+        <span class="strip-icon" id="strip-icon" aria-hidden="true"></span>
+        <span class="strip-text">
+          <strong class="strip-level" id="strip-level">…</strong>
+          <span class="strip-detail" id="strip-detail"></span>
+        </span>
+        <span class="strip-sim" data-i18n="simulatedTag">Simulated data</span>
+        <svg class="strip-go" aria-hidden="true" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <!-- Says a new level out loud (screen readers) when you are not on the Pond page. -->
+      <p class="visually-hidden" id="strip-live" role="status"></p>
+    </div>
+
     <main>
+      <!-- ===================== Pond (home) ===================== -->
+      <section class="page" id="page-pond" aria-labelledby="page-pond-title">
+        <h1 class="page-title visually-hidden" id="page-pond-title" tabindex="-1" data-i18n="tabPond">Pond</h1>
       <!-- Always visible: everything on this page comes from the simulator. -->
       <p class="simulated-banner" id="simulated-banner">
         <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm1 15h-2v-6h2v6Zm0-8h-2V7h2v2Z"/></svg>
@@ -143,31 +191,8 @@
         </div>
       </section>
 
-      <!-- Voice alert: reads the status aloud ONLY when the farmer taps it (voice.js). -->
-      <div class="voice-row">
-        <button type="button" class="button-secondary voice-button" id="voice-button" aria-describedby="voice-note">
-          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4Z" fill="currentColor"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-          <span id="voice-button-text" data-i18n="voiceListen">Listen to alert</span>
-        </button>
-        <p class="voice-note" id="voice-note" role="status" hidden></p>
-      </div>
-
-      <!-- Action checklist: only in Warning and Danger. Built by checklist() in app.js. -->
-      <section class="card actions-card" id="actions-card" aria-labelledby="actions-title" hidden>
-        <h2 id="actions-title" data-i18n="actionsTitle">What to do now</h2>
-        <p class="actions-progress" id="actions-progress" aria-live="polite"></p>
-        <ol class="action-list" id="action-list"></ol>
-        <p class="actions-source" data-i18n="actionsSource">Based on FAO, TNAU and university extension guides. No chemicals.</p>
-      </section>
-
-      <!-- Diseases this (simulated) reading makes more likely (risk.likely_diseases, backend/diseases.py). -->
-      <section class="card likely-card" id="likely-card" aria-labelledby="likely-box-title" hidden>
-        <span class="sim-tag" data-i18n="simulatedTag">Simulated data</span>
-        <div class="likely-box" id="likely-box"></div>
-      </section>
-
-      <!-- Bento board: cards of different sizes (grid areas in styles.css). -->
-      <div class="board">
+        <!-- Bento board: cards of different sizes (grid areas in styles.css). -->
+        <div class="board board-pond">
         <!-- Pond health score 0-100. Always inside the status's range (backend/health_score.py). -->
         <section class="card health-card in-view" data-doodle="fish" aria-labelledby="health-title">
           <div class="health-head">
@@ -218,6 +243,40 @@
           <p class="chart-summary" id="chart-summary"></p>
         </section>
 
+        <section class="readings-block" aria-labelledby="readings-title">
+          <div class="readings-head"><h2 id="readings-title" class="text-effect" data-i18n="readingsTitle">Latest readings</h2></div>
+          <div class="readings" id="readings"></div>
+          <p class="sensor-errors" id="sensor-errors" hidden></p>
+        </section>
+        </div>
+      </section>
+
+      <!-- ===================== Alerts ===================== -->
+      <section class="page" id="page-alerts" aria-labelledby="page-alerts-title" hidden>
+        <div class="page-head">
+          <h1 class="page-title" id="page-alerts-title" tabindex="-1" data-i18n="tabAlerts">Alerts</h1>
+          <span class="sim-tag" data-i18n="simulatedTag">Simulated data</span>
+        </div>
+      <!-- Voice alert: reads the status aloud ONLY when the farmer taps it (voice.js). -->
+      <div class="voice-row">
+        <button type="button" class="button-secondary voice-button" id="voice-button" aria-describedby="voice-note">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4Z" fill="currentColor"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <span id="voice-button-text" data-i18n="voiceListen">Listen to alert</span>
+        </button>
+        <p class="voice-note" id="voice-note" role="status" hidden></p>
+      </div>
+
+      <!-- Action checklist: only in Warning and Danger. Built by checklist() in app.js. -->
+      <section class="card actions-card" id="actions-card" aria-labelledby="actions-title" hidden>
+        <h2 id="actions-title" data-i18n="actionsTitle">What to do now</h2>
+        <p class="actions-progress" id="actions-progress" aria-live="polite"></p>
+        <ol class="action-list" id="action-list"></ol>
+        <p class="actions-source" data-i18n="actionsSource">Based on FAO, TNAU and university extension guides. No chemicals.</p>
+      </section>
+        <p class="card page-calm" id="alerts-calm" data-i18n="alertsCalm">Nothing to do now. Steps appear here when the pond has a Warning or Danger.</p>
+
+        <div class="board board-alerts">
+
         <!-- SMS / WhatsApp PREVIEW. Nothing is sent: it only shows the text a farmer would get. -->
         <section class="card alert-card in-view" aria-labelledby="alert-title">
           <h2 id="alert-title" class="text-effect" data-i18n="alertTitle">Alert preview</h2>
@@ -248,48 +307,164 @@
           </div>
         </section>
 
-        <section class="readings-block" aria-labelledby="readings-title">
-          <div class="readings-head"><h2 id="readings-title" class="text-effect" data-i18n="readingsTitle">Latest readings</h2></div>
-          <div class="readings" id="readings"></div>
-          <p class="sensor-errors" id="sensor-errors" hidden></p>
+        <!-- Alert history: saved in this browser (history.js), survives a refresh. -->
+        <section class="card history-card in-view" data-doodle="reeds" aria-labelledby="history-title">
+          <div class="history-head">
+            <h2 id="history-title" class="text-effect" data-i18n="historyTitle">Alert history</h2>
+            <button type="button" class="button-ghost" id="history-clear" data-i18n="historyClear" hidden>Clear history</button>
+          </div>
+          <p class="history-help" data-i18n="historyHelp">Past warnings, newest first. Saved on this phone only.</p>
+          <ol class="history-list" id="history-list"></ol>
+          <p class="history-empty" id="history-empty" data-i18n="historyEmpty">No warnings yet.</p>
         </section>
+        </div>
+      </section>
 
-        <!-- Live sensor: readings a REAL sensor sends to POST /api/sensor/{pond_id}, pushed
-             here as they arrive (GET /api/sensor/{pond_id}/stream). Never mixed with the
-             simulated pond above. A demo device (tools/fake_sensor.py) gets its own tag. -->
-        <section class="card live-card in-view" id="live-card" aria-labelledby="live-title">
-          <div class="live-head">
-            <h2 id="live-title" class="text-effect" data-i18n="liveTitle">Live sensor</h2>
-            <p class="live-tag">
-              <span class="live-dot" id="live-dot" aria-hidden="true"></span>
-              <strong id="live-label">Live sensor</strong><span id="live-pond"></span>
+      <!-- ===================== Weather ===================== -->
+      <!-- Tonight's weather is REAL (Open-Meteo forecast), not simulated.
+           With no internet it shows the last saved forecast and says "offline". -->
+      <section class="page" id="page-weather" aria-labelledby="page-weather-title" hidden>
+        <h1 class="page-title" id="page-weather-title" tabindex="-1" data-i18n="titleWeather">Weather</h1>
+        <div class="card weather-card in-view">
+      <section class="weather-tonight" id="weather-tonight" aria-labelledby="weather-title">
+        <span class="weather-icon" aria-hidden="true">
+          <!-- Loading: a small fish circling a water drop, until the forecast arrives. -->
+          <span class="weather-loader" id="weather-loader"><svg class="orbit-loader" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><circle class="ol-path" cx="20" cy="21" r="15"/><path class="ol-drop" d="M20 11c0 0 6.5 7.2 6.5 11.6a6.5 6.5 0 0 1-13 0C13.5 18.2 20 11 20 11Z"/><g class="ol-fish"><path d="M26.5 6C24.4 3.5 20.8 3.1 18.2 4.4 17.2 4.9 16.6 5.6 16.2 6c.4.4 1 1.1 2 1.6 2.6 1.3 6.2.9 8.3-1.6ZM16.2 6 13 3.6l.7 2.4-.7 2.4Z"/></g></svg></span>
+          <svg class="weather-moon" id="weather-moon" viewBox="0 0 24 24" hidden><path d="M14.5 3a7 7 0 1 0 6.5 9.6A5.5 5.5 0 0 1 14.5 3Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+        </span>
+        <div class="weather-body">
+          <h2 class="weather-title" id="weather-title"><span data-i18n="weatherTitle">Tonight's weather</span><span class="weather-place" id="weather-place"></span></h2>
+          <p class="weather-line">
+            <span class="badge weather-badge" id="weather-badge" hidden></span>
+            <span class="weather-message" id="weather-message" data-i18n="weatherLoading">Checking the forecast…</span>
+          </p>
+          <p class="weather-details" id="weather-details"></p>
+          <p class="weather-details" id="weather-updated" hidden></p>
+          <p class="weather-offline" id="weather-offline" hidden></p>
+        </div>
+      </section>
+        </div>
+        <section class="card weather-why in-view" aria-labelledby="weather-why-title">
+          <h2 id="weather-why-title" class="text-effect" data-i18n="weatherWhyTitle">Why the weather matters</h2>
+          <p data-i18n="weatherWhy">Water plants make oxygen only in sunlight. After a cloudy day, on a calm, warm night, they use up oxygen and no wind mixes in fresh air, so oxygen is lowest just before sunrise. That is when fish die.</p>
+        </section>
+      </section>
+
+      <!-- ===================== Diseases ===================== -->
+      <section class="page" id="page-diseases" aria-labelledby="page-diseases-title" hidden>
+        <h1 class="page-title" id="page-diseases-title" tabindex="-1" data-i18n="titleDiseases">Diseases</h1>
+
+      <!-- Diseases this (simulated) reading makes more likely (risk.likely_diseases, backend/diseases.py). -->
+      <section class="card likely-card" id="likely-card" aria-labelledby="likely-box-title" hidden>
+        <span class="sim-tag" data-i18n="simulatedTag">Simulated data</span>
+        <div class="likely-box" id="likely-box"></div>
+      </section>
+
+        <!-- Fish disease guide (diseases.js): library, symptom checker, sources in docs/diseases.md.
+             Possible matches only, never a diagnosis. No medicines or doses. -->
+        <section class="card guide-card in-view" id="guide" data-doodle="fish" aria-labelledby="guide-title">
+          <h2 id="guide-title" class="text-effect" data-i18n="guideTitle">Fish disease guide</h2>
+          <p class="guide-intro" data-i18n="guideIntro">Common diseases of carp ponds: the signs to look for, when they happen and how to prevent them.</p>
+          <p class="guide-loading" id="guide-loading" data-i18n="guideLoading">Loading the guide…</p>
+          <div class="guide-content" id="guide-content" hidden>
+            <p class="guide-warning" id="guide-treatment"></p>
+
+            <section class="checker" aria-labelledby="checker-title">
+              <h3 id="checker-title" data-i18n="checkerTitle">Symptom checker</h3>
+              <p class="kit-help" data-i18n="checkerHelp">Tick the signs you see on your fish. You get possible matches, not a diagnosis.</p>
+              <form class="checker-form" id="checker-form" novalidate>
+                <fieldset>
+                  <legend data-i18n="checkerBody">On the body</legend>
+                  <div class="checker-signs" id="checker-body"></div>
+                </fieldset>
+                <fieldset>
+                  <legend data-i18n="checkerBehaviour">How the fish behave</legend>
+                  <div class="checker-signs" id="checker-behaviour"></div>
+                </fieldset>
+                <div class="kit-buttons">
+                  <button type="submit" class="button-primary" data-i18n="checkerCheck">Show possible matches</button>
+                  <button type="reset" class="button-secondary" data-i18n="checkerClear">Clear</button>
+                </div>
+              </form>
+              <p class="kit-form-error" id="checker-error" role="alert" hidden></p>
+              <div class="checker-result" id="checker-result" role="status" hidden></div>
+            </section>
+
+            <section class="library" aria-labelledby="library-title">
+              <h3 id="library-title" data-i18n="libraryTitle">Disease library</h3>
+              <p class="kit-help" data-i18n="libraryHelp">Tap a disease to read more.</p>
+              <div class="disease-library" id="disease-library"></div>
+            </section>
+
+            <details class="no-photo">
+              <summary data-i18n="noPhotoTitle">Why there's no photo check</summary>
+              <p data-i18n="noPhotoText">We tested a computer model that guesses the disease from a fish photo. The public photos are mostly aquarium fish, not carps in ponds, and the model was wrong about one time in three. That is not safe enough for your fish, so the app does not do it.</p>
+              <p><a href="https://github.com/joylandsouza2008-ops/DevHack/blob/main/docs/fish-disease-baseline.md" target="_blank" rel="noopener" data-i18n="noPhotoLink">See the test results</a></p>
+            </details>
+            <p class="disease-sources"><a href="https://github.com/joylandsouza2008-ops/DevHack/blob/main/docs/diseases.md" target="_blank" rel="noopener" data-i18n="guideSources">Sources for every entry</a></p>
+          </div>
+        </section>
+      </section>
+
+      <!-- ===================== Ask ===================== -->
+      <section class="page" id="page-ask" aria-labelledby="page-ask-title" hidden>
+        <h1 class="page-title visually-hidden" id="page-ask-title" tabindex="-1" data-i18n="tabAsk">Ask</h1>
+
+        <!-- "Ask AquaNexus" assistant (assistant.js). Answers only from the app's own content
+             (backend/assistant.py); AI called from the server only. Always labelled as AI. -->
+        <section class="card assistant-card in-view" id="assistant" aria-labelledby="assistant-title">
+          <div class="assistant-head">
+            <h2 id="assistant-title" class="text-effect" data-i18n="assistantTitle">Ask AquaNexus</h2>
+            <p class="manual-tag ai-tag">
+              <strong id="assistant-label">AI assistant: can make mistakes</strong>
             </p>
           </div>
-          <p class="sim-tag live-demo" id="live-demo" hidden></p>
-          <!-- Sensor problems first: the readings below may be old. -->
-          <p class="live-stale" id="live-stale" role="status" hidden></p>
-          <p class="sensor-errors" id="live-errors" role="alert" hidden></p>
-          <p class="live-waiting" id="live-waiting" data-i18n="liveWaiting">Waiting for the sensor…</p>
-          <div class="live-result" id="live-result" hidden>
-            <div class="status-banner status-unknown" id="live-status" role="status">
-              <span class="status-icon" id="live-status-icon" aria-hidden="true"></span>
-              <div>
-                <p class="status-level" id="live-status-level"></p>
-                <p class="status-summary" id="live-status-summary"></p>
-              </div>
+          <p class="kit-help" data-i18n="assistantHelp">Ask about your readings, safe levels, tonight's weather or fish diseases. Answers come only from this app's own information.</p>
+          <p class="assistant-privacy" data-i18n="assistantPrivacy">Do not type your name, phone number or other personal details.</p>
+          <ol class="chat-log" id="chat-log" aria-live="polite" hidden></ol>
+          <p class="guide-note" id="assistant-notice" role="status" hidden></p>
+          <p class="voice-note" id="chat-voice-note" role="status" hidden></p>
+          <div class="suggestions">
+            <h3 data-i18n="assistantSuggested">Suggested questions (ready answers)</h3>
+            <div class="suggestion-list" id="suggestion-list"></div>
+          </div>
+          <form class="chat-form" id="chat-form" novalidate>
+            <label class="kit-label" for="chat-input" data-i18n="assistantAsk">Your question</label>
+            <div class="chat-row">
+              <textarea id="chat-input" rows="2" maxlength="500" autocomplete="off"></textarea>
+              <button type="submit" class="button-primary" id="chat-send" data-i18n="assistantSend">Ask</button>
             </div>
-            <dl class="live-values" id="live-values"></dl>
-            <div class="likely-box" id="live-likely" hidden></div>
-            <p class="live-time" id="live-time"></p>
-            <div class="kit-actions" id="live-actions-box" hidden>
-              <h3 data-i18n="actionsTitle">What to do now</h3>
-              <p class="actions-progress" id="live-actions-progress" aria-live="polite"></p>
-              <ol class="action-list" id="live-action-list"></ol>
+          </form>
+        </section>
+      </section>
+
+      <!-- ===================== More ===================== -->
+      <section class="page" id="page-more" aria-labelledby="page-more-title" hidden>
+        <h1 class="page-title" id="page-more-title" tabindex="-1" data-i18n="titleMore">More</h1>
+        <section class="card settings-card" aria-labelledby="settings-title">
+          <h2 id="settings-title" data-i18n="settingsTitle">Settings</h2>
+          <div class="setting">
+            <span class="control-label" data-i18n="settingsLanguage">Language</span>
+            <div class="language-toggle" role="group" aria-label="Language / ಭಾಷೆ">
+              <button type="button" data-lang="kn" lang="kn">ಕನ್ನಡ</button>
+              <button type="button" data-lang="en" lang="en">English</button>
             </div>
           </div>
-          <p class="live-note" data-i18n="liveNote">Readings are kept only while the server is running. On the free server they are cleared when it sleeps.</p>
+          <div class="setting">
+            <span class="control-label" data-i18n="settingsTheme">Colours</span>
+            <div class="language-toggle theme-toggle" role="group" aria-label="Theme / ಬಣ್ಣ">
+              <button type="button" data-theme-choice="light">
+                <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                <span data-i18n="themeLight">Light</span>
+              </button>
+              <button type="button" data-theme-choice="dark">
+                <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M14.5 3a7 7 0 1 0 6.5 9.6A5.5 5.5 0 0 1 14.5 3Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+                <span data-i18n="themeDark">Dark</span>
+              </button>
+            </div>
+          </div>
         </section>
-
+        <div class="board board-more">
         <!-- Manual test-kit entry. Results are marked "manual", never mixed with the simulated pond. -->
         <section class="card kit-card in-view" data-doodle="ripples" aria-labelledby="kit-title">
           <h2 id="kit-title" class="text-effect" data-i18n="kitTitle">Enter test-kit readings</h2>
@@ -339,115 +514,51 @@
             </div>
           </div>
         </section>
-
-        <!-- Alert history: saved in this browser (history.js), survives a refresh. -->
-        <section class="card history-card in-view" data-doodle="reeds" aria-labelledby="history-title">
-          <div class="history-head">
-            <h2 id="history-title" class="text-effect" data-i18n="historyTitle">Alert history</h2>
-            <button type="button" class="button-ghost" id="history-clear" data-i18n="historyClear" hidden>Clear history</button>
-          </div>
-          <p class="history-help" data-i18n="historyHelp">Past warnings, newest first. Saved on this phone only.</p>
-          <ol class="history-list" id="history-list"></ol>
-          <p class="history-empty" id="history-empty" data-i18n="historyEmpty">No warnings yet.</p>
-        </section>
-
-        <!-- "Ask AquaNexus" assistant (assistant.js). Answers only from the app's own content
-             (backend/assistant.py); AI called from the server only. Always labelled as AI. -->
-        <section class="card assistant-card in-view" id="assistant" aria-labelledby="assistant-title">
-          <div class="assistant-head">
-            <h2 id="assistant-title" class="text-effect" data-i18n="assistantTitle">Ask AquaNexus</h2>
-            <p class="manual-tag ai-tag">
-              <strong id="assistant-label">AI assistant: can make mistakes</strong>
+        <!-- Live sensor: readings a REAL sensor sends to POST /api/sensor/{pond_id}, pushed
+             here as they arrive (GET /api/sensor/{pond_id}/stream). Never mixed with the
+             simulated pond above. A demo device (tools/fake_sensor.py) gets its own tag. -->
+        <section class="card live-card in-view" id="live-card" aria-labelledby="live-title">
+          <div class="live-head">
+            <h2 id="live-title" class="text-effect" data-i18n="liveTitle">Live sensor</h2>
+            <p class="live-tag">
+              <span class="live-dot" id="live-dot" aria-hidden="true"></span>
+              <strong id="live-label">Live sensor</strong><span id="live-pond"></span>
             </p>
           </div>
-          <p class="kit-help" data-i18n="assistantHelp">Ask about your readings, safe levels, tonight's weather or fish diseases. Answers come only from this app's own information.</p>
-          <p class="assistant-privacy" data-i18n="assistantPrivacy">Do not type your name, phone number or other personal details.</p>
-          <ol class="chat-log" id="chat-log" aria-live="polite" hidden></ol>
-          <p class="guide-note" id="assistant-notice" role="status" hidden></p>
-          <p class="voice-note" id="chat-voice-note" role="status" hidden></p>
-          <div class="suggestions">
-            <h3 data-i18n="assistantSuggested">Suggested questions (ready answers)</h3>
-            <div class="suggestion-list" id="suggestion-list"></div>
-          </div>
-          <form class="chat-form" id="chat-form" novalidate>
-            <label class="kit-label" for="chat-input" data-i18n="assistantAsk">Your question</label>
-            <div class="chat-row">
-              <textarea id="chat-input" rows="2" maxlength="500" autocomplete="off"></textarea>
-              <button type="submit" class="button-primary" id="chat-send" data-i18n="assistantSend">Ask</button>
+          <p class="sim-tag live-demo" id="live-demo" hidden></p>
+          <!-- Sensor problems first: the readings below may be old. -->
+          <p class="live-stale" id="live-stale" role="status" hidden></p>
+          <p class="sensor-errors" id="live-errors" role="alert" hidden></p>
+          <p class="live-waiting" id="live-waiting" data-i18n="liveWaiting">Waiting for the sensor…</p>
+          <div class="live-result" id="live-result" hidden>
+            <div class="status-banner status-unknown" id="live-status" role="status">
+              <span class="status-icon" id="live-status-icon" aria-hidden="true"></span>
+              <div>
+                <p class="status-level" id="live-status-level"></p>
+                <p class="status-summary" id="live-status-summary"></p>
+              </div>
             </div>
-          </form>
+            <dl class="live-values" id="live-values"></dl>
+            <div class="likely-box" id="live-likely" hidden></div>
+            <p class="live-time" id="live-time"></p>
+            <div class="kit-actions" id="live-actions-box" hidden>
+              <h3 data-i18n="actionsTitle">What to do now</h3>
+              <p class="actions-progress" id="live-actions-progress" aria-live="polite"></p>
+              <ol class="action-list" id="live-action-list"></ol>
+            </div>
+          </div>
+          <p class="live-note" data-i18n="liveNote">Readings are kept only while the server is running. On the free server they are cleared when it sleeps.</p>
         </section>
-
-        <!-- Fish disease guide (diseases.js): library, symptom checker, sources in docs/diseases.md.
-             Possible matches only, never a diagnosis. No medicines or doses. -->
-        <section class="card guide-card in-view" id="guide" data-doodle="fish" aria-labelledby="guide-title">
-          <h2 id="guide-title" class="text-effect" data-i18n="guideTitle">Fish disease guide</h2>
-          <p class="guide-intro" data-i18n="guideIntro">Common diseases of carp ponds: the signs to look for, when they happen and how to prevent them.</p>
-          <p class="guide-loading" id="guide-loading" data-i18n="guideLoading">Loading the guide…</p>
-          <div class="guide-content" id="guide-content" hidden>
-            <p class="guide-warning" id="guide-treatment"></p>
-
-            <section class="checker" aria-labelledby="checker-title">
-              <h3 id="checker-title" data-i18n="checkerTitle">Symptom checker</h3>
-              <p class="kit-help" data-i18n="checkerHelp">Tick the signs you see on your fish. You get possible matches, not a diagnosis.</p>
-              <form class="checker-form" id="checker-form" novalidate>
-                <fieldset>
-                  <legend data-i18n="checkerBody">On the body</legend>
-                  <div class="checker-signs" id="checker-body"></div>
-                </fieldset>
-                <fieldset>
-                  <legend data-i18n="checkerBehaviour">How the fish behave</legend>
-                  <div class="checker-signs" id="checker-behaviour"></div>
-                </fieldset>
-                <div class="kit-buttons">
-                  <button type="submit" class="button-primary" data-i18n="checkerCheck">Show possible matches</button>
-                  <button type="reset" class="button-secondary" data-i18n="checkerClear">Clear</button>
-                </div>
-              </form>
-              <p class="kit-form-error" id="checker-error" role="alert" hidden></p>
-              <div class="checker-result" id="checker-result" role="status" hidden></div>
-            </section>
-
-            <section class="library" aria-labelledby="library-title">
-              <h3 id="library-title" data-i18n="libraryTitle">Disease library</h3>
-              <p class="kit-help" data-i18n="libraryHelp">Tap a disease to read more.</p>
-              <div class="disease-library" id="disease-library"></div>
-            </section>
-
-            <details class="no-photo">
-              <summary data-i18n="noPhotoTitle">Why there's no photo check</summary>
-              <p data-i18n="noPhotoText">We tested a computer model that guesses the disease from a fish photo. The public photos are mostly aquarium fish, not carps in ponds, and the model was wrong about one time in three. That is not safe enough for your fish, so the app does not do it.</p>
-              <p><a href="https://github.com/joylandsouza2008-ops/DevHack/blob/main/docs/fish-disease-baseline.md" target="_blank" rel="noopener" data-i18n="noPhotoLink">See the test results</a></p>
-            </details>
-            <p class="disease-sources"><a href="https://github.com/joylandsouza2008-ops/DevHack/blob/main/docs/diseases.md" target="_blank" rel="noopener" data-i18n="guideSources">Sources for every entry</a></p>
+        </div>
+        <section class="card about-card" aria-labelledby="about-title">
+          <h2 id="about-title" data-i18n="aboutTitle">About this app</h2>
+          <div class="about-links">
+            <button type="button" class="button-secondary" data-open-dialog="sources-dialog" aria-haspopup="dialog" data-i18n="sourcesTitle">Data sources</button>
+            <button type="button" class="button-secondary" data-open-dialog="terms-dialog" aria-haspopup="dialog" data-i18n="termsTitle">Terms &amp; Privacy</button>
           </div>
         </section>
-      </div>
-    </main>
-
-    <!-- Bottom toolbar. Tonight's weather is REAL (Open-Meteo forecast), not simulated.
-         With no internet it shows the last saved forecast and says "offline". -->
-    <footer class="bottom-toolbar" aria-label="Toolbar">
-      <div class="toolbar-row">
-      <section class="weather-tonight" id="weather-tonight" aria-labelledby="weather-title">
-        <span class="weather-icon" aria-hidden="true">
-          <!-- Loading: a small fish circling a water drop, until the forecast arrives. -->
-          <span class="weather-loader" id="weather-loader"><svg class="orbit-loader" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><circle class="ol-path" cx="20" cy="21" r="15"/><path class="ol-drop" d="M20 11c0 0 6.5 7.2 6.5 11.6a6.5 6.5 0 0 1-13 0C13.5 18.2 20 11 20 11Z"/><g class="ol-fish"><path d="M26.5 6C24.4 3.5 20.8 3.1 18.2 4.4 17.2 4.9 16.6 5.6 16.2 6c.4.4 1 1.1 2 1.6 2.6 1.3 6.2.9 8.3-1.6ZM16.2 6 13 3.6l.7 2.4-.7 2.4Z"/></g></svg></span>
-          <svg class="weather-moon" id="weather-moon" viewBox="0 0 24 24" hidden><path d="M14.5 3a7 7 0 1 0 6.5 9.6A5.5 5.5 0 0 1 14.5 3Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
-        </span>
-        <div class="weather-body">
-          <h2 class="weather-title" id="weather-title"><span data-i18n="weatherTitle">Tonight's weather</span><span class="weather-place" id="weather-place"></span></h2>
-          <p class="weather-line">
-            <span class="badge weather-badge" id="weather-badge" hidden></span>
-            <span class="weather-message" id="weather-message" data-i18n="weatherLoading">Checking the forecast…</span>
-          </p>
-          <p class="weather-details" id="weather-details"></p>
-          <p class="weather-details" id="weather-updated" hidden></p>
-          <p class="weather-offline" id="weather-offline" hidden></p>
-        </div>
       </section>
-      </div>
-    </footer>
+    </main>
 
     <!-- Site footer: who made it, where the data comes from, privacy, source code. -->
     <footer class="site-footer">
@@ -552,6 +663,7 @@
   <script src="/scene.js"></script>
   <script src="/diseases.js"></script>
   <script src="/assistant.js"></script>
+  <script src="/router.js"></script>         <!-- pages: #/pond, #/alerts, ... -->
   <script src="/app.js"></script>
   <script src="/welcome.js"></script>
 </body>
