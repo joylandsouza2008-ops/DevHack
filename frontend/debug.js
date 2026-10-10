@@ -49,7 +49,6 @@
     ["Ripple rings (fixed pools)", () => (window.CursorFX ? window.CursorFX.stats().rings : 0)],
     ["Tap ink elements", () => (window.CursorFX ? window.CursorFX.stats().inks : 0)],
     ["Ripples moving", () => (window.CursorFX ? window.CursorFX.stats().moving : 0)],
-    ["Spotlights", () => (window.CursorFX ? window.CursorFX.stats().spotlights : 0)],
     ["Cards tilting", () => (window.CursorFX ? window.CursorFX.stats().tilting : 0)],
     ["Buttons pulled (magnet)", () => (window.CursorFX ? window.CursorFX.stats().pulled : 0)],
     ["Welcome fish fleeing", () => (window.WelcomeFX ? window.WelcomeFX.stats().fleeing : 0)],

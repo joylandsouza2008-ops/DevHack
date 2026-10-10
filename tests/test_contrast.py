@@ -386,19 +386,21 @@ def test_scene_clock_chip_is_readable_over_the_brightest_sky():
 
 
 @both
-def test_text_stays_readable_under_the_spotlight_and_card_gradients(theme):
-    # Spotlight (--spot) under the cursor, on top of the brightest corner of each
-    # card background: plain card, health card (with its glow), time-until-danger,
-    # alert preview (cyan tint).
-    t, a = THEMES[theme], ALPHAS[theme]
-    glow, glow_alpha = a["card-glow"]
-    tint, tint_alpha = a["card-secondary-tint"]
-    spot, spot_alpha = a["spot"]
-    for card in (t["card"], over(glow, t["card-deep-a"], glow_alpha), t["card-deep-b"], over(tint, t["card"], tint_alpha)):
-        lit = over(spot, card, spot_alpha)
-        assert contrast(t["text-tertiary"], lit) >= TEXT, f"{theme}: {card}"
-        assert contrast(t["text"], lit) >= TEXT, f"{theme}: {card}"
-        assert contrast(t["text-secondary"], lit) >= TEXT, f"{theme}: {card}"
+def test_text_stays_readable_on_every_card_fill(theme):
+    # Plain card, health card (--card-deep-a), time-until-danger (--card-deep-b). Solid fills only.
+    t = THEMES[theme]
+    for card in (t["card"], t["card-deep-a"], t["card-deep-b"]):
+        assert contrast(t["text-tertiary"], card) >= TEXT, f"{theme}: {card}"
+        assert contrast(t["text"], card) >= TEXT, f"{theme}: {card}"
+        assert contrast(t["text-secondary"], card) >= TEXT, f"{theme}: {card}"
+
+
+def test_no_glows_or_gradient_text():
+    # Polish pass: no glowing blobs behind the page or cards, no gradient text,
+    # no cursor spotlight. The pictures (water, sky) keep their gradients.
+    css = CSS + (STYLES.parent / "welcome.css").read_text(encoding="utf-8")
+    for banned in (".page-glow", ".fx-spotlight", "background-clip: text", "--card-glow", "rgba(161, 12, 159"):
+        assert banned not in css, banned
 
 
 # ---------------------------------------------------------------- Team Orbit touches

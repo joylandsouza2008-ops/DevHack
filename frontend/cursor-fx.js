@@ -1,8 +1,8 @@
 // Cursor and touch effects, in plain JavaScript with GSAP (no React).
 //   Computer with a mouse:
 //     - water ripples where the cursor moves over the page background
-//     - cards tilt gently, with a soft spotlight under the cursor
-//       (Motion Primitives "Tilt" and "Spotlight", rewritten from scratch)
+//     - a few cards tilt gently under the cursor
+//       (Motion Primitives "Tilt", rewritten from scratch)
 //     - buttons are slightly magnetic: they lean a few pixels toward the cursor
 //   Phone (no cursor): a ripple where the finger taps, inside the button or
 //   card that was tapped, or on the water background.
@@ -12,7 +12,7 @@
 //     reuses the oldest ring and kills that ring's last animation first, so
 //     the number of rings and running ripple animations can never grow.
 //   - Tap ink: at most ONE ink element per button or card, reused.
-//   - Tilt, spotlight and magnet use gsap.quickTo: one reusable tween per
+//   - Tilt and magnet use gsap.quickTo: one reusable tween per
 //     property per element; each mouse move replaces the previous target.
 //   - Background mouse moves are handled at most once per frame.
 //   - "Reduce motion": no effects at all.
@@ -29,7 +29,7 @@
   const on = () => gsap && !reduce();
 
   // Cards that tilt. Only cards WITHOUT readings, scores or status, so no
-  // number is ever shown at an angle. Every card gets the spotlight.
+  // number is ever shown at an angle.
   const TILT = ".pond-card, .alert-card, .history-card";
   const MAX_TILT = 3;                         // degrees: gentle
   const MAGNET = ".button-primary, .button-secondary";
@@ -40,7 +40,7 @@
   const pools = [];
   const inks = new Set();                     // tap-ink elements (one per button / card)
   const tilting = new Set(), pulled = new Set();
-  let spotlights = 0, ready = false;
+  let ready = false;
 
   // ---------------------------------------------------------------- ripple pool
 
@@ -101,39 +101,26 @@
     if (!frame) frame = requestAnimationFrame(flushMove);   // at most once per frame
   }
 
-  // ---------------------------------------------------------------- tilt + spotlight (mouse)
+  // ---------------------------------------------------------------- tilt (mouse)
 
   function bindCard(card) {
-    const tilt = card.matches(TILT);
-    const spot = document.createElement("span");
-    spot.className = "fx-spotlight";
-    spot.setAttribute("aria-hidden", "true");
-    card.prepend(spot);
-    spotlights += 1;
-
-    const sx = gsap.quickTo(spot, "x", { duration: 0.35, ease: "power3" });
-    const sy = gsap.quickTo(spot, "y", { duration: 0.35, ease: "power3" });
-    const rx = tilt ? gsap.quickTo(card, "rotationX", { duration: 0.6, ease: "power3" }) : null;
-    const ry = tilt ? gsap.quickTo(card, "rotationY", { duration: 0.6, ease: "power3" }) : null;
+    const rx = gsap.quickTo(card, "rotationX", { duration: 0.6, ease: "power3" });
+    const ry = gsap.quickTo(card, "rotationY", { duration: 0.6, ease: "power3" });
 
     card.addEventListener("pointerenter", (e) => {
       if (e.pointerType !== "mouse" || !on() || !mouseQuery.matches) return;
-      const r = card.getBoundingClientRect();
-      gsap.set(spot, { x: e.clientX - r.left, y: e.clientY - r.top });
-      gsap.to(spot, { opacity: 1, duration: 0.3, overwrite: "auto" });
-      if (tilt) { gsap.set(card, { transformPerspective: 1000 }); tilting.add(card); }
+      gsap.set(card, { transformPerspective: 1000 });
+      tilting.add(card);
     });
     card.addEventListener("pointermove", (e) => {
       if (e.pointerType !== "mouse" || !on() || !mouseQuery.matches) return;
       const r = card.getBoundingClientRect();
       const px = (e.clientX - r.left) / r.width, py = (e.clientY - r.top) / r.height;
-      sx(e.clientX - r.left); sy(e.clientY - r.top);
-      if (tilt) { rx((0.5 - py) * 2 * MAX_TILT); ry((px - 0.5) * 2 * MAX_TILT); }
+      rx((0.5 - py) * 2 * MAX_TILT); ry((px - 0.5) * 2 * MAX_TILT);
     });
     card.addEventListener("pointerleave", () => {
       if (!gsap) return;
-      gsap.to(spot, { opacity: 0, duration: 0.45, overwrite: "auto" });
-      if (tilt) { rx(0); ry(0); tilting.delete(card); }
+      rx(0); ry(0); tilting.delete(card);
     });
   }
 
@@ -207,7 +194,7 @@
     document.querySelector(".page-bg").after(water);
     bgPool = ripplePool(water, lowPower ? 5 : 8);
 
-    document.querySelectorAll("#dashboard .card").forEach(bindCard);
+    document.querySelectorAll(`#dashboard :is(${TILT})`).forEach(bindCard);
     document.querySelectorAll(`#dashboard :is(${MAGNET})`).forEach(bindMagnet);
     document.addEventListener("pointermove", onPointerMove, { passive: true });
     document.addEventListener("pointerdown", onPointerDown, { passive: true });
@@ -219,7 +206,7 @@
     const rings = pools.reduce((n, p) => n + p.rings.length, 0);
     const moving = gsap ? pools.reduce((n, p) => n + p.rings.filter((r) => gsap.isTweening(r)).length, 0) +
                           [...inks].filter((i) => gsap.isTweening(i)).length : 0;
-    return { rings, inks: inks.size, moving, tilting: tilting.size, pulled: pulled.size, spotlights };
+    return { rings, inks: inks.size, moving, tilting: tilting.size, pulled: pulled.size };
   }
 
   window.CursorFX = { init, ripplePool, bindMagnet, stats, mouseQuery };

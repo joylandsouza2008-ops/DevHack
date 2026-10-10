@@ -37,14 +37,9 @@
   /* Amber has enough contrast on dark cards by itself: no extra edge. */
   --warning-edge: transparent;
 
-  /* Decoration (never a status): glows, card tints, effects */
-  --glow-accent: rgba(161, 12, 159, 0.16);
-  --glow-secondary: rgba(35, 188, 208, 0.07);
+  /* Decoration (never a status): solid feature-card fills, tap effects */
   --card-deep-a: #0d0a5e;
   --card-deep-b: #0a0756;
-  --card-secondary-tint: rgba(35, 188, 208, 0.10);
-  --card-glow: rgba(161, 12, 159, 0.10);
-  --spot: rgba(161, 12, 159, 0.10);
   --ripple: rgba(136, 204, 230, 0.55);
   --ink: rgba(136, 204, 230, 0.4);
   --shadow-lift: rgba(2, 1, 30, 0.55);
@@ -87,13 +82,8 @@
   /* Amber is only 2:1 on light cards, so amber stripes get a dark amber edge (the unchanged warning-text). */
   --warning-edge: #7a4100;
 
-  --glow-accent: rgba(161, 12, 159, 0.07);
-  --glow-secondary: rgba(35, 188, 208, 0.10);
   --card-deep-a: #f1f0fc;
   --card-deep-b: #f3f4fd;
-  --card-secondary-tint: rgba(35, 188, 208, 0.12);
-  --card-glow: rgba(161, 12, 159, 0.05);
-  --spot: rgba(161, 12, 159, 0.06);
   --ripple: rgba(23, 105, 142, 0.45);
   --ink: rgba(23, 105, 142, 0.22);
   --shadow-lift: rgba(6, 3, 81, 0.16);
@@ -814,17 +804,8 @@ main {
    red stay reserved for Safe / Warning / Danger and are never decoration.
    ================================================================ */
 
-/* ---- Page: deep water with a faint aqua light from the top right ---- */
-.page-glow {
-  position: fixed; inset: 0; z-index: -1; pointer-events: none;
-  background:
-    radial-gradient(70% 45% at 92% -5%, var(--glow-accent), transparent 70%),
-    radial-gradient(60% 55% at 0% 100%, var(--glow-secondary), transparent 72%);
-}
-body.has-welcome .page-glow { display: none; }
-
-/* ---- Every card: a positioned, clipped layer, so decoration (spotlight,
-   doodles, tap ink) can sit BEHIND the content with z-index: -1. ---- */
+/* ---- Every card: a positioned, clipped layer, so decoration (doodles,
+   tap ink) can sit BEHIND the content with z-index: -1. ---- */
 .card { position: relative; isolation: isolate; overflow: hidden; }
 
 /* ---- Day/night scene ---- */
@@ -935,16 +916,11 @@ body.has-welcome .page-glow { display: none; }
 .readings-block { display: flex; flex-direction: column; gap: 0.75rem; min-width: 0; }
 .readings-head h2 { margin: 0; }
 
-/* ---- Card variety (DESIGN.md card-feature / card-feature-deep: decorative, never a status) ---- */
-.health-card {
-  border-radius: 28px; padding: 1.5rem 2rem;
-  background:
-    radial-gradient(110% 130% at 100% 0%, var(--card-glow), transparent 55%),
-    linear-gradient(160deg, var(--card-deep-a), var(--card) 62%);
-}
+/* ---- Card variety (DESIGN.md card-feature / card-feature-deep: decorative, never a status).
+   Solid fills only: no gradients or glows. ---- */
+.health-card { border-radius: 28px; padding: 1.5rem 2rem; background: var(--card-deep-a); }
 .pond-card { border-radius: 28px; background: var(--surface); }
-.alert-card { background: linear-gradient(180deg, var(--card-secondary-tint), transparent 42%), var(--card); }
-.ttd-card { background: linear-gradient(200deg, var(--card-deep-b), var(--card) 55%); }
+.ttd-card { background: var(--card-deep-b); }
 @media (max-width: 480px) { .health-card { padding: 1.25rem; } }
 
 /* ---- Hand-drawn doodles (scene.js): aqua line drawings behind card content ---- */
@@ -953,9 +929,7 @@ body.has-welcome .page-glow { display: none; }
 .doodle-fish { right: 1.25rem; bottom: 0.75rem; width: 130px; }
 .doodle-reeds { right: 0.75rem; bottom: 0; width: 92px; }
 .doodle-ripples { right: 1rem; top: 0.75rem; width: 120px; }
-.doodle-wave { position: static; display: block; width: 7.5rem; opacity: 0.9; }
-.doodle-wave svg { height: 12px; stroke-width: 2.6; }
-@media (max-width: 480px) { .doodle:not(.doodle-wave) { display: none; } }
+@media (max-width: 480px) { .doodle { display: none; } }
 
 /* ---- Cursor and tap effects (cursor-fx.js) ---- */
 .cursor-water { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
@@ -963,12 +937,6 @@ body.has-welcome .page-glow { display: none; }
   position: absolute; top: 0; left: 0;
   width: 150px; height: 150px; margin: -75px 0 0 -75px;
   border-radius: 50%; border: 1.5px solid var(--ripple);
-  opacity: 0; pointer-events: none; will-change: transform, opacity;
-}
-.fx-spotlight {                     /* Spotlight: soft aqua light under the cursor, behind the content */
-  position: absolute; top: 0; left: 0; z-index: -1;
-  width: 380px; height: 380px; margin: -190px 0 0 -190px; border-radius: 50%;
-  background: radial-gradient(circle, var(--spot), transparent 68%);   /* --spot is checked in tests/test_contrast.py */
   opacity: 0; pointer-events: none; will-change: transform, opacity;
 }
 .fx-ink {                           /* tap ripple on phones */
@@ -981,10 +949,10 @@ button { position: relative; isolation: isolate; overflow: hidden; }
 
 @media (prefers-reduced-motion: reduce) {
   .scene-stars g { animation: none; }
-  .fx-ripple, .fx-spotlight, .fx-ink { display: none; }
+  .fx-ripple, .fx-ink { display: none; }
 }
 @media (prefers-contrast: more), (forced-colors: active) {
-  .page-glow, .doodle, .cursor-water { display: none; }
+  .doodle, .cursor-water { display: none; }
 }
 
 /* ================================================================
@@ -1072,3 +1040,27 @@ button { position: relative; isolation: isolate; overflow: hidden; }
   .ol-fish { animation: none; }    /* the fish rests beside the drop */
   .scene-night-fx { display: none; }
 }
+
+/* Site footer: team, data sources, source code and a short privacy note.
+   Below the weather toolbar, on the darkest-water footer colour (DESIGN.md footer-region). */
+.site-footer {
+  background: var(--footer-bg);
+  border-top: 1px solid var(--hairline);
+  padding: 1rem 1rem calc(1.25rem + env(safe-area-inset-bottom));
+}
+.site-footer-row {
+  max-width: 1100px; margin: 0 auto;
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem 1.5rem;
+}
+.site-footer-links { display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem 1rem; }
+.footer-link {
+  display: inline-flex; align-items: center; gap: 0.5rem; min-height: 48px;
+  color: var(--primary); font-weight: 600; font-size: 1rem;
+}
+.footer-link svg { width: 22px; height: 22px; flex: none; }
+.footer-privacy {
+  max-width: 1100px; margin: 0.75rem auto 0;
+  display: flex; gap: 0.5rem; align-items: flex-start;
+  font-size: 0.9375rem; line-height: 1.6; color: var(--text-secondary);
+}
+.footer-privacy svg { width: 20px; height: 20px; flex: none; margin-top: 0.15rem; color: var(--primary); }

@@ -439,7 +439,6 @@
     fish: `<svg viewBox="0 0 130 64"><path d="M12 33 C28 13 62 9 90 27 C66 50 31 53 12 33 Z"/><path d="M90 27 C98 21 106 15 116 13 C111 23 111 34 117 46 C107 42 98 36 90 30"/><circle cx="31" cy="29" r="2.4"/><path d="M48 23 C52 29 52 36 47 42 M60 21 C65 28 65 37 59 44"/><path d="M6 14 c3 -3 7 -3 9 0 M2 24 c2 -2 4 -2 6 0"/></svg>`,
     reeds: `<svg viewBox="0 0 100 120"><path d="M30 120 C31 92 27 66 20 42 M48 120 C47 90 52 64 61 38 M64 120 C66 98 64 80 57 62 M80 120 C79 104 84 88 92 76"/><ellipse cx="19" cy="34" rx="4" ry="11" transform="rotate(-14 19 34)"/><ellipse cx="62" cy="30" rx="4" ry="10.5" transform="rotate(16 62 30)"/><path d="M6 118 c10 -4 22 3 34 0 s22 -4 34 0 s14 2 22 0"/></svg>`,
     ripples: `<svg viewBox="0 0 120 70"><ellipse cx="60" cy="35" rx="14" ry="6"/><path d="M28 36 C29 25 46 20 61 20 C79 20 93 26 93 36 C93 46 77 51 60 51 C44 51 30 46 28 38"/><path d="M8 37 C9 19 35 9 61 9 C88 9 113 20 112 36 C111 53 86 62 59 62 C36 62 14 55 9 42"/></svg>`,
-    wave: `<svg viewBox="0 0 120 12" preserveAspectRatio="none"><path d="M2 7 C14 2 22 11 36 6 S58 2 70 7 S94 11 104 5 S114 4 118 6"/></svg>`,
   };
 
   function decorate() {

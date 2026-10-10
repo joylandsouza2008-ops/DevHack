@@ -15,6 +15,11 @@ const TEXT = {
     appName: "MeenuRaksha",
     tagline: "Pond water early warning",
     welcomeTagline: "Pond water warnings before your fish are in danger.",
+    welcomeExample: "What a warning looks like",
+    welcomeExampleLevel: "Warning",
+    welcomeExampleText: "Pond 1: oxygen is low (3.8 mg/L). Run the aerator tonight.",
+    footerCode: "Source code on GitHub",
+    footerPrivacy: "Privacy: no account needed. The app never uses your camera, photos or location. Alert history stays on this phone. Test-kit numbers go to our server only to check them. Assistant questions may also go to an AI service.",
     start: "Start",
     themeLight: "Light", themeDark: "Dark",
     builtBy: "Built by Team Orbit",
@@ -141,6 +146,11 @@ const TEXT = {
     appName: "ಮೀನುರಕ್ಷಾ",
     tagline: "ಕೊಳದ ನೀರಿನ ಮುನ್ನೆಚ್ಚರಿಕೆ",
     welcomeTagline: "ಮೀನುಗಳಿಗೆ ಅಪಾಯ ಬರುವ ಮೊದಲೇ ಕೊಳದ ನೀರಿನ ಎಚ್ಚರಿಕೆ.",
+    welcomeExample: "ಎಚ್ಚರಿಕೆ ಹೀಗೆ ಕಾಣುತ್ತದೆ",
+    welcomeExampleLevel: "ಎಚ್ಚರಿಕೆ",
+    welcomeExampleText: "ಕೊಳ 1: ಆಮ್ಲಜನಕ ಕಡಿಮೆ ಇದೆ (3.8 mg/L). ಇಂದು ರಾತ್ರಿ ಏರೇಟರ್ ಚಾಲೂ ಇಡಿ.",
+    footerCode: "GitHub ನಲ್ಲಿ ಸೋರ್ಸ್ ಕೋಡ್",
+    footerPrivacy: "ಗೌಪ್ಯತೆ: ಖಾತೆ ಬೇಕಾಗಿಲ್ಲ. ಆ್ಯಪ್ ನಿಮ್ಮ ಕ್ಯಾಮೆರಾ, ಫೋಟೋ ಅಥವಾ ಸ್ಥಳವನ್ನು ಬಳಸುವುದಿಲ್ಲ. ಎಚ್ಚರಿಕೆಗಳ ಇತಿಹಾಸ ಈ ಫೋನ್‌ನಲ್ಲೇ ಇರುತ್ತದೆ. ಟೆಸ್ಟ್-ಕಿಟ್ ಅಳತೆಗಳು ಪರಿಶೀಲನೆಗಾಗಿ ಮಾತ್ರ ನಮ್ಮ ಸರ್ವರ್‌ಗೆ ಹೋಗುತ್ತವೆ. ಸಹಾಯಕನಿಗೆ ಕೇಳುವ ಪ್ರಶ್ನೆಗಳು AI ಸೇವೆಗೂ ಹೋಗಬಹುದು.",
     start: "ಪ್ರಾರಂಭಿಸಿ",
     themeLight: "ತಿಳಿ", themeDark: "ಗಾಢ",
     builtBy: "ನಿರ್ಮಾಣ: ಟೀಮ್ ಆರ್ಬಿಟ್",
@@ -1010,7 +1020,7 @@ function initEffects() {
   window.DOChart.setWords(levelWords(state.lang));
   window.HealthRing.init($("health-ring"));
   window.Scene.init();                          // day/night sky + hand-drawn doodles
-  window.CursorFX.init();                       // ripples, tilt, spotlight, magnetic buttons, tap ink
+  window.CursorFX.init();                       // ripples, tilt, magnetic buttons, tap ink
   moveHighlight(true);
   M.borderTrail($("pond-highlight"));           // Border Trail on the active pond card
   window.addEventListener("resize", () => moveHighlight(true));

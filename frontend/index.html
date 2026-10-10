@@ -16,7 +16,8 @@
       document.documentElement.setAttribute("data-theme", theme);
     })();
   </script>
-  <title>MeenuRaksha: pond early warning</title>
+  <title>MeenuRaksha · Pond water early warning</title>
+  <meta name="description" content="Early warning for small fish ponds in coastal Karnataka: shows when pond water is Safe, Warning or Danger, with steps to take, in Kannada and English. Demo uses simulated sensor data.">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%2388cce6' d='M12 2s7 7.6 7 12.5A7 7 0 0 1 5 14.5C5 9.6 12 2 12 2Z'/%3E%3C/svg%3E">
   <link rel="stylesheet" href="/fonts/fonts.css">
   <link rel="stylesheet" href="/styles.css">
@@ -51,6 +52,20 @@
         <span class="welcome-name-kn" lang="kn">ಮೀನುರಕ್ಷಾ</span>
       </h1>
       <p class="welcome-tagline" data-i18n="welcomeTagline">Pond water warnings before your fish are in danger.</p>
+      <!-- A real alert, as the dashboard shows it (fixed example, so it is labelled simulated). -->
+      <figure class="welcome-example">
+        <figcaption class="welcome-example-head">
+          <span data-i18n="welcomeExample">What a warning looks like</span>
+          <span class="sim-tag" data-i18n="simulatedTag">Simulated data</span>
+        </figcaption>
+        <div class="status-banner status-warning">
+          <span class="status-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M1 21h22L12 2 1 21Zm12-3h-2v-2h2v2Zm0-4h-2v-4h2v4Z"/></svg></span>
+          <div>
+            <p class="status-level" data-i18n="welcomeExampleLevel">Warning</p>
+            <p class="status-summary" data-i18n="welcomeExampleText">Pond 1: oxygen is low (3.8 mg/L). Run the aerator tonight.</p>
+          </div>
+        </div>
+      </figure>
       <button type="button" class="welcome-start" id="welcome-start">
         <span data-i18n="start">Start</span>
         <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h12m-5-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -61,7 +76,6 @@
   <!-- Dashboard background waves (decoration). Outside .dashboard on purpose: the
        Start transition leaves a transform on .dashboard, which would stop
        position: fixed from staying put while the page scrolls. -->
-  <div class="page-glow" aria-hidden="true"></div>
   <div class="page-bg" aria-hidden="true"></div>
 
   <!-- ============ Dashboard (inert until Start is pressed) ============ -->
@@ -241,7 +255,7 @@
         </section>
 
         <section class="readings-block" aria-labelledby="readings-title">
-          <div class="readings-head" data-doodle="wave"><h2 id="readings-title" class="text-effect" data-i18n="readingsTitle">Latest readings</h2></div>
+          <div class="readings-head"><h2 id="readings-title" class="text-effect" data-i18n="readingsTitle">Latest readings</h2></div>
           <div class="readings" id="readings"></div>
           <p class="sensor-errors" id="sensor-errors" hidden></p>
         </section>
@@ -349,7 +363,6 @@
           <div class="assistant-head">
             <h2 id="assistant-title" class="text-effect" data-i18n="assistantTitle">Ask MeenuRaksha</h2>
             <p class="manual-tag ai-tag">
-              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 2l1.8 5.2L19 9l-5.2 1.8L12 16l-1.8-5.2L5 9l5.2-1.8L12 2Zm7 12 .9 2.1L22 17l-2.1.9L19 20l-.9-2.1L16 17l2.1-.9L19 14Z"/></svg>
               <strong id="assistant-label">AI assistant: can make mistakes</strong>
             </p>
           </div>
@@ -438,9 +451,25 @@
           <p class="weather-offline" id="weather-offline" hidden></p>
         </div>
       </section>
-      <p class="team-credit"><svg class="orbit-logo" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path class="lg-drop" d="M16 8c0 0 5 5.6 5 9a5 5 0 0 1-10 0c0-3.4 5-9 5-9Z"/><ellipse class="lg-ring" cx="16" cy="17" rx="14" ry="5.5" transform="rotate(-18 16 17)"/><circle class="lg-moon" cx="29.3" cy="12.7" r="2.2"/></svg><span data-i18n="builtBy">Built by Team Orbit</span></p>
-      <button type="button" class="button-ghost sources-open" id="sources-open" aria-haspopup="dialog" data-i18n="sourcesTitle">Data sources</button>
       </div>
+    </footer>
+
+    <!-- Site footer: who made it, where the data comes from, privacy, source code. -->
+    <footer class="site-footer">
+      <div class="site-footer-row">
+        <p class="team-credit"><svg class="orbit-logo" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path class="lg-drop" d="M16 8c0 0 5 5.6 5 9a5 5 0 0 1-10 0c0-3.4 5-9 5-9Z"/><ellipse class="lg-ring" cx="16" cy="17" rx="14" ry="5.5" transform="rotate(-18 16 17)"/><circle class="lg-moon" cx="29.3" cy="12.7" r="2.2"/></svg><span data-i18n="builtBy">Built by Team Orbit</span></p>
+        <div class="site-footer-links">
+          <button type="button" class="button-ghost sources-open" id="sources-open" aria-haspopup="dialog" data-i18n="sourcesTitle">Data sources</button>
+          <a class="footer-link" href="https://github.com/joylandsouza2008-ops/DevHack" target="_blank" rel="noopener">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m8 7-5 5 5 5M16 7l5 5-5 5M13.5 4l-3 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span data-i18n="footerCode">Source code on GitHub</span>
+          </a>
+        </div>
+      </div>
+      <p class="footer-privacy">
+        <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3 5 6v5.5c0 4.3 3 8 7 9.5 4-1.5 7-5.2 7-9.5V6l-7-3Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+        <span data-i18n="footerPrivacy">Privacy: no account needed. The app never uses your camera, photos or location. Alert history stays on this phone. Test-kit numbers go to our server only to check them. Assistant questions may also go to an AI service.</span>
+      </p>
     </footer>
 
     <!-- Data sources panel: what we use instead of live sensors (full list: docs/data-sources.md). -->
