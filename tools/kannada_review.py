@@ -38,6 +38,7 @@ FRONTEND_SCREENS = [
     ("Test-kit readings", ["kit"]),
     ("Live sensor", ["live"]),
     ("Fish disease guide (page labels)", ["guide", "checker", "library", "noPhoto", "likely"]),
+    ("Ask MeenuRaksha assistant (page labels)", ["assistant"]),
     ("Voice alert", ["voice"]),
     ("Alert history", ["history"]),
     ("Data sources panel (footer)", ["sources"]),
@@ -88,7 +89,7 @@ def pairs_in(obj, path=""):
 
 def backend_groups() -> list[tuple[str, str, list]]:
     """(heading, note, rows) for the text the API sends to the page."""
-    from backend import actions, alerts, diseases, main, risk_messages, sensor, simulator, weather
+    from backend import actions, alerts, assistant, diseases, main, risk_messages, sensor, simulator, weather
 
     def rows(module, *names):
         return [(f"{module.__name__.split('.')[-1]}.{p}", en, kn)
@@ -124,6 +125,17 @@ def backend_groups() -> list[tuple[str, str, list]]:
               "GASPING_NOTE", "LIKELY_NOTE")),
         ("Fish disease guide: risky readings", "Why a reading makes a disease more likely.",
          rows(diseases, "READING_LINKS")),
+        ("Ask MeenuRaksha assistant", "Labels, safety replies and the suggested questions. Ready answers are "
+         "built from the texts in the other sections. AI replies in Kannada are written by the AI and are not in "
+         "this sheet.",
+         rows(assistant, "LABEL", "I_DONT_KNOW", "CONFIRM", "NO_TREATMENT", "OFFLINE_NOTE", "LIMITED_NOTE",
+              "SIMULATED_NOTE", "QUESTIONS", "NO_READINGS", "ALL_SAFE_ACTION", "NO_LIKELY", "USE_CHECKER",
+              "LEVELS_INTRO", "AMMONIA_NOTE") + [
+             *[(f"assistant.BAND.{key}", en, kn) for key, en, kn in
+               ((k, assistant.BAND["en"][k].strip(), assistant.BAND["kn"][k].strip()) for k in assistant.BAND["en"])
+               if KANNADA.search(kn)],
+             ("assistant._answer (tonight)", "Oxygen crash risk tonight: {level}.", "ಇಂದು ರಾತ್ರಿ ಆಮ್ಲಜನಕ ಕುಸಿತದ ಅಪಾಯ: {level}."),
+         ]),
         ("Alert preview (SMS / WhatsApp)", "The SMS and WhatsApp text is built from the risk card "
          "and time-until-danger messages above, plus these.",
          rows(alerts, "POND_NAMES", "APP_NAME", "NO_ALERT")),

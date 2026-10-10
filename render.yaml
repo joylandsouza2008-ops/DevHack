@@ -22,3 +22,8 @@ services:
         sync: false
       - key: SENSOR_KEY_POND3
         sync: false
+      # "Ask MeenuRaksha" assistant (docs/assistant.md). The key is typed into Render, never written here.
+      - key: ASSISTANT_PROVIDER
+        value: gemini
+      - key: ASSISTANT_API_KEY
+        sync: false

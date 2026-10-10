@@ -51,6 +51,14 @@ def no_internet(monkeypatch):
 
 
 @pytest.fixture(autouse=True)
+def no_real_ai(monkeypatch):
+    # The assistant must never call a real AI in tests: no key = no provider.
+    # Tests that need replies use a fake provider (see tests/test_assistant.py).
+    for name in ("ASSISTANT_API_KEY", "ASSISTANT_PROVIDER", "ASSISTANT_MODEL", "ASSISTANT_BASE_URL"):
+        monkeypatch.delenv(name, raising=False)
+
+
+@pytest.fixture(autouse=True)
 def fake_weather_cache(monkeypatch, tmp_path):
     # Never read or overwrite the real saved forecast in data/.
     import backend.weather as weather

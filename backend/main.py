@@ -15,6 +15,8 @@ Endpoints:
     GET  /api/simulator/stream       live stream of SIMULATED readings (Server-Sent Events)
     GET  /api/diseases               the fish disease guide (library, signs, sources)
     POST /api/diseases/check         "possible matches" for the signs a farmer ticked (never a diagnosis)
+    POST /api/assistant/suggestions  "Ask MeenuRaksha": suggested questions with ready answers (no AI)
+    POST /api/assistant/ask          "Ask MeenuRaksha": one question, answered only from the app's content
     GET  /api/weather/tonight        tonight's oxygen crash risk from the real weather forecast
     POST /api/sensor/{pond_id}       one reading from a REAL pond sensor (needs the pond's key)
     GET  /api/sensor/{pond_id}       the latest live-sensor reading for a pond
@@ -35,13 +37,14 @@ from pathlib import Path
 from typing import Literal
 
 import pandas as pd
-from fastapi import FastAPI, Header, HTTPException, Query
+from fastapi import FastAPI, Header, HTTPException, Query, Request
 from fastapi.responses import JSONResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
-from backend import diseases, sensor
+from backend import assistant, diseases, sensor
 from backend.actions import checklist
+from backend.ai_provider import provider_from_env
 from backend.alerts import POND_NAMES, compose_alert
 from backend.do_features import STEP_MINUTES
 from backend.health_score import health_score
@@ -101,6 +104,26 @@ class SensorReading(BaseModel):
 class SignsSeen(BaseModel):
     """Signs the farmer ticked in the symptom checker (ids from GET /api/diseases)."""
     signs: list[str] = Field(..., max_length=50, examples=[["white_spots", "rubbing"]])
+
+
+class PageReadings(BaseModel):
+    """The readings the page is showing right now (the server grades them again itself)."""
+    station: Literal["station1", "station2", "station3"] = "station1"
+    simulated: Readings | None = None
+    manual: Readings | None = None
+    live_sensor: Readings | None = None
+
+
+class ChatMessage(BaseModel):
+    role: Literal["user", "assistant"]
+    content: str = Field(..., max_length=1500)
+
+
+class Question(PageReadings):
+    """One question for "Ask MeenuRaksha"."""
+    question: str = Field(..., min_length=1, max_length=500)
+    lang: Literal["en", "kn"] = "kn"
+    history: list[ChatMessage] = Field(default_factory=list, max_length=8)
 
 
 class DOReading(BaseModel):
@@ -166,6 +189,52 @@ def disease_guide() -> dict:
 def disease_check(seen: SignsSeen) -> dict:
     """Possible matches for the ticked signs. Never a diagnosis: always says to confirm with a fisheries officer."""
     return diseases.check(seen.signs)
+
+
+# ----------------------------------------------------------------- "Ask MeenuRaksha" assistant
+# The AI is called from here only; its provider and key come from environment
+# variables (backend/ai_provider.py). Safety rules: backend/assistant.py.
+
+assistant_limiter = assistant.RateLimiter()
+
+
+def _visitor(request: Request) -> str:
+    """Who is asking, for the per-visitor rate limit. Render puts the visitor's address first in
+    X-Forwarded-For. It can be faked, which is why there is also a daily total for everyone."""
+    forwarded = request.headers.get("x-forwarded-for", "")
+    return forwarded.split(",")[0].strip() or (request.client.host if request.client else "unknown")
+
+
+def _evaluate(page: PageReadings) -> list[dict]:
+    readings = {source: getattr(page, source).model_dump(exclude_none=True) if getattr(page, source) else None
+                for source in ("simulated", "manual", "live_sensor")}
+    return assistant.evaluate(readings, page.station, assess)
+
+
+@app.post("/api/assistant/suggestions")
+def assistant_suggestions(page: PageReadings) -> dict:
+    """Suggested questions with ready answers built from the app's content. Never calls the AI."""
+    evals = _evaluate(page)
+    return {"label": assistant.LABEL, "ai_available": provider_from_env() is not None,
+            "used": [e["source"] for e in evals],
+            "suggestions": assistant.suggestions(evals, tonight_crash_risk())}
+
+
+@app.post("/api/assistant/ask")
+def assistant_ask(question: Question, request: Request) -> dict:
+    """
+    One question, answered only from the app's content, in English or Kannada.
+    No key, an error or the rate limit -> mode "offline" / "limited" plus the
+    suggested questions with ready answers, so the page always has something to show.
+    """
+    evals = _evaluate(question)
+    weather = tonight_crash_risk()
+    result = assistant.ask(question.question, question.lang, evals, weather, provider_from_env(),
+                           assistant_limiter, _visitor(request), [m.model_dump() for m in question.history])
+    result.update(label=assistant.LABEL, used=[e["source"] for e in evals])
+    if result["text"] is None:
+        result["suggestions"] = assistant.suggestions(evals, weather)
+    return result
 
 
 @app.post("/api/time-to-danger")

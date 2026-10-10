@@ -68,6 +68,12 @@ add `SENSOR_KEY_POND1` (and `_POND2`, `_POND3` if needed) under the service's
 **Environment** tab. Render may already list them, empty, from `render.yaml`. Never put a key in
 the code or in git. Full steps: [docs/sensor-api.md](sensor-api.md#1-the-pond-key).
 
+### AI assistant key (optional)
+
+Without a key, "Ask MeenuRaksha" still works with its ready answers. To turn on AI answers, add
+`ASSISTANT_API_KEY` (and `ASSISTANT_PROVIDER`, normally `gemini`) under the service's **Environment** tab.
+Steps and provider choice: [docs/assistant.md](assistant.md).
+
 ### If something goes wrong
 
 - **Build fails at `pip install` with a Python version error**: in `render.yaml`, change `PYTHON_VERSION` to `3.13.0`, commit and push.

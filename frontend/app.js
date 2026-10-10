@@ -121,6 +121,16 @@ const TEXT = {
     noPhotoLink: "See the test results",
     likelyTitle: "Diseases more likely now",
     likelyNote: "This does not mean your fish are sick. Watch them closely and use the Fish disease guide if you see signs.",
+    assistantTitle: "Ask MeenuRaksha", assistantLabel: "AI assistant: can make mistakes",
+    assistantHelp: "Ask about your readings, safe levels, tonight's weather or fish diseases. Answers come only from this app's own information.",
+    assistantPrivacy: "Do not type your name, phone number or other personal details.",
+    assistantSuggested: "Suggested questions (ready answers)",
+    assistantAsk: "Your question", assistantSend: "Ask", assistantYou: "You",
+    assistantThinking: "Thinking…",
+    assistantAiAnswer: "AI answer", assistantReady: "Ready answer from the app", assistantSafety: "Safety answer from the app",
+    assistantListen: "Listen", assistantNotice: "Message from the app",
+    assistantEmpty: "Type a question first, or tap a suggested question.",
+    assistantFailed: "Could not reach the app server. Tap a suggested question for a ready answer.",
     historyKit: "Test kit",
     historySensor: "Live sensor", historyDemo: "Demo device",
     historySimTime: "Simulated time",
@@ -237,6 +247,16 @@ const TEXT = {
     noPhotoLink: "ಪರೀಕ್ಷೆಯ ಫಲಿತಾಂಶಗಳನ್ನು ನೋಡಿ",
     likelyTitle: "ಈಗ ಹೆಚ್ಚು ಸಾಧ್ಯತೆಯಿರುವ ರೋಗಗಳು",
     likelyNote: "ಇದರ ಅರ್ಥ ನಿಮ್ಮ ಮೀನುಗಳಿಗೆ ರೋಗ ಬಂದಿದೆ ಎಂದಲ್ಲ. ಅವುಗಳನ್ನು ಗಮನವಿಟ್ಟು ನೋಡಿ, ಲಕ್ಷಣಗಳು ಕಂಡರೆ ಮೀನು ರೋಗ ಮಾರ್ಗದರ್ಶಿ ಬಳಸಿ.",
+    assistantTitle: "ಮೀನುರಕ್ಷಾವನ್ನು ಕೇಳಿ", assistantLabel: "AI ಸಹಾಯಕ: ತಪ್ಪುಗಳಾಗಬಹುದು",
+    assistantHelp: "ನಿಮ್ಮ ಅಳತೆಗಳು, ಸುರಕ್ಷಿತ ಮಟ್ಟಗಳು, ಇಂದು ರಾತ್ರಿಯ ಹವಾಮಾನ ಅಥವಾ ಮೀನು ರೋಗಗಳ ಬಗ್ಗೆ ಕೇಳಿ. ಉತ್ತರಗಳು ಈ ಆ್ಯಪ್‌ನ ಸ್ವಂತ ಮಾಹಿತಿಯಿಂದ ಮಾತ್ರ ಬರುತ್ತವೆ.",
+    assistantPrivacy: "ನಿಮ್ಮ ಹೆಸರು, ಫೋನ್ ಸಂಖ್ಯೆ ಅಥವಾ ಇತರ ವೈಯಕ್ತಿಕ ವಿವರಗಳನ್ನು ಬರೆಯಬೇಡಿ.",
+    assistantSuggested: "ಸೂಚಿಸಿದ ಪ್ರಶ್ನೆಗಳು (ಸಿದ್ಧ ಉತ್ತರಗಳು)",
+    assistantAsk: "ನಿಮ್ಮ ಪ್ರಶ್ನೆ", assistantSend: "ಪ್ರಶ್ನೆ ಕೇಳಿ", assistantYou: "ನೀವು",
+    assistantThinking: "ಯೋಚಿಸುತ್ತಿದೆ…",
+    assistantAiAnswer: "AI ಉತ್ತರ", assistantReady: "ಆ್ಯಪ್‌ನ ಸಿದ್ಧ ಉತ್ತರ", assistantSafety: "ಆ್ಯಪ್‌ನ ಸುರಕ್ಷತಾ ಉತ್ತರ",
+    assistantListen: "ಆಲಿಸಿ", assistantNotice: "ಆ್ಯಪ್‌ನ ಸಂದೇಶ",
+    assistantEmpty: "ಮೊದಲು ಪ್ರಶ್ನೆ ಬರೆಯಿರಿ, ಅಥವಾ ಸೂಚಿಸಿದ ಪ್ರಶ್ನೆಯೊಂದನ್ನು ಒತ್ತಿ.",
+    assistantFailed: "ಆ್ಯಪ್ ಸರ್ವರ್ ತಲುಪಲು ಆಗಲಿಲ್ಲ. ಸಿದ್ಧ ಉತ್ತರಕ್ಕಾಗಿ ಸೂಚಿಸಿದ ಪ್ರಶ್ನೆಯೊಂದನ್ನು ಒತ್ತಿ.",
     historyKit: "ಟೆಸ್ಟ್ ಕಿಟ್",
     historySensor: "ಲೈವ್ ಸೆನ್ಸರ್", historyDemo: "ಡೆಮೊ ಸಾಧನ",
     historySimTime: "ಅನುಕರಿಸಿದ ಸಮಯ",
@@ -323,6 +343,7 @@ function setLanguage(lang) {
   renderLive();
   renderAlert();
   window.DiseaseGuide.render(lang, TEXT[lang]);
+  window.Assistant.setLanguage(lang, TEXT[lang]);
   if (!state.last) renderHealth(null, "unknown", lang);
   renderHistory();
   renderVoice();
@@ -1108,6 +1129,13 @@ setTheme(document.documentElement.getAttribute("data-theme") === "light" ? "ligh
 $("voice-button").addEventListener("click", toggleVoice);
 state.history = H.load();
 window.DiseaseGuide.init(loadLanguage(), TEXT[loadLanguage()]);   // the guide works before Start, too
+// The assistant gets the readings the page is showing; the server grades them again itself.
+window.Assistant.init(() => ({
+  station: state.station,
+  simulated: state.last ? state.last.reading : null,
+  manual: state.manual ? state.manual.reading : null,
+  live_sensor: state.live && state.live.latest ? state.live.latest.reading : null,
+}), loadLanguage(), TEXT[loadLanguage()]);
 
 setLanguage(loadLanguage());
 

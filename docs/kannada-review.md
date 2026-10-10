@@ -8,7 +8,7 @@ coastal Karnataka to understand. Write any fix in the last column.
 - `A  /  B` means the app shows one of two versions, depending on the situation.
 - Unit symbols (mg/L, °C, km/h, pH) and the names SMS, WhatsApp, FAO, TNAU, Open-Meteo stay in English.
 
-321 strings. Generated from the code by `python tools/kannada_review.py`; re-run it after changing any text.
+367 strings. Generated from the code by `python tools/kannada_review.py`; re-run it after changing any text.
 
 ## 1. Language and theme switches
 
@@ -194,7 +194,28 @@ Shown over the day/night pond picture.
 | 30 | `app.js likelyTitle` | Diseases more likely now | ಈಗ ಹೆಚ್ಚು ಸಾಧ್ಯತೆಯಿರುವ ರೋಗಗಳು |  |
 | 31 | `app.js likelyNote` | This does not mean your fish are sick. Watch them closely and use the Fish disease guide if you see signs. | ಇದರ ಅರ್ಥ ನಿಮ್ಮ ಮೀನುಗಳಿಗೆ ರೋಗ ಬಂದಿದೆ ಎಂದಲ್ಲ. ಅವುಗಳನ್ನು ಗಮನವಿಟ್ಟು ನೋಡಿ, ಲಕ್ಷಣಗಳು ಕಂಡರೆ ಮೀನು ರೋಗ ಮಾರ್ಗದರ್ಶಿ ಬಳಸಿ. |  |
 
-## 14. Voice alert
+## 14. Ask MeenuRaksha assistant (page labels)
+
+| # | Where in the code | English | Kannada | Correct? / suggestion |
+|---|---|---|---|---|
+| 1 | `app.js assistantTitle` | Ask MeenuRaksha | ಮೀನುರಕ್ಷಾವನ್ನು ಕೇಳಿ |  |
+| 2 | `app.js assistantLabel` | AI assistant: can make mistakes | AI ಸಹಾಯಕ: ತಪ್ಪುಗಳಾಗಬಹುದು |  |
+| 3 | `app.js assistantHelp` | Ask about your readings, safe levels, tonight's weather or fish diseases. Answers come only from this app's own information. | ನಿಮ್ಮ ಅಳತೆಗಳು, ಸುರಕ್ಷಿತ ಮಟ್ಟಗಳು, ಇಂದು ರಾತ್ರಿಯ ಹವಾಮಾನ ಅಥವಾ ಮೀನು ರೋಗಗಳ ಬಗ್ಗೆ ಕೇಳಿ. ಉತ್ತರಗಳು ಈ ಆ್ಯಪ್‌ನ ಸ್ವಂತ ಮಾಹಿತಿಯಿಂದ ಮಾತ್ರ ಬರುತ್ತವೆ. |  |
+| 4 | `app.js assistantPrivacy` | Do not type your name, phone number or other personal details. | ನಿಮ್ಮ ಹೆಸರು, ಫೋನ್ ಸಂಖ್ಯೆ ಅಥವಾ ಇತರ ವೈಯಕ್ತಿಕ ವಿವರಗಳನ್ನು ಬರೆಯಬೇಡಿ. |  |
+| 5 | `app.js assistantSuggested` | Suggested questions (ready answers) | ಸೂಚಿಸಿದ ಪ್ರಶ್ನೆಗಳು (ಸಿದ್ಧ ಉತ್ತರಗಳು) |  |
+| 6 | `app.js assistantAsk` | Your question | ನಿಮ್ಮ ಪ್ರಶ್ನೆ |  |
+| 7 | `app.js assistantSend` | Ask | ಪ್ರಶ್ನೆ ಕೇಳಿ |  |
+| 8 | `app.js assistantYou` | You | ನೀವು |  |
+| 9 | `app.js assistantThinking` | Thinking… | ಯೋಚಿಸುತ್ತಿದೆ… |  |
+| 10 | `app.js assistantAiAnswer` | AI answer | AI ಉತ್ತರ |  |
+| 11 | `app.js assistantReady` | Ready answer from the app | ಆ್ಯಪ್‌ನ ಸಿದ್ಧ ಉತ್ತರ |  |
+| 12 | `app.js assistantSafety` | Safety answer from the app | ಆ್ಯಪ್‌ನ ಸುರಕ್ಷತಾ ಉತ್ತರ |  |
+| 13 | `app.js assistantListen` | Listen | ಆಲಿಸಿ |  |
+| 14 | `app.js assistantNotice` | Message from the app | ಆ್ಯಪ್‌ನ ಸಂದೇಶ |  |
+| 15 | `app.js assistantEmpty` | Type a question first, or tap a suggested question. | ಮೊದಲು ಪ್ರಶ್ನೆ ಬರೆಯಿರಿ, ಅಥವಾ ಸೂಚಿಸಿದ ಪ್ರಶ್ನೆಯೊಂದನ್ನು ಒತ್ತಿ. |  |
+| 16 | `app.js assistantFailed` | Could not reach the app server. Tap a suggested question for a ready answer. | ಆ್ಯಪ್ ಸರ್ವರ್ ತಲುಪಲು ಆಗಲಿಲ್ಲ. ಸಿದ್ಧ ಉತ್ತರಕ್ಕಾಗಿ ಸೂಚಿಸಿದ ಪ್ರಶ್ನೆಯೊಂದನ್ನು ಒತ್ತಿ. |  |
+
+## 15. Voice alert
 
 | # | Where in the code | English | Kannada | Correct? / suggestion |
 |---|---|---|---|---|
@@ -204,7 +225,7 @@ Shown over the day/night pond picture.
 | 4 | `app.js voiceNoEnglish` | Sorry, this phone has no English voice. Please read the alert on the screen. | ಕ್ಷಮಿಸಿ, ಈ ಫೋನ್‌ನಲ್ಲಿ ಇಂಗ್ಲಿಷ್ ಧ್ವನಿ ಇಲ್ಲ. ದಯವಿಟ್ಟು ಪರದೆಯ ಮೇಲಿನ ಎಚ್ಚರಿಕೆಯನ್ನು ಓದಿ. |  |
 | 5 | `app.js voiceUnsupported` | Sorry, this browser cannot read aloud. Please read the alert on the screen. | ಕ್ಷಮಿಸಿ, ಈ ಬ್ರೌಸರ್ ಓದಿ ಹೇಳಲು ಆಗುವುದಿಲ್ಲ. ದಯವಿಟ್ಟು ಪರದೆಯ ಮೇಲಿನ ಎಚ್ಚರಿಕೆಯನ್ನು ಓದಿ. |  |
 
-## 15. Alert history
+## 16. Alert history
 
 | # | Where in the code | English | Kannada | Correct? / suggestion |
 |---|---|---|---|---|
@@ -220,7 +241,7 @@ Shown over the day/night pond picture.
 | 10 | `app.js historyActionTaken` | Action taken: | ತೆಗೆದುಕೊಂಡ ಕ್ರಮ: |  |
 | 11 | `app.js historyNoAction` | No action ticked yet. | ಇನ್ನೂ ಯಾವುದೇ ಕ್ರಮವನ್ನು ಗುರುತಿಸಿಲ್ಲ. |  |
 
-## 16. Data sources panel (footer)
+## 17. Data sources panel (footer)
 
 | # | Where in the code | English | Kannada | Correct? / suggestion |
 |---|---|---|---|---|
@@ -239,7 +260,7 @@ Shown over the day/night pond picture.
 | 13 | `app.js sourcesFishLicence` | Licence: CC0 (public domain). | ಪರವಾನಗಿ: CC0 (ಸಾರ್ವಜನಿಕ ಸ್ವತ್ತು). |  |
 | 14 | `app.js sourcesFull` | Full list with links and licences | ಲಿಂಕ್‌ಗಳು ಮತ್ತು ಪರವಾನಗಿಗಳ ಪೂರ್ಣ ಪಟ್ಟಿ |  |
 
-## 17. Messages from the server: Data labels
+## 18. Messages from the server: Data labels
 
 Shown on every simulated, test-kit or live-sensor reading.
 
@@ -250,7 +271,7 @@ Shown on every simulated, test-kit or live-sensor reading.
 | 3 | `sensor.LIVE_LABEL` | Live sensor | ಲೈವ್ ಸೆನ್ಸರ್ |  |
 | 4 | `sensor.DEMO_LABEL` | Demo device: simulated readings, not a real pond | ಡೆಮೊ ಸಾಧನ: ಅನುಕರಿಸಿದ (ಸಿಮ್ಯುಲೇಟೆಡ್) ಅಳತೆಗಳು, ನಿಜವಾದ ಕೊಳವಲ್ಲ |  |
 
-## 18. Messages from the server: Live sensor: why a reading was refused
+## 19. Messages from the server: Live sensor: why a reading was refused
 
 Sent back to the sensor and shown on the Live sensor card.
 
@@ -263,7 +284,7 @@ Sent back to the sensor and shown on the Live sensor card.
 | 5 | `sensor.NO_TIME_ZONE` | The timestamp has no time zone. Add +05:30 or Z. Check the sensor clock. | ಸಮಯದಲ್ಲಿ ಟೈಮ್ ಝೋನ್ ಇಲ್ಲ. +05:30 ಅಥವಾ Z ಸೇರಿಸಿ. ಸೆನ್ಸರ್ ಗಡಿಯಾರ ಪರಿಶೀಲಿಸಿ. |  |
 | 6 | `sensor.TOO_OLD` | The timestamp is more than a day old. Check the sensor clock. | ಸಮಯ ಒಂದು ದಿನಕ್ಕಿಂತ ಹಳೆಯದು. ಸೆನ್ಸರ್ ಗಡಿಯಾರ ಪರಿಶೀಲಿಸಿ. |  |
 
-## 19. Messages from the server: Risk card: level names, parameter names and reasons
+## 20. Messages from the server: Risk card: level names, parameter names and reasons
 
 `{value}` and `{unit}` are filled in by the app, e.g. 4.1 mg/L. `{name}` is a parameter name.
 
@@ -299,7 +320,7 @@ Sent back to the sensor and shown on the Live sensor card.
 | 28 | `risk_messages.NO_VALID_READINGS` | No valid readings. Check the sensors. | ಸರಿಯಾದ ಅಳತೆಗಳು ಇಲ್ಲ. ಸೆನ್ಸರ್‌ಗಳನ್ನು ಪರಿಶೀಲಿಸಿ. |  |
 | 29 | `risk_messages.NO_VALID_TEST_KIT_READINGS` | No valid readings. Check your test kit. | ಸರಿಯಾದ ಅಳತೆಗಳು ಇಲ್ಲ. ನಿಮ್ಮ ಟೆಸ್ಟ್ ಕಿಟ್ ಪರಿಶೀಲಿಸಿ. |  |
 
-## 20. Messages from the server: Time until danger (messages)
+## 21. Messages from the server: Time until danger (messages)
 
 `{rate}` e.g. 0.6, `{danger}` e.g. 3, `{clock}` e.g. 03:20, `{hours}` e.g. 6. `{duration_kn}` is one of the two duration phrases below.
 
@@ -313,7 +334,7 @@ Sent back to the sensor and shown on the Live sensor card.
 | 6 | `time_to_danger._duration (under 1 hour)` | about {minutes} minutes | ಸುಮಾರು {minutes} ನಿಮಿಷಗಳಲ್ಲಿ |  |
 | 7 | `time_to_danger._duration (1 hour or more)` | about {text} hours | ಸುಮಾರು {text} ಗಂಟೆಗಳಲ್ಲಿ |  |
 
-## 21. Messages from the server: Tonight's weather (messages)
+## 22. Messages from the server: Tonight's weather (messages)
 
 `{night}` is one or more of the night words joined together, e.g. "cloudy, still".
 
@@ -331,7 +352,7 @@ Sent back to the sensor and shown on the Live sensor card.
 | 10 | `weather.ADVICE.high` | {night} night ahead: keep the aerator ready. | {night} ರಾತ್ರಿ ಬರಲಿದೆ: ಏರೇಟರ್ ಸಿದ್ಧವಾಗಿಡಿ. |  |
 | 11 | `weather.UNAVAILABLE` | No internet and no saved forecast. Tonight's weather is not known. | ಇಂಟರ್ನೆಟ್ ಇಲ್ಲ, ಉಳಿಸಿದ ಮುನ್ಸೂಚನೆಯೂ ಇಲ್ಲ. ಇಂದು ರಾತ್ರಿಯ ಹವಾಮಾನ ತಿಳಿದಿಲ್ಲ. |  |
 
-## 22. Messages from the server: What to do now (checklist items)
+## 23. Messages from the server: What to do now (checklist items)
 
 | # | Where in the code | English | Kannada | Correct? / suggestion |
 |---|---|---|---|---|
@@ -348,7 +369,7 @@ Sent back to the sensor and shown on the Live sensor card.
 | 11 | `actions.ACTIONS.retest_ph_morning` | Test pH again early tomorrow morning. pH is highest in the afternoon and falls by morning. | ನಾಳೆ ಬೆಳಿಗ್ಗೆ ಬೇಗ pH ಮತ್ತೆ ಪರೀಕ್ಷಿಸಿ. ಮಧ್ಯಾಹ್ನ pH ಅತಿ ಹೆಚ್ಚಿರುತ್ತದೆ, ಬೆಳಿಗ್ಗೆಗೆ ಕಡಿಮೆಯಾಗುತ್ತದೆ. |  |
 | 12 | `actions.ACTIONS.retest_ph_afternoon` | Test pH again this afternoon. pH is lowest in the early morning and rises during the day. | ಇಂದು ಮಧ್ಯಾಹ್ನ pH ಮತ್ತೆ ಪರೀಕ್ಷಿಸಿ. ಬೆಳಿಗ್ಗೆ pH ಅತಿ ಕಡಿಮೆ ಇರುತ್ತದೆ, ಹಗಲಿನಲ್ಲಿ ಏರುತ್ತದೆ. |  |
 
-## 23. Messages from the server: Fish disease guide: diseases
+## 24. Messages from the server: Fish disease guide: diseases
 
 Disease names, signs, seasons, prevention and what to do. Scientific names (e.g. Aphanomyces invadans) stay in Latin.
 
@@ -414,7 +435,7 @@ Disease names, signs, seasons, prevention and what to do. Scientific names (e.g.
 | 58 | `diseases.DISEASES.anchor_worm.prevention[0]` | Check fingerlings for worms before stocking. | ಮರಿಗಳನ್ನು ಬಿಡುವ ಮೊದಲು ಹುಳುಗಳಿವೆಯೇ ಎಂದು ಪರಿಶೀಲಿಸಿ. |  |
 | 59 | `diseases.DISEASES.anchor_worm.prevention[1]` | Before stocking, dry the pond and remove wild fish. | ಮೀನು ಬಿಡುವ ಮೊದಲು, ಕೊಳವನ್ನು ಒಣಗಿಸಿ ಮತ್ತು ಕಾಡು ಮೀನುಗಳನ್ನು ತೆಗೆದುಹಾಕಿ. |  |
 
-## 24. Messages from the server: Fish disease guide: symptom checker and notes
+## 25. Messages from the server: Fish disease guide: symptom checker and notes
 
 The signs a farmer can tick, cause types, the steps for any disease, and the notes shown with every result.
 
@@ -456,7 +477,7 @@ The signs a farmer can tick, cause types, the steps for any disease, and the not
 | 34 | `diseases.GASPING_NOTE` | Gasping at the surface is most often low oxygen, not disease. Check oxygen and run the aerator first. | ಮೇಲ್ಮೈಯಲ್ಲಿ ಏದುಸಿರು ಹೆಚ್ಚಾಗಿ ಕಡಿಮೆ ಆಮ್ಲಜನಕದಿಂದ, ರೋಗದಿಂದಲ್ಲ. ಮೊದಲು ಆಮ್ಲಜನಕ ಪರಿಶೀಲಿಸಿ ಮತ್ತು ಏರೇಟರ್ ಚಾಲೂ ಮಾಡಿ. |  |
 | 35 | `diseases.LIKELY_NOTE` | This does not mean your fish are sick. Watch them closely and use the Fish disease guide if you see signs. | ಇದರ ಅರ್ಥ ನಿಮ್ಮ ಮೀನುಗಳಿಗೆ ರೋಗ ಬಂದಿದೆ ಎಂದಲ್ಲ. ಅವುಗಳನ್ನು ಗಮನವಿಟ್ಟು ನೋಡಿ, ಲಕ್ಷಣಗಳು ಕಂಡರೆ ಮೀನು ರೋಗ ಮಾರ್ಗದರ್ಶಿ ಬಳಸಿ. |  |
 
-## 25. Messages from the server: Fish disease guide: risky readings
+## 26. Messages from the server: Fish disease guide: risky readings
 
 Why a reading makes a disease more likely.
 
@@ -471,7 +492,44 @@ Why a reading makes a disease more likely.
 | 7 | `diseases.READING_LINKS.temperature/low[1][1]` | The white spot parasite multiplies best at 15-25 °C. | ಬಿಳಿ ಚುಕ್ಕೆ ಪರಾವಲಂಬಿ 15-25 °C ನಲ್ಲಿ ಹೆಚ್ಚು ವೃದ್ಧಿಯಾಗುತ್ತದೆ. |  |
 | 8 | `diseases.READING_LINKS.ph/low[0][1]` | EUS outbreaks are linked to acidic water. | EUS ಹರಡುವಿಕೆ ಆಮ್ಲೀಯ ನೀರಿಗೆ ಸಂಬಂಧಿಸಿದೆ. |  |
 
-## 26. Messages from the server: Alert preview (SMS / WhatsApp)
+## 27. Messages from the server: Ask MeenuRaksha assistant
+
+Labels, safety replies and the suggested questions. Ready answers are built from the texts in the other sections. AI replies in Kannada are written by the AI and are not in this sheet.
+
+| # | Where in the code | English | Kannada | Correct? / suggestion |
+|---|---|---|---|---|
+| 1 | `assistant.LABEL` | AI assistant: can make mistakes | AI ಸಹಾಯಕ: ತಪ್ಪುಗಳಾಗಬಹುದು |  |
+| 2 | `assistant.I_DONT_KNOW` | I don't know, please ask your fisheries officer. | ನನಗೆ ಗೊತ್ತಿಲ್ಲ, ದಯವಿಟ್ಟು ನಿಮ್ಮ ಮೀನುಗಾರಿಕೆ ಅಧಿಕಾರಿಯನ್ನು ಕೇಳಿ. |  |
+| 3 | `assistant.CONFIRM` | Please confirm with your fisheries officer / KVK. | ದಯವಿಟ್ಟು ನಿಮ್ಮ ಮೀನುಗಾರಿಕೆ ಅಧಿಕಾರಿ / KVK ಜೊತೆ ಖಚಿತಪಡಿಸಿಕೊಳ್ಳಿ. |  |
+| 4 | `assistant.NO_TREATMENT` | I can't suggest medicines, chemicals or amounts to add, and I can't say which disease your fish have. The Fish disease guide shows possible matches for the signs you see. | ನಾನು ಔಷಧಿ, ರಾಸಾಯನಿಕ ಅಥವಾ ಪ್ರಮಾಣಗಳನ್ನು ಸೂಚಿಸಲು ಆಗುವುದಿಲ್ಲ, ಮತ್ತು ನಿಮ್ಮ ಮೀನುಗಳಿಗೆ ಯಾವ ರೋಗ ಎಂದು ಹೇಳಲು ಆಗುವುದಿಲ್ಲ. ನೀವು ನೋಡುವ ಲಕ್ಷಣಗಳಿಗೆ ಸಾಧ್ಯವಿರುವ ಹೊಂದಾಣಿಕೆಗಳನ್ನು ಮೀನು ರೋಗ ಮಾರ್ಗದರ್ಶಿ ತೋರಿಸುತ್ತದೆ. |  |
+| 5 | `assistant.OFFLINE_NOTE` | The AI assistant is not available right now. Tap a question below for a ready answer from the app. | AI ಸಹಾಯಕ ಈಗ ಲಭ್ಯವಿಲ್ಲ. ಆ್ಯಪ್‌ನ ಸಿದ್ಧ ಉತ್ತರಕ್ಕಾಗಿ ಕೆಳಗಿನ ಪ್ರಶ್ನೆಯೊಂದನ್ನು ಒತ್ತಿ. |  |
+| 6 | `assistant.LIMITED_NOTE` | Too many questions for now. Please wait a minute, or tap a question below for a ready answer. | ಸದ್ಯಕ್ಕೆ ತುಂಬಾ ಪ್ರಶ್ನೆಗಳು. ದಯವಿಟ್ಟು ಒಂದು ನಿಮಿಷ ಕಾಯಿರಿ, ಅಥವಾ ಸಿದ್ಧ ಉತ್ತರಕ್ಕಾಗಿ ಕೆಳಗಿನ ಪ್ರಶ್ನೆಯೊಂದನ್ನು ಒತ್ತಿ. |  |
+| 7 | `assistant.SIMULATED_NOTE` | These are simulated readings from the demo pond, not a real pond. | ಇವು ಡೆಮೊ ಕೊಳದ ಅನುಕರಿಸಿದ (ಸಿಮ್ಯುಲೇಟೆಡ್) ಅಳತೆಗಳು, ನಿಜವಾದ ಕೊಳದ್ದಲ್ಲ. |  |
+| 8 | `assistant.QUESTIONS.pond_now` | Is my pond safe right now? | ನನ್ನ ಕೊಳ ಈಗ ಸುರಕ್ಷಿತವಾಗಿದೆಯೇ? |  |
+| 9 | `assistant.QUESTIONS.what_to_do` | What should I do now? | ನಾನು ಈಗ ಏನು ಮಾಡಬೇಕು? |  |
+| 10 | `assistant.QUESTIONS.tonight` | Is there a risk of an oxygen crash tonight? | ಇಂದು ರಾತ್ರಿ ಆಮ್ಲಜನಕ ಕುಸಿತದ ಅಪಾಯವಿದೆಯೇ? |  |
+| 11 | `assistant.QUESTIONS.safe_levels` | What are the safe levels for oxygen, pH, temperature and ammonia? | ಆಮ್ಲಜನಕ, pH, ತಾಪಮಾನ ಮತ್ತು ಅಮೋನಿಯಾದ ಸುರಕ್ಷಿತ ಮಟ್ಟಗಳು ಯಾವುವು? |  |
+| 12 | `assistant.QUESTIONS.likely_now` | Which diseases are more likely with my readings? | ನನ್ನ ಅಳತೆಗಳಿಂದ ಯಾವ ರೋಗಗಳ ಸಾಧ್ಯತೆ ಹೆಚ್ಚು? |  |
+| 13 | `assistant.QUESTIONS.sick_fish` | My fish look sick. What should I do? | ನನ್ನ ಮೀನುಗಳು ರೋಗಪೀಡಿತವಾಗಿ ಕಾಣುತ್ತಿವೆ. ನಾನು ಏನು ಮಾಡಬೇಕು? |  |
+| 14 | `assistant.QUESTIONS.prevent` | How can I prevent fish diseases? | ಮೀನು ರೋಗಗಳನ್ನು ಹೇಗೆ ತಡೆಯಬಹುದು? |  |
+| 15 | `assistant.NO_READINGS` | There are no readings yet. Press Start, enter test-kit readings, or connect a sensor. | ಇನ್ನೂ ಯಾವುದೇ ಅಳತೆಗಳಿಲ್ಲ. ಪ್ರಾರಂಭಿಸಿ ಒತ್ತಿ, ಟೆಸ್ಟ್ ಕಿಟ್ ಅಳತೆಗಳನ್ನು ನಮೂದಿಸಿ, ಅಥವಾ ಸೆನ್ಸರ್ ಸಂಪರ್ಕಿಸಿ. |  |
+| 16 | `assistant.ALL_SAFE_ACTION` | All readings are in the safe range. No action is needed now. | ಎಲ್ಲಾ ಅಳತೆಗಳು ಸುರಕ್ಷಿತ ಮಟ್ಟದಲ್ಲಿವೆ. ಈಗ ಯಾವುದೇ ಕ್ರಮದ ಅಗತ್ಯವಿಲ್ಲ. |  |
+| 17 | `assistant.NO_LIKELY` | None of your readings makes a disease in the guide more likely right now. | ನಿಮ್ಮ ಯಾವುದೇ ಅಳತೆ ಈಗ ಮಾರ್ಗದರ್ಶಿಯ ಯಾವುದೇ ರೋಗದ ಸಾಧ್ಯತೆಯನ್ನು ಹೆಚ್ಚಿಸುವುದಿಲ್ಲ. |  |
+| 18 | `assistant.USE_CHECKER` | Use the symptom checker in the Fish disease guide to see possible matches. | ಸಾಧ್ಯವಿರುವ ಹೊಂದಾಣಿಕೆಗಳನ್ನು ನೋಡಲು ಮೀನು ರೋಗ ಮಾರ್ಗದರ್ಶಿಯ ಲಕ್ಷಣ ಪರಿಶೀಲಕ ಬಳಸಿ. |  |
+| 19 | `assistant.LEVELS_INTRO` | Safe, Warning and Danger levels used by the app: | ಆ್ಯಪ್ ಬಳಸುವ ಸುರಕ್ಷಿತ, ಎಚ್ಚರಿಕೆ ಮತ್ತು ಅಪಾಯ ಮಟ್ಟಗಳು: |  |
+| 20 | `assistant.AMMONIA_NOTE` | (the toxic part, NH3, worked out from total ammonia, pH and temperature) | (ವಿಷಕಾರಿ ಭಾಗ NH3, ಒಟ್ಟು ಅಮೋನಿಯಾ, pH ಮತ್ತು ತಾಪಮಾನದಿಂದ ಲೆಕ್ಕ ಹಾಕಲಾಗುತ್ತದೆ) |  |
+| 21 | `assistant.BAND.from_to_below` | {a} to below {b} | {a} ರಿಂದ {b} ಕ್ಕಿಂತ ಕಡಿಮೆ |  |
+| 22 | `assistant.BAND.below` | below {a} | {a} ಕ್ಕಿಂತ ಕಡಿಮೆ |  |
+| 23 | `assistant.BAND.above` | above {a} | {a} ಕ್ಕಿಂತ ಹೆಚ್ಚು |  |
+| 24 | `assistant.BAND.or_more` | {a} or more | {a} ಅಥವಾ ಹೆಚ್ಚು |  |
+| 25 | `assistant.BAND.up_to` | up to {b} | {b} ವರೆಗೆ |  |
+| 26 | `assistant.BAND.to_below` | to below {b} | ರಿಂದ {b} ಕ್ಕಿಂತ ಕಡಿಮೆ |  |
+| 27 | `assistant.BAND.or` | or | ಅಥವಾ |  |
+| 28 | `assistant.BAND.line` | {name}: Safe {safe}. Warning {warning}. Danger {danger}. | {name}: ಸುರಕ್ಷಿತ {safe}. ಎಚ್ಚರಿಕೆ {warning}. ಅಪಾಯ {danger}. |  |
+| 29 | `assistant.BAND.no_danger` | {name}: Safe {safe}. Otherwise Warning (no Danger level). | {name}: ಸುರಕ್ಷಿತ {safe}. ಇಲ್ಲದಿದ್ದರೆ ಎಚ್ಚರಿಕೆ (ಅಪಾಯ ಮಟ್ಟ ಇಲ್ಲ). |  |
+| 30 | `assistant._answer (tonight)` | Oxygen crash risk tonight: {level}. | ಇಂದು ರಾತ್ರಿ ಆಮ್ಲಜನಕ ಕುಸಿತದ ಅಪಾಯ: {level}. |  |
+
+## 28. Messages from the server: Alert preview (SMS / WhatsApp)
 
 The SMS and WhatsApp text is built from the risk card and time-until-danger messages above, plus these.
 

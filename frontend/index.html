@@ -343,6 +343,34 @@
           <p class="history-empty" id="history-empty" data-i18n="historyEmpty">No warnings yet.</p>
         </section>
 
+        <!-- "Ask MeenuRaksha" assistant (assistant.js). Answers only from the app's own content
+             (backend/assistant.py); AI called from the server only. Always labelled as AI. -->
+        <section class="card assistant-card in-view" id="assistant" aria-labelledby="assistant-title">
+          <div class="assistant-head">
+            <h2 id="assistant-title" class="text-effect" data-i18n="assistantTitle">Ask MeenuRaksha</h2>
+            <p class="manual-tag ai-tag">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 2l1.8 5.2L19 9l-5.2 1.8L12 16l-1.8-5.2L5 9l5.2-1.8L12 2Zm7 12 .9 2.1L22 17l-2.1.9L19 20l-.9-2.1L16 17l2.1-.9L19 14Z"/></svg>
+              <strong id="assistant-label">AI assistant: can make mistakes</strong>
+            </p>
+          </div>
+          <p class="kit-help" data-i18n="assistantHelp">Ask about your readings, safe levels, tonight's weather or fish diseases. Answers come only from this app's own information.</p>
+          <p class="assistant-privacy" data-i18n="assistantPrivacy">Do not type your name, phone number or other personal details.</p>
+          <ol class="chat-log" id="chat-log" aria-live="polite" hidden></ol>
+          <p class="guide-note" id="assistant-notice" role="status" hidden></p>
+          <p class="voice-note" id="chat-voice-note" role="status" hidden></p>
+          <div class="suggestions">
+            <h3 data-i18n="assistantSuggested">Suggested questions (ready answers)</h3>
+            <div class="suggestion-list" id="suggestion-list"></div>
+          </div>
+          <form class="chat-form" id="chat-form" novalidate>
+            <label class="kit-label" for="chat-input" data-i18n="assistantAsk">Your question</label>
+            <div class="chat-row">
+              <textarea id="chat-input" rows="2" maxlength="500" autocomplete="off"></textarea>
+              <button type="submit" class="button-primary" id="chat-send" data-i18n="assistantSend">Ask</button>
+            </div>
+          </form>
+        </section>
+
         <!-- Fish disease guide (diseases.js): library, symptom checker, sources in docs/diseases.md.
              Possible matches only, never a diagnosis. No medicines or doses. -->
         <section class="card guide-card in-view" id="guide" data-doodle="fish" aria-labelledby="guide-title">
@@ -467,6 +495,7 @@
   <script src="/voice.js"></script>
   <script src="/scene.js"></script>
   <script src="/diseases.js"></script>
+  <script src="/assistant.js"></script>
   <script src="/app.js"></script>
   <script src="/welcome.js"></script>
 </body>

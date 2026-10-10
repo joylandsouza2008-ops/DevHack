@@ -12,6 +12,7 @@ from fastapi.testclient import TestClient
 
 from backend import diseases as D
 from backend.main import app
+from backend.safety import find_banned
 
 client = TestClient(app)
 DOC = (Path(__file__).resolve().parent.parent / "docs" / "diseases.md").read_text(encoding="utf-8")
@@ -87,15 +88,9 @@ def test_all_disease_kannada_is_in_the_review_sheet():
     assert not missing, "re-run python tools/kannada_review.py"
 
 
-BANNED = ["ppm", "kg/ha", "mg/kg", "g/kg", "dose", "dosage", "formalin", "malachite", "permanganate",
-          "salt bath", "dipterex", "dylox", "malathion", "copper sulphate", "bleaching powder",
-          "antibiotic", "oxytetracycline", "terramycin", "ivermectin", "emamectin"]
-
-
 def test_no_chemical_treatments_medicines_or_doses():
-    text = " ".join(all_text(D.library())).lower()
-    for word in BANNED:
-        assert word not in text, word
+    # Same banned-words list as the assistant (backend/safety.py).
+    assert find_banned(" ".join(all_text(D.library()))) == []
 
 
 def test_treatment_note_sends_farmers_to_a_fisheries_officer_or_kvk():
