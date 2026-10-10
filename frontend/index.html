@@ -453,6 +453,7 @@
         <p class="team-credit"><svg class="orbit-logo" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path class="lg-drop" d="M16 8c0 0 5 5.6 5 9a5 5 0 0 1-10 0c0-3.4 5-9 5-9Z"/><ellipse class="lg-ring" cx="16" cy="17" rx="14" ry="5.5" transform="rotate(-18 16 17)"/><circle class="lg-moon" cx="29.3" cy="12.7" r="2.2"/></svg><span data-i18n="builtBy">Built by Team Orbit</span></p>
         <div class="site-footer-links">
           <button type="button" class="button-ghost sources-open" id="sources-open" aria-haspopup="dialog" data-i18n="sourcesTitle">Data sources</button>
+          <button type="button" class="button-ghost sources-open" id="terms-open" aria-haspopup="dialog" data-i18n="termsTitle">Terms &amp; Privacy</button>
           <a class="footer-link" href="https://github.com/joylandsouza2008-ops/DevHack" target="_blank" rel="noopener">
             <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m8 7-5 5 5 5M16 7l5 5-5 5M13.5 4l-3 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             <span data-i18n="footerCode">Source code on GitHub</span>
@@ -500,6 +501,36 @@
           </li>
       </ul>
       <p><a href="https://github.com/joylandsouza2008-ops/DevHack/blob/main/docs/data-sources.md" target="_blank" rel="noopener" data-i18n="sourcesFull">Full list with links and licences</a></p>
+    </dialog>
+
+    <!-- Terms & Privacy panel: plain-words terms, and what happens to your data. -->
+    <dialog class="sources-dialog terms-dialog" id="terms-dialog" aria-labelledby="terms-title">
+      <div class="sources-head">
+        <h2 id="terms-title" data-i18n="termsTitle">Terms &amp; Privacy</h2>
+        <button type="button" class="button-secondary" id="terms-close" data-i18n="termsClose">Close</button>
+      </div>
+      <h3 data-i18n="termsWhatTitle">What this is</h3>
+      <p data-i18n="termsWhat">MeenuRaksha is a free early-warning helper for small fish ponds, built by Team Orbit for DevHack 2026. It helps you decide what to check and when. It does not replace your fisheries officer, KVK or vet, and it cannot promise that your fish will be safe.</p>
+      <h3 data-i18n="termsLimitsTitle">Limits of the data</h3>
+      <p data-i18n="termsLimits">The demo pond's readings are simulated, not from a real pond. Weather forecasts can be wrong. The disease guide shows possible causes, never a diagnosis. The AI assistant can make mistakes. Always confirm before you act.</p>
+      <h3 data-i18n="termsTreatTitle">No chemical or medicine advice</h3>
+      <p data-i18n="termsTreat">The app never suggests chemicals, medicines or amounts to add to the pond. Treatment must come from a fisheries officer or KVK.</p>
+      <h3 data-i18n="termsPrivacyTitle">Privacy</h3>
+      <ul class="terms-list">
+        <li data-i18n="termsNoAccount">No account and no sign-up.</li>
+        <li data-i18n="termsLocation">The app does not ask for your location. Tonight's weather is always for Mangaluru. Your phone gets it straight from Open-Meteo, so Open-Meteo sees your internet address, as any website would.</li>
+        <li data-i18n="termsBrowser">Your language, theme, ticked steps, alert history and the last weather forecast are saved only in this browser. Clearing the browser's data removes them.</li>
+        <li data-i18n="termsServer">Test-kit numbers and the readings on screen go to our server to be checked, and are not saved there. Readings from a pond sensor stay in the server's memory only until it restarts.</li>
+        <li data-i18n="termsAi">Questions to the assistant are sent, with the readings on screen, to the AI service (now Google Gemini) to get an answer. Google's own terms apply to what it receives. Don't type your name, phone number or other personal details.</li>
+        <li data-i18n="termsLogs">To keep the site working and stop misuse, our server and our host (Render) keep short technical records, such as which page was asked for and the internet address it came from.</li>
+        <li data-i18n="termsNoAds">No ads, no tracking, and nothing about you is sold.</li>
+      </ul>
+      <h3 data-i18n="termsDataTitle">Open data and licences</h3>
+      <p data-i18n="termsData">The app uses open datasets and public services. The Data sources list shows each one and its licence.</p>
+      <p><button type="button" class="button-ghost" id="terms-sources" data-i18n="termsDataButton">Open Data sources</button></p>
+      <h3 data-i18n="termsContactTitle">Contact</h3>
+      <p data-i18n="termsContact">MeenuRaksha is made by Team Orbit. For questions or problems, reach us through our GitHub page.</p>
+      <p><a href="https://github.com/joylandsouza2008-ops/DevHack" target="_blank" rel="noopener" data-i18n="termsContactLink">Team Orbit on GitHub</a></p>
     </dialog>
   </div>
 

@@ -42,6 +42,7 @@ FRONTEND_SCREENS = [
     ("Voice alert", ["voice"]),
     ("Alert history", ["history"]),
     ("Data sources panel (footer)", ["sources"]),
+    ("Terms & Privacy panel (footer)", ["terms"]),
     ("Footer (privacy, source code)", ["footer"]),
 ]
 

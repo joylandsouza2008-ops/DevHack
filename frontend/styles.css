@@ -1030,6 +1030,9 @@ button { position: relative; isolation: isolate; overflow: hidden; }
 .sources-list li { padding-top: 1rem; border-top: 1px solid var(--hairline); }
 .sources-list a, .sources-dialog > p > a { color: var(--primary); font-weight: 600; }
 .source-licence { color: var(--text-secondary); font-size: 0.9375rem; }
+/* Terms & Privacy panel: the Data sources panel, with short headed sections. */
+.terms-dialog h3 { margin: 1.25rem 0 0.25rem; font-size: 1.0625rem; }
+.terms-list { margin: 0.25rem 0; padding-left: 1.25rem; display: grid; gap: 0.5rem; }
 
 /* Bottom toolbar: weather on the left, the team credit on the right (below it on phones). */
 .toolbar-row {

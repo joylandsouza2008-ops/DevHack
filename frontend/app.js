@@ -36,6 +36,28 @@ const TEXT = {
     sourcesFishUse: "Fish disease photos for research only. Not used in the app.",
     sourcesFishLicence: "Licence: CC0 (public domain).",
     sourcesFull: "Full list with links and licences",
+    termsTitle: "Terms & Privacy",
+    termsClose: "Close",
+    termsWhatTitle: "What this is",
+    termsWhat: "MeenuRaksha is a free early-warning helper for small fish ponds, built by Team Orbit for DevHack 2026. It helps you decide what to check and when. It does not replace your fisheries officer, KVK or vet, and it cannot promise that your fish will be safe.",
+    termsLimitsTitle: "Limits of the data",
+    termsLimits: "The demo pond's readings are simulated, not from a real pond. Weather forecasts can be wrong. The disease guide shows possible causes, never a diagnosis. The AI assistant can make mistakes. Always confirm before you act.",
+    termsTreatTitle: "No chemical or medicine advice",
+    termsTreat: "The app never suggests chemicals, medicines or amounts to add to the pond. Treatment must come from a fisheries officer or KVK.",
+    termsPrivacyTitle: "Privacy",
+    termsNoAccount: "No account and no sign-up.",
+    termsLocation: "The app does not ask for your location. Tonight's weather is always for Mangaluru. Your phone gets it straight from Open-Meteo, so Open-Meteo sees your internet address, as any website would.",
+    termsBrowser: "Your language, theme, ticked steps, alert history and the last weather forecast are saved only in this browser. Clearing the browser's data removes them.",
+    termsServer: "Test-kit numbers and the readings on screen go to our server to be checked, and are not saved there. Readings from a pond sensor stay in the server's memory only until it restarts.",
+    termsAi: "Questions to the assistant are sent, with the readings on screen, to the AI service (now Google Gemini) to get an answer. Google's own terms apply to what it receives. Don't type your name, phone number or other personal details.",
+    termsLogs: "To keep the site working and stop misuse, our server and our host (Render) keep short technical records, such as which page was asked for and the internet address it came from.",
+    termsNoAds: "No ads, no tracking, and nothing about you is sold.",
+    termsDataTitle: "Open data and licences",
+    termsData: "The app uses open datasets and public services. The Data sources list shows each one and its licence.",
+    termsDataButton: "Open Data sources",
+    termsContactTitle: "Contact",
+    termsContact: "MeenuRaksha is made by Team Orbit. For questions or problems, reach us through our GitHub page.",
+    termsContactLink: "Team Orbit on GitHub",
     simulatedNote: "Not a real pond. For demonstration only.",
     pond: "Pond", pond1: "Pond 1", pond2: "Pond 2", pond3: "Pond 3",
     scenario: "Scenario", scenarioNormal: "Normal day", scenarioCrash: "Night oxygen crash",
@@ -170,6 +192,28 @@ const TEXT = {
     sourcesFishUse: "ಮೀನು ರೋಗದ ಫೋಟೋಗಳು, ಸಂಶೋಧನೆಗೆ ಮಾತ್ರ. ಆಪ್‌ನಲ್ಲಿ ಬಳಸಿಲ್ಲ.",
     sourcesFishLicence: "ಪರವಾನಗಿ: CC0 (ಸಾರ್ವಜನಿಕ ಸ್ವತ್ತು).",
     sourcesFull: "ಲಿಂಕ್‌ಗಳು ಮತ್ತು ಪರವಾನಗಿಗಳ ಪೂರ್ಣ ಪಟ್ಟಿ",
+    termsTitle: "ನಿಯಮಗಳು ಮತ್ತು ಗೌಪ್ಯತೆ",
+    termsClose: "ಮುಚ್ಚಿ",
+    termsWhatTitle: "ಇದು ಏನು",
+    termsWhat: "ಮೀನುರಕ್ಷಾ ಸಣ್ಣ ಮೀನು ಕೊಳಗಳಿಗಾಗಿ ಉಚಿತ ಮುನ್ನೆಚ್ಚರಿಕೆ ಸಹಾಯಕ. ಇದನ್ನು ಟೀಮ್ ಆರ್ಬಿಟ್ DevHack 2026 ಗಾಗಿ ನಿರ್ಮಿಸಿದೆ. ಏನನ್ನು, ಯಾವಾಗ ಪರಿಶೀಲಿಸಬೇಕು ಎಂದು ನಿರ್ಧರಿಸಲು ಇದು ಸಹಾಯ ಮಾಡುತ್ತದೆ. ಇದು ನಿಮ್ಮ ಮೀನುಗಾರಿಕೆ ಅಧಿಕಾರಿ, KVK ಅಥವಾ ಪಶುವೈದ್ಯರ ಬದಲಿಯಲ್ಲ, ಮತ್ತು ನಿಮ್ಮ ಮೀನುಗಳು ಸುರಕ್ಷಿತವಾಗಿರುತ್ತವೆ ಎಂದು ಖಾತರಿ ನೀಡುವುದಿಲ್ಲ.",
+    termsLimitsTitle: "ಡೇಟಾದ ಮಿತಿಗಳು",
+    termsLimits: "ಡೆಮೊ ಕೊಳದ ಅಳತೆಗಳು ಅನುಕರಿಸಿದವು (ಸಿಮ್ಯುಲೇಟೆಡ್), ನಿಜವಾದ ಕೊಳದವಲ್ಲ. ಹವಾಮಾನ ಮುನ್ಸೂಚನೆ ತಪ್ಪಾಗಬಹುದು. ರೋಗ ಮಾರ್ಗದರ್ಶಿ ಸಾಧ್ಯವಿರುವ ಕಾರಣಗಳನ್ನು ಮಾತ್ರ ತೋರಿಸುತ್ತದೆ, ರೋಗನಿರ್ಣಯವನ್ನಲ್ಲ. AI ಸಹಾಯಕ ತಪ್ಪು ಮಾಡಬಹುದು. ಕ್ರಮ ಕೈಗೊಳ್ಳುವ ಮೊದಲು ಯಾವಾಗಲೂ ಖಚಿತಪಡಿಸಿಕೊಳ್ಳಿ.",
+    termsTreatTitle: "ರಾಸಾಯನಿಕ ಅಥವಾ ಔಷಧಿ ಸಲಹೆ ಇಲ್ಲ",
+    termsTreat: "ಆ್ಯಪ್ ಎಂದಿಗೂ ಕೊಳಕ್ಕೆ ಹಾಕಬೇಕಾದ ರಾಸಾಯನಿಕ, ಔಷಧಿ ಅಥವಾ ಪ್ರಮಾಣವನ್ನು ಸೂಚಿಸುವುದಿಲ್ಲ. ಚಿಕಿತ್ಸೆಯನ್ನು ಮೀನುಗಾರಿಕೆ ಅಧಿಕಾರಿ ಅಥವಾ KVK ಮಾತ್ರ ನೀಡಬೇಕು.",
+    termsPrivacyTitle: "ಗೌಪ್ಯತೆ",
+    termsNoAccount: "ಖಾತೆ ಇಲ್ಲ, ನೋಂದಣಿ ಇಲ್ಲ.",
+    termsLocation: "ಆ್ಯಪ್ ನಿಮ್ಮ ಸ್ಥಳವನ್ನು ಕೇಳುವುದಿಲ್ಲ. ಇಂದು ರಾತ್ರಿಯ ಹವಾಮಾನ ಯಾವಾಗಲೂ ಮಂಗಳೂರಿನದು. ನಿಮ್ಮ ಫೋನ್ ಅದನ್ನು ನೇರವಾಗಿ Open-Meteo ಯಿಂದ ಪಡೆಯುತ್ತದೆ, ಆದ್ದರಿಂದ ಯಾವುದೇ ವೆಬ್‌ಸೈಟ್‌ನಂತೆ Open-Meteo ನಿಮ್ಮ ಇಂಟರ್ನೆಟ್ ವಿಳಾಸವನ್ನು ನೋಡುತ್ತದೆ.",
+    termsBrowser: "ನಿಮ್ಮ ಭಾಷೆ, ಥೀಮ್, ಗುರುತು ಹಾಕಿದ ಹಂತಗಳು, ಎಚ್ಚರಿಕೆಗಳ ಇತಿಹಾಸ ಮತ್ತು ಕೊನೆಯ ಹವಾಮಾನ ಮುನ್ಸೂಚನೆ ಈ ಬ್ರೌಸರ್‌ನಲ್ಲಿ ಮಾತ್ರ ಉಳಿಯುತ್ತವೆ. ಬ್ರೌಸರ್‌ನ ಡೇಟಾ ಅಳಿಸಿದರೆ ಅವು ಹೋಗುತ್ತವೆ.",
+    termsServer: "ಟೆಸ್ಟ್-ಕಿಟ್ ಅಳತೆಗಳು ಮತ್ತು ಪರದೆಯ ಮೇಲಿನ ಅಳತೆಗಳು ಪರಿಶೀಲನೆಗಾಗಿ ನಮ್ಮ ಸರ್ವರ್‌ಗೆ ಹೋಗುತ್ತವೆ, ಅಲ್ಲಿ ಉಳಿಸಲಾಗುವುದಿಲ್ಲ. ಕೊಳದ ಸೆನ್ಸರ್ ಕಳುಹಿಸಿದ ಅಳತೆಗಳು ಸರ್ವರ್ ಮರುಪ್ರಾರಂಭವಾಗುವವರೆಗೆ ಮಾತ್ರ ಅದರ ಮೆಮೊರಿಯಲ್ಲಿ ಇರುತ್ತವೆ.",
+    termsAi: "ಸಹಾಯಕನಿಗೆ ಕೇಳುವ ಪ್ರಶ್ನೆಗಳು, ಪರದೆಯ ಮೇಲಿನ ಅಳತೆಗಳ ಜೊತೆಗೆ, ಉತ್ತರ ಪಡೆಯಲು AI ಸೇವೆಗೆ (ಈಗ Google Gemini) ಹೋಗುತ್ತವೆ. ಅದು ಪಡೆಯುವುದಕ್ಕೆ Google ನ ಸ್ವಂತ ನಿಯಮಗಳು ಅನ್ವಯಿಸುತ್ತವೆ. ನಿಮ್ಮ ಹೆಸರು, ಫೋನ್ ಸಂಖ್ಯೆ ಅಥವಾ ಇತರ ವೈಯಕ್ತಿಕ ವಿವರಗಳನ್ನು ಟೈಪ್ ಮಾಡಬೇಡಿ.",
+    termsLogs: "ಸೈಟ್ ಸರಿಯಾಗಿ ನಡೆಯಲು ಮತ್ತು ದುರುಪಯೋಗ ತಡೆಯಲು, ನಮ್ಮ ಸರ್ವರ್ ಮತ್ತು ನಮ್ಮ ಹೋಸ್ಟ್ (Render) ಸಣ್ಣ ತಾಂತ್ರಿಕ ದಾಖಲೆಗಳನ್ನು ಇಡುತ್ತವೆ, ಉದಾಹರಣೆಗೆ ಯಾವ ಪುಟ ಕೇಳಲಾಯಿತು ಮತ್ತು ಅದು ಬಂದ ಇಂಟರ್ನೆಟ್ ವಿಳಾಸ.",
+    termsNoAds: "ಜಾಹೀರಾತುಗಳಿಲ್ಲ, ಟ್ರ್ಯಾಕಿಂಗ್ ಇಲ್ಲ, ಮತ್ತು ನಿಮ್ಮ ಬಗ್ಗೆ ಏನನ್ನೂ ಮಾರಾಟ ಮಾಡುವುದಿಲ್ಲ.",
+    termsDataTitle: "ಮುಕ್ತ ಡೇಟಾ ಮತ್ತು ಪರವಾನಗಿಗಳು",
+    termsData: "ಆ್ಯಪ್ ಮುಕ್ತ ಡೇಟಾಸೆಟ್‌ಗಳು ಮತ್ತು ಸಾರ್ವಜನಿಕ ಸೇವೆಗಳನ್ನು ಬಳಸುತ್ತದೆ. ಪ್ರತಿಯೊಂದನ್ನೂ ಅದರ ಪರವಾನಗಿಯೊಂದಿಗೆ ಡೇಟಾ ಮೂಲಗಳ ಪಟ್ಟಿ ತೋರಿಸುತ್ತದೆ.",
+    termsDataButton: "ಡೇಟಾ ಮೂಲಗಳನ್ನು ತೆರೆಯಿರಿ",
+    termsContactTitle: "ಸಂಪರ್ಕ",
+    termsContact: "ಮೀನುರಕ್ಷಾವನ್ನು ಟೀಮ್ ಆರ್ಬಿಟ್ ತಯಾರಿಸಿದೆ. ಪ್ರಶ್ನೆಗಳು ಅಥವಾ ಸಮಸ್ಯೆಗಳಿದ್ದರೆ ನಮ್ಮ GitHub ಪುಟದ ಮೂಲಕ ಸಂಪರ್ಕಿಸಿ.",
+    termsContactLink: "GitHub ನಲ್ಲಿ ಟೀಮ್ ಆರ್ಬಿಟ್",
     simulatedNote: "ನಿಜವಾದ ಕೊಳವಲ್ಲ. ಪ್ರದರ್ಶನಕ್ಕಾಗಿ ಮಾತ್ರ.",
     pond: "ಕೊಳ", pond1: "ಕೊಳ 1", pond2: "ಕೊಳ 2", pond3: "ಕೊಳ 3",
     scenario: "ಸನ್ನಿವೇಶ", scenarioNormal: "ಸಾಮಾನ್ಯ ದಿನ", scenarioCrash: "ರಾತ್ರಿ ಆಮ್ಲಜನಕ ಕುಸಿತ",
@@ -1117,6 +1161,13 @@ $("sources-close").addEventListener("click", () => $("sources-dialog").close());
 $("sources-dialog").addEventListener("click", (e) => {
   if (e.target === e.currentTarget) e.currentTarget.close();   // tap outside the panel closes it
 });
+// Terms & Privacy panel (footer button), the same kind of panel as Data sources.
+$("terms-open").addEventListener("click", () => $("terms-dialog").showModal());
+$("terms-close").addEventListener("click", () => $("terms-dialog").close());
+$("terms-dialog").addEventListener("click", (e) => {
+  if (e.target === e.currentTarget) e.currentTarget.close();   // tap outside the panel closes it
+});
+$("terms-sources").addEventListener("click", () => { $("terms-dialog").close(); $("sources-dialog").showModal(); });
 $("kit-form").addEventListener("submit", submitKit);
 $("kit-form").addEventListener("reset", () => showKitError(null));
 $("kit-status").tabIndex = -1;

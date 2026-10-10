@@ -8,7 +8,7 @@ coastal Karnataka to understand. Write any fix in the last column.
 - `A  /  B` means the app shows one of two versions, depending on the situation.
 - Unit symbols (mg/L, °C, km/h, pH) and the names SMS, WhatsApp, FAO, TNAU, Open-Meteo stay in English.
 
-372 strings. Generated from the code by `python tools/kannada_review.py`; re-run it after changing any text.
+396 strings. Generated from the code by `python tools/kannada_review.py`; re-run it after changing any text.
 
 ## 1. Language and theme switches
 
@@ -112,6 +112,7 @@ Shown over the day/night pond picture.
 | 4 | `app.js crashRisk` | Oxygen crash risk: {level} | ಆಮ್ಲಜನಕ ಕುಸಿತದ ಅಪಾಯ: {level} |  |
 | 5 | `app.js weatherDetails` | Day cloud {c}% · Night wind {w} km/h · Night {t} °C · Forecast: Open-Meteo | ಹಗಲಿನ ಮೋಡ {c}% · ರಾತ್ರಿ ಗಾಳಿ {w} km/h · ರಾತ್ರಿ {t} °C · ಮುನ್ಸೂಚನೆ: Open-Meteo |  |
 | 6 | `app.js weatherOffline` | Offline: showing the forecast saved on {when}.  /  Offline. | ಆಫ್‌ಲೈನ್: {when} ರಂದು ಉಳಿಸಿದ ಮುನ್ಸೂಚನೆ ತೋರಿಸಲಾಗುತ್ತಿದೆ.  /  ಆಫ್‌ಲೈನ್. |  |
+| 7 | `app.js weatherUpdated` | Updated just now  /  Updated {min} min ago  /  Updated ${Math.floor(min / 60)} h ago | ಈಗಷ್ಟೇ ನವೀಕರಿಸಲಾಗಿದೆ  /  {min} ನಿಮಿಷ ಹಿಂದೆ ನವೀಕರಿಸಲಾಗಿದೆ  /  ${Math.floor(min / 60)} ಗಂಟೆ ಹಿಂದೆ ನವೀಕರಿಸಲಾಗಿದೆ |  |
 
 ## 9. What to do now (checklist)
 
@@ -152,14 +153,15 @@ Shown over the day/night pond picture.
 
 | # | Where in the code | English | Kannada | Correct? / suggestion |
 |---|---|---|---|---|
-| 1 | `app.js liveTitle` | Live sensor | ಲೈವ್ ಸೆನ್ಸರ್ |  |
-| 2 | `app.js liveWaiting` | Connecting to the live sensor… | ಲೈವ್ ಸೆನ್ಸರ್‌ಗೆ ಸಂಪರ್ಕಿಸಲಾಗುತ್ತಿದೆ… |  |
-| 3 | `app.js liveNoReading` | No reading from the {pond} sensor yet. Readings appear here as soon as the sensor sends one. | {pond} ಸೆನ್ಸರ್‌ನಿಂದ ಇನ್ನೂ ಯಾವುದೇ ಅಳತೆ ಬಂದಿಲ್ಲ. ಸೆನ್ಸರ್ ಅಳತೆ ಕಳುಹಿಸಿದ ತಕ್ಷಣ ಇಲ್ಲಿ ಕಾಣಿಸುತ್ತದೆ. |  |
-| 4 | `app.js liveMeasured` | Measured {when} · received {ago} | ಅಳತೆ ಸಮಯ {when} · {ago} ಬಂದಿದೆ |  |
-| 5 | `app.js liveAgo` | {s} s ago  /  ${Math.floor(s / 60)} min ago | {s} ಸೆಕೆಂಡ್ ಹಿಂದೆ  /  ${Math.floor(s / 60)} ನಿಮಿಷ ಹಿಂದೆ |  |
-| 6 | `app.js liveStale` | No new reading for {min} min. Check the sensor's power and Wi-Fi. | {min} ನಿಮಿಷಗಳಿಂದ ಹೊಸ ಅಳತೆ ಬಂದಿಲ್ಲ. ಸೆನ್ಸರ್‌ನ ವಿದ್ಯುತ್ ಮತ್ತು Wi-Fi ಪರಿಶೀಲಿಸಿ. |  |
-| 7 | `app.js liveLost` | Lost connection to the server. Trying again… | ಸರ್ವರ್ ಸಂಪರ್ಕ ಕಡಿದುಹೋಗಿದೆ. ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಲಾಗುತ್ತಿದೆ… |  |
-| 8 | `app.js liveNote` | Readings are kept only while the server is running. On the free server they are cleared when it sleeps. | ಸರ್ವರ್ ಚಾಲನೆಯಲ್ಲಿರುವವರೆಗೆ ಮಾತ್ರ ಅಳತೆಗಳನ್ನು ಉಳಿಸಲಾಗುತ್ತದೆ. ಉಚಿತ ಸರ್ವರ್ ನಿದ್ರೆಗೆ ಹೋದಾಗ ಅವು ಅಳಿಸಿಹೋಗುತ್ತವೆ. |  |
+| 1 | `app.js liveSensorHint` | Waiting for a sensor. Run the demo sensor. | ಸೆನ್ಸರ್‌ಗಾಗಿ ಕಾಯಲಾಗುತ್ತಿದೆ. ಡೆಮೊ ಸೆನ್ಸರ್ ಚಲಾಯಿಸಿ. |  |
+| 2 | `app.js liveTitle` | Live sensor | ಲೈವ್ ಸೆನ್ಸರ್ |  |
+| 3 | `app.js liveWaiting` | Connecting to the live sensor… | ಲೈವ್ ಸೆನ್ಸರ್‌ಗೆ ಸಂಪರ್ಕಿಸಲಾಗುತ್ತಿದೆ… |  |
+| 4 | `app.js liveNoReading` | No reading from the {pond} sensor yet. Readings appear here as soon as the sensor sends one. | {pond} ಸೆನ್ಸರ್‌ನಿಂದ ಇನ್ನೂ ಯಾವುದೇ ಅಳತೆ ಬಂದಿಲ್ಲ. ಸೆನ್ಸರ್ ಅಳತೆ ಕಳುಹಿಸಿದ ತಕ್ಷಣ ಇಲ್ಲಿ ಕಾಣಿಸುತ್ತದೆ. |  |
+| 5 | `app.js liveMeasured` | Measured {when} · received {ago} | ಅಳತೆ ಸಮಯ {when} · {ago} ಬಂದಿದೆ |  |
+| 6 | `app.js liveAgo` | {s} s ago  /  ${Math.floor(s / 60)} min ago | {s} ಸೆಕೆಂಡ್ ಹಿಂದೆ  /  ${Math.floor(s / 60)} ನಿಮಿಷ ಹಿಂದೆ |  |
+| 7 | `app.js liveStale` | No new reading for {min} min. Check the sensor's power and Wi-Fi. | {min} ನಿಮಿಷಗಳಿಂದ ಹೊಸ ಅಳತೆ ಬಂದಿಲ್ಲ. ಸೆನ್ಸರ್‌ನ ವಿದ್ಯುತ್ ಮತ್ತು Wi-Fi ಪರಿಶೀಲಿಸಿ. |  |
+| 8 | `app.js liveLost` | Lost connection to the server. Trying again… | ಸರ್ವರ್ ಸಂಪರ್ಕ ಕಡಿದುಹೋಗಿದೆ. ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಲಾಗುತ್ತಿದೆ… |  |
+| 9 | `app.js liveNote` | Readings are kept only while the server is running. On the free server they are cleared when it sleeps. | ಸರ್ವರ್ ಚಾಲನೆಯಲ್ಲಿರುವವರೆಗೆ ಮಾತ್ರ ಅಳತೆಗಳನ್ನು ಉಳಿಸಲಾಗುತ್ತದೆ. ಉಚಿತ ಸರ್ವರ್ ನಿದ್ರೆಗೆ ಹೋದಾಗ ಅವು ಅಳಿಸಿಹೋಗುತ್ತವೆ. |  |
 
 ## 13. Fish disease guide (page labels)
 
@@ -263,14 +265,41 @@ Shown over the day/night pond picture.
 | 13 | `app.js sourcesFishLicence` | Licence: CC0 (public domain). | ಪರವಾನಗಿ: CC0 (ಸಾರ್ವಜನಿಕ ಸ್ವತ್ತು). |  |
 | 14 | `app.js sourcesFull` | Full list with links and licences | ಲಿಂಕ್‌ಗಳು ಮತ್ತು ಪರವಾನಗಿಗಳ ಪೂರ್ಣ ಪಟ್ಟಿ |  |
 
-## 18. Footer (privacy, source code)
+## 18. Terms & Privacy panel (footer)
+
+| # | Where in the code | English | Kannada | Correct? / suggestion |
+|---|---|---|---|---|
+| 1 | `app.js termsTitle` | Terms & Privacy | ನಿಯಮಗಳು ಮತ್ತು ಗೌಪ್ಯತೆ |  |
+| 2 | `app.js termsClose` | Close | ಮುಚ್ಚಿ |  |
+| 3 | `app.js termsWhatTitle` | What this is | ಇದು ಏನು |  |
+| 4 | `app.js termsWhat` | MeenuRaksha is a free early-warning helper for small fish ponds, built by Team Orbit for DevHack 2026. It helps you decide what to check and when. It does not replace your fisheries officer, KVK or vet, and it cannot promise that your fish will be safe. | ಮೀನುರಕ್ಷಾ ಸಣ್ಣ ಮೀನು ಕೊಳಗಳಿಗಾಗಿ ಉಚಿತ ಮುನ್ನೆಚ್ಚರಿಕೆ ಸಹಾಯಕ. ಇದನ್ನು ಟೀಮ್ ಆರ್ಬಿಟ್ DevHack 2026 ಗಾಗಿ ನಿರ್ಮಿಸಿದೆ. ಏನನ್ನು, ಯಾವಾಗ ಪರಿಶೀಲಿಸಬೇಕು ಎಂದು ನಿರ್ಧರಿಸಲು ಇದು ಸಹಾಯ ಮಾಡುತ್ತದೆ. ಇದು ನಿಮ್ಮ ಮೀನುಗಾರಿಕೆ ಅಧಿಕಾರಿ, KVK ಅಥವಾ ಪಶುವೈದ್ಯರ ಬದಲಿಯಲ್ಲ, ಮತ್ತು ನಿಮ್ಮ ಮೀನುಗಳು ಸುರಕ್ಷಿತವಾಗಿರುತ್ತವೆ ಎಂದು ಖಾತರಿ ನೀಡುವುದಿಲ್ಲ. |  |
+| 5 | `app.js termsLimitsTitle` | Limits of the data | ಡೇಟಾದ ಮಿತಿಗಳು |  |
+| 6 | `app.js termsLimits` | The demo pond's readings are simulated, not from a real pond. Weather forecasts can be wrong. The disease guide shows possible causes, never a diagnosis. The AI assistant can make mistakes. Always confirm before you act. | ಡೆಮೊ ಕೊಳದ ಅಳತೆಗಳು ಅನುಕರಿಸಿದವು (ಸಿಮ್ಯುಲೇಟೆಡ್), ನಿಜವಾದ ಕೊಳದವಲ್ಲ. ಹವಾಮಾನ ಮುನ್ಸೂಚನೆ ತಪ್ಪಾಗಬಹುದು. ರೋಗ ಮಾರ್ಗದರ್ಶಿ ಸಾಧ್ಯವಿರುವ ಕಾರಣಗಳನ್ನು ಮಾತ್ರ ತೋರಿಸುತ್ತದೆ, ರೋಗನಿರ್ಣಯವನ್ನಲ್ಲ. AI ಸಹಾಯಕ ತಪ್ಪು ಮಾಡಬಹುದು. ಕ್ರಮ ಕೈಗೊಳ್ಳುವ ಮೊದಲು ಯಾವಾಗಲೂ ಖಚಿತಪಡಿಸಿಕೊಳ್ಳಿ. |  |
+| 7 | `app.js termsTreatTitle` | No chemical or medicine advice | ರಾಸಾಯನಿಕ ಅಥವಾ ಔಷಧಿ ಸಲಹೆ ಇಲ್ಲ |  |
+| 8 | `app.js termsTreat` | The app never suggests chemicals, medicines or amounts to add to the pond. Treatment must come from a fisheries officer or KVK. | ಆ್ಯಪ್ ಎಂದಿಗೂ ಕೊಳಕ್ಕೆ ಹಾಕಬೇಕಾದ ರಾಸಾಯನಿಕ, ಔಷಧಿ ಅಥವಾ ಪ್ರಮಾಣವನ್ನು ಸೂಚಿಸುವುದಿಲ್ಲ. ಚಿಕಿತ್ಸೆಯನ್ನು ಮೀನುಗಾರಿಕೆ ಅಧಿಕಾರಿ ಅಥವಾ KVK ಮಾತ್ರ ನೀಡಬೇಕು. |  |
+| 9 | `app.js termsPrivacyTitle` | Privacy | ಗೌಪ್ಯತೆ |  |
+| 10 | `app.js termsNoAccount` | No account and no sign-up. | ಖಾತೆ ಇಲ್ಲ, ನೋಂದಣಿ ಇಲ್ಲ. |  |
+| 11 | `app.js termsLocation` | The app does not ask for your location. Tonight's weather is always for Mangaluru. Your phone gets it straight from Open-Meteo, so Open-Meteo sees your internet address, as any website would. | ಆ್ಯಪ್ ನಿಮ್ಮ ಸ್ಥಳವನ್ನು ಕೇಳುವುದಿಲ್ಲ. ಇಂದು ರಾತ್ರಿಯ ಹವಾಮಾನ ಯಾವಾಗಲೂ ಮಂಗಳೂರಿನದು. ನಿಮ್ಮ ಫೋನ್ ಅದನ್ನು ನೇರವಾಗಿ Open-Meteo ಯಿಂದ ಪಡೆಯುತ್ತದೆ, ಆದ್ದರಿಂದ ಯಾವುದೇ ವೆಬ್‌ಸೈಟ್‌ನಂತೆ Open-Meteo ನಿಮ್ಮ ಇಂಟರ್ನೆಟ್ ವಿಳಾಸವನ್ನು ನೋಡುತ್ತದೆ. |  |
+| 12 | `app.js termsBrowser` | Your language, theme, ticked steps, alert history and the last weather forecast are saved only in this browser. Clearing the browser's data removes them. | ನಿಮ್ಮ ಭಾಷೆ, ಥೀಮ್, ಗುರುತು ಹಾಕಿದ ಹಂತಗಳು, ಎಚ್ಚರಿಕೆಗಳ ಇತಿಹಾಸ ಮತ್ತು ಕೊನೆಯ ಹವಾಮಾನ ಮುನ್ಸೂಚನೆ ಈ ಬ್ರೌಸರ್‌ನಲ್ಲಿ ಮಾತ್ರ ಉಳಿಯುತ್ತವೆ. ಬ್ರೌಸರ್‌ನ ಡೇಟಾ ಅಳಿಸಿದರೆ ಅವು ಹೋಗುತ್ತವೆ. |  |
+| 13 | `app.js termsServer` | Test-kit numbers and the readings on screen go to our server to be checked, and are not saved there. Readings from a pond sensor stay in the server's memory only until it restarts. | ಟೆಸ್ಟ್-ಕಿಟ್ ಅಳತೆಗಳು ಮತ್ತು ಪರದೆಯ ಮೇಲಿನ ಅಳತೆಗಳು ಪರಿಶೀಲನೆಗಾಗಿ ನಮ್ಮ ಸರ್ವರ್‌ಗೆ ಹೋಗುತ್ತವೆ, ಅಲ್ಲಿ ಉಳಿಸಲಾಗುವುದಿಲ್ಲ. ಕೊಳದ ಸೆನ್ಸರ್ ಕಳುಹಿಸಿದ ಅಳತೆಗಳು ಸರ್ವರ್ ಮರುಪ್ರಾರಂಭವಾಗುವವರೆಗೆ ಮಾತ್ರ ಅದರ ಮೆಮೊರಿಯಲ್ಲಿ ಇರುತ್ತವೆ. |  |
+| 14 | `app.js termsAi` | Questions to the assistant are sent, with the readings on screen, to the AI service (now Google Gemini) to get an answer. Google's own terms apply to what it receives. Don't type your name, phone number or other personal details. | ಸಹಾಯಕನಿಗೆ ಕೇಳುವ ಪ್ರಶ್ನೆಗಳು, ಪರದೆಯ ಮೇಲಿನ ಅಳತೆಗಳ ಜೊತೆಗೆ, ಉತ್ತರ ಪಡೆಯಲು AI ಸೇವೆಗೆ (ಈಗ Google Gemini) ಹೋಗುತ್ತವೆ. ಅದು ಪಡೆಯುವುದಕ್ಕೆ Google ನ ಸ್ವಂತ ನಿಯಮಗಳು ಅನ್ವಯಿಸುತ್ತವೆ. ನಿಮ್ಮ ಹೆಸರು, ಫೋನ್ ಸಂಖ್ಯೆ ಅಥವಾ ಇತರ ವೈಯಕ್ತಿಕ ವಿವರಗಳನ್ನು ಟೈಪ್ ಮಾಡಬೇಡಿ. |  |
+| 15 | `app.js termsLogs` | To keep the site working and stop misuse, our server and our host (Render) keep short technical records, such as which page was asked for and the internet address it came from. | ಸೈಟ್ ಸರಿಯಾಗಿ ನಡೆಯಲು ಮತ್ತು ದುರುಪಯೋಗ ತಡೆಯಲು, ನಮ್ಮ ಸರ್ವರ್ ಮತ್ತು ನಮ್ಮ ಹೋಸ್ಟ್ (Render) ಸಣ್ಣ ತಾಂತ್ರಿಕ ದಾಖಲೆಗಳನ್ನು ಇಡುತ್ತವೆ, ಉದಾಹರಣೆಗೆ ಯಾವ ಪುಟ ಕೇಳಲಾಯಿತು ಮತ್ತು ಅದು ಬಂದ ಇಂಟರ್ನೆಟ್ ವಿಳಾಸ. |  |
+| 16 | `app.js termsNoAds` | No ads, no tracking, and nothing about you is sold. | ಜಾಹೀರಾತುಗಳಿಲ್ಲ, ಟ್ರ್ಯಾಕಿಂಗ್ ಇಲ್ಲ, ಮತ್ತು ನಿಮ್ಮ ಬಗ್ಗೆ ಏನನ್ನೂ ಮಾರಾಟ ಮಾಡುವುದಿಲ್ಲ. |  |
+| 17 | `app.js termsDataTitle` | Open data and licences | ಮುಕ್ತ ಡೇಟಾ ಮತ್ತು ಪರವಾನಗಿಗಳು |  |
+| 18 | `app.js termsData` | The app uses open datasets and public services. The Data sources list shows each one and its licence. | ಆ್ಯಪ್ ಮುಕ್ತ ಡೇಟಾಸೆಟ್‌ಗಳು ಮತ್ತು ಸಾರ್ವಜನಿಕ ಸೇವೆಗಳನ್ನು ಬಳಸುತ್ತದೆ. ಪ್ರತಿಯೊಂದನ್ನೂ ಅದರ ಪರವಾನಗಿಯೊಂದಿಗೆ ಡೇಟಾ ಮೂಲಗಳ ಪಟ್ಟಿ ತೋರಿಸುತ್ತದೆ. |  |
+| 19 | `app.js termsDataButton` | Open Data sources | ಡೇಟಾ ಮೂಲಗಳನ್ನು ತೆರೆಯಿರಿ |  |
+| 20 | `app.js termsContactTitle` | Contact | ಸಂಪರ್ಕ |  |
+| 21 | `app.js termsContact` | MeenuRaksha is made by Team Orbit. For questions or problems, reach us through our GitHub page. | ಮೀನುರಕ್ಷಾವನ್ನು ಟೀಮ್ ಆರ್ಬಿಟ್ ತಯಾರಿಸಿದೆ. ಪ್ರಶ್ನೆಗಳು ಅಥವಾ ಸಮಸ್ಯೆಗಳಿದ್ದರೆ ನಮ್ಮ GitHub ಪುಟದ ಮೂಲಕ ಸಂಪರ್ಕಿಸಿ. |  |
+| 22 | `app.js termsContactLink` | Team Orbit on GitHub | GitHub ನಲ್ಲಿ ಟೀಮ್ ಆರ್ಬಿಟ್ |  |
+
+## 19. Footer (privacy, source code)
 
 | # | Where in the code | English | Kannada | Correct? / suggestion |
 |---|---|---|---|---|
 | 1 | `app.js footerCode` | Source code on GitHub | GitHub ನಲ್ಲಿ ಸೋರ್ಸ್ ಕೋಡ್ |  |
 | 2 | `app.js footerPrivacy` | Privacy: no account needed. The app never uses your camera, photos or location. Alert history stays on this phone. Test-kit numbers go to our server only to check them. Assistant questions may also go to an AI service. | ಗೌಪ್ಯತೆ: ಖಾತೆ ಬೇಕಾಗಿಲ್ಲ. ಆ್ಯಪ್ ನಿಮ್ಮ ಕ್ಯಾಮೆರಾ, ಫೋಟೋ ಅಥವಾ ಸ್ಥಳವನ್ನು ಬಳಸುವುದಿಲ್ಲ. ಎಚ್ಚರಿಕೆಗಳ ಇತಿಹಾಸ ಈ ಫೋನ್‌ನಲ್ಲೇ ಇರುತ್ತದೆ. ಟೆಸ್ಟ್-ಕಿಟ್ ಅಳತೆಗಳು ಪರಿಶೀಲನೆಗಾಗಿ ಮಾತ್ರ ನಮ್ಮ ಸರ್ವರ್‌ಗೆ ಹೋಗುತ್ತವೆ. ಸಹಾಯಕನಿಗೆ ಕೇಳುವ ಪ್ರಶ್ನೆಗಳು AI ಸೇವೆಗೂ ಹೋಗಬಹುದು. |  |
 
-## 19. Messages from the server: Data labels
+## 20. Messages from the server: Data labels
 
 Shown on every simulated, test-kit or live-sensor reading.
 
@@ -281,7 +310,7 @@ Shown on every simulated, test-kit or live-sensor reading.
 | 3 | `sensor.LIVE_LABEL` | Live sensor | ಲೈವ್ ಸೆನ್ಸರ್ |  |
 | 4 | `sensor.DEMO_LABEL` | Demo device: simulated readings, not a real pond | ಡೆಮೊ ಸಾಧನ: ಅನುಕರಿಸಿದ (ಸಿಮ್ಯುಲೇಟೆಡ್) ಅಳತೆಗಳು, ನಿಜವಾದ ಕೊಳವಲ್ಲ |  |
 
-## 20. Messages from the server: Live sensor: why a reading was refused
+## 21. Messages from the server: Live sensor: why a reading was refused
 
 Sent back to the sensor and shown on the Live sensor card.
 
@@ -294,7 +323,7 @@ Sent back to the sensor and shown on the Live sensor card.
 | 5 | `sensor.NO_TIME_ZONE` | The timestamp has no time zone. Add +05:30 or Z. Check the sensor clock. | ಸಮಯದಲ್ಲಿ ಟೈಮ್ ಝೋನ್ ಇಲ್ಲ. +05:30 ಅಥವಾ Z ಸೇರಿಸಿ. ಸೆನ್ಸರ್ ಗಡಿಯಾರ ಪರಿಶೀಲಿಸಿ. |  |
 | 6 | `sensor.TOO_OLD` | The timestamp is more than a day old. Check the sensor clock. | ಸಮಯ ಒಂದು ದಿನಕ್ಕಿಂತ ಹಳೆಯದು. ಸೆನ್ಸರ್ ಗಡಿಯಾರ ಪರಿಶೀಲಿಸಿ. |  |
 
-## 21. Messages from the server: Risk card: level names, parameter names and reasons
+## 22. Messages from the server: Risk card: level names, parameter names and reasons
 
 `{value}` and `{unit}` are filled in by the app, e.g. 4.1 mg/L. `{name}` is a parameter name.
 
@@ -330,7 +359,7 @@ Sent back to the sensor and shown on the Live sensor card.
 | 28 | `risk_messages.NO_VALID_READINGS` | No valid readings. Check the sensors. | ಸರಿಯಾದ ಅಳತೆಗಳು ಇಲ್ಲ. ಸೆನ್ಸರ್‌ಗಳನ್ನು ಪರಿಶೀಲಿಸಿ. |  |
 | 29 | `risk_messages.NO_VALID_TEST_KIT_READINGS` | No valid readings. Check your test kit. | ಸರಿಯಾದ ಅಳತೆಗಳು ಇಲ್ಲ. ನಿಮ್ಮ ಟೆಸ್ಟ್ ಕಿಟ್ ಪರಿಶೀಲಿಸಿ. |  |
 
-## 22. Messages from the server: Time until danger (messages)
+## 23. Messages from the server: Time until danger (messages)
 
 `{rate}` e.g. 0.6, `{danger}` e.g. 3, `{clock}` e.g. 03:20, `{hours}` e.g. 6. `{duration_kn}` is one of the two duration phrases below.
 
@@ -344,7 +373,7 @@ Sent back to the sensor and shown on the Live sensor card.
 | 6 | `time_to_danger._duration (under 1 hour)` | about {minutes} minutes | ಸುಮಾರು {minutes} ನಿಮಿಷಗಳಲ್ಲಿ |  |
 | 7 | `time_to_danger._duration (1 hour or more)` | about {text} hours | ಸುಮಾರು {text} ಗಂಟೆಗಳಲ್ಲಿ |  |
 
-## 23. Messages from the server: Tonight's weather (messages)
+## 24. Messages from the server: Tonight's weather (messages)
 
 `{night}` is one or more of the night words joined together, e.g. "cloudy, still".
 
@@ -362,7 +391,7 @@ Sent back to the sensor and shown on the Live sensor card.
 | 10 | `weather.ADVICE.high` | {night} night ahead: keep the aerator ready. | {night} ರಾತ್ರಿ ಬರಲಿದೆ: ಏರೇಟರ್ ಸಿದ್ಧವಾಗಿಡಿ. |  |
 | 11 | `weather.UNAVAILABLE` | No internet and no saved forecast. Tonight's weather is not known. | ಇಂಟರ್ನೆಟ್ ಇಲ್ಲ, ಉಳಿಸಿದ ಮುನ್ಸೂಚನೆಯೂ ಇಲ್ಲ. ಇಂದು ರಾತ್ರಿಯ ಹವಾಮಾನ ತಿಳಿದಿಲ್ಲ. |  |
 
-## 24. Messages from the server: What to do now (checklist items)
+## 25. Messages from the server: What to do now (checklist items)
 
 | # | Where in the code | English | Kannada | Correct? / suggestion |
 |---|---|---|---|---|
@@ -379,7 +408,7 @@ Sent back to the sensor and shown on the Live sensor card.
 | 11 | `actions.ACTIONS.retest_ph_morning` | Test pH again early tomorrow morning. pH is highest in the afternoon and falls by morning. | ನಾಳೆ ಬೆಳಿಗ್ಗೆ ಬೇಗ pH ಮತ್ತೆ ಪರೀಕ್ಷಿಸಿ. ಮಧ್ಯಾಹ್ನ pH ಅತಿ ಹೆಚ್ಚಿರುತ್ತದೆ, ಬೆಳಿಗ್ಗೆಗೆ ಕಡಿಮೆಯಾಗುತ್ತದೆ. |  |
 | 12 | `actions.ACTIONS.retest_ph_afternoon` | Test pH again this afternoon. pH is lowest in the early morning and rises during the day. | ಇಂದು ಮಧ್ಯಾಹ್ನ pH ಮತ್ತೆ ಪರೀಕ್ಷಿಸಿ. ಬೆಳಿಗ್ಗೆ pH ಅತಿ ಕಡಿಮೆ ಇರುತ್ತದೆ, ಹಗಲಿನಲ್ಲಿ ಏರುತ್ತದೆ. |  |
 
-## 25. Messages from the server: Fish disease guide: diseases
+## 26. Messages from the server: Fish disease guide: diseases
 
 Disease names, signs, seasons, prevention and what to do. Scientific names (e.g. Aphanomyces invadans) stay in Latin.
 
@@ -445,7 +474,7 @@ Disease names, signs, seasons, prevention and what to do. Scientific names (e.g.
 | 58 | `diseases.DISEASES.anchor_worm.prevention[0]` | Check fingerlings for worms before stocking. | ಮರಿಗಳನ್ನು ಬಿಡುವ ಮೊದಲು ಹುಳುಗಳಿವೆಯೇ ಎಂದು ಪರಿಶೀಲಿಸಿ. |  |
 | 59 | `diseases.DISEASES.anchor_worm.prevention[1]` | Before stocking, dry the pond and remove wild fish. | ಮೀನು ಬಿಡುವ ಮೊದಲು, ಕೊಳವನ್ನು ಒಣಗಿಸಿ ಮತ್ತು ಕಾಡು ಮೀನುಗಳನ್ನು ತೆಗೆದುಹಾಕಿ. |  |
 
-## 26. Messages from the server: Fish disease guide: symptom checker and notes
+## 27. Messages from the server: Fish disease guide: symptom checker and notes
 
 The signs a farmer can tick, cause types, the steps for any disease, and the notes shown with every result.
 
@@ -487,7 +516,7 @@ The signs a farmer can tick, cause types, the steps for any disease, and the not
 | 34 | `diseases.GASPING_NOTE` | Gasping at the surface is most often low oxygen, not disease. Check oxygen and run the aerator first. | ಮೇಲ್ಮೈಯಲ್ಲಿ ಏದುಸಿರು ಹೆಚ್ಚಾಗಿ ಕಡಿಮೆ ಆಮ್ಲಜನಕದಿಂದ, ರೋಗದಿಂದಲ್ಲ. ಮೊದಲು ಆಮ್ಲಜನಕ ಪರಿಶೀಲಿಸಿ ಮತ್ತು ಏರೇಟರ್ ಚಾಲೂ ಮಾಡಿ. |  |
 | 35 | `diseases.LIKELY_NOTE` | This does not mean your fish are sick. Watch them closely and use the Fish disease guide if you see signs. | ಇದರ ಅರ್ಥ ನಿಮ್ಮ ಮೀನುಗಳಿಗೆ ರೋಗ ಬಂದಿದೆ ಎಂದಲ್ಲ. ಅವುಗಳನ್ನು ಗಮನವಿಟ್ಟು ನೋಡಿ, ಲಕ್ಷಣಗಳು ಕಂಡರೆ ಮೀನು ರೋಗ ಮಾರ್ಗದರ್ಶಿ ಬಳಸಿ. |  |
 
-## 27. Messages from the server: Fish disease guide: risky readings
+## 28. Messages from the server: Fish disease guide: risky readings
 
 Why a reading makes a disease more likely.
 
@@ -502,7 +531,7 @@ Why a reading makes a disease more likely.
 | 7 | `diseases.READING_LINKS.temperature/low[1][1]` | The white spot parasite multiplies best at 15-25 °C. | ಬಿಳಿ ಚುಕ್ಕೆ ಪರಾವಲಂಬಿ 15-25 °C ನಲ್ಲಿ ಹೆಚ್ಚು ವೃದ್ಧಿಯಾಗುತ್ತದೆ. |  |
 | 8 | `diseases.READING_LINKS.ph/low[0][1]` | EUS outbreaks are linked to acidic water. | EUS ಹರಡುವಿಕೆ ಆಮ್ಲೀಯ ನೀರಿಗೆ ಸಂಬಂಧಿಸಿದೆ. |  |
 
-## 28. Messages from the server: Ask MeenuRaksha assistant
+## 29. Messages from the server: Ask MeenuRaksha assistant
 
 Labels, safety replies and the suggested questions. Ready answers are built from the texts in the other sections. AI replies in Kannada are written by the AI and are not in this sheet.
 
@@ -539,7 +568,7 @@ Labels, safety replies and the suggested questions. Ready answers are built from
 | 29 | `assistant.BAND.no_danger` | {name}: Safe {safe}. Otherwise Warning (no Danger level). | {name}: ಸುರಕ್ಷಿತ {safe}. ಇಲ್ಲದಿದ್ದರೆ ಎಚ್ಚರಿಕೆ (ಅಪಾಯ ಮಟ್ಟ ಇಲ್ಲ). |  |
 | 30 | `assistant._answer (tonight)` | Oxygen crash risk tonight: {level}. | ಇಂದು ರಾತ್ರಿ ಆಮ್ಲಜನಕ ಕುಸಿತದ ಅಪಾಯ: {level}. |  |
 
-## 29. Messages from the server: Alert preview (SMS / WhatsApp)
+## 30. Messages from the server: Alert preview (SMS / WhatsApp)
 
 The SMS and WhatsApp text is built from the risk card and time-until-danger messages above, plus these.
 
