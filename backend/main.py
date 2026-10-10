@@ -1,5 +1,5 @@
 """
-MeenuRaksha web server (FastAPI).
+AquaNexus web server (FastAPI).
 
 Start it from the project folder:
     uvicorn backend.main:app --reload
@@ -15,8 +15,8 @@ Endpoints:
     GET  /api/simulator/stream       live stream of SIMULATED readings (Server-Sent Events)
     GET  /api/diseases               the fish disease guide (library, signs, sources)
     POST /api/diseases/check         "possible matches" for the signs a farmer ticked (never a diagnosis)
-    POST /api/assistant/suggestions  "Ask MeenuRaksha": suggested questions with ready answers (no AI)
-    POST /api/assistant/ask          "Ask MeenuRaksha": one question, answered only from the app's content
+    POST /api/assistant/suggestions  "Ask AquaNexus": suggested questions with ready answers (no AI)
+    POST /api/assistant/ask          "Ask AquaNexus": one question, answered only from the app's content
     GET  /api/weather/tonight        tonight's oxygen crash risk from the real weather forecast
     POST /api/sensor/{pond_id}       one reading from a REAL pond sensor (needs the pond's key)
     GET  /api/sensor/{pond_id}       the latest live-sensor reading for a pond
@@ -64,7 +64,7 @@ HISTORY_HOURS = 2          # simulated readings generated before the stream star
 MANUAL = "manual"
 MANUAL_LABEL = {"en": "Manual test-kit reading", "kn": "ಕೈಯಿಂದ ನಮೂದಿಸಿದ ಟೆಸ್ಟ್ ಕಿಟ್ ಅಳತೆ"}
 
-app = FastAPI(title="MeenuRaksha API",
+app = FastAPI(title="AquaNexus API",
               description="Pond water-quality early warning for small aquaculture farmers.")
 # Rate limits, request size limit and security headers for every request (docs/security.md).
 request_limiter = security.RequestLimiter()
@@ -125,7 +125,7 @@ class ChatMessage(BaseModel):
 
 
 class Question(PageReadings):
-    """One question for "Ask MeenuRaksha"."""
+    """One question for "Ask AquaNexus"."""
     question: str = Field(..., min_length=1, max_length=500)
     lang: Literal["en", "kn"] = "kn"
     history: list[ChatMessage] = Field(default_factory=list, max_length=8)
@@ -196,7 +196,7 @@ def disease_check(seen: SignsSeen) -> dict:
     return diseases.check(seen.signs)
 
 
-# ----------------------------------------------------------------- "Ask MeenuRaksha" assistant
+# ----------------------------------------------------------------- "Ask AquaNexus" assistant
 # The AI is called from here only; its provider and key come from environment
 # variables (backend/ai_provider.py). Safety rules: backend/assistant.py.
 

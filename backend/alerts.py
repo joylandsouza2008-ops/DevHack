@@ -20,7 +20,7 @@ POND_NAMES = {
     "station3": {"en": "Pond 3", "kn": "ಕೊಳ 3"},
 }
 
-APP_NAME = {"en": "MeenuRaksha", "kn": "ಮೀನುರಕ್ಷಾ"}
+APP_NAME = {"en": "AquaNexus", "kn": "AquaNexus"}
 ICON = {"warning": "⚠️", "danger": "🚨"}
 
 NO_ALERT = {

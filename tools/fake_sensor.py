@@ -1,5 +1,5 @@
 """
-A pretend pond sensor, for demos: sends a reading to MeenuRaksha every few
+A pretend pond sensor, for demos: sends a reading to AquaNexus every few
 seconds, exactly like a real ESP32 sensor would (POST /api/sensor/{pond_id}).
 
 Every reading it sends says demo = true, so the dashboard labels it
@@ -99,7 +99,7 @@ def describe(status: int, reply: dict) -> str:
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="Pretend pond sensor (demo device) for MeenuRaksha.")
+    parser = argparse.ArgumentParser(description="Pretend pond sensor (demo device) for AquaNexus.")
     parser.add_argument("--url", default="http://127.0.0.1:8000", help="server address")
     parser.add_argument("--pond", default="pond1", choices=["pond1", "pond2", "pond3"])
     parser.add_argument("--key", help="the pond's sensor key (default: the SENSOR_KEY_POND1 / _POND2 / _POND3 variable)")

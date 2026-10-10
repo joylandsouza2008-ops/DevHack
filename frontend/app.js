@@ -1,4 +1,4 @@
-// MeenuRaksha dashboard: shows the simulator stream (current risk, pond view,
+// AquaNexus dashboard: shows the simulator stream (current risk, pond view,
 // risk gauge, time until danger, oxygen chart, latest readings) in Kannada or
 // English. Alert text (reasons, time until danger) comes from the API in both
 // languages; only the page labels are translated here.
@@ -12,7 +12,7 @@
 
 const TEXT = {
   en: {
-    appName: "MeenuRaksha",
+    appName: "AquaNexus",
     tagline: "Pond water early warning",
     welcomeTagline: "Pond water warnings before your fish are in danger.",
     welcomeExample: "What a warning looks like",
@@ -23,6 +23,7 @@ const TEXT = {
     start: "Start",
     themeLight: "Light", themeDark: "Dark",
     builtBy: "Built by Team Orbit",
+    footerCredit: "AquaNexus by Team Orbit (Nexus Orbit)",
     sourcesTitle: "Data sources", sourcesClose: "Close",
     sourcesIntro: "The simulated pond uses these open datasets and public services. Only the Live sensor card shows readings sent by a pond sensor.",
     sourcesPondsUse: "Real sensor readings from 3 fish ponds in Andhra Pradesh (2022-23). Used to make the simulated demo pond and to test our oxygen predictions.",
@@ -39,7 +40,7 @@ const TEXT = {
     termsTitle: "Terms & Privacy",
     termsClose: "Close",
     termsWhatTitle: "What this is",
-    termsWhat: "MeenuRaksha is a free early-warning helper for small fish ponds, built by Team Orbit for DevHack 2026. It helps you decide what to check and when. It does not replace your fisheries officer, KVK or vet, and it cannot promise that your fish will be safe.",
+    termsWhat: "AquaNexus is a free early-warning helper for small fish ponds, built by Team Orbit for DevHack 2026. It helps you decide what to check and when. It does not replace your fisheries officer, KVK or vet, and it cannot promise that your fish will be safe.",
     termsLimitsTitle: "Limits of the data",
     termsLimits: "The demo pond's readings are simulated, not from a real pond. Weather forecasts can be wrong. The disease guide shows possible causes, never a diagnosis. The AI assistant can make mistakes. Always confirm before you act.",
     termsTreatTitle: "No chemical or medicine advice",
@@ -56,7 +57,7 @@ const TEXT = {
     termsData: "The app uses open datasets and public services. The Data sources list shows each one and its licence.",
     termsDataButton: "Open Data sources",
     termsContactTitle: "Contact",
-    termsContact: "MeenuRaksha is made by Team Orbit. For questions or problems, reach us through our GitHub page.",
+    termsContact: "AquaNexus is made by Team Orbit. For questions or problems, reach us through our GitHub page.",
     termsContactLink: "Team Orbit on GitHub",
     simulatedNote: "Not a real pond. For demonstration only.",
     pond: "Pond", pond1: "Pond 1", pond2: "Pond 2", pond3: "Pond 3",
@@ -151,7 +152,7 @@ const TEXT = {
     noPhotoLink: "See the test results",
     likelyTitle: "Diseases more likely now",
     likelyNote: "This does not mean your fish are sick. Watch them closely and use the Fish disease guide if you see signs.",
-    assistantTitle: "Ask MeenuRaksha", assistantLabel: "AI assistant: can make mistakes",
+    assistantTitle: "Ask AquaNexus", assistantLabel: "AI assistant: can make mistakes",
     assistantHelp: "Ask about your readings, safe levels, tonight's weather or fish diseases. Answers come only from this app's own information.",
     assistantPrivacy: "Do not type your name, phone number or other personal details.",
     assistantSuggested: "Suggested questions (ready answers)",
@@ -168,7 +169,7 @@ const TEXT = {
     historyNoAction: "No action ticked yet.",
   },
   kn: {
-    appName: "ಮೀನುರಕ್ಷಾ",
+    appName: "AquaNexus",
     tagline: "ಕೊಳದ ನೀರಿನ ಮುನ್ನೆಚ್ಚರಿಕೆ",
     welcomeTagline: "ಮೀನುಗಳಿಗೆ ಅಪಾಯ ಬರುವ ಮೊದಲೇ ಕೊಳದ ನೀರಿನ ಎಚ್ಚರಿಕೆ.",
     welcomeExample: "ಎಚ್ಚರಿಕೆ ಹೀಗೆ ಕಾಣುತ್ತದೆ",
@@ -179,6 +180,7 @@ const TEXT = {
     start: "ಪ್ರಾರಂಭಿಸಿ",
     themeLight: "ತಿಳಿ", themeDark: "ಗಾಢ",
     builtBy: "ನಿರ್ಮಾಣ: ಟೀಮ್ ಆರ್ಬಿಟ್",
+    footerCredit: "AquaNexus · ನಿರ್ಮಾಣ: ಟೀಮ್ ಆರ್ಬಿಟ್ (Nexus Orbit)",
     sourcesTitle: "ಡೇಟಾ ಮೂಲಗಳು", sourcesClose: "ಮುಚ್ಚಿ",
     sourcesIntro: "ಅನುಕರಿಸಿದ ಕೊಳವು ಈ ಮುಕ್ತ ಡೇಟಾಸೆಟ್‌ಗಳು ಮತ್ತು ಸಾರ್ವಜನಿಕ ಸೇವೆಗಳನ್ನು ಬಳಸುತ್ತದೆ. ಕೊಳದ ಸೆನ್ಸರ್ ಕಳುಹಿಸಿದ ಅಳತೆಗಳನ್ನು ಲೈವ್ ಸೆನ್ಸರ್ ಕಾರ್ಡ್ ಮಾತ್ರ ತೋರಿಸುತ್ತದೆ.",
     sourcesPondsUse: "ಆಂಧ್ರಪ್ರದೇಶದ 3 ಮೀನು ಕೊಳಗಳ ನಿಜವಾದ ಸೆನ್ಸರ್ ಅಳತೆಗಳು (2022-23). ಅನುಕರಿಸಿದ (ಸಿಮ್ಯುಲೇಟೆಡ್) ಪ್ರದರ್ಶನ ಕೊಳವನ್ನು ಮಾಡಲು ಮತ್ತು ನಮ್ಮ ಆಮ್ಲಜನಕ ಮುನ್ಸೂಚನೆಗಳನ್ನು ಪರೀಕ್ಷಿಸಲು ಬಳಸಲಾಗಿದೆ.",
@@ -195,7 +197,7 @@ const TEXT = {
     termsTitle: "ನಿಯಮಗಳು ಮತ್ತು ಗೌಪ್ಯತೆ",
     termsClose: "ಮುಚ್ಚಿ",
     termsWhatTitle: "ಇದು ಏನು",
-    termsWhat: "ಮೀನುರಕ್ಷಾ ಸಣ್ಣ ಮೀನು ಕೊಳಗಳಿಗಾಗಿ ಉಚಿತ ಮುನ್ನೆಚ್ಚರಿಕೆ ಸಹಾಯಕ. ಇದನ್ನು ಟೀಮ್ ಆರ್ಬಿಟ್ DevHack 2026 ಗಾಗಿ ನಿರ್ಮಿಸಿದೆ. ಏನನ್ನು, ಯಾವಾಗ ಪರಿಶೀಲಿಸಬೇಕು ಎಂದು ನಿರ್ಧರಿಸಲು ಇದು ಸಹಾಯ ಮಾಡುತ್ತದೆ. ಇದು ನಿಮ್ಮ ಮೀನುಗಾರಿಕೆ ಅಧಿಕಾರಿ, KVK ಅಥವಾ ಪಶುವೈದ್ಯರ ಬದಲಿಯಲ್ಲ, ಮತ್ತು ನಿಮ್ಮ ಮೀನುಗಳು ಸುರಕ್ಷಿತವಾಗಿರುತ್ತವೆ ಎಂದು ಖಾತರಿ ನೀಡುವುದಿಲ್ಲ.",
+    termsWhat: "AquaNexus ಸಣ್ಣ ಮೀನು ಕೊಳಗಳಿಗಾಗಿ ಉಚಿತ ಮುನ್ನೆಚ್ಚರಿಕೆ ಸಹಾಯಕ. ಇದನ್ನು ಟೀಮ್ ಆರ್ಬಿಟ್ DevHack 2026 ಗಾಗಿ ನಿರ್ಮಿಸಿದೆ. ಏನನ್ನು, ಯಾವಾಗ ಪರಿಶೀಲಿಸಬೇಕು ಎಂದು ನಿರ್ಧರಿಸಲು ಇದು ಸಹಾಯ ಮಾಡುತ್ತದೆ. ಇದು ನಿಮ್ಮ ಮೀನುಗಾರಿಕೆ ಅಧಿಕಾರಿ, KVK ಅಥವಾ ಪಶುವೈದ್ಯರ ಬದಲಿಯಲ್ಲ, ಮತ್ತು ನಿಮ್ಮ ಮೀನುಗಳು ಸುರಕ್ಷಿತವಾಗಿರುತ್ತವೆ ಎಂದು ಖಾತರಿ ನೀಡುವುದಿಲ್ಲ.",
     termsLimitsTitle: "ಡೇಟಾದ ಮಿತಿಗಳು",
     termsLimits: "ಡೆಮೊ ಕೊಳದ ಅಳತೆಗಳು ಅನುಕರಿಸಿದವು (ಸಿಮ್ಯುಲೇಟೆಡ್), ನಿಜವಾದ ಕೊಳದವಲ್ಲ. ಹವಾಮಾನ ಮುನ್ಸೂಚನೆ ತಪ್ಪಾಗಬಹುದು. ರೋಗ ಮಾರ್ಗದರ್ಶಿ ಸಾಧ್ಯವಿರುವ ಕಾರಣಗಳನ್ನು ಮಾತ್ರ ತೋರಿಸುತ್ತದೆ, ರೋಗನಿರ್ಣಯವನ್ನಲ್ಲ. AI ಸಹಾಯಕ ತಪ್ಪು ಮಾಡಬಹುದು. ಕ್ರಮ ಕೈಗೊಳ್ಳುವ ಮೊದಲು ಯಾವಾಗಲೂ ಖಚಿತಪಡಿಸಿಕೊಳ್ಳಿ.",
     termsTreatTitle: "ರಾಸಾಯನಿಕ ಅಥವಾ ಔಷಧಿ ಸಲಹೆ ಇಲ್ಲ",
@@ -212,7 +214,7 @@ const TEXT = {
     termsData: "ಆ್ಯಪ್ ಮುಕ್ತ ಡೇಟಾಸೆಟ್‌ಗಳು ಮತ್ತು ಸಾರ್ವಜನಿಕ ಸೇವೆಗಳನ್ನು ಬಳಸುತ್ತದೆ. ಪ್ರತಿಯೊಂದನ್ನೂ ಅದರ ಪರವಾನಗಿಯೊಂದಿಗೆ ಡೇಟಾ ಮೂಲಗಳ ಪಟ್ಟಿ ತೋರಿಸುತ್ತದೆ.",
     termsDataButton: "ಡೇಟಾ ಮೂಲಗಳನ್ನು ತೆರೆಯಿರಿ",
     termsContactTitle: "ಸಂಪರ್ಕ",
-    termsContact: "ಮೀನುರಕ್ಷಾವನ್ನು ಟೀಮ್ ಆರ್ಬಿಟ್ ತಯಾರಿಸಿದೆ. ಪ್ರಶ್ನೆಗಳು ಅಥವಾ ಸಮಸ್ಯೆಗಳಿದ್ದರೆ ನಮ್ಮ GitHub ಪುಟದ ಮೂಲಕ ಸಂಪರ್ಕಿಸಿ.",
+    termsContact: "AquaNexus ಅನ್ನು ಟೀಮ್ ಆರ್ಬಿಟ್ ತಯಾರಿಸಿದೆ. ಪ್ರಶ್ನೆಗಳು ಅಥವಾ ಸಮಸ್ಯೆಗಳಿದ್ದರೆ ನಮ್ಮ GitHub ಪುಟದ ಮೂಲಕ ಸಂಪರ್ಕಿಸಿ.",
     termsContactLink: "GitHub ನಲ್ಲಿ ಟೀಮ್ ಆರ್ಬಿಟ್",
     simulatedNote: "ನಿಜವಾದ ಕೊಳವಲ್ಲ. ಪ್ರದರ್ಶನಕ್ಕಾಗಿ ಮಾತ್ರ.",
     pond: "ಕೊಳ", pond1: "ಕೊಳ 1", pond2: "ಕೊಳ 2", pond3: "ಕೊಳ 3",
@@ -307,7 +309,7 @@ const TEXT = {
     noPhotoLink: "ಪರೀಕ್ಷೆಯ ಫಲಿತಾಂಶಗಳನ್ನು ನೋಡಿ",
     likelyTitle: "ಈಗ ಹೆಚ್ಚು ಸಾಧ್ಯತೆಯಿರುವ ರೋಗಗಳು",
     likelyNote: "ಇದರ ಅರ್ಥ ನಿಮ್ಮ ಮೀನುಗಳಿಗೆ ರೋಗ ಬಂದಿದೆ ಎಂದಲ್ಲ. ಅವುಗಳನ್ನು ಗಮನವಿಟ್ಟು ನೋಡಿ, ಲಕ್ಷಣಗಳು ಕಂಡರೆ ಮೀನು ರೋಗ ಮಾರ್ಗದರ್ಶಿ ಬಳಸಿ.",
-    assistantTitle: "ಮೀನುರಕ್ಷಾವನ್ನು ಕೇಳಿ", assistantLabel: "AI ಸಹಾಯಕ: ತಪ್ಪುಗಳಾಗಬಹುದು",
+    assistantTitle: "AquaNexus ಅನ್ನು ಕೇಳಿ", assistantLabel: "AI ಸಹಾಯಕ: ತಪ್ಪುಗಳಾಗಬಹುದು",
     assistantHelp: "ನಿಮ್ಮ ಅಳತೆಗಳು, ಸುರಕ್ಷಿತ ಮಟ್ಟಗಳು, ಇಂದು ರಾತ್ರಿಯ ಹವಾಮಾನ ಅಥವಾ ಮೀನು ರೋಗಗಳ ಬಗ್ಗೆ ಕೇಳಿ. ಉತ್ತರಗಳು ಈ ಆ್ಯಪ್‌ನ ಸ್ವಂತ ಮಾಹಿತಿಯಿಂದ ಮಾತ್ರ ಬರುತ್ತವೆ.",
     assistantPrivacy: "ನಿಮ್ಮ ಹೆಸರು, ಫೋನ್ ಸಂಖ್ಯೆ ಅಥವಾ ಇತರ ವೈಯಕ್ತಿಕ ವಿವರಗಳನ್ನು ಬರೆಯಬೇಡಿ.",
     assistantSuggested: "ಸೂಚಿಸಿದ ಪ್ರಶ್ನೆಗಳು (ಸಿದ್ಧ ಉತ್ತರಗಳು)",

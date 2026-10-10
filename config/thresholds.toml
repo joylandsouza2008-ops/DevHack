@@ -1,4 +1,4 @@
-# MeenuRaksha — Safe / Warning / Danger thresholds for Indian major carp ponds
+# AquaNexus — Safe / Warning / Danger thresholds for Indian major carp ponds
 #
 # This is the ONLY place threshold numbers live. Change a number here and the
 # classifier (backend/risk_classifier.py) picks it up — no code changes needed.

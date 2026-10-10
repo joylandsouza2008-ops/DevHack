@@ -1,4 +1,4 @@
-# "Ask MeenuRaksha": farmer assistant chat
+# "Ask AquaNexus": farmer assistant chat
 
 A chat card on the dashboard. Farmers ask in English or Kannada about their readings, safe levels, tonight's
 weather or fish diseases. It is always labelled **"AI assistant: can make mistakes" / "AI ಸಹಾಯಕ: ತಪ್ಪುಗಳಾಗಬಹುದು"**.

@@ -38,7 +38,7 @@ FRONTEND_SCREENS = [
     ("Test-kit readings", ["kit"]),
     ("Live sensor", ["live"]),
     ("Fish disease guide (page labels)", ["guide", "checker", "library", "noPhoto", "likely"]),
-    ("Ask MeenuRaksha assistant (page labels)", ["assistant"]),
+    ("Ask AquaNexus assistant (page labels)", ["assistant"]),
     ("Voice alert", ["voice"]),
     ("Alert history", ["history"]),
     ("Data sources panel (footer)", ["sources"]),
@@ -127,7 +127,7 @@ def backend_groups() -> list[tuple[str, str, list]]:
               "GASPING_NOTE", "LIKELY_NOTE")),
         ("Fish disease guide: risky readings", "Why a reading makes a disease more likely.",
          rows(diseases, "READING_LINKS")),
-        ("Ask MeenuRaksha assistant", "Labels, safety replies and the suggested questions. Ready answers are "
+        ("Ask AquaNexus assistant", "Labels, safety replies and the suggested questions. Ready answers are "
          "built from the texts in the other sections. AI replies in Kannada are written by the AI and are not in "
          "this sheet.",
          rows(assistant, "LABEL", "I_DONT_KNOW", "CONFIRM", "NO_TREATMENT", "OFFLINE_NOTE", "LIMITED_NOTE",
@@ -185,7 +185,7 @@ def main() -> None:
     out = [
         "# Kannada text review",
         "",
-        "Every Kannada string in MeenuRaksha, next to its English version, grouped by screen.",
+        "Every Kannada string in AquaNexus, next to its English version, grouped by screen.",
         "Please check each Kannada line is correct, natural and easy for a small fish farmer in",
         "coastal Karnataka to understand. Write any fix in the last column.",
         "",

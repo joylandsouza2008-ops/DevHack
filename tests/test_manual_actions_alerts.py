@@ -144,7 +144,7 @@ def test_alert_uses_the_same_message_as_the_app():
         assert r["summary"][lang] in alert["sms"][lang]
         assert r["summary"][lang] in alert["whatsapp"][lang]
         assert SIMULATED_LABEL[lang] in alert["sms"][lang]
-    assert alert["sms"]["en"].startswith("MeenuRaksha: DANGER - Pond 1.")
+    assert alert["sms"]["en"].startswith("AquaNexus: DANGER - Pond 1.")
     assert "*ಅಪಾಯ* - ಕೊಳ 1" in alert["whatsapp"]["kn"]
 
 

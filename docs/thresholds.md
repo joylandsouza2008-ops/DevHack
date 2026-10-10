@@ -1,6 +1,6 @@
 # Water-quality risk thresholds — Indian major carp ponds
 
-MeenuRaksha grades each sensor reading as **Safe**, **Warning** or **Danger** using published aquaculture limits for Indian major carps (catla, rohu, mrigal). It does not use the dataset labels.
+AquaNexus grades each sensor reading as **Safe**, **Warning** or **Danger** using published aquaculture limits for Indian major carps (catla, rohu, mrigal). It does not use the dataset labels.
 
 **Overall pond risk = the worst parameter.** If oxygen is Warning but pH is Danger, the pond is Danger, and the alert names pH as the cause.
 

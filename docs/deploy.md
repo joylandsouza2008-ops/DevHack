@@ -1,4 +1,4 @@
-# Putting MeenuRaksha online (free)
+# Putting AquaNexus online (free)
 
 Goal: one link the judges can open on a laptop or phone.
 
@@ -70,7 +70,7 @@ the code or in git. Full steps: [docs/sensor-api.md](sensor-api.md#1-the-pond-ke
 
 ### AI assistant key (optional)
 
-Without a key, "Ask MeenuRaksha" still works with its ready answers. To turn on AI answers, add
+Without a key, "Ask AquaNexus" still works with its ready answers. To turn on AI answers, add
 `ASSISTANT_API_KEY` (and `ASSISTANT_PROVIDER`, normally `gemini`) under the service's **Environment** tab.
 Steps and provider choice: [docs/assistant.md](assistant.md).
 

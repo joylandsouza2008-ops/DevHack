@@ -1,5 +1,5 @@
 """
-Talks to the AI service for the "Ask MeenuRaksha" assistant. Backend only:
+Talks to the AI service for the "Ask AquaNexus" assistant. Backend only:
 the page never sees the provider or the key.
 
 Everything comes from environment variables (on Render: the service's

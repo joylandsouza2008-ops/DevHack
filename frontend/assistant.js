@@ -1,4 +1,4 @@
-// "Ask MeenuRaksha" farmer assistant chat (card on the dashboard).
+// "Ask AquaNexus" farmer assistant chat (card on the dashboard).
 //
 // The page never talks to the AI and never sees a key: it sends the question
 // and the readings it is showing to our server (POST /api/assistant/ask), which

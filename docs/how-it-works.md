@@ -1,4 +1,4 @@
-# How MeenuRaksha works
+# How AquaNexus works
 
 A plain-words guide to the whole app: what each part does, which file does it, and questions judges
 might ask. For the full details, follow the links to the other pages in `docs/`.
@@ -163,7 +163,7 @@ a pretend sensor for demos. Its readings are labelled "Demo device".
 came from the photo backgrounds, not the disease. It was never tested on Indian carp. That is not safe enough to
 show farmers, so it stays research only.
 
-## 7. AI assistant: "Ask MeenuRaksha"
+## 7. AI assistant: "Ask AquaNexus"
 
 **Files:** `backend/assistant.py`, `backend/ai_provider.py`, `backend/safety.py`, `frontend/assistant.js`.
 **Details:** `docs/assistant.md`.

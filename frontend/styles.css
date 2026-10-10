@@ -1,4 +1,4 @@
-/* MeenuRaksha dashboard. Colours, sizes and rules come from DESIGN.md.
+/* AquaNexus dashboard. Colours, sizes and rules come from DESIGN.md.
    Two themes from the project palette (Realtime Colors): dark (default) and
    light, for bright outdoor sunlight. The theme is set on <html data-theme="...">
    by the small script in index.html (saved choice, else the phone's setting)
@@ -587,7 +587,7 @@ main {
 }
 @media (prefers-reduced-motion: reduce) { .live-dot.live-dot-on { animation: none; } }
 
-/* ---- "Ask MeenuRaksha" assistant (assistant.js) ---- */
+/* ---- "Ask AquaNexus" assistant (assistant.js) ---- */
 .assistant-card { display: flex; flex-direction: column; gap: 0.875rem; }
 .assistant-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem 1rem; }
 .assistant-head h2 { margin: 0; }

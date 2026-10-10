@@ -1,6 +1,6 @@
 # Data sources
 
-MeenuRaksha has **no real sensors**. Instead it uses the open datasets, public API and published guides below.
+AquaNexus has **no real sensors**. Instead it uses the open datasets, public API and published guides below.
 The app shows the same list (shorter) under **Data sources / ಡೇಟಾ ಮೂಲಗಳು** in the footer.
 
 Licences were checked on each source's own page on 9 October 2026.

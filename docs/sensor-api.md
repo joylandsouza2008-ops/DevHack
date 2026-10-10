@@ -1,7 +1,7 @@
 # Live sensor API
 
 A real pond sensor (for example an ESP32 with oxygen, pH, temperature and ammonia
-probes) can send its readings to MeenuRaksha. They appear on the dashboard in the
+probes) can send its readings to AquaNexus. They appear on the dashboard in the
 **Live sensor** card as they arrive. They are graded with the same Safe / Warning /
 Danger rules as everything else and are always labelled **"Live sensor" / "ಲೈವ್ ಸೆನ್ಸರ್"**,
 kept apart from the simulated pond.
@@ -199,7 +199,7 @@ The four `read...()` functions are **placeholders**: replace them with the code 
 (each probe maker gives example code, and each probe must be calibrated as its maker says).
 
 ```cpp
-// MeenuRaksha pond sensor: sends one reading every 60 seconds.
+// AquaNexus pond sensor: sends one reading every 60 seconds.
 #include <WiFi.h>
 #include <WiFiClientSecure.h>
 #include <HTTPClient.h>

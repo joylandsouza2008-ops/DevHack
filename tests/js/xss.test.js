@@ -1,4 +1,4 @@
-// XSS test for the "Ask MeenuRaksha" chat (frontend/assistant.js) and the disease
+// XSS test for the "Ask AquaNexus" chat (frontend/assistant.js) and the disease
 // drawings (frontend/diseases.js): text from the server or the AI must be shown as
 // plain text, never turned into HTML.
 //

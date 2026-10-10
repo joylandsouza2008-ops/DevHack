@@ -1,5 +1,5 @@
 """
-Safety checks shared by the Fish disease guide and the "Ask MeenuRaksha"
+Safety checks shared by the Fish disease guide and the "Ask AquaNexus"
 assistant: the app must never name chemicals, medicines or doses, and never
 tell a farmer which disease their fish have.
 

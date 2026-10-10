@@ -410,7 +410,8 @@ ORBIT_CSS = CSS[CSS.index("Team Orbit touches (scene.js"):]
 
 def test_team_credit_on_the_welcome_screen_and_in_the_footer():
     html = (STYLES.parent / "index.html").read_text(encoding="utf-8")
-    assert html.count('data-i18n="builtBy">Built by Team Orbit') == 2
+    assert html.count('data-i18n="builtBy">Built by Team Orbit') == 1                          # welcome screen
+    assert html.count('data-i18n="footerCredit">AquaNexus by Team Orbit (Nexus Orbit)') == 1  # footer
     assert html.count('class="orbit-logo"') == 2
 
 

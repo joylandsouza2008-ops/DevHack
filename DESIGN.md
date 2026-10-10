@@ -358,7 +358,8 @@ Numeric inputs for readings use `inputmode="decimal"` and show the unit as a suf
 - **Night sky:** a richer starfield, an occasional shooting star and a small satellite crossing slowly (the weather forecast relies on satellites). Night only; one element each, at most one waiting timer each.
 - **Health score ring:** a small glowing dot circles the ring, in pearl (pond blue in the light theme), never a status colour and never over the number.
 - **Loading states:** a small fish circling a water drop, shown only while loading ("Connecting…", tonight's weather).
-- **Credit:** a small static orbit-ring logo (a water drop with an orbit) and "Built by Team Orbit" / "ನಿರ್ಮಾಣ: ಟೀಮ್ ಆರ್ಬಿಟ್" on the welcome screen (on a dark chip) and in the footer.
+- **Credit:** a small static orbit-ring logo (a water drop with an orbit) and "Built by Team Orbit" / "ನಿರ್ಮಾಣ: ಟೀಮ್ ಆರ್ಬಿಟ್" on the welcome screen (on a dark chip), and "AquaNexus by Team Orbit (Nexus Orbit)" / "AquaNexus · ನಿರ್ಮಾಣ: ಟೀಮ್ ಆರ್ಬಿಟ್ (Nexus Orbit)" in the footer.
+- **App name:** **AquaNexus**, written in Latin letters in both languages. On the welcome screen the Kannada tagline **ಮೀನು ರಕ್ಷಕ** ("fish protector") sits under the name, in `{colors.primary}`.
 - None of them use status colours or the magenta accent, and all of them stop with "reduce motion" (the loader's fish rests beside the drop).
 
 **`footer-region`** / **`footer-link`**: deep-water footer (`{colors.footer-bg}`) with `{colors.text-secondary}` links at 16px.

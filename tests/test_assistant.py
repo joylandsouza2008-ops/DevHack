@@ -1,5 +1,5 @@
 """
-Tests for the "Ask MeenuRaksha" assistant (backend/assistant.py, backend/ai_provider.py,
+Tests for the "Ask AquaNexus" assistant (backend/assistant.py, backend/ai_provider.py,
 backend/safety.py and the /api/assistant endpoints).
 
 The AI is ALWAYS faked here: no test ever calls a real AI service.

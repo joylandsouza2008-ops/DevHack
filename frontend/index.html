@@ -7,7 +7,9 @@
   <!-- Theme before the first paint (no flash). A file, not an inline script, so the
        Content-Security-Policy can block every inline script (docs/security.md). -->
   <script src="/theme.js"></script>
-  <title>MeenuRaksha · Pond water early warning</title>
+  <title>AquaNexus · Pond water early warning</title>
+  <meta name="application-name" content="AquaNexus">
+  <meta name="apple-mobile-web-app-title" content="AquaNexus">
   <meta name="description" content="Early warning for small fish ponds in coastal Karnataka: shows when pond water is Safe, Warning or Danger, with steps to take, in Kannada and English. Demo uses simulated sensor data.">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%2388cce6' d='M12 2s7 7.6 7 12.5A7 7 0 0 1 5 14.5C5 9.6 12 2 12 2Z'/%3E%3C/svg%3E">
   <link rel="stylesheet" href="/fonts/fonts.css">
@@ -39,8 +41,8 @@
 
     <div class="welcome-content" id="welcome-content">
       <h1 class="welcome-title" id="welcome-title">
-        <span class="welcome-name" lang="en">MeenuRaksha</span>
-        <span class="welcome-name-kn" lang="kn">ಮೀನುರಕ್ಷಾ</span>
+        <span class="welcome-name" lang="en">AquaNexus</span>
+        <span class="welcome-name-kn" lang="kn">ಮೀನು ರಕ್ಷಕ</span>
       </h1>
       <p class="welcome-tagline" data-i18n="welcomeTagline">Pond water warnings before your fish are in danger.</p>
       <!-- A real alert, as the dashboard shows it (fixed example, so it is labelled simulated). -->
@@ -73,7 +75,7 @@
   <div class="dashboard" id="dashboard" inert>
     <header class="top-bar">
       <div class="brand">
-        <span class="app-name" data-i18n="appName">MeenuRaksha</span>
+        <span class="app-name" data-i18n="appName">AquaNexus</span>
         <span class="tagline" data-i18n="tagline">Pond water early warning</span>
       </div>
       <div class="top-bar-tools">
@@ -239,7 +241,7 @@
           <div class="phone" aria-label="Phone screen">
             <div class="phone-top"><span class="phone-speaker"></span></div>
             <div class="phone-screen">
-              <p class="phone-app" id="phone-app">SMS · MeenuRaksha</p>
+              <p class="phone-app" id="phone-app">SMS · AquaNexus</p>
               <div class="bubble" id="alert-bubble"></div>
               <p class="phone-time" id="phone-time"></p>
             </div>
@@ -349,11 +351,11 @@
           <p class="history-empty" id="history-empty" data-i18n="historyEmpty">No warnings yet.</p>
         </section>
 
-        <!-- "Ask MeenuRaksha" assistant (assistant.js). Answers only from the app's own content
+        <!-- "Ask AquaNexus" assistant (assistant.js). Answers only from the app's own content
              (backend/assistant.py); AI called from the server only. Always labelled as AI. -->
         <section class="card assistant-card in-view" id="assistant" aria-labelledby="assistant-title">
           <div class="assistant-head">
-            <h2 id="assistant-title" class="text-effect" data-i18n="assistantTitle">Ask MeenuRaksha</h2>
+            <h2 id="assistant-title" class="text-effect" data-i18n="assistantTitle">Ask AquaNexus</h2>
             <p class="manual-tag ai-tag">
               <strong id="assistant-label">AI assistant: can make mistakes</strong>
             </p>
@@ -450,7 +452,7 @@
     <!-- Site footer: who made it, where the data comes from, privacy, source code. -->
     <footer class="site-footer">
       <div class="site-footer-row">
-        <p class="team-credit"><svg class="orbit-logo" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path class="lg-drop" d="M16 8c0 0 5 5.6 5 9a5 5 0 0 1-10 0c0-3.4 5-9 5-9Z"/><ellipse class="lg-ring" cx="16" cy="17" rx="14" ry="5.5" transform="rotate(-18 16 17)"/><circle class="lg-moon" cx="29.3" cy="12.7" r="2.2"/></svg><span data-i18n="builtBy">Built by Team Orbit</span></p>
+        <p class="team-credit"><svg class="orbit-logo" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path class="lg-drop" d="M16 8c0 0 5 5.6 5 9a5 5 0 0 1-10 0c0-3.4 5-9 5-9Z"/><ellipse class="lg-ring" cx="16" cy="17" rx="14" ry="5.5" transform="rotate(-18 16 17)"/><circle class="lg-moon" cx="29.3" cy="12.7" r="2.2"/></svg><span data-i18n="footerCredit">AquaNexus by Team Orbit (Nexus Orbit)</span></p>
         <div class="site-footer-links">
           <button type="button" class="button-ghost sources-open" id="sources-open" aria-haspopup="dialog" data-i18n="sourcesTitle">Data sources</button>
           <button type="button" class="button-ghost sources-open" id="terms-open" aria-haspopup="dialog" data-i18n="termsTitle">Terms &amp; Privacy</button>
@@ -510,7 +512,7 @@
         <button type="button" class="button-secondary" id="terms-close" data-i18n="termsClose">Close</button>
       </div>
       <h3 data-i18n="termsWhatTitle">What this is</h3>
-      <p data-i18n="termsWhat">MeenuRaksha is a free early-warning helper for small fish ponds, built by Team Orbit for DevHack 2026. It helps you decide what to check and when. It does not replace your fisheries officer, KVK or vet, and it cannot promise that your fish will be safe.</p>
+      <p data-i18n="termsWhat">AquaNexus is a free early-warning helper for small fish ponds, built by Team Orbit for DevHack 2026. It helps you decide what to check and when. It does not replace your fisheries officer, KVK or vet, and it cannot promise that your fish will be safe.</p>
       <h3 data-i18n="termsLimitsTitle">Limits of the data</h3>
       <p data-i18n="termsLimits">The demo pond's readings are simulated, not from a real pond. Weather forecasts can be wrong. The disease guide shows possible causes, never a diagnosis. The AI assistant can make mistakes. Always confirm before you act.</p>
       <h3 data-i18n="termsTreatTitle">No chemical or medicine advice</h3>
@@ -529,7 +531,7 @@
       <p data-i18n="termsData">The app uses open datasets and public services. The Data sources list shows each one and its licence.</p>
       <p><button type="button" class="button-ghost" id="terms-sources" data-i18n="termsDataButton">Open Data sources</button></p>
       <h3 data-i18n="termsContactTitle">Contact</h3>
-      <p data-i18n="termsContact">MeenuRaksha is made by Team Orbit. For questions or problems, reach us through our GitHub page.</p>
+      <p data-i18n="termsContact">AquaNexus is made by Team Orbit. For questions or problems, reach us through our GitHub page.</p>
       <p><a href="https://github.com/joylandsouza2008-ops/DevHack" target="_blank" rel="noopener" data-i18n="termsContactLink">Team Orbit on GitHub</a></p>
     </dialog>
   </div>

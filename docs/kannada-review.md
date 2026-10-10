@@ -1,6 +1,6 @@
 # Kannada text review
 
-Every Kannada string in MeenuRaksha, next to its English version, grouped by screen.
+Every Kannada string in AquaNexus, next to its English version, grouped by screen.
 Please check each Kannada line is correct, natural and easy for a small fish farmer in
 coastal Karnataka to understand. Write any fix in the last column.
 
@@ -24,13 +24,12 @@ Button and screen-reader labels in index.html.
 
 | # | Where in the code | English | Kannada | Correct? / suggestion |
 |---|---|---|---|---|
-| 1 | `app.js appName` | MeenuRaksha | ಮೀನುರಕ್ಷಾ |  |
-| 2 | `app.js welcomeTagline` | Pond water warnings before your fish are in danger. | ಮೀನುಗಳಿಗೆ ಅಪಾಯ ಬರುವ ಮೊದಲೇ ಕೊಳದ ನೀರಿನ ಎಚ್ಚರಿಕೆ. |  |
-| 3 | `app.js welcomeExample` | What a warning looks like | ಎಚ್ಚರಿಕೆ ಹೀಗೆ ಕಾಣುತ್ತದೆ |  |
-| 4 | `app.js welcomeExampleLevel` | Warning | ಎಚ್ಚರಿಕೆ |  |
-| 5 | `app.js welcomeExampleText` | Pond 1: oxygen is low (3.8 mg/L). Run the aerator tonight. | ಕೊಳ 1: ಆಮ್ಲಜನಕ ಕಡಿಮೆ ಇದೆ (3.8 mg/L). ಇಂದು ರಾತ್ರಿ ಏರೇಟರ್ ಚಾಲೂ ಇಡಿ. |  |
-| 6 | `app.js start` | Start | ಪ್ರಾರಂಭಿಸಿ |  |
-| 7 | `app.js builtBy` | Built by Team Orbit | ನಿರ್ಮಾಣ: ಟೀಮ್ ಆರ್ಬಿಟ್ |  |
+| 1 | `app.js welcomeTagline` | Pond water warnings before your fish are in danger. | ಮೀನುಗಳಿಗೆ ಅಪಾಯ ಬರುವ ಮೊದಲೇ ಕೊಳದ ನೀರಿನ ಎಚ್ಚರಿಕೆ. |  |
+| 2 | `app.js welcomeExample` | What a warning looks like | ಎಚ್ಚರಿಕೆ ಹೀಗೆ ಕಾಣುತ್ತದೆ |  |
+| 3 | `app.js welcomeExampleLevel` | Warning | ಎಚ್ಚರಿಕೆ |  |
+| 4 | `app.js welcomeExampleText` | Pond 1: oxygen is low (3.8 mg/L). Run the aerator tonight. | ಕೊಳ 1: ಆಮ್ಲಜನಕ ಕಡಿಮೆ ಇದೆ (3.8 mg/L). ಇಂದು ರಾತ್ರಿ ಏರೇಟರ್ ಚಾಲೂ ಇಡಿ. |  |
+| 5 | `app.js start` | Start | ಪ್ರಾರಂಭಿಸಿ |  |
+| 6 | `app.js builtBy` | Built by Team Orbit | ನಿರ್ಮಾಣ: ಟೀಮ್ ಆರ್ಬಿಟ್ |  |
 
 ## 3. Pond scene (sky label)
 
@@ -199,11 +198,11 @@ Shown over the day/night pond picture.
 | 30 | `app.js likelyTitle` | Diseases more likely now | ಈಗ ಹೆಚ್ಚು ಸಾಧ್ಯತೆಯಿರುವ ರೋಗಗಳು |  |
 | 31 | `app.js likelyNote` | This does not mean your fish are sick. Watch them closely and use the Fish disease guide if you see signs. | ಇದರ ಅರ್ಥ ನಿಮ್ಮ ಮೀನುಗಳಿಗೆ ರೋಗ ಬಂದಿದೆ ಎಂದಲ್ಲ. ಅವುಗಳನ್ನು ಗಮನವಿಟ್ಟು ನೋಡಿ, ಲಕ್ಷಣಗಳು ಕಂಡರೆ ಮೀನು ರೋಗ ಮಾರ್ಗದರ್ಶಿ ಬಳಸಿ. |  |
 
-## 14. Ask MeenuRaksha assistant (page labels)
+## 14. Ask AquaNexus assistant (page labels)
 
 | # | Where in the code | English | Kannada | Correct? / suggestion |
 |---|---|---|---|---|
-| 1 | `app.js assistantTitle` | Ask MeenuRaksha | ಮೀನುರಕ್ಷಾವನ್ನು ಕೇಳಿ |  |
+| 1 | `app.js assistantTitle` | Ask AquaNexus | AquaNexus ಅನ್ನು ಕೇಳಿ |  |
 | 2 | `app.js assistantLabel` | AI assistant: can make mistakes | AI ಸಹಾಯಕ: ತಪ್ಪುಗಳಾಗಬಹುದು |  |
 | 3 | `app.js assistantHelp` | Ask about your readings, safe levels, tonight's weather or fish diseases. Answers come only from this app's own information. | ನಿಮ್ಮ ಅಳತೆಗಳು, ಸುರಕ್ಷಿತ ಮಟ್ಟಗಳು, ಇಂದು ರಾತ್ರಿಯ ಹವಾಮಾನ ಅಥವಾ ಮೀನು ರೋಗಗಳ ಬಗ್ಗೆ ಕೇಳಿ. ಉತ್ತರಗಳು ಈ ಆ್ಯಪ್‌ನ ಸ್ವಂತ ಮಾಹಿತಿಯಿಂದ ಮಾತ್ರ ಬರುತ್ತವೆ. |  |
 | 4 | `app.js assistantPrivacy` | Do not type your name, phone number or other personal details. | ನಿಮ್ಮ ಹೆಸರು, ಫೋನ್ ಸಂಖ್ಯೆ ಅಥವಾ ಇತರ ವೈಯಕ್ತಿಕ ವಿವರಗಳನ್ನು ಬರೆಯಬೇಡಿ. |  |
@@ -272,7 +271,7 @@ Shown over the day/night pond picture.
 | 1 | `app.js termsTitle` | Terms & Privacy | ನಿಯಮಗಳು ಮತ್ತು ಗೌಪ್ಯತೆ |  |
 | 2 | `app.js termsClose` | Close | ಮುಚ್ಚಿ |  |
 | 3 | `app.js termsWhatTitle` | What this is | ಇದು ಏನು |  |
-| 4 | `app.js termsWhat` | MeenuRaksha is a free early-warning helper for small fish ponds, built by Team Orbit for DevHack 2026. It helps you decide what to check and when. It does not replace your fisheries officer, KVK or vet, and it cannot promise that your fish will be safe. | ಮೀನುರಕ್ಷಾ ಸಣ್ಣ ಮೀನು ಕೊಳಗಳಿಗಾಗಿ ಉಚಿತ ಮುನ್ನೆಚ್ಚರಿಕೆ ಸಹಾಯಕ. ಇದನ್ನು ಟೀಮ್ ಆರ್ಬಿಟ್ DevHack 2026 ಗಾಗಿ ನಿರ್ಮಿಸಿದೆ. ಏನನ್ನು, ಯಾವಾಗ ಪರಿಶೀಲಿಸಬೇಕು ಎಂದು ನಿರ್ಧರಿಸಲು ಇದು ಸಹಾಯ ಮಾಡುತ್ತದೆ. ಇದು ನಿಮ್ಮ ಮೀನುಗಾರಿಕೆ ಅಧಿಕಾರಿ, KVK ಅಥವಾ ಪಶುವೈದ್ಯರ ಬದಲಿಯಲ್ಲ, ಮತ್ತು ನಿಮ್ಮ ಮೀನುಗಳು ಸುರಕ್ಷಿತವಾಗಿರುತ್ತವೆ ಎಂದು ಖಾತರಿ ನೀಡುವುದಿಲ್ಲ. |  |
+| 4 | `app.js termsWhat` | AquaNexus is a free early-warning helper for small fish ponds, built by Team Orbit for DevHack 2026. It helps you decide what to check and when. It does not replace your fisheries officer, KVK or vet, and it cannot promise that your fish will be safe. | AquaNexus ಸಣ್ಣ ಮೀನು ಕೊಳಗಳಿಗಾಗಿ ಉಚಿತ ಮುನ್ನೆಚ್ಚರಿಕೆ ಸಹಾಯಕ. ಇದನ್ನು ಟೀಮ್ ಆರ್ಬಿಟ್ DevHack 2026 ಗಾಗಿ ನಿರ್ಮಿಸಿದೆ. ಏನನ್ನು, ಯಾವಾಗ ಪರಿಶೀಲಿಸಬೇಕು ಎಂದು ನಿರ್ಧರಿಸಲು ಇದು ಸಹಾಯ ಮಾಡುತ್ತದೆ. ಇದು ನಿಮ್ಮ ಮೀನುಗಾರಿಕೆ ಅಧಿಕಾರಿ, KVK ಅಥವಾ ಪಶುವೈದ್ಯರ ಬದಲಿಯಲ್ಲ, ಮತ್ತು ನಿಮ್ಮ ಮೀನುಗಳು ಸುರಕ್ಷಿತವಾಗಿರುತ್ತವೆ ಎಂದು ಖಾತರಿ ನೀಡುವುದಿಲ್ಲ. |  |
 | 5 | `app.js termsLimitsTitle` | Limits of the data | ಡೇಟಾದ ಮಿತಿಗಳು |  |
 | 6 | `app.js termsLimits` | The demo pond's readings are simulated, not from a real pond. Weather forecasts can be wrong. The disease guide shows possible causes, never a diagnosis. The AI assistant can make mistakes. Always confirm before you act. | ಡೆಮೊ ಕೊಳದ ಅಳತೆಗಳು ಅನುಕರಿಸಿದವು (ಸಿಮ್ಯುಲೇಟೆಡ್), ನಿಜವಾದ ಕೊಳದವಲ್ಲ. ಹವಾಮಾನ ಮುನ್ಸೂಚನೆ ತಪ್ಪಾಗಬಹುದು. ರೋಗ ಮಾರ್ಗದರ್ಶಿ ಸಾಧ್ಯವಿರುವ ಕಾರಣಗಳನ್ನು ಮಾತ್ರ ತೋರಿಸುತ್ತದೆ, ರೋಗನಿರ್ಣಯವನ್ನಲ್ಲ. AI ಸಹಾಯಕ ತಪ್ಪು ಮಾಡಬಹುದು. ಕ್ರಮ ಕೈಗೊಳ್ಳುವ ಮೊದಲು ಯಾವಾಗಲೂ ಖಚಿತಪಡಿಸಿಕೊಳ್ಳಿ. |  |
 | 7 | `app.js termsTreatTitle` | No chemical or medicine advice | ರಾಸಾಯನಿಕ ಅಥವಾ ಔಷಧಿ ಸಲಹೆ ಇಲ್ಲ |  |
@@ -289,7 +288,7 @@ Shown over the day/night pond picture.
 | 18 | `app.js termsData` | The app uses open datasets and public services. The Data sources list shows each one and its licence. | ಆ್ಯಪ್ ಮುಕ್ತ ಡೇಟಾಸೆಟ್‌ಗಳು ಮತ್ತು ಸಾರ್ವಜನಿಕ ಸೇವೆಗಳನ್ನು ಬಳಸುತ್ತದೆ. ಪ್ರತಿಯೊಂದನ್ನೂ ಅದರ ಪರವಾನಗಿಯೊಂದಿಗೆ ಡೇಟಾ ಮೂಲಗಳ ಪಟ್ಟಿ ತೋರಿಸುತ್ತದೆ. |  |
 | 19 | `app.js termsDataButton` | Open Data sources | ಡೇಟಾ ಮೂಲಗಳನ್ನು ತೆರೆಯಿರಿ |  |
 | 20 | `app.js termsContactTitle` | Contact | ಸಂಪರ್ಕ |  |
-| 21 | `app.js termsContact` | MeenuRaksha is made by Team Orbit. For questions or problems, reach us through our GitHub page. | ಮೀನುರಕ್ಷಾವನ್ನು ಟೀಮ್ ಆರ್ಬಿಟ್ ತಯಾರಿಸಿದೆ. ಪ್ರಶ್ನೆಗಳು ಅಥವಾ ಸಮಸ್ಯೆಗಳಿದ್ದರೆ ನಮ್ಮ GitHub ಪುಟದ ಮೂಲಕ ಸಂಪರ್ಕಿಸಿ. |  |
+| 21 | `app.js termsContact` | AquaNexus is made by Team Orbit. For questions or problems, reach us through our GitHub page. | AquaNexus ಅನ್ನು ಟೀಮ್ ಆರ್ಬಿಟ್ ತಯಾರಿಸಿದೆ. ಪ್ರಶ್ನೆಗಳು ಅಥವಾ ಸಮಸ್ಯೆಗಳಿದ್ದರೆ ನಮ್ಮ GitHub ಪುಟದ ಮೂಲಕ ಸಂಪರ್ಕಿಸಿ. |  |
 | 22 | `app.js termsContactLink` | Team Orbit on GitHub | GitHub ನಲ್ಲಿ ಟೀಮ್ ಆರ್ಬಿಟ್ |  |
 
 ## 19. Footer (privacy, source code)
@@ -298,6 +297,7 @@ Shown over the day/night pond picture.
 |---|---|---|---|---|
 | 1 | `app.js footerCode` | Source code on GitHub | GitHub ನಲ್ಲಿ ಸೋರ್ಸ್ ಕೋಡ್ |  |
 | 2 | `app.js footerPrivacy` | Privacy: no account needed. The app never uses your camera, photos or location. Alert history stays on this phone. Test-kit numbers go to our server only to check them. Assistant questions may also go to an AI service. | ಗೌಪ್ಯತೆ: ಖಾತೆ ಬೇಕಾಗಿಲ್ಲ. ಆ್ಯಪ್ ನಿಮ್ಮ ಕ್ಯಾಮೆರಾ, ಫೋಟೋ ಅಥವಾ ಸ್ಥಳವನ್ನು ಬಳಸುವುದಿಲ್ಲ. ಎಚ್ಚರಿಕೆಗಳ ಇತಿಹಾಸ ಈ ಫೋನ್‌ನಲ್ಲೇ ಇರುತ್ತದೆ. ಟೆಸ್ಟ್-ಕಿಟ್ ಅಳತೆಗಳು ಪರಿಶೀಲನೆಗಾಗಿ ಮಾತ್ರ ನಮ್ಮ ಸರ್ವರ್‌ಗೆ ಹೋಗುತ್ತವೆ. ಸಹಾಯಕನಿಗೆ ಕೇಳುವ ಪ್ರಶ್ನೆಗಳು AI ಸೇವೆಗೂ ಹೋಗಬಹುದು. |  |
+| 3 | `app.js footerCredit` | AquaNexus by Team Orbit (Nexus Orbit) | AquaNexus · ನಿರ್ಮಾಣ: ಟೀಮ್ ಆರ್ಬಿಟ್ (Nexus Orbit) |  |
 
 ## 20. Messages from the server: Data labels
 
@@ -531,7 +531,7 @@ Why a reading makes a disease more likely.
 | 7 | `diseases.READING_LINKS.temperature/low[1][1]` | The white spot parasite multiplies best at 15-25 °C. | ಬಿಳಿ ಚುಕ್ಕೆ ಪರಾವಲಂಬಿ 15-25 °C ನಲ್ಲಿ ಹೆಚ್ಚು ವೃದ್ಧಿಯಾಗುತ್ತದೆ. |  |
 | 8 | `diseases.READING_LINKS.ph/low[0][1]` | EUS outbreaks are linked to acidic water. | EUS ಹರಡುವಿಕೆ ಆಮ್ಲೀಯ ನೀರಿಗೆ ಸಂಬಂಧಿಸಿದೆ. |  |
 
-## 29. Messages from the server: Ask MeenuRaksha assistant
+## 29. Messages from the server: Ask AquaNexus assistant
 
 Labels, safety replies and the suggested questions. Ready answers are built from the texts in the other sections. AI replies in Kannada are written by the AI and are not in this sheet.
 
@@ -577,5 +577,5 @@ The SMS and WhatsApp text is built from the risk card and time-until-danger mess
 | 1 | `alerts.POND_NAMES.station1` | Pond 1 | ಕೊಳ 1 |  |
 | 2 | `alerts.POND_NAMES.station2` | Pond 2 | ಕೊಳ 2 |  |
 | 3 | `alerts.POND_NAMES.station3` | Pond 3 | ಕೊಳ 3 |  |
-| 4 | `alerts.APP_NAME` | MeenuRaksha | ಮೀನುರಕ್ಷಾ |  |
+| 4 | `alerts.APP_NAME` | AquaNexus | AquaNexus |  |
 | 5 | `alerts.NO_ALERT` | No alert would be sent: the readings are not in Warning or Danger. | ಯಾವುದೇ ಎಚ್ಚರಿಕೆ ಕಳುಹಿಸುವುದಿಲ್ಲ: ಅಳತೆಗಳು ಎಚ್ಚರಿಕೆ ಅಥವಾ ಅಪಾಯದ ಮಟ್ಟದಲ್ಲಿಲ್ಲ. |  |

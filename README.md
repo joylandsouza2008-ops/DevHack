@@ -1,4 +1,4 @@
-# MeenuRaksha
+# AquaNexus
 
 **Live app:** https://meenuraksha.onrender.com
 
@@ -26,7 +26,7 @@ Built for DevHack 2026, problem statement 1.1.
 | `backend/simulator.py` | **Simulated** demo readings (normal day / night oxygen crash). Demo only, never for accuracy. Without `data/` it uses fixed typical levels, so a fresh clone (and the online demo) still runs |
 | `backend/health_score.py` | Pond health score 0–100, always inside its status's range (Safe 75–100, Warning 40–74, Danger 0–39) |
 | `backend/main.py` | FastAPI web server: API endpoints + serves the page |
-| `backend/assistant.py`, `ai_provider.py`, `safety.py` | "Ask MeenuRaksha" assistant: answers only from the app's content, safety filter on every reply (no chemicals, doses or diagnosis), rate limit, ready answers when the AI is unavailable. Provider and key from environment variables |
+| `backend/assistant.py`, `ai_provider.py`, `safety.py` | "Ask AquaNexus" assistant: answers only from the app's content, safety filter on every reply (no chemicals, doses or diagnosis), rate limit, ready answers when the AI is unavailable. Provider and key from environment variables |
 | `backend/diseases.py` | Fish disease guide: 9 carp-pond diseases (English + Kannada), symptom checker ("possible matches", never a diagnosis), diseases made more likely by risky readings. No medicines or doses |
 | `backend/security.py` | Security for every request: rate limits on the assistant and sensor API, request size limit, Content-Security-Policy and other security headers ([docs/security.md](docs/security.md)) |
 | `backend/sensor.py` | Live sensor: per-pond key check (key only in an environment variable), clock check, readings kept in memory |
@@ -48,7 +48,7 @@ Built for DevHack 2026, problem statement 1.1.
 | `docs/time_to_danger.md` | "Time until danger" method and results on real + simulated data |
 | `docs/screenshots/` | App screenshots (simulated demo) |
 | `frontend/` | The web page: `index.html`, dashboard (`styles.css`, `app.js`), welcome screen (`welcome.css`, `welcome.js`), day/night pond scene that follows the simulated time + hand-drawn doodles (`scene.js`), mouse and tap effects: water ripples, card tilt and spotlight, magnetic buttons (`cursor-fx.js`). Dark and light themes (one Realtime Colors palette: indigo, pond blue, cyan, magenta decoration; toggle in the top bar); after changing theme colours re-run `python tools/recolor_backgrounds.py`. Subtle "Team Orbit" space touches: starfield, shooting star, satellite, orbiting dot on the health ring, fish-and-drop loader. Add `?debug` to the address to see live counts |
-| `frontend/assistant.js` | "Ask MeenuRaksha" chat card (suggested questions, speaker button per reply) |
+| `frontend/assistant.js` | "Ask AquaNexus" chat card (suggested questions, speaker button per reply) |
 | `frontend/diseases.js` | Fish disease guide card: symptom checker, disease library with original SVG fish drawings |
 | `frontend/health-ring.js`, `history.js`, `voice.js` | Health score ring, alert history (saved in the browser), voice alerts (phone's own voices, only when tapped) |
 | `frontend/vendor/gsap/` | GSAP 3.15.0 animation library, bundled locally (works offline) |

@@ -109,7 +109,7 @@
     // if DevTools is open ("Preserve log").
     realSetInterval(() => {
       const line = Object.fromEntries(METRICS.map(([name], i) => [name, rows[i][0].textContent]));
-      console.info("[MeenuRaksha debug]", Math.floor((performance.now() - started) / 60000), "min", line);
+      console.info("[AquaNexus debug]", Math.floor((performance.now() - started) / 60000), "min", line);
     }, 60000);
   }
 
