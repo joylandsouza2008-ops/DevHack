@@ -19,6 +19,8 @@ PROJECT = Path(__file__).resolve().parent.parent
 RAW_DIR = PROJECT / "data" / "fish-disease" / "Freshwater Fish Disease Aquaculture in south asia"
 CLEAN_DIR = PROJECT / "data" / "fish-disease" / "clean"
 MANIFEST = CLEAN_DIR / "manifest.csv"  # one row per kept image: file, class, split, group, source
+MASK_DIR = PROJECT / "data" / "fish-disease" / "fish_masks"  # fish masks (ml/make_fish_masks.py), kept outside
+                                                             # CLEAN_DIR so re-cleaning does not delete them
 
 # Original folder name -> our short class id. "Viral diseases White tail disease" is left out on
 # purpose: white tail is a prawn disease and the folder contains goldfish and other fish.

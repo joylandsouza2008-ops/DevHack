@@ -8,3 +8,5 @@ torch               # neural-network library
 torchvision         # ready-made MobileNetV3 with ImageNet weights + image transforms
 ImageHash           # perceptual hashes, to find near-duplicate images
 opencv-python-headless  # keypoint matching, to find rotated/zoomed copies of the same photo
+rembg               # cuts the fish out of the background (ml/make_fish_masks.py)
+onnxruntime         # runs rembg's model
