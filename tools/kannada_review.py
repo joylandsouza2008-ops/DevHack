@@ -36,6 +36,7 @@ FRONTEND_SCREENS = [
     ("What to do now (checklist)", ["actions"]),
     ("Alert preview (SMS / WhatsApp)", ["alert", "previewNote"]),
     ("Test-kit readings", ["kit"]),
+    ("Live sensor", ["live"]),
     ("Voice alert", ["voice"]),
     ("Alert history", ["history"]),
     ("Data sources panel (footer)", ["sources"]),
@@ -83,7 +84,7 @@ def pairs_in(obj, path=""):
 
 def backend_groups() -> list[tuple[str, str, list]]:
     """(heading, note, rows) for the text the API sends to the page."""
-    from backend import actions, alerts, main, risk_messages, simulator, weather
+    from backend import actions, alerts, main, risk_messages, sensor, simulator, weather
 
     def rows(module, *names):
         return [(f"{module.__name__.split('.')[-1]}.{p}", en, kn)
@@ -91,8 +92,11 @@ def backend_groups() -> list[tuple[str, str, list]]:
 
     msg_names = [n for n in vars(risk_messages) if n.isupper() and n != "TIME_TO_DANGER"]
     return [
-        ("Data labels", "Shown on every simulated or test-kit reading.",
-         rows(simulator, "SIMULATED_LABEL") + rows(main, "MANUAL_LABEL")),
+        ("Data labels", "Shown on every simulated, test-kit or live-sensor reading.",
+         rows(simulator, "SIMULATED_LABEL") + rows(main, "MANUAL_LABEL")
+         + rows(sensor, "LIVE_LABEL", "DEMO_LABEL")),
+        ("Live sensor: why a reading was refused", "Sent back to the sensor and shown on the Live sensor card.",
+         rows(sensor, "REJECTED", "NO_VALUES", "WRONG_KEY", "CLOCK_AHEAD", "NO_TIME_ZONE", "TOO_OLD")),
         ("Risk card: level names, parameter names and reasons",
          "`{value}` and `{unit}` are filled in by the app, e.g. 4.1 mg/L. `{name}` is a parameter name.",
          rows(risk_messages, *msg_names)),

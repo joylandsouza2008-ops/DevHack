@@ -219,7 +219,8 @@
             </div>
             <div class="segmented" role="group" aria-labelledby="alert-for-label" id="alert-source-picker">
               <span class="visually-hidden" id="alert-for-label" data-i18n="alertFor">Alert for</span>
-              <button type="button" data-source="simulated" aria-pressed="true" data-i18n="alertForLive">Live pond</button>
+              <button type="button" data-source="simulated" aria-pressed="true" data-i18n="alertForSim">Simulated</button>
+              <button type="button" data-source="live_sensor" aria-pressed="false" data-i18n="alertForSensor" disabled>Live sensor</button>
               <button type="button" data-source="manual" aria-pressed="false" data-i18n="alertForKit" disabled>Test kit</button>
             </div>
           </div>
@@ -237,6 +238,41 @@
           <div class="readings-head" data-doodle="wave"><h2 id="readings-title" class="text-effect" data-i18n="readingsTitle">Latest readings</h2></div>
           <div class="readings" id="readings"></div>
           <p class="sensor-errors" id="sensor-errors" hidden></p>
+        </section>
+
+        <!-- Live sensor: readings a REAL sensor sends to POST /api/sensor/{pond_id}, pushed
+             here as they arrive (GET /api/sensor/{pond_id}/stream). Never mixed with the
+             simulated pond above. A demo device (tools/fake_sensor.py) gets its own tag. -->
+        <section class="card live-card in-view" id="live-card" aria-labelledby="live-title">
+          <div class="live-head">
+            <h2 id="live-title" class="text-effect" data-i18n="liveTitle">Live sensor</h2>
+            <p class="live-tag">
+              <span class="live-dot" id="live-dot" aria-hidden="true"></span>
+              <strong id="live-label">Live sensor</strong><span id="live-pond"></span>
+            </p>
+          </div>
+          <p class="sim-tag live-demo" id="live-demo" hidden></p>
+          <!-- Sensor problems first: the readings below may be old. -->
+          <p class="live-stale" id="live-stale" role="status" hidden></p>
+          <p class="sensor-errors" id="live-errors" role="alert" hidden></p>
+          <p class="live-waiting" id="live-waiting" data-i18n="liveWaiting">Waiting for the sensor…</p>
+          <div class="live-result" id="live-result" hidden>
+            <div class="status-banner status-unknown" id="live-status" role="status">
+              <span class="status-icon" id="live-status-icon" aria-hidden="true"></span>
+              <div>
+                <p class="status-level" id="live-status-level"></p>
+                <p class="status-summary" id="live-status-summary"></p>
+              </div>
+            </div>
+            <dl class="live-values" id="live-values"></dl>
+            <p class="live-time" id="live-time"></p>
+            <div class="kit-actions" id="live-actions-box" hidden>
+              <h3 data-i18n="actionsTitle">What to do now</h3>
+              <p class="actions-progress" id="live-actions-progress" aria-live="polite"></p>
+              <ol class="action-list" id="live-action-list"></ol>
+            </div>
+          </div>
+          <p class="live-note" data-i18n="liveNote">Readings are kept only while the server is running. On the free server they are cleared when it sleeps.</p>
         </section>
 
         <!-- Manual test-kit entry. Results are marked "manual", never mixed with the simulated pond. -->
@@ -332,7 +368,7 @@
         <h2 id="sources-title" data-i18n="sourcesTitle">Data sources</h2>
         <button type="button" class="button-secondary" id="sources-close" data-i18n="sourcesClose">Close</button>
       </div>
-      <p data-i18n="sourcesIntro">This demo has no real pond sensors. It uses these open datasets and public services instead.</p>
+      <p data-i18n="sourcesIntro">The simulated pond uses these open datasets and public services. Only the Live sensor card shows readings sent by a pond sensor.</p>
       <ul class="sources-list">
           <li>
             <a href="https://www.kaggle.com/datasets/apgopi/pondsdata" target="_blank" rel="noopener">Pondsdata (Kaggle)</a>

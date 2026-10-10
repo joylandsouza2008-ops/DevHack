@@ -34,6 +34,15 @@ test("test-kit entries are marked manual, not simulated", () => {
   assert.equal(entry.station, null);
 });
 
+test("live-sensor entries keep their source and whether a demo device sent them", () => {
+  const real = H.entryFrom({ ...streamEvent("danger", "2026-10-10T21:30:00+05:30"), source: "live_sensor", demo: false }, "k");
+  const demo = H.entryFrom({ ...streamEvent("danger", "2026-10-10T21:30:05+05:30"), source: "live_sensor", demo: true }, "k");
+  assert.equal(real.source, "live_sensor");
+  assert.equal(real.demo, false);
+  assert.equal(demo.demo, true);
+  assert.equal(H.entryFrom(streamEvent("danger", "T"), "k").demo, false);
+});
+
 test("newest entry first, and the same alert is not added twice", () => {
   let list = [];
   list = H.addEntry(list, H.entryFrom(streamEvent("warning", "T1"), "a"));

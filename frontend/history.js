@@ -38,7 +38,8 @@
     return {
       id: `${data.source}|${data.station || "kit"}|${data.time}|${risk.level}|${risk.causes.join(",")}`,
       key,
-      source: data.source,                     // "simulated" or "manual"
+      source: data.source,                     // "simulated", "manual" or "live_sensor"
+      demo: Boolean(data.demo),                // live_sensor from a demo device (made-up readings)
       station: data.station || null,
       time: data.time,
       level: risk.level,

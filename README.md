@@ -7,6 +7,7 @@
 Early-warning web app for small aquaculture farmers in coastal Karnataka.
 It predicts pond water-quality risk (**Safe / Warning / Danger**) and shows alerts in Kannada and English.
 Software only: sensor readings are simulated from public datasets.
+A real pond sensor (e.g. an ESP32) can also send live readings: see [docs/sensor-api.md](docs/sensor-api.md).
 
 Built for DevHack 2026, problem statement 1.1.
 
@@ -25,6 +26,9 @@ Built for DevHack 2026, problem statement 1.1.
 | `backend/simulator.py` | **Simulated** demo readings (normal day / night oxygen crash). Demo only, never for accuracy. Without `data/` it uses fixed typical levels, so a fresh clone (and the online demo) still runs |
 | `backend/health_score.py` | Pond health score 0–100, always inside its status's range (Safe 75–100, Warning 40–74, Danger 0–39) |
 | `backend/main.py` | FastAPI web server: API endpoints + serves the page |
+| `backend/sensor.py` | Live sensor: per-pond key check (key only in an environment variable), clock check, readings kept in memory |
+| `tools/fake_sensor.py` | Demo device: a pretend sensor that sends made-up readings every few seconds (labelled "Demo device") |
+| `docs/sensor-api.md` | Live sensor API, refusals, memory-only limits on free Render, ESP32 example |
 | `ml/train_do_forecast.py` | Trains and evaluates the DO forecast (`python -m ml.train_do_forecast`) |
 | `ml/experiment_3h_average.py` | Experiment: forecasting the 3-hour average DO (not adopted, see docs) |
 | `ml/evaluate_time_to_danger.py` | Checks "time until danger" on real Pondsdata (`python -m ml.evaluate_time_to_danger`) |

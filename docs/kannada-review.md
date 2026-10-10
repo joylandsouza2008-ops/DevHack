@@ -8,7 +8,7 @@ coastal Karnataka to understand. Write any fix in the last column.
 - `A  /  B` means the app shows one of two versions, depending on the situation.
 - Unit symbols (mg/L, °C, km/h, pH) and the names SMS, WhatsApp, FAO, TNAU, Open-Meteo stay in English.
 
-169 strings. Generated from the code by `python tools/kannada_review.py`; re-run it after changing any text.
+188 strings. Generated from the code by `python tools/kannada_review.py`; re-run it after changing any text.
 
 ## 1. Language and theme switches
 
@@ -125,8 +125,9 @@ Shown over the day/night pond picture.
 | 1 | `app.js alertTitle` | Alert preview | ಎಚ್ಚರಿಕೆ ಸಂದೇಶದ ಮುನ್ನೋಟ |  |
 | 2 | `app.js previewNote` | Preview only. No real SMS or WhatsApp message is sent. | ಮುನ್ನೋಟ ಮಾತ್ರ. ಯಾವುದೇ ನಿಜವಾದ SMS ಅಥವಾ WhatsApp ಸಂದೇಶ ಕಳುಹಿಸುವುದಿಲ್ಲ. |  |
 | 3 | `app.js alertFor` | Alert for | ಯಾವುದಕ್ಕೆ ಎಚ್ಚರಿಕೆ |  |
-| 4 | `app.js alertForLive` | Live pond | ಲೈವ್ ಕೊಳ |  |
-| 5 | `app.js alertForKit` | Test kit | ಟೆಸ್ಟ್ ಕಿಟ್ |  |
+| 4 | `app.js alertForSim` | Simulated | ಅನುಕರಿಸಿದ |  |
+| 5 | `app.js alertForSensor` | Live sensor | ಲೈವ್ ಸೆನ್ಸರ್ |  |
+| 6 | `app.js alertForKit` | Test kit | ಟೆಸ್ಟ್ ಕಿಟ್ |  |
 
 ## 11. Test-kit readings
 
@@ -144,7 +145,20 @@ Shown over the day/night pond picture.
 | 10 | `app.js kitBadNumber` | Use numbers only, like 6.5. | ಸಂಖ್ಯೆಗಳನ್ನು ಮಾತ್ರ ಬರೆಯಿರಿ, ಉದಾ: 6.5. |  |
 | 11 | `app.js kitFailed` | Could not check the readings. Please try again. | ಅಳತೆ ಪರಿಶೀಲಿಸಲು ಆಗಲಿಲ್ಲ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ. |  |
 
-## 12. Voice alert
+## 12. Live sensor
+
+| # | Where in the code | English | Kannada | Correct? / suggestion |
+|---|---|---|---|---|
+| 1 | `app.js liveTitle` | Live sensor | ಲೈವ್ ಸೆನ್ಸರ್ |  |
+| 2 | `app.js liveWaiting` | Connecting to the live sensor… | ಲೈವ್ ಸೆನ್ಸರ್‌ಗೆ ಸಂಪರ್ಕಿಸಲಾಗುತ್ತಿದೆ… |  |
+| 3 | `app.js liveNoReading` | No reading from the {pond} sensor yet. Readings appear here as soon as the sensor sends one. | {pond} ಸೆನ್ಸರ್‌ನಿಂದ ಇನ್ನೂ ಯಾವುದೇ ಅಳತೆ ಬಂದಿಲ್ಲ. ಸೆನ್ಸರ್ ಅಳತೆ ಕಳುಹಿಸಿದ ತಕ್ಷಣ ಇಲ್ಲಿ ಕಾಣಿಸುತ್ತದೆ. |  |
+| 4 | `app.js liveMeasured` | Measured {when} · received {ago} | ಅಳತೆ ಸಮಯ {when} · {ago} ಬಂದಿದೆ |  |
+| 5 | `app.js liveAgo` | {s} s ago  /  ${Math.floor(s / 60)} min ago | {s} ಸೆಕೆಂಡ್ ಹಿಂದೆ  /  ${Math.floor(s / 60)} ನಿಮಿಷ ಹಿಂದೆ |  |
+| 6 | `app.js liveStale` | No new reading for {min} min. Check the sensor's power and Wi-Fi. | {min} ನಿಮಿಷಗಳಿಂದ ಹೊಸ ಅಳತೆ ಬಂದಿಲ್ಲ. ಸೆನ್ಸರ್‌ನ ವಿದ್ಯುತ್ ಮತ್ತು Wi-Fi ಪರಿಶೀಲಿಸಿ. |  |
+| 7 | `app.js liveLost` | Lost connection to the server. Trying again… | ಸರ್ವರ್ ಸಂಪರ್ಕ ಕಡಿದುಹೋಗಿದೆ. ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಲಾಗುತ್ತಿದೆ… |  |
+| 8 | `app.js liveNote` | Readings are kept only while the server is running. On the free server they are cleared when it sleeps. | ಸರ್ವರ್ ಚಾಲನೆಯಲ್ಲಿರುವವರೆಗೆ ಮಾತ್ರ ಅಳತೆಗಳನ್ನು ಉಳಿಸಲಾಗುತ್ತದೆ. ಉಚಿತ ಸರ್ವರ್ ನಿದ್ರೆಗೆ ಹೋದಾಗ ಅವು ಅಳಿಸಿಹೋಗುತ್ತವೆ. |  |
+
+## 13. Voice alert
 
 | # | Where in the code | English | Kannada | Correct? / suggestion |
 |---|---|---|---|---|
@@ -154,7 +168,7 @@ Shown over the day/night pond picture.
 | 4 | `app.js voiceNoEnglish` | Sorry, this phone has no English voice. Please read the alert on the screen. | ಕ್ಷಮಿಸಿ, ಈ ಫೋನ್‌ನಲ್ಲಿ ಇಂಗ್ಲಿಷ್ ಧ್ವನಿ ಇಲ್ಲ. ದಯವಿಟ್ಟು ಪರದೆಯ ಮೇಲಿನ ಎಚ್ಚರಿಕೆಯನ್ನು ಓದಿ. |  |
 | 5 | `app.js voiceUnsupported` | Sorry, this browser cannot read aloud. Please read the alert on the screen. | ಕ್ಷಮಿಸಿ, ಈ ಬ್ರೌಸರ್ ಓದಿ ಹೇಳಲು ಆಗುವುದಿಲ್ಲ. ದಯವಿಟ್ಟು ಪರದೆಯ ಮೇಲಿನ ಎಚ್ಚರಿಕೆಯನ್ನು ಓದಿ. |  |
 
-## 13. Alert history
+## 14. Alert history
 
 | # | Where in the code | English | Kannada | Correct? / suggestion |
 |---|---|---|---|---|
@@ -164,17 +178,19 @@ Shown over the day/night pond picture.
 | 4 | `app.js historyClear` | Clear history | ಇತಿಹಾಸ ಅಳಿಸಿ |  |
 | 5 | `app.js historyClearConfirm` | Delete all saved alerts from this phone? | ಈ ಫೋನ್‌ನಲ್ಲಿ ಉಳಿಸಿದ ಎಲ್ಲಾ ಎಚ್ಚರಿಕೆಗಳನ್ನು ಅಳಿಸಬೇಕೆ? |  |
 | 6 | `app.js historyKit` | Test kit | ಟೆಸ್ಟ್ ಕಿಟ್ |  |
-| 7 | `app.js historySimTime` | Simulated time | ಅನುಕರಿಸಿದ ಸಮಯ |  |
-| 8 | `app.js historyActionTaken` | Action taken: | ತೆಗೆದುಕೊಂಡ ಕ್ರಮ: |  |
-| 9 | `app.js historyNoAction` | No action ticked yet. | ಇನ್ನೂ ಯಾವುದೇ ಕ್ರಮವನ್ನು ಗುರುತಿಸಿಲ್ಲ. |  |
+| 7 | `app.js historySensor` | Live sensor | ಲೈವ್ ಸೆನ್ಸರ್ |  |
+| 8 | `app.js historyDemo` | Demo device | ಡೆಮೊ ಸಾಧನ |  |
+| 9 | `app.js historySimTime` | Simulated time | ಅನುಕರಿಸಿದ ಸಮಯ |  |
+| 10 | `app.js historyActionTaken` | Action taken: | ತೆಗೆದುಕೊಂಡ ಕ್ರಮ: |  |
+| 11 | `app.js historyNoAction` | No action ticked yet. | ಇನ್ನೂ ಯಾವುದೇ ಕ್ರಮವನ್ನು ಗುರುತಿಸಿಲ್ಲ. |  |
 
-## 14. Data sources panel (footer)
+## 15. Data sources panel (footer)
 
 | # | Where in the code | English | Kannada | Correct? / suggestion |
 |---|---|---|---|---|
 | 1 | `app.js sourcesTitle` | Data sources | ಡೇಟಾ ಮೂಲಗಳು |  |
 | 2 | `app.js sourcesClose` | Close | ಮುಚ್ಚಿ |  |
-| 3 | `app.js sourcesIntro` | This demo has no real pond sensors. It uses these open datasets and public services instead. | ಈ ಪ್ರದರ್ಶನದಲ್ಲಿ ಕೊಳದ ನಿಜವಾದ ಸೆನ್ಸರ್‌ಗಳಿಲ್ಲ. ಬದಲಿಗೆ ಈ ಮುಕ್ತ ಡೇಟಾಸೆಟ್‌ಗಳು ಮತ್ತು ಸಾರ್ವಜನಿಕ ಸೇವೆಗಳನ್ನು ಬಳಸುತ್ತದೆ. |  |
+| 3 | `app.js sourcesIntro` | The simulated pond uses these open datasets and public services. Only the Live sensor card shows readings sent by a pond sensor. | ಅನುಕರಿಸಿದ ಕೊಳವು ಈ ಮುಕ್ತ ಡೇಟಾಸೆಟ್‌ಗಳು ಮತ್ತು ಸಾರ್ವಜನಿಕ ಸೇವೆಗಳನ್ನು ಬಳಸುತ್ತದೆ. ಕೊಳದ ಸೆನ್ಸರ್ ಕಳುಹಿಸಿದ ಅಳತೆಗಳನ್ನು ಲೈವ್ ಸೆನ್ಸರ್ ಕಾರ್ಡ್ ಮಾತ್ರ ತೋರಿಸುತ್ತದೆ. |  |
 | 4 | `app.js sourcesPondsUse` | Real sensor readings from 3 fish ponds in Andhra Pradesh (2022-23). Used to make the simulated demo pond and to test our oxygen predictions. | ಆಂಧ್ರಪ್ರದೇಶದ 3 ಮೀನು ಕೊಳಗಳ ನಿಜವಾದ ಸೆನ್ಸರ್ ಅಳತೆಗಳು (2022-23). ಅನುಕರಿಸಿದ (ಸಿಮ್ಯುಲೇಟೆಡ್) ಪ್ರದರ್ಶನ ಕೊಳವನ್ನು ಮಾಡಲು ಮತ್ತು ನಮ್ಮ ಆಮ್ಲಜನಕ ಮುನ್ಸೂಚನೆಗಳನ್ನು ಪರೀಕ್ಷಿಸಲು ಬಳಸಲಾಗಿದೆ. |  |
 | 5 | `app.js sourcesPondsLicence` | Licence: unknown (not stated by the uploader). | ಪರವಾನಗಿ: ತಿಳಿದಿಲ್ಲ (ಅಪ್‌ಲೋಡ್ ಮಾಡಿದವರು ತಿಳಿಸಿಲ್ಲ). |  |
 | 6 | `app.js sourcesMeteoUse` | Tonight's real weather forecast for Mangaluru, for the night oxygen-crash warning. | ರಾತ್ರಿ ಆಮ್ಲಜನಕ ಕುಸಿತದ ಎಚ್ಚರಿಕೆಗಾಗಿ ಮಂಗಳೂರಿನ ಇಂದು ರಾತ್ರಿಯ ನಿಜವಾದ ಹವಾಮಾನ ಮುನ್ಸೂಚನೆ. |  |
@@ -187,16 +203,31 @@ Shown over the day/night pond picture.
 | 13 | `app.js sourcesFishLicence` | Licence: CC0 (public domain). | ಪರವಾನಗಿ: CC0 (ಸಾರ್ವಜನಿಕ ಸ್ವತ್ತು). |  |
 | 14 | `app.js sourcesFull` | Full list with links and licences | ಲಿಂಕ್‌ಗಳು ಮತ್ತು ಪರವಾನಗಿಗಳ ಪೂರ್ಣ ಪಟ್ಟಿ |  |
 
-## 15. Messages from the server: Data labels
+## 16. Messages from the server: Data labels
 
-Shown on every simulated or test-kit reading.
+Shown on every simulated, test-kit or live-sensor reading.
 
 | # | Where in the code | English | Kannada | Correct? / suggestion |
 |---|---|---|---|---|
 | 1 | `simulator.SIMULATED_LABEL` | Simulated data | ಅನುಕರಿಸಿದ (ಸಿಮ್ಯುಲೇಟೆಡ್) ಡೇಟಾ |  |
 | 2 | `main.MANUAL_LABEL` | Manual test-kit reading | ಕೈಯಿಂದ ನಮೂದಿಸಿದ ಟೆಸ್ಟ್ ಕಿಟ್ ಅಳತೆ |  |
+| 3 | `sensor.LIVE_LABEL` | Live sensor | ಲೈವ್ ಸೆನ್ಸರ್ |  |
+| 4 | `sensor.DEMO_LABEL` | Demo device: simulated readings, not a real pond | ಡೆಮೊ ಸಾಧನ: ಅನುಕರಿಸಿದ (ಸಿಮ್ಯುಲೇಟೆಡ್) ಅಳತೆಗಳು, ನಿಜವಾದ ಕೊಳವಲ್ಲ |  |
 
-## 16. Messages from the server: Risk card: level names, parameter names and reasons
+## 17. Messages from the server: Live sensor: why a reading was refused
+
+Sent back to the sensor and shown on the Live sensor card.
+
+| # | Where in the code | English | Kannada | Correct? / suggestion |
+|---|---|---|---|---|
+| 1 | `sensor.REJECTED` | Reading rejected. Check the sensor. | ಅಳತೆಯನ್ನು ತಿರಸ್ಕರಿಸಲಾಗಿದೆ. ಸೆನ್ಸರ್ ಪರಿಶೀಲಿಸಿ. |  |
+| 2 | `sensor.NO_VALUES` | The reading has no values. Check the sensor. | ಅಳತೆಯಲ್ಲಿ ಯಾವುದೇ ಮೌಲ್ಯಗಳಿಲ್ಲ. ಸೆನ್ಸರ್ ಪರಿಶೀಲಿಸಿ. |  |
+| 3 | `sensor.WRONG_KEY` | Missing or wrong sensor key. | ಸೆನ್ಸರ್ ಕೀ ಇಲ್ಲ ಅಥವಾ ತಪ್ಪಾಗಿದೆ. |  |
+| 4 | `sensor.CLOCK_AHEAD` | The sensor's clock is ahead of the real time. Check the sensor clock. | ಸೆನ್ಸರ್‌ನ ಗಡಿಯಾರ ನಿಜವಾದ ಸಮಯಕ್ಕಿಂತ ಮುಂದಿದೆ. ಸೆನ್ಸರ್ ಗಡಿಯಾರ ಪರಿಶೀಲಿಸಿ. |  |
+| 5 | `sensor.NO_TIME_ZONE` | The timestamp has no time zone. Add +05:30 or Z. Check the sensor clock. | ಸಮಯದಲ್ಲಿ ಟೈಮ್ ಝೋನ್ ಇಲ್ಲ. +05:30 ಅಥವಾ Z ಸೇರಿಸಿ. ಸೆನ್ಸರ್ ಗಡಿಯಾರ ಪರಿಶೀಲಿಸಿ. |  |
+| 6 | `sensor.TOO_OLD` | The timestamp is more than a day old. Check the sensor clock. | ಸಮಯ ಒಂದು ದಿನಕ್ಕಿಂತ ಹಳೆಯದು. ಸೆನ್ಸರ್ ಗಡಿಯಾರ ಪರಿಶೀಲಿಸಿ. |  |
+
+## 18. Messages from the server: Risk card: level names, parameter names and reasons
 
 `{value}` and `{unit}` are filled in by the app, e.g. 4.1 mg/L. `{name}` is a parameter name.
 
@@ -232,7 +263,7 @@ Shown on every simulated or test-kit reading.
 | 28 | `risk_messages.NO_VALID_READINGS` | No valid readings. Check the sensors. | ಸರಿಯಾದ ಅಳತೆಗಳು ಇಲ್ಲ. ಸೆನ್ಸರ್‌ಗಳನ್ನು ಪರಿಶೀಲಿಸಿ. |  |
 | 29 | `risk_messages.NO_VALID_TEST_KIT_READINGS` | No valid readings. Check your test kit. | ಸರಿಯಾದ ಅಳತೆಗಳು ಇಲ್ಲ. ನಿಮ್ಮ ಟೆಸ್ಟ್ ಕಿಟ್ ಪರಿಶೀಲಿಸಿ. |  |
 
-## 17. Messages from the server: Time until danger (messages)
+## 19. Messages from the server: Time until danger (messages)
 
 `{rate}` e.g. 0.6, `{danger}` e.g. 3, `{clock}` e.g. 03:20, `{hours}` e.g. 6. `{duration_kn}` is one of the two duration phrases below.
 
@@ -246,7 +277,7 @@ Shown on every simulated or test-kit reading.
 | 6 | `time_to_danger._duration (under 1 hour)` | about {minutes} minutes | ಸುಮಾರು {minutes} ನಿಮಿಷಗಳಲ್ಲಿ |  |
 | 7 | `time_to_danger._duration (1 hour or more)` | about {text} hours | ಸುಮಾರು {text} ಗಂಟೆಗಳಲ್ಲಿ |  |
 
-## 18. Messages from the server: Tonight's weather (messages)
+## 20. Messages from the server: Tonight's weather (messages)
 
 `{night}` is one or more of the night words joined together, e.g. "cloudy, still".
 
@@ -264,7 +295,7 @@ Shown on every simulated or test-kit reading.
 | 10 | `weather.ADVICE.high` | {night} night ahead: keep the aerator ready. | {night} ರಾತ್ರಿ ಬರಲಿದೆ: ಏರೇಟರ್ ಸಿದ್ಧವಾಗಿಡಿ. |  |
 | 11 | `weather.UNAVAILABLE` | No internet and no saved forecast. Tonight's weather is not known. | ಇಂಟರ್ನೆಟ್ ಇಲ್ಲ, ಉಳಿಸಿದ ಮುನ್ಸೂಚನೆಯೂ ಇಲ್ಲ. ಇಂದು ರಾತ್ರಿಯ ಹವಾಮಾನ ತಿಳಿದಿಲ್ಲ. |  |
 
-## 19. Messages from the server: What to do now (checklist items)
+## 21. Messages from the server: What to do now (checklist items)
 
 | # | Where in the code | English | Kannada | Correct? / suggestion |
 |---|---|---|---|---|
@@ -281,7 +312,7 @@ Shown on every simulated or test-kit reading.
 | 11 | `actions.ACTIONS.retest_ph_morning` | Test pH again early tomorrow morning. pH is highest in the afternoon and falls by morning. | ನಾಳೆ ಬೆಳಿಗ್ಗೆ ಬೇಗ pH ಮತ್ತೆ ಪರೀಕ್ಷಿಸಿ. ಮಧ್ಯಾಹ್ನ pH ಅತಿ ಹೆಚ್ಚಿರುತ್ತದೆ, ಬೆಳಿಗ್ಗೆಗೆ ಕಡಿಮೆಯಾಗುತ್ತದೆ. |  |
 | 12 | `actions.ACTIONS.retest_ph_afternoon` | Test pH again this afternoon. pH is lowest in the early morning and rises during the day. | ಇಂದು ಮಧ್ಯಾಹ್ನ pH ಮತ್ತೆ ಪರೀಕ್ಷಿಸಿ. ಬೆಳಿಗ್ಗೆ pH ಅತಿ ಕಡಿಮೆ ಇರುತ್ತದೆ, ಹಗಲಿನಲ್ಲಿ ಏರುತ್ತದೆ. |  |
 
-## 20. Messages from the server: Alert preview (SMS / WhatsApp)
+## 22. Messages from the server: Alert preview (SMS / WhatsApp)
 
 The SMS and WhatsApp text is built from the risk card and time-until-danger messages above, plus these.
 

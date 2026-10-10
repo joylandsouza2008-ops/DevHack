@@ -12,6 +12,7 @@ Goal: one link the judges can open on a laptop or phone.
 | **Sleeps when idle** | After **15 minutes with no visitors** the app goes to sleep. The next visitor waits **about 1 minute** while it wakes up, then it is fast again. |
 | Hours | 750 free hours per month: enough for one app running all month |
 | Files | Anything the app saves (the weather cache in `data/`) is lost when it sleeps or redeploys. That's fine: it just downloads the forecast again. |
+| Memory | **Live sensor readings are kept in memory only**, so a sleep, restart or redeploy clears them. The dashboard fills again with the sensor's next reading. Fine for a demo; see [sensor-api.md](sensor-api.md#4-memory-only-readings-are-lost-when-the-server-restarts). |
 | Updates | Every `git push` to `main` redeploys automatically (takes a few minutes) |
 | Other | One instance only, no shell access, and Render may restart it at any time |
 
@@ -59,6 +60,13 @@ Source: [Render docs: Deploy for Free](https://render.com/docs/free) (checked 4 
    - Choose **Night oxygen crash** and the warning appears within about a minute.
    - The **Tonight's weather** card shows a forecast.
 7. **Share the link** with the judges, and add it to the top of `README.md`.
+
+### Live sensor keys (optional)
+
+To let a real sensor (or the demo device, `tools/fake_sensor.py`) send readings online,
+add `SENSOR_KEY_POND1` (and `_POND2`, `_POND3` if needed) under the service's
+**Environment** tab. Render may already list them, empty, from `render.yaml`. Never put a key in
+the code or in git. Full steps: [docs/sensor-api.md](sensor-api.md#1-the-pond-key).
 
 ### If something goes wrong
 

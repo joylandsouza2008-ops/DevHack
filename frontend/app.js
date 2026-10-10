@@ -19,7 +19,7 @@ const TEXT = {
     themeLight: "Light", themeDark: "Dark",
     builtBy: "Built by Team Orbit",
     sourcesTitle: "Data sources", sourcesClose: "Close",
-    sourcesIntro: "This demo has no real pond sensors. It uses these open datasets and public services instead.",
+    sourcesIntro: "The simulated pond uses these open datasets and public services. Only the Live sensor card shows readings sent by a pond sensor.",
     sourcesPondsUse: "Real sensor readings from 3 fish ponds in Andhra Pradesh (2022-23). Used to make the simulated demo pond and to test our oxygen predictions.",
     sourcesPondsLicence: "Licence: unknown (not stated by the uploader).",
     sourcesMeteoUse: "Tonight's real weather forecast for Mangaluru, for the night oxygen-crash warning.",
@@ -66,7 +66,15 @@ const TEXT = {
     actionsProgress: (done, total) => (done === total ? `All ${total} done.` : `${done} of ${total} done`),
     alertTitle: "Alert preview",
     previewNote: "Preview only. No real SMS or WhatsApp message is sent.",
-    alertFor: "Alert for", alertForLive: "Live pond", alertForKit: "Test kit",
+    alertFor: "Alert for", alertForSim: "Simulated", alertForSensor: "Live sensor", alertForKit: "Test kit",
+    liveTitle: "Live sensor",
+    liveWaiting: "Connecting to the live sensor…",
+    liveNoReading: (pond) => `No reading from the ${pond} sensor yet. Readings appear here as soon as the sensor sends one.`,
+    liveMeasured: (when, ago) => `Measured ${when} · received ${ago}`,
+    liveAgo: (s) => (s < 60 ? `${s} s ago` : `${Math.floor(s / 60)} min ago`),
+    liveStale: (min) => `No new reading for ${min} min. Check the sensor's power and Wi-Fi.`,
+    liveLost: "Lost connection to the server. Trying again…",
+    liveNote: "Readings are kept only while the server is running. On the free server they are cleared when it sleeps.",
     kitTitle: "Enter test-kit readings",
     kitHelp: "Type the numbers from your pond test kit. Leave a box empty if you did not test it.",
     kitDO: "Dissolved oxygen", kitNoUnit: "no unit", kitTemp: "Water temperature", kitAmmonia: "Total ammonia",
@@ -93,6 +101,7 @@ const TEXT = {
     historyClear: "Clear history",
     historyClearConfirm: "Delete all saved alerts from this phone?",
     historyKit: "Test kit",
+    historySensor: "Live sensor", historyDemo: "Demo device",
     historySimTime: "Simulated time",
     historyActionTaken: "Action taken:",
     historyNoAction: "No action ticked yet.",
@@ -105,7 +114,7 @@ const TEXT = {
     themeLight: "ತಿಳಿ", themeDark: "ಗಾಢ",
     builtBy: "ನಿರ್ಮಾಣ: ಟೀಮ್ ಆರ್ಬಿಟ್",
     sourcesTitle: "ಡೇಟಾ ಮೂಲಗಳು", sourcesClose: "ಮುಚ್ಚಿ",
-    sourcesIntro: "ಈ ಪ್ರದರ್ಶನದಲ್ಲಿ ಕೊಳದ ನಿಜವಾದ ಸೆನ್ಸರ್‌ಗಳಿಲ್ಲ. ಬದಲಿಗೆ ಈ ಮುಕ್ತ ಡೇಟಾಸೆಟ್‌ಗಳು ಮತ್ತು ಸಾರ್ವಜನಿಕ ಸೇವೆಗಳನ್ನು ಬಳಸುತ್ತದೆ.",
+    sourcesIntro: "ಅನುಕರಿಸಿದ ಕೊಳವು ಈ ಮುಕ್ತ ಡೇಟಾಸೆಟ್‌ಗಳು ಮತ್ತು ಸಾರ್ವಜನಿಕ ಸೇವೆಗಳನ್ನು ಬಳಸುತ್ತದೆ. ಕೊಳದ ಸೆನ್ಸರ್ ಕಳುಹಿಸಿದ ಅಳತೆಗಳನ್ನು ಲೈವ್ ಸೆನ್ಸರ್ ಕಾರ್ಡ್ ಮಾತ್ರ ತೋರಿಸುತ್ತದೆ.",
     sourcesPondsUse: "ಆಂಧ್ರಪ್ರದೇಶದ 3 ಮೀನು ಕೊಳಗಳ ನಿಜವಾದ ಸೆನ್ಸರ್ ಅಳತೆಗಳು (2022-23). ಅನುಕರಿಸಿದ (ಸಿಮ್ಯುಲೇಟೆಡ್) ಪ್ರದರ್ಶನ ಕೊಳವನ್ನು ಮಾಡಲು ಮತ್ತು ನಮ್ಮ ಆಮ್ಲಜನಕ ಮುನ್ಸೂಚನೆಗಳನ್ನು ಪರೀಕ್ಷಿಸಲು ಬಳಸಲಾಗಿದೆ.",
     sourcesPondsLicence: "ಪರವಾನಗಿ: ತಿಳಿದಿಲ್ಲ (ಅಪ್‌ಲೋಡ್ ಮಾಡಿದವರು ತಿಳಿಸಿಲ್ಲ).",
     sourcesMeteoUse: "ರಾತ್ರಿ ಆಮ್ಲಜನಕ ಕುಸಿತದ ಎಚ್ಚರಿಕೆಗಾಗಿ ಮಂಗಳೂರಿನ ಇಂದು ರಾತ್ರಿಯ ನಿಜವಾದ ಹವಾಮಾನ ಮುನ್ಸೂಚನೆ.",
@@ -152,7 +161,15 @@ const TEXT = {
     actionsProgress: (done, total) => (done === total ? `ಎಲ್ಲಾ ${total} ಮುಗಿದಿವೆ.` : `${total} ರಲ್ಲಿ ${done} ಮುಗಿದಿದೆ`),
     alertTitle: "ಎಚ್ಚರಿಕೆ ಸಂದೇಶದ ಮುನ್ನೋಟ",
     previewNote: "ಮುನ್ನೋಟ ಮಾತ್ರ. ಯಾವುದೇ ನಿಜವಾದ SMS ಅಥವಾ WhatsApp ಸಂದೇಶ ಕಳುಹಿಸುವುದಿಲ್ಲ.",
-    alertFor: "ಯಾವುದಕ್ಕೆ ಎಚ್ಚರಿಕೆ", alertForLive: "ಲೈವ್ ಕೊಳ", alertForKit: "ಟೆಸ್ಟ್ ಕಿಟ್",
+    alertFor: "ಯಾವುದಕ್ಕೆ ಎಚ್ಚರಿಕೆ", alertForSim: "ಅನುಕರಿಸಿದ", alertForSensor: "ಲೈವ್ ಸೆನ್ಸರ್", alertForKit: "ಟೆಸ್ಟ್ ಕಿಟ್",
+    liveTitle: "ಲೈವ್ ಸೆನ್ಸರ್",
+    liveWaiting: "ಲೈವ್ ಸೆನ್ಸರ್‌ಗೆ ಸಂಪರ್ಕಿಸಲಾಗುತ್ತಿದೆ…",
+    liveNoReading: (pond) => `${pond} ಸೆನ್ಸರ್‌ನಿಂದ ಇನ್ನೂ ಯಾವುದೇ ಅಳತೆ ಬಂದಿಲ್ಲ. ಸೆನ್ಸರ್ ಅಳತೆ ಕಳುಹಿಸಿದ ತಕ್ಷಣ ಇಲ್ಲಿ ಕಾಣಿಸುತ್ತದೆ.`,
+    liveMeasured: (when, ago) => `ಅಳತೆ ಸಮಯ ${when} · ${ago} ಬಂದಿದೆ`,
+    liveAgo: (s) => (s < 60 ? `${s} ಸೆಕೆಂಡ್ ಹಿಂದೆ` : `${Math.floor(s / 60)} ನಿಮಿಷ ಹಿಂದೆ`),
+    liveStale: (min) => `${min} ನಿಮಿಷಗಳಿಂದ ಹೊಸ ಅಳತೆ ಬಂದಿಲ್ಲ. ಸೆನ್ಸರ್‌ನ ವಿದ್ಯುತ್ ಮತ್ತು Wi-Fi ಪರಿಶೀಲಿಸಿ.`,
+    liveLost: "ಸರ್ವರ್ ಸಂಪರ್ಕ ಕಡಿದುಹೋಗಿದೆ. ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಲಾಗುತ್ತಿದೆ…",
+    liveNote: "ಸರ್ವರ್ ಚಾಲನೆಯಲ್ಲಿರುವವರೆಗೆ ಮಾತ್ರ ಅಳತೆಗಳನ್ನು ಉಳಿಸಲಾಗುತ್ತದೆ. ಉಚಿತ ಸರ್ವರ್ ನಿದ್ರೆಗೆ ಹೋದಾಗ ಅವು ಅಳಿಸಿಹೋಗುತ್ತವೆ.",
     kitTitle: "ಟೆಸ್ಟ್ ಕಿಟ್ ಅಳತೆಗಳನ್ನು ನಮೂದಿಸಿ",
     kitHelp: "ನಿಮ್ಮ ಕೊಳದ ಟೆಸ್ಟ್ ಕಿಟ್‌ನ ಸಂಖ್ಯೆಗಳನ್ನು ಬರೆಯಿರಿ. ಪರೀಕ್ಷಿಸದಿದ್ದರೆ ಆ ಡಬ್ಬಿಯನ್ನು ಖಾಲಿ ಬಿಡಿ.",
     kitDO: "ಕರಗಿದ ಆಮ್ಲಜನಕ", kitNoUnit: "ಘಟಕ ಇಲ್ಲ", kitTemp: "ನೀರಿನ ತಾಪಮಾನ", kitAmmonia: "ಒಟ್ಟು ಅಮೋನಿಯಾ",
@@ -179,6 +196,7 @@ const TEXT = {
     historyClear: "ಇತಿಹಾಸ ಅಳಿಸಿ",
     historyClearConfirm: "ಈ ಫೋನ್‌ನಲ್ಲಿ ಉಳಿಸಿದ ಎಲ್ಲಾ ಎಚ್ಚರಿಕೆಗಳನ್ನು ಅಳಿಸಬೇಕೆ?",
     historyKit: "ಟೆಸ್ಟ್ ಕಿಟ್",
+    historySensor: "ಲೈವ್ ಸೆನ್ಸರ್", historyDemo: "ಡೆಮೊ ಸಾಧನ",
     historySimTime: "ಅನುಕರಿಸಿದ ಸಮಯ",
     historyActionTaken: "ತೆಗೆದುಕೊಂಡ ಕ್ರಮ:",
     historyNoAction: "ಇನ್ನೂ ಯಾವುದೇ ಕ್ರಮವನ್ನು ಗುರುತಿಸಿಲ್ಲ.",
@@ -218,6 +236,7 @@ const state = {
   station: "station1", level: null, chartTime: null, effectsReady: false,
   weather: null,
   manual: null, alertChannel: "sms", alertSource: "simulated",
+  live: null, liveSource: null, liveStation: null, liveOffset: 0, liveLost: false,
   history: [], historyKey: {}, voiceNote: null,
 };
 
@@ -259,6 +278,7 @@ function setLanguage(lang) {
   if (state.last) render(state.last);
   renderWeather();
   renderManual();
+  renderLive();
   renderAlert();
   if (!state.last) renderHealth(null, "unknown", lang);
   renderHistory();
@@ -516,7 +536,8 @@ function whatsappHTML(text) {
 
 function renderAlert() {
   const lang = state.lang;
-  const data = state.alertSource === "manual" ? state.manual : state.last;
+  const data = state.alertSource === "manual" ? state.manual
+    : state.alertSource === "live_sensor" ? state.live && state.live.latest : state.last;
   const channel = state.alertChannel;
   const bubble = $("alert-bubble");
   const text = data && data.alert ? data.alert[channel][lang] : TEXT[lang].connecting;
@@ -600,6 +621,109 @@ function renderManual() {
   if (hasActions) renderChecklist($("kit-action-list"), $("kit-actions-progress"), risk, data.source, lang);
 }
 
+// ---------------------------------------------------------------- live sensor (real readings, not simulated)
+// Readings a real sensor sends to POST /api/sensor/{pond}. The server pushes
+// each one here straight away (Server-Sent Events). Always shown with the
+// "Live sensor" label, apart from the simulated pond; readings from a demo
+// device (tools/fake_sensor.py) also get the "Demo device" tag.
+
+const LIVE_STALE_SECONDS = 60;     // no reading for a minute: ask the farmer to check the sensor
+
+function connectLive() {
+  if (state.liveSource && state.liveStation === state.station) return;
+  if (state.liveSource) state.liveSource.close();
+  state.liveStation = state.station;
+  state.live = null;
+  state.liveLost = false;
+  const source = new EventSource(`/api/sensor/${state.station.replace("station", "pond")}/stream`);
+  // The age of a reading is measured with the server's clock, not the phone's.
+  const syncClock = (serverTime) => { state.liveOffset = Date.parse(serverTime) - Date.now(); };
+  source.addEventListener("sensor", (event) => {
+    state.live = JSON.parse(event.data);
+    state.liveLost = false;
+    syncClock(state.live.server_time);
+    const latest = state.live.latest;
+    const button = $("alert-source-picker").querySelector('[data-source="live_sensor"]');
+    button.disabled = !latest;
+    if (!latest && state.alertSource === "live_sensor") {   // new pond has no sensor reading yet
+      state.alertSource = "simulated";
+      pick("alert-source-picker", "source", "simulated");
+    }
+    if (latest) recordHistory(latest);
+    renderLive();
+    renderAlert();
+  });
+  source.addEventListener("ping", (event) => {
+    syncClock(JSON.parse(event.data).server_time);
+    state.liveLost = false;
+    renderLive();
+  });
+  // The browser reconnects by itself; the server then sends the current state again.
+  source.onerror = () => { state.liveLost = true; renderLive(); };
+  state.liveSource = source;
+}
+
+function liveAgeSeconds(latest) {
+  return Math.max(0, Math.round((Date.now() + state.liveOffset - Date.parse(latest.received_at)) / 1000));
+}
+
+function liveValue(parameter, latest, lang) {
+  const [, unit, decimals] = PARAMETERS.find(([p]) => p === parameter);
+  const result = latest.risk.parameters.find((p) => p.parameter === parameter);
+  const row = make("div", "live-value");
+  const value = make("dd", "", `${latest.reading[parameter].toFixed(decimals)}${unit ? ` ${unit}` : ""}`);
+  if (result && LEVEL_WORDS[result.level] && result.level !== "unknown") {
+    const badge = make("span", `badge badge-${result.level}`);
+    badge.innerHTML = badgeHTML(result.level, lang);
+    value.append(" ", badge);
+  }
+  row.append(make("dt", "", result ? result.name[lang] : parameter), value);
+  return row;
+}
+
+function renderLive() {
+  const lang = state.lang;
+  const t = TEXT[lang];
+  const live = state.live;
+  const latest = live && live.latest;
+  const pondName = t[state.station.replace("station", "pond")];
+  $("live-label").textContent = live ? live.label[lang] : t.liveTitle;
+  $("live-pond").textContent = ` · ${pondName}`;
+
+  $("live-waiting").hidden = Boolean(latest);
+  $("live-waiting").textContent = live ? t.liveNoReading(pondName) : t.liveWaiting;
+  $("live-result").hidden = !latest;
+  $("live-demo").hidden = !(latest && latest.demo);
+  if (latest && latest.demo) $("live-demo").textContent = latest.demo_label[lang];
+
+  const age = latest ? liveAgeSeconds(latest) : 0;
+  const stale = Boolean(latest) && age > LIVE_STALE_SECONDS;
+  $("live-dot").classList.toggle("live-dot-on", Boolean(latest) && !stale && !state.liveLost);
+  const staleEl = $("live-stale");
+  staleEl.hidden = !(state.liveLost || stale);
+  staleEl.textContent = state.liveLost ? t.liveLost : stale ? t.liveStale(Math.floor(age / 60)) : "";
+
+  const rejected = live && live.rejected;
+  $("live-errors").hidden = !rejected;
+  if (rejected) {
+    $("live-errors").textContent = [rejected.message[lang], ...rejected.sensor_errors.map((e) => e.message[lang])].join(" ");
+  }
+  if (!latest) return;
+
+  const risk = latest.risk;
+  $("live-status").className = `status-banner status-${risk.level}`;
+  $("live-status-icon").innerHTML = ICONS[risk.level] || "";
+  $("live-status-level").textContent = risk.level_name[lang];
+  $("live-status-summary").textContent = risk.summary[lang];
+  const order = PARAMETERS.map(([p]) => p).filter((p) => p in latest.reading);
+  $("live-values").replaceChildren(...order.map((p) => liveValue(p, latest, lang)));
+  const seconds = String(new Date(latest.time).getSeconds()).padStart(2, "0");   // readings come seconds apart
+  $("live-time").textContent = t.liveMeasured(`${formatTime(latest.time)}:${seconds}`, t.liveAgo(age));
+  const hasActions = risk.actions.length > 0;
+  $("live-actions-box").hidden = !hasActions;
+  if (hasActions) renderChecklist($("live-action-list"), $("live-actions-progress"), risk, latest.source, lang);
+}
+
 function showMessage(key) {
   $("status").className = "status-banner status-unknown";
   $("status-icon").innerHTML = key === "connecting" ? LOADER : "";
@@ -659,7 +783,11 @@ function historyItem(entry, lang) {
   meta.append(badge, make("span", "history-time",
     simulated ? `${t.historySimTime}: ${formatTime(entry.time)}` : formatTime(entry.time)));
   if (entry.station) meta.append(make("span", "history-where", t[entry.station.replace("station", "pond")] || entry.station));
-  meta.append(simulated ? make("span", "sim-tag", t.simulatedTag) : make("span", "badge badge-info", t.historyKit));
+  if (simulated) meta.append(make("span", "sim-tag", t.simulatedTag));
+  else if (entry.source === "live_sensor") {
+    meta.append(make("span", "badge badge-info", t.historySensor));
+    if (entry.demo) meta.append(make("span", "sim-tag", t.historyDemo));
+  } else meta.append(make("span", "badge badge-info", t.historyKit));
 
   const actions = make("div", "history-actions");
   actions.append(make("strong", "", `${t.historyActionTaken} `));
@@ -826,6 +954,7 @@ function initEffects() {
   renderHealth(null, "unknown", state.lang);
   loadWeather();
   setInterval(loadWeather, 30 * 60 * 1000);     // the server re-downloads at most every 30 minutes
+  setInterval(renderLive, 5000);                // "received 12 s ago" keeps counting between readings
 }
 
 // ---------------------------------------------------------------- stream
@@ -868,6 +997,7 @@ function start() {
   setVoiceButton(false);
   renderVoice();
   connect(null);
+  connectLive();                                // live sensor of the chosen pond (stays open across Restart)
 }
 
 // Pause really stops the stream; Resume continues with the very next reading,

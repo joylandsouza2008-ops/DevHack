@@ -14,6 +14,9 @@ Endpoints:
     GET  /api/simulator/scenarios    available demo scenarios and ponds
     GET  /api/simulator/stream       live stream of SIMULATED readings (Server-Sent Events)
     GET  /api/weather/tonight        tonight's oxygen crash risk from the real weather forecast
+    POST /api/sensor/{pond_id}       one reading from a REAL pond sensor (needs the pond's key)
+    GET  /api/sensor/{pond_id}       the latest live-sensor reading for a pond
+    GET  /api/sensor/{pond_id}/stream  live-sensor readings as they arrive (Server-Sent Events)
     /                                the web page (files in frontend/)
 
 The DO forecast model is deliberately NOT exposed: its typical error (±4.5 mg/L)
@@ -24,16 +27,18 @@ from __future__ import annotations
 
 import asyncio
 import json
-from datetime import datetime
+import time
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Literal
 
 import pandas as pd
-from fastapi import FastAPI, HTTPException, Query
-from fastapi.responses import StreamingResponse
+from fastapi import FastAPI, Header, HTTPException, Query
+from fastapi.responses import JSONResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
+from backend import sensor
 from backend.actions import checklist
 from backend.alerts import POND_NAMES, compose_alert
 from backend.do_features import STEP_MINUTES
@@ -74,6 +79,21 @@ class TestKitReadings(BaseModel):
     ph: float | None = Field(None, examples=[7.5])
     temperature: float | None = Field(None, description="°C", examples=[29.0])
     ammonia: float | None = Field(None, description="mg/L total ammonia", examples=[0.5])
+
+
+class SensorReading(BaseModel):
+    """
+    One reading from a real pond sensor. `timestamp` is when the sensor
+    measured it, with a time zone (e.g. 2026-10-10T21:30:00+05:30). Leave out
+    any probe the sensor doesn't have, but send at least one value.
+    """
+    timestamp: datetime = Field(..., examples=["2026-10-10T21:30:00+05:30"])
+    dissolved_oxygen: float | None = Field(None, description="mg/L", examples=[5.8])
+    ph: float | None = Field(None, examples=[7.4])
+    temperature: float | None = Field(None, description="°C", examples=[29.5])
+    ammonia: float | None = Field(None, description="mg/L total ammonia", examples=[0.3])
+    device: str | None = Field(None, max_length=40, description="optional name, e.g. esp32-pond1")
+    demo: bool = Field(False, description="true for a demo device that sends made-up readings")
 
 
 class DOReading(BaseModel):
@@ -144,6 +164,135 @@ def weather_tonight() -> dict:
     blocks the simulator stream.
     """
     return tonight_crash_risk()
+
+
+# ----------------------------------------------------------------- live sensor
+# A real sensor POSTs here with its pond's key in the X-Sensor-Key header.
+# Readings are kept in memory only (backend/sensor.py). See docs/sensor-api.md.
+
+SENSOR_VALUES = {"dissolved_oxygen", "ph", "temperature", "ammonia"}
+PondId = Literal["pond1", "pond2", "pond3"]
+SENSOR_CHECK_SECONDS = 0.5     # how often the dashboard stream looks for a new reading
+SENSOR_PING_SECONDS = 15       # keep-alive, so proxies don't close a quiet stream
+
+
+def _now() -> datetime:
+    return datetime.now(timezone.utc)
+
+
+def _refuse(status: int, pond_id: str, error: str, message: dict,
+            details: list | None = None, show_on_dashboard: bool = True) -> JSONResponse:
+    """Tell the sensor clearly why its reading was refused (and show bad readings on the dashboard)."""
+    body = {"accepted": False, "error": error, "message": message, "sensor_errors": details or []}
+    if show_on_dashboard:
+        sensor.store.reject(pond_id, {**body, "received_at": _now().isoformat(timespec="seconds")})
+    return JSONResponse(status_code=status, content=body)
+
+
+@app.post("/api/sensor/{pond_id}", status_code=201)
+def sensor_reading(reading: SensorReading, pond_id: PondId,
+                   x_sensor_key: str | None = Header(None, description="this pond's secret key")):
+    """
+    One reading from a real pond sensor (pond_id: pond1, pond2 or pond3).
+    Needs the pond's key in the `X-Sensor-Key` header; the server compares it
+    with the SENSOR_KEY_POND1 / _POND2 / _POND3 environment variable.
+    Impossible values are refused with "Check the sensor" and nothing is stored.
+    """
+    expected = sensor.sensor_key(pond_id)
+    if expected is None:
+        variable = sensor.key_variable(pond_id)
+        return _refuse(503, pond_id, "not_set_up",
+                       {"en": f"No sensor key is set on the server for {pond_id} ({variable}).",
+                        "kn": f"{pond_id} ಗಾಗಿ ಸರ್ವರ್‌ನಲ್ಲಿ ಸೆನ್ಸರ್ ಕೀ ಹೊಂದಿಸಿಲ್ಲ ({variable})."},
+                       show_on_dashboard=False)
+    if not sensor.key_matches(x_sensor_key, expected):
+        # Not shown on the dashboard: someone guessing keys must not change what farmers see.
+        return _refuse(401, pond_id, "wrong_key", sensor.WRONG_KEY, show_on_dashboard=False)
+
+    values = reading.model_dump(include=SENSOR_VALUES, exclude_none=True)
+    if not values:
+        return _refuse(422, pond_id, "no_values", sensor.NO_VALUES)
+    clock_problem = sensor.check_timestamp(reading.timestamp, _now())
+    if clock_problem:
+        return _refuse(422, pond_id, "bad_timestamp", clock_problem)
+
+    # NaN / Infinity (a broken probe) would otherwise count as "not measured".
+    broken = sensor.not_a_number_errors(values)
+    if broken:
+        return _refuse(422, pond_id, "check_the_sensor", sensor.REJECTED, broken)
+    risk = assess(values, source="sensor")
+    if risk["sensor_errors"]:
+        # One impossible value means the whole reading can't be trusted.
+        return _refuse(422, pond_id, "check_the_sensor", sensor.REJECTED, risk["sensor_errors"])
+
+    entry = {
+        "source": sensor.SOURCE,
+        "label": sensor.LIVE_LABEL,
+        "demo": reading.demo,
+        "demo_label": sensor.DEMO_LABEL if reading.demo else None,
+        "pond_id": pond_id,
+        "station": pond_id.replace("pond", "station"),     # same pond names as the simulator
+        "device": reading.device,
+        "time": reading.timestamp.isoformat(),
+        "received_at": _now().isoformat(timespec="seconds"),
+        "reading": values,
+        "risk": risk,
+        # Preview only: no real SMS or WhatsApp message is sent.
+        "alert": compose_alert(risk, label=sensor.DEMO_LABEL if reading.demo else sensor.LIVE_LABEL,
+                               pond=sensor.SENSOR_PONDS[pond_id]),
+    }
+    sensor.store.add(pond_id, entry)
+    return {"accepted": True, "level": risk["level"], "summary": risk["summary"],
+            "received_at": entry["received_at"]}
+
+
+def _sensor_state(pond_id: str) -> tuple[int, dict]:
+    """(version, what the dashboard needs to show this pond's live sensor)."""
+    version, latest, rejected = sensor.store.snapshot(pond_id)
+    return version, {
+        "pond_id": pond_id,
+        "pond": sensor.SENSOR_PONDS[pond_id],
+        "source": sensor.SOURCE,
+        "label": sensor.LIVE_LABEL,
+        "server_time": _now().isoformat(timespec="seconds"),
+        "latest": latest,          # None until the sensor sends its first good reading
+        "rejected": rejected,      # the last refused reading; cleared by the next good one
+    }
+
+
+@app.get("/api/sensor/{pond_id}")
+def sensor_latest(pond_id: PondId) -> dict:
+    """This pond's latest live-sensor reading (latest = null if none since the server started)."""
+    return _sensor_state(pond_id)[1]
+
+
+@app.get("/api/sensor/{pond_id}/stream")
+async def sensor_stream(
+    pond_id: PondId,
+    seconds: float | None = Query(None, ge=0, description="close the stream after this many seconds (for tests)"),
+):
+    """
+    Server-Sent Events for the dashboard: a `sensor` event straight away with
+    the current state, another each time this pond's sensor sends a reading
+    (good or refused), and a `ping` with the server time every 15 s.
+    """
+    async def events():
+        started = last_ping = time.monotonic()
+        sent = None
+        while True:
+            if sensor.store.version(pond_id) != sent:
+                sent, state = _sensor_state(pond_id)
+                yield f"event: sensor\ndata: {json.dumps(state, ensure_ascii=False)}\n\n"
+            elif time.monotonic() - last_ping >= SENSOR_PING_SECONDS:
+                last_ping = time.monotonic()
+                yield f"event: ping\ndata: {json.dumps({'server_time': _now().isoformat(timespec='seconds')})}\n\n"
+            if seconds is not None and time.monotonic() - started >= seconds:
+                yield "event: end\ndata: {}\n\n"
+                return
+            await asyncio.sleep(SENSOR_CHECK_SECONDS)
+
+    return StreamingResponse(events(), media_type="text/event-stream",
+                             headers={"Cache-Control": "no-cache"})
 
 
 @app.get("/api/simulator/scenarios")

@@ -14,3 +14,11 @@ services:
         value: 3.14.0
       - key: PYTHONIOENCODING      # so Kannada text never breaks the server logs
         value: utf-8
+      # Live sensor keys (docs/sensor-api.md). sync: false = the value is typed into
+      # Render's Environment tab, never written here.
+      - key: SENSOR_KEY_POND1
+        sync: false
+      - key: SENSOR_KEY_POND2
+        sync: false
+      - key: SENSOR_KEY_POND3
+        sync: false

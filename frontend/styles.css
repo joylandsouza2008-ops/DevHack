@@ -550,6 +550,51 @@ main {
 .kit-actions { display: flex; flex-direction: column; gap: 0.5rem; }
 .kit-actions h3 { margin: 0; font-size: 1.25rem; font-weight: 600; }
 
+/* ---- Live sensor card (DESIGN.md card-pond: pond name, status, key readings, "last updated") ---- */
+.live-card { display: flex; flex-direction: column; gap: 0.75rem; }
+.live-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem 1rem; }
+.live-head h2 { margin: 0; }
+/* Same outline tag as the test-kit label: a data-source label, never a status. */
+.live-tag {
+  display: inline-flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;
+  margin: 0; padding: 0.25rem 1rem;
+  background: var(--card); color: var(--text);
+  border: 2px solid var(--primary); border-radius: 12px;
+}
+/* Pond-blue dot (not a status colour): filled and pulsing while readings arrive, hollow otherwise. */
+.live-dot {
+  width: 12px; height: 12px; flex: none; border-radius: 50%;
+  border: 2px solid var(--primary); background: transparent;
+}
+.live-dot.live-dot-on { background: var(--primary); animation: live-pulse 2s ease-out infinite; }
+@keyframes live-pulse {
+  0% { box-shadow: 0 0 0 0 var(--primary); }
+  70%, 100% { box-shadow: 0 0 0 8px transparent; }
+}
+.live-demo { align-self: flex-start; margin: 0; }
+.live-waiting, .live-note, .live-time { margin: 0; color: var(--text-secondary); }
+.live-note, .live-time { font-size: 0.9375rem; }
+.live-result { display: flex; flex-direction: column; gap: 0.75rem; }
+.live-values {
+  display: grid; gap: 0.75rem; margin: 0;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 11rem), 1fr));
+}
+.live-value {
+  display: flex; flex-direction: column; gap: 0.25rem;
+  padding: 0.75rem 1rem; border: 1px solid var(--hairline); border-radius: 12px;
+}
+.live-value dt { font-size: 1rem; font-weight: 500; color: var(--text-secondary); }
+.live-value dd {
+  margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem;
+  font-size: 1.5rem; font-weight: 600; line-height: 1.3; font-variant-numeric: tabular-nums;
+}
+.live-stale {
+  margin: 0; padding: 0.75rem 1rem; border-radius: 12px;
+  background: var(--card); color: var(--text); font-weight: 600;
+  border-left: 6px solid var(--primary);   /* about the sensor, not the pond: no status colour */
+}
+@media (prefers-reduced-motion: reduce) { .live-dot.live-dot-on { animation: none; } }
+
 /* ---- "Simulated data" tag: on every card that shows simulated values ---- */
 .sim-tag {
   display: inline-flex; align-items: center;
@@ -734,7 +779,7 @@ body.has-welcome .page-glow { display: none; }
     grid-template-columns: repeat(2, minmax(0, 1fr));
     grid-template-areas:
       "health health" "gauge ttd" "pond pond" "chart chart"
-      "alert readings" "kit kit" "history history";
+      "alert readings" "live live" "kit kit" "history history";
   }
   .board > .health-card { grid-area: health; }
   .board > .gauge-card { grid-area: gauge; align-self: stretch; }
@@ -743,6 +788,7 @@ body.has-welcome .page-glow { display: none; }
   .board > .chart-card { grid-area: chart; }
   .board > .alert-card { grid-area: alert; align-self: stretch; }
   .board > .readings-block { grid-area: readings; }
+  .board > .live-card { grid-area: live; }
   .board > .kit-card { grid-area: kit; }
   .board > .history-card { grid-area: history; align-self: stretch; }
 }
@@ -754,6 +800,7 @@ body.has-welcome .page-glow { display: none; }
       "pond pond pond pond ttd ttd"
       "chart chart chart chart alert alert"
       "readings readings readings readings alert alert"
+      "live live live live history history"
       "kit kit kit kit history history";
   }
 }
