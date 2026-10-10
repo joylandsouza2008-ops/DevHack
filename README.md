@@ -31,6 +31,7 @@ Built for DevHack 2026, problem statement 1.1.
 | `backend/security.py` | Security for every request: rate limits on the assistant and sensor API, request size limit, Content-Security-Policy and other security headers ([docs/security.md](docs/security.md)) |
 | `backend/sensor.py` | Live sensor: per-pond key check (key only in an environment variable), clock check, readings kept in memory |
 | `tools/fake_sensor.py` | Demo device: a pretend sensor that sends made-up readings every few seconds (labelled "Demo device") |
+| `docs/how-it-works.md` | Beginner's guide: how every part works, which file does what, 20 likely judge questions |
 | `docs/assistant.md` | Assistant safety rules, provider research and setup |
 | `docs/diseases.md` | Sources for every disease-guide entry, and why there's no photo check |
 | `docs/security.md` | Security checklist results: what was checked, fixed, or not applicable |
