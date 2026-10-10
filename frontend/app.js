@@ -66,12 +66,15 @@ const TEXT = {
     crashRisk: (level) => `Oxygen crash risk: ${level}`,
     weatherDetails: (c, w, t) => `Day cloud ${c}% · Night wind ${w} km/h · Night ${t} °C · Forecast: Open-Meteo`,
     weatherOffline: (when) => (when ? `Offline: showing the forecast saved on ${when}.` : "Offline."),
+    weatherUpdated: (min) => (min < 1 ? "Updated just now"
+      : min < 60 ? `Updated ${min} min ago` : `Updated ${Math.floor(min / 60)} h ago`),
     actionsTitle: "What to do now",
     actionsSource: "Based on FAO, TNAU and university extension guides. No chemicals.",
     actionsProgress: (done, total) => (done === total ? `All ${total} done.` : `${done} of ${total} done`),
     alertTitle: "Alert preview",
     previewNote: "Preview only. No real SMS or WhatsApp message is sent.",
     alertFor: "Alert for", alertForSim: "Simulated", alertForSensor: "Live sensor", alertForKit: "Test kit",
+    liveSensorHint: "Waiting for a sensor. Run the demo sensor.",
     liveTitle: "Live sensor",
     liveWaiting: "Connecting to the live sensor…",
     liveNoReading: (pond) => `No reading from the ${pond} sensor yet. Readings appear here as soon as the sensor sends one.`,
@@ -197,12 +200,15 @@ const TEXT = {
     crashRisk: (level) => `ಆಮ್ಲಜನಕ ಕುಸಿತದ ಅಪಾಯ: ${level}`,
     weatherDetails: (c, w, t) => `ಹಗಲಿನ ಮೋಡ ${c}% · ರಾತ್ರಿ ಗಾಳಿ ${w} km/h · ರಾತ್ರಿ ${t} °C · ಮುನ್ಸೂಚನೆ: Open-Meteo`,
     weatherOffline: (when) => (when ? `ಆಫ್‌ಲೈನ್: ${when} ರಂದು ಉಳಿಸಿದ ಮುನ್ಸೂಚನೆ ತೋರಿಸಲಾಗುತ್ತಿದೆ.` : "ಆಫ್‌ಲೈನ್."),
+    weatherUpdated: (min) => (min < 1 ? "ಈಗಷ್ಟೇ ನವೀಕರಿಸಲಾಗಿದೆ"
+      : min < 60 ? `${min} ನಿಮಿಷ ಹಿಂದೆ ನವೀಕರಿಸಲಾಗಿದೆ` : `${Math.floor(min / 60)} ಗಂಟೆ ಹಿಂದೆ ನವೀಕರಿಸಲಾಗಿದೆ`),
     actionsTitle: "ಈಗ ಏನು ಮಾಡಬೇಕು",
     actionsSource: "FAO, TNAU ಮತ್ತು ವಿಶ್ವವಿದ್ಯಾಲಯದ ಕೃಷಿ ವಿಸ್ತರಣಾ ಮಾರ್ಗದರ್ಶಿಗಳನ್ನು ಆಧರಿಸಿದೆ. ಯಾವುದೇ ರಾಸಾಯನಿಕಗಳಿಲ್ಲ.",
     actionsProgress: (done, total) => (done === total ? `ಎಲ್ಲಾ ${total} ಮುಗಿದಿವೆ.` : `${total} ರಲ್ಲಿ ${done} ಮುಗಿದಿದೆ`),
     alertTitle: "ಎಚ್ಚರಿಕೆ ಸಂದೇಶದ ಮುನ್ನೋಟ",
     previewNote: "ಮುನ್ನೋಟ ಮಾತ್ರ. ಯಾವುದೇ ನಿಜವಾದ SMS ಅಥವಾ WhatsApp ಸಂದೇಶ ಕಳುಹಿಸುವುದಿಲ್ಲ.",
     alertFor: "ಯಾವುದಕ್ಕೆ ಎಚ್ಚರಿಕೆ", alertForSim: "ಅನುಕರಿಸಿದ", alertForSensor: "ಲೈವ್ ಸೆನ್ಸರ್", alertForKit: "ಟೆಸ್ಟ್ ಕಿಟ್",
+    liveSensorHint: "ಸೆನ್ಸರ್‌ಗಾಗಿ ಕಾಯಲಾಗುತ್ತಿದೆ. ಡೆಮೊ ಸೆನ್ಸರ್ ಚಲಾಯಿಸಿ.",
     liveTitle: "ಲೈವ್ ಸೆನ್ಸರ್",
     liveWaiting: "ಲೈವ್ ಸೆನ್ಸರ್‌ಗೆ ಸಂಪರ್ಕಿಸಲಾಗುತ್ತಿದೆ…",
     liveNoReading: (pond) => `${pond} ಸೆನ್ಸರ್‌ನಿಂದ ಇನ್ನೂ ಯಾವುದೇ ಅಳತೆ ಬಂದಿಲ್ಲ. ಸೆನ್ಸರ್ ಅಳತೆ ಕಳುಹಿಸಿದ ತಕ್ಷಣ ಇಲ್ಲಿ ಕಾಣಿಸುತ್ತದೆ.`,
@@ -723,6 +729,7 @@ function connectLive() {
     const latest = state.live.latest;
     const button = $("alert-source-picker").querySelector('[data-source="live_sensor"]');
     button.disabled = !latest;
+    $("live-sensor-hint").hidden = Boolean(latest);    // says why the button can't be tapped yet
     if (!latest && state.alertSource === "live_sensor") {   // new pond has no sensor reading yet
       state.alertSource = "simulated";
       pick("alert-source-picker", "source", "simulated");
@@ -938,28 +945,22 @@ async function toggleVoice() {
 }
 
 // ---------------------------------------------------------------- tonight's weather (bottom toolbar)
-// Real forecast, not simulated. The server falls back to its saved forecast when
-// there is no internet; if even the server can't be reached, the copy saved in
-// this browser is shown. Either way the note says "offline".
+// Real forecast, not simulated. weather.js downloads it in the browser first
+// (Open-Meteo allows that), then asks our server, then uses the newest saved
+// copy. A saved copy is marked "offline".
 
-const WEATHER_KEY = "meenuraksha-weather";
 const CRASH_BADGE = { low: "safe", medium: "warning", high: "danger" };   // same colour + icon pairs as the status
 
+function browserStorage() {
+  try { return window.localStorage; } catch { return null; }      // blocked in some private windows
+}
+
 async function loadWeather() {
-  try {
-    const response = await fetch("/api/weather/tonight");
-    if (!response.ok) throw new Error(response.statusText);
-    state.weather = await response.json();
-    if (state.weather.status === "ok") {
-      try { localStorage.setItem(WEATHER_KEY, JSON.stringify(state.weather)); } catch { /* storage blocked */ }
-    }
-  } catch {
-    let saved = null;
-    try { saved = JSON.parse(localStorage.getItem(WEATHER_KEY)); } catch { /* nothing saved */ }
-    state.weather = saved ? { ...saved, offline: true }
-      : { status: "unavailable", offline: true, saved_at: null,
-          message: { en: TEXT.en.weatherUnavailable, kn: TEXT.kn.weatherUnavailable } };
-  }
+  const result = await window.TonightWeather.loadTonight({
+    storage: browserStorage(), log: (text) => console.warn(text),
+  });
+  state.weather = result || { status: "unavailable", offline: true, saved_at: null,
+    message: { en: TEXT.en.weatherUnavailable, kn: TEXT.kn.weatherUnavailable } };
   renderWeather();
 }
 
@@ -983,6 +984,9 @@ function renderWeather() {
   message.textContent = w.message[lang];
   $("weather-details").textContent = ok
     ? TEXT[lang].weatherDetails(w.day_cloud_cover_pct, w.night_wind_speed_kmh, w.night_temperature_c) : "";
+  const minutes = ok ? window.TonightWeather.minutesSince(w.saved_at, Date.now()) : null;
+  $("weather-updated").hidden = minutes === null;
+  $("weather-updated").textContent = minutes === null ? "" : TEXT[lang].weatherUpdated(minutes);
   const offline = $("weather-offline");
   offline.hidden = !w.offline;
   offline.textContent = TEXT[lang].weatherOffline(w.saved_at ? formatTime(w.saved_at) : null);
@@ -1032,8 +1036,9 @@ function initEffects() {
   renderPondAndGauge("unknown", state.lang);
   renderHealth(null, "unknown", state.lang);
   loadWeather();
-  setInterval(loadWeather, 30 * 60 * 1000);     // the server re-downloads at most every 30 minutes
+  setInterval(loadWeather, 30 * 60 * 1000);     // a fresh forecast every 30 minutes
   setInterval(renderLive, 5000);                // "received 12 s ago" keeps counting between readings
+  setInterval(renderWeather, 60 * 1000);        // "Updated 3 min ago" keeps counting
 }
 
 // ---------------------------------------------------------------- stream

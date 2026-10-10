@@ -469,6 +469,8 @@ main {
 }
 .preview-note svg { width: 22px; height: 22px; flex: none; fill: var(--edge-on-secondary); margin-top: 0.2rem; }
 .alert-controls { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+.picker-hint { margin: 0; font-size: 0.9375rem; color: var(--text-secondary); }
+.picker-hint[hidden] { display: none; }
 .segmented {
   display: inline-flex; padding: 4px; gap: 4px;
   background: var(--surface); border: 1px solid var(--hairline-strong); border-radius: 9999px;

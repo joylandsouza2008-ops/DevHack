@@ -31,7 +31,7 @@ Source: [Render docs: Deploy for Free](https://render.com/docs/free) (checked 4 
 
 ## What runs online
 
-- The dashboard, the simulator, risk alerts, the test-kit form, the weather card (it downloads from Open-Meteo) and the alert preview all work online.
+- The dashboard, the simulator, risk alerts, the test-kit form, the weather card (the phone downloads the forecast from Open-Meteo itself; the server is only a fallback, because free cloud servers are often refused by Open-Meteo. If the server download fails, the real reason is in the Render **Logs** tab: "Weather download from Open-Meteo failed: ...") and the alert preview all work online.
 - The datasets are **not** online. `data/` is not in git, and the Pondsdata licence on Kaggle is listed as "Unknown", so we don't publish it or files made from it. Without it, the simulator uses fixed typical healthy pond levels (`FALLBACK_LEVELS` in `backend/simulator.py`, chosen by us). The day/night oxygen cycle, the Normal day / Night oxygen crash scenarios and all warnings work the same. Only the small day-to-day changes from the real dataset are missing.
 - All readings are still labelled **"Simulated data" / "ಅನುಕರಿಸಿದ (ಸಿಮ್ಯುಲೇಟೆಡ್) ಡೇಟಾ"**.
 - The saved DO forecast model (`models/`) isn't used by the app, so nothing changes there.

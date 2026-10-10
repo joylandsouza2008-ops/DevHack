@@ -8,12 +8,13 @@ forecast goes to a temporary folder (pytest's tmp_path), not data/.
 Run from the project folder with:   python -m pytest
 """
 
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 import pytest
 from fastapi.testclient import TestClient
 
 import backend.main
+import backend.weather
 from backend.weather import rate_crash_risk, summarise, tonight_crash_risk, tonight_window
 
 AFTERNOON = datetime(2026, 10, 2, 15, 0)
@@ -154,3 +155,43 @@ def test_endpoint_without_internet_answers_quickly_and_offline():
     r = TestClient(backend.main.app).get("/api/weather/tonight").json()
     assert time.monotonic() - started < 2
     assert r["offline"] is True and r["status"] == "unavailable"
+
+
+# --- the live server (Render) ------------------------------------------------
+
+def test_failed_download_writes_the_real_reason_to_the_log(tmp_path, caplog):
+    def refused(latitude, longitude):
+        raise OSError("HTTP Error 429: Too Many Requests")
+    with caplog.at_level("WARNING", logger="uvicorn.error"):
+        tonight_crash_risk(AFTERNOON, cache_file=tmp_path / "none.json", download=refused)
+    assert "Weather download from Open-Meteo failed: OSError: HTTP Error 429: Too Many Requests" in caplog.text
+
+
+def test_tonight_uses_india_time_even_on_a_utc_server(tmp_path, monkeypatch):
+    # Render's clock is UTC. 22:00 UTC on 2 Oct is 03:30 on 3 Oct in India: still the night of 2 Oct.
+    class UtcClock(datetime):
+        @classmethod
+        def now(cls, tz=None):
+            utc = datetime(2026, 10, 2, 22, 0, tzinfo=timezone.utc)
+            return utc.astimezone(tz) if tz else utc.replace(tzinfo=None)
+    monkeypatch.setattr(backend.weather, "datetime", UtcClock)
+    assert backend.weather.now_in_india() == datetime(2026, 10, 3, 3, 30)
+    r = tonight_crash_risk(cache_file=tmp_path / "w.json", download=lambda la, lo: fake_forecast())
+    assert r["night_start"] == "2026-10-02T18:00"
+
+
+def test_download_says_who_is_asking(monkeypatch):
+    # No internet: urlopen is a fake that records the request.
+    sent = {}
+
+    class Reply:
+        def __enter__(self): return self
+        def __exit__(self, *a): return False
+        def read(self, *a): return b'{"hourly": {}}'
+
+    def fake_urlopen(request, timeout):
+        sent["agent"], sent["url"] = request.get_header("User-agent"), request.full_url
+        return Reply()
+    monkeypatch.setattr(backend.weather.urllib.request, "urlopen", fake_urlopen)
+    assert backend.weather.download_forecast(12.9, 74.8) == {"hourly": {}}
+    assert sent["agent"].startswith("MeenuRaksha/") and "timezone=Asia%2FKolkata" in sent["url"]

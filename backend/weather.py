@@ -19,9 +19,10 @@ This is real weather data, not simulated data. It is never used to train a model
 from __future__ import annotations
 
 import json
+import logging
 import urllib.parse
 import urllib.request
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from statistics import mean
 
@@ -30,9 +31,14 @@ from backend.risk_classifier import load_thresholds
 MANGALURU = {"name": {"en": "Mangaluru", "kn": "ಮಂಗಳೂರು"}, "latitude": 12.9141, "longitude": 74.8560}
 OPEN_METEO_URL = "https://api.open-meteo.com/v1/forecast"
 TIMEZONE = "Asia/Kolkata"
+IST = timezone(timedelta(hours=5, minutes=30))     # India has no daylight saving, so a fixed +05:30 is exact
+# Some services refuse Python's default "Python-urllib" name, so say who we are.
+USER_AGENT = "MeenuRaksha/1.0 (fish-pond early warning; github.com/joylandsouza2008-ops/DevHack)"
 CACHE_FILE = Path(__file__).resolve().parent.parent / "data" / "weather_cache.json"
 REFRESH_MINUTES = 30        # reuse a forecast younger than this instead of downloading again
 TIMEOUT_SECONDS = 8         # give up quickly with no internet; the saved forecast is used instead
+
+log = logging.getLogger("uvicorn.error")       # shows up in the Render logs next to uvicorn's own lines
 
 LEVEL_NAMES = {
     "low":    {"en": "Low",    "kn": "ಕಡಿಮೆ"},
@@ -71,7 +77,8 @@ def download_forecast(latitude: float, longitude: float) -> dict:
         "hourly": "temperature_2m,cloud_cover,wind_speed_10m",
         "timezone": TIMEZONE, "past_days": 1, "forecast_days": 3,
     })
-    with urllib.request.urlopen(f"{OPEN_METEO_URL}?{query}", timeout=TIMEOUT_SECONDS) as response:
+    request = urllib.request.Request(f"{OPEN_METEO_URL}?{query}", headers={"User-Agent": USER_AGENT})
+    with urllib.request.urlopen(request, timeout=TIMEOUT_SECONDS) as response:
         return json.load(response)
 
 
@@ -146,6 +153,13 @@ def rate_crash_risk(cloud_pct: float, wind_kmh: float, temp_c: float, rules: dic
 
 # ----------------------------------------------------------------- what the API returns
 
+def now_in_india() -> datetime:
+    """The time in India, without a time zone, to match the forecast's hours.
+    Not datetime.now(): cloud servers (like Render) run on UTC, 5½ hours behind,
+    which would make "tonight" the wrong 12 hours."""
+    return datetime.now(IST).replace(tzinfo=None)
+
+
 def tonight_crash_risk(now: datetime | None = None, location: dict = MANGALURU,
                        cache_file: Path = CACHE_FILE, download=download_forecast) -> dict:
     """
@@ -153,7 +167,7 @@ def tonight_crash_risk(now: datetime | None = None, location: dict = MANGALURU,
     less than 30 minutes old); with no internet, uses the saved forecast and
     sets offline = True. `download` can be swapped out in tests.
     """
-    now = now or datetime.now()
+    now = now or now_in_india()
     cached = _read_cache(cache_file)
     saved_at = datetime.fromisoformat(cached["saved_at"]) if cached else None
     forecast, offline = None, False
@@ -165,7 +179,10 @@ def tonight_crash_risk(now: datetime | None = None, location: dict = MANGALURU,
             forecast = download(location["latitude"], location["longitude"])
             saved_at = now
             _write_cache(cache_file, saved_at, forecast)
-        except Exception:                   # no internet, timeout, bad reply: fall back to the saved copy
+        except Exception as error:          # no internet, timeout, bad reply: fall back to the saved copy
+            # Write the real reason to the server log (e.g. "HTTP Error 429: Too Many Requests"),
+            # so a failure on the live site can be told apart from a missing internet connection.
+            log.warning("Weather download from Open-Meteo failed: %s: %s", type(error).__name__, error)
             offline = True
             forecast = cached["forecast"] if cached else None
 

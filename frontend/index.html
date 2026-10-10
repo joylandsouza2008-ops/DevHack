@@ -240,10 +240,11 @@
             <div class="segmented" role="group" aria-labelledby="alert-for-label" id="alert-source-picker">
               <span class="visually-hidden" id="alert-for-label" data-i18n="alertFor">Alert for</span>
               <button type="button" data-source="simulated" aria-pressed="true" data-i18n="alertForSim">Simulated</button>
-              <button type="button" data-source="live_sensor" aria-pressed="false" data-i18n="alertForSensor" disabled>Live sensor</button>
+              <button type="button" data-source="live_sensor" aria-pressed="false" data-i18n="alertForSensor" aria-describedby="live-sensor-hint" disabled>Live sensor</button>
               <button type="button" data-source="manual" aria-pressed="false" data-i18n="alertForKit" disabled>Test kit</button>
             </div>
           </div>
+          <p class="picker-hint" id="live-sensor-hint" data-i18n="liveSensorHint">Waiting for a sensor. Run the demo sensor.</p>
           <div class="phone" aria-label="Phone screen">
             <div class="phone-top"><span class="phone-speaker"></span></div>
             <div class="phone-screen">
@@ -448,6 +449,7 @@
             <span class="weather-message" id="weather-message" data-i18n="weatherLoading">Checking the forecast…</span>
           </p>
           <p class="weather-details" id="weather-details"></p>
+          <p class="weather-details" id="weather-updated" hidden></p>
           <p class="weather-offline" id="weather-offline" hidden></p>
         </div>
       </section>
@@ -522,6 +524,7 @@
   <script src="/health-ring.js"></script>
   <script src="/history.js"></script>
   <script src="/voice.js"></script>
+  <script src="/weather.js"></script>
   <script src="/scene.js"></script>
   <script src="/diseases.js"></script>
   <script src="/assistant.js"></script>
