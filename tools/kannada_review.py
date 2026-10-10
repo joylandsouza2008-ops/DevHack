@@ -37,6 +37,7 @@ FRONTEND_SCREENS = [
     ("Alert preview (SMS / WhatsApp)", ["alert", "previewNote"]),
     ("Test-kit readings", ["kit"]),
     ("Live sensor", ["live"]),
+    ("Fish disease guide (page labels)", ["guide", "checker", "library", "noPhoto", "likely"]),
     ("Voice alert", ["voice"]),
     ("Alert history", ["history"]),
     ("Data sources panel (footer)", ["sources"]),
@@ -80,11 +81,14 @@ def pairs_in(obj, path=""):
         for key, value in obj.items():
             name = "/".join(map(str, key)) if isinstance(key, tuple) else str(key)
             yield from pairs_in(value, f"{path}.{name}" if path else name)
+    elif isinstance(obj, (list, tuple)):
+        for i, value in enumerate(obj):
+            yield from pairs_in(value, f"{path}[{i}]")
 
 
 def backend_groups() -> list[tuple[str, str, list]]:
     """(heading, note, rows) for the text the API sends to the page."""
-    from backend import actions, alerts, main, risk_messages, sensor, simulator, weather
+    from backend import actions, alerts, diseases, main, risk_messages, sensor, simulator, weather
 
     def rows(module, *names):
         return [(f"{module.__name__.split('.')[-1]}.{p}", en, kn)
@@ -111,6 +115,15 @@ def backend_groups() -> list[tuple[str, str, list]]:
          "`{night}` is one or more of the night words joined together, e.g. \"cloudy, still\".",
          rows(weather, "MANGALURU", "LEVEL_NAMES", "FACTOR_WORDS", "ADVICE", "UNAVAILABLE")),
         ("What to do now (checklist items)", "", rows(actions, "ACTIONS")),
+        ("Fish disease guide: diseases", "Disease names, signs, seasons, prevention and what to do. "
+         "Scientific names (e.g. Aphanomyces invadans) stay in Latin.",
+         rows(diseases, "DISEASES")),
+        ("Fish disease guide: symptom checker and notes", "The signs a farmer can tick, cause types, the steps "
+         "for any disease, and the notes shown with every result.",
+         rows(diseases, "SIGNS", "CAUSE_TYPES", "COMMON_STEPS", "TREATMENT_NOTE", "NOT_A_DIAGNOSIS", "NO_MATCH",
+              "GASPING_NOTE", "LIKELY_NOTE")),
+        ("Fish disease guide: risky readings", "Why a reading makes a disease more likely.",
+         rows(diseases, "READING_LINKS")),
         ("Alert preview (SMS / WhatsApp)", "The SMS and WhatsApp text is built from the risk card "
          "and time-until-danger messages above, plus these.",
          rows(alerts, "POND_NAMES", "APP_NAME", "NO_ALERT")),

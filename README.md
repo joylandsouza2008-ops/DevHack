@@ -26,8 +26,10 @@ Built for DevHack 2026, problem statement 1.1.
 | `backend/simulator.py` | **Simulated** demo readings (normal day / night oxygen crash). Demo only, never for accuracy. Without `data/` it uses fixed typical levels, so a fresh clone (and the online demo) still runs |
 | `backend/health_score.py` | Pond health score 0–100, always inside its status's range (Safe 75–100, Warning 40–74, Danger 0–39) |
 | `backend/main.py` | FastAPI web server: API endpoints + serves the page |
+| `backend/diseases.py` | Fish disease guide: 9 carp-pond diseases (English + Kannada), symptom checker ("possible matches", never a diagnosis), diseases made more likely by risky readings. No medicines or doses |
 | `backend/sensor.py` | Live sensor: per-pond key check (key only in an environment variable), clock check, readings kept in memory |
 | `tools/fake_sensor.py` | Demo device: a pretend sensor that sends made-up readings every few seconds (labelled "Demo device") |
+| `docs/diseases.md` | Sources for every disease-guide entry, and why there's no photo check |
 | `docs/sensor-api.md` | Live sensor API, refusals, memory-only limits on free Render, ESP32 example |
 | `ml/train_do_forecast.py` | Trains and evaluates the DO forecast (`python -m ml.train_do_forecast`) |
 | `ml/experiment_3h_average.py` | Experiment: forecasting the 3-hour average DO (not adopted, see docs) |
@@ -41,6 +43,7 @@ Built for DevHack 2026, problem statement 1.1.
 | `docs/time_to_danger.md` | "Time until danger" method and results on real + simulated data |
 | `docs/screenshots/` | App screenshots (simulated demo) |
 | `frontend/` | The web page: `index.html`, dashboard (`styles.css`, `app.js`), welcome screen (`welcome.css`, `welcome.js`), day/night pond scene that follows the simulated time + hand-drawn doodles (`scene.js`), mouse and tap effects: water ripples, card tilt and spotlight, magnetic buttons (`cursor-fx.js`). Dark and light themes (one Realtime Colors palette: indigo, pond blue, cyan, magenta decoration; toggle in the top bar); after changing theme colours re-run `python tools/recolor_backgrounds.py`. Subtle "Team Orbit" space touches: starfield, shooting star, satellite, orbiting dot on the health ring, fish-and-drop loader. Add `?debug` to the address to see live counts |
+| `frontend/diseases.js` | Fish disease guide card: symptom checker, disease library with original SVG fish drawings |
 | `frontend/health-ring.js`, `history.js`, `voice.js` | Health score ring, alert history (saved in the browser), voice alerts (phone's own voices, only when tapped) |
 | `frontend/vendor/gsap/` | GSAP 3.15.0 animation library, bundled locally (works offline) |
 | `frontend/assets/` | Dashboard background waves: original artwork + brand-blue copies (`*-brand.svg`) used by the app |

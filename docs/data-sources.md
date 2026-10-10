@@ -34,3 +34,4 @@ The Safe / Warning / Danger limits ([thresholds.md](thresholds.md)), the night o
 | Tilak, Lakshmi & Susan (2002), *J. Environ. Biol.* 23(2):147–149 | https://pubmed.ncbi.nlm.nih.gov/12602850/ | Catla ammonia and nitrate toxicity |
 | Camargo, Alonso & Salamanca (2005), *Chemosphere* 58(9):1255–1267 | https://doi.org/10.1016/j.chemosphere.2004.10.044 | Nitrate limit |
 | Emerson, Russo, Lund & Thurston (1975), *J. Fish. Res. Board Can.* 32:2379–2383 | (journal article, no free link) | Formula for toxic NH₃ from total ammonia, pH and temperature |
+| FAO/NACA *Asia Diagnostic Guide to Aquatic Animal Diseases* (2001); NACA carp-disease chapters (1985, 1989) in FAO's document repository; 5 peer-reviewed papers | Full list: [diseases.md](diseases.md#references) | Fish disease guide: signs, seasons, prevention, links to risky readings |

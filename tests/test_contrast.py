@@ -209,7 +209,11 @@ def test_accent_vs_danger_for_tritanopia_is_a_known_limit():
     assert d >= 11.5, f"{d:.1f}"
 
 
-DECORATION_ONLY = {".doodle", ".sc-accent path"}     # the only places the accent may appear
+# The only places the accent may appear: doodles, scene lines, and the marks (sores, lice,
+# spots) on the fish drawings in the disease guide, which are pictures, not text or status.
+DECORATION_ONLY = {".doodle", ".sc-accent path",
+                   ".fish-art .mark", ".fish-art .mark-ring, .fish-art .mark-line",
+                   ".fish-art .mark-flat", ".fish-art .spot"}
 
 
 def test_accent_is_decoration_only():

@@ -595,6 +595,88 @@ main {
 }
 @media (prefers-reduced-motion: reduce) { .live-dot.live-dot-on { animation: none; } }
 
+/* ---- Fish disease guide (diseases.js) ---- */
+.guide-card { display: flex; flex-direction: column; gap: 1rem; }
+.guide-card h3 { margin: 0; font-size: 1.375rem; font-weight: 600; line-height: 1.3; }
+.guide-intro, .guide-loading { margin: 0; color: var(--text-secondary); }
+.guide-content { display: flex; flex-direction: column; gap: 1.5rem; }
+/* Important notes (no medicines; confirm with the officer): a message, not a pond status. */
+.guide-warning, .checker-message, .guide-note {
+  margin: 0; padding: 0.75rem 1rem; border-radius: 12px;
+  background: var(--surface); color: var(--text); font-weight: 600;
+  border-left: 6px solid var(--primary);
+}
+.checker, .library { display: flex; flex-direction: column; gap: 0.75rem; }
+.checker-form { display: flex; flex-direction: column; gap: 1rem; }
+.checker-form fieldset { margin: 0; padding: 0; border: 0; min-width: 0; }
+.checker-form legend { padding: 0; margin-bottom: 0.5rem; font-weight: 600; font-size: 1.125rem; }
+.checker-signs {
+  display: grid; gap: 0.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr));
+}
+.checker-signs .action-text::before { content: none; }
+.checker-signs .action-item input:checked ~ .action-text { color: var(--text); text-decoration: none; }
+.checker-result { display: flex; flex-direction: column; gap: 0.75rem; }
+.checker-result h4 { margin: 0; font-size: 1.125rem; }
+.match-list { margin: 0; padding-left: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem; }
+.match { display: flex; flex-direction: column; align-items: flex-start; gap: 0.125rem; }
+.match-signs, .match-more { color: var(--text-secondary); }
+.match-more { margin: 0; }
+.guide-link { padding: 0; min-height: 44px; }
+
+.disease-library { display: flex; flex-direction: column; gap: 0.75rem; }
+.disease { border: 1px solid var(--hairline-strong); border-radius: 16px; background: var(--surface); }
+.disease > summary {
+  display: flex; align-items: center; gap: 1rem; padding: 0.75rem 1rem;
+  cursor: pointer; list-style: none; border-radius: 16px;
+}
+.disease > summary::-webkit-details-marker { display: none; }
+.disease > summary::after {                 /* open / closed chevron */
+  content: ""; flex: none; margin-left: auto; width: 12px; height: 12px;
+  border-right: 3px solid var(--primary); border-bottom: 3px solid var(--primary);
+  transform: rotate(45deg); transition: transform 0.2s;
+}
+.disease[open] > summary::after { transform: rotate(-135deg); }
+.disease > summary:focus-visible { outline: 3px solid var(--primary); outline-offset: 2px; }
+.disease-title { display: flex; flex-direction: column; align-items: flex-start; gap: 0.25rem; min-width: 0; }
+.disease-name { font-size: 1.125rem; font-weight: 600; line-height: 1.4; }
+.disease-other { color: var(--text-secondary); font-size: 1rem; }
+.disease-body { display: flex; flex-direction: column; gap: 0.75rem; padding: 0 1rem 1rem; }
+.disease-agent { margin: 0; color: var(--text-secondary); }
+.disease-field h4 { margin: 0 0 0.25rem; font-size: 1rem; font-weight: 600; color: var(--text-secondary); }
+.disease-field p, .disease-field ul, .disease-field ol { margin: 0; }
+.disease-field ul, .disease-field ol { padding-left: 1.5rem; display: flex; flex-direction: column; gap: 0.25rem; }
+.disease-sources { margin: 0; font-size: 0.9375rem; color: var(--text-secondary); }
+.no-photo { border-top: 1px solid var(--hairline); padding-top: 0.75rem; }
+.no-photo summary { cursor: pointer; font-weight: 600; min-height: 44px; display: flex; align-items: center; }
+.no-photo p { margin: 0.5rem 0 0; }
+
+/* Original drawings. Disease marks use the magenta accent (decoration), never status colours. */
+.fish-art { flex: none; width: 104px; height: auto; overflow: visible; }
+.fish-art .fish { fill: var(--card); stroke: var(--text); stroke-width: 2; stroke-linejoin: round; }
+.fish-art .fin { fill: var(--card); stroke: var(--text); stroke-width: 2; }
+.fish-art .line, .fish-art .gap { fill: none; stroke: var(--text); stroke-width: 1.6; stroke-linecap: round; }
+.fish-art .gap { stroke: var(--surface); stroke-width: 4; }
+.fish-art .pupil { fill: var(--text); }
+.fish-art .eye-pop { fill: var(--card); stroke: var(--text); stroke-width: 1.6; }
+.fish-art .mark { fill: var(--accent); }
+.fish-art .tuft { fill: var(--text-secondary); opacity: 0.9; }   /* cotton-wool mould is white-grey */
+.fish-art .mark-ring, .fish-art .mark-line { fill: none; stroke: var(--accent); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.fish-art .mark-flat { fill: var(--card); stroke: var(--accent); stroke-width: 1.8; }
+.fish-art .spot { fill: #ffffff; stroke: var(--accent); stroke-width: 0.8; }
+.fish-art .shade { fill: var(--text); opacity: 0.35; }
+@media (max-width: 480px) { .fish-art { width: 76px; } .disease > summary { gap: 0.75rem; padding: 0.75rem; } }
+
+/* "Diseases more likely now" for a risky reading */
+.likely-card { display: flex; flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+.likely-box { display: flex; flex-direction: column; gap: 0.5rem; }
+.likely-title { margin: 0; font-size: 1.25rem; font-weight: 600; }
+.likely-list { margin: 0; padding-left: 1.5rem; display: flex; flex-direction: column; gap: 0.25rem; }
+.likely-note { margin: 0; color: var(--text-secondary); }
+.kit-result .likely-box, .live-result .likely-box {
+  padding: 0.75rem 1rem; border: 1px solid var(--hairline-strong); border-radius: 12px;
+}
+
 /* ---- "Simulated data" tag: on every card that shows simulated values ---- */
 .sim-tag {
   display: inline-flex; align-items: center;
@@ -779,7 +861,7 @@ body.has-welcome .page-glow { display: none; }
     grid-template-columns: repeat(2, minmax(0, 1fr));
     grid-template-areas:
       "health health" "gauge ttd" "pond pond" "chart chart"
-      "alert readings" "live live" "kit kit" "history history";
+      "alert readings" "live live" "kit kit" "history history" "guide guide";
   }
   .board > .health-card { grid-area: health; }
   .board > .gauge-card { grid-area: gauge; align-self: stretch; }
@@ -790,6 +872,7 @@ body.has-welcome .page-glow { display: none; }
   .board > .readings-block { grid-area: readings; }
   .board > .live-card { grid-area: live; }
   .board > .kit-card { grid-area: kit; }
+  .board > .guide-card { grid-area: guide; }
   .board > .history-card { grid-area: history; align-self: stretch; }
 }
 @media (min-width: 1024px) {
@@ -801,7 +884,8 @@ body.has-welcome .page-glow { display: none; }
       "chart chart chart chart alert alert"
       "readings readings readings readings alert alert"
       "live live live live history history"
-      "kit kit kit kit history history";
+      "kit kit kit kit history history"
+      "guide guide guide guide guide guide";
   }
 }
 .readings-block { display: flex; flex-direction: column; gap: 0.75rem; min-width: 0; }

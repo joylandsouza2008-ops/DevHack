@@ -100,6 +100,27 @@ const TEXT = {
     historyEmpty: "No warnings yet.",
     historyClear: "Clear history",
     historyClearConfirm: "Delete all saved alerts from this phone?",
+    guideTitle: "Fish disease guide",
+    guideIntro: "Common diseases of carp ponds: the signs to look for, when they happen and how to prevent them.",
+    guideLoading: "Loading the guide…",
+    guideFailed: "Could not load the disease guide. Please try again.",
+    guideDrawing: "drawing of a fish with the signs",
+    guideAgent: "Cause", guideBody: "Signs on the body", guideBehaviour: "How the fish behave",
+    guideWhen: "When it is most common", guidePrevention: "Prevention", guideDo: "What to do",
+    guideSourcesShort: "Sources", guideRead: "Read about it", guideSources: "Sources for every entry",
+    checkerTitle: "Symptom checker",
+    checkerHelp: "Tick the signs you see on your fish. You get possible matches, not a diagnosis.",
+    checkerBody: "On the body", checkerBehaviour: "How the fish behave",
+    checkerCheck: "Show possible matches", checkerClear: "Clear",
+    checkerEmpty: "Tick at least one sign.",
+    checkerMatches: "Possible matches", checkerMatched: "Matching signs",
+    checkerMore: (n) => `${n} more diseases match fewer of your signs.`,
+    libraryTitle: "Disease library", libraryHelp: "Tap a disease to read more.",
+    noPhotoTitle: "Why there's no photo check",
+    noPhotoText: "We tested a computer model that guesses the disease from a fish photo. The public photos are mostly aquarium fish, not carps in ponds, and the model was wrong about one time in three. That is not safe enough for your fish, so the app does not do it.",
+    noPhotoLink: "See the test results",
+    likelyTitle: "Diseases more likely now",
+    likelyNote: "This does not mean your fish are sick. Watch them closely and use the Fish disease guide if you see signs.",
     historyKit: "Test kit",
     historySensor: "Live sensor", historyDemo: "Demo device",
     historySimTime: "Simulated time",
@@ -195,6 +216,27 @@ const TEXT = {
     historyEmpty: "ಇನ್ನೂ ಯಾವುದೇ ಎಚ್ಚರಿಕೆ ಇಲ್ಲ.",
     historyClear: "ಇತಿಹಾಸ ಅಳಿಸಿ",
     historyClearConfirm: "ಈ ಫೋನ್‌ನಲ್ಲಿ ಉಳಿಸಿದ ಎಲ್ಲಾ ಎಚ್ಚರಿಕೆಗಳನ್ನು ಅಳಿಸಬೇಕೆ?",
+    guideTitle: "ಮೀನು ರೋಗ ಮಾರ್ಗದರ್ಶಿ",
+    guideIntro: "ಗೆಂಡೆ ಮೀನಿನ ಕೊಳಗಳ ಸಾಮಾನ್ಯ ರೋಗಗಳು: ಗಮನಿಸಬೇಕಾದ ಲಕ್ಷಣಗಳು, ಅವು ಯಾವಾಗ ಬರುತ್ತವೆ ಮತ್ತು ಹೇಗೆ ತಡೆಯುವುದು.",
+    guideLoading: "ಮಾರ್ಗದರ್ಶಿ ತೆರೆಯಲಾಗುತ್ತಿದೆ…",
+    guideFailed: "ರೋಗ ಮಾರ್ಗದರ್ಶಿ ತೆರೆಯಲು ಆಗಲಿಲ್ಲ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.",
+    guideDrawing: "ಲಕ್ಷಣಗಳಿರುವ ಮೀನಿನ ಚಿತ್ರ",
+    guideAgent: "ಕಾರಣ", guideBody: "ದೇಹದ ಮೇಲಿನ ಲಕ್ಷಣಗಳು", guideBehaviour: "ಮೀನುಗಳ ವರ್ತನೆ",
+    guideWhen: "ಯಾವಾಗ ಹೆಚ್ಚು ಬರುತ್ತದೆ", guidePrevention: "ತಡೆಗಟ್ಟುವಿಕೆ", guideDo: "ಏನು ಮಾಡಬೇಕು",
+    guideSourcesShort: "ಮೂಲಗಳು", guideRead: "ಇದರ ಬಗ್ಗೆ ಓದಿ", guideSources: "ಪ್ರತಿ ಮಾಹಿತಿಯ ಮೂಲಗಳು",
+    checkerTitle: "ಲಕ್ಷಣ ಪರಿಶೀಲಕ",
+    checkerHelp: "ನಿಮ್ಮ ಮೀನುಗಳಲ್ಲಿ ಕಾಣುವ ಲಕ್ಷಣಗಳನ್ನು ಗುರುತಿಸಿ. ನಿಮಗೆ ಸಾಧ್ಯವಿರುವ ಹೊಂದಾಣಿಕೆಗಳು ಸಿಗುತ್ತವೆ, ರೋಗನಿರ್ಣಯವಲ್ಲ.",
+    checkerBody: "ದೇಹದ ಮೇಲೆ", checkerBehaviour: "ಮೀನುಗಳ ವರ್ತನೆ",
+    checkerCheck: "ಸಾಧ್ಯವಿರುವ ಹೊಂದಾಣಿಕೆಗಳನ್ನು ತೋರಿಸಿ", checkerClear: "ಅಳಿಸಿ",
+    checkerEmpty: "ಕನಿಷ್ಠ ಒಂದು ಲಕ್ಷಣ ಗುರುತಿಸಿ.",
+    checkerMatches: "ಸಾಧ್ಯವಿರುವ ಹೊಂದಾಣಿಕೆಗಳು", checkerMatched: "ಹೊಂದುವ ಲಕ್ಷಣಗಳು",
+    checkerMore: (n) => `ಇನ್ನೂ ${n} ರೋಗಗಳು ನಿಮ್ಮ ಕಡಿಮೆ ಲಕ್ಷಣಗಳಿಗೆ ಹೊಂದುತ್ತವೆ.`,
+    libraryTitle: "ರೋಗಗಳ ಪಟ್ಟಿ", libraryHelp: "ಹೆಚ್ಚು ಓದಲು ಒಂದು ರೋಗದ ಮೇಲೆ ಒತ್ತಿ.",
+    noPhotoTitle: "ಫೋಟೋ ಪರಿಶೀಲನೆ ಏಕೆ ಇಲ್ಲ",
+    noPhotoText: "ಮೀನಿನ ಫೋಟೋದಿಂದ ರೋಗವನ್ನು ಊಹಿಸುವ ಕಂಪ್ಯೂಟರ್ ಮಾದರಿಯನ್ನು ನಾವು ಪರೀಕ್ಷಿಸಿದೆವು. ಸಾರ್ವಜನಿಕ ಫೋಟೋಗಳು ಹೆಚ್ಚಾಗಿ ಅಕ್ವೇರಿಯಂ ಮೀನುಗಳದ್ದು, ಕೊಳದ ಗೆಂಡೆ ಮೀನುಗಳದ್ದಲ್ಲ, ಮತ್ತು ಮಾದರಿ ಸುಮಾರು ಮೂರರಲ್ಲಿ ಒಂದು ಬಾರಿ ತಪ್ಪಾಗಿತ್ತು. ಇದು ನಿಮ್ಮ ಮೀನುಗಳಿಗೆ ಸಾಕಷ್ಟು ಸುರಕ್ಷಿತವಲ್ಲ, ಆದ್ದರಿಂದ ಆ್ಯಪ್ ಇದನ್ನು ಮಾಡುವುದಿಲ್ಲ.",
+    noPhotoLink: "ಪರೀಕ್ಷೆಯ ಫಲಿತಾಂಶಗಳನ್ನು ನೋಡಿ",
+    likelyTitle: "ಈಗ ಹೆಚ್ಚು ಸಾಧ್ಯತೆಯಿರುವ ರೋಗಗಳು",
+    likelyNote: "ಇದರ ಅರ್ಥ ನಿಮ್ಮ ಮೀನುಗಳಿಗೆ ರೋಗ ಬಂದಿದೆ ಎಂದಲ್ಲ. ಅವುಗಳನ್ನು ಗಮನವಿಟ್ಟು ನೋಡಿ, ಲಕ್ಷಣಗಳು ಕಂಡರೆ ಮೀನು ರೋಗ ಮಾರ್ಗದರ್ಶಿ ಬಳಸಿ.",
     historyKit: "ಟೆಸ್ಟ್ ಕಿಟ್",
     historySensor: "ಲೈವ್ ಸೆನ್ಸರ್", historyDemo: "ಡೆಮೊ ಸಾಧನ",
     historySimTime: "ಅನುಕರಿಸಿದ ಸಮಯ",
@@ -280,6 +322,7 @@ function setLanguage(lang) {
   renderManual();
   renderLive();
   renderAlert();
+  window.DiseaseGuide.render(lang, TEXT[lang]);
   if (!state.last) renderHealth(null, "unknown", lang);
   renderHistory();
   renderVoice();
@@ -458,6 +501,9 @@ function render(data) {
   $("sensor-errors").hidden = errors.length === 0;
   $("sensor-errors").textContent = errors.join(" ");
 
+  window.DiseaseGuide.renderLikely($("likely-box"), risk.likely_diseases, lang, TEXT[lang]);
+  $("likely-card").hidden = $("likely-box").hidden;
+
   const box = $("actions-card");
   box.hidden = !risk.actions || risk.actions.length === 0;
   if (!box.hidden) renderChecklist($("action-list"), $("actions-progress"), risk, data.source, lang);
@@ -616,6 +662,7 @@ function renderManual() {
   const errors = risk.sensor_errors.map((e) => e.message[lang]);
   $("kit-errors").hidden = errors.length === 0;
   $("kit-errors").textContent = errors.join(" ");
+  window.DiseaseGuide.renderLikely($("kit-likely"), risk.likely_diseases, lang, TEXT[lang]);
   const hasActions = risk.actions.length > 0;
   $("kit-actions-box").hidden = !hasActions;
   if (hasActions) renderChecklist($("kit-action-list"), $("kit-actions-progress"), risk, data.source, lang);
@@ -717,6 +764,7 @@ function renderLive() {
   $("live-status-summary").textContent = risk.summary[lang];
   const order = PARAMETERS.map(([p]) => p).filter((p) => p in latest.reading);
   $("live-values").replaceChildren(...order.map((p) => liveValue(p, latest, lang)));
+  window.DiseaseGuide.renderLikely($("live-likely"), risk.likely_diseases, lang, TEXT[lang]);
   const seconds = String(new Date(latest.time).getSeconds()).padStart(2, "0");   // readings come seconds apart
   $("live-time").textContent = t.liveMeasured(`${formatTime(latest.time)}:${seconds}`, t.liveAgo(age));
   const hasActions = risk.actions.length > 0;
@@ -1059,6 +1107,7 @@ lightQuery.addEventListener("change", (e) => { if (!savedTheme()) setTheme(e.mat
 setTheme(document.documentElement.getAttribute("data-theme") === "light" ? "light" : "dark", false);
 $("voice-button").addEventListener("click", toggleVoice);
 state.history = H.load();
+window.DiseaseGuide.init(loadLanguage(), TEXT[loadLanguage()]);   // the guide works before Start, too
 
 setLanguage(loadLanguage());
 

@@ -13,6 +13,8 @@ Endpoints:
     POST /api/time-to-danger         "time until danger" from recent DO readings
     GET  /api/simulator/scenarios    available demo scenarios and ponds
     GET  /api/simulator/stream       live stream of SIMULATED readings (Server-Sent Events)
+    GET  /api/diseases               the fish disease guide (library, signs, sources)
+    POST /api/diseases/check         "possible matches" for the signs a farmer ticked (never a diagnosis)
     GET  /api/weather/tonight        tonight's oxygen crash risk from the real weather forecast
     POST /api/sensor/{pond_id}       one reading from a REAL pond sensor (needs the pond's key)
     GET  /api/sensor/{pond_id}       the latest live-sensor reading for a pond
@@ -38,7 +40,7 @@ from fastapi.responses import JSONResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
-from backend import sensor
+from backend import diseases, sensor
 from backend.actions import checklist
 from backend.alerts import POND_NAMES, compose_alert
 from backend.do_features import STEP_MINUTES
@@ -96,6 +98,11 @@ class SensorReading(BaseModel):
     demo: bool = Field(False, description="true for a demo device that sends made-up readings")
 
 
+class SignsSeen(BaseModel):
+    """Signs the farmer ticked in the symptom checker (ids from GET /api/diseases)."""
+    signs: list[str] = Field(..., max_length=50, examples=[["white_spots", "rubbing"]])
+
+
 class DOReading(BaseModel):
     time: datetime
     dissolved_oxygen: float | None = Field(None, description="mg/L")
@@ -109,10 +116,12 @@ class DOHistory(BaseModel):
 # ----------------------------------------------------------------- API
 
 def assess(reading: dict, source: str = "sensor") -> dict:
-    """Risk result plus the action checklist (empty when Safe) and the 0–100 health score."""
+    """Risk result plus the action checklist (empty when Safe), the 0–100 health score
+    and the diseases this reading makes more likely (backend/diseases.py)."""
     risk = classify(reading, source=source).to_dict()
     risk["actions"] = checklist(risk)
     risk["health_score"] = health_score(risk)
+    risk["likely_diseases"] = diseases.likely_diseases(risk)
     return risk
 
 
@@ -145,6 +154,18 @@ def manual_reading(readings: TestKitReadings) -> dict:
         "risk": risk,
         "alert": compose_alert(risk, label=MANUAL_LABEL),
     }
+
+
+@app.get("/api/diseases")
+def disease_guide() -> dict:
+    """The fish disease guide: diseases, the signs to tick, and the sources. No medicines or doses."""
+    return diseases.library()
+
+
+@app.post("/api/diseases/check")
+def disease_check(seen: SignsSeen) -> dict:
+    """Possible matches for the ticked signs. Never a diagnosis: always says to confirm with a fisheries officer."""
+    return diseases.check(seen.signs)
 
 
 @app.post("/api/time-to-danger")

@@ -8,7 +8,7 @@ coastal Karnataka to understand. Write any fix in the last column.
 - `A  /  B` means the app shows one of two versions, depending on the situation.
 - Unit symbols (mg/L, °C, km/h, pH) and the names SMS, WhatsApp, FAO, TNAU, Open-Meteo stay in English.
 
-188 strings. Generated from the code by `python tools/kannada_review.py`; re-run it after changing any text.
+321 strings. Generated from the code by `python tools/kannada_review.py`; re-run it after changing any text.
 
 ## 1. Language and theme switches
 
@@ -158,7 +158,43 @@ Shown over the day/night pond picture.
 | 7 | `app.js liveLost` | Lost connection to the server. Trying again… | ಸರ್ವರ್ ಸಂಪರ್ಕ ಕಡಿದುಹೋಗಿದೆ. ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಲಾಗುತ್ತಿದೆ… |  |
 | 8 | `app.js liveNote` | Readings are kept only while the server is running. On the free server they are cleared when it sleeps. | ಸರ್ವರ್ ಚಾಲನೆಯಲ್ಲಿರುವವರೆಗೆ ಮಾತ್ರ ಅಳತೆಗಳನ್ನು ಉಳಿಸಲಾಗುತ್ತದೆ. ಉಚಿತ ಸರ್ವರ್ ನಿದ್ರೆಗೆ ಹೋದಾಗ ಅವು ಅಳಿಸಿಹೋಗುತ್ತವೆ. |  |
 
-## 13. Voice alert
+## 13. Fish disease guide (page labels)
+
+| # | Where in the code | English | Kannada | Correct? / suggestion |
+|---|---|---|---|---|
+| 1 | `app.js guideTitle` | Fish disease guide | ಮೀನು ರೋಗ ಮಾರ್ಗದರ್ಶಿ |  |
+| 2 | `app.js guideIntro` | Common diseases of carp ponds: the signs to look for, when they happen and how to prevent them. | ಗೆಂಡೆ ಮೀನಿನ ಕೊಳಗಳ ಸಾಮಾನ್ಯ ರೋಗಗಳು: ಗಮನಿಸಬೇಕಾದ ಲಕ್ಷಣಗಳು, ಅವು ಯಾವಾಗ ಬರುತ್ತವೆ ಮತ್ತು ಹೇಗೆ ತಡೆಯುವುದು. |  |
+| 3 | `app.js guideLoading` | Loading the guide… | ಮಾರ್ಗದರ್ಶಿ ತೆರೆಯಲಾಗುತ್ತಿದೆ… |  |
+| 4 | `app.js guideFailed` | Could not load the disease guide. Please try again. | ರೋಗ ಮಾರ್ಗದರ್ಶಿ ತೆರೆಯಲು ಆಗಲಿಲ್ಲ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ. |  |
+| 5 | `app.js guideDrawing` | drawing of a fish with the signs | ಲಕ್ಷಣಗಳಿರುವ ಮೀನಿನ ಚಿತ್ರ |  |
+| 6 | `app.js guideAgent` | Cause | ಕಾರಣ |  |
+| 7 | `app.js guideBody` | Signs on the body | ದೇಹದ ಮೇಲಿನ ಲಕ್ಷಣಗಳು |  |
+| 8 | `app.js guideBehaviour` | How the fish behave | ಮೀನುಗಳ ವರ್ತನೆ |  |
+| 9 | `app.js guideWhen` | When it is most common | ಯಾವಾಗ ಹೆಚ್ಚು ಬರುತ್ತದೆ |  |
+| 10 | `app.js guidePrevention` | Prevention | ತಡೆಗಟ್ಟುವಿಕೆ |  |
+| 11 | `app.js guideDo` | What to do | ಏನು ಮಾಡಬೇಕು |  |
+| 12 | `app.js guideSourcesShort` | Sources | ಮೂಲಗಳು |  |
+| 13 | `app.js guideRead` | Read about it | ಇದರ ಬಗ್ಗೆ ಓದಿ |  |
+| 14 | `app.js guideSources` | Sources for every entry | ಪ್ರತಿ ಮಾಹಿತಿಯ ಮೂಲಗಳು |  |
+| 15 | `app.js checkerTitle` | Symptom checker | ಲಕ್ಷಣ ಪರಿಶೀಲಕ |  |
+| 16 | `app.js checkerHelp` | Tick the signs you see on your fish. You get possible matches, not a diagnosis. | ನಿಮ್ಮ ಮೀನುಗಳಲ್ಲಿ ಕಾಣುವ ಲಕ್ಷಣಗಳನ್ನು ಗುರುತಿಸಿ. ನಿಮಗೆ ಸಾಧ್ಯವಿರುವ ಹೊಂದಾಣಿಕೆಗಳು ಸಿಗುತ್ತವೆ, ರೋಗನಿರ್ಣಯವಲ್ಲ. |  |
+| 17 | `app.js checkerBody` | On the body | ದೇಹದ ಮೇಲೆ |  |
+| 18 | `app.js checkerBehaviour` | How the fish behave | ಮೀನುಗಳ ವರ್ತನೆ |  |
+| 19 | `app.js checkerCheck` | Show possible matches | ಸಾಧ್ಯವಿರುವ ಹೊಂದಾಣಿಕೆಗಳನ್ನು ತೋರಿಸಿ |  |
+| 20 | `app.js checkerClear` | Clear | ಅಳಿಸಿ |  |
+| 21 | `app.js checkerEmpty` | Tick at least one sign. | ಕನಿಷ್ಠ ಒಂದು ಲಕ್ಷಣ ಗುರುತಿಸಿ. |  |
+| 22 | `app.js checkerMatches` | Possible matches | ಸಾಧ್ಯವಿರುವ ಹೊಂದಾಣಿಕೆಗಳು |  |
+| 23 | `app.js checkerMatched` | Matching signs | ಹೊಂದುವ ಲಕ್ಷಣಗಳು |  |
+| 24 | `app.js checkerMore` | {n} more diseases match fewer of your signs. | ಇನ್ನೂ {n} ರೋಗಗಳು ನಿಮ್ಮ ಕಡಿಮೆ ಲಕ್ಷಣಗಳಿಗೆ ಹೊಂದುತ್ತವೆ. |  |
+| 25 | `app.js libraryTitle` | Disease library | ರೋಗಗಳ ಪಟ್ಟಿ |  |
+| 26 | `app.js libraryHelp` | Tap a disease to read more. | ಹೆಚ್ಚು ಓದಲು ಒಂದು ರೋಗದ ಮೇಲೆ ಒತ್ತಿ. |  |
+| 27 | `app.js noPhotoTitle` | Why there's no photo check | ಫೋಟೋ ಪರಿಶೀಲನೆ ಏಕೆ ಇಲ್ಲ |  |
+| 28 | `app.js noPhotoText` | We tested a computer model that guesses the disease from a fish photo. The public photos are mostly aquarium fish, not carps in ponds, and the model was wrong about one time in three. That is not safe enough for your fish, so the app does not do it. | ಮೀನಿನ ಫೋಟೋದಿಂದ ರೋಗವನ್ನು ಊಹಿಸುವ ಕಂಪ್ಯೂಟರ್ ಮಾದರಿಯನ್ನು ನಾವು ಪರೀಕ್ಷಿಸಿದೆವು. ಸಾರ್ವಜನಿಕ ಫೋಟೋಗಳು ಹೆಚ್ಚಾಗಿ ಅಕ್ವೇರಿಯಂ ಮೀನುಗಳದ್ದು, ಕೊಳದ ಗೆಂಡೆ ಮೀನುಗಳದ್ದಲ್ಲ, ಮತ್ತು ಮಾದರಿ ಸುಮಾರು ಮೂರರಲ್ಲಿ ಒಂದು ಬಾರಿ ತಪ್ಪಾಗಿತ್ತು. ಇದು ನಿಮ್ಮ ಮೀನುಗಳಿಗೆ ಸಾಕಷ್ಟು ಸುರಕ್ಷಿತವಲ್ಲ, ಆದ್ದರಿಂದ ಆ್ಯಪ್ ಇದನ್ನು ಮಾಡುವುದಿಲ್ಲ. |  |
+| 29 | `app.js noPhotoLink` | See the test results | ಪರೀಕ್ಷೆಯ ಫಲಿತಾಂಶಗಳನ್ನು ನೋಡಿ |  |
+| 30 | `app.js likelyTitle` | Diseases more likely now | ಈಗ ಹೆಚ್ಚು ಸಾಧ್ಯತೆಯಿರುವ ರೋಗಗಳು |  |
+| 31 | `app.js likelyNote` | This does not mean your fish are sick. Watch them closely and use the Fish disease guide if you see signs. | ಇದರ ಅರ್ಥ ನಿಮ್ಮ ಮೀನುಗಳಿಗೆ ರೋಗ ಬಂದಿದೆ ಎಂದಲ್ಲ. ಅವುಗಳನ್ನು ಗಮನವಿಟ್ಟು ನೋಡಿ, ಲಕ್ಷಣಗಳು ಕಂಡರೆ ಮೀನು ರೋಗ ಮಾರ್ಗದರ್ಶಿ ಬಳಸಿ. |  |
+
+## 14. Voice alert
 
 | # | Where in the code | English | Kannada | Correct? / suggestion |
 |---|---|---|---|---|
@@ -168,7 +204,7 @@ Shown over the day/night pond picture.
 | 4 | `app.js voiceNoEnglish` | Sorry, this phone has no English voice. Please read the alert on the screen. | ಕ್ಷಮಿಸಿ, ಈ ಫೋನ್‌ನಲ್ಲಿ ಇಂಗ್ಲಿಷ್ ಧ್ವನಿ ಇಲ್ಲ. ದಯವಿಟ್ಟು ಪರದೆಯ ಮೇಲಿನ ಎಚ್ಚರಿಕೆಯನ್ನು ಓದಿ. |  |
 | 5 | `app.js voiceUnsupported` | Sorry, this browser cannot read aloud. Please read the alert on the screen. | ಕ್ಷಮಿಸಿ, ಈ ಬ್ರೌಸರ್ ಓದಿ ಹೇಳಲು ಆಗುವುದಿಲ್ಲ. ದಯವಿಟ್ಟು ಪರದೆಯ ಮೇಲಿನ ಎಚ್ಚರಿಕೆಯನ್ನು ಓದಿ. |  |
 
-## 14. Alert history
+## 15. Alert history
 
 | # | Where in the code | English | Kannada | Correct? / suggestion |
 |---|---|---|---|---|
@@ -184,7 +220,7 @@ Shown over the day/night pond picture.
 | 10 | `app.js historyActionTaken` | Action taken: | ತೆಗೆದುಕೊಂಡ ಕ್ರಮ: |  |
 | 11 | `app.js historyNoAction` | No action ticked yet. | ಇನ್ನೂ ಯಾವುದೇ ಕ್ರಮವನ್ನು ಗುರುತಿಸಿಲ್ಲ. |  |
 
-## 15. Data sources panel (footer)
+## 16. Data sources panel (footer)
 
 | # | Where in the code | English | Kannada | Correct? / suggestion |
 |---|---|---|---|---|
@@ -203,7 +239,7 @@ Shown over the day/night pond picture.
 | 13 | `app.js sourcesFishLicence` | Licence: CC0 (public domain). | ಪರವಾನಗಿ: CC0 (ಸಾರ್ವಜನಿಕ ಸ್ವತ್ತು). |  |
 | 14 | `app.js sourcesFull` | Full list with links and licences | ಲಿಂಕ್‌ಗಳು ಮತ್ತು ಪರವಾನಗಿಗಳ ಪೂರ್ಣ ಪಟ್ಟಿ |  |
 
-## 16. Messages from the server: Data labels
+## 17. Messages from the server: Data labels
 
 Shown on every simulated, test-kit or live-sensor reading.
 
@@ -214,7 +250,7 @@ Shown on every simulated, test-kit or live-sensor reading.
 | 3 | `sensor.LIVE_LABEL` | Live sensor | ಲೈವ್ ಸೆನ್ಸರ್ |  |
 | 4 | `sensor.DEMO_LABEL` | Demo device: simulated readings, not a real pond | ಡೆಮೊ ಸಾಧನ: ಅನುಕರಿಸಿದ (ಸಿಮ್ಯುಲೇಟೆಡ್) ಅಳತೆಗಳು, ನಿಜವಾದ ಕೊಳವಲ್ಲ |  |
 
-## 17. Messages from the server: Live sensor: why a reading was refused
+## 18. Messages from the server: Live sensor: why a reading was refused
 
 Sent back to the sensor and shown on the Live sensor card.
 
@@ -227,7 +263,7 @@ Sent back to the sensor and shown on the Live sensor card.
 | 5 | `sensor.NO_TIME_ZONE` | The timestamp has no time zone. Add +05:30 or Z. Check the sensor clock. | ಸಮಯದಲ್ಲಿ ಟೈಮ್ ಝೋನ್ ಇಲ್ಲ. +05:30 ಅಥವಾ Z ಸೇರಿಸಿ. ಸೆನ್ಸರ್ ಗಡಿಯಾರ ಪರಿಶೀಲಿಸಿ. |  |
 | 6 | `sensor.TOO_OLD` | The timestamp is more than a day old. Check the sensor clock. | ಸಮಯ ಒಂದು ದಿನಕ್ಕಿಂತ ಹಳೆಯದು. ಸೆನ್ಸರ್ ಗಡಿಯಾರ ಪರಿಶೀಲಿಸಿ. |  |
 
-## 18. Messages from the server: Risk card: level names, parameter names and reasons
+## 19. Messages from the server: Risk card: level names, parameter names and reasons
 
 `{value}` and `{unit}` are filled in by the app, e.g. 4.1 mg/L. `{name}` is a parameter name.
 
@@ -263,7 +299,7 @@ Sent back to the sensor and shown on the Live sensor card.
 | 28 | `risk_messages.NO_VALID_READINGS` | No valid readings. Check the sensors. | ಸರಿಯಾದ ಅಳತೆಗಳು ಇಲ್ಲ. ಸೆನ್ಸರ್‌ಗಳನ್ನು ಪರಿಶೀಲಿಸಿ. |  |
 | 29 | `risk_messages.NO_VALID_TEST_KIT_READINGS` | No valid readings. Check your test kit. | ಸರಿಯಾದ ಅಳತೆಗಳು ಇಲ್ಲ. ನಿಮ್ಮ ಟೆಸ್ಟ್ ಕಿಟ್ ಪರಿಶೀಲಿಸಿ. |  |
 
-## 19. Messages from the server: Time until danger (messages)
+## 20. Messages from the server: Time until danger (messages)
 
 `{rate}` e.g. 0.6, `{danger}` e.g. 3, `{clock}` e.g. 03:20, `{hours}` e.g. 6. `{duration_kn}` is one of the two duration phrases below.
 
@@ -277,7 +313,7 @@ Sent back to the sensor and shown on the Live sensor card.
 | 6 | `time_to_danger._duration (under 1 hour)` | about {minutes} minutes | ಸುಮಾರು {minutes} ನಿಮಿಷಗಳಲ್ಲಿ |  |
 | 7 | `time_to_danger._duration (1 hour or more)` | about {text} hours | ಸುಮಾರು {text} ಗಂಟೆಗಳಲ್ಲಿ |  |
 
-## 20. Messages from the server: Tonight's weather (messages)
+## 21. Messages from the server: Tonight's weather (messages)
 
 `{night}` is one or more of the night words joined together, e.g. "cloudy, still".
 
@@ -295,7 +331,7 @@ Sent back to the sensor and shown on the Live sensor card.
 | 10 | `weather.ADVICE.high` | {night} night ahead: keep the aerator ready. | {night} ರಾತ್ರಿ ಬರಲಿದೆ: ಏರೇಟರ್ ಸಿದ್ಧವಾಗಿಡಿ. |  |
 | 11 | `weather.UNAVAILABLE` | No internet and no saved forecast. Tonight's weather is not known. | ಇಂಟರ್ನೆಟ್ ಇಲ್ಲ, ಉಳಿಸಿದ ಮುನ್ಸೂಚನೆಯೂ ಇಲ್ಲ. ಇಂದು ರಾತ್ರಿಯ ಹವಾಮಾನ ತಿಳಿದಿಲ್ಲ. |  |
 
-## 21. Messages from the server: What to do now (checklist items)
+## 22. Messages from the server: What to do now (checklist items)
 
 | # | Where in the code | English | Kannada | Correct? / suggestion |
 |---|---|---|---|---|
@@ -312,7 +348,130 @@ Sent back to the sensor and shown on the Live sensor card.
 | 11 | `actions.ACTIONS.retest_ph_morning` | Test pH again early tomorrow morning. pH is highest in the afternoon and falls by morning. | ನಾಳೆ ಬೆಳಿಗ್ಗೆ ಬೇಗ pH ಮತ್ತೆ ಪರೀಕ್ಷಿಸಿ. ಮಧ್ಯಾಹ್ನ pH ಅತಿ ಹೆಚ್ಚಿರುತ್ತದೆ, ಬೆಳಿಗ್ಗೆಗೆ ಕಡಿಮೆಯಾಗುತ್ತದೆ. |  |
 | 12 | `actions.ACTIONS.retest_ph_afternoon` | Test pH again this afternoon. pH is lowest in the early morning and rises during the day. | ಇಂದು ಮಧ್ಯಾಹ್ನ pH ಮತ್ತೆ ಪರೀಕ್ಷಿಸಿ. ಬೆಳಿಗ್ಗೆ pH ಅತಿ ಕಡಿಮೆ ಇರುತ್ತದೆ, ಹಗಲಿನಲ್ಲಿ ಏರುತ್ತದೆ. |  |
 
-## 22. Messages from the server: Alert preview (SMS / WhatsApp)
+## 23. Messages from the server: Fish disease guide: diseases
+
+Disease names, signs, seasons, prevention and what to do. Scientific names (e.g. Aphanomyces invadans) stay in Latin.
+
+| # | Where in the code | English | Kannada | Correct? / suggestion |
+|---|---|---|---|---|
+| 1 | `diseases.DISEASES.eus.name` | Epizootic ulcerative syndrome (EUS, red spot disease) | ಎಪಿಜೂಟಿಕ್ ಅಲ್ಸರೇಟಿವ್ ಸಿಂಡ್ರೋಮ್ (EUS, ಕೆಂಪು ಚುಕ್ಕೆ ಹುಣ್ಣು ರೋಗ) |  |
+| 2 | `diseases.DISEASES.eus.body` | Starts as red spots. These become deep open sores that go into the muscle. Older sores can have a raised white edge. | ಕೆಂಪು ಚುಕ್ಕೆಗಳಾಗಿ ಆರಂಭವಾಗುತ್ತದೆ. ಅವು ಸ್ನಾಯುವಿನೊಳಗೆ ಹೋಗುವ ಆಳವಾದ ತೆರೆದ ಹುಣ್ಣುಗಳಾಗುತ್ತವೆ. ಹಳೆಯ ಹುಣ್ಣುಗಳಿಗೆ ಎದ್ದ ಬಿಳಿ ಅಂಚು ಇರಬಹುದು. |  |
+| 3 | `diseases.DISEASES.eus.behaviour` | Many fish can die in an outbreak. | ರೋಗ ಹರಡಿದಾಗ ಅನೇಕ ಮೀನುಗಳು ಸಾಯಬಹುದು. |  |
+| 4 | `diseases.DISEASES.eus.when` | In cool weather, and when runoff makes the water acidic. Spreads with floods and when fish are moved. Chinese carps resist it. | ತಂಪಾದ ಹವಾಮಾನದಲ್ಲಿ, ಮತ್ತು ಹರಿದು ಬಂದ ನೀರು ಕೊಳವನ್ನು ಆಮ್ಲೀಯಗೊಳಿಸಿದಾಗ. ಪ್ರವಾಹದಿಂದ ಮತ್ತು ಮೀನುಗಳನ್ನು ಸಾಗಿಸಿದಾಗ ಹರಡುತ್ತದೆ. ಚೀನೀ ಗೆಂಡೆಗಳು ಇದನ್ನು ತಡೆದುಕೊಳ್ಳುತ್ತವೆ. |  |
+| 5 | `diseases.DISEASES.eus.prevention[0]` | Dry the pond completely before stocking. Ask your fisheries officer about liming. | ಮೀನು ಬಿಡುವ ಮೊದಲು ಕೊಳವನ್ನು ಸಂಪೂರ್ಣವಾಗಿ ಒಣಗಿಸಿ. ಸುಣ್ಣ ಹಾಕುವ ಬಗ್ಗೆ ನಿಮ್ಮ ಮೀನುಗಾರಿಕೆ ಅಧಿಕಾರಿಯನ್ನು ಕೇಳಿ. |  |
+| 6 | `diseases.DISEASES.eus.prevention[1]` | Keep wild fish out of the pond. Stock hatchery-reared seed. | ಕಾಡು ಮೀನುಗಳು ಕೊಳಕ್ಕೆ ಬರದಂತೆ ತಡೆಯಿರಿ. ಮೊಟ್ಟೆಕೇಂದ್ರದಲ್ಲಿ ಬೆಳೆಸಿದ ಮರಿಗಳನ್ನು ಬಿಡಿ. |  |
+| 7 | `diseases.DISEASES.eus.prevention[2]` | Clean nets and tools before using them in another pond. | ಬಲೆ ಮತ್ತು ಸಾಧನಗಳನ್ನು ಬೇರೆ ಕೊಳದಲ್ಲಿ ಬಳಸುವ ಮೊದಲು ಸ್ವಚ್ಛಗೊಳಿಸಿ. |  |
+| 8 | `diseases.DISEASES.eus.do[0]` | Ulcers can also come from other diseases, so a laboratory test is needed to be sure. | ಹುಣ್ಣುಗಳು ಬೇರೆ ರೋಗಗಳಿಂದಲೂ ಬರಬಹುದು, ಆದ್ದರಿಂದ ಖಚಿತಪಡಿಸಲು ಪ್ರಯೋಗಾಲಯ ಪರೀಕ್ಷೆ ಬೇಕು. |  |
+| 9 | `diseases.DISEASES.aeromoniasis.name` | Aeromonas infection (dropsy, haemorrhagic septicaemia) | ಏರೋಮೋನಾಸ್ ಸೋಂಕು (ಹೊಟ್ಟೆ ಊತ / ಡ್ರಾಪ್ಸಿ, ರಕ್ತಸ್ರಾವ ರೋಗ) |  |
+| 10 | `diseases.DISEASES.aeromoniasis.body` | Large red, bleeding patches on the skin, often at the fin bases and vent, that can become sores. Swollen belly, scales standing out, bulging eyes, rotting fins. | ಚರ್ಮದ ಮೇಲೆ, ಹೆಚ್ಚಾಗಿ ಈಜುರೆಕ್ಕೆಗಳ ಬುಡ ಮತ್ತು ಗುದದ ಬಳಿ, ದೊಡ್ಡ ಕೆಂಪು ರಕ್ತಸ್ರಾವದ ಕಲೆಗಳು, ಅವು ಹುಣ್ಣಾಗಬಹುದು. ಊದಿದ ಹೊಟ್ಟೆ, ಎದ್ದ ಹುರುಪೆಗಳು, ಉಬ್ಬಿದ ಕಣ್ಣುಗಳು, ಕೊಳೆಯುವ ಈಜುರೆಕ್ಕೆಗಳು. |  |
+| 11 | `diseases.DISEASES.aeromoniasis.behaviour` | Sick fish swim slowly. Many can die soon after the red patches appear. | ರೋಗಪೀಡಿತ ಮೀನುಗಳು ನಿಧಾನವಾಗಿ ಈಜುತ್ತವೆ. ಕೆಂಪು ಕಲೆಗಳು ಕಾಣಿಸಿದ ಸ್ವಲ್ಪ ಸಮಯದಲ್ಲೇ ಅನೇಕ ಮೀನುಗಳು ಸಾಯಬಹುದು. |  |
+| 12 | `diseases.DISEASES.aeromoniasis.when` | When fish are stressed: crowding, low oxygen, dirty water with a lot of waste, rough handling, high or changing temperature, and high ammonia. | ಮೀನುಗಳು ಒತ್ತಡದಲ್ಲಿದ್ದಾಗ: ಹೆಚ್ಚು ಮೀನು ತುಂಬಿದಾಗ, ಕಡಿಮೆ ಆಮ್ಲಜನಕ, ಹೆಚ್ಚು ತ್ಯಾಜ್ಯವಿರುವ ಕೊಳಕು ನೀರು, ಒರಟು ನಿರ್ವಹಣೆ, ಹೆಚ್ಚಿನ ಅಥವಾ ಬದಲಾಗುವ ತಾಪಮಾನ, ಮತ್ತು ಹೆಚ್ಚಿನ ಅಮೋನಿಯಾ. |  |
+| 13 | `diseases.DISEASES.aeromoniasis.prevention[0]` | Do not overstock. Crowding builds up waste and uses up oxygen. | ಹೆಚ್ಚು ಮೀನು ಬಿಡಬೇಡಿ. ದಟ್ಟಣೆಯಿಂದ ತ್ಯಾಜ್ಯ ಹೆಚ್ಚುತ್ತದೆ ಮತ್ತು ಆಮ್ಲಜನಕ ಕಡಿಮೆಯಾಗುತ್ತದೆ. |  |
+| 14 | `diseases.DISEASES.aeromoniasis.prevention[1]` | Keep oxygen and ammonia in the safe range. Do not overfeed. | ಆಮ್ಲಜನಕ ಮತ್ತು ಅಮೋನಿಯಾವನ್ನು ಸುರಕ್ಷಿತ ಮಟ್ಟದಲ್ಲಿಡಿ. ಹೆಚ್ಚು ಆಹಾರ ಹಾಕಬೇಡಿ. |  |
+| 15 | `diseases.DISEASES.aeromoniasis.prevention[2]` | Handle and transport fish gently and as little as possible, not in hot weather. | ಮೀನುಗಳನ್ನು ನಿಧಾನವಾಗಿ, ಸಾಧ್ಯವಾದಷ್ಟು ಕಡಿಮೆ ನಿರ್ವಹಿಸಿ ಮತ್ತು ಸಾಗಿಸಿ, ಬಿಸಿ ಹವಾಮಾನದಲ್ಲಿ ಬೇಡ. |  |
+| 16 | `diseases.DISEASES.aeromoniasis.do[0]` | Do not buy medicines yourself. In Indian carp ponds, several drugs tried for dropsy did not work. | ನೀವೇ ಔಷಧಿ ಖರೀದಿಸಬೇಡಿ. ಭಾರತದ ಗೆಂಡೆ ಮೀನಿನ ಕೊಳಗಳಲ್ಲಿ, ಡ್ರಾಪ್ಸಿಗೆ ಪ್ರಯತ್ನಿಸಿದ ಹಲವು ಔಷಧಿಗಳು ಫಲ ನೀಡಲಿಲ್ಲ. |  |
+| 17 | `diseases.DISEASES.gill_disease.name` | Bacterial gill disease (gill rot) | ಬ್ಯಾಕ್ಟೀರಿಯಾದ ಕಿವಿರು ರೋಗ (ಕಿವಿರು ಕೊಳೆ) |  |
+| 18 | `diseases.DISEASES.gill_disease.body` | Gills are pale and rotten, often covered with mud and slime. The fish looks dark, especially the head. The gill cover can be red inside, or rot through. | ಕಿವಿರುಗಳು ಬಿಳಿಚಿ ಕೊಳೆತಿರುತ್ತವೆ, ಹೆಚ್ಚಾಗಿ ಕೆಸರು ಮತ್ತು ಲೋಳೆಯಿಂದ ಮುಚ್ಚಿರುತ್ತವೆ. ಮೀನು, ವಿಶೇಷವಾಗಿ ತಲೆ, ಕಪ್ಪಾಗಿ ಕಾಣುತ್ತದೆ. ಕಿವಿರು ಮುಚ್ಚಳ ಒಳಗೆ ಕೆಂಪಾಗಿರಬಹುದು ಅಥವಾ ಕೊಳೆತು ತೂತಾಗಬಹುದು. |  |
+| 19 | `diseases.DISEASES.gill_disease.behaviour` | Our sources describe the body signs only. | ನಮ್ಮ ಮೂಲಗಳು ದೇಹದ ಲಕ್ಷಣಗಳನ್ನು ಮಾತ್ರ ವಿವರಿಸುತ್ತವೆ. |  |
+| 20 | `diseases.DISEASES.gill_disease.when` | Warm water: it starts above 20 °C and is worst at 28-35 °C. Grass carp is hit hardest. | ಬೆಚ್ಚಗಿನ ನೀರಿನಲ್ಲಿ: 20 °C ಮೇಲೆ ಆರಂಭವಾಗುತ್ತದೆ, 28-35 °C ನಲ್ಲಿ ಹೆಚ್ಚು. ಹುಲ್ಲು ಗೆಂಡೆ (ಗ್ರಾಸ್ ಕಾರ್ಪ್) ಹೆಚ್ಚು ಬಾಧಿತವಾಗುತ್ತದೆ. |  |
+| 21 | `diseases.DISEASES.gill_disease.prevention[0]` | Keep the water clean and do not overstock. | ನೀರನ್ನು ಶುದ್ಧವಾಗಿಡಿ ಮತ್ತು ಹೆಚ್ಚು ಮೀನು ಬಿಡಬೇಡಿ. |  |
+| 22 | `diseases.DISEASES.gill_disease.prevention[1]` | In the hot months, check the pond every morning. | ಬಿಸಿ ತಿಂಗಳುಗಳಲ್ಲಿ ಪ್ರತಿದಿನ ಬೆಳಿಗ್ಗೆ ಕೊಳವನ್ನು ಪರಿಶೀಲಿಸಿ. |  |
+| 23 | `diseases.DISEASES.columnaris.name` | Columnaris disease (fin and skin rot) | ಕಾಲಮ್ನಾರಿಸ್ ರೋಗ (ಈಜುರೆಕ್ಕೆ ಮತ್ತು ಚರ್ಮ ಕೊಳೆ) |  |
+| 24 | `diseases.DISEASES.columnaris.body` | In rohu, rot starts at the edges of the fins and spreads to the body. White sores and bleeding spots. Patches covered with white-yellow slime. Gills can be eaten away. | ರೋಹುವಿನಲ್ಲಿ, ಕೊಳೆ ಈಜುರೆಕ್ಕೆಗಳ ಅಂಚಿನಿಂದ ಆರಂಭವಾಗಿ ದೇಹಕ್ಕೆ ಹರಡುತ್ತದೆ. ಬಿಳಿ ಹುಣ್ಣುಗಳು ಮತ್ತು ರಕ್ತಸ್ರಾವದ ಚುಕ್ಕೆಗಳು. ಬಿಳಿ-ಹಳದಿ ಲೋಳೆಯಿಂದ ಮುಚ್ಚಿದ ಕಲೆಗಳು. ಕಿವಿರುಗಳು ಸವೆದುಹೋಗಬಹುದು. |  |
+| 25 | `diseases.DISEASES.columnaris.behaviour` | Many fish can die. | ಅನೇಕ ಮೀನುಗಳು ಸಾಯಬಹುದು. |  |
+| 26 | `diseases.DISEASES.columnaris.when` | Above 18 °C, and more when the water is warmer. Crowding, handling and injuries set it off. | 18 °C ಮೇಲೆ, ನೀರು ಹೆಚ್ಚು ಬೆಚ್ಚಗಾದಂತೆ ಹೆಚ್ಚು. ದಟ್ಟಣೆ, ನಿರ್ವಹಣೆ ಮತ್ತು ಗಾಯಗಳು ಇದನ್ನು ಪ್ರಚೋದಿಸುತ್ತವೆ. |  |
+| 27 | `diseases.DISEASES.columnaris.prevention[0]` | Avoid crowding and rough netting, which injure the skin. | ಚರ್ಮಕ್ಕೆ ಗಾಯ ಮಾಡುವ ದಟ್ಟಣೆ ಮತ್ತು ಒರಟು ಬಲೆ ಹಾಕುವಿಕೆಯನ್ನು ತಪ್ಪಿಸಿ. |  |
+| 28 | `diseases.DISEASES.columnaris.prevention[1]` | Do not handle fish when the water is very warm. | ನೀರು ತುಂಬಾ ಬೆಚ್ಚಗಿರುವಾಗ ಮೀನುಗಳನ್ನು ನಿರ್ವಹಿಸಬೇಡಿ. |  |
+| 29 | `diseases.DISEASES.saprolegniasis.name` | Saprolegniasis (cotton wool disease) | ಸಾಪ್ರೊಲೆಗ್ನಿಯಾಸಿಸ್ (ಹತ್ತಿ ಬೂಷ್ಟು ರೋಗ) |  |
+| 30 | `diseases.DISEASES.saprolegniasis.body` | A white, grey or brownish cotton-wool growth on any part of the body, usually on a wound. Lots of slime. Under the growth the muscle rots. | ದೇಹದ ಯಾವುದೇ ಭಾಗದಲ್ಲಿ, ಸಾಮಾನ್ಯವಾಗಿ ಗಾಯದ ಮೇಲೆ, ಬಿಳಿ, ಬೂದು ಅಥವಾ ಕಂದು ಹತ್ತಿಯಂತಹ ಬೆಳವಣಿಗೆ. ಹೆಚ್ಚು ಲೋಳೆ. ಬೆಳವಣಿಗೆಯ ಕೆಳಗೆ ಸ್ನಾಯು ಕೊಳೆಯುತ್ತದೆ. |  |
+| 31 | `diseases.DISEASES.saprolegniasis.behaviour` | Fish rub against things, stop eating and move slowly. | ಮೀನುಗಳು ವಸ್ತುಗಳಿಗೆ ಉಜ್ಜಿಕೊಳ್ಳುತ್ತವೆ, ತಿನ್ನುವುದನ್ನು ನಿಲ್ಲಿಸುತ್ತವೆ ಮತ್ತು ನಿಧಾನವಾಗಿ ಚಲಿಸುತ್ತವೆ. |  |
+| 32 | `diseases.DISEASES.saprolegniasis.when` | Any time of year, after injuries from netting, transport, stocking, spawning or crowding, or on sores from another disease. Worse in crowded ponds in the cool months. | ವರ್ಷದ ಯಾವುದೇ ಸಮಯದಲ್ಲಿ, ಬಲೆ, ಸಾಗಣೆ, ಮೀನು ಬಿಡುವಿಕೆ, ಮೊಟ್ಟೆ ಇಡುವಿಕೆ ಅಥವಾ ದಟ್ಟಣೆಯಿಂದಾದ ಗಾಯಗಳ ನಂತರ, ಅಥವಾ ಬೇರೆ ರೋಗದ ಹುಣ್ಣುಗಳ ಮೇಲೆ. ತಂಪು ತಿಂಗಳುಗಳಲ್ಲಿ ದಟ್ಟ ಕೊಳಗಳಲ್ಲಿ ಹೆಚ್ಚು. |  |
+| 33 | `diseases.DISEASES.saprolegniasis.prevention[0]` | Net, carry and stock fish gently so they are not injured. | ಮೀನುಗಳಿಗೆ ಗಾಯವಾಗದಂತೆ ನಿಧಾನವಾಗಿ ಬಲೆ ಹಾಕಿ, ಸಾಗಿಸಿ ಮತ್ತು ಬಿಡಿ. |  |
+| 34 | `diseases.DISEASES.saprolegniasis.prevention[1]` | Do not overcrowd the pond. | ಕೊಳದಲ್ಲಿ ಹೆಚ್ಚು ದಟ್ಟಣೆ ಮಾಡಬೇಡಿ. |  |
+| 35 | `diseases.DISEASES.saprolegniasis.do[0]` | The mould usually grows on a wound or another disease. Look for the first problem too (EUS, anchor worm, injuries). | ಬೂಷ್ಟು ಸಾಮಾನ್ಯವಾಗಿ ಗಾಯ ಅಥವಾ ಬೇರೆ ರೋಗದ ಮೇಲೆ ಬೆಳೆಯುತ್ತದೆ. ಮೊದಲ ಸಮಸ್ಯೆಯನ್ನೂ ಹುಡುಕಿ (EUS, ಲಂಗರು ಹುಳು, ಗಾಯಗಳು). |  |
+| 36 | `diseases.DISEASES.argulosis.name` | Argulosis (fish louse) | ಆರ್ಗುಲೋಸಿಸ್ (ಮೀನು ಹೇನು) |  |
+| 37 | `diseases.DISEASES.argulosis.body` | Flat, round lice you can see on the skin. They hold on with suckers and hooks and can also swim off. Red bleeding spots and loose scales. | ಚರ್ಮದ ಮೇಲೆ ಕಣ್ಣಿಗೆ ಕಾಣುವ ಚಪ್ಪಟೆ, ದುಂಡಗಿನ ಹೇನುಗಳು. ಅವು ಹೀರುಬಟ್ಟಲು ಮತ್ತು ಕೊಕ್ಕೆಗಳಿಂದ ಹಿಡಿದುಕೊಳ್ಳುತ್ತವೆ ಮತ್ತು ಈಜಿ ಹೋಗಬಹುದು. ಕೆಂಪು ರಕ್ತಸ್ರಾವದ ಚುಕ್ಕೆಗಳು ಮತ್ತು ಸಡಿಲ ಹುರುಪೆಗಳು. |  |
+| 38 | `diseases.DISEASES.argulosis.behaviour` | Fish become weak and thin and grow slowly. Some can die. | ಮೀನುಗಳು ದುರ್ಬಲ ಮತ್ತು ಸಣಕಲಾಗುತ್ತವೆ ಮತ್ತು ನಿಧಾನವಾಗಿ ಬೆಳೆಯುತ್ತವೆ. ಕೆಲವು ಸಾಯಬಹುದು. |  |
+| 39 | `diseases.DISEASES.argulosis.when` | Common in carp ponds. In a West Bengal study, most cases were in September and October. | ಗೆಂಡೆ ಮೀನಿನ ಕೊಳಗಳಲ್ಲಿ ಸಾಮಾನ್ಯ. ಪಶ್ಚಿಮ ಬಂಗಾಳದ ಒಂದು ಅಧ್ಯಯನದಲ್ಲಿ, ಹೆಚ್ಚಿನ ಪ್ರಕರಣಗಳು ಸೆಪ್ಟೆಂಬರ್ ಮತ್ತು ಅಕ್ಟೋಬರ್‌ನಲ್ಲಿದ್ದವು. |  |
+| 40 | `diseases.DISEASES.argulosis.prevention[0]` | Before stocking, dry the pond and remove wild fish. | ಮೀನು ಬಿಡುವ ಮೊದಲು, ಕೊಳವನ್ನು ಒಣಗಿಸಿ ಮತ್ತು ಕಾಡು ಮೀನುಗಳನ್ನು ತೆಗೆದುಹಾಕಿ. |  |
+| 41 | `diseases.DISEASES.argulosis.prevention[1]` | Check a few fingerlings for lice before you stock them. | ಮರಿಗಳನ್ನು ಬಿಡುವ ಮೊದಲು ಕೆಲವು ಮರಿಗಳಲ್ಲಿ ಹೇನುಗಳಿವೆಯೇ ಎಂದು ಪರಿಶೀಲಿಸಿ. |  |
+| 42 | `diseases.DISEASES.flukes.name` | Gill and skin flukes (Dactylogyrus, Gyrodactylus) | ಕಿವಿರು ಮತ್ತು ಚರ್ಮದ ಹುಳುಗಳು (ಡ್ಯಾಕ್ಟಿಲೋಗೈರಸ್, ಗೈರೊಡ್ಯಾಕ್ಟಿಲಸ್) |  |
+| 43 | `diseases.DISEASES.flukes.body` | Too much slime, pale or swollen gills, faded body colour, falling scales. The worms are too small to see without a microscope. | ಅತಿಯಾದ ಲೋಳೆ, ಬಿಳಿಚಿದ ಅಥವಾ ಊದಿದ ಕಿವಿರುಗಳು, ಮಸುಕಾದ ದೇಹದ ಬಣ್ಣ, ಉದುರುವ ಹುರುಪೆಗಳು. ಹುಳುಗಳು ಸೂಕ್ಷ್ಮದರ್ಶಕವಿಲ್ಲದೆ ಕಾಣದಷ್ಟು ಸಣ್ಣವು. |  |
+| 44 | `diseases.DISEASES.flukes.behaviour` | Hard breathing with the gill covers open. Fish swim slowly. | ಕಿವಿರು ಮುಚ್ಚಳ ತೆರೆದು ಕಷ್ಟದ ಉಸಿರಾಟ. ಮೀನುಗಳು ನಿಧಾನವಾಗಿ ಈಜುತ್ತವೆ. |  |
+| 45 | `diseases.DISEASES.flukes.when` | Mostly in fry and small fish up to about 3 g. The worms do best at 20-25 °C. | ಹೆಚ್ಚಾಗಿ ಸುಮಾರು 3 ಗ್ರಾಂ ವರೆಗಿನ ಮರಿಗಳು ಮತ್ತು ಸಣ್ಣ ಮೀನುಗಳಲ್ಲಿ. ಹುಳುಗಳು 20-25 °C ನಲ್ಲಿ ಚೆನ್ನಾಗಿ ಬೆಳೆಯುತ್ತವೆ. |  |
+| 46 | `diseases.DISEASES.flukes.prevention[0]` | Look at a sample of fry before stocking. Stock only healthy seed. | ಬಿಡುವ ಮೊದಲು ಕೆಲವು ಮರಿಗಳನ್ನು ಪರಿಶೀಲಿಸಿ. ಆರೋಗ್ಯಕರ ಮರಿಗಳನ್ನು ಮಾತ್ರ ಬಿಡಿ. |  |
+| 47 | `diseases.DISEASES.flukes.prevention[1]` | Keep fry at a sensible density in good water. | ಮರಿಗಳನ್ನು ಉತ್ತಮ ನೀರಿನಲ್ಲಿ ಸೂಕ್ತ ಸಂಖ್ಯೆಯಲ್ಲಿ ಇಡಿ. |  |
+| 48 | `diseases.DISEASES.white_spot.name` | White spot disease (Ich) | ಬಿಳಿ ಚುಕ್ಕೆ ರೋಗ (ಇಕ್) |  |
+| 49 | `diseases.DISEASES.white_spot.body` | Many white spots the size of a pin head on the skin, fins and gills. In bad cases the skin looks covered by a white film. | ಚರ್ಮ, ಈಜುರೆಕ್ಕೆ ಮತ್ತು ಕಿವಿರುಗಳ ಮೇಲೆ ಗುಂಡುಸೂಜಿ ತಲೆಯ ಗಾತ್ರದ ಅನೇಕ ಬಿಳಿ ಚುಕ್ಕೆಗಳು. ತೀವ್ರವಾದಾಗ ಚರ್ಮ ಬಿಳಿ ಪದರದಿಂದ ಮುಚ್ಚಿದಂತೆ ಕಾಣುತ್ತದೆ. |  |
+| 50 | `diseases.DISEASES.white_spot.behaviour` | Fish swim slowly near the surface, rub against things or jump. They breathe with difficulty and stop eating. Many can die. | ಮೀನುಗಳು ಮೇಲ್ಮೈ ಹತ್ತಿರ ನಿಧಾನವಾಗಿ ಈಜುತ್ತವೆ, ವಸ್ತುಗಳಿಗೆ ಉಜ್ಜಿಕೊಳ್ಳುತ್ತವೆ ಅಥವಾ ಜಿಗಿಯುತ್ತವೆ. ಕಷ್ಟದಿಂದ ಉಸಿರಾಡುತ್ತವೆ ಮತ್ತು ತಿನ್ನುವುದನ್ನು ನಿಲ್ಲಿಸುತ್ತವೆ. ಅನೇಕ ಸಾಯಬಹುದು. |  |
+| 51 | `diseases.DISEASES.white_spot.when` | Cooler water, 15-25 °C. Mostly in nursery and rearing ponds and in crowded ponds. | ತಂಪಾದ ನೀರು, 15-25 °C. ಹೆಚ್ಚಾಗಿ ನರ್ಸರಿ ಮತ್ತು ಪಾಲನಾ ಕೊಳಗಳಲ್ಲಿ ಮತ್ತು ದಟ್ಟ ಕೊಳಗಳಲ್ಲಿ. |  |
+| 52 | `diseases.DISEASES.white_spot.prevention[0]` | Keep new fingerlings apart and check them before stocking. | ಹೊಸ ಮರಿಗಳನ್ನು ಪ್ರತ್ಯೇಕವಾಗಿಟ್ಟು ಬಿಡುವ ಮೊದಲು ಪರಿಶೀಲಿಸಿ. |  |
+| 53 | `diseases.DISEASES.white_spot.prevention[1]` | Rear fry at a sensible density. | ಮರಿಗಳನ್ನು ಸೂಕ್ತ ಸಂಖ್ಯೆಯಲ್ಲಿ ಬೆಳೆಸಿ. |  |
+| 54 | `diseases.DISEASES.anchor_worm.name` | Anchor worm (Lernaea) | ಲಂಗರು ಹುಳು (ಲರ್ನಿಯಾ) |  |
+| 55 | `diseases.DISEASES.anchor_worm.body` | Thin, rod-like parasites stuck into the skin, anywhere on the body. Only the back end hangs out. The skin around is red, swollen and can rot; cotton-wool mould often grows there. | ದೇಹದ ಯಾವುದೇ ಭಾಗದಲ್ಲಿ ಚರ್ಮದೊಳಗೆ ಸಿಕ್ಕಿಕೊಂಡ ತೆಳುವಾದ ಕಡ್ಡಿಯಂತಹ ಪರಾವಲಂಬಿಗಳು. ಹಿಂಭಾಗ ಮಾತ್ರ ಹೊರಗೆ ನೇತಾಡುತ್ತದೆ. ಸುತ್ತಲಿನ ಚರ್ಮ ಕೆಂಪಾಗಿ, ಊದಿಕೊಂಡು ಕೊಳೆಯಬಹುದು; ಅಲ್ಲಿ ಹೆಚ್ಚಾಗಿ ಹತ್ತಿ ಬೂಷ್ಟು ಬೆಳೆಯುತ್ತದೆ. |  |
+| 56 | `diseases.DISEASES.anchor_worm.behaviour` | Fish are restless, eat less, get thin and move slowly. One or two worms can stunt a small fish. | ಮೀನುಗಳು ಚಡಪಡಿಸುತ್ತವೆ, ಕಡಿಮೆ ತಿನ್ನುತ್ತವೆ, ಸಣಕಲಾಗುತ್ತವೆ ಮತ್ತು ನಿಧಾನವಾಗಿ ಚಲಿಸುತ್ತವೆ. ಒಂದೆರಡು ಹುಳುಗಳು ಸಣ್ಣ ಮೀನಿನ ಬೆಳವಣಿಗೆ ಕುಂಠಿತಗೊಳಿಸಬಹುದು. |  |
+| 57 | `diseases.DISEASES.anchor_worm.when` | A long season in warm water (15-33 °C). Often in nursery and rearing ponds. | ಬೆಚ್ಚಗಿನ ನೀರಿನಲ್ಲಿ (15-33 °C) ದೀರ್ಘ ಕಾಲ. ಹೆಚ್ಚಾಗಿ ನರ್ಸರಿ ಮತ್ತು ಪಾಲನಾ ಕೊಳಗಳಲ್ಲಿ. |  |
+| 58 | `diseases.DISEASES.anchor_worm.prevention[0]` | Check fingerlings for worms before stocking. | ಮರಿಗಳನ್ನು ಬಿಡುವ ಮೊದಲು ಹುಳುಗಳಿವೆಯೇ ಎಂದು ಪರಿಶೀಲಿಸಿ. |  |
+| 59 | `diseases.DISEASES.anchor_worm.prevention[1]` | Before stocking, dry the pond and remove wild fish. | ಮೀನು ಬಿಡುವ ಮೊದಲು, ಕೊಳವನ್ನು ಒಣಗಿಸಿ ಮತ್ತು ಕಾಡು ಮೀನುಗಳನ್ನು ತೆಗೆದುಹಾಕಿ. |  |
+
+## 24. Messages from the server: Fish disease guide: symptom checker and notes
+
+The signs a farmer can tick, cause types, the steps for any disease, and the notes shown with every result.
+
+| # | Where in the code | English | Kannada | Correct? / suggestion |
+|---|---|---|---|---|
+| 1 | `diseases.SIGNS.red_sores` | Red spots or open sores (ulcers) on the body | ದೇಹದ ಮೇಲೆ ಕೆಂಪು ಚುಕ್ಕೆಗಳು ಅಥವಾ ತೆರೆದ ಹುಣ್ಣುಗಳು |  |
+| 2 | `diseases.SIGNS.red_patches` | Red, bleeding patches on the skin or fins | ಚರ್ಮ ಅಥವಾ ಈಜುರೆಕ್ಕೆಗಳ ಮೇಲೆ ಕೆಂಪು, ರಕ್ತಸ್ರಾವದ ಕಲೆಗಳು |  |
+| 3 | `diseases.SIGNS.swollen_belly` | Swollen belly | ಊದಿಕೊಂಡ ಹೊಟ್ಟೆ |  |
+| 4 | `diseases.SIGNS.raised_scales` | Scales standing out, like a pine cone | ಪೈನ್ ಕಾಯಿಯಂತೆ ಎದ್ದು ನಿಂತ ಹುರುಪೆಗಳು |  |
+| 5 | `diseases.SIGNS.pop_eye` | Bulging eyes | ಉಬ್ಬಿದ ಕಣ್ಣುಗಳು |  |
+| 6 | `diseases.SIGNS.white_spots` | Many tiny white spots, like pin heads, on skin, fins or gills | ಚರ್ಮ, ಈಜುರೆಕ್ಕೆ ಅಥವಾ ಕಿವಿರುಗಳ ಮೇಲೆ ಗುಂಡುಸೂಜಿ ತಲೆಯಂತಹ ಅನೇಕ ಸಣ್ಣ ಬಿಳಿ ಚುಕ್ಕೆಗಳು |  |
+| 7 | `diseases.SIGNS.cotton` | White, grey or brownish cotton-wool growth on the body | ದೇಹದ ಮೇಲೆ ಬಿಳಿ, ಬೂದು ಅಥವಾ ಕಂದು ಹತ್ತಿಯಂತಹ ಬೆಳವಣಿಗೆ |  |
+| 8 | `diseases.SIGNS.fin_rot` | Fins rotting from the edges, or white-yellow patches on the skin | ಅಂಚಿನಿಂದ ಕೊಳೆಯುತ್ತಿರುವ ಈಜುರೆಕ್ಕೆಗಳು, ಅಥವಾ ಚರ್ಮದ ಮೇಲೆ ಬಿಳಿ-ಹಳದಿ ಕಲೆಗಳು |  |
+| 9 | `diseases.SIGNS.gill_rot` | Gills look rotten, covered with mud and slime | ಕಿವಿರುಗಳು ಕೊಳೆತಂತೆ, ಕೆಸರು ಮತ್ತು ಲೋಳೆಯಿಂದ ಮುಚ್ಚಿದಂತೆ ಕಾಣುತ್ತವೆ |  |
+| 10 | `diseases.SIGNS.pale_gills` | Pale gills | ಬಿಳಿಚಿದ ಕಿವಿರುಗಳು |  |
+| 11 | `diseases.SIGNS.lice` | Small, flat, round lice you can see on the skin | ಚರ್ಮದ ಮೇಲೆ ಕಣ್ಣಿಗೆ ಕಾಣುವ ಸಣ್ಣ, ಚಪ್ಪಟೆ, ದುಂಡಗಿನ ಹೇನುಗಳು |  |
+| 12 | `diseases.SIGNS.threads` | Thin threads hanging from the skin, with a swollen red spot around each | ಚರ್ಮದಿಂದ ನೇತಾಡುವ ತೆಳುವಾದ ದಾರಗಳು, ಪ್ರತಿಯೊಂದರ ಸುತ್ತ ಊದಿದ ಕೆಂಪು ಜಾಗ |  |
+| 13 | `diseases.SIGNS.loose_scales` | Loose or falling scales | ಸಡಿಲವಾದ ಅಥವಾ ಉದುರುವ ಹುರುಪೆಗಳು |  |
+| 14 | `diseases.SIGNS.much_mucus` | Too much slime on the body or gills | ದೇಹ ಅಥವಾ ಕಿವಿರುಗಳ ಮೇಲೆ ಅತಿಯಾದ ಲೋಳೆ |  |
+| 15 | `diseases.SIGNS.colour_change` | Body colour has changed (darker or faded) | ದೇಹದ ಬಣ್ಣ ಬದಲಾಗಿದೆ (ಕಪ್ಪಾಗಿದೆ ಅಥವಾ ಮಸುಕಾಗಿದೆ) |  |
+| 16 | `diseases.SIGNS.thin_weak` | Thin, weak fish that grow slowly | ಸಣಕಲು, ದುರ್ಬಲ, ನಿಧಾನವಾಗಿ ಬೆಳೆಯುವ ಮೀನುಗಳು |  |
+| 17 | `diseases.SIGNS.gasping` | Gasping at the surface | ನೀರಿನ ಮೇಲ್ಮೈಯಲ್ಲಿ ಉಸಿರಿಗಾಗಿ ಏದುಸಿರು |  |
+| 18 | `diseases.SIGNS.fast_breathing` | Hard, fast breathing with gill covers held open | ಕಿವಿರು ಮುಚ್ಚಳ ತೆರೆದಿಟ್ಟು ಕಷ್ಟದ, ವೇಗದ ಉಸಿರಾಟ |  |
+| 19 | `diseases.SIGNS.rubbing` | Rubbing against the bottom or sides, or jumping | ತಳ ಅಥವಾ ಬದಿಗಳಿಗೆ ಉಜ್ಜಿಕೊಳ್ಳುವುದು, ಅಥವಾ ನೀರಿನಿಂದ ಜಿಗಿಯುವುದು |  |
+| 20 | `diseases.SIGNS.slow_surface` | Swimming slowly, alone or near the surface | ನಿಧಾನವಾಗಿ, ಒಂಟಿಯಾಗಿ ಅಥವಾ ಮೇಲ್ಮೈ ಹತ್ತಿರ ಈಜುವುದು |  |
+| 21 | `diseases.SIGNS.not_eating` | Not eating | ಆಹಾರ ತಿನ್ನುತ್ತಿಲ್ಲ |  |
+| 22 | `diseases.CAUSE_TYPES.water_mould` | Water mould (fungus-like) | ನೀರಿನ ಬೂಷ್ಟು (ಶಿಲೀಂಧ್ರದಂತಹದು) |  |
+| 23 | `diseases.CAUSE_TYPES.bacteria` | Bacteria | ಬ್ಯಾಕ್ಟೀರಿಯಾ |  |
+| 24 | `diseases.CAUSE_TYPES.protozoan` | Parasite: tiny single-celled animal | ಪರಾವಲಂಬಿ: ಏಕಕೋಶದ ಸೂಕ್ಷ್ಮ ಜೀವಿ |  |
+| 25 | `diseases.CAUSE_TYPES.worm` | Parasite: tiny worm (fluke) | ಪರಾವಲಂಬಿ: ಸಣ್ಣ ಹುಳು (ಫ್ಲೂಕ್) |  |
+| 26 | `diseases.CAUSE_TYPES.crustacean` | Parasite: crustacean (relative of shrimps) | ಪರಾವಲಂಬಿ: ಕಠಿಣಚರ್ಮಿ (ಸೀಗಡಿಯ ಸಂಬಂಧಿ) |  |
+| 27 | `diseases.COMMON_STEPS[0]` | Take out dead and dying fish every day. Dead fish spread disease. | ಸತ್ತ ಮತ್ತು ಸಾಯುತ್ತಿರುವ ಮೀನುಗಳನ್ನು ಪ್ರತಿದಿನ ಹೊರತೆಗೆಯಿರಿ. ಸತ್ತ ಮೀನುಗಳು ರೋಗ ಹರಡುತ್ತವೆ. |  |
+| 28 | `diseases.COMMON_STEPS[1]` | Do not move fish, water or nets from this pond to another pond. | ಈ ಕೊಳದಿಂದ ಬೇರೆ ಕೊಳಕ್ಕೆ ಮೀನು, ನೀರು ಅಥವಾ ಬಲೆಗಳನ್ನು ಸಾಗಿಸಬೇಡಿ. |  |
+| 29 | `diseases.COMMON_STEPS[2]` | Give less feed and keep the water quality good. | ಕಡಿಮೆ ಆಹಾರ ನೀಡಿ ಮತ್ತು ನೀರಿನ ಗುಣಮಟ್ಟವನ್ನು ಚೆನ್ನಾಗಿಡಿ. |  |
+| 30 | `diseases.COMMON_STEPS[3]` | Call your fisheries officer or KVK today. Take a few sick fish, alive or just dead and kept wet. | ಇಂದೇ ನಿಮ್ಮ ಮೀನುಗಾರಿಕೆ ಅಧಿಕಾರಿ ಅಥವಾ ಕೃಷಿ ವಿಜ್ಞಾನ ಕೇಂದ್ರಕ್ಕೆ (KVK) ಕರೆ ಮಾಡಿ. ಕೆಲವು ರೋಗಪೀಡಿತ ಮೀನುಗಳನ್ನು, ಜೀವಂತವಾಗಿ ಅಥವಾ ಈಗ ತಾನೇ ಸತ್ತು ಒದ್ದೆಯಾಗಿಟ್ಟು, ತೆಗೆದುಕೊಂಡು ಹೋಗಿ. |  |
+| 31 | `diseases.TREATMENT_NOTE` | No medicines or chemicals here. Any treatment must be prescribed by a fisheries officer or KVK. | ಇಲ್ಲಿ ಯಾವುದೇ ಔಷಧಿ ಅಥವಾ ರಾಸಾಯನಿಕಗಳಿಲ್ಲ. ಯಾವುದೇ ಚಿಕಿತ್ಸೆಯನ್ನು ಮೀನುಗಾರಿಕೆ ಅಧಿಕಾರಿ ಅಥವಾ KVK ಸೂಚಿಸಬೇಕು. |  |
+| 32 | `diseases.NOT_A_DIAGNOSIS` | These are possible matches, not a diagnosis. Many fish diseases look alike. Confirm with your fisheries officer. | ಇವು ಸಾಧ್ಯವಿರುವ ಹೊಂದಾಣಿಕೆಗಳು, ರೋಗನಿರ್ಣಯವಲ್ಲ. ಅನೇಕ ಮೀನು ರೋಗಗಳು ಒಂದೇ ರೀತಿ ಕಾಣುತ್ತವೆ. ನಿಮ್ಮ ಮೀನುಗಾರಿಕೆ ಅಧಿಕಾರಿಯೊಂದಿಗೆ ಖಚಿತಪಡಿಸಿಕೊಳ್ಳಿ. |  |
+| 33 | `diseases.NO_MATCH` | No disease in this guide matches these signs. Confirm with your fisheries officer. | ಈ ಲಕ್ಷಣಗಳಿಗೆ ಈ ಮಾರ್ಗದರ್ಶಿಯ ಯಾವುದೇ ರೋಗ ಹೊಂದುವುದಿಲ್ಲ. ನಿಮ್ಮ ಮೀನುಗಾರಿಕೆ ಅಧಿಕಾರಿಯೊಂದಿಗೆ ಖಚಿತಪಡಿಸಿಕೊಳ್ಳಿ. |  |
+| 34 | `diseases.GASPING_NOTE` | Gasping at the surface is most often low oxygen, not disease. Check oxygen and run the aerator first. | ಮೇಲ್ಮೈಯಲ್ಲಿ ಏದುಸಿರು ಹೆಚ್ಚಾಗಿ ಕಡಿಮೆ ಆಮ್ಲಜನಕದಿಂದ, ರೋಗದಿಂದಲ್ಲ. ಮೊದಲು ಆಮ್ಲಜನಕ ಪರಿಶೀಲಿಸಿ ಮತ್ತು ಏರೇಟರ್ ಚಾಲೂ ಮಾಡಿ. |  |
+| 35 | `diseases.LIKELY_NOTE` | This does not mean your fish are sick. Watch them closely and use the Fish disease guide if you see signs. | ಇದರ ಅರ್ಥ ನಿಮ್ಮ ಮೀನುಗಳಿಗೆ ರೋಗ ಬಂದಿದೆ ಎಂದಲ್ಲ. ಅವುಗಳನ್ನು ಗಮನವಿಟ್ಟು ನೋಡಿ, ಲಕ್ಷಣಗಳು ಕಂಡರೆ ಮೀನು ರೋಗ ಮಾರ್ಗದರ್ಶಿ ಬಳಸಿ. |  |
+
+## 25. Messages from the server: Fish disease guide: risky readings
+
+Why a reading makes a disease more likely.
+
+| # | Where in the code | English | Kannada | Correct? / suggestion |
+|---|---|---|---|---|
+| 1 | `diseases.READING_LINKS.dissolved_oxygen/low[0][1]` | Low oxygen stresses fish and is linked to Aeromonas outbreaks. | ಕಡಿಮೆ ಆಮ್ಲಜನಕ ಮೀನುಗಳಿಗೆ ಒತ್ತಡ ತರುತ್ತದೆ ಮತ್ತು ಏರೋಮೋನಾಸ್ ರೋಗಕ್ಕೆ ಸಂಬಂಧಿಸಿದೆ. |  |
+| 2 | `diseases.READING_LINKS.ammonia/high[0][1]` | High ammonia makes fish more likely to catch Aeromonas. | ಹೆಚ್ಚಿನ ಅಮೋನಿಯಾ ಮೀನುಗಳಿಗೆ ಏರೋಮೋನಾಸ್ ಸೋಂಕು ತಗಲುವ ಸಾಧ್ಯತೆ ಹೆಚ್ಚಿಸುತ್ತದೆ. |  |
+| 3 | `diseases.READING_LINKS.temperature/high[0][1]` | Columnaris spreads more easily in warmer water. | ಬೆಚ್ಚಗಿನ ನೀರಿನಲ್ಲಿ ಕಾಲಮ್ನಾರಿಸ್ ಸುಲಭವಾಗಿ ಹರಡುತ್ತದೆ. |  |
+| 4 | `diseases.READING_LINKS.temperature/high[1][1]` | Gill rot is worst at 28-35 °C. | ಕಿವಿರು ಕೊಳೆ 28-35 °C ನಲ್ಲಿ ಹೆಚ್ಚು. |  |
+| 5 | `diseases.READING_LINKS.temperature/high[2][1]` | High water temperature stresses fish and is linked to Aeromonas outbreaks. | ಹೆಚ್ಚಿನ ನೀರಿನ ತಾಪಮಾನ ಮೀನುಗಳಿಗೆ ಒತ್ತಡ ತರುತ್ತದೆ ಮತ್ತು ಏರೋಮೋನಾಸ್ ರೋಗಕ್ಕೆ ಸಂಬಂಧಿಸಿದೆ. |  |
+| 6 | `diseases.READING_LINKS.temperature/low[0][1]` | EUS outbreaks happen at low water temperatures. | ಕಡಿಮೆ ನೀರಿನ ತಾಪಮಾನದಲ್ಲಿ EUS ಹರಡುತ್ತದೆ. |  |
+| 7 | `diseases.READING_LINKS.temperature/low[1][1]` | The white spot parasite multiplies best at 15-25 °C. | ಬಿಳಿ ಚುಕ್ಕೆ ಪರಾವಲಂಬಿ 15-25 °C ನಲ್ಲಿ ಹೆಚ್ಚು ವೃದ್ಧಿಯಾಗುತ್ತದೆ. |  |
+| 8 | `diseases.READING_LINKS.ph/low[0][1]` | EUS outbreaks are linked to acidic water. | EUS ಹರಡುವಿಕೆ ಆಮ್ಲೀಯ ನೀರಿಗೆ ಸಂಬಂಧಿಸಿದೆ. |  |
+
+## 26. Messages from the server: Alert preview (SMS / WhatsApp)
 
 The SMS and WhatsApp text is built from the risk card and time-until-danger messages above, plus these.
 

@@ -1,6 +1,9 @@
 # Image-based fish disease detection: research plan
 
 Status: **research only**, nothing in the app. Researched 4 October 2026.
+
+**Decision (10 October 2026): no photo check in the app.** The public data isn't reliable enough for farmers
+(see [baseline](fish-disease-baseline.md)). The app has a sign-based [Fish disease guide](diseases.md) instead.
 Steps 1–2 are done: [cleaning report](fish-disease-cleaning.md) and [baseline model](fish-disease-baseline.md).
 Changes from this plan: the "White tail" class is dropped (6 classes), and training runs on the laptop CPU, with the
 training packages in `requirements-train.txt` so Render never installs them.

@@ -153,6 +153,12 @@
         <p class="actions-source" data-i18n="actionsSource">Based on FAO, TNAU and university extension guides. No chemicals.</p>
       </section>
 
+      <!-- Diseases this (simulated) reading makes more likely (risk.likely_diseases, backend/diseases.py). -->
+      <section class="card likely-card" id="likely-card" aria-labelledby="likely-box-title" hidden>
+        <span class="sim-tag" data-i18n="simulatedTag">Simulated data</span>
+        <div class="likely-box" id="likely-box"></div>
+      </section>
+
       <!-- Bento board: cards of different sizes (grid areas in styles.css). -->
       <div class="board">
         <!-- Pond health score 0-100. Always inside the status's range (backend/health_score.py). -->
@@ -265,6 +271,7 @@
               </div>
             </div>
             <dl class="live-values" id="live-values"></dl>
+            <div class="likely-box" id="live-likely" hidden></div>
             <p class="live-time" id="live-time"></p>
             <div class="kit-actions" id="live-actions-box" hidden>
               <h3 data-i18n="actionsTitle">What to do now</h3>
@@ -316,6 +323,7 @@
               </div>
             </div>
             <p class="sensor-errors" id="kit-errors" hidden></p>
+            <div class="likely-box" id="kit-likely" hidden></div>
             <div class="kit-actions" id="kit-actions-box" hidden>
               <h3 data-i18n="actionsTitle">What to do now</h3>
               <p class="actions-progress" id="kit-actions-progress" aria-live="polite"></p>
@@ -333,6 +341,51 @@
           <p class="history-help" data-i18n="historyHelp">Past warnings, newest first. Saved on this phone only.</p>
           <ol class="history-list" id="history-list"></ol>
           <p class="history-empty" id="history-empty" data-i18n="historyEmpty">No warnings yet.</p>
+        </section>
+
+        <!-- Fish disease guide (diseases.js): library, symptom checker, sources in docs/diseases.md.
+             Possible matches only, never a diagnosis. No medicines or doses. -->
+        <section class="card guide-card in-view" id="guide" data-doodle="fish" aria-labelledby="guide-title">
+          <h2 id="guide-title" class="text-effect" data-i18n="guideTitle">Fish disease guide</h2>
+          <p class="guide-intro" data-i18n="guideIntro">Common diseases of carp ponds: the signs to look for, when they happen and how to prevent them.</p>
+          <p class="guide-loading" id="guide-loading" data-i18n="guideLoading">Loading the guide…</p>
+          <div class="guide-content" id="guide-content" hidden>
+            <p class="guide-warning" id="guide-treatment"></p>
+
+            <section class="checker" aria-labelledby="checker-title">
+              <h3 id="checker-title" data-i18n="checkerTitle">Symptom checker</h3>
+              <p class="kit-help" data-i18n="checkerHelp">Tick the signs you see on your fish. You get possible matches, not a diagnosis.</p>
+              <form class="checker-form" id="checker-form" novalidate>
+                <fieldset>
+                  <legend data-i18n="checkerBody">On the body</legend>
+                  <div class="checker-signs" id="checker-body"></div>
+                </fieldset>
+                <fieldset>
+                  <legend data-i18n="checkerBehaviour">How the fish behave</legend>
+                  <div class="checker-signs" id="checker-behaviour"></div>
+                </fieldset>
+                <div class="kit-buttons">
+                  <button type="submit" class="button-primary" data-i18n="checkerCheck">Show possible matches</button>
+                  <button type="reset" class="button-secondary" data-i18n="checkerClear">Clear</button>
+                </div>
+              </form>
+              <p class="kit-form-error" id="checker-error" role="alert" hidden></p>
+              <div class="checker-result" id="checker-result" role="status" hidden></div>
+            </section>
+
+            <section class="library" aria-labelledby="library-title">
+              <h3 id="library-title" data-i18n="libraryTitle">Disease library</h3>
+              <p class="kit-help" data-i18n="libraryHelp">Tap a disease to read more.</p>
+              <div class="disease-library" id="disease-library"></div>
+            </section>
+
+            <details class="no-photo">
+              <summary data-i18n="noPhotoTitle">Why there's no photo check</summary>
+              <p data-i18n="noPhotoText">We tested a computer model that guesses the disease from a fish photo. The public photos are mostly aquarium fish, not carps in ponds, and the model was wrong about one time in three. That is not safe enough for your fish, so the app does not do it.</p>
+              <p><a href="https://github.com/joylandsouza2008-ops/DevHack/blob/main/docs/fish-disease-baseline.md" target="_blank" rel="noopener" data-i18n="noPhotoLink">See the test results</a></p>
+            </details>
+            <p class="disease-sources"><a href="https://github.com/joylandsouza2008-ops/DevHack/blob/main/docs/diseases.md" target="_blank" rel="noopener" data-i18n="guideSources">Sources for every entry</a></p>
+          </div>
         </section>
       </div>
     </main>
@@ -413,6 +466,7 @@
   <script src="/history.js"></script>
   <script src="/voice.js"></script>
   <script src="/scene.js"></script>
+  <script src="/diseases.js"></script>
   <script src="/app.js"></script>
   <script src="/welcome.js"></script>
 </body>
