@@ -1,5 +1,4 @@
-// Pages inside the one app: Pond, Alerts, Weather, Diseases, Ask, More, and
-// Shop (no tab of its own: it opens from More, so the More tab stays lit).
+// Pages inside the one app: Pond, Alerts, Weather, Diseases, Ask, Shop, More.
 // The address ends in #/pond, #/alerts ... so the phone's back button works,
 // and nothing new is downloaded when you switch (the app stays fast and works
 // offline). Every page is already in index.html; switching just shows one and
@@ -13,9 +12,7 @@
 (function () {
   "use strict";
 
-  const PAGES = ["pond", "alerts", "weather", "diseases", "ask", "more", "shop"];
-  const TABS = ["pond", "alerts", "weather", "diseases", "ask", "more"];
-  const TAB_OF = { shop: "more" };          // a page without a tab lights up its parent's tab
+  const PAGES = ["pond", "alerts", "weather", "diseases", "ask", "shop", "more"];
   const HOME = "pond";
 
   // "#/alerts" -> "alerts". Anything unknown (or empty) -> the Pond page.
@@ -24,12 +21,7 @@
     return PAGES.includes(name) ? name : HOME;
   }
 
-  // Which tab is lit on a page: its own, or its parent's (Shop -> More).
-  function tabFor(page) {
-    return TAB_OF[page] || page;
-  }
-
-  const api = { PAGES, TABS, HOME, pageFromHash, tabFor };
+  const api = { PAGES, HOME, pageFromHash };
   if (typeof module !== "undefined" && module.exports) { module.exports = api; return; }   // Node tests
 
   const gsap = window.gsap;
@@ -53,7 +45,7 @@
 
   function markTabs(name) {
     document.querySelectorAll("[data-tab]").forEach((tab) => {
-      if (tab.dataset.tab === tabFor(name)) tab.setAttribute("aria-current", "page");
+      if (tab.dataset.tab === name) tab.setAttribute("aria-current", "page");
       else tab.removeAttribute("aria-current");
     });
   }

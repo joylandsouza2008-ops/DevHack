@@ -219,7 +219,7 @@ AI is always shown as plain text, so it can't run as code. Keys come only from e
 
 | File | What it does |
 |---|---|
-| `index.html` | The page layout: seven pages (Pond, Alerts, Weather, Diseases, Ask, More, and Shop, which opens from More), the tab bar and the status strip |
+| `index.html` | The page layout: seven pages (Pond, Alerts, Weather, Diseases, Ask, Shop, More), the tab bar and the status strip |
 | `router.js` | Switches pages from the address (`#/pond`, `#/alerts` ...), so the phone back button works; nothing new is downloaded |
 | `styles.css`, `welcome.css`, `fonts/` | Look and feel (see `DESIGN.md`); fonts are stored locally so they work offline |
 | `app.js` | The main app: status and status strip, readings, checklist, alert preview, test kit, live sensor, history. Keeps running while you switch pages |

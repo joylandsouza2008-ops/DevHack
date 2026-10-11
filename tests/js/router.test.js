@@ -5,9 +5,8 @@ const test = require("node:test");
 const assert = require("node:assert/strict");
 const R = require("../../frontend/router.js");
 
-test("there are seven pages, six tabs, and Pond is home", () => {
-  assert.deepEqual(R.PAGES, ["pond", "alerts", "weather", "diseases", "ask", "more", "shop"]);
-  assert.deepEqual(R.TABS, ["pond", "alerts", "weather", "diseases", "ask", "more"]);
+test("there are seven pages, Shop sits before More, and Pond is home", () => {
+  assert.deepEqual(R.PAGES, ["pond", "alerts", "weather", "diseases", "ask", "shop", "more"]);
   assert.equal(R.HOME, "pond");
 });
 
@@ -28,9 +27,7 @@ test("no address or an unknown one opens the Pond page", () => {
   }
 });
 
-test("the Shop page opens from #/shop and lights up the More tab", () => {
+test("the Shop page opens from #/shop", () => {
   assert.equal(R.pageFromHash("#/shop"), "shop");
   assert.equal(R.pageFromHash("#/SHOP/"), "shop");
-  assert.equal(R.tabFor("shop"), "more");
-  for (const tab of R.TABS) assert.equal(R.tabFor(tab), tab);
 });

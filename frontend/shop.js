@@ -196,6 +196,12 @@
     const n = cart.count();
     $("cart-count").textContent = String(n);
     $("cart-open").setAttribute("aria-label", words.cartAria.replace("{n}", n));
+    // The Shop tab: count badge hidden at 0; the tab's name then is just its word.
+    const tabBadge = $("tab-cart-count");
+    tabBadge.textContent = String(n);
+    tabBadge.hidden = n === 0;
+    if (n) $("tab-shop").setAttribute("aria-label", `${words.tabShop}, ${words.cartAria.replace("{n}", n)}`);
+    else $("tab-shop").removeAttribute("aria-label");
   }
 
   // The drawer is rebuilt on every change; focus goes back to the same control.

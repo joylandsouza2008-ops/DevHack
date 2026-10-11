@@ -311,14 +311,14 @@ Shown over the day/night pond picture.
 | 3 | `app.js tabWeather` | Weather | ಹವೆ |  |
 | 4 | `app.js tabDiseases` | Diseases | ರೋಗ |  |
 | 5 | `app.js tabAsk` | Ask | ಕೇಳಿ |  |
-| 6 | `app.js tabMore` | More | ಇತರೆ |  |
-| 7 | `app.js titleWeather` | Weather | ಹವಾಮಾನ |  |
-| 8 | `app.js titleDiseases` | Fish diseases | ಮೀನು ರೋಗಗಳು |  |
-| 9 | `app.js titleMore` | More | ಇನ್ನಷ್ಟು |  |
-| 10 | `app.js titleShop` | Shop | ಅಂಗಡಿ |  |
-| 11 | `app.js moreShopTitle` | Shop | ಅಂಗಡಿ |  |
-| 12 | `app.js moreShopText` | Sensors and spare parts that work with AquaNexus. Not for sale yet. | AquaNexus ಜೊತೆ ಕೆಲಸ ಮಾಡುವ ಸೆನ್ಸರ್‌ಗಳು ಮತ್ತು ಬಿಡಿಭಾಗಗಳು. ಇನ್ನೂ ಮಾರಾಟಕ್ಕಿಲ್ಲ. |  |
-| 13 | `app.js moreShopLink` | Open the Shop | ಅಂಗಡಿ ತೆರೆಯಿರಿ |  |
+| 6 | `app.js tabShop` | Shop | ಅಂಗಡಿ |  |
+| 7 | `app.js tabMore` | More | ಇತರೆ |  |
+| 8 | `app.js tabWeatherShort` | Sky | ಹವೆ |  |
+| 9 | `app.js tabDiseasesShort` | Fish | ರೋಗ |  |
+| 10 | `app.js titleWeather` | Weather | ಹವಾಮಾನ |  |
+| 11 | `app.js titleDiseases` | Fish diseases | ಮೀನು ರೋಗಗಳು |  |
+| 12 | `app.js titleMore` | More | ಇನ್ನಷ್ಟು |  |
+| 13 | `app.js titleShop` | Shop | ಅಂಗಡಿ |  |
 | 14 | `app.js shopIntro` | Sensors and spare parts that work with AquaNexus. Make a list and share it. | AquaNexus ಜೊತೆ ಕೆಲಸ ಮಾಡುವ ಸೆನ್ಸರ್‌ಗಳು ಮತ್ತು ಬಿಡಿಭಾಗಗಳು. ಪಟ್ಟಿ ಮಾಡಿ ಹಂಚಿಕೊಳ್ಳಿ. |  |
 | 15 | `app.js shopNotForSale` | Not for sale yet. Orders open after our pilot with farmers. | ಇನ್ನೂ ಮಾರಾಟಕ್ಕಿಲ್ಲ. ರೈತರೊಂದಿಗಿನ ನಮ್ಮ ಪ್ರಾಯೋಗಿಕ ಯೋಜನೆಯ ನಂತರ ಆರ್ಡರ್‌ಗಳು ಆರಂಭವಾಗುತ್ತವೆ. |  |
 | 16 | `app.js shopOnePondTitle` | Before you buy | ಖರೀದಿಸುವ ಮೊದಲು |  |

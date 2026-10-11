@@ -112,15 +112,21 @@
         </a>
         <a href="#/weather" class="tab" data-tab="weather">
           <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M7 18.5h10.5a4 4 0 0 0 .4-8A6 6 0 0 0 6.4 9.3 4.6 4.6 0 0 0 7 18.5Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
-          <span data-i18n="tabWeather">Weather</span>
+          <span class="tab-long" data-i18n="tabWeather">Weather</span><span class="tab-short" data-i18n="tabWeatherShort">Sky</span>
         </a>
         <a href="#/diseases" class="tab" data-tab="diseases">
           <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3 5 6v5.5c0 4.3 3 8 7 9.5 4-1.5 7-5.2 7-9.5V6l-7-3Zm0 5.5v6m-3-3h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <span data-i18n="tabDiseases">Diseases</span>
+          <span class="tab-long" data-i18n="tabDiseases">Diseases</span><span class="tab-short" data-i18n="tabDiseasesShort">Fish</span>
         </a>
         <a href="#/ask" class="tab" data-tab="ask">
           <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4V5Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M8 9.5h8M8 12.5h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
           <span data-i18n="tabAsk">Ask</span>
+        </a>
+        <a href="#/shop" class="tab" data-tab="shop" id="tab-shop">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M3 4h2.5l2.2 10.5h10.6L20.5 7H6.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9.5" cy="19" r="1.6" fill="currentColor"/><circle cx="17" cy="19" r="1.6" fill="currentColor"/></svg>
+          <span data-i18n="tabShop">Shop</span>
+          <!-- Cart count (shop.js), hidden at 0. The tab's aria-label says the count in words. -->
+          <span class="tab-badge" id="tab-cart-count" aria-hidden="true" hidden>0</span>
         </a>
         <a href="#/more" class="tab" data-tab="more">
           <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="5.5" cy="12" r="1.8" fill="currentColor"/><circle cx="12" cy="12" r="1.8" fill="currentColor"/><circle cx="18.5" cy="12" r="1.8" fill="currentColor"/></svg>
@@ -550,12 +556,6 @@
           <p class="live-note" data-i18n="liveNote">Readings are kept only while the server is running. On the free server they are cleared when it sleeps.</p>
         </section>
         </div>
-        <!-- Link to the Shop page (#/shop). Nothing is for sale yet. -->
-        <section class="card shop-link-card" aria-labelledby="shop-link-title">
-          <h2 id="shop-link-title" data-i18n="moreShopTitle">Shop</h2>
-          <p class="kit-help" data-i18n="moreShopText">Sensors and spare parts that work with AquaNexus. Not for sale yet.</p>
-          <p><a class="button-secondary link-button" href="#/shop" id="more-shop-link" data-i18n="moreShopLink">Open the Shop</a></p>
-        </section>
         <section class="card about-card" aria-labelledby="about-title">
           <h2 id="about-title" data-i18n="aboutTitle">About this app</h2>
           <div class="about-links">

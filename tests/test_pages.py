@@ -1,6 +1,6 @@
 """The app is split into pages (frontend/router.js): Pond, Alerts, Weather,
-Diseases, Ask, More, and Shop (opened from More, no tab of its own). These
-tests read index.html, app.js and styles.css to check that every feature is still on a page, that the tab bar and the status
+Diseases, Ask, Shop, More. These tests read index.html, app.js and styles.css
+to check that every feature is still on a page, that the tab bar and the status
 strip are there, and that every label has English and Kannada text."""
 
 import re
@@ -12,8 +12,7 @@ FRONTEND = Path(__file__).resolve().parent.parent / "frontend"
 HTML = (FRONTEND / "index.html").read_text(encoding="utf-8")
 APP = (FRONTEND / "app.js").read_text(encoding="utf-8")
 CSS = (FRONTEND / "styles.css").read_text(encoding="utf-8")
-PAGES = ["pond", "alerts", "weather", "diseases", "ask", "more", "shop"]
-TABS = ["pond", "alerts", "weather", "diseases", "ask", "more"]
+PAGES = ["pond", "alerts", "weather", "diseases", "ask", "shop", "more"]
 
 
 def page_html(name: str) -> str:
@@ -32,8 +31,8 @@ def test_seven_pages_and_only_pond_shows_before_the_router_runs():
 
 def test_tab_bar_has_an_icon_and_a_word_for_every_page():
     nav = re.search(r'<nav class="tab-bar".*?</nav>', HTML, re.S).group(0)
-    tabs = re.findall(r'<a href="#/(\w+)" class="tab" data-tab="(\w+)">(.*?)</a>', nav, re.S)
-    assert [t[0] for t in tabs] == TABS and [t[1] for t in tabs] == TABS
+    tabs = re.findall(r'<a href="#/(\w+)" class="tab" data-tab="(\w+)"[^>]*>(.*?)</a>', nav, re.S)
+    assert [t[0] for t in tabs] == PAGES and [t[1] for t in tabs] == PAGES
     for _, name, inner in tabs:
         assert '<svg aria-hidden="true"' in inner                     # icon
         assert f'data-i18n="tab{name.capitalize()}"' in inner          # and a word, never icon only
@@ -50,7 +49,7 @@ def test_old_bottom_toolbar_is_gone():
     ("weather", ["weather-tonight", "weather-message", "weather-offline"]),
     ("diseases", ["likely-card", "guide", "checker-form", "disease-library"]),
     ("ask", ["assistant", "chat-form", "suggestion-list"]),
-    ("more", ["kit-form", "live-card", "more-shop-link"]),
+    ("more", ["kit-form", "live-card"]),
     ("shop", ["cart-open", "cart-count", "shop-grid", "shop-toast"]),
 ])
 def test_every_feature_is_on_its_page(page, ids):

@@ -955,13 +955,14 @@ button { position: relative; isolation: isolate; overflow: hidden; }
 /* ---- Tab bar ---- */
 .tab-bar {
   position: fixed; left: 0; right: 0; bottom: 0; z-index: 30;
-  display: grid; grid-template-columns: repeat(6, minmax(0, 1fr));
-  padding: 0.25rem 0.25rem calc(0.25rem + env(safe-area-inset-bottom));
+  display: grid; grid-template-columns: repeat(7, minmax(0, 1fr));
+  padding: 0.25rem 0.125rem calc(0.25rem + env(safe-area-inset-bottom));
   background: var(--footer-bg); border-top: 1px solid var(--hairline);
 }
 .tab {
+  position: relative;
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.125rem;
-  min-height: 56px; min-width: 0; padding: 0.25rem 0.125rem;
+  min-height: 56px; min-width: 0; padding: 0.25rem 0;
   border-radius: 12px;
   color: var(--text-secondary); text-decoration: none;
   font-size: 0.9375rem; font-weight: 500; line-height: 1.3; text-align: center;
@@ -974,6 +975,19 @@ button { position: relative; isolation: isolate; overflow: hidden; }
 .tab[aria-current="page"] svg { background: var(--primary); color: var(--on-primary); }
 .tab:active svg { background: var(--hairline); }
 .tab[aria-current="page"]:active svg { background: var(--primary-pressed); }
+/* Phones under 480 px: 7 tabs leave about 50 px each, so long words use their
+   short form (Weather -> Sky, Diseases -> Fish). Still an icon and a word, never icon only. */
+.tab-short { display: none; }
+@media (max-width: 479px) { .tab-long { display: none; } .tab-short { display: inline; } }
+/* Cart count on the Shop tab: on the icon's corner on phones, after the word on computers. */
+.tab-badge {
+  position: absolute; top: 0.125rem; left: calc(50% + 10px);
+  min-width: 1.375rem; height: 1.375rem; padding: 0 0.3rem; border-radius: 9999px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--primary); color: var(--on-primary); border: 2px solid var(--footer-bg);
+  font-size: 0.9375rem; font-weight: 700; line-height: 1; font-variant-numeric: tabular-nums;
+}
+.tab-badge[hidden] { display: none; }
 /* Room at the bottom of the page so the fixed tab bar never covers anything. */
 .dashboard { padding-bottom: calc(68px + env(safe-area-inset-bottom)); }
 
@@ -988,6 +1002,8 @@ button { position: relative; isolation: isolate; overflow: hidden; }
     border-radius: 9999px; font-size: 1rem;
   }
   .tab svg { width: 22px; height: 22px; padding: 0; background: none; }
+  .tab-badge { position: static; border-color: var(--surface); }
+  .tab[aria-current="page"] .tab-badge { background: var(--on-primary); color: var(--primary); border-color: var(--primary); }
   .tab[aria-current="page"] { background: var(--primary); color: var(--on-primary); }
   .tab[aria-current="page"] svg { background: none; color: inherit; }
   .tab[aria-current="page"]:active { background: var(--primary-pressed); }
@@ -1168,8 +1184,6 @@ button { position: relative; isolation: isolate; overflow: hidden; }
    Estimated prices only; nothing is sold. No status colours here.
    ================================================================ */
 .link-button { display: inline-flex; align-items: center; justify-content: center; text-decoration: none; }
-.shop-link-card h2 { margin: 0 0 0.5rem; }
-.shop-link-card .kit-help { margin-bottom: 0.75rem; }
 .shop-intro { color: var(--text-secondary); }
 .shop-one-pond h2 { margin: 0 0 0.25rem; }
 

@@ -23,6 +23,7 @@ APP = (FRONTEND / "app.js").read_text(encoding="utf-8")
 ROUTER = (FRONTEND / "router.js").read_text(encoding="utf-8")
 SHOP = (FRONTEND / "shop.js").read_text(encoding="utf-8")
 SHOP_DATA = (FRONTEND / "shop-data.js").read_text(encoding="utf-8")
+CSS = (FRONTEND / "styles.css").read_text(encoding="utf-8")
 SHOP_CODE = re.sub(r"//[^\n]*", "", SHOP)          # shop.js without its comments
 
 # Every API endpoint the app has. A new one (an order or checkout endpoint, say)
@@ -51,14 +52,36 @@ def dialog(dialog_id: str) -> str:
 # ---------------------------------------------------------------- route and nav
 
 def test_shop_is_a_page_with_a_focusable_title():
-    assert '"shop"' in ROUTER and "TAB_OF = { shop: \"more\" }" in ROUTER
+    assert '"ask", "shop", "more"' in ROUTER
     assert re.search(r'<section class="page" id="page-shop"[^>]*hidden>', HTML)
     assert 'id="page-shop-title" tabindex="-1"' in HTML
 
 
-def test_more_page_links_to_the_shop():
-    more = HTML[HTML.index('id="page-more"'):HTML.index('id="page-shop"')]
-    assert 'href="#/shop"' in more
+def test_shop_has_its_own_tab_between_ask_and_more():
+    nav = re.search(r'<nav class="tab-bar".*?</nav>', HTML, re.S).group(0)
+    assert re.findall(r'data-tab="(\w+)"', nav) == ["pond", "alerts", "weather", "diseases", "ask", "shop", "more"]
+    tab = re.search(r'<a href="#/shop" class="tab" data-tab="shop".*?</a>', nav, re.S).group(0)
+    assert '<svg aria-hidden="true"' in tab and 'data-i18n="tabShop"' in tab     # icon and a word
+    assert 'tabShop: "Shop"' in APP and 'tabShop: "ಅಂಗಡಿ"' in APP
+
+
+def test_shop_tab_badge_is_hidden_at_zero():
+    badge = re.search(r'<span class="tab-badge" id="tab-cart-count"[^>]*>', HTML).group(0)
+    assert "hidden" in badge and 'aria-hidden="true"' in badge      # the count is said in the tab's aria-label
+    assert "tabBadge.hidden = n === 0" in SHOP
+
+
+def test_more_page_has_no_shop_card():
+    more = HTML[HTML.index('id="page-more"'):HTML.index("<!-- ===================== Shop")]
+    assert "shop" not in more.lower()
+    assert "moreShop" not in APP
+
+
+def test_seven_tabs_keep_a_word_on_small_phones():
+    # Under 480 px the two long English words get short forms; never an icon alone.
+    assert 'tabWeatherShort: "Sky"' in APP and 'tabDiseasesShort: "Fish"' in APP
+    assert "grid-template-columns: repeat(7, minmax(0, 1fr))" in CSS
+    assert ".tab-long { display: none; } .tab-short { display: inline; }" in CSS
 
 
 def test_status_strip_stays_outside_every_page():
