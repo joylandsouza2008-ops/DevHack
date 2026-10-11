@@ -144,8 +144,20 @@ def test_can_i_buy_products(no_ai, lang):
     assert NOT_FOR_SALE[lang] in text and SEE_SHOP[lang] in text and START[lang] in text
     assert PARTS[lang][0] in text and PARTS[lang][3] in text              # what it is for, and why
     for p in shop.PRODUCTS.values():                                     # every product and its estimated price
-        assert f"{p['name'][lang]} {shop.price(p['price'], lang)}" in text
+        assert f"{p['name'][lang]} {shop.product_price(p, lang)}" in text
+        for field in ("solves", "where"):                                # what it is for, and where
+            assert p[field][lang] in text, (p["id"], field)
+        assert shop._steps(p, lang) in text, p["id"]                     # how to use it
+    assert shop.TEXT[lang]["recommend"] in text                          # and a recommendation
     honest_and_safe(text)
+
+
+def test_full_pond_kit_price_is_a_range_in_both_languages():
+    full = shop.PRODUCTS["full-pond"]
+    assert shop.product_price(full, "en") == "est. ₹23,000–71,000 depending on probes"
+    assert shop.product_price(full, "kn") == "ಅಂದಾಜು ₹23,000–71,000 ಪ್ರೋಬ್‌ಗಳನ್ನು ಅವಲಂಬಿಸಿ"
+    assert shop.reply_is_honest("The Full Pond kit is est. ₹23,000–₹71,000.", "")
+    assert not shop.reply_is_honest("The Full Pond kit is est. ₹35,000.", "")
 
 
 @pytest.mark.parametrize("lang", ["en", "kn"])
@@ -227,7 +239,7 @@ def test_ph_often_out_of_range_adds_ph_monitoring():
     assert rec["product"] == "full-pond" and "pH went out of the safe range 2 times recently" in rec["reasons"]["en"]
     # pH often out, no night problems: the test kit, with a pH tip.
     text = shop.answer("recommend", "which sensor?", evals(), CALM, PH_OFTEN)["en"]
-    assert text.startswith(START["en"]) and shop.TEXT["en"]["ph_tip"] in text and shop.price(35000, "en") in text
+    assert text.startswith(START["en"]) and shop.TEXT["en"]["ph_tip"] in text and shop.product_price(shop.PRODUCTS["full-pond"], "en") in text
     # pH out just once: not "often", so no pH monitoring.
     once = shop.recommend(evals(), HIGH, PH_OFTEN[:1])
     assert once["product"] == "night-watch"
@@ -259,7 +271,7 @@ def test_ai_gets_the_shop_facts_the_recommendation_and_the_rules(monkeypatch):
     assert "## Shop (frontend/shop-data.json)" in system and "## Shop recommendation for this farmer" in system
     assert "Get the Night-Watch kit" in system                       # worked out from the farmer's night alerts
     for p in shop.PRODUCTS.values():
-        assert f"{p['name']['en']} ({shop.price(p['price'], 'en')})" in system
+        assert f"{p['name']['en']} ({shop.product_price(p, 'en')})" in system
     assert "Never invent a product, feature or price" in system and "cheaper than other brands" in system
 
 

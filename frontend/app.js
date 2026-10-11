@@ -224,7 +224,7 @@ const TEXT = {
     shopIntro: "Sensors and spare parts that work with AquaNexus. Make a list and share it.",
     shopNotForSale: "Not for sale yet. Orders open after our pilot with farmers.",
     shopOnePondTitle: "Before you buy",
-    shopOnePond: "A sensor watches one pond. For several ponds, each needs its own sensor. Start with the free app and the test kit.",
+    shopOnePond: "One sensor watches one pond. For several ponds, each needs its own sensor. Start with the free app and the test kit.",
     shopPriceNote: "Estimated component cost. Prices may change.",
     shopLoadFailed: "Could not load the products. Check your internet and reload the page.",
     shopMeasures: "What it measures", shopWhy: "Why you need it",

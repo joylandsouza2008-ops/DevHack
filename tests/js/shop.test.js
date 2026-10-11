@@ -40,7 +40,7 @@ test("every product has the fields the page shows, in English and Kannada", () =
 
 test("the estimated prices match the brief", () => {
   const price = Object.fromEntries(PRODUCTS.map((p) => [p.id, p.price]));
-  assert.deepEqual(price, { "test-kit": 1200, "night-watch": 23000, "full-pond": 35000, "do-cap": 4000, "solar-10w": 1500 });
+  assert.deepEqual(price, { "test-kit": 1200, "night-watch": 23000, "full-pond": 23000, "do-cap": 4000, "solar-10w": 1500 });
 });
 
 test("no product claims to be cheaper than other products", () => {
@@ -55,6 +55,16 @@ test("prices always say they are estimates, with Indian digit grouping", () => {
   assert.equal(S.formatPrice(23000, "est."), "est. ₹23,000");
   assert.equal(S.formatPrice(123456, "ಅಂದಾಜು"), "ಅಂದಾಜು ₹1,23,456");
   assert.equal(S.formatPrice(500, "est."), "est. ₹500");
+  assert.equal(S.formatPrice(23000, "est.", 71000), "est. ₹23,000–71,000");
+});
+
+test("the Full Pond kit shows a price range that depends on the probes, in both languages", () => {
+  const full = PRODUCTS.find((p) => p.id === "full-pond");
+  assert.equal(S.productPrice(full, 1, "en", "est."), "est. ₹23,000–71,000 depending on probes");
+  assert.equal(S.productPrice(full, 1, "kn", "ಅಂದಾಜು"), "ಅಂದಾಜು ₹23,000–71,000 ಪ್ರೋಬ್‌ಗಳನ್ನು ಅವಲಂಬಿಸಿ");
+  assert.equal(S.productPrice(full, 2, "en", "est."), "est. ₹46,000–1,42,000 depending on probes");
+  const kit = PRODUCTS.find((p) => p.id === "test-kit");
+  assert.equal(S.productPrice(kit, 1, "en", "est."), "est. ₹1,200");          // no range, no note
 });
 
 test("add, change quantity, remove and clear", () => {
@@ -132,12 +142,24 @@ test("quantity stops at the maximum", () => {
 
 test("the copied list is plain text: names, quantities, estimated prices and total", () => {
   const items = [{ id: "night-watch", qty: 1 }, { id: "test-kit", qty: 2 }];
-  assert.equal(S.total(items, PRODUCTS), 25400);
+  assert.deepEqual(S.total(items, PRODUCTS), { low: 25400, high: 25400 });
   assert.equal(S.listText(items, PRODUCTS, "en", EN), [
     "AquaNexus: my list (estimated prices, not an order)",
     "- Night-Watch kit × 1: est. ₹23,000",
     "- Ammonia + pH test kit × 2: est. ₹2,400",
     "Estimated total: est. ₹25,400",
+    "Estimated component cost. Prices may change.",
+  ].join("\n"));
+});
+
+test("a cart with the Full Pond kit shows the price range and an estimated total range", () => {
+  const items = [{ id: "full-pond", qty: 1 }, { id: "test-kit", qty: 1 }];
+  assert.deepEqual(S.total(items, PRODUCTS), { low: 24200, high: 72200 });
+  assert.equal(S.listText(items, PRODUCTS, "en", EN), [
+    "AquaNexus: my list (estimated prices, not an order)",
+    "- Full Pond kit × 1: est. ₹23,000–71,000 depending on probes",
+    "- Ammonia + pH test kit × 1: est. ₹1,200",
+    "Estimated total: est. ₹24,200–72,200",
     "Estimated component cost. Prices may change.",
   ].join("\n"));
 });

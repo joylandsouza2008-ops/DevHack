@@ -1,5 +1,5 @@
 {
-  "about": "AquaNexus Shop products: the ONE source for the Shop page (frontend/shop.js) and the assistant (backend/shop.py). Prices are estimated component costs in rupees, always shown as 'est. ₹X'. Nothing is for sale yet and no payment is taken.",
+  "about": "AquaNexus Shop products: the ONE source for the Shop page (frontend/shop.js) and the assistant (backend/shop.py). Prices are estimated component costs in rupees, always shown as 'est. ₹X'. A product with price_max has a price range ('est. ₹X–Y'), and price_note says why. Nothing is for sale yet and no payment is taken.",
   "products": [
     {
       "id": "test-kit",
@@ -122,7 +122,12 @@
     {
       "id": "full-pond",
       "icon": "fullPond",
-      "price": 35000,
+      "price": 23000,
+      "price_max": 71000,
+      "price_note": {
+        "en": "depending on probes",
+        "kn": "ಪ್ರೋಬ್‌ಗಳನ್ನು ಅವಲಂಬಿಸಿ"
+      },
       "name": {
         "en": "Full Pond kit",
         "kn": "ಫುಲ್ ಪಾಂಡ್ ಕಿಟ್"

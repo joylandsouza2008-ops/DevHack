@@ -46,6 +46,7 @@ TEXT = {
         "get": "Get the {name}, and keep using the free app and a test kit.",
         "for": "What it is for:", "where": "Where:", "how": "How:", "why": "Why:", "care": "Care:",
         "why_need": "Why you need it:",
+        "recommend": "Our advice for you:",
         "see_shop": "See the Shop tab: {prices}.",
         "one_pond": "One sensor watches one pond.",
         "n_ponds": "For {n} ponds you need {n} sensors, one in each pond.",
@@ -68,6 +69,7 @@ TEXT = {
         "get": "{name} ಪಡೆಯಿರಿ, ಜೊತೆಗೆ ಉಚಿತ ಆ್ಯಪ್ ಮತ್ತು ಟೆಸ್ಟ್ ಕಿಟ್ ಬಳಸುತ್ತಿರಿ.",
         "for": "ಇದು ಯಾವುದಕ್ಕೆ:", "where": "ಎಲ್ಲಿ:", "how": "ಹೇಗೆ:", "why": "ಏಕೆ:", "care": "ಆರೈಕೆ:",
         "why_need": "ಇದು ಏಕೆ ಬೇಕು:",
+        "recommend": "ನಿಮಗೆ ನಮ್ಮ ಸಲಹೆ:",
         "see_shop": "ಅಂಗಡಿ ಟ್ಯಾಬ್ ನೋಡಿ: {prices}.",
         "one_pond": "ಒಂದು ಸೆನ್ಸರ್ ಒಂದೇ ಕೊಳವನ್ನು ಗಮನಿಸುತ್ತದೆ.",
         "n_ponds": "{n} ಕೊಳಗಳಿಗೆ {n} ಸೆನ್ಸರ್‌ಗಳು ಬೇಕು, ಪ್ರತಿ ಕೊಳಕ್ಕೆ ಒಂದು.",
@@ -99,13 +101,21 @@ def group_indian(n: int) -> str:
     return f"{head},{tail}"
 
 
-def price(rupees: int, lang: str) -> str:
-    """"est. ₹23,000" / "ಅಂದಾಜು ₹23,000": every price says it is an estimate."""
-    return f"{EST[lang]} ₹{group_indian(rupees)}"
+def price(rupees: int, lang: str, most: int | None = None) -> str:
+    """"est. ₹23,000" / "ಅಂದಾಜು ₹23,000": every price says it is an estimate.
+    With a higher `most`, a range: "est. ₹23,000–71,000"."""
+    top = f"–{group_indian(most)}" if most and most > rupees else ""
+    return f"{EST[lang]} ₹{group_indian(rupees)}{top}"
+
+
+def product_price(p: dict, lang: str) -> str:
+    """A product's price as the Shop page shows it, e.g. "est. ₹23,000–71,000 depending on probes"."""
+    text = price(p["price"], lang, p.get("price_max"))
+    return f"{text} {p['price_note'][lang]}" if p.get("price_max") and p.get("price_note") else text
 
 
 def _prices(ids: list[str], lang: str) -> str:
-    return ", ".join(f"{PRODUCTS[i]['name'][lang]} {price(PRODUCTS[i]['price'], lang)}" for i in ids)
+    return ", ".join(f"{PRODUCTS[i]['name'][lang]} {product_price(PRODUCTS[i], lang)}" for i in ids)
 
 
 # ----------------------------------------------------------------- reading the question
@@ -288,7 +298,7 @@ def _recommendation(rec: dict, lang: str) -> list[str]:
     if rec["ph_tip"]:
         lines.append(t["ph_tip"])
     if rec["budget"] and p["price"] > rec["budget"] and rec["product"] != "test-kit":
-        lines.append(t["budget"].format(name=p["name"][lang], price=price(p["price"], lang), budget=group_indian(rec["budget"])))
+        lines.append(t["budget"].format(name=p["name"][lang], price=product_price(p, lang), budget=group_indian(rec["budget"])))
     return lines + _ponds_lines(rec, lang)
 
 
@@ -311,14 +321,18 @@ def answer(kind: str, question: str, evals: list[dict], weather: dict, alerts: l
                      f"{t['why_need']} {p['why'][lang]}"]
             ids = [p["id"]]
         elif kind == "buy":
-            # Short: the answer to "can I buy?", plus what to start with and why (one line).
+            # "Can I buy?": not yet; then every product (what it is for, where, how),
+            # and what this farmer should start with, and why (one line).
             p = PRODUCTS[rec["product"]]
             head = t["start"] if rec["product"] == "test-kit" else t["get"].format(name=p["name"][lang])
-            lines = [t["not_for_sale"], t["orders"], head, f"{t['for']} {p['solves'][lang]}",
-                     f"{t['why']} {_sentence(rec['reasons'][lang])}"] + _ponds_lines(rec, lang)
-            ids = list(PRODUCTS)
-            lines.append(t["see_shop"].format(prices=_prices(ids, lang)))
-            out[lang] = " ".join(lines)
+            # Long, so one block per product, with a blank line between (the chat keeps line breaks).
+            blocks = [f"{t['not_for_sale']} {t['orders']}"]
+            blocks += [f"{q['name'][lang]} ({product_price(q, lang)}): {t['for']} {q['solves'][lang]} "
+                       f"{t['where']} {q['where'][lang]} {t['how']} {_steps(q, lang)}" for q in PRODUCTS.values()]
+            blocks.append(" ".join([f"{t['recommend']} {head}", f"{t['why']} {_sentence(rec['reasons'][lang])}"]
+                                   + _ponds_lines(rec, lang)))
+            blocks.append(t["see_shop"].format(prices=_prices(list(PRODUCTS), lang)))
+            out[lang] = "\n\n".join(blocks)
             continue
         else:                                    # "recommend"
             lines = _recommendation(rec, lang)
@@ -333,10 +347,11 @@ def content_lines(lang: str, evals: list[dict], weather: dict, alerts: list[dict
     """The Shop facts and this farmer's recommendation, as plain text for the AI's content."""
     langs = ["en", "kn"] if lang == "kn" else ["en"]
     out = ["\n## Shop (frontend/shop-data.json). The ONLY products and prices that exist. "
-           "Prices are estimates: always write them as 'est. ₹X'. Not for sale yet. No payment is taken."]
+           "Prices are estimates: always write them as 'est. ₹X' (or 'est. ₹X–Y' with its note for a range). "
+           "Not for sale yet. No payment is taken."]
     for p in PRODUCTS.values():
         for lg in langs:
-            out.append(f"- {p['name'][lg]} ({price(p['price'], lg)}): {p['desc'][lg]} Measures: {p['measures'][lg]}. "
+            out.append(f"- {p['name'][lg]} ({product_price(p, lg)}): {p['desc'][lg]} Measures: {p['measures'][lg]}. "
                        f"For: {p['solves'][lg]} Where: {p['where'][lg]} How: {_steps(p, lg)} "
                        f"Care: {' '.join(c[lg] for c in p['care'])} Why you need it: {p['why'][lg]}")
     rec = recommend(evals, weather, alerts, question)
@@ -352,7 +367,7 @@ CHEAPER = re.compile(r"cheap(er|est)|lowest price|best price|less than other|tha
 
 def allowed_amounts(question: str) -> set[int]:
     """Rupee amounts an answer may mention: Shop prices, a few of them together, and the farmer's own budget."""
-    prices = [p["price"] for p in PRODUCTS.values()]
+    prices = [p["price"] for p in PRODUCTS.values()] + [p["price_max"] for p in PRODUCTS.values() if p.get("price_max")]
     amounts = {p * n for p in prices for n in range(1, 11)}
     amounts |= {a + b for a in prices for b in prices}
     if budget(question):

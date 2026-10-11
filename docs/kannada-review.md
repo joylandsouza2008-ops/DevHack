@@ -8,7 +8,7 @@ coastal Karnataka to understand. Write any fix in the last column.
 - `A  /  B` means the app shows one of two versions, depending on the situation.
 - Unit symbols (mg/L, °C, km/h, pH) and the names SMS, WhatsApp, FAO, TNAU, Open-Meteo stay in English.
 
-625 strings. Generated from the code by `python tools/kannada_review.py`; re-run it after changing any text.
+627 strings. Generated from the code by `python tools/kannada_review.py`; re-run it after changing any text.
 
 ## 1. Language and theme switches
 
@@ -397,7 +397,7 @@ Shown over the day/night pond picture.
 | 50 | `app.js shopIntro` | Sensors and spare parts that work with AquaNexus. Make a list and share it. | AquaNexus ಜೊತೆ ಕೆಲಸ ಮಾಡುವ ಸೆನ್ಸರ್‌ಗಳು ಮತ್ತು ಬಿಡಿಭಾಗಗಳು. ಪಟ್ಟಿ ಮಾಡಿ ಹಂಚಿಕೊಳ್ಳಿ. |  |
 | 51 | `app.js shopNotForSale` | Not for sale yet. Orders open after our pilot with farmers. | ಇನ್ನೂ ಮಾರಾಟಕ್ಕಿಲ್ಲ. ರೈತರೊಂದಿಗಿನ ನಮ್ಮ ಪ್ರಾಯೋಗಿಕ ಯೋಜನೆಯ ನಂತರ ಆರ್ಡರ್‌ಗಳು ಆರಂಭವಾಗುತ್ತವೆ. |  |
 | 52 | `app.js shopOnePondTitle` | Before you buy | ಖರೀದಿಸುವ ಮೊದಲು |  |
-| 53 | `app.js shopOnePond` | A sensor watches one pond. For several ponds, each needs its own sensor. Start with the free app and the test kit. | ಒಂದು ಸೆನ್ಸರ್ ಒಂದೇ ಕೊಳವನ್ನು ಗಮನಿಸುತ್ತದೆ. ಹಲವು ಕೊಳಗಳಿದ್ದರೆ, ಪ್ರತಿಯೊಂದಕ್ಕೂ ಬೇರೆ ಸೆನ್ಸರ್ ಬೇಕು. ಉಚಿತ ಆ್ಯಪ್ ಮತ್ತು ಟೆಸ್ಟ್ ಕಿಟ್‌ನಿಂದ ಪ್ರಾರಂಭಿಸಿ. |  |
+| 53 | `app.js shopOnePond` | One sensor watches one pond. For several ponds, each needs its own sensor. Start with the free app and the test kit. | ಒಂದು ಸೆನ್ಸರ್ ಒಂದೇ ಕೊಳವನ್ನು ಗಮನಿಸುತ್ತದೆ. ಹಲವು ಕೊಳಗಳಿದ್ದರೆ, ಪ್ರತಿಯೊಂದಕ್ಕೂ ಬೇರೆ ಸೆನ್ಸರ್ ಬೇಕು. ಉಚಿತ ಆ್ಯಪ್ ಮತ್ತು ಟೆಸ್ಟ್ ಕಿಟ್‌ನಿಂದ ಪ್ರಾರಂಭಿಸಿ. |  |
 | 54 | `app.js shopPriceNote` | Estimated component cost. Prices may change. | ಅಂದಾಜು ಬಿಡಿಭಾಗಗಳ ವೆಚ್ಚ. ಬೆಲೆಗಳು ಬದಲಾಗಬಹುದು. |  |
 | 55 | `app.js shopLoadFailed` | Could not load the products. Check your internet and reload the page. | ವಸ್ತುಗಳ ಪಟ್ಟಿ ತೆರೆಯಲು ಆಗಲಿಲ್ಲ. ಇಂಟರ್ನೆಟ್ ಪರಿಶೀಲಿಸಿ, ಪುಟವನ್ನು ಮತ್ತೆ ತೆರೆಯಿರಿ. |  |
 | 56 | `app.js shopMeasures` | What it measures | ಏನನ್ನು ಅಳೆಯುತ್ತದೆ |  |
@@ -743,19 +743,20 @@ Ready answers to Shop questions (backend/shop.py). `{name}` is a product name, `
 | 8 | `shop.TEXT.why` | Why: | ಏಕೆ: |  |
 | 9 | `shop.TEXT.care` | Care: | ಆರೈಕೆ: |  |
 | 10 | `shop.TEXT.why_need` | Why you need it: | ಇದು ಏಕೆ ಬೇಕು: |  |
-| 11 | `shop.TEXT.see_shop` | See the Shop tab: {prices}. | ಅಂಗಡಿ ಟ್ಯಾಬ್ ನೋಡಿ: {prices}. |  |
-| 12 | `shop.TEXT.one_pond` | One sensor watches one pond. | ಒಂದು ಸೆನ್ಸರ್ ಒಂದೇ ಕೊಳವನ್ನು ಗಮನಿಸುತ್ತದೆ. |  |
-| 13 | `shop.TEXT.n_ponds` | For {n} ponds you need {n} sensors, one in each pond. | {n} ಕೊಳಗಳಿಗೆ {n} ಸೆನ್ಸರ್‌ಗಳು ಬೇಕು, ಪ್ರತಿ ಕೊಳಕ್ಕೆ ಒಂದು. |  |
-| 14 | `shop.TEXT.several` | Each pond needs its own sensor. | ಪ್ರತಿ ಕೊಳಕ್ಕೂ ಅದರದೇ ಸೆನ್ಸರ್ ಬೇಕು. |  |
-| 15 | `shop.TEXT.kit_all_ponds` | One test kit can check all your ponds, one sample at a time. | ಒಂದೇ ಟೆಸ್ಟ್ ಕಿಟ್‌ನಿಂದ ಎಲ್ಲಾ ಕೊಳಗಳನ್ನು, ಒಂದೊಂದಾಗಿ ಪರೀಕ್ಷಿಸಬಹುದು. |  |
-| 16 | `shop.TEXT.crash_high` | tonight's oxygen crash risk is High | ಇಂದು ರಾತ್ರಿ ಆಮ್ಲಜನಕ ಕುಸಿತದ ಅಪಾಯ ಹೆಚ್ಚು |  |
-| 17 | `shop.TEXT.night_low` | your pond had low oxygen at night {n} times recently | ಇತ್ತೀಚೆಗೆ ನಿಮ್ಮ ಕೊಳದಲ್ಲಿ ರಾತ್ರಿ {n} ಬಾರಿ ಆಮ್ಲಜನಕ ಕಡಿಮೆಯಾಗಿತ್ತು |  |
-| 18 | `shop.TEXT.night_low_1` | your pond had low oxygen at night recently | ಇತ್ತೀಚೆಗೆ ನಿಮ್ಮ ಕೊಳದಲ್ಲಿ ರಾತ್ರಿ ಆಮ್ಲಜನಕ ಕಡಿಮೆಯಾಗಿತ್ತು |  |
-| 19 | `shop.TEXT.ph_often` | pH went out of the safe range {n} times recently | ಇತ್ತೀಚೆಗೆ pH {n} ಬಾರಿ ಸುರಕ್ಷಿತ ಮಟ್ಟ ಮೀರಿತ್ತು |  |
-| 20 | `shop.TEXT.ph_tip` | Check pH every week with the test kit. The Full Pond kit also watches pH day and night. | ಪ್ರತಿ ವಾರ ಟೆಸ್ಟ್ ಕಿಟ್‌ನಿಂದ pH ಪರೀಕ್ಷಿಸಿ. ಫುಲ್ ಪಾಂಡ್ ಕಿಟ್ ಹಗಲು-ರಾತ್ರಿ pH ಅನ್ನೂ ಗಮನಿಸುತ್ತದೆ. |  |
-| 21 | `shop.TEXT.no_need` | there are no night oxygen problems and tonight's crash risk is not High, so a sensor is not needed yet | ರಾತ್ರಿಯ ಆಮ್ಲಜನಕ ಸಮಸ್ಯೆ ಇಲ್ಲ ಮತ್ತು ಇಂದು ರಾತ್ರಿ ಕುಸಿತದ ಅಪಾಯ ಹೆಚ್ಚಿಲ್ಲ, ಆದ್ದರಿಂದ ಈಗ ಸೆನ್ಸರ್ ಬೇಕಿಲ್ಲ |  |
-| 22 | `shop.TEXT.budget` | The {name} is {price}, more than your budget of ₹{budget}. Start with the test kit and the free app. | {name} ಬೆಲೆ {price}, ಇದು ನಿಮ್ಮ ₹{budget} ಬಜೆಟ್‌ಗಿಂತ ಹೆಚ್ಚು. ಟೆಸ್ಟ್ ಕಿಟ್ ಮತ್ತು ಉಚಿತ ಆ್ಯಪ್‌ನಿಂದ ಪ್ರಾರಂಭಿಸಿ. |  |
-| 23 | `shop.TEXT.simulated` | (simulated data) | (ಅನುಕರಿಸಿದ ಡೇಟಾ) |  |
+| 11 | `shop.TEXT.recommend` | Our advice for you: | ನಿಮಗೆ ನಮ್ಮ ಸಲಹೆ: |  |
+| 12 | `shop.TEXT.see_shop` | See the Shop tab: {prices}. | ಅಂಗಡಿ ಟ್ಯಾಬ್ ನೋಡಿ: {prices}. |  |
+| 13 | `shop.TEXT.one_pond` | One sensor watches one pond. | ಒಂದು ಸೆನ್ಸರ್ ಒಂದೇ ಕೊಳವನ್ನು ಗಮನಿಸುತ್ತದೆ. |  |
+| 14 | `shop.TEXT.n_ponds` | For {n} ponds you need {n} sensors, one in each pond. | {n} ಕೊಳಗಳಿಗೆ {n} ಸೆನ್ಸರ್‌ಗಳು ಬೇಕು, ಪ್ರತಿ ಕೊಳಕ್ಕೆ ಒಂದು. |  |
+| 15 | `shop.TEXT.several` | Each pond needs its own sensor. | ಪ್ರತಿ ಕೊಳಕ್ಕೂ ಅದರದೇ ಸೆನ್ಸರ್ ಬೇಕು. |  |
+| 16 | `shop.TEXT.kit_all_ponds` | One test kit can check all your ponds, one sample at a time. | ಒಂದೇ ಟೆಸ್ಟ್ ಕಿಟ್‌ನಿಂದ ಎಲ್ಲಾ ಕೊಳಗಳನ್ನು, ಒಂದೊಂದಾಗಿ ಪರೀಕ್ಷಿಸಬಹುದು. |  |
+| 17 | `shop.TEXT.crash_high` | tonight's oxygen crash risk is High | ಇಂದು ರಾತ್ರಿ ಆಮ್ಲಜನಕ ಕುಸಿತದ ಅಪಾಯ ಹೆಚ್ಚು |  |
+| 18 | `shop.TEXT.night_low` | your pond had low oxygen at night {n} times recently | ಇತ್ತೀಚೆಗೆ ನಿಮ್ಮ ಕೊಳದಲ್ಲಿ ರಾತ್ರಿ {n} ಬಾರಿ ಆಮ್ಲಜನಕ ಕಡಿಮೆಯಾಗಿತ್ತು |  |
+| 19 | `shop.TEXT.night_low_1` | your pond had low oxygen at night recently | ಇತ್ತೀಚೆಗೆ ನಿಮ್ಮ ಕೊಳದಲ್ಲಿ ರಾತ್ರಿ ಆಮ್ಲಜನಕ ಕಡಿಮೆಯಾಗಿತ್ತು |  |
+| 20 | `shop.TEXT.ph_often` | pH went out of the safe range {n} times recently | ಇತ್ತೀಚೆಗೆ pH {n} ಬಾರಿ ಸುರಕ್ಷಿತ ಮಟ್ಟ ಮೀರಿತ್ತು |  |
+| 21 | `shop.TEXT.ph_tip` | Check pH every week with the test kit. The Full Pond kit also watches pH day and night. | ಪ್ರತಿ ವಾರ ಟೆಸ್ಟ್ ಕಿಟ್‌ನಿಂದ pH ಪರೀಕ್ಷಿಸಿ. ಫುಲ್ ಪಾಂಡ್ ಕಿಟ್ ಹಗಲು-ರಾತ್ರಿ pH ಅನ್ನೂ ಗಮನಿಸುತ್ತದೆ. |  |
+| 22 | `shop.TEXT.no_need` | there are no night oxygen problems and tonight's crash risk is not High, so a sensor is not needed yet | ರಾತ್ರಿಯ ಆಮ್ಲಜನಕ ಸಮಸ್ಯೆ ಇಲ್ಲ ಮತ್ತು ಇಂದು ರಾತ್ರಿ ಕುಸಿತದ ಅಪಾಯ ಹೆಚ್ಚಿಲ್ಲ, ಆದ್ದರಿಂದ ಈಗ ಸೆನ್ಸರ್ ಬೇಕಿಲ್ಲ |  |
+| 23 | `shop.TEXT.budget` | The {name} is {price}, more than your budget of ₹{budget}. Start with the test kit and the free app. | {name} ಬೆಲೆ {price}, ಇದು ನಿಮ್ಮ ₹{budget} ಬಜೆಟ್‌ಗಿಂತ ಹೆಚ್ಚು. ಟೆಸ್ಟ್ ಕಿಟ್ ಮತ್ತು ಉಚಿತ ಆ್ಯಪ್‌ನಿಂದ ಪ್ರಾರಂಭಿಸಿ. |  |
+| 24 | `shop.TEXT.simulated` | (simulated data) | (ಅನುಕರಿಸಿದ ಡೇಟಾ) |  |
 
 ## 33. Messages from the server: Shop: products
 
@@ -802,26 +803,27 @@ frontend/shop-data.json: shown on the Shop page and used by the assistant.
 | 37 | `shop-data.json full-pond.care[2]` | Replace the DO sensor cap when it wears out (listed as a spare in the Shop). | DO ಸೆನ್ಸರ್ ಕ್ಯಾಪ್ ಸವೆದಾಗ ಬದಲಾಯಿಸಿ (ಅಂಗಡಿಯಲ್ಲಿ ಬಿಡಿಭಾಗವಾಗಿ ಪಟ್ಟಿ ಮಾಡಲಾಗಿದೆ). |  |
 | 38 | `shop-data.json full-pond.care[3]` | Recalibrate the pH probe every month, as the kit's guide shows. | ಕಿಟ್‌ನ ಮಾರ್ಗದರ್ಶಿಯಲ್ಲಿ ತೋರಿಸಿದಂತೆ ಪ್ರತಿ ತಿಂಗಳು pH ಪ್ರೋಬ್ ಅನ್ನು ಮರು-ಮಾಪನಾಂಕ (ರಿಕ್ಯಾಲಿಬ್ರೇಟ್) ಮಾಡಿ. |  |
 | 39 | `shop-data.json full-pond.care[4]` | Wipe dust and bird droppings off the solar panel every month. | ಪ್ರತಿ ತಿಂಗಳು ಸೌರ ಫಲಕದ ಮೇಲಿನ ಧೂಳು ಮತ್ತು ಹಕ್ಕಿ ಹಿಕ್ಕೆಯನ್ನು ಒರೆಸಿ. |  |
-| 40 | `shop-data.json do-cap.name` | Spare: DO sensor cap | ಬಿಡಿಭಾಗ: DO ಸೆನ್ಸರ್ ಕ್ಯಾಪ್ |  |
-| 41 | `shop-data.json do-cap.desc` | Replacement cap for the optical oxygen sensor. | ಆಪ್ಟಿಕಲ್ ಆಮ್ಲಜನಕ ಸೆನ್ಸರ್‌ಗೆ ಬದಲಿ ಕ್ಯಾಪ್. |  |
-| 42 | `shop-data.json do-cap.measures` | Part of the oxygen sensor | ಆಮ್ಲಜನಕ ಸೆನ್ಸರ್‌ನ ಭಾಗ |  |
-| 43 | `shop-data.json do-cap.why` | The cap wears out over time and must be replaced to keep oxygen readings right. | ಕಾಲಾನಂತರದಲ್ಲಿ ಕ್ಯಾಪ್ ಸವೆಯುತ್ತದೆ. ಆಮ್ಲಜನಕದ ಅಳತೆ ಸರಿಯಾಗಿರಲು ಅದನ್ನು ಬದಲಾಯಿಸಬೇಕು. |  |
-| 44 | `shop-data.json do-cap.solves` | A worn cap gives wrong oxygen readings. A new cap makes them right again. | ಸವೆದ ಕ್ಯಾಪ್ ತಪ್ಪು ಆಮ್ಲಜನಕ ಅಳತೆ ಕೊಡುತ್ತದೆ. ಹೊಸ ಕ್ಯಾಪ್ ಅವುಗಳನ್ನು ಮತ್ತೆ ಸರಿಮಾಡುತ್ತದೆ. |  |
-| 45 | `shop-data.json do-cap.where` | On the tip of the Night-Watch oxygen probe. | ನೈಟ್-ವಾಚ್ ಆಮ್ಲಜನಕ ಪ್ರೋಬ್‌ನ ತುದಿಯಲ್ಲಿ. |  |
-| 46 | `shop-data.json do-cap.steps[1]` | Switch the box off and lift the probe out of the water. | ಪೆಟ್ಟಿಗೆಯನ್ನು ಆಫ್ ಮಾಡಿ, ಪ್ರೋಬ್ ಅನ್ನು ನೀರಿನಿಂದ ಹೊರತೆಗೆಯಿರಿ. |  |
-| 47 | `shop-data.json do-cap.steps[2]` | Unscrew the old cap and screw on the new one. Do not touch the inside of the cap. | ಹಳೆಯ ಕ್ಯಾಪ್ ತಿರುಗಿಸಿ ತೆಗೆದು, ಹೊಸದನ್ನು ತಿರುಗಿಸಿ ಹಾಕಿ. ಕ್ಯಾಪ್‌ನ ಒಳಭಾಗವನ್ನು ಮುಟ್ಟಬೇಡಿ. |  |
-| 48 | `shop-data.json do-cap.steps[3]` | Put the probe back in the water, switch on, and set it up as the cap's leaflet shows. | ಪ್ರೋಬ್ ಅನ್ನು ಮತ್ತೆ ನೀರಿಗೆ ಇಳಿಸಿ, ಸ್ವಿಚ್ ಆನ್ ಮಾಡಿ, ಕ್ಯಾಪ್‌ನ ಕರಪತ್ರದಲ್ಲಿ ತೋರಿಸಿದಂತೆ ಹೊಂದಿಸಿ. |  |
-| 49 | `shop-data.json do-cap.care` | Keep the spare cap in its sealed pack until you use it. | ಬಳಸುವವರೆಗೆ ಬಿಡಿ ಕ್ಯಾಪ್ ಅನ್ನು ಅದರ ಮುಚ್ಚಿದ ಪ್ಯಾಕ್‌ನಲ್ಲೇ ಇಡಿ. |  |
-| 50 | `shop-data.json solar-10w.name` | Spare: 10 W solar panel + charge board | ಬಿಡಿಭಾಗ: 10 W ಸೌರ ಫಲಕ + ಚಾರ್ಜ್ ಬೋರ್ಡ್ |  |
-| 51 | `shop-data.json solar-10w.desc` | Panel and charging board that keep the sensor box powered. | ಸೆನ್ಸರ್ ಪೆಟ್ಟಿಗೆಗೆ ವಿದ್ಯುತ್ ನೀಡುವ ಫಲಕ ಮತ್ತು ಚಾರ್ಜಿಂಗ್ ಬೋರ್ಡ್. |  |
-| 52 | `shop-data.json solar-10w.measures` | Power for the sensor box | ಸೆನ್ಸರ್ ಪೆಟ್ಟಿಗೆಗೆ ವಿದ್ಯುತ್ |  |
-| 53 | `shop-data.json solar-10w.why` | Replaces a panel or board damaged by weather, so the sensor keeps running. | ಹವಾಮಾನದಿಂದ ಹಾಳಾದ ಫಲಕ ಅಥವಾ ಬೋರ್ಡ್ ಬದಲಿಸಿ, ಸೆನ್ಸರ್ ನಿಲ್ಲದಂತೆ ನೋಡಿಕೊಳ್ಳುತ್ತದೆ. |  |
-| 54 | `shop-data.json solar-10w.solves` | Keeps the sensor box charged, so it does not stop at night. | ಸೆನ್ಸರ್ ಪೆಟ್ಟಿಗೆಯನ್ನು ಚಾರ್ಜ್ ಆಗಿ ಇಡುತ್ತದೆ, ಆದ್ದರಿಂದ ಅದು ರಾತ್ರಿ ನಿಲ್ಲುವುದಿಲ್ಲ. |  |
-| 55 | `shop-data.json solar-10w.where` | On the box's pole, in full sun, away from tree shade. | ಪೆಟ್ಟಿಗೆಯ ಕಂಬದ ಮೇಲೆ, ಮರದ ನೆರಳಿಲ್ಲದ ಪೂರ್ಣ ಬಿಸಿಲಿನಲ್ಲಿ. |  |
-| 56 | `shop-data.json solar-10w.steps[1]` | Switch the box off. | ಪೆಟ್ಟಿಗೆಯನ್ನು ಆಫ್ ಮಾಡಿ. |  |
-| 57 | `shop-data.json solar-10w.steps[2]` | Unplug the old panel and board, and plug in the new ones. | ಹಳೆಯ ಫಲಕ ಮತ್ತು ಬೋರ್ಡ್ ತೆಗೆದು, ಹೊಸವನ್ನು ಜೋಡಿಸಿ. |  |
-| 58 | `shop-data.json solar-10w.steps[3]` | Point the panel at the sun and switch the box on. | ಫಲಕವನ್ನು ಸೂರ್ಯನ ಕಡೆಗೆ ತಿರುಗಿಸಿ, ಪೆಟ್ಟಿಗೆಯನ್ನು ಆನ್ ಮಾಡಿ. |  |
-| 59 | `shop-data.json solar-10w.care` | Wipe dust and bird droppings off the solar panel every month. | ಪ್ರತಿ ತಿಂಗಳು ಸೌರ ಫಲಕದ ಮೇಲಿನ ಧೂಳು ಮತ್ತು ಹಕ್ಕಿ ಹಿಕ್ಕೆಯನ್ನು ಒರೆಸಿ. |  |
+| 40 | `shop-data.json full-pond.price_note` | depending on probes | ಪ್ರೋಬ್‌ಗಳನ್ನು ಅವಲಂಬಿಸಿ |  |
+| 41 | `shop-data.json do-cap.name` | Spare: DO sensor cap | ಬಿಡಿಭಾಗ: DO ಸೆನ್ಸರ್ ಕ್ಯಾಪ್ |  |
+| 42 | `shop-data.json do-cap.desc` | Replacement cap for the optical oxygen sensor. | ಆಪ್ಟಿಕಲ್ ಆಮ್ಲಜನಕ ಸೆನ್ಸರ್‌ಗೆ ಬದಲಿ ಕ್ಯಾಪ್. |  |
+| 43 | `shop-data.json do-cap.measures` | Part of the oxygen sensor | ಆಮ್ಲಜನಕ ಸೆನ್ಸರ್‌ನ ಭಾಗ |  |
+| 44 | `shop-data.json do-cap.why` | The cap wears out over time and must be replaced to keep oxygen readings right. | ಕಾಲಾನಂತರದಲ್ಲಿ ಕ್ಯಾಪ್ ಸವೆಯುತ್ತದೆ. ಆಮ್ಲಜನಕದ ಅಳತೆ ಸರಿಯಾಗಿರಲು ಅದನ್ನು ಬದಲಾಯಿಸಬೇಕು. |  |
+| 45 | `shop-data.json do-cap.solves` | A worn cap gives wrong oxygen readings. A new cap makes them right again. | ಸವೆದ ಕ್ಯಾಪ್ ತಪ್ಪು ಆಮ್ಲಜನಕ ಅಳತೆ ಕೊಡುತ್ತದೆ. ಹೊಸ ಕ್ಯಾಪ್ ಅವುಗಳನ್ನು ಮತ್ತೆ ಸರಿಮಾಡುತ್ತದೆ. |  |
+| 46 | `shop-data.json do-cap.where` | On the tip of the Night-Watch oxygen probe. | ನೈಟ್-ವಾಚ್ ಆಮ್ಲಜನಕ ಪ್ರೋಬ್‌ನ ತುದಿಯಲ್ಲಿ. |  |
+| 47 | `shop-data.json do-cap.steps[1]` | Switch the box off and lift the probe out of the water. | ಪೆಟ್ಟಿಗೆಯನ್ನು ಆಫ್ ಮಾಡಿ, ಪ್ರೋಬ್ ಅನ್ನು ನೀರಿನಿಂದ ಹೊರತೆಗೆಯಿರಿ. |  |
+| 48 | `shop-data.json do-cap.steps[2]` | Unscrew the old cap and screw on the new one. Do not touch the inside of the cap. | ಹಳೆಯ ಕ್ಯಾಪ್ ತಿರುಗಿಸಿ ತೆಗೆದು, ಹೊಸದನ್ನು ತಿರುಗಿಸಿ ಹಾಕಿ. ಕ್ಯಾಪ್‌ನ ಒಳಭಾಗವನ್ನು ಮುಟ್ಟಬೇಡಿ. |  |
+| 49 | `shop-data.json do-cap.steps[3]` | Put the probe back in the water, switch on, and set it up as the cap's leaflet shows. | ಪ್ರೋಬ್ ಅನ್ನು ಮತ್ತೆ ನೀರಿಗೆ ಇಳಿಸಿ, ಸ್ವಿಚ್ ಆನ್ ಮಾಡಿ, ಕ್ಯಾಪ್‌ನ ಕರಪತ್ರದಲ್ಲಿ ತೋರಿಸಿದಂತೆ ಹೊಂದಿಸಿ. |  |
+| 50 | `shop-data.json do-cap.care` | Keep the spare cap in its sealed pack until you use it. | ಬಳಸುವವರೆಗೆ ಬಿಡಿ ಕ್ಯಾಪ್ ಅನ್ನು ಅದರ ಮುಚ್ಚಿದ ಪ್ಯಾಕ್‌ನಲ್ಲೇ ಇಡಿ. |  |
+| 51 | `shop-data.json solar-10w.name` | Spare: 10 W solar panel + charge board | ಬಿಡಿಭಾಗ: 10 W ಸೌರ ಫಲಕ + ಚಾರ್ಜ್ ಬೋರ್ಡ್ |  |
+| 52 | `shop-data.json solar-10w.desc` | Panel and charging board that keep the sensor box powered. | ಸೆನ್ಸರ್ ಪೆಟ್ಟಿಗೆಗೆ ವಿದ್ಯುತ್ ನೀಡುವ ಫಲಕ ಮತ್ತು ಚಾರ್ಜಿಂಗ್ ಬೋರ್ಡ್. |  |
+| 53 | `shop-data.json solar-10w.measures` | Power for the sensor box | ಸೆನ್ಸರ್ ಪೆಟ್ಟಿಗೆಗೆ ವಿದ್ಯುತ್ |  |
+| 54 | `shop-data.json solar-10w.why` | Replaces a panel or board damaged by weather, so the sensor keeps running. | ಹವಾಮಾನದಿಂದ ಹಾಳಾದ ಫಲಕ ಅಥವಾ ಬೋರ್ಡ್ ಬದಲಿಸಿ, ಸೆನ್ಸರ್ ನಿಲ್ಲದಂತೆ ನೋಡಿಕೊಳ್ಳುತ್ತದೆ. |  |
+| 55 | `shop-data.json solar-10w.solves` | Keeps the sensor box charged, so it does not stop at night. | ಸೆನ್ಸರ್ ಪೆಟ್ಟಿಗೆಯನ್ನು ಚಾರ್ಜ್ ಆಗಿ ಇಡುತ್ತದೆ, ಆದ್ದರಿಂದ ಅದು ರಾತ್ರಿ ನಿಲ್ಲುವುದಿಲ್ಲ. |  |
+| 56 | `shop-data.json solar-10w.where` | On the box's pole, in full sun, away from tree shade. | ಪೆಟ್ಟಿಗೆಯ ಕಂಬದ ಮೇಲೆ, ಮರದ ನೆರಳಿಲ್ಲದ ಪೂರ್ಣ ಬಿಸಿಲಿನಲ್ಲಿ. |  |
+| 57 | `shop-data.json solar-10w.steps[1]` | Switch the box off. | ಪೆಟ್ಟಿಗೆಯನ್ನು ಆಫ್ ಮಾಡಿ. |  |
+| 58 | `shop-data.json solar-10w.steps[2]` | Unplug the old panel and board, and plug in the new ones. | ಹಳೆಯ ಫಲಕ ಮತ್ತು ಬೋರ್ಡ್ ತೆಗೆದು, ಹೊಸವನ್ನು ಜೋಡಿಸಿ. |  |
+| 59 | `shop-data.json solar-10w.steps[3]` | Point the panel at the sun and switch the box on. | ಫಲಕವನ್ನು ಸೂರ್ಯನ ಕಡೆಗೆ ತಿರುಗಿಸಿ, ಪೆಟ್ಟಿಗೆಯನ್ನು ಆನ್ ಮಾಡಿ. |  |
+| 60 | `shop-data.json solar-10w.care` | Wipe dust and bird droppings off the solar panel every month. | ಪ್ರತಿ ತಿಂಗಳು ಸೌರ ಫಲಕದ ಮೇಲಿನ ಧೂಳು ಮತ್ತು ಹಕ್ಕಿ ಹಿಕ್ಕೆಯನ್ನು ಒರೆಸಿ. |  |
 
 ## 34. Messages from the server: Alert preview (SMS / WhatsApp)
 

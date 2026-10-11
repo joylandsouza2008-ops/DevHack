@@ -149,7 +149,8 @@ def backend_groups() -> list[tuple[str, str, list]]:
         ("Shop: products", "frontend/shop-data.json: shown on the Shop page and used by the assistant.",
          [(f"shop-data.json {p['id']}.{field}" + (f"[{i}]" if len(items) > 1 else ""), item["en"], item["kn"])
           for p in shop.PRODUCTS.values()
-          for field in ("name", "desc", "measures", "why", "solves", "where", "steps", "care")
+          for field in ("name", "desc", "measures", "why", "solves", "where", "steps", "care", "price_note")
+          if field in p
           for items in [p[field] if isinstance(p[field], list) else [p[field]]]
           for i, item in enumerate(items, 1)]),
         ("Alert preview (SMS / WhatsApp)", "The SMS and WhatsApp text is built from the risk card "

@@ -10,7 +10,8 @@
 // page is closed. "Copy my list" puts plain text on the clipboard so a farmer
 // can share it with their cooperative.
 //
-// Prices are estimates, always shown as "est. ₹X".
+// Prices are estimates, always shown as "est. ₹X". A product with price_max has
+// a range, "est. ₹X–Y", followed by its price_note ("depending on probes").
 
 (function () {
   "use strict";
@@ -30,8 +31,17 @@
   }
 
   // "est. ₹1,200" (English) or "ಅಂದಾಜು ₹1,200" (Kannada): every price says it is an estimate.
-  function formatPrice(rupees, estWord) {
-    return `${estWord} ₹${groupIndian(rupees)}`;
+  // With a higher `max`: a range, "est. ₹23,000–71,000".
+  function formatPrice(rupees, estWord, max) {
+    const range = max > rupees ? `–${groupIndian(max)}` : "";
+    return `${estWord} ₹${groupIndian(rupees)}${range}`;
+  }
+
+  // One product's price for `qty` of it, with its note if it has a range:
+  // "est. ₹23,000–71,000 depending on probes".
+  function productPrice(p, qty, lang, estWord) {
+    const text = formatPrice(p.price * qty, estWord, (p.price_max || 0) * qty);
+    return p.price_max && p.price_note ? `${text} ${p.price_note[lang]}` : text;
   }
 
   // Keep only known products with a whole quantity from 1 to MAX_QTY. Anything
@@ -109,11 +119,18 @@
     };
   }
 
+  // Estimated total as { low, high }: they differ when a product has a price range.
   function total(items, products) {
     return items.reduce((sum, i) => {
       const p = products.find((x) => x.id === i.id);
-      return sum + (p ? p.price * i.qty : 0);
-    }, 0);
+      if (!p) return sum;
+      return { low: sum.low + p.price * i.qty, high: sum.high + (p.price_max || p.price) * i.qty };
+    }, { low: 0, high: 0 });
+  }
+
+  function formatTotal(items, products, estWord) {
+    const { low, high } = total(items, products);
+    return formatPrice(low, estWord, high);
   }
 
   // The text "Copy my list" puts on the clipboard. Plain text only: names,
@@ -123,14 +140,14 @@
     for (const i of items) {
       const p = products.find((x) => x.id === i.id);
       if (!p) continue;
-      lines.push(`- ${p.name[lang]} × ${i.qty}: ${formatPrice(p.price * i.qty, words.estWord)}`);
+      lines.push(`- ${p.name[lang]} × ${i.qty}: ${productPrice(p, i.qty, lang, words.estWord)}`);
     }
-    lines.push(`${words.cartTotal}: ${formatPrice(total(items, products), words.estWord)}`);
+    lines.push(`${words.cartTotal}: ${formatTotal(items, products, words.estWord)}`);
     lines.push(words.shopPriceNote);
     return lines.join("\n");
   }
 
-  const api = { STORAGE_KEY, MAX_QTY, groupIndian, formatPrice, cleanItems, createCart, total, listText };
+  const api = { STORAGE_KEY, MAX_QTY, groupIndian, formatPrice, productPrice, cleanItems, createCart, total, formatTotal, listText };
   if (typeof module !== "undefined" && module.exports) { module.exports = api; return; }   // Node tests
 
   // ---------------------------------------------------------------- page
@@ -181,7 +198,7 @@
       const title = make("h2", "shop-name", p.name[lang]);
       title.id = `shop-name-${p.id}`;
       head.append(icon(p.icon), title);
-      const price = make("p", "shop-price", formatPrice(p.price, words.estWord));
+      const price = make("p", "shop-price", productPrice(p, 1, lang, words.estWord));
       const facts = make("dl", "shop-facts");
       facts.append(make("dt", "", words.shopMeasures), make("dd", "", p.measures[lang]),
         make("dt", "", words.shopWhy), make("dd", "", p.why[lang]));
@@ -251,12 +268,12 @@
       remove.dataset.act = "remove"; remove.dataset.id = i.id;
       remove.setAttribute("aria-label", `${words.cartRemove}: ${p.name[lang]}`);
       controls.append(less, qty, more, remove);
-      row.append(controls, make("p", "cart-item-price", formatPrice(p.price * i.qty, words.estWord)));
+      row.append(controls, make("p", "cart-item-price", productPrice(p, i.qty, lang, words.estWord)));
       return row;
     }));
     $("cart-empty").hidden = items.length > 0;
     $("cart-foot").hidden = items.length === 0;
-    $("cart-total").textContent = formatPrice(total(items, PRODUCTS), words.estWord);
+    $("cart-total").textContent = formatTotal(items, PRODUCTS, words.estWord);
     $("cart-memory").hidden = !cart.isMemoryOnly();
     renderBadge();
     if (focusKey) {

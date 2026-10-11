@@ -328,7 +328,7 @@ AI is always shown as plain text, so it can't run as code. Keys come only from e
 18. **What does it cost to run?**
     It runs on Render's free plan with the free Open-Meteo forecast. The AI uses a provider's free tier, with limits
     so the quota isn't used up. Note: the free plan sleeps after 15 minutes with no visitors (about 1 minute to wake
-    up), and live readings are kept in memory only. Sensor kits have estimated component costs on the Shop page (from est. ₹1,200 for a test kit to est. ₹35,000 for the Full Pond kit); nothing is for sale yet.
+    up), and live readings are kept in memory only. Sensor kits have estimated component costs on the Shop page (from est. ₹1,200 for a test kit to est. ₹23,000–71,000 for the Full Pond kit, depending on probes); nothing is for sale yet.
 
 19. **Is the Kannada correct?**
     All fixed Kannada text is collected in `docs/kannada-review.md` for a native-speaker review before release. AI

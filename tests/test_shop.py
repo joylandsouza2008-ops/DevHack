@@ -123,7 +123,7 @@ def test_honesty_notes_are_on_the_page():
     page = shop_page()
     for key in ("shopNotForSale", "shopOnePond", "shopPriceNote"):
         assert f'data-i18n="{key}"' in page, key
-    assert "A sensor watches one pond. For several ponds, each needs its own sensor. " \
+    assert "One sensor watches one pond. For several ponds, each needs its own sensor. " \
            "Start with the free app and the test kit." in APP
     assert "Estimated component cost. Prices may change." in APP
 
