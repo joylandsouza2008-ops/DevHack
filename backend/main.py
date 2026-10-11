@@ -35,7 +35,7 @@ import logging
 import time
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Literal
+from typing import Annotated, Literal
 
 import pandas as pd
 from fastapi import FastAPI, Header, HTTPException, Query, Request
@@ -111,12 +111,22 @@ class SignsSeen(BaseModel):
     signs: list[str] = Field(..., max_length=50, examples=[["white_spots", "rubbing"]])
 
 
+class RecentAlert(BaseModel):
+    """One past Warning / Danger alert from the page's alert history (kept in the browser).
+    Only its source, level, causes and time: used for Shop advice ("night oxygen problems")."""
+    source: Literal["simulated", "manual", "live_sensor"]
+    level: Literal["warning", "danger"]
+    causes: list[Annotated[str, Field(max_length=30)]] = Field(default_factory=list, max_length=6)
+    time: str | None = Field(None, max_length=40, examples=["2026-10-10T03:30:00+05:30"])
+
+
 class PageReadings(BaseModel):
     """The readings the page is showing right now (the server grades them again itself)."""
     station: Literal["station1", "station2", "station3"] = "station1"
     simulated: Readings | None = None
     manual: Readings | None = None
     live_sensor: Readings | None = None
+    recent_alerts: list[RecentAlert] = Field(default_factory=list, max_length=20)
 
 
 class ChatMessage(BaseModel):
@@ -216,13 +226,18 @@ def _evaluate(page: PageReadings) -> list[dict]:
     return assistant.evaluate(readings, page.station, assess)
 
 
+def _alerts(page: PageReadings) -> list[dict]:
+    """The page's recent alerts, as plain dicts for backend/shop.py."""
+    return [a.model_dump() for a in page.recent_alerts]
+
+
 @app.post("/api/assistant/suggestions")
 def assistant_suggestions(page: PageReadings) -> dict:
     """Suggested questions with ready answers built from the app's content. Never calls the AI."""
     evals = _evaluate(page)
     return {"label": assistant.LABEL, "ai_available": provider_from_env() is not None,
             "used": [e["source"] for e in evals],
-            "suggestions": assistant.suggestions(evals, tonight_crash_risk())}
+            "suggestions": assistant.suggestions(evals, tonight_crash_risk(), _alerts(page))}
 
 
 @app.post("/api/assistant/ask")
@@ -234,11 +249,12 @@ def assistant_ask(question: Question, request: Request) -> dict:
     """
     evals = _evaluate(question)
     weather = tonight_crash_risk()
+    alerts = _alerts(question)
     result = assistant.ask(question.question, question.lang, evals, weather, provider_from_env(),
-                           assistant_limiter, _visitor(request), [m.model_dump() for m in question.history])
+                           assistant_limiter, _visitor(request), [m.model_dump() for m in question.history], alerts)
     result.update(label=assistant.LABEL, used=[e["source"] for e in evals])
     if result["text"] is None:
-        result["suggestions"] = assistant.suggestions(evals, weather)
+        result["suggestions"] = assistant.suggestions(evals, weather, alerts)
     return result
 
 

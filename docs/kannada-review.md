@@ -8,7 +8,7 @@ coastal Karnataka to understand. Write any fix in the last column.
 - `A  /  B` means the app shows one of two versions, depending on the situation.
 - Unit symbols (mg/L, °C, km/h, pH) and the names SMS, WhatsApp, FAO, TNAU, Open-Meteo stay in English.
 
-450 strings. Generated from the code by `python tools/kannada_review.py`; re-run it after changing any text.
+535 strings. Generated from the code by `python tools/kannada_review.py`; re-run it after changing any text.
 
 ## 1. Language and theme switches
 
@@ -284,7 +284,7 @@ Shown over the day/night pond picture.
 | 11 | `app.js termsLocation` | The app does not ask for your location. Tonight's weather is always for Mangaluru. Your phone gets it straight from Open-Meteo, so Open-Meteo sees your internet address, as any website would. | ಆ್ಯಪ್ ನಿಮ್ಮ ಸ್ಥಳವನ್ನು ಕೇಳುವುದಿಲ್ಲ. ಇಂದು ರಾತ್ರಿಯ ಹವಾಮಾನ ಯಾವಾಗಲೂ ಮಂಗಳೂರಿನದು. ನಿಮ್ಮ ಫೋನ್ ಅದನ್ನು ನೇರವಾಗಿ Open-Meteo ಯಿಂದ ಪಡೆಯುತ್ತದೆ, ಆದ್ದರಿಂದ ಯಾವುದೇ ವೆಬ್‌ಸೈಟ್‌ನಂತೆ Open-Meteo ನಿಮ್ಮ ಇಂಟರ್ನೆಟ್ ವಿಳಾಸವನ್ನು ನೋಡುತ್ತದೆ. |  |
 | 12 | `app.js termsBrowser` | Your language, theme, ticked steps, alert history, the last weather forecast and your Shop cart are saved only in this browser. Clearing the browser's data removes them. | ನಿಮ್ಮ ಭಾಷೆ, ಥೀಮ್, ಗುರುತು ಹಾಕಿದ ಹಂತಗಳು, ಎಚ್ಚರಿಕೆಗಳ ಇತಿಹಾಸ, ಕೊನೆಯ ಹವಾಮಾನ ಮುನ್ಸೂಚನೆ ಮತ್ತು ಅಂಗಡಿಯ ಕಾರ್ಟ್ ಈ ಬ್ರೌಸರ್‌ನಲ್ಲಿ ಮಾತ್ರ ಉಳಿಯುತ್ತವೆ. ಬ್ರೌಸರ್‌ನ ಡೇಟಾ ಅಳಿಸಿದರೆ ಅವು ಹೋಗುತ್ತವೆ. |  |
 | 13 | `app.js termsServer` | Test-kit numbers and the readings on screen go to our server to be checked, and are not saved there. Readings from a pond sensor stay in the server's memory only until it restarts. | ಟೆಸ್ಟ್-ಕಿಟ್ ಅಳತೆಗಳು ಮತ್ತು ಪರದೆಯ ಮೇಲಿನ ಅಳತೆಗಳು ಪರಿಶೀಲನೆಗಾಗಿ ನಮ್ಮ ಸರ್ವರ್‌ಗೆ ಹೋಗುತ್ತವೆ, ಅಲ್ಲಿ ಉಳಿಸಲಾಗುವುದಿಲ್ಲ. ಕೊಳದ ಸೆನ್ಸರ್ ಕಳುಹಿಸಿದ ಅಳತೆಗಳು ಸರ್ವರ್ ಮರುಪ್ರಾರಂಭವಾಗುವವರೆಗೆ ಮಾತ್ರ ಅದರ ಮೆಮೊರಿಯಲ್ಲಿ ಇರುತ್ತವೆ. |  |
-| 14 | `app.js termsAi` | Questions to the assistant are sent, with the readings on screen, to the AI service (now Google Gemini) to get an answer. Google's own terms apply to what it receives. Don't type your name, phone number or other personal details. | ಸಹಾಯಕನಿಗೆ ಕೇಳುವ ಪ್ರಶ್ನೆಗಳು, ಪರದೆಯ ಮೇಲಿನ ಅಳತೆಗಳ ಜೊತೆಗೆ, ಉತ್ತರ ಪಡೆಯಲು AI ಸೇವೆಗೆ (ಈಗ Google Gemini) ಹೋಗುತ್ತವೆ. ಅದು ಪಡೆಯುವುದಕ್ಕೆ Google ನ ಸ್ವಂತ ನಿಯಮಗಳು ಅನ್ವಯಿಸುತ್ತವೆ. ನಿಮ್ಮ ಹೆಸರು, ಫೋನ್ ಸಂಖ್ಯೆ ಅಥವಾ ಇತರ ವೈಯಕ್ತಿಕ ವಿವರಗಳನ್ನು ಟೈಪ್ ಮಾಡಬೇಡಿ. |  |
+| 14 | `app.js termsAi` | Questions to the assistant are sent, with the readings on screen and the level, cause and time of your recent alerts, to the AI service (now Google Gemini) to get an answer. Google's own terms apply to what it receives. Don't type your name, phone number or other personal details. | ಸಹಾಯಕನಿಗೆ ಕೇಳುವ ಪ್ರಶ್ನೆಗಳು, ಪರದೆಯ ಮೇಲಿನ ಅಳತೆಗಳು ಮತ್ತು ಇತ್ತೀಚಿನ ಎಚ್ಚರಿಕೆಗಳ ಮಟ್ಟ, ಕಾರಣ ಹಾಗೂ ಸಮಯದ ಜೊತೆಗೆ, ಉತ್ತರ ಪಡೆಯಲು AI ಸೇವೆಗೆ (ಈಗ Google Gemini) ಹೋಗುತ್ತವೆ. ಅದು ಪಡೆಯುವುದಕ್ಕೆ Google ನ ಸ್ವಂತ ನಿಯಮಗಳು ಅನ್ವಯಿಸುತ್ತವೆ. ನಿಮ್ಮ ಹೆಸರು, ಫೋನ್ ಸಂಖ್ಯೆ ಅಥವಾ ಇತರ ವೈಯಕ್ತಿಕ ವಿವರಗಳನ್ನು ಟೈಪ್ ಮಾಡಬೇಡಿ. |  |
 | 15 | `app.js termsLogs` | To keep the site working and stop misuse, our server and our host (Render) keep short technical records, such as which page was asked for and the internet address it came from. | ಸೈಟ್ ಸರಿಯಾಗಿ ನಡೆಯಲು ಮತ್ತು ದುರುಪಯೋಗ ತಡೆಯಲು, ನಮ್ಮ ಸರ್ವರ್ ಮತ್ತು ನಮ್ಮ ಹೋಸ್ಟ್ (Render) ಸಣ್ಣ ತಾಂತ್ರಿಕ ದಾಖಲೆಗಳನ್ನು ಇಡುತ್ತವೆ, ಉದಾಹರಣೆಗೆ ಯಾವ ಪುಟ ಕೇಳಲಾಯಿತು ಮತ್ತು ಅದು ಬಂದ ಇಂಟರ್ನೆಟ್ ವಿಳಾಸ. |  |
 | 16 | `app.js termsNoAds` | No ads, no tracking, and nothing about you is sold. | ಜಾಹೀರಾತುಗಳಿಲ್ಲ, ಟ್ರ್ಯಾಕಿಂಗ್ ಇಲ್ಲ, ಮತ್ತು ನಿಮ್ಮ ಬಗ್ಗೆ ಏನನ್ನೂ ಮಾರಾಟ ಮಾಡುವುದಿಲ್ಲ. |  |
 | 17 | `app.js termsDataTitle` | Open data and licences | ಮುಕ್ತ ಡೇಟಾ ಮತ್ತು ಪರವಾನಗಿಗಳು |  |
@@ -299,7 +299,7 @@ Shown over the day/night pond picture.
 | # | Where in the code | English | Kannada | Correct? / suggestion |
 |---|---|---|---|---|
 | 1 | `app.js footerCode` | Source code on GitHub | GitHub ನಲ್ಲಿ ಸೋರ್ಸ್ ಕೋಡ್ |  |
-| 2 | `app.js footerPrivacy` | Privacy: no account needed. The app never uses your camera, photos or location. Alert history stays on this phone. Test-kit numbers go to our server only to check them. Assistant questions may also go to an AI service. | ಗೌಪ್ಯತೆ: ಖಾತೆ ಬೇಕಾಗಿಲ್ಲ. ಆ್ಯಪ್ ನಿಮ್ಮ ಕ್ಯಾಮೆರಾ, ಫೋಟೋ ಅಥವಾ ಸ್ಥಳವನ್ನು ಬಳಸುವುದಿಲ್ಲ. ಎಚ್ಚರಿಕೆಗಳ ಇತಿಹಾಸ ಈ ಫೋನ್‌ನಲ್ಲೇ ಇರುತ್ತದೆ. ಟೆಸ್ಟ್-ಕಿಟ್ ಅಳತೆಗಳು ಪರಿಶೀಲನೆಗಾಗಿ ಮಾತ್ರ ನಮ್ಮ ಸರ್ವರ್‌ಗೆ ಹೋಗುತ್ತವೆ. ಸಹಾಯಕನಿಗೆ ಕೇಳುವ ಪ್ರಶ್ನೆಗಳು AI ಸೇವೆಗೂ ಹೋಗಬಹುದು. |  |
+| 2 | `app.js footerPrivacy` | Privacy: no account needed. The app never uses your camera, photos or location. Alert history is saved on this phone. Test-kit numbers go to our server only to check them. Assistant questions, with the readings and recent alert levels, may also go to an AI service. | ಗೌಪ್ಯತೆ: ಖಾತೆ ಬೇಕಾಗಿಲ್ಲ. ಆ್ಯಪ್ ನಿಮ್ಮ ಕ್ಯಾಮೆರಾ, ಫೋಟೋ ಅಥವಾ ಸ್ಥಳವನ್ನು ಬಳಸುವುದಿಲ್ಲ. ಎಚ್ಚರಿಕೆಗಳ ಇತಿಹಾಸ ಈ ಫೋನ್‌ನಲ್ಲೇ ಉಳಿಯುತ್ತದೆ. ಟೆಸ್ಟ್-ಕಿಟ್ ಅಳತೆಗಳು ಪರಿಶೀಲನೆಗಾಗಿ ಮಾತ್ರ ನಮ್ಮ ಸರ್ವರ್‌ಗೆ ಹೋಗುತ್ತವೆ. ಸಹಾಯಕನಿಗೆ ಕೇಳುವ ಪ್ರಶ್ನೆಗಳು, ಅಳತೆಗಳು ಮತ್ತು ಇತ್ತೀಚಿನ ಎಚ್ಚರಿಕೆಗಳ ಮಟ್ಟದ ಜೊತೆಗೆ, AI ಸೇವೆಗೂ ಹೋಗಬಹುದು. |  |
 | 3 | `app.js footerCredit` | AquaNexus by Team Orbit (Nexus Orbit) | AquaNexus · ನಿರ್ಮಾಣ: ಟೀಮ್ ಆರ್ಬಿಟ್ (Nexus Orbit) |  |
 
 ## 20. Other page labels
@@ -324,39 +324,40 @@ Shown over the day/night pond picture.
 | 16 | `app.js shopOnePondTitle` | Before you buy | ಖರೀದಿಸುವ ಮೊದಲು |  |
 | 17 | `app.js shopOnePond` | A sensor watches one pond. For several ponds, each needs its own sensor. Start with the free app and the test kit. | ಒಂದು ಸೆನ್ಸರ್ ಒಂದೇ ಕೊಳವನ್ನು ಗಮನಿಸುತ್ತದೆ. ಹಲವು ಕೊಳಗಳಿದ್ದರೆ, ಪ್ರತಿಯೊಂದಕ್ಕೂ ಬೇರೆ ಸೆನ್ಸರ್ ಬೇಕು. ಉಚಿತ ಆ್ಯಪ್ ಮತ್ತು ಟೆಸ್ಟ್ ಕಿಟ್‌ನಿಂದ ಪ್ರಾರಂಭಿಸಿ. |  |
 | 18 | `app.js shopPriceNote` | Estimated component cost. Prices may change. | ಅಂದಾಜು ಬಿಡಿಭಾಗಗಳ ವೆಚ್ಚ. ಬೆಲೆಗಳು ಬದಲಾಗಬಹುದು. |  |
-| 19 | `app.js shopMeasures` | What it measures | ಏನನ್ನು ಅಳೆಯುತ್ತದೆ |  |
-| 20 | `app.js shopWhy` | Why you need it | ಇದು ಏಕೆ ಬೇಕು |  |
-| 21 | `app.js shopAdd` | Add to cart | ಕಾರ್ಟ್‌ಗೆ ಸೇರಿಸಿ |  |
-| 22 | `app.js shopAdded` | Added to cart: | ಕಾರ್ಟ್‌ಗೆ ಸೇರಿಸಲಾಗಿದೆ: |  |
-| 23 | `app.js estWord` | est. | ಅಂದಾಜು |  |
-| 24 | `app.js cartTitle` | Cart | ಕಾರ್ಟ್ |  |
-| 25 | `app.js cartAria` | Cart: {n} items | ಕಾರ್ಟ್: {n} ವಸ್ತುಗಳು |  |
-| 26 | `app.js cartEmpty` | Your cart is empty. Add items from the Shop. | ನಿಮ್ಮ ಕಾರ್ಟ್ ಖಾಲಿಯಾಗಿದೆ. ಅಂಗಡಿಯಿಂದ ವಸ್ತುಗಳನ್ನು ಸೇರಿಸಿ. |  |
-| 27 | `app.js cartTotal` | Estimated total | ಅಂದಾಜು ಒಟ್ಟು |  |
-| 28 | `app.js cartRemove` | Remove | ತೆಗೆಯಿರಿ |  |
-| 29 | `app.js cartLess` | One less | ಒಂದು ಕಡಿಮೆ |  |
-| 30 | `app.js cartMore` | One more | ಒಂದು ಹೆಚ್ಚು |  |
-| 31 | `app.js cartQty` | Quantity | ಪ್ರಮಾಣ |  |
-| 32 | `app.js cartCheckout` | Checkout | ಚೆಕ್‌ಔಟ್ |  |
-| 33 | `app.js cartClear` | Clear cart | ಕಾರ್ಟ್ ಖಾಲಿ ಮಾಡಿ |  |
-| 34 | `app.js cartCleared` | Cart cleared. | ಕಾರ್ಟ್ ಖಾಲಿ ಮಾಡಲಾಗಿದೆ. |  |
-| 35 | `app.js cartMemory` | This browser is not saving the cart. It is kept only until you close the page. | ಈ ಬ್ರೌಸರ್ ಕಾರ್ಟ್ ಅನ್ನು ಉಳಿಸುತ್ತಿಲ್ಲ. ಪುಟ ಮುಚ್ಚುವವರೆಗೆ ಮಾತ್ರ ಇರುತ್ತದೆ. |  |
-| 36 | `app.js checkoutTitle` | Checkout | ಚೆಕ್‌ಔಟ್ |  |
-| 37 | `app.js checkoutSoon` | Coming soon. Orders open after our pilot with farmers. No payment is taken and no details are collected. | ಶೀಘ್ರದಲ್ಲೇ ಬರಲಿದೆ. ರೈತರೊಂದಿಗಿನ ನಮ್ಮ ಪ್ರಾಯೋಗಿಕ ಯೋಜನೆಯ ನಂತರ ಆರ್ಡರ್‌ಗಳು ಆರಂಭವಾಗುತ್ತವೆ. ಯಾವುದೇ ಹಣ ಪಡೆಯುವುದಿಲ್ಲ ಮತ್ತು ಯಾವುದೇ ವಿವರಗಳನ್ನು ಸಂಗ್ರಹಿಸುವುದಿಲ್ಲ. |  |
-| 38 | `app.js checkoutShare` | Copy your list to share it with your cooperative. | ನಿಮ್ಮ ಸಹಕಾರ ಸಂಘದೊಂದಿಗೆ ಹಂಚಿಕೊಳ್ಳಲು ಪಟ್ಟಿಯನ್ನು ನಕಲಿಸಿ. |  |
-| 39 | `app.js copyList` | Copy my list | ನನ್ನ ಪಟ್ಟಿ ನಕಲಿಸಿ |  |
-| 40 | `app.js checkoutBack` | Back to cart | ಕಾರ್ಟ್‌ಗೆ ಹಿಂತಿರುಗಿ |  |
-| 41 | `app.js copyDone` | List copied. You can paste it into WhatsApp or SMS. | ಪಟ್ಟಿ ನಕಲಾಗಿದೆ. WhatsApp ಅಥವಾ SMS ನಲ್ಲಿ ಅಂಟಿಸಬಹುದು. |  |
-| 42 | `app.js copyFailed` | Could not copy. Select the list above and copy it by hand. | ನಕಲಿಸಲು ಆಗಲಿಲ್ಲ. ಮೇಲಿನ ಪಟ್ಟಿಯನ್ನು ಆಯ್ಕೆಮಾಡಿ ಕೈಯಾರೆ ನಕಲಿಸಿ. |  |
-| 43 | `app.js copyHeading` | AquaNexus: my list (estimated prices, not an order) | AquaNexus: ನನ್ನ ಪಟ್ಟಿ (ಅಂದಾಜು ಬೆಲೆಗಳು, ಆರ್ಡರ್ ಅಲ್ಲ) |  |
-| 44 | `app.js stripDangerIn` | Danger in {d} | ಅಪಾಯಕ್ಕೆ ಉಳಿದ ಸಮಯ: {d} |  |
-| 45 | `app.js stripNoDanger` | No danger expected | ಅಪಾಯದ ನಿರೀಕ್ಷೆ ಇಲ್ಲ |  |
-| 46 | `app.js stripActNow` | Act now: tap to see | ಈಗಲೇ ಕ್ರಮ ಕೈಗೊಳ್ಳಿ: ನೋಡಲು ಒತ್ತಿ |  |
-| 47 | `app.js stripAttention` | Needs attention: tap to see | ಗಮನ ಕೊಡಿ: ನೋಡಲು ಒತ್ತಿ |  |
-| 48 | `app.js settingsTitle` | Settings | ಸೆಟ್ಟಿಂಗ್‌ಗಳು |  |
-| 49 | `app.js settingsLanguage` | Language | ಭಾಷೆ |  |
-| 50 | `app.js settingsTheme` | Colours | ಬಣ್ಣಗಳು |  |
-| 51 | `app.js aboutTitle` | About this app | ಈ ಆ್ಯಪ್ ಬಗ್ಗೆ |  |
+| 19 | `app.js shopLoadFailed` | Could not load the products. Check your internet and reload the page. | ವಸ್ತುಗಳ ಪಟ್ಟಿ ತೆರೆಯಲು ಆಗಲಿಲ್ಲ. ಇಂಟರ್ನೆಟ್ ಪರಿಶೀಲಿಸಿ, ಪುಟವನ್ನು ಮತ್ತೆ ತೆರೆಯಿರಿ. |  |
+| 20 | `app.js shopMeasures` | What it measures | ಏನನ್ನು ಅಳೆಯುತ್ತದೆ |  |
+| 21 | `app.js shopWhy` | Why you need it | ಇದು ಏಕೆ ಬೇಕು |  |
+| 22 | `app.js shopAdd` | Add to cart | ಕಾರ್ಟ್‌ಗೆ ಸೇರಿಸಿ |  |
+| 23 | `app.js shopAdded` | Added to cart: | ಕಾರ್ಟ್‌ಗೆ ಸೇರಿಸಲಾಗಿದೆ: |  |
+| 24 | `app.js estWord` | est. | ಅಂದಾಜು |  |
+| 25 | `app.js cartTitle` | Cart | ಕಾರ್ಟ್ |  |
+| 26 | `app.js cartAria` | Cart: {n} items | ಕಾರ್ಟ್: {n} ವಸ್ತುಗಳು |  |
+| 27 | `app.js cartEmpty` | Your cart is empty. Add items from the Shop. | ನಿಮ್ಮ ಕಾರ್ಟ್ ಖಾಲಿಯಾಗಿದೆ. ಅಂಗಡಿಯಿಂದ ವಸ್ತುಗಳನ್ನು ಸೇರಿಸಿ. |  |
+| 28 | `app.js cartTotal` | Estimated total | ಅಂದಾಜು ಒಟ್ಟು |  |
+| 29 | `app.js cartRemove` | Remove | ತೆಗೆಯಿರಿ |  |
+| 30 | `app.js cartLess` | One less | ಒಂದು ಕಡಿಮೆ |  |
+| 31 | `app.js cartMore` | One more | ಒಂದು ಹೆಚ್ಚು |  |
+| 32 | `app.js cartQty` | Quantity | ಪ್ರಮಾಣ |  |
+| 33 | `app.js cartCheckout` | Checkout | ಚೆಕ್‌ಔಟ್ |  |
+| 34 | `app.js cartClear` | Clear cart | ಕಾರ್ಟ್ ಖಾಲಿ ಮಾಡಿ |  |
+| 35 | `app.js cartCleared` | Cart cleared. | ಕಾರ್ಟ್ ಖಾಲಿ ಮಾಡಲಾಗಿದೆ. |  |
+| 36 | `app.js cartMemory` | This browser is not saving the cart. It is kept only until you close the page. | ಈ ಬ್ರೌಸರ್ ಕಾರ್ಟ್ ಅನ್ನು ಉಳಿಸುತ್ತಿಲ್ಲ. ಪುಟ ಮುಚ್ಚುವವರೆಗೆ ಮಾತ್ರ ಇರುತ್ತದೆ. |  |
+| 37 | `app.js checkoutTitle` | Checkout | ಚೆಕ್‌ಔಟ್ |  |
+| 38 | `app.js checkoutSoon` | Coming soon. Orders open after our pilot with farmers. No payment is taken and no details are collected. | ಶೀಘ್ರದಲ್ಲೇ ಬರಲಿದೆ. ರೈತರೊಂದಿಗಿನ ನಮ್ಮ ಪ್ರಾಯೋಗಿಕ ಯೋಜನೆಯ ನಂತರ ಆರ್ಡರ್‌ಗಳು ಆರಂಭವಾಗುತ್ತವೆ. ಯಾವುದೇ ಹಣ ಪಡೆಯುವುದಿಲ್ಲ ಮತ್ತು ಯಾವುದೇ ವಿವರಗಳನ್ನು ಸಂಗ್ರಹಿಸುವುದಿಲ್ಲ. |  |
+| 39 | `app.js checkoutShare` | Copy your list to share it with your cooperative. | ನಿಮ್ಮ ಸಹಕಾರ ಸಂಘದೊಂದಿಗೆ ಹಂಚಿಕೊಳ್ಳಲು ಪಟ್ಟಿಯನ್ನು ನಕಲಿಸಿ. |  |
+| 40 | `app.js copyList` | Copy my list | ನನ್ನ ಪಟ್ಟಿ ನಕಲಿಸಿ |  |
+| 41 | `app.js checkoutBack` | Back to cart | ಕಾರ್ಟ್‌ಗೆ ಹಿಂತಿರುಗಿ |  |
+| 42 | `app.js copyDone` | List copied. You can paste it into WhatsApp or SMS. | ಪಟ್ಟಿ ನಕಲಾಗಿದೆ. WhatsApp ಅಥವಾ SMS ನಲ್ಲಿ ಅಂಟಿಸಬಹುದು. |  |
+| 43 | `app.js copyFailed` | Could not copy. Select the list above and copy it by hand. | ನಕಲಿಸಲು ಆಗಲಿಲ್ಲ. ಮೇಲಿನ ಪಟ್ಟಿಯನ್ನು ಆಯ್ಕೆಮಾಡಿ ಕೈಯಾರೆ ನಕಲಿಸಿ. |  |
+| 44 | `app.js copyHeading` | AquaNexus: my list (estimated prices, not an order) | AquaNexus: ನನ್ನ ಪಟ್ಟಿ (ಅಂದಾಜು ಬೆಲೆಗಳು, ಆರ್ಡರ್ ಅಲ್ಲ) |  |
+| 45 | `app.js stripDangerIn` | Danger in {d} | ಅಪಾಯಕ್ಕೆ ಉಳಿದ ಸಮಯ: {d} |  |
+| 46 | `app.js stripNoDanger` | No danger expected | ಅಪಾಯದ ನಿರೀಕ್ಷೆ ಇಲ್ಲ |  |
+| 47 | `app.js stripActNow` | Act now: tap to see | ಈಗಲೇ ಕ್ರಮ ಕೈಗೊಳ್ಳಿ: ನೋಡಲು ಒತ್ತಿ |  |
+| 48 | `app.js stripAttention` | Needs attention: tap to see | ಗಮನ ಕೊಡಿ: ನೋಡಲು ಒತ್ತಿ |  |
+| 49 | `app.js settingsTitle` | Settings | ಸೆಟ್ಟಿಂಗ್‌ಗಳು |  |
+| 50 | `app.js settingsLanguage` | Language | ಭಾಷೆ |  |
+| 51 | `app.js settingsTheme` | Colours | ಬಣ್ಣಗಳು |  |
+| 52 | `app.js aboutTitle` | About this app | ಈ ಆ್ಯಪ್ ಬಗ್ಗೆ |  |
 
 ## 21. Messages from the server: Data labels
 
@@ -610,24 +611,122 @@ Labels, safety replies and the suggested questions. Ready answers are built from
 | 12 | `assistant.QUESTIONS.likely_now` | Which diseases are more likely with my readings? | ನನ್ನ ಅಳತೆಗಳಿಂದ ಯಾವ ರೋಗಗಳ ಸಾಧ್ಯತೆ ಹೆಚ್ಚು? |  |
 | 13 | `assistant.QUESTIONS.sick_fish` | My fish look sick. What should I do? | ನನ್ನ ಮೀನುಗಳು ರೋಗಪೀಡಿತವಾಗಿ ಕಾಣುತ್ತಿವೆ. ನಾನು ಏನು ಮಾಡಬೇಕು? |  |
 | 14 | `assistant.QUESTIONS.prevent` | How can I prevent fish diseases? | ಮೀನು ರೋಗಗಳನ್ನು ಹೇಗೆ ತಡೆಯಬಹುದು? |  |
-| 15 | `assistant.NO_READINGS` | There are no readings yet. Press Start, enter test-kit readings, or connect a sensor. | ಇನ್ನೂ ಯಾವುದೇ ಅಳತೆಗಳಿಲ್ಲ. ಪ್ರಾರಂಭಿಸಿ ಒತ್ತಿ, ಟೆಸ್ಟ್ ಕಿಟ್ ಅಳತೆಗಳನ್ನು ನಮೂದಿಸಿ, ಅಥವಾ ಸೆನ್ಸರ್ ಸಂಪರ್ಕಿಸಿ. |  |
-| 16 | `assistant.ALL_SAFE_ACTION` | All readings are in the safe range. No action is needed now. | ಎಲ್ಲಾ ಅಳತೆಗಳು ಸುರಕ್ಷಿತ ಮಟ್ಟದಲ್ಲಿವೆ. ಈಗ ಯಾವುದೇ ಕ್ರಮದ ಅಗತ್ಯವಿಲ್ಲ. |  |
-| 17 | `assistant.NO_LIKELY` | None of your readings makes a disease in the guide more likely right now. | ನಿಮ್ಮ ಯಾವುದೇ ಅಳತೆ ಈಗ ಮಾರ್ಗದರ್ಶಿಯ ಯಾವುದೇ ರೋಗದ ಸಾಧ್ಯತೆಯನ್ನು ಹೆಚ್ಚಿಸುವುದಿಲ್ಲ. |  |
-| 18 | `assistant.USE_CHECKER` | Use the symptom checker in the Fish disease guide to see possible matches. | ಸಾಧ್ಯವಿರುವ ಹೊಂದಾಣಿಕೆಗಳನ್ನು ನೋಡಲು ಮೀನು ರೋಗ ಮಾರ್ಗದರ್ಶಿಯ ಲಕ್ಷಣ ಪರಿಶೀಲಕ ಬಳಸಿ. |  |
-| 19 | `assistant.LEVELS_INTRO` | Safe, Warning and Danger levels used by the app: | ಆ್ಯಪ್ ಬಳಸುವ ಸುರಕ್ಷಿತ, ಎಚ್ಚರಿಕೆ ಮತ್ತು ಅಪಾಯ ಮಟ್ಟಗಳು: |  |
-| 20 | `assistant.AMMONIA_NOTE` | (the toxic part, NH3, worked out from total ammonia, pH and temperature) | (ವಿಷಕಾರಿ ಭಾಗ NH3, ಒಟ್ಟು ಅಮೋನಿಯಾ, pH ಮತ್ತು ತಾಪಮಾನದಿಂದ ಲೆಕ್ಕ ಹಾಕಲಾಗುತ್ತದೆ) |  |
-| 21 | `assistant.BAND.from_to_below` | {a} to below {b} | {a} ರಿಂದ {b} ಕ್ಕಿಂತ ಕಡಿಮೆ |  |
-| 22 | `assistant.BAND.below` | below {a} | {a} ಕ್ಕಿಂತ ಕಡಿಮೆ |  |
-| 23 | `assistant.BAND.above` | above {a} | {a} ಕ್ಕಿಂತ ಹೆಚ್ಚು |  |
-| 24 | `assistant.BAND.or_more` | {a} or more | {a} ಅಥವಾ ಹೆಚ್ಚು |  |
-| 25 | `assistant.BAND.up_to` | up to {b} | {b} ವರೆಗೆ |  |
-| 26 | `assistant.BAND.to_below` | to below {b} | ರಿಂದ {b} ಕ್ಕಿಂತ ಕಡಿಮೆ |  |
-| 27 | `assistant.BAND.or` | or | ಅಥವಾ |  |
-| 28 | `assistant.BAND.line` | {name}: Safe {safe}. Warning {warning}. Danger {danger}. | {name}: ಸುರಕ್ಷಿತ {safe}. ಎಚ್ಚರಿಕೆ {warning}. ಅಪಾಯ {danger}. |  |
-| 29 | `assistant.BAND.no_danger` | {name}: Safe {safe}. Otherwise Warning (no Danger level). | {name}: ಸುರಕ್ಷಿತ {safe}. ಇಲ್ಲದಿದ್ದರೆ ಎಚ್ಚರಿಕೆ (ಅಪಾಯ ಮಟ್ಟ ಇಲ್ಲ). |  |
-| 30 | `assistant._answer (tonight)` | Oxygen crash risk tonight: {level}. | ಇಂದು ರಾತ್ರಿ ಆಮ್ಲಜನಕ ಕುಸಿತದ ಅಪಾಯ: {level}. |  |
+| 15 | `assistant.QUESTIONS.shop_which` | Which sensor or kit should I buy? | ನಾನು ಯಾವ ಸೆನ್ಸರ್ ಅಥವಾ ಕಿಟ್ ಖರೀದಿಸಬೇಕು? |  |
+| 16 | `assistant.QUESTIONS.shop_test_kit` | How do I use the test kit? | ಟೆಸ್ಟ್ ಕಿಟ್ ಅನ್ನು ಹೇಗೆ ಬಳಸುವುದು? |  |
+| 17 | `assistant.NO_READINGS` | There are no readings yet. Press Start, enter test-kit readings, or connect a sensor. | ಇನ್ನೂ ಯಾವುದೇ ಅಳತೆಗಳಿಲ್ಲ. ಪ್ರಾರಂಭಿಸಿ ಒತ್ತಿ, ಟೆಸ್ಟ್ ಕಿಟ್ ಅಳತೆಗಳನ್ನು ನಮೂದಿಸಿ, ಅಥವಾ ಸೆನ್ಸರ್ ಸಂಪರ್ಕಿಸಿ. |  |
+| 18 | `assistant.ALL_SAFE_ACTION` | All readings are in the safe range. No action is needed now. | ಎಲ್ಲಾ ಅಳತೆಗಳು ಸುರಕ್ಷಿತ ಮಟ್ಟದಲ್ಲಿವೆ. ಈಗ ಯಾವುದೇ ಕ್ರಮದ ಅಗತ್ಯವಿಲ್ಲ. |  |
+| 19 | `assistant.NO_LIKELY` | None of your readings makes a disease in the guide more likely right now. | ನಿಮ್ಮ ಯಾವುದೇ ಅಳತೆ ಈಗ ಮಾರ್ಗದರ್ಶಿಯ ಯಾವುದೇ ರೋಗದ ಸಾಧ್ಯತೆಯನ್ನು ಹೆಚ್ಚಿಸುವುದಿಲ್ಲ. |  |
+| 20 | `assistant.USE_CHECKER` | Use the symptom checker in the Fish disease guide to see possible matches. | ಸಾಧ್ಯವಿರುವ ಹೊಂದಾಣಿಕೆಗಳನ್ನು ನೋಡಲು ಮೀನು ರೋಗ ಮಾರ್ಗದರ್ಶಿಯ ಲಕ್ಷಣ ಪರಿಶೀಲಕ ಬಳಸಿ. |  |
+| 21 | `assistant.LEVELS_INTRO` | Safe, Warning and Danger levels used by the app: | ಆ್ಯಪ್ ಬಳಸುವ ಸುರಕ್ಷಿತ, ಎಚ್ಚರಿಕೆ ಮತ್ತು ಅಪಾಯ ಮಟ್ಟಗಳು: |  |
+| 22 | `assistant.AMMONIA_NOTE` | (the toxic part, NH3, worked out from total ammonia, pH and temperature) | (ವಿಷಕಾರಿ ಭಾಗ NH3, ಒಟ್ಟು ಅಮೋನಿಯಾ, pH ಮತ್ತು ತಾಪಮಾನದಿಂದ ಲೆಕ್ಕ ಹಾಕಲಾಗುತ್ತದೆ) |  |
+| 23 | `assistant.BAND.from_to_below` | {a} to below {b} | {a} ರಿಂದ {b} ಕ್ಕಿಂತ ಕಡಿಮೆ |  |
+| 24 | `assistant.BAND.below` | below {a} | {a} ಕ್ಕಿಂತ ಕಡಿಮೆ |  |
+| 25 | `assistant.BAND.above` | above {a} | {a} ಕ್ಕಿಂತ ಹೆಚ್ಚು |  |
+| 26 | `assistant.BAND.or_more` | {a} or more | {a} ಅಥವಾ ಹೆಚ್ಚು |  |
+| 27 | `assistant.BAND.up_to` | up to {b} | {b} ವರೆಗೆ |  |
+| 28 | `assistant.BAND.to_below` | to below {b} | ರಿಂದ {b} ಕ್ಕಿಂತ ಕಡಿಮೆ |  |
+| 29 | `assistant.BAND.or` | or | ಅಥವಾ |  |
+| 30 | `assistant.BAND.line` | {name}: Safe {safe}. Warning {warning}. Danger {danger}. | {name}: ಸುರಕ್ಷಿತ {safe}. ಎಚ್ಚರಿಕೆ {warning}. ಅಪಾಯ {danger}. |  |
+| 31 | `assistant.BAND.no_danger` | {name}: Safe {safe}. Otherwise Warning (no Danger level). | {name}: ಸುರಕ್ಷಿತ {safe}. ಇಲ್ಲದಿದ್ದರೆ ಎಚ್ಚರಿಕೆ (ಅಪಾಯ ಮಟ್ಟ ಇಲ್ಲ). |  |
+| 32 | `assistant._answer (tonight)` | Oxygen crash risk tonight: {level}. | ಇಂದು ರಾತ್ರಿ ಆಮ್ಲಜನಕ ಕುಸಿತದ ಅಪಾಯ: {level}. |  |
 
-## 31. Messages from the server: Alert preview (SMS / WhatsApp)
+## 31. Messages from the server: Shop: assistant answers
+
+Ready answers to Shop questions (backend/shop.py). `{name}` is a product name, `{n}` a number of ponds or alerts, `{price}` e.g. ಅಂದಾಜು ₹23,000, `{budget}` e.g. 5,000.
+
+| # | Where in the code | English | Kannada | Correct? / suggestion |
+|---|---|---|---|---|
+| 1 | `shop.TEXT.not_for_sale` | Not for sale yet. No payment is taken. | ಇನ್ನೂ ಮಾರಾಟಕ್ಕಿಲ್ಲ. ಯಾವುದೇ ಹಣ ಪಡೆಯುವುದಿಲ್ಲ. |  |
+| 2 | `shop.TEXT.orders` | Orders open after our pilot with farmers. You can make a list in the Shop tab and copy it for your cooperative. | ರೈತರೊಂದಿಗಿನ ನಮ್ಮ ಪ್ರಾಯೋಗಿಕ ಯೋಜನೆಯ ನಂತರ ಆರ್ಡರ್‌ಗಳು ಆರಂಭವಾಗುತ್ತವೆ. ಅಂಗಡಿ ಟ್ಯಾಬ್‌ನಲ್ಲಿ ಪಟ್ಟಿ ಮಾಡಿ, ನಿಮ್ಮ ಸಹಕಾರ ಸಂಘಕ್ಕಾಗಿ ನಕಲಿಸಬಹುದು. |  |
+| 3 | `shop.TEXT.start` | Start with the free app and a test kit. | ಉಚಿತ ಆ್ಯಪ್ ಮತ್ತು ಟೆಸ್ಟ್ ಕಿಟ್‌ನಿಂದ ಪ್ರಾರಂಭಿಸಿ. |  |
+| 4 | `shop.TEXT.get` | Get the {name}, and keep using the free app and a test kit. | {name} ಪಡೆಯಿರಿ, ಜೊತೆಗೆ ಉಚಿತ ಆ್ಯಪ್ ಮತ್ತು ಟೆಸ್ಟ್ ಕಿಟ್ ಬಳಸುತ್ತಿರಿ. |  |
+| 5 | `shop.TEXT.for` | What it is for: | ಇದು ಯಾವುದಕ್ಕೆ: |  |
+| 6 | `shop.TEXT.where` | Where: | ಎಲ್ಲಿ: |  |
+| 7 | `shop.TEXT.how` | How: | ಹೇಗೆ: |  |
+| 8 | `shop.TEXT.why` | Why: | ಏಕೆ: |  |
+| 9 | `shop.TEXT.care` | Care: | ಆರೈಕೆ: |  |
+| 10 | `shop.TEXT.why_need` | Why you need it: | ಇದು ಏಕೆ ಬೇಕು: |  |
+| 11 | `shop.TEXT.see_shop` | See the Shop tab: {prices}. | ಅಂಗಡಿ ಟ್ಯಾಬ್ ನೋಡಿ: {prices}. |  |
+| 12 | `shop.TEXT.one_pond` | One sensor watches one pond. | ಒಂದು ಸೆನ್ಸರ್ ಒಂದೇ ಕೊಳವನ್ನು ಗಮನಿಸುತ್ತದೆ. |  |
+| 13 | `shop.TEXT.n_ponds` | For {n} ponds you need {n} sensors, one in each pond. | {n} ಕೊಳಗಳಿಗೆ {n} ಸೆನ್ಸರ್‌ಗಳು ಬೇಕು, ಪ್ರತಿ ಕೊಳಕ್ಕೆ ಒಂದು. |  |
+| 14 | `shop.TEXT.several` | Each pond needs its own sensor. | ಪ್ರತಿ ಕೊಳಕ್ಕೂ ಅದರದೇ ಸೆನ್ಸರ್ ಬೇಕು. |  |
+| 15 | `shop.TEXT.kit_all_ponds` | One test kit can check all your ponds, one sample at a time. | ಒಂದೇ ಟೆಸ್ಟ್ ಕಿಟ್‌ನಿಂದ ಎಲ್ಲಾ ಕೊಳಗಳನ್ನು, ಒಂದೊಂದಾಗಿ ಪರೀಕ್ಷಿಸಬಹುದು. |  |
+| 16 | `shop.TEXT.crash_high` | tonight's oxygen crash risk is High | ಇಂದು ರಾತ್ರಿ ಆಮ್ಲಜನಕ ಕುಸಿತದ ಅಪಾಯ ಹೆಚ್ಚು |  |
+| 17 | `shop.TEXT.night_low` | your pond had low oxygen at night {n} times recently | ಇತ್ತೀಚೆಗೆ ನಿಮ್ಮ ಕೊಳದಲ್ಲಿ ರಾತ್ರಿ {n} ಬಾರಿ ಆಮ್ಲಜನಕ ಕಡಿಮೆಯಾಗಿತ್ತು |  |
+| 18 | `shop.TEXT.night_low_1` | your pond had low oxygen at night recently | ಇತ್ತೀಚೆಗೆ ನಿಮ್ಮ ಕೊಳದಲ್ಲಿ ರಾತ್ರಿ ಆಮ್ಲಜನಕ ಕಡಿಮೆಯಾಗಿತ್ತು |  |
+| 19 | `shop.TEXT.ph_often` | pH went out of the safe range {n} times recently | ಇತ್ತೀಚೆಗೆ pH {n} ಬಾರಿ ಸುರಕ್ಷಿತ ಮಟ್ಟ ಮೀರಿತ್ತು |  |
+| 20 | `shop.TEXT.ph_tip` | Check pH every week with the test kit. The Full Pond kit also watches pH day and night. | ಪ್ರತಿ ವಾರ ಟೆಸ್ಟ್ ಕಿಟ್‌ನಿಂದ pH ಪರೀಕ್ಷಿಸಿ. ಫುಲ್ ಪಾಂಡ್ ಕಿಟ್ ಹಗಲು-ರಾತ್ರಿ pH ಅನ್ನೂ ಗಮನಿಸುತ್ತದೆ. |  |
+| 21 | `shop.TEXT.no_need` | there are no night oxygen problems and tonight's crash risk is not High, so a sensor is not needed yet | ರಾತ್ರಿಯ ಆಮ್ಲಜನಕ ಸಮಸ್ಯೆ ಇಲ್ಲ ಮತ್ತು ಇಂದು ರಾತ್ರಿ ಕುಸಿತದ ಅಪಾಯ ಹೆಚ್ಚಿಲ್ಲ, ಆದ್ದರಿಂದ ಈಗ ಸೆನ್ಸರ್ ಬೇಕಿಲ್ಲ |  |
+| 22 | `shop.TEXT.budget` | The {name} is {price}, more than your budget of ₹{budget}. Start with the test kit and the free app. | {name} ಬೆಲೆ {price}, ಇದು ನಿಮ್ಮ ₹{budget} ಬಜೆಟ್‌ಗಿಂತ ಹೆಚ್ಚು. ಟೆಸ್ಟ್ ಕಿಟ್ ಮತ್ತು ಉಚಿತ ಆ್ಯಪ್‌ನಿಂದ ಪ್ರಾರಂಭಿಸಿ. |  |
+| 23 | `shop.TEXT.simulated` | (simulated data) | (ಅನುಕರಿಸಿದ ಡೇಟಾ) |  |
+
+## 32. Messages from the server: Shop: products
+
+frontend/shop-data.json: shown on the Shop page and used by the assistant.
+
+| # | Where in the code | English | Kannada | Correct? / suggestion |
+|---|---|---|---|---|
+| 1 | `shop-data.json test-kit.name` | Ammonia + pH test kit | ಅಮೋನಿಯಾ + pH ಟೆಸ್ಟ್ ಕಿಟ್ |  |
+| 2 | `shop-data.json test-kit.desc` | Drops and a colour chart for a weekly check by hand. | ವಾರಕ್ಕೊಮ್ಮೆ ಕೈಯಿಂದ ಪರೀಕ್ಷಿಸಲು ಹನಿಗಳು ಮತ್ತು ಬಣ್ಣದ ಚಾರ್ಟ್. |  |
+| 3 | `shop-data.json test-kit.measures` | Ammonia, pH | ಅಮೋನಿಯಾ, pH |  |
+| 4 | `shop-data.json test-kit.why` | Type the results into the app's test-kit form (More page) to see if the pond is safe. | ಫಲಿತಾಂಶವನ್ನು ಆ್ಯಪ್‌ನ ಟೆಸ್ಟ್ ಕಿಟ್ ಫಾರ್ಮ್‌ನಲ್ಲಿ (ಇತರೆ ಪುಟ) ನಮೂದಿಸಿ, ಕೊಳ ಸುರಕ್ಷಿತವೇ ಎಂದು ನೋಡಿ. |  |
+| 5 | `shop-data.json test-kit.solves` | Shows ammonia and pH problems that you cannot see by looking at the water. | ನೀರನ್ನು ನೋಡಿ ತಿಳಿಯಲಾಗದ ಅಮೋನಿಯಾ ಮತ್ತು pH ಸಮಸ್ಯೆಗಳನ್ನು ತೋರಿಸುತ್ತದೆ. |  |
+| 6 | `shop-data.json test-kit.where` | Take the water sample from about 30 cm deep, away from the inlet and the aerator, early in the morning. | ಒಳಹರಿವು ಮತ್ತು ಏರೇಟರ್‌ನಿಂದ ದೂರ, ಸುಮಾರು 30 cm ಆಳದಿಂದ, ಬೆಳಿಗ್ಗೆ ಬೇಗ ನೀರಿನ ಮಾದರಿ ತೆಗೆದುಕೊಳ್ಳಿ. |  |
+| 7 | `shop-data.json test-kit.steps[1]` | Fill the kit's tube with pond water from about 30 cm deep, early in the morning. | ಕಿಟ್‌ನ ಟ್ಯೂಬ್‌ಗೆ ಸುಮಾರು 30 cm ಆಳದ ಕೊಳದ ನೀರನ್ನು ಬೆಳಿಗ್ಗೆ ಬೇಗ ತುಂಬಿಸಿ. |  |
+| 8 | `shop-data.json test-kit.steps[2]` | Add the test drops to the tube as the kit's leaflet shows, and shake gently. | ಕಿಟ್‌ನ ಕರಪತ್ರದಲ್ಲಿ ತೋರಿಸಿದಂತೆ ಟೆಸ್ಟ್ ಹನಿಗಳನ್ನು ಟ್ಯೂಬ್‌ಗೆ ಸೇರಿಸಿ, ನಿಧಾನವಾಗಿ ಅಲುಗಾಡಿಸಿ. |  |
+| 9 | `shop-data.json test-kit.steps[3]` | Wait for the colour, then match it with the colour chart. | ಬಣ್ಣ ಬರುವವರೆಗೆ ಕಾಯಿರಿ, ನಂತರ ಅದನ್ನು ಬಣ್ಣದ ಚಾರ್ಟ್‌ಗೆ ಹೋಲಿಸಿ. |  |
+| 10 | `shop-data.json test-kit.steps[4]` | Type the numbers into AquaNexus: More page, Enter test-kit readings. | ಸಂಖ್ಯೆಗಳನ್ನು AquaNexus ನಲ್ಲಿ ನಮೂದಿಸಿ: ಇತರೆ ಪುಟ, ಟೆಸ್ಟ್ ಕಿಟ್ ಅಳತೆಗಳನ್ನು ನಮೂದಿಸಿ. |  |
+| 11 | `shop-data.json test-kit.care[1]` | Rinse the tubes with clean water after each test. | ಪ್ರತಿ ಪರೀಕ್ಷೆಯ ನಂತರ ಟ್ಯೂಬ್‌ಗಳನ್ನು ಶುದ್ಧ ನೀರಿನಿಂದ ತೊಳೆಯಿರಿ. |  |
+| 12 | `shop-data.json test-kit.care[2]` | Keep the kit cool, dry and out of the sun, and check the expiry date: old drops give wrong colours. | ಕಿಟ್ ಅನ್ನು ತಂಪಾದ, ಒಣ ಜಾಗದಲ್ಲಿ ಬಿಸಿಲಿನಿಂದ ದೂರ ಇಡಿ. ಅವಧಿ ಮುಗಿಯುವ ದಿನಾಂಕ ನೋಡಿ: ಹಳೆಯ ಹನಿಗಳು ತಪ್ಪು ಬಣ್ಣ ಕೊಡುತ್ತವೆ. |  |
+| 13 | `shop-data.json night-watch.name` | Night-Watch kit | ನೈಟ್-ವಾಚ್ ಕಿಟ್ |  |
+| 14 | `shop-data.json night-watch.desc` | Optical oxygen (DO) and temperature sensor, ESP32 board, 4G, solar panel, in a waterproof IP65 box. | ಆಪ್ಟಿಕಲ್ ಆಮ್ಲಜನಕ (DO) ಮತ್ತು ತಾಪಮಾನ ಸೆನ್ಸರ್, ESP32 ಬೋರ್ಡ್, 4G, ಸೌರ ಫಲಕ, ನೀರು ನುಗ್ಗದ IP65 ಪೆಟ್ಟಿಗೆಯಲ್ಲಿ. |  |
+| 15 | `shop-data.json night-watch.measures` | Dissolved oxygen, water temperature | ಕರಗಿದ ಆಮ್ಲಜನಕ, ನೀರಿನ ತಾಪಮಾನ |  |
+| 16 | `shop-data.json night-watch.why` | Watches oxygen all night and warns you before dawn, when fish are most at risk. | ರಾತ್ರಿಯಿಡೀ ಆಮ್ಲಜನಕವನ್ನು ಗಮನಿಸಿ, ಮೀನುಗಳಿಗೆ ಹೆಚ್ಚು ಅಪಾಯವಿರುವ ಬೆಳಗಿನ ಜಾವಕ್ಕೂ ಮೊದಲೇ ಎಚ್ಚರಿಸುತ್ತದೆ. |  |
+| 17 | `shop-data.json night-watch.solves` | Warns you about a night oxygen crash before dawn, while you are asleep. | ನೀವು ನಿದ್ರಿಸುತ್ತಿರುವಾಗ, ರಾತ್ರಿಯ ಆಮ್ಲಜನಕ ಕುಸಿತದ ಬಗ್ಗೆ ಬೆಳಗಾಗುವ ಮೊದಲೇ ಎಚ್ಚರಿಸುತ್ತದೆ. |  |
+| 18 | `shop-data.json night-watch.where` | Hang the oxygen probe near the pond bottom, away from the aerator. Fix the box on a pole in the shade, with the solar panel in the sun. | ಆಮ್ಲಜನಕ ಪ್ರೋಬ್ ಅನ್ನು ಕೊಳದ ತಳದ ಹತ್ತಿರ, ಏರೇಟರ್‌ನಿಂದ ದೂರ ತೂಗುಹಾಕಿ. ಪೆಟ್ಟಿಗೆಯನ್ನು ಕಂಬದ ಮೇಲೆ ನೆರಳಿನಲ್ಲಿ ಇಡಿ, ಸೌರ ಫಲಕ ಬಿಸಿಲಿನಲ್ಲಿರಲಿ. |  |
+| 19 | `shop-data.json night-watch.steps[1]` | Fix the box on a pole at the pond edge, in the shade. | ಪೆಟ್ಟಿಗೆಯನ್ನು ಕೊಳದ ದಡದಲ್ಲಿ ಕಂಬದ ಮೇಲೆ ನೆರಳಿನಲ್ಲಿ ಜೋಡಿಸಿ. |  |
+| 20 | `shop-data.json night-watch.steps[2]` | Point the solar panel at the sun. | ಸೌರ ಫಲಕವನ್ನು ಸೂರ್ಯನ ಕಡೆಗೆ ತಿರುಗಿಸಿ. |  |
+| 21 | `shop-data.json night-watch.steps[3]` | Hang the probe near the pond bottom, away from the aerator. | ಪ್ರೋಬ್ ಅನ್ನು ಕೊಳದ ತಳದ ಹತ್ತಿರ, ಏರೇಟರ್‌ನಿಂದ ದೂರ ತೂಗುಹಾಕಿ. |  |
+| 22 | `shop-data.json night-watch.steps[4]` | Switch it on. It sends readings every 5 minutes at night, and AquaNexus warns you if oxygen falls. | ಸ್ವಿಚ್ ಆನ್ ಮಾಡಿ. ಇದು ರಾತ್ರಿ ಪ್ರತಿ 5 ನಿಮಿಷಕ್ಕೊಮ್ಮೆ ಅಳತೆ ಕಳುಹಿಸುತ್ತದೆ, ಆಮ್ಲಜನಕ ಕಡಿಮೆಯಾದರೆ AquaNexus ಎಚ್ಚರಿಸುತ್ತದೆ. |  |
+| 23 | `shop-data.json night-watch.care[1]` | Rinse the probe with clean water every week and gently wipe off algae and slime. | ಪ್ರತಿ ವಾರ ಪ್ರೋಬ್ ಅನ್ನು ಶುದ್ಧ ನೀರಿನಿಂದ ತೊಳೆದು, ಪಾಚಿ ಮತ್ತು ಲೋಳೆಯನ್ನು ನಿಧಾನವಾಗಿ ಒರೆಸಿ. |  |
+| 24 | `shop-data.json night-watch.care[2]` | Replace the DO sensor cap when it wears out (listed as a spare in the Shop). | DO ಸೆನ್ಸರ್ ಕ್ಯಾಪ್ ಸವೆದಾಗ ಬದಲಾಯಿಸಿ (ಅಂಗಡಿಯಲ್ಲಿ ಬಿಡಿಭಾಗವಾಗಿ ಪಟ್ಟಿ ಮಾಡಲಾಗಿದೆ). |  |
+| 25 | `shop-data.json night-watch.care[3]` | Wipe dust and bird droppings off the solar panel every month. | ಪ್ರತಿ ತಿಂಗಳು ಸೌರ ಫಲಕದ ಮೇಲಿನ ಧೂಳು ಮತ್ತು ಹಕ್ಕಿ ಹಿಕ್ಕೆಯನ್ನು ಒರೆಸಿ. |  |
+| 26 | `shop-data.json full-pond.name` | Full Pond kit | ಫುಲ್ ಪಾಂಡ್ ಕಿಟ್ |  |
+| 27 | `shop-data.json full-pond.desc` | The Night-Watch kit plus an industrial pH probe with a signal isolator. | ನೈಟ್-ವಾಚ್ ಕಿಟ್ ಜೊತೆಗೆ ಸಿಗ್ನಲ್ ಐಸೊಲೇಟರ್ ಇರುವ ಕೈಗಾರಿಕಾ pH ಪ್ರೋಬ್. |  |
+| 28 | `shop-data.json full-pond.measures` | Dissolved oxygen, water temperature, pH | ಕರಗಿದ ಆಮ್ಲಜನಕ, ನೀರಿನ ತಾಪಮಾನ, pH |  |
+| 29 | `shop-data.json full-pond.why` | Adds pH, day and night, to the overnight oxygen watch. | ರಾತ್ರಿಯ ಆಮ್ಲಜನಕ ಕಾವಲಿನ ಜೊತೆಗೆ ಹಗಲು-ರಾತ್ರಿ pH ಅನ್ನೂ ಗಮನಿಸುತ್ತದೆ. |  |
+| 30 | `shop-data.json full-pond.solves` | Warns about night oxygen crashes, and also shows when pH goes out of range, day and night. | ರಾತ್ರಿಯ ಆಮ್ಲಜನಕ ಕುಸಿತದ ಬಗ್ಗೆ ಎಚ್ಚರಿಸುತ್ತದೆ, ಮತ್ತು pH ಮಿತಿ ಮೀರಿದಾಗಲೂ ಹಗಲು-ರಾತ್ರಿ ತೋರಿಸುತ್ತದೆ. |  |
+| 31 | `shop-data.json full-pond.where` | As the Night-Watch kit. Hang the pH probe next to the oxygen probe, away from the aerator. | ನೈಟ್-ವಾಚ್ ಕಿಟ್‌ನಂತೆಯೇ. pH ಪ್ರೋಬ್ ಅನ್ನು ಆಮ್ಲಜನಕ ಪ್ರೋಬ್‌ನ ಪಕ್ಕದಲ್ಲಿ, ಏರೇಟರ್‌ನಿಂದ ದೂರ ತೂಗುಹಾಕಿ. |  |
+| 32 | `shop-data.json full-pond.steps[1]` | Fix the box on a pole at the pond edge, in the shade. | ಪೆಟ್ಟಿಗೆಯನ್ನು ಕೊಳದ ದಡದಲ್ಲಿ ಕಂಬದ ಮೇಲೆ ನೆರಳಿನಲ್ಲಿ ಜೋಡಿಸಿ. |  |
+| 33 | `shop-data.json full-pond.steps[2]` | Point the solar panel at the sun. | ಸೌರ ಫಲಕವನ್ನು ಸೂರ್ಯನ ಕಡೆಗೆ ತಿರುಗಿಸಿ. |  |
+| 34 | `shop-data.json full-pond.steps[3]` | Hang both probes near the pond bottom, away from the aerator. | ಎರಡೂ ಪ್ರೋಬ್‌ಗಳನ್ನು ಕೊಳದ ತಳದ ಹತ್ತಿರ, ಏರೇಟರ್‌ನಿಂದ ದೂರ ತೂಗುಹಾಕಿ. |  |
+| 35 | `shop-data.json full-pond.steps[4]` | Switch it on. It sends oxygen, temperature and pH readings every 5 minutes at night. | ಸ್ವಿಚ್ ಆನ್ ಮಾಡಿ. ಇದು ರಾತ್ರಿ ಪ್ರತಿ 5 ನಿಮಿಷಕ್ಕೊಮ್ಮೆ ಆಮ್ಲಜನಕ, ತಾಪಮಾನ ಮತ್ತು pH ಅಳತೆ ಕಳುಹಿಸುತ್ತದೆ. |  |
+| 36 | `shop-data.json full-pond.care[1]` | Rinse the probe with clean water every week and gently wipe off algae and slime. | ಪ್ರತಿ ವಾರ ಪ್ರೋಬ್ ಅನ್ನು ಶುದ್ಧ ನೀರಿನಿಂದ ತೊಳೆದು, ಪಾಚಿ ಮತ್ತು ಲೋಳೆಯನ್ನು ನಿಧಾನವಾಗಿ ಒರೆಸಿ. |  |
+| 37 | `shop-data.json full-pond.care[2]` | Replace the DO sensor cap when it wears out (listed as a spare in the Shop). | DO ಸೆನ್ಸರ್ ಕ್ಯಾಪ್ ಸವೆದಾಗ ಬದಲಾಯಿಸಿ (ಅಂಗಡಿಯಲ್ಲಿ ಬಿಡಿಭಾಗವಾಗಿ ಪಟ್ಟಿ ಮಾಡಲಾಗಿದೆ). |  |
+| 38 | `shop-data.json full-pond.care[3]` | Recalibrate the pH probe every month, as the kit's guide shows. | ಕಿಟ್‌ನ ಮಾರ್ಗದರ್ಶಿಯಲ್ಲಿ ತೋರಿಸಿದಂತೆ ಪ್ರತಿ ತಿಂಗಳು pH ಪ್ರೋಬ್ ಅನ್ನು ಮರು-ಮಾಪನಾಂಕ (ರಿಕ್ಯಾಲಿಬ್ರೇಟ್) ಮಾಡಿ. |  |
+| 39 | `shop-data.json full-pond.care[4]` | Wipe dust and bird droppings off the solar panel every month. | ಪ್ರತಿ ತಿಂಗಳು ಸೌರ ಫಲಕದ ಮೇಲಿನ ಧೂಳು ಮತ್ತು ಹಕ್ಕಿ ಹಿಕ್ಕೆಯನ್ನು ಒರೆಸಿ. |  |
+| 40 | `shop-data.json do-cap.name` | Spare: DO sensor cap | ಬಿಡಿಭಾಗ: DO ಸೆನ್ಸರ್ ಕ್ಯಾಪ್ |  |
+| 41 | `shop-data.json do-cap.desc` | Replacement cap for the optical oxygen sensor. | ಆಪ್ಟಿಕಲ್ ಆಮ್ಲಜನಕ ಸೆನ್ಸರ್‌ಗೆ ಬದಲಿ ಕ್ಯಾಪ್. |  |
+| 42 | `shop-data.json do-cap.measures` | Part of the oxygen sensor | ಆಮ್ಲಜನಕ ಸೆನ್ಸರ್‌ನ ಭಾಗ |  |
+| 43 | `shop-data.json do-cap.why` | The cap wears out over time and must be replaced to keep oxygen readings right. | ಕಾಲಾನಂತರದಲ್ಲಿ ಕ್ಯಾಪ್ ಸವೆಯುತ್ತದೆ. ಆಮ್ಲಜನಕದ ಅಳತೆ ಸರಿಯಾಗಿರಲು ಅದನ್ನು ಬದಲಾಯಿಸಬೇಕು. |  |
+| 44 | `shop-data.json do-cap.solves` | A worn cap gives wrong oxygen readings. A new cap makes them right again. | ಸವೆದ ಕ್ಯಾಪ್ ತಪ್ಪು ಆಮ್ಲಜನಕ ಅಳತೆ ಕೊಡುತ್ತದೆ. ಹೊಸ ಕ್ಯಾಪ್ ಅವುಗಳನ್ನು ಮತ್ತೆ ಸರಿಮಾಡುತ್ತದೆ. |  |
+| 45 | `shop-data.json do-cap.where` | On the tip of the Night-Watch oxygen probe. | ನೈಟ್-ವಾಚ್ ಆಮ್ಲಜನಕ ಪ್ರೋಬ್‌ನ ತುದಿಯಲ್ಲಿ. |  |
+| 46 | `shop-data.json do-cap.steps[1]` | Switch the box off and lift the probe out of the water. | ಪೆಟ್ಟಿಗೆಯನ್ನು ಆಫ್ ಮಾಡಿ, ಪ್ರೋಬ್ ಅನ್ನು ನೀರಿನಿಂದ ಹೊರತೆಗೆಯಿರಿ. |  |
+| 47 | `shop-data.json do-cap.steps[2]` | Unscrew the old cap and screw on the new one. Do not touch the inside of the cap. | ಹಳೆಯ ಕ್ಯಾಪ್ ತಿರುಗಿಸಿ ತೆಗೆದು, ಹೊಸದನ್ನು ತಿರುಗಿಸಿ ಹಾಕಿ. ಕ್ಯಾಪ್‌ನ ಒಳಭಾಗವನ್ನು ಮುಟ್ಟಬೇಡಿ. |  |
+| 48 | `shop-data.json do-cap.steps[3]` | Put the probe back in the water, switch on, and set it up as the cap's leaflet shows. | ಪ್ರೋಬ್ ಅನ್ನು ಮತ್ತೆ ನೀರಿಗೆ ಇಳಿಸಿ, ಸ್ವಿಚ್ ಆನ್ ಮಾಡಿ, ಕ್ಯಾಪ್‌ನ ಕರಪತ್ರದಲ್ಲಿ ತೋರಿಸಿದಂತೆ ಹೊಂದಿಸಿ. |  |
+| 49 | `shop-data.json do-cap.care` | Keep the spare cap in its sealed pack until you use it. | ಬಳಸುವವರೆಗೆ ಬಿಡಿ ಕ್ಯಾಪ್ ಅನ್ನು ಅದರ ಮುಚ್ಚಿದ ಪ್ಯಾಕ್‌ನಲ್ಲೇ ಇಡಿ. |  |
+| 50 | `shop-data.json solar-10w.name` | Spare: 10 W solar panel + charge board | ಬಿಡಿಭಾಗ: 10 W ಸೌರ ಫಲಕ + ಚಾರ್ಜ್ ಬೋರ್ಡ್ |  |
+| 51 | `shop-data.json solar-10w.desc` | Panel and charging board that keep the sensor box powered. | ಸೆನ್ಸರ್ ಪೆಟ್ಟಿಗೆಗೆ ವಿದ್ಯುತ್ ನೀಡುವ ಫಲಕ ಮತ್ತು ಚಾರ್ಜಿಂಗ್ ಬೋರ್ಡ್. |  |
+| 52 | `shop-data.json solar-10w.measures` | Power for the sensor box | ಸೆನ್ಸರ್ ಪೆಟ್ಟಿಗೆಗೆ ವಿದ್ಯುತ್ |  |
+| 53 | `shop-data.json solar-10w.why` | Replaces a panel or board damaged by weather, so the sensor keeps running. | ಹವಾಮಾನದಿಂದ ಹಾಳಾದ ಫಲಕ ಅಥವಾ ಬೋರ್ಡ್ ಬದಲಿಸಿ, ಸೆನ್ಸರ್ ನಿಲ್ಲದಂತೆ ನೋಡಿಕೊಳ್ಳುತ್ತದೆ. |  |
+| 54 | `shop-data.json solar-10w.solves` | Keeps the sensor box charged, so it does not stop at night. | ಸೆನ್ಸರ್ ಪೆಟ್ಟಿಗೆಯನ್ನು ಚಾರ್ಜ್ ಆಗಿ ಇಡುತ್ತದೆ, ಆದ್ದರಿಂದ ಅದು ರಾತ್ರಿ ನಿಲ್ಲುವುದಿಲ್ಲ. |  |
+| 55 | `shop-data.json solar-10w.where` | On the box's pole, in full sun, away from tree shade. | ಪೆಟ್ಟಿಗೆಯ ಕಂಬದ ಮೇಲೆ, ಮರದ ನೆರಳಿಲ್ಲದ ಪೂರ್ಣ ಬಿಸಿಲಿನಲ್ಲಿ. |  |
+| 56 | `shop-data.json solar-10w.steps[1]` | Switch the box off. | ಪೆಟ್ಟಿಗೆಯನ್ನು ಆಫ್ ಮಾಡಿ. |  |
+| 57 | `shop-data.json solar-10w.steps[2]` | Unplug the old panel and board, and plug in the new ones. | ಹಳೆಯ ಫಲಕ ಮತ್ತು ಬೋರ್ಡ್ ತೆಗೆದು, ಹೊಸವನ್ನು ಜೋಡಿಸಿ. |  |
+| 58 | `shop-data.json solar-10w.steps[3]` | Point the panel at the sun and switch the box on. | ಫಲಕವನ್ನು ಸೂರ್ಯನ ಕಡೆಗೆ ತಿರುಗಿಸಿ, ಪೆಟ್ಟಿಗೆಯನ್ನು ಆನ್ ಮಾಡಿ. |  |
+| 59 | `shop-data.json solar-10w.care` | Wipe dust and bird droppings off the solar panel every month. | ಪ್ರತಿ ತಿಂಗಳು ಸೌರ ಫಲಕದ ಮೇಲಿನ ಧೂಳು ಮತ್ತು ಹಕ್ಕಿ ಹಿಕ್ಕೆಯನ್ನು ಒರೆಸಿ. |  |
+
+## 33. Messages from the server: Alert preview (SMS / WhatsApp)
 
 The SMS and WhatsApp text is built from the risk card and time-until-danger messages above, plus these.
 

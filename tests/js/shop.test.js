@@ -1,11 +1,11 @@
-// Tests for the Shop cart (frontend/shop.js) and products (frontend/shop-data.js).
+// Tests for the Shop cart (frontend/shop.js) and products (frontend/shop-data.json).
 // No browser needed: the cart is given a pretend localStorage.
 // Run from the project folder with:   node --test tests/js
 
 const test = require("node:test");
 const assert = require("node:assert/strict");
 const S = require("../../frontend/shop.js");
-const { PRODUCTS } = require("../../frontend/shop-data.js");
+const { products: PRODUCTS } = require("../../frontend/shop-data.json");
 
 const IDS = PRODUCTS.map((p) => p.id);
 const EN = { estWord: "est.", cartTotal: "Estimated total", shopPriceNote: "Estimated component cost. Prices may change.",
@@ -29,10 +29,12 @@ test("every product has the fields the page shows, in English and Kannada", () =
     assert.match(p.id, /^[a-z0-9-]+$/);
     assert.ok(Number.isInteger(p.price) && p.price > 0, p.id);
     assert.ok(p.icon, p.id);
-    for (const field of ["name", "desc", "measures", "why"]) {
+    for (const field of ["name", "desc", "measures", "why", "solves", "where"]) {
       assert.ok(p[field].en && p[field].kn, `${p.id}.${field}`);
       assert.match(p[field].kn, /[ಀ-೿]/, `${p.id}.${field} Kannada`);
     }
+    assert.ok(p.steps.length >= 3 && p.steps.length <= 5, `${p.id}: 3 to 5 steps`);
+    for (const line of [...p.steps, ...p.care]) assert.ok(line.en && line.kn, p.id);
   }
 });
 

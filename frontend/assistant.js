@@ -26,7 +26,7 @@
   const messages = [];              // {id, role: "user" | "assistant", kind, text | texts, lang, used}
   let nextId = 1;
   let busy = false;
-  const READING_ANSWERS = ["pond_now", "what_to_do", "likely_now"];   // ready answers built from the readings
+  const READING_ANSWERS = ["pond_now", "what_to_do", "likely_now", "shop_which"];   // ready answers built from the readings
 
   const $ = (id) => document.getElementById(id);
   const V = () => window.VoiceAlert;
@@ -194,7 +194,10 @@
     messages.splice(messages.indexOf(pending), 1);
     busy = false;
     if (body && body.label) label = body.label;
-    if (body && body.text) {
+    if (body && body.text && body.mode === "ready") {
+      // A ready Shop answer (backend/shop.py): labelled as the app's, both languages, built from the readings.
+      messages.push({ id: nextId++, role: "assistant", kind: "ready", texts: body.texts, used: body.used });
+    } else if (body && body.text) {
       const kind = body.mode === "safety" ? "safety" : body.mode === "unknown" ? "unknown" : "ai";
       messages.push({ id: nextId++, role: "assistant", kind, text: body.text, lang: body.lang,
         used: kind === "ai" ? body.used : [] });          // refusals and "I don't know" use no readings

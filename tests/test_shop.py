@@ -9,6 +9,7 @@ names, phone numbers or addresses.
 Run from the project folder with:   python -m pytest tests/test_shop.py -v
 """
 
+import json
 import re
 from pathlib import Path
 
@@ -22,7 +23,8 @@ HTML = (FRONTEND / "index.html").read_text(encoding="utf-8")
 APP = (FRONTEND / "app.js").read_text(encoding="utf-8")
 ROUTER = (FRONTEND / "router.js").read_text(encoding="utf-8")
 SHOP = (FRONTEND / "shop.js").read_text(encoding="utf-8")
-SHOP_DATA = (FRONTEND / "shop-data.js").read_text(encoding="utf-8")
+SHOP_DATA = (FRONTEND / "shop-data.json").read_text(encoding="utf-8")
+PRODUCTS = json.loads(SHOP_DATA)["products"]
 CSS = (FRONTEND / "styles.css").read_text(encoding="utf-8")
 SHOP_CODE = re.sub(r"//[^\n]*", "", SHOP)          # shop.js without its comments
 
@@ -92,15 +94,16 @@ def test_status_strip_stays_outside_every_page():
 def test_shop_page_is_served():
     r = client.get("/")
     assert r.status_code == 200 and 'id="page-shop"' in r.text
-    for name in ("shop.js", "shop-data.js"):
-        r = client.get(f"/{name}")
-        assert r.status_code == 200, name
-        assert "javascript" in r.headers["content-type"], name
+    r = client.get("/shop.js")
+    assert r.status_code == 200 and "javascript" in r.headers["content-type"]
+    r = client.get("/shop-data.json")
+    assert r.status_code == 200 and "json" in r.headers["content-type"]
+    assert [p["id"] for p in r.json()["products"]] == [p["id"] for p in PRODUCTS]
 
 
-def test_shop_scripts_load_before_the_app():
-    order = [HTML.index(f'src="/{s}"') for s in ("shop-data.js", "shop.js", "app.js")]
-    assert order == sorted(order)
+def test_shop_script_loads_before_the_app():
+    assert HTML.index('src="/shop.js"') < HTML.index('src="/app.js"')
+    assert 'src="/shop-data.js"' not in HTML, "the products live in one file: shop-data.json"
 
 
 def test_cart_button_has_a_word_and_a_count():
@@ -136,7 +139,7 @@ def test_not_for_sale_wording_agrees_everywhere():
 def test_every_price_is_shown_as_an_estimate():
     assert "estWord: \"est.\"" in APP and "estWord: \"ಅಂದಾಜು\"" in APP
     # Prices are only ever written through formatPrice, which adds "est.".
-    assert "₹" not in SHOP_DATA.split("const PRODUCTS")[1]
+    assert "₹" not in json.dumps(PRODUCTS, ensure_ascii=False), "products hold numbers, never price text"
     uses = re.findall(r"₹", SHOP_CODE)
     assert len(uses) == 1, "the only ₹ in shop.js is inside formatPrice"
 
@@ -155,9 +158,11 @@ def test_shop_has_no_form_and_no_inputs():
         assert tag not in html, tag
 
 
-def test_shop_never_talks_to_the_server():
-    for banned in ("fetch(", "XMLHttpRequest", "sendBeacon", "WebSocket", "EventSource", "/api/"):
-        assert banned not in SHOP_CODE and banned not in SHOP_DATA, banned
+def test_shop_never_sends_anything_to_the_server():
+    # The one download is the product list, a plain file. Nothing is ever sent.
+    assert re.findall(r"fetch\(([^)]*)\)", SHOP_CODE) == ['"/shop-data.json"']
+    for banned in ("XMLHttpRequest", "sendBeacon", "WebSocket", "EventSource", "/api/", "method:", "body:"):
+        assert banned not in SHOP_CODE, banned
 
 
 def test_cart_is_stored_only_in_this_browser_under_aquanexus_cart():

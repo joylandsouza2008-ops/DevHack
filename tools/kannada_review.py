@@ -91,7 +91,7 @@ def pairs_in(obj, path=""):
 
 def backend_groups() -> list[tuple[str, str, list]]:
     """(heading, note, rows) for the text the API sends to the page."""
-    from backend import actions, alerts, assistant, diseases, main, risk_messages, sensor, simulator, weather
+    from backend import actions, alerts, assistant, diseases, main, risk_messages, sensor, shop, simulator, weather
 
     def rows(module, *names):
         return [(f"{module.__name__.split('.')[-1]}.{p}", en, kn)
@@ -138,6 +138,16 @@ def backend_groups() -> list[tuple[str, str, list]]:
                if KANNADA.search(kn)],
              ("assistant._answer (tonight)", "Oxygen crash risk tonight: {level}.", "ಇಂದು ರಾತ್ರಿ ಆಮ್ಲಜನಕ ಕುಸಿತದ ಅಪಾಯ: {level}."),
          ]),
+        ("Shop: assistant answers", "Ready answers to Shop questions (backend/shop.py). `{name}` is a product "
+         "name, `{n}` a number of ponds or alerts, `{price}` e.g. ಅಂದಾಜು ₹23,000, `{budget}` e.g. 5,000.",
+         [(f"shop.TEXT.{k}", shop.TEXT["en"][k].strip(), shop.TEXT["kn"][k].strip())
+          for k in shop.TEXT["en"] if KANNADA.search(shop.TEXT["kn"][k])]),
+        ("Shop: products", "frontend/shop-data.json: shown on the Shop page and used by the assistant.",
+         [(f"shop-data.json {p['id']}.{field}" + (f"[{i}]" if len(items) > 1 else ""), item["en"], item["kn"])
+          for p in shop.PRODUCTS.values()
+          for field in ("name", "desc", "measures", "why", "solves", "where", "steps", "care")
+          for items in [p[field] if isinstance(p[field], list) else [p[field]]]
+          for i, item in enumerate(items, 1)]),
         ("Alert preview (SMS / WhatsApp)", "The SMS and WhatsApp text is built from the risk card "
          "and time-until-danger messages above, plus these.",
          rows(alerts, "POND_NAMES", "APP_NAME", "NO_ALERT")),

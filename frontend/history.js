@@ -43,6 +43,7 @@
       station: data.station || null,
       time: data.time,
       level: risk.level,
+      causes: risk.causes,                     // e.g. ["dissolved_oxygen"]: for the assistant's Shop advice
       summary: risk.summary,                   // {en, kn}
       actions: risk.actions.map((a) => ({ id: a.id, en: a.en, kn: a.kn })),
       done: [],
@@ -62,7 +63,19 @@
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify(list)); } catch { /* storage full or blocked */ }
   }
 
-  const api = { STORAGE_KEY, MAX_ENTRIES, addEntry, markDone, entryFrom, load, save };
+  // What the assistant gets from the history (for Shop advice such as "night oxygen
+  // problems"): only source, level, causes and time of the newest alerts. Older
+  // entries have no causes field, so they are read from the entry id.
+  function recentAlerts(list, max = 20) {
+    return list.filter((e) => e.level === "warning" || e.level === "danger").slice(0, max).map((e) => ({
+      source: e.source,
+      level: e.level,
+      causes: (e.causes || String(e.id).split("|")[4]?.split(",") || []).filter(Boolean).slice(0, 6),
+      time: e.time ? String(e.time).slice(0, 40) : null,
+    }));
+  }
+
+  const api = { STORAGE_KEY, MAX_ENTRIES, addEntry, markDone, entryFrom, load, save, recentAlerts };
   if (typeof module !== "undefined" && module.exports) module.exports = api;   // Node tests
   if (typeof window !== "undefined") window.AlertHistory = api;
 })();

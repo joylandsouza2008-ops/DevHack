@@ -1,0 +1,286 @@
+{
+  "about": "AquaNexus Shop products: the ONE source for the Shop page (frontend/shop.js) and the assistant (backend/shop.py). Prices are estimated component costs in rupees, always shown as 'est. ₹X'. Nothing is for sale yet and no payment is taken.",
+  "products": [
+    {
+      "id": "test-kit",
+      "icon": "testKit",
+      "price": 1200,
+      "name": {
+        "en": "Ammonia + pH test kit",
+        "kn": "ಅಮೋನಿಯಾ + pH ಟೆಸ್ಟ್ ಕಿಟ್"
+      },
+      "desc": {
+        "en": "Drops and a colour chart for a weekly check by hand.",
+        "kn": "ವಾರಕ್ಕೊಮ್ಮೆ ಕೈಯಿಂದ ಪರೀಕ್ಷಿಸಲು ಹನಿಗಳು ಮತ್ತು ಬಣ್ಣದ ಚಾರ್ಟ್."
+      },
+      "measures": {
+        "en": "Ammonia, pH",
+        "kn": "ಅಮೋನಿಯಾ, pH"
+      },
+      "why": {
+        "en": "Type the results into the app's test-kit form (More page) to see if the pond is safe.",
+        "kn": "ಫಲಿತಾಂಶವನ್ನು ಆ್ಯಪ್‌ನ ಟೆಸ್ಟ್ ಕಿಟ್ ಫಾರ್ಮ್‌ನಲ್ಲಿ (ಇತರೆ ಪುಟ) ನಮೂದಿಸಿ, ಕೊಳ ಸುರಕ್ಷಿತವೇ ಎಂದು ನೋಡಿ."
+      },
+      "solves": {
+        "en": "Shows ammonia and pH problems that you cannot see by looking at the water.",
+        "kn": "ನೀರನ್ನು ನೋಡಿ ತಿಳಿಯಲಾಗದ ಅಮೋನಿಯಾ ಮತ್ತು pH ಸಮಸ್ಯೆಗಳನ್ನು ತೋರಿಸುತ್ತದೆ."
+      },
+      "where": {
+        "en": "Take the water sample from about 30 cm deep, away from the inlet and the aerator, early in the morning.",
+        "kn": "ಒಳಹರಿವು ಮತ್ತು ಏರೇಟರ್‌ನಿಂದ ದೂರ, ಸುಮಾರು 30 cm ಆಳದಿಂದ, ಬೆಳಿಗ್ಗೆ ಬೇಗ ನೀರಿನ ಮಾದರಿ ತೆಗೆದುಕೊಳ್ಳಿ."
+      },
+      "steps": [
+        {
+          "en": "Fill the kit's tube with pond water from about 30 cm deep, early in the morning.",
+          "kn": "ಕಿಟ್‌ನ ಟ್ಯೂಬ್‌ಗೆ ಸುಮಾರು 30 cm ಆಳದ ಕೊಳದ ನೀರನ್ನು ಬೆಳಿಗ್ಗೆ ಬೇಗ ತುಂಬಿಸಿ."
+        },
+        {
+          "en": "Add the test drops to the tube as the kit's leaflet shows, and shake gently.",
+          "kn": "ಕಿಟ್‌ನ ಕರಪತ್ರದಲ್ಲಿ ತೋರಿಸಿದಂತೆ ಟೆಸ್ಟ್ ಹನಿಗಳನ್ನು ಟ್ಯೂಬ್‌ಗೆ ಸೇರಿಸಿ, ನಿಧಾನವಾಗಿ ಅಲುಗಾಡಿಸಿ."
+        },
+        {
+          "en": "Wait for the colour, then match it with the colour chart.",
+          "kn": "ಬಣ್ಣ ಬರುವವರೆಗೆ ಕಾಯಿರಿ, ನಂತರ ಅದನ್ನು ಬಣ್ಣದ ಚಾರ್ಟ್‌ಗೆ ಹೋಲಿಸಿ."
+        },
+        {
+          "en": "Type the numbers into AquaNexus: More page, Enter test-kit readings.",
+          "kn": "ಸಂಖ್ಯೆಗಳನ್ನು AquaNexus ನಲ್ಲಿ ನಮೂದಿಸಿ: ಇತರೆ ಪುಟ, ಟೆಸ್ಟ್ ಕಿಟ್ ಅಳತೆಗಳನ್ನು ನಮೂದಿಸಿ."
+        }
+      ],
+      "care": [
+        {
+          "en": "Rinse the tubes with clean water after each test.",
+          "kn": "ಪ್ರತಿ ಪರೀಕ್ಷೆಯ ನಂತರ ಟ್ಯೂಬ್‌ಗಳನ್ನು ಶುದ್ಧ ನೀರಿನಿಂದ ತೊಳೆಯಿರಿ."
+        },
+        {
+          "en": "Keep the kit cool, dry and out of the sun, and check the expiry date: old drops give wrong colours.",
+          "kn": "ಕಿಟ್ ಅನ್ನು ತಂಪಾದ, ಒಣ ಜಾಗದಲ್ಲಿ ಬಿಸಿಲಿನಿಂದ ದೂರ ಇಡಿ. ಅವಧಿ ಮುಗಿಯುವ ದಿನಾಂಕ ನೋಡಿ: ಹಳೆಯ ಹನಿಗಳು ತಪ್ಪು ಬಣ್ಣ ಕೊಡುತ್ತವೆ."
+        }
+      ]
+    },
+    {
+      "id": "night-watch",
+      "icon": "nightWatch",
+      "price": 23000,
+      "name": {
+        "en": "Night-Watch kit",
+        "kn": "ನೈಟ್-ವಾಚ್ ಕಿಟ್"
+      },
+      "desc": {
+        "en": "Optical oxygen (DO) and temperature sensor, ESP32 board, 4G, solar panel, in a waterproof IP65 box.",
+        "kn": "ಆಪ್ಟಿಕಲ್ ಆಮ್ಲಜನಕ (DO) ಮತ್ತು ತಾಪಮಾನ ಸೆನ್ಸರ್, ESP32 ಬೋರ್ಡ್, 4G, ಸೌರ ಫಲಕ, ನೀರು ನುಗ್ಗದ IP65 ಪೆಟ್ಟಿಗೆಯಲ್ಲಿ."
+      },
+      "measures": {
+        "en": "Dissolved oxygen, water temperature",
+        "kn": "ಕರಗಿದ ಆಮ್ಲಜನಕ, ನೀರಿನ ತಾಪಮಾನ"
+      },
+      "why": {
+        "en": "Watches oxygen all night and warns you before dawn, when fish are most at risk.",
+        "kn": "ರಾತ್ರಿಯಿಡೀ ಆಮ್ಲಜನಕವನ್ನು ಗಮನಿಸಿ, ಮೀನುಗಳಿಗೆ ಹೆಚ್ಚು ಅಪಾಯವಿರುವ ಬೆಳಗಿನ ಜಾವಕ್ಕೂ ಮೊದಲೇ ಎಚ್ಚರಿಸುತ್ತದೆ."
+      },
+      "solves": {
+        "en": "Warns you about a night oxygen crash before dawn, while you are asleep.",
+        "kn": "ನೀವು ನಿದ್ರಿಸುತ್ತಿರುವಾಗ, ರಾತ್ರಿಯ ಆಮ್ಲಜನಕ ಕುಸಿತದ ಬಗ್ಗೆ ಬೆಳಗಾಗುವ ಮೊದಲೇ ಎಚ್ಚರಿಸುತ್ತದೆ."
+      },
+      "where": {
+        "en": "Hang the oxygen probe near the pond bottom, away from the aerator. Fix the box on a pole in the shade, with the solar panel in the sun.",
+        "kn": "ಆಮ್ಲಜನಕ ಪ್ರೋಬ್ ಅನ್ನು ಕೊಳದ ತಳದ ಹತ್ತಿರ, ಏರೇಟರ್‌ನಿಂದ ದೂರ ತೂಗುಹಾಕಿ. ಪೆಟ್ಟಿಗೆಯನ್ನು ಕಂಬದ ಮೇಲೆ ನೆರಳಿನಲ್ಲಿ ಇಡಿ, ಸೌರ ಫಲಕ ಬಿಸಿಲಿನಲ್ಲಿರಲಿ."
+      },
+      "steps": [
+        {
+          "en": "Fix the box on a pole at the pond edge, in the shade.",
+          "kn": "ಪೆಟ್ಟಿಗೆಯನ್ನು ಕೊಳದ ದಡದಲ್ಲಿ ಕಂಬದ ಮೇಲೆ ನೆರಳಿನಲ್ಲಿ ಜೋಡಿಸಿ."
+        },
+        {
+          "en": "Point the solar panel at the sun.",
+          "kn": "ಸೌರ ಫಲಕವನ್ನು ಸೂರ್ಯನ ಕಡೆಗೆ ತಿರುಗಿಸಿ."
+        },
+        {
+          "en": "Hang the probe near the pond bottom, away from the aerator.",
+          "kn": "ಪ್ರೋಬ್ ಅನ್ನು ಕೊಳದ ತಳದ ಹತ್ತಿರ, ಏರೇಟರ್‌ನಿಂದ ದೂರ ತೂಗುಹಾಕಿ."
+        },
+        {
+          "en": "Switch it on. It sends readings every 5 minutes at night, and AquaNexus warns you if oxygen falls.",
+          "kn": "ಸ್ವಿಚ್ ಆನ್ ಮಾಡಿ. ಇದು ರಾತ್ರಿ ಪ್ರತಿ 5 ನಿಮಿಷಕ್ಕೊಮ್ಮೆ ಅಳತೆ ಕಳುಹಿಸುತ್ತದೆ, ಆಮ್ಲಜನಕ ಕಡಿಮೆಯಾದರೆ AquaNexus ಎಚ್ಚರಿಸುತ್ತದೆ."
+        }
+      ],
+      "care": [
+        {
+          "en": "Rinse the probe with clean water every week and gently wipe off algae and slime.",
+          "kn": "ಪ್ರತಿ ವಾರ ಪ್ರೋಬ್ ಅನ್ನು ಶುದ್ಧ ನೀರಿನಿಂದ ತೊಳೆದು, ಪಾಚಿ ಮತ್ತು ಲೋಳೆಯನ್ನು ನಿಧಾನವಾಗಿ ಒರೆಸಿ."
+        },
+        {
+          "en": "Replace the DO sensor cap when it wears out (listed as a spare in the Shop).",
+          "kn": "DO ಸೆನ್ಸರ್ ಕ್ಯಾಪ್ ಸವೆದಾಗ ಬದಲಾಯಿಸಿ (ಅಂಗಡಿಯಲ್ಲಿ ಬಿಡಿಭಾಗವಾಗಿ ಪಟ್ಟಿ ಮಾಡಲಾಗಿದೆ)."
+        },
+        {
+          "en": "Wipe dust and bird droppings off the solar panel every month.",
+          "kn": "ಪ್ರತಿ ತಿಂಗಳು ಸೌರ ಫಲಕದ ಮೇಲಿನ ಧೂಳು ಮತ್ತು ಹಕ್ಕಿ ಹಿಕ್ಕೆಯನ್ನು ಒರೆಸಿ."
+        }
+      ]
+    },
+    {
+      "id": "full-pond",
+      "icon": "fullPond",
+      "price": 35000,
+      "name": {
+        "en": "Full Pond kit",
+        "kn": "ಫುಲ್ ಪಾಂಡ್ ಕಿಟ್"
+      },
+      "desc": {
+        "en": "The Night-Watch kit plus an industrial pH probe with a signal isolator.",
+        "kn": "ನೈಟ್-ವಾಚ್ ಕಿಟ್ ಜೊತೆಗೆ ಸಿಗ್ನಲ್ ಐಸೊಲೇಟರ್ ಇರುವ ಕೈಗಾರಿಕಾ pH ಪ್ರೋಬ್."
+      },
+      "measures": {
+        "en": "Dissolved oxygen, water temperature, pH",
+        "kn": "ಕರಗಿದ ಆಮ್ಲಜನಕ, ನೀರಿನ ತಾಪಮಾನ, pH"
+      },
+      "why": {
+        "en": "Adds pH, day and night, to the overnight oxygen watch.",
+        "kn": "ರಾತ್ರಿಯ ಆಮ್ಲಜನಕ ಕಾವಲಿನ ಜೊತೆಗೆ ಹಗಲು-ರಾತ್ರಿ pH ಅನ್ನೂ ಗಮನಿಸುತ್ತದೆ."
+      },
+      "solves": {
+        "en": "Warns about night oxygen crashes, and also shows when pH goes out of range, day and night.",
+        "kn": "ರಾತ್ರಿಯ ಆಮ್ಲಜನಕ ಕುಸಿತದ ಬಗ್ಗೆ ಎಚ್ಚರಿಸುತ್ತದೆ, ಮತ್ತು pH ಮಿತಿ ಮೀರಿದಾಗಲೂ ಹಗಲು-ರಾತ್ರಿ ತೋರಿಸುತ್ತದೆ."
+      },
+      "where": {
+        "en": "As the Night-Watch kit. Hang the pH probe next to the oxygen probe, away from the aerator.",
+        "kn": "ನೈಟ್-ವಾಚ್ ಕಿಟ್‌ನಂತೆಯೇ. pH ಪ್ರೋಬ್ ಅನ್ನು ಆಮ್ಲಜನಕ ಪ್ರೋಬ್‌ನ ಪಕ್ಕದಲ್ಲಿ, ಏರೇಟರ್‌ನಿಂದ ದೂರ ತೂಗುಹಾಕಿ."
+      },
+      "steps": [
+        {
+          "en": "Fix the box on a pole at the pond edge, in the shade.",
+          "kn": "ಪೆಟ್ಟಿಗೆಯನ್ನು ಕೊಳದ ದಡದಲ್ಲಿ ಕಂಬದ ಮೇಲೆ ನೆರಳಿನಲ್ಲಿ ಜೋಡಿಸಿ."
+        },
+        {
+          "en": "Point the solar panel at the sun.",
+          "kn": "ಸೌರ ಫಲಕವನ್ನು ಸೂರ್ಯನ ಕಡೆಗೆ ತಿರುಗಿಸಿ."
+        },
+        {
+          "en": "Hang both probes near the pond bottom, away from the aerator.",
+          "kn": "ಎರಡೂ ಪ್ರೋಬ್‌ಗಳನ್ನು ಕೊಳದ ತಳದ ಹತ್ತಿರ, ಏರೇಟರ್‌ನಿಂದ ದೂರ ತೂಗುಹಾಕಿ."
+        },
+        {
+          "en": "Switch it on. It sends oxygen, temperature and pH readings every 5 minutes at night.",
+          "kn": "ಸ್ವಿಚ್ ಆನ್ ಮಾಡಿ. ಇದು ರಾತ್ರಿ ಪ್ರತಿ 5 ನಿಮಿಷಕ್ಕೊಮ್ಮೆ ಆಮ್ಲಜನಕ, ತಾಪಮಾನ ಮತ್ತು pH ಅಳತೆ ಕಳುಹಿಸುತ್ತದೆ."
+        }
+      ],
+      "care": [
+        {
+          "en": "Rinse the probe with clean water every week and gently wipe off algae and slime.",
+          "kn": "ಪ್ರತಿ ವಾರ ಪ್ರೋಬ್ ಅನ್ನು ಶುದ್ಧ ನೀರಿನಿಂದ ತೊಳೆದು, ಪಾಚಿ ಮತ್ತು ಲೋಳೆಯನ್ನು ನಿಧಾನವಾಗಿ ಒರೆಸಿ."
+        },
+        {
+          "en": "Replace the DO sensor cap when it wears out (listed as a spare in the Shop).",
+          "kn": "DO ಸೆನ್ಸರ್ ಕ್ಯಾಪ್ ಸವೆದಾಗ ಬದಲಾಯಿಸಿ (ಅಂಗಡಿಯಲ್ಲಿ ಬಿಡಿಭಾಗವಾಗಿ ಪಟ್ಟಿ ಮಾಡಲಾಗಿದೆ)."
+        },
+        {
+          "en": "Recalibrate the pH probe every month, as the kit's guide shows.",
+          "kn": "ಕಿಟ್‌ನ ಮಾರ್ಗದರ್ಶಿಯಲ್ಲಿ ತೋರಿಸಿದಂತೆ ಪ್ರತಿ ತಿಂಗಳು pH ಪ್ರೋಬ್ ಅನ್ನು ಮರು-ಮಾಪನಾಂಕ (ರಿಕ್ಯಾಲಿಬ್ರೇಟ್) ಮಾಡಿ."
+        },
+        {
+          "en": "Wipe dust and bird droppings off the solar panel every month.",
+          "kn": "ಪ್ರತಿ ತಿಂಗಳು ಸೌರ ಫಲಕದ ಮೇಲಿನ ಧೂಳು ಮತ್ತು ಹಕ್ಕಿ ಹಿಕ್ಕೆಯನ್ನು ಒರೆಸಿ."
+        }
+      ]
+    },
+    {
+      "id": "do-cap",
+      "icon": "sensorCap",
+      "price": 4000,
+      "name": {
+        "en": "Spare: DO sensor cap",
+        "kn": "ಬಿಡಿಭಾಗ: DO ಸೆನ್ಸರ್ ಕ್ಯಾಪ್"
+      },
+      "desc": {
+        "en": "Replacement cap for the optical oxygen sensor.",
+        "kn": "ಆಪ್ಟಿಕಲ್ ಆಮ್ಲಜನಕ ಸೆನ್ಸರ್‌ಗೆ ಬದಲಿ ಕ್ಯಾಪ್."
+      },
+      "measures": {
+        "en": "Part of the oxygen sensor",
+        "kn": "ಆಮ್ಲಜನಕ ಸೆನ್ಸರ್‌ನ ಭಾಗ"
+      },
+      "why": {
+        "en": "The cap wears out over time and must be replaced to keep oxygen readings right.",
+        "kn": "ಕಾಲಾನಂತರದಲ್ಲಿ ಕ್ಯಾಪ್ ಸವೆಯುತ್ತದೆ. ಆಮ್ಲಜನಕದ ಅಳತೆ ಸರಿಯಾಗಿರಲು ಅದನ್ನು ಬದಲಾಯಿಸಬೇಕು."
+      },
+      "solves": {
+        "en": "A worn cap gives wrong oxygen readings. A new cap makes them right again.",
+        "kn": "ಸವೆದ ಕ್ಯಾಪ್ ತಪ್ಪು ಆಮ್ಲಜನಕ ಅಳತೆ ಕೊಡುತ್ತದೆ. ಹೊಸ ಕ್ಯಾಪ್ ಅವುಗಳನ್ನು ಮತ್ತೆ ಸರಿಮಾಡುತ್ತದೆ."
+      },
+      "where": {
+        "en": "On the tip of the Night-Watch oxygen probe.",
+        "kn": "ನೈಟ್-ವಾಚ್ ಆಮ್ಲಜನಕ ಪ್ರೋಬ್‌ನ ತುದಿಯಲ್ಲಿ."
+      },
+      "steps": [
+        {
+          "en": "Switch the box off and lift the probe out of the water.",
+          "kn": "ಪೆಟ್ಟಿಗೆಯನ್ನು ಆಫ್ ಮಾಡಿ, ಪ್ರೋಬ್ ಅನ್ನು ನೀರಿನಿಂದ ಹೊರತೆಗೆಯಿರಿ."
+        },
+        {
+          "en": "Unscrew the old cap and screw on the new one. Do not touch the inside of the cap.",
+          "kn": "ಹಳೆಯ ಕ್ಯಾಪ್ ತಿರುಗಿಸಿ ತೆಗೆದು, ಹೊಸದನ್ನು ತಿರುಗಿಸಿ ಹಾಕಿ. ಕ್ಯಾಪ್‌ನ ಒಳಭಾಗವನ್ನು ಮುಟ್ಟಬೇಡಿ."
+        },
+        {
+          "en": "Put the probe back in the water, switch on, and set it up as the cap's leaflet shows.",
+          "kn": "ಪ್ರೋಬ್ ಅನ್ನು ಮತ್ತೆ ನೀರಿಗೆ ಇಳಿಸಿ, ಸ್ವಿಚ್ ಆನ್ ಮಾಡಿ, ಕ್ಯಾಪ್‌ನ ಕರಪತ್ರದಲ್ಲಿ ತೋರಿಸಿದಂತೆ ಹೊಂದಿಸಿ."
+        }
+      ],
+      "care": [
+        {
+          "en": "Keep the spare cap in its sealed pack until you use it.",
+          "kn": "ಬಳಸುವವರೆಗೆ ಬಿಡಿ ಕ್ಯಾಪ್ ಅನ್ನು ಅದರ ಮುಚ್ಚಿದ ಪ್ಯಾಕ್‌ನಲ್ಲೇ ಇಡಿ."
+        }
+      ]
+    },
+    {
+      "id": "solar-10w",
+      "icon": "solar",
+      "price": 1500,
+      "name": {
+        "en": "Spare: 10 W solar panel + charge board",
+        "kn": "ಬಿಡಿಭಾಗ: 10 W ಸೌರ ಫಲಕ + ಚಾರ್ಜ್ ಬೋರ್ಡ್"
+      },
+      "desc": {
+        "en": "Panel and charging board that keep the sensor box powered.",
+        "kn": "ಸೆನ್ಸರ್ ಪೆಟ್ಟಿಗೆಗೆ ವಿದ್ಯುತ್ ನೀಡುವ ಫಲಕ ಮತ್ತು ಚಾರ್ಜಿಂಗ್ ಬೋರ್ಡ್."
+      },
+      "measures": {
+        "en": "Power for the sensor box",
+        "kn": "ಸೆನ್ಸರ್ ಪೆಟ್ಟಿಗೆಗೆ ವಿದ್ಯುತ್"
+      },
+      "why": {
+        "en": "Replaces a panel or board damaged by weather, so the sensor keeps running.",
+        "kn": "ಹವಾಮಾನದಿಂದ ಹಾಳಾದ ಫಲಕ ಅಥವಾ ಬೋರ್ಡ್ ಬದಲಿಸಿ, ಸೆನ್ಸರ್ ನಿಲ್ಲದಂತೆ ನೋಡಿಕೊಳ್ಳುತ್ತದೆ."
+      },
+      "solves": {
+        "en": "Keeps the sensor box charged, so it does not stop at night.",
+        "kn": "ಸೆನ್ಸರ್ ಪೆಟ್ಟಿಗೆಯನ್ನು ಚಾರ್ಜ್ ಆಗಿ ಇಡುತ್ತದೆ, ಆದ್ದರಿಂದ ಅದು ರಾತ್ರಿ ನಿಲ್ಲುವುದಿಲ್ಲ."
+      },
+      "where": {
+        "en": "On the box's pole, in full sun, away from tree shade.",
+        "kn": "ಪೆಟ್ಟಿಗೆಯ ಕಂಬದ ಮೇಲೆ, ಮರದ ನೆರಳಿಲ್ಲದ ಪೂರ್ಣ ಬಿಸಿಲಿನಲ್ಲಿ."
+      },
+      "steps": [
+        {
+          "en": "Switch the box off.",
+          "kn": "ಪೆಟ್ಟಿಗೆಯನ್ನು ಆಫ್ ಮಾಡಿ."
+        },
+        {
+          "en": "Unplug the old panel and board, and plug in the new ones.",
+          "kn": "ಹಳೆಯ ಫಲಕ ಮತ್ತು ಬೋರ್ಡ್ ತೆಗೆದು, ಹೊಸವನ್ನು ಜೋಡಿಸಿ."
+        },
+        {
+          "en": "Point the panel at the sun and switch the box on.",
+          "kn": "ಫಲಕವನ್ನು ಸೂರ್ಯನ ಕಡೆಗೆ ತಿರುಗಿಸಿ, ಪೆಟ್ಟಿಗೆಯನ್ನು ಆನ್ ಮಾಡಿ."
+        }
+      ],
+      "care": [
+        {
+          "en": "Wipe dust and bird droppings off the solar panel every month.",
+          "kn": "ಪ್ರತಿ ತಿಂಗಳು ಸೌರ ಫಲಕದ ಮೇಲಿನ ಧೂಳು ಮತ್ತು ಹಕ್ಕಿ ಹಿಕ್ಕೆಯನ್ನು ಒರೆಸಿ."
+        }
+      ]
+    }
+  ]
+}

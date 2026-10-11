@@ -1,8 +1,10 @@
 // Shop page (#/shop): product cards, a cart in a side drawer, and a
-// "Checkout" panel that only says "Coming soon". Products: shop-data.js.
+// "Checkout" panel that only says "Coming soon". Products: shop-data.json,
+// the same file the assistant uses (backend/shop.py), so they never disagree.
 //
 // Nothing is sold and nothing is sent anywhere. There is no payment, no form
-// for a name, phone or address, and no server call: the cart lives only in
+// for a name, phone or address, and nothing is sent: the page only downloads
+// the product list (shop-data.json, a plain file). The cart lives only in
 // this browser (localStorage "aquanexus_cart"). If the browser blocks
 // storage (some private windows), the cart still works, in memory, until the
 // page is closed. "Copy my list" puts plain text on the clipboard so a farmer
@@ -133,8 +135,7 @@
 
   // ---------------------------------------------------------------- page
 
-  const PRODUCTS = window.ShopData.PRODUCTS;
-  const IDS = PRODUCTS.map((p) => p.id);
+  let PRODUCTS = [];                           // filled from shop-data.json (load below)
   const gsap = window.gsap;
   const reduceQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
   const reduce = () => reduceQuery.matches || !gsap;
@@ -147,7 +148,8 @@
   function browserStorage() {
     try { return window.localStorage; } catch { return null; }       // blocked in some private windows
   }
-  const cart = createCart(browserStorage(), IDS);
+  let cart = createCart(null, []);             // empty until the products have loaded
+  let loadFailed = false;
 
   function make(tag, className, text) {
     const node = document.createElement(tag);
@@ -190,6 +192,25 @@
       card.append(head, make("p", "shop-desc", p.desc[lang]), facts, price, add);
       return card;
     }));
+  }
+
+  function renderLoadError() {
+    $("shop-error").hidden = !loadFailed;
+    if (loadFailed && words) $("shop-error").textContent = words.shopLoadFailed;
+  }
+
+  // The product list: one small plain file, also read by the assistant.
+  async function loadProducts() {
+    try {
+      const response = await fetch("/shop-data.json");
+      if (!response.ok) throw new Error(response.statusText);
+      PRODUCTS = (await response.json()).products;
+      cart = createCart(browserStorage(), PRODUCTS.map((p) => p.id));
+      loadFailed = false;
+    } catch {
+      loadFailed = true;                       // weak signal: say so, and offer nothing to add
+    }
+    if (words) render(lang, words);
   }
 
   function renderBadge() {
@@ -355,11 +376,13 @@
     lang = newLang;
     words = newWords;
     renderGrid();
+    renderLoadError();
     renderBadge();
     if ($("cart-drawer").open) renderDrawer();
     if ($("checkout-dialog").open) renderCheckout();
   }
 
   init();
-  window.Shop = { ...api, render, cart };
+  loadProducts();
+  window.Shop = { ...api, render, cart: () => cart };
 })();
