@@ -75,6 +75,17 @@ def fresh_request_limits():
 
 
 @pytest.fixture(autouse=True)
+def fresh_ponds_database():
+    # "My ponds" uses an empty in-memory database in every test: never the real
+    # data/aquanexus.db file, and never a DATABASE_URL from the environment.
+    import backend.main as main
+    from backend import db, ponds
+    main._farm_store = ponds.FarmStore(db.memory())
+    yield
+    main._farm_store = None
+
+
+@pytest.fixture(autouse=True)
 def time_limit():
     faulthandler.dump_traceback_later(TEST_TIME_LIMIT, exit=True, file=sys.stderr)
     yield

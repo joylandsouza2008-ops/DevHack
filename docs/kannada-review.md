@@ -8,7 +8,7 @@ coastal Karnataka to understand. Write any fix in the last column.
 - `A  /  B` means the app shows one of two versions, depending on the situation.
 - Unit symbols (mg/L, °C, km/h, pH) and the names SMS, WhatsApp, FAO, TNAU, Open-Meteo stay in English.
 
-535 strings. Generated from the code by `python tools/kannada_review.py`; re-run it after changing any text.
+625 strings. Generated from the code by `python tools/kannada_review.py`; re-run it after changing any text.
 
 ## 1. Language and theme switches
 
@@ -70,6 +70,44 @@ Shown over the day/night pond picture.
 | 22 | `app.js pondCaption.danger` | Fish are gasping for air at the surface. | ಮೀನುಗಳು ಮೇಲ್ಮೈಗೆ ಬಂದು ಗಾಳಿಗಾಗಿ ಒದ್ದಾಡುತ್ತಿವೆ. |  |
 | 23 | `app.js pondCaption.unknown` | Waiting for readings. | ಅಳತೆಗಳಿಗಾಗಿ ಕಾಯಲಾಗುತ್ತಿದೆ. |  |
 | 24 | `app.js simulatedTag` | Simulated data | ಅನುಕರಿಸಿದ (ಸಿಮ್ಯುಲೇಟೆಡ್) ಡೇಟಾ |  |
+| 25 | `app.js pondsTitle` | My ponds | ನನ್ನ ಕೊಳಗಳು |  |
+| 26 | `app.js pondAdd` | Add pond | ಕೊಳ ಸೇರಿಸಿ |  |
+| 27 | `app.js pondsDemoMode` | Demo mode: ponds reset when the server sleeps. | ಡೆಮೊ ಮೋಡ್: ಸರ್ವರ್ ನಿದ್ರಿಸಿದಾಗ ಕೊಳಗಳು ಅಳಿಸಿಹೋಗುತ್ತವೆ. |  |
+| 28 | `app.js pondsEmpty` | Add your ponds, then connect a device to see live readings from each one. | ನಿಮ್ಮ ಕೊಳಗಳನ್ನು ಸೇರಿಸಿ, ನಂತರ ಪ್ರತಿಯೊಂದರ ಲೈವ್ ಅಳತೆಗಳನ್ನು ನೋಡಲು ಸಾಧನವನ್ನು ಸಂಪರ್ಕಿಸಿ. |  |
+| 29 | `app.js pondsLoadFailed` | Could not load your ponds. Check your internet. | ನಿಮ್ಮ ಕೊಳಗಳನ್ನು ತೆರೆಯಲು ಆಗಲಿಲ್ಲ. ಇಂಟರ್ನೆಟ್ ಪರಿಶೀಲಿಸಿ. |  |
+| 30 | `app.js pondNoReadings` | No readings yet | ಇನ್ನೂ ಅಳತೆಗಳಿಲ್ಲ |  |
+| 31 | `app.js pondLastReading` | Last reading: {t} | ಕೊನೆಯ ಅಳತೆ: {t} |  |
+| 32 | `app.js pondConnectFirst` | Connect a device to see this pond's readings. | ಈ ಕೊಳದ ಅಳತೆಗಳನ್ನು ನೋಡಲು ಸಾಧನವನ್ನು ಸಂಪರ್ಕಿಸಿ. |  |
+| 33 | `app.js pondBack` | All ponds | ಎಲ್ಲಾ ಕೊಳಗಳು |  |
+| 34 | `app.js pondEdit` | Edit | ಬದಲಿಸಿ |  |
+| 35 | `app.js pondDelete` | Delete pond | ಕೊಳ ಅಳಿಸಿ |  |
+| 36 | `app.js pondDeleteConfirm` | Delete "{n}" with its device, readings and alerts? | "{n}" ಅನ್ನು ಅದರ ಸಾಧನ, ಅಳತೆಗಳು ಮತ್ತು ಎಚ್ಚರಿಕೆಗಳೊಂದಿಗೆ ಅಳಿಸಬೇಕೇ? |  |
+| 37 | `app.js pondNotFound` | Pond not found | ಕೊಳ ಸಿಗಲಿಲ್ಲ |  |
+| 38 | `app.js pondNotFoundHelp` | This pond is not in your farm. It may have been deleted, or it belongs to another farm code. | ಈ ಕೊಳ ನಿಮ್ಮ ಫಾರ್ಮ್‌ನಲ್ಲಿಲ್ಲ. ಅದನ್ನು ಅಳಿಸಿರಬಹುದು, ಅಥವಾ ಅದು ಬೇರೆ ಫಾರ್ಮ್ ಕೋಡ್‌ಗೆ ಸೇರಿರಬಹುದು. |  |
+| 39 | `app.js pondSize` | Size | ಗಾತ್ರ |  |
+| 40 | `app.js pondFish` | Fish | ಮೀನು |  |
+| 41 | `app.js pondReadingsTitle` | Readings | ಅಳತೆಗಳು |  |
+| 42 | `app.js pondChartTitle` | Oxygen, last 12 hours | ಆಮ್ಲಜನಕ, ಕಳೆದ 12 ಗಂಟೆಗಳು |  |
+| 43 | `app.js pondChartOxygen` | Oxygen (mg/L) | ಆಮ್ಲಜನಕ (mg/L) |  |
+| 44 | `app.js pondChartWarnLine` | Warning below 5 | 5 ಕ್ಕಿಂತ ಕಡಿಮೆ: ಎಚ್ಚರಿಕೆ |  |
+| 45 | `app.js pondChartDangerLine` | Danger below 3 | 3 ಕ್ಕಿಂತ ಕಡಿಮೆ: ಅಪಾಯ |  |
+| 46 | `app.js pondChartSummary` | Oxygen went from {a} to {b} mg/L over the last {n} readings. | ಕೊನೆಯ {n} ಅಳತೆಗಳಲ್ಲಿ ಆಮ್ಲಜನಕ {a} ರಿಂದ {b} mg/L ಗೆ ಬದಲಾಗಿದೆ. |  |
+| 47 | `app.js pondChartNone` | Not enough oxygen readings for a chart yet. | ಚಾರ್ಟ್‌ಗೆ ಇನ್ನೂ ಸಾಕಷ್ಟು ಆಮ್ಲಜನಕ ಅಳತೆಗಳಿಲ್ಲ. |  |
+| 48 | `app.js pondDialogAdd` | Add a pond | ಕೊಳ ಸೇರಿಸಿ |  |
+| 49 | `app.js pondDialogEdit` | Edit pond | ಕೊಳವನ್ನು ಬದಲಿಸಿ |  |
+| 50 | `app.js pondNameLabel` | Pond name | ಕೊಳದ ಹೆಸರು |  |
+| 51 | `app.js pondNameHelp` | For example: Pond near road. Don't use your own name or phone number. | ಉದಾ: ರಸ್ತೆ ಬದಿಯ ಕೊಳ. ನಿಮ್ಮ ಸ್ವಂತ ಹೆಸರು ಅಥವಾ ಫೋನ್ ಸಂಖ್ಯೆ ಬಳಸಬೇಡಿ. |  |
+| 52 | `app.js pondSizeLabel` | Size (optional) | ಗಾತ್ರ (ಐಚ್ಛಿಕ) |  |
+| 53 | `app.js pondSizeHelp` | For example: 0.5 acre | ಉದಾ: 0.5 ಎಕರೆ |  |
+| 54 | `app.js pondFishLabel` | Fish type (optional) | ಮೀನಿನ ಪ್ರಕಾರ (ಐಚ್ಛಿಕ) |  |
+| 55 | `app.js pondFishHelp` | For example: rohu, catla | ಉದಾ: ರೋಹು, ಕಾಟ್ಲಾ |  |
+| 56 | `app.js pondSave` | Save | ಉಳಿಸಿ |  |
+| 57 | `app.js pondCancel` | Cancel | ರದ್ದುಮಾಡಿ |  |
+| 58 | `app.js pondNameMissing` | Type a name for the pond. | ಕೊಳಕ್ಕೆ ಹೆಸರು ಬರೆಯಿರಿ. |  |
+| 59 | `app.js pondSaveFailed` | Could not save. Check your internet and try again. | ಉಳಿಸಲು ಆಗಲಿಲ್ಲ. ಇಂಟರ್ನೆಟ್ ಪರಿಶೀಲಿಸಿ, ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ. |  |
+| 60 | `app.js pondAlertsTitle` | Alerts from my ponds | ನನ್ನ ಕೊಳಗಳ ಎಚ್ಚರಿಕೆಗಳು |  |
+| 61 | `app.js pondAlertsHelp` | From your own devices, newest first. | ನಿಮ್ಮ ಸ್ವಂತ ಸಾಧನಗಳಿಂದ, ಹೊಸದು ಮೊದಲು. |  |
+| 62 | `app.js pondAlertsEmpty` | No warnings from your ponds yet. | ನಿಮ್ಮ ಕೊಳಗಳಿಂದ ಇನ್ನೂ ಎಚ್ಚರಿಕೆಗಳಿಲ್ಲ. |  |
 
 ## 5. Pond view, risk level and readings
 
@@ -281,18 +319,19 @@ Shown over the day/night pond picture.
 | 8 | `app.js termsTreat` | The app never suggests chemicals, medicines or amounts to add to the pond. Treatment must come from a fisheries officer or KVK. | ಆ್ಯಪ್ ಎಂದಿಗೂ ಕೊಳಕ್ಕೆ ಹಾಕಬೇಕಾದ ರಾಸಾಯನಿಕ, ಔಷಧಿ ಅಥವಾ ಪ್ರಮಾಣವನ್ನು ಸೂಚಿಸುವುದಿಲ್ಲ. ಚಿಕಿತ್ಸೆಯನ್ನು ಮೀನುಗಾರಿಕೆ ಅಧಿಕಾರಿ ಅಥವಾ KVK ಮಾತ್ರ ನೀಡಬೇಕು. |  |
 | 9 | `app.js termsPrivacyTitle` | Privacy | ಗೌಪ್ಯತೆ |  |
 | 10 | `app.js termsNoAccount` | No account and no sign-up. | ಖಾತೆ ಇಲ್ಲ, ನೋಂದಣಿ ಇಲ್ಲ. |  |
-| 11 | `app.js termsLocation` | The app does not ask for your location. Tonight's weather is always for Mangaluru. Your phone gets it straight from Open-Meteo, so Open-Meteo sees your internet address, as any website would. | ಆ್ಯಪ್ ನಿಮ್ಮ ಸ್ಥಳವನ್ನು ಕೇಳುವುದಿಲ್ಲ. ಇಂದು ರಾತ್ರಿಯ ಹವಾಮಾನ ಯಾವಾಗಲೂ ಮಂಗಳೂರಿನದು. ನಿಮ್ಮ ಫೋನ್ ಅದನ್ನು ನೇರವಾಗಿ Open-Meteo ಯಿಂದ ಪಡೆಯುತ್ತದೆ, ಆದ್ದರಿಂದ ಯಾವುದೇ ವೆಬ್‌ಸೈಟ್‌ನಂತೆ Open-Meteo ನಿಮ್ಮ ಇಂಟರ್ನೆಟ್ ವಿಳಾಸವನ್ನು ನೋಡುತ್ತದೆ. |  |
-| 12 | `app.js termsBrowser` | Your language, theme, ticked steps, alert history, the last weather forecast and your Shop cart are saved only in this browser. Clearing the browser's data removes them. | ನಿಮ್ಮ ಭಾಷೆ, ಥೀಮ್, ಗುರುತು ಹಾಕಿದ ಹಂತಗಳು, ಎಚ್ಚರಿಕೆಗಳ ಇತಿಹಾಸ, ಕೊನೆಯ ಹವಾಮಾನ ಮುನ್ಸೂಚನೆ ಮತ್ತು ಅಂಗಡಿಯ ಕಾರ್ಟ್ ಈ ಬ್ರೌಸರ್‌ನಲ್ಲಿ ಮಾತ್ರ ಉಳಿಯುತ್ತವೆ. ಬ್ರೌಸರ್‌ನ ಡೇಟಾ ಅಳಿಸಿದರೆ ಅವು ಹೋಗುತ್ತವೆ. |  |
-| 13 | `app.js termsServer` | Test-kit numbers and the readings on screen go to our server to be checked, and are not saved there. Readings from a pond sensor stay in the server's memory only until it restarts. | ಟೆಸ್ಟ್-ಕಿಟ್ ಅಳತೆಗಳು ಮತ್ತು ಪರದೆಯ ಮೇಲಿನ ಅಳತೆಗಳು ಪರಿಶೀಲನೆಗಾಗಿ ನಮ್ಮ ಸರ್ವರ್‌ಗೆ ಹೋಗುತ್ತವೆ, ಅಲ್ಲಿ ಉಳಿಸಲಾಗುವುದಿಲ್ಲ. ಕೊಳದ ಸೆನ್ಸರ್ ಕಳುಹಿಸಿದ ಅಳತೆಗಳು ಸರ್ವರ್ ಮರುಪ್ರಾರಂಭವಾಗುವವರೆಗೆ ಮಾತ್ರ ಅದರ ಮೆಮೊರಿಯಲ್ಲಿ ಇರುತ್ತವೆ. |  |
-| 14 | `app.js termsAi` | Questions to the assistant are sent, with the readings on screen and the level, cause and time of your recent alerts, to the AI service (now Google Gemini) to get an answer. Google's own terms apply to what it receives. Don't type your name, phone number or other personal details. | ಸಹಾಯಕನಿಗೆ ಕೇಳುವ ಪ್ರಶ್ನೆಗಳು, ಪರದೆಯ ಮೇಲಿನ ಅಳತೆಗಳು ಮತ್ತು ಇತ್ತೀಚಿನ ಎಚ್ಚರಿಕೆಗಳ ಮಟ್ಟ, ಕಾರಣ ಹಾಗೂ ಸಮಯದ ಜೊತೆಗೆ, ಉತ್ತರ ಪಡೆಯಲು AI ಸೇವೆಗೆ (ಈಗ Google Gemini) ಹೋಗುತ್ತವೆ. ಅದು ಪಡೆಯುವುದಕ್ಕೆ Google ನ ಸ್ವಂತ ನಿಯಮಗಳು ಅನ್ವಯಿಸುತ್ತವೆ. ನಿಮ್ಮ ಹೆಸರು, ಫೋನ್ ಸಂಖ್ಯೆ ಅಥವಾ ಇತರ ವೈಯಕ್ತಿಕ ವಿವರಗಳನ್ನು ಟೈಪ್ ಮಾಡಬೇಡಿ. |  |
-| 15 | `app.js termsLogs` | To keep the site working and stop misuse, our server and our host (Render) keep short technical records, such as which page was asked for and the internet address it came from. | ಸೈಟ್ ಸರಿಯಾಗಿ ನಡೆಯಲು ಮತ್ತು ದುರುಪಯೋಗ ತಡೆಯಲು, ನಮ್ಮ ಸರ್ವರ್ ಮತ್ತು ನಮ್ಮ ಹೋಸ್ಟ್ (Render) ಸಣ್ಣ ತಾಂತ್ರಿಕ ದಾಖಲೆಗಳನ್ನು ಇಡುತ್ತವೆ, ಉದಾಹರಣೆಗೆ ಯಾವ ಪುಟ ಕೇಳಲಾಯಿತು ಮತ್ತು ಅದು ಬಂದ ಇಂಟರ್ನೆಟ್ ವಿಳಾಸ. |  |
-| 16 | `app.js termsNoAds` | No ads, no tracking, and nothing about you is sold. | ಜಾಹೀರಾತುಗಳಿಲ್ಲ, ಟ್ರ್ಯಾಕಿಂಗ್ ಇಲ್ಲ, ಮತ್ತು ನಿಮ್ಮ ಬಗ್ಗೆ ಏನನ್ನೂ ಮಾರಾಟ ಮಾಡುವುದಿಲ್ಲ. |  |
-| 17 | `app.js termsDataTitle` | Open data and licences | ಮುಕ್ತ ಡೇಟಾ ಮತ್ತು ಪರವಾನಗಿಗಳು |  |
-| 18 | `app.js termsData` | The app uses open datasets and public services. The Data sources list shows each one and its licence. | ಆ್ಯಪ್ ಮುಕ್ತ ಡೇಟಾಸೆಟ್‌ಗಳು ಮತ್ತು ಸಾರ್ವಜನಿಕ ಸೇವೆಗಳನ್ನು ಬಳಸುತ್ತದೆ. ಪ್ರತಿಯೊಂದನ್ನೂ ಅದರ ಪರವಾನಗಿಯೊಂದಿಗೆ ಡೇಟಾ ಮೂಲಗಳ ಪಟ್ಟಿ ತೋರಿಸುತ್ತದೆ. |  |
-| 19 | `app.js termsDataButton` | Open Data sources | ಡೇಟಾ ಮೂಲಗಳನ್ನು ತೆರೆಯಿರಿ |  |
-| 20 | `app.js termsContactTitle` | Contact | ಸಂಪರ್ಕ |  |
-| 21 | `app.js termsContact` | AquaNexus is made by Team Orbit. For questions or problems, reach us through our GitHub page. | AquaNexus ಅನ್ನು ಟೀಮ್ ಆರ್ಬಿಟ್ ತಯಾರಿಸಿದೆ. ಪ್ರಶ್ನೆಗಳು ಅಥವಾ ಸಮಸ್ಯೆಗಳಿದ್ದರೆ ನಮ್ಮ GitHub ಪುಟದ ಮೂಲಕ ಸಂಪರ್ಕಿಸಿ. |  |
-| 22 | `app.js termsContactLink` | Team Orbit on GitHub | GitHub ನಲ್ಲಿ ಟೀಮ್ ಆರ್ಬಿಟ್ |  |
+| 11 | `app.js termsPonds` | My ponds: your pond names, sizes, fish types, device readings (for 48 hours) and alerts (for 14 days) are saved on our server under your farm code. We keep only a scrambled copy (hash) of the farm code and of device keys. No name, phone number or email is asked for. Anyone with your farm code can see and change your ponds. | ನನ್ನ ಕೊಳಗಳು: ನಿಮ್ಮ ಕೊಳಗಳ ಹೆಸರು, ಗಾತ್ರ, ಮೀನಿನ ಪ್ರಕಾರ, ಸಾಧನದ ಅಳತೆಗಳು (48 ಗಂಟೆಗಳವರೆಗೆ) ಮತ್ತು ಎಚ್ಚರಿಕೆಗಳು (14 ದಿನಗಳವರೆಗೆ) ನಿಮ್ಮ ಫಾರ್ಮ್ ಕೋಡ್ ಅಡಿಯಲ್ಲಿ ನಮ್ಮ ಸರ್ವರ್‌ನಲ್ಲಿ ಉಳಿಯುತ್ತವೆ. ಫಾರ್ಮ್ ಕೋಡ್ ಮತ್ತು ಸಾಧನದ ಕೀಗಳ ಗೂಢ ಪ್ರತಿಯನ್ನು (ಹ್ಯಾಶ್) ಮಾತ್ರ ಇಡುತ್ತೇವೆ. ಹೆಸರು, ಫೋನ್ ಸಂಖ್ಯೆ ಅಥವಾ ಇಮೇಲ್ ಕೇಳುವುದಿಲ್ಲ. ನಿಮ್ಮ ಫಾರ್ಮ್ ಕೋಡ್ ಇರುವ ಯಾರಾದರೂ ನಿಮ್ಮ ಕೊಳಗಳನ್ನು ನೋಡಬಹುದು ಮತ್ತು ಬದಲಿಸಬಹುದು. |  |
+| 12 | `app.js termsLocation` | The app does not ask for your location. Tonight's weather is always for Mangaluru. Your phone gets it straight from Open-Meteo, so Open-Meteo sees your internet address, as any website would. | ಆ್ಯಪ್ ನಿಮ್ಮ ಸ್ಥಳವನ್ನು ಕೇಳುವುದಿಲ್ಲ. ಇಂದು ರಾತ್ರಿಯ ಹವಾಮಾನ ಯಾವಾಗಲೂ ಮಂಗಳೂರಿನದು. ನಿಮ್ಮ ಫೋನ್ ಅದನ್ನು ನೇರವಾಗಿ Open-Meteo ಯಿಂದ ಪಡೆಯುತ್ತದೆ, ಆದ್ದರಿಂದ ಯಾವುದೇ ವೆಬ್‌ಸೈಟ್‌ನಂತೆ Open-Meteo ನಿಮ್ಮ ಇಂಟರ್ನೆಟ್ ವಿಳಾಸವನ್ನು ನೋಡುತ್ತದೆ. |  |
+| 13 | `app.js termsBrowser` | Your language, theme, ticked steps, alert history, the last weather forecast, your Shop cart and your farm code are saved only in this browser. Clearing the browser's data removes them. | ನಿಮ್ಮ ಭಾಷೆ, ಥೀಮ್, ಗುರುತು ಹಾಕಿದ ಹಂತಗಳು, ಎಚ್ಚರಿಕೆಗಳ ಇತಿಹಾಸ, ಕೊನೆಯ ಹವಾಮಾನ ಮುನ್ಸೂಚನೆ, ಅಂಗಡಿಯ ಕಾರ್ಟ್ ಮತ್ತು ನಿಮ್ಮ ಫಾರ್ಮ್ ಕೋಡ್ ಈ ಬ್ರೌಸರ್‌ನಲ್ಲಿ ಮಾತ್ರ ಉಳಿಯುತ್ತವೆ. ಬ್ರೌಸರ್‌ನ ಡೇಟಾ ಅಳಿಸಿದರೆ ಅವು ಹೋಗುತ್ತವೆ. |  |
+| 14 | `app.js termsServer` | Test-kit numbers and the readings on screen go to our server to be checked, and are not saved there. Readings sent to the demo Live sensor card stay in the server's memory only until it restarts. | ಟೆಸ್ಟ್-ಕಿಟ್ ಅಳತೆಗಳು ಮತ್ತು ಪರದೆಯ ಮೇಲಿನ ಅಳತೆಗಳು ಪರಿಶೀಲನೆಗಾಗಿ ನಮ್ಮ ಸರ್ವರ್‌ಗೆ ಹೋಗುತ್ತವೆ, ಅಲ್ಲಿ ಉಳಿಸಲಾಗುವುದಿಲ್ಲ. ಡೆಮೊ ಲೈವ್ ಸೆನ್ಸರ್ ಕಾರ್ಡ್‌ಗೆ ಕಳುಹಿಸಿದ ಅಳತೆಗಳು ಸರ್ವರ್ ಮರುಪ್ರಾರಂಭವಾಗುವವರೆಗೆ ಮಾತ್ರ ಅದರ ಮೆಮೊರಿಯಲ್ಲಿ ಇರುತ್ತವೆ. |  |
+| 15 | `app.js termsAi` | Questions to the assistant are sent, with the readings on screen and the level, cause and time of your recent alerts, to the AI service (now Google Gemini) to get an answer. Google's own terms apply to what it receives. Don't type your name, phone number or other personal details. | ಸಹಾಯಕನಿಗೆ ಕೇಳುವ ಪ್ರಶ್ನೆಗಳು, ಪರದೆಯ ಮೇಲಿನ ಅಳತೆಗಳು ಮತ್ತು ಇತ್ತೀಚಿನ ಎಚ್ಚರಿಕೆಗಳ ಮಟ್ಟ, ಕಾರಣ ಹಾಗೂ ಸಮಯದ ಜೊತೆಗೆ, ಉತ್ತರ ಪಡೆಯಲು AI ಸೇವೆಗೆ (ಈಗ Google Gemini) ಹೋಗುತ್ತವೆ. ಅದು ಪಡೆಯುವುದಕ್ಕೆ Google ನ ಸ್ವಂತ ನಿಯಮಗಳು ಅನ್ವಯಿಸುತ್ತವೆ. ನಿಮ್ಮ ಹೆಸರು, ಫೋನ್ ಸಂಖ್ಯೆ ಅಥವಾ ಇತರ ವೈಯಕ್ತಿಕ ವಿವರಗಳನ್ನು ಟೈಪ್ ಮಾಡಬೇಡಿ. |  |
+| 16 | `app.js termsLogs` | To keep the site working and stop misuse, our server and our host (Render) keep short technical records, such as which page was asked for and the internet address it came from. | ಸೈಟ್ ಸರಿಯಾಗಿ ನಡೆಯಲು ಮತ್ತು ದುರುಪಯೋಗ ತಡೆಯಲು, ನಮ್ಮ ಸರ್ವರ್ ಮತ್ತು ನಮ್ಮ ಹೋಸ್ಟ್ (Render) ಸಣ್ಣ ತಾಂತ್ರಿಕ ದಾಖಲೆಗಳನ್ನು ಇಡುತ್ತವೆ, ಉದಾಹರಣೆಗೆ ಯಾವ ಪುಟ ಕೇಳಲಾಯಿತು ಮತ್ತು ಅದು ಬಂದ ಇಂಟರ್ನೆಟ್ ವಿಳಾಸ. |  |
+| 17 | `app.js termsNoAds` | No ads, no tracking, and nothing about you is sold. | ಜಾಹೀರಾತುಗಳಿಲ್ಲ, ಟ್ರ್ಯಾಕಿಂಗ್ ಇಲ್ಲ, ಮತ್ತು ನಿಮ್ಮ ಬಗ್ಗೆ ಏನನ್ನೂ ಮಾರಾಟ ಮಾಡುವುದಿಲ್ಲ. |  |
+| 18 | `app.js termsDataTitle` | Open data and licences | ಮುಕ್ತ ಡೇಟಾ ಮತ್ತು ಪರವಾನಗಿಗಳು |  |
+| 19 | `app.js termsData` | The app uses open datasets and public services. The Data sources list shows each one and its licence. | ಆ್ಯಪ್ ಮುಕ್ತ ಡೇಟಾಸೆಟ್‌ಗಳು ಮತ್ತು ಸಾರ್ವಜನಿಕ ಸೇವೆಗಳನ್ನು ಬಳಸುತ್ತದೆ. ಪ್ರತಿಯೊಂದನ್ನೂ ಅದರ ಪರವಾನಗಿಯೊಂದಿಗೆ ಡೇಟಾ ಮೂಲಗಳ ಪಟ್ಟಿ ತೋರಿಸುತ್ತದೆ. |  |
+| 20 | `app.js termsDataButton` | Open Data sources | ಡೇಟಾ ಮೂಲಗಳನ್ನು ತೆರೆಯಿರಿ |  |
+| 21 | `app.js termsContactTitle` | Contact | ಸಂಪರ್ಕ |  |
+| 22 | `app.js termsContact` | AquaNexus is made by Team Orbit. For questions or problems, reach us through our GitHub page. | AquaNexus ಅನ್ನು ಟೀಮ್ ಆರ್ಬಿಟ್ ತಯಾರಿಸಿದೆ. ಪ್ರಶ್ನೆಗಳು ಅಥವಾ ಸಮಸ್ಯೆಗಳಿದ್ದರೆ ನಮ್ಮ GitHub ಪುಟದ ಮೂಲಕ ಸಂಪರ್ಕಿಸಿ. |  |
+| 23 | `app.js termsContactLink` | Team Orbit on GitHub | GitHub ನಲ್ಲಿ ಟೀಮ್ ಆರ್ಬಿಟ್ |  |
 
 ## 19. Footer (privacy, source code)
 
@@ -318,46 +357,82 @@ Shown over the day/night pond picture.
 | 10 | `app.js titleWeather` | Weather | ಹವಾಮಾನ |  |
 | 11 | `app.js titleDiseases` | Fish diseases | ಮೀನು ರೋಗಗಳು |  |
 | 12 | `app.js titleMore` | More | ಇನ್ನಷ್ಟು |  |
-| 13 | `app.js titleShop` | Shop | ಅಂಗಡಿ |  |
-| 14 | `app.js shopIntro` | Sensors and spare parts that work with AquaNexus. Make a list and share it. | AquaNexus ಜೊತೆ ಕೆಲಸ ಮಾಡುವ ಸೆನ್ಸರ್‌ಗಳು ಮತ್ತು ಬಿಡಿಭಾಗಗಳು. ಪಟ್ಟಿ ಮಾಡಿ ಹಂಚಿಕೊಳ್ಳಿ. |  |
-| 15 | `app.js shopNotForSale` | Not for sale yet. Orders open after our pilot with farmers. | ಇನ್ನೂ ಮಾರಾಟಕ್ಕಿಲ್ಲ. ರೈತರೊಂದಿಗಿನ ನಮ್ಮ ಪ್ರಾಯೋಗಿಕ ಯೋಜನೆಯ ನಂತರ ಆರ್ಡರ್‌ಗಳು ಆರಂಭವಾಗುತ್ತವೆ. |  |
-| 16 | `app.js shopOnePondTitle` | Before you buy | ಖರೀದಿಸುವ ಮೊದಲು |  |
-| 17 | `app.js shopOnePond` | A sensor watches one pond. For several ponds, each needs its own sensor. Start with the free app and the test kit. | ಒಂದು ಸೆನ್ಸರ್ ಒಂದೇ ಕೊಳವನ್ನು ಗಮನಿಸುತ್ತದೆ. ಹಲವು ಕೊಳಗಳಿದ್ದರೆ, ಪ್ರತಿಯೊಂದಕ್ಕೂ ಬೇರೆ ಸೆನ್ಸರ್ ಬೇಕು. ಉಚಿತ ಆ್ಯಪ್ ಮತ್ತು ಟೆಸ್ಟ್ ಕಿಟ್‌ನಿಂದ ಪ್ರಾರಂಭಿಸಿ. |  |
-| 18 | `app.js shopPriceNote` | Estimated component cost. Prices may change. | ಅಂದಾಜು ಬಿಡಿಭಾಗಗಳ ವೆಚ್ಚ. ಬೆಲೆಗಳು ಬದಲಾಗಬಹುದು. |  |
-| 19 | `app.js shopLoadFailed` | Could not load the products. Check your internet and reload the page. | ವಸ್ತುಗಳ ಪಟ್ಟಿ ತೆರೆಯಲು ಆಗಲಿಲ್ಲ. ಇಂಟರ್ನೆಟ್ ಪರಿಶೀಲಿಸಿ, ಪುಟವನ್ನು ಮತ್ತೆ ತೆರೆಯಿರಿ. |  |
-| 20 | `app.js shopMeasures` | What it measures | ಏನನ್ನು ಅಳೆಯುತ್ತದೆ |  |
-| 21 | `app.js shopWhy` | Why you need it | ಇದು ಏಕೆ ಬೇಕು |  |
-| 22 | `app.js shopAdd` | Add to cart | ಕಾರ್ಟ್‌ಗೆ ಸೇರಿಸಿ |  |
-| 23 | `app.js shopAdded` | Added to cart: | ಕಾರ್ಟ್‌ಗೆ ಸೇರಿಸಲಾಗಿದೆ: |  |
-| 24 | `app.js estWord` | est. | ಅಂದಾಜು |  |
-| 25 | `app.js cartTitle` | Cart | ಕಾರ್ಟ್ |  |
-| 26 | `app.js cartAria` | Cart: {n} items | ಕಾರ್ಟ್: {n} ವಸ್ತುಗಳು |  |
-| 27 | `app.js cartEmpty` | Your cart is empty. Add items from the Shop. | ನಿಮ್ಮ ಕಾರ್ಟ್ ಖಾಲಿಯಾಗಿದೆ. ಅಂಗಡಿಯಿಂದ ವಸ್ತುಗಳನ್ನು ಸೇರಿಸಿ. |  |
-| 28 | `app.js cartTotal` | Estimated total | ಅಂದಾಜು ಒಟ್ಟು |  |
-| 29 | `app.js cartRemove` | Remove | ತೆಗೆಯಿರಿ |  |
-| 30 | `app.js cartLess` | One less | ಒಂದು ಕಡಿಮೆ |  |
-| 31 | `app.js cartMore` | One more | ಒಂದು ಹೆಚ್ಚು |  |
-| 32 | `app.js cartQty` | Quantity | ಪ್ರಮಾಣ |  |
-| 33 | `app.js cartCheckout` | Checkout | ಚೆಕ್‌ಔಟ್ |  |
-| 34 | `app.js cartClear` | Clear cart | ಕಾರ್ಟ್ ಖಾಲಿ ಮಾಡಿ |  |
-| 35 | `app.js cartCleared` | Cart cleared. | ಕಾರ್ಟ್ ಖಾಲಿ ಮಾಡಲಾಗಿದೆ. |  |
-| 36 | `app.js cartMemory` | This browser is not saving the cart. It is kept only until you close the page. | ಈ ಬ್ರೌಸರ್ ಕಾರ್ಟ್ ಅನ್ನು ಉಳಿಸುತ್ತಿಲ್ಲ. ಪುಟ ಮುಚ್ಚುವವರೆಗೆ ಮಾತ್ರ ಇರುತ್ತದೆ. |  |
-| 37 | `app.js checkoutTitle` | Checkout | ಚೆಕ್‌ಔಟ್ |  |
-| 38 | `app.js checkoutSoon` | Coming soon. Orders open after our pilot with farmers. No payment is taken and no details are collected. | ಶೀಘ್ರದಲ್ಲೇ ಬರಲಿದೆ. ರೈತರೊಂದಿಗಿನ ನಮ್ಮ ಪ್ರಾಯೋಗಿಕ ಯೋಜನೆಯ ನಂತರ ಆರ್ಡರ್‌ಗಳು ಆರಂಭವಾಗುತ್ತವೆ. ಯಾವುದೇ ಹಣ ಪಡೆಯುವುದಿಲ್ಲ ಮತ್ತು ಯಾವುದೇ ವಿವರಗಳನ್ನು ಸಂಗ್ರಹಿಸುವುದಿಲ್ಲ. |  |
-| 39 | `app.js checkoutShare` | Copy your list to share it with your cooperative. | ನಿಮ್ಮ ಸಹಕಾರ ಸಂಘದೊಂದಿಗೆ ಹಂಚಿಕೊಳ್ಳಲು ಪಟ್ಟಿಯನ್ನು ನಕಲಿಸಿ. |  |
-| 40 | `app.js copyList` | Copy my list | ನನ್ನ ಪಟ್ಟಿ ನಕಲಿಸಿ |  |
-| 41 | `app.js checkoutBack` | Back to cart | ಕಾರ್ಟ್‌ಗೆ ಹಿಂತಿರುಗಿ |  |
-| 42 | `app.js copyDone` | List copied. You can paste it into WhatsApp or SMS. | ಪಟ್ಟಿ ನಕಲಾಗಿದೆ. WhatsApp ಅಥವಾ SMS ನಲ್ಲಿ ಅಂಟಿಸಬಹುದು. |  |
-| 43 | `app.js copyFailed` | Could not copy. Select the list above and copy it by hand. | ನಕಲಿಸಲು ಆಗಲಿಲ್ಲ. ಮೇಲಿನ ಪಟ್ಟಿಯನ್ನು ಆಯ್ಕೆಮಾಡಿ ಕೈಯಾರೆ ನಕಲಿಸಿ. |  |
-| 44 | `app.js copyHeading` | AquaNexus: my list (estimated prices, not an order) | AquaNexus: ನನ್ನ ಪಟ್ಟಿ (ಅಂದಾಜು ಬೆಲೆಗಳು, ಆರ್ಡರ್ ಅಲ್ಲ) |  |
-| 45 | `app.js stripDangerIn` | Danger in {d} | ಅಪಾಯಕ್ಕೆ ಉಳಿದ ಸಮಯ: {d} |  |
-| 46 | `app.js stripNoDanger` | No danger expected | ಅಪಾಯದ ನಿರೀಕ್ಷೆ ಇಲ್ಲ |  |
-| 47 | `app.js stripActNow` | Act now: tap to see | ಈಗಲೇ ಕ್ರಮ ಕೈಗೊಳ್ಳಿ: ನೋಡಲು ಒತ್ತಿ |  |
-| 48 | `app.js stripAttention` | Needs attention: tap to see | ಗಮನ ಕೊಡಿ: ನೋಡಲು ಒತ್ತಿ |  |
-| 49 | `app.js settingsTitle` | Settings | ಸೆಟ್ಟಿಂಗ್‌ಗಳು |  |
-| 50 | `app.js settingsLanguage` | Language | ಭಾಷೆ |  |
-| 51 | `app.js settingsTheme` | Colours | ಬಣ್ಣಗಳು |  |
-| 52 | `app.js aboutTitle` | About this app | ಈ ಆ್ಯಪ್ ಬಗ್ಗೆ |  |
+| 13 | `app.js demoPondTitle` | Demo pond | ಡೆಮೊ ಕೊಳ |  |
+| 14 | `app.js deviceOnline` | Device online | ಸಾಧನ ಆನ್‌ಲೈನ್ |  |
+| 15 | `app.js deviceOfflineSince` | Offline since {t} | {t} ರಿಂದ ಆಫ್‌ಲೈನ್ |  |
+| 16 | `app.js deviceWaiting` | Device connected. Waiting for the first reading. | ಸಾಧನ ಸಂಪರ್ಕಗೊಂಡಿದೆ. ಮೊದಲ ಅಳತೆಗಾಗಿ ಕಾಯಲಾಗುತ್ತಿದೆ. |  |
+| 17 | `app.js deviceNone` | No device | ಸಾಧನವಿಲ್ಲ |  |
+| 18 | `app.js deviceTitle` | Device | ಸಾಧನ |  |
+| 19 | `app.js deviceConnect` | Connect a device | ಸಾಧನ ಸಂಪರ್ಕಿಸಿ |  |
+| 20 | `app.js deviceNewKey` | New key | ಹೊಸ ಕೀ |  |
+| 21 | `app.js deviceRemove` | Remove device | ಸಾಧನ ತೆಗೆಯಿರಿ |  |
+| 22 | `app.js deviceRemoveConfirm` | Remove this device? It will stop sending readings to this pond. | ಈ ಸಾಧನವನ್ನು ತೆಗೆಯಬೇಕೇ? ಇದು ಈ ಕೊಳಕ್ಕೆ ಅಳತೆ ಕಳುಹಿಸುವುದನ್ನು ನಿಲ್ಲಿಸುತ್ತದೆ. |  |
+| 23 | `app.js deviceNewKeyConfirm` | Make a new key? The old key stops working at once. | ಹೊಸ ಕೀ ಮಾಡಬೇಕೇ? ಹಳೆಯ ಕೀ ತಕ್ಷಣ ಕೆಲಸ ನಿಲ್ಲಿಸುತ್ತದೆ. |  |
+| 24 | `app.js deviceKeyOnce` | Save this key now. It is shown only once. AquaNexus keeps only a scrambled copy (a hash). | ಈ ಕೀಯನ್ನು ಈಗಲೇ ಉಳಿಸಿ. ಇದನ್ನು ಒಮ್ಮೆ ಮಾತ್ರ ತೋರಿಸಲಾಗುತ್ತದೆ. AquaNexus ಅದರ ಗೂಢ ಪ್ರತಿಯನ್ನು (ಹ್ಯಾಶ್) ಮಾತ್ರ ಇಡುತ್ತದೆ. |  |
+| 25 | `app.js deviceIdLabel` | Device ID | ಸಾಧನದ ID |  |
+| 26 | `app.js deviceKeyLabel` | Device key | ಸಾಧನದ ಕೀ |  |
+| 27 | `app.js deviceUrlLabel` | Address | ವಿಳಾಸ |  |
+| 28 | `app.js copy` | Copy | ನಕಲಿಸಿ |  |
+| 29 | `app.js copied` | Copied | ನಕಲಾಗಿದೆ |  |
+| 30 | `app.js copyByHand` | Copy by hand | ಕೈಯಾರೆ ನಕಲಿಸಿ |  |
+| 31 | `app.js deviceSetupTitle` | Set up the device | ಸಾಧನವನ್ನು ಸಿದ್ಧಪಡಿಸಿ |  |
+| 32 | `app.js deviceKeyDone` | I have saved the key | ನಾನು ಕೀ ಉಳಿಸಿದ್ದೇನೆ |  |
+| 33 | `app.js deviceStep1` | Open the ESP32 sketch in docs/sensor-api.md. Put the device ID and key in it. | docs/sensor-api.md ನಲ್ಲಿರುವ ESP32 ಸ್ಕೆಚ್ ತೆರೆಯಿರಿ. ಅದರಲ್ಲಿ ಸಾಧನದ ID ಮತ್ತು ಕೀ ಹಾಕಿ. |  |
+| 34 | `app.js deviceStep2` | It sends each reading to POST {url} with the header X-Sensor-Key. | ಇದು ಪ್ರತಿ ಅಳತೆಯನ್ನು X-Sensor-Key ಹೆಡರ್ ಜೊತೆಗೆ POST {url} ಗೆ ಕಳುಹಿಸುತ್ತದೆ. |  |
+| 35 | `app.js deviceStep3` | At most one reading every {s} seconds. Leave out values the device does not measure. | {s} ಸೆಕೆಂಡಿಗೆ ಹೆಚ್ಚೆಂದರೆ ಒಂದು ಅಳತೆ. ಸಾಧನ ಅಳೆಯದ ಮೌಲ್ಯಗಳನ್ನು ಬಿಟ್ಟುಬಿಡಿ. |  |
+| 36 | `app.js deviceStep4` | Switch it on. The pond shows Device online when the first reading arrives. | ಸ್ವಿಚ್ ಆನ್ ಮಾಡಿ. ಮೊದಲ ಅಳತೆ ಬಂದಾಗ ಕೊಳ "ಸಾಧನ ಆನ್‌ಲೈನ್" ಎಂದು ತೋರಿಸುತ್ತದೆ. |  |
+| 37 | `app.js deviceLastRefused` | Last reading refused: | ಕೊನೆಯ ಅಳತೆ ತಿರಸ್ಕರಿಸಲಾಗಿದೆ: |  |
+| 38 | `app.js farmTitle` | My farm code | ನನ್ನ ಫಾರ್ಮ್ ಕೋಡ್ |  |
+| 39 | `app.js farmHelp` | This code keeps your ponds together. Type it on another phone to open the same ponds. No name, phone number or email is needed. | ಈ ಕೋಡ್ ನಿಮ್ಮ ಕೊಳಗಳನ್ನು ಒಟ್ಟಿಗೆ ಇಡುತ್ತದೆ. ಅದೇ ಕೊಳಗಳನ್ನು ತೆರೆಯಲು ಇನ್ನೊಂದು ಫೋನ್‌ನಲ್ಲಿ ಇದನ್ನು ಬರೆಯಿರಿ. ಹೆಸರು, ಫೋನ್ ಸಂಖ್ಯೆ ಅಥವಾ ಇಮೇಲ್ ಬೇಕಾಗಿಲ್ಲ. |  |
+| 40 | `app.js farmWarn` | Anyone with this code can see and change your ponds. Share it only with people you trust. | ಈ ಕೋಡ್ ಇರುವ ಯಾರಾದರೂ ನಿಮ್ಮ ಕೊಳಗಳನ್ನು ನೋಡಬಹುದು ಮತ್ತು ಬದಲಿಸಬಹುದು. ನೀವು ನಂಬುವವರೊಂದಿಗೆ ಮಾತ್ರ ಹಂಚಿಕೊಳ್ಳಿ. |  |
+| 41 | `app.js farmCopy` | Copy code | ಕೋಡ್ ನಕಲಿಸಿ |  |
+| 42 | `app.js farmNotSaved` | This browser is not saving the code. Write it down. | ಈ ಬ್ರೌಸರ್ ಕೋಡ್ ಉಳಿಸುತ್ತಿಲ್ಲ. ಅದನ್ನು ಬರೆದಿಟ್ಟುಕೊಳ್ಳಿ. |  |
+| 43 | `app.js farmUseLabel` | Code from another phone | ಇನ್ನೊಂದು ಫೋನ್‌ನ ಕೋಡ್ |  |
+| 44 | `app.js farmOpen` | Open these ponds | ಈ ಕೊಳಗಳನ್ನು ತೆರೆಯಿರಿ |  |
+| 45 | `app.js farmBad` | That is not a farm code. It has 12 letters and numbers, like K7QM-3XRP-9TFD. | ಇದು ಫಾರ್ಮ್ ಕೋಡ್ ಅಲ್ಲ. ಇದರಲ್ಲಿ K7QM-3XRP-9TFD ತರಹ 12 ಅಕ್ಷರ ಮತ್ತು ಅಂಕಿಗಳಿರುತ್ತವೆ. |  |
+| 46 | `app.js farmSwitchConfirm` | Open the ponds for this code? Write down your current code first if you want to come back to it. | ಈ ಕೋಡ್‌ನ ಕೊಳಗಳನ್ನು ತೆರೆಯಬೇಕೇ? ಹಿಂತಿರುಗಲು ಬಯಸಿದರೆ ಮೊದಲು ನಿಮ್ಮ ಈಗಿನ ಕೋಡ್ ಬರೆದಿಟ್ಟುಕೊಳ್ಳಿ. |  |
+| 47 | `app.js farmSwitched` | Now showing the ponds for {c}. | ಈಗ {c} ಕೋಡ್‌ನ ಕೊಳಗಳನ್ನು ತೋರಿಸಲಾಗುತ್ತಿದೆ. |  |
+| 48 | `app.js stripAllSafe` | All your ponds are safe | ನಿಮ್ಮ ಎಲ್ಲಾ ಕೊಳಗಳು ಸುರಕ್ಷಿತ |  |
+| 49 | `app.js titleShop` | Shop | ಅಂಗಡಿ |  |
+| 50 | `app.js shopIntro` | Sensors and spare parts that work with AquaNexus. Make a list and share it. | AquaNexus ಜೊತೆ ಕೆಲಸ ಮಾಡುವ ಸೆನ್ಸರ್‌ಗಳು ಮತ್ತು ಬಿಡಿಭಾಗಗಳು. ಪಟ್ಟಿ ಮಾಡಿ ಹಂಚಿಕೊಳ್ಳಿ. |  |
+| 51 | `app.js shopNotForSale` | Not for sale yet. Orders open after our pilot with farmers. | ಇನ್ನೂ ಮಾರಾಟಕ್ಕಿಲ್ಲ. ರೈತರೊಂದಿಗಿನ ನಮ್ಮ ಪ್ರಾಯೋಗಿಕ ಯೋಜನೆಯ ನಂತರ ಆರ್ಡರ್‌ಗಳು ಆರಂಭವಾಗುತ್ತವೆ. |  |
+| 52 | `app.js shopOnePondTitle` | Before you buy | ಖರೀದಿಸುವ ಮೊದಲು |  |
+| 53 | `app.js shopOnePond` | A sensor watches one pond. For several ponds, each needs its own sensor. Start with the free app and the test kit. | ಒಂದು ಸೆನ್ಸರ್ ಒಂದೇ ಕೊಳವನ್ನು ಗಮನಿಸುತ್ತದೆ. ಹಲವು ಕೊಳಗಳಿದ್ದರೆ, ಪ್ರತಿಯೊಂದಕ್ಕೂ ಬೇರೆ ಸೆನ್ಸರ್ ಬೇಕು. ಉಚಿತ ಆ್ಯಪ್ ಮತ್ತು ಟೆಸ್ಟ್ ಕಿಟ್‌ನಿಂದ ಪ್ರಾರಂಭಿಸಿ. |  |
+| 54 | `app.js shopPriceNote` | Estimated component cost. Prices may change. | ಅಂದಾಜು ಬಿಡಿಭಾಗಗಳ ವೆಚ್ಚ. ಬೆಲೆಗಳು ಬದಲಾಗಬಹುದು. |  |
+| 55 | `app.js shopLoadFailed` | Could not load the products. Check your internet and reload the page. | ವಸ್ತುಗಳ ಪಟ್ಟಿ ತೆರೆಯಲು ಆಗಲಿಲ್ಲ. ಇಂಟರ್ನೆಟ್ ಪರಿಶೀಲಿಸಿ, ಪುಟವನ್ನು ಮತ್ತೆ ತೆರೆಯಿರಿ. |  |
+| 56 | `app.js shopMeasures` | What it measures | ಏನನ್ನು ಅಳೆಯುತ್ತದೆ |  |
+| 57 | `app.js shopWhy` | Why you need it | ಇದು ಏಕೆ ಬೇಕು |  |
+| 58 | `app.js shopAdd` | Add to cart | ಕಾರ್ಟ್‌ಗೆ ಸೇರಿಸಿ |  |
+| 59 | `app.js shopAdded` | Added to cart: | ಕಾರ್ಟ್‌ಗೆ ಸೇರಿಸಲಾಗಿದೆ: |  |
+| 60 | `app.js estWord` | est. | ಅಂದಾಜು |  |
+| 61 | `app.js cartTitle` | Cart | ಕಾರ್ಟ್ |  |
+| 62 | `app.js cartAria` | Cart: {n} items | ಕಾರ್ಟ್: {n} ವಸ್ತುಗಳು |  |
+| 63 | `app.js cartEmpty` | Your cart is empty. Add items from the Shop. | ನಿಮ್ಮ ಕಾರ್ಟ್ ಖಾಲಿಯಾಗಿದೆ. ಅಂಗಡಿಯಿಂದ ವಸ್ತುಗಳನ್ನು ಸೇರಿಸಿ. |  |
+| 64 | `app.js cartTotal` | Estimated total | ಅಂದಾಜು ಒಟ್ಟು |  |
+| 65 | `app.js cartRemove` | Remove | ತೆಗೆಯಿರಿ |  |
+| 66 | `app.js cartLess` | One less | ಒಂದು ಕಡಿಮೆ |  |
+| 67 | `app.js cartMore` | One more | ಒಂದು ಹೆಚ್ಚು |  |
+| 68 | `app.js cartQty` | Quantity | ಪ್ರಮಾಣ |  |
+| 69 | `app.js cartCheckout` | Checkout | ಚೆಕ್‌ಔಟ್ |  |
+| 70 | `app.js cartClear` | Clear cart | ಕಾರ್ಟ್ ಖಾಲಿ ಮಾಡಿ |  |
+| 71 | `app.js cartCleared` | Cart cleared. | ಕಾರ್ಟ್ ಖಾಲಿ ಮಾಡಲಾಗಿದೆ. |  |
+| 72 | `app.js cartMemory` | This browser is not saving the cart. It is kept only until you close the page. | ಈ ಬ್ರೌಸರ್ ಕಾರ್ಟ್ ಅನ್ನು ಉಳಿಸುತ್ತಿಲ್ಲ. ಪುಟ ಮುಚ್ಚುವವರೆಗೆ ಮಾತ್ರ ಇರುತ್ತದೆ. |  |
+| 73 | `app.js checkoutTitle` | Checkout | ಚೆಕ್‌ಔಟ್ |  |
+| 74 | `app.js checkoutSoon` | Coming soon. Orders open after our pilot with farmers. No payment is taken and no details are collected. | ಶೀಘ್ರದಲ್ಲೇ ಬರಲಿದೆ. ರೈತರೊಂದಿಗಿನ ನಮ್ಮ ಪ್ರಾಯೋಗಿಕ ಯೋಜನೆಯ ನಂತರ ಆರ್ಡರ್‌ಗಳು ಆರಂಭವಾಗುತ್ತವೆ. ಯಾವುದೇ ಹಣ ಪಡೆಯುವುದಿಲ್ಲ ಮತ್ತು ಯಾವುದೇ ವಿವರಗಳನ್ನು ಸಂಗ್ರಹಿಸುವುದಿಲ್ಲ. |  |
+| 75 | `app.js checkoutShare` | Copy your list to share it with your cooperative. | ನಿಮ್ಮ ಸಹಕಾರ ಸಂಘದೊಂದಿಗೆ ಹಂಚಿಕೊಳ್ಳಲು ಪಟ್ಟಿಯನ್ನು ನಕಲಿಸಿ. |  |
+| 76 | `app.js copyList` | Copy my list | ನನ್ನ ಪಟ್ಟಿ ನಕಲಿಸಿ |  |
+| 77 | `app.js checkoutBack` | Back to cart | ಕಾರ್ಟ್‌ಗೆ ಹಿಂತಿರುಗಿ |  |
+| 78 | `app.js copyDone` | List copied. You can paste it into WhatsApp or SMS. | ಪಟ್ಟಿ ನಕಲಾಗಿದೆ. WhatsApp ಅಥವಾ SMS ನಲ್ಲಿ ಅಂಟಿಸಬಹುದು. |  |
+| 79 | `app.js copyFailed` | Could not copy. Select the list above and copy it by hand. | ನಕಲಿಸಲು ಆಗಲಿಲ್ಲ. ಮೇಲಿನ ಪಟ್ಟಿಯನ್ನು ಆಯ್ಕೆಮಾಡಿ ಕೈಯಾರೆ ನಕಲಿಸಿ. |  |
+| 80 | `app.js copyHeading` | AquaNexus: my list (estimated prices, not an order) | AquaNexus: ನನ್ನ ಪಟ್ಟಿ (ಅಂದಾಜು ಬೆಲೆಗಳು, ಆರ್ಡರ್ ಅಲ್ಲ) |  |
+| 81 | `app.js stripDangerIn` | Danger in {d} | ಅಪಾಯಕ್ಕೆ ಉಳಿದ ಸಮಯ: {d} |  |
+| 82 | `app.js stripNoDanger` | No danger expected | ಅಪಾಯದ ನಿರೀಕ್ಷೆ ಇಲ್ಲ |  |
+| 83 | `app.js stripActNow` | Act now: tap to see | ಈಗಲೇ ಕ್ರಮ ಕೈಗೊಳ್ಳಿ: ನೋಡಲು ಒತ್ತಿ |  |
+| 84 | `app.js stripAttention` | Needs attention: tap to see | ಗಮನ ಕೊಡಿ: ನೋಡಲು ಒತ್ತಿ |  |
+| 85 | `app.js settingsTitle` | Settings | ಸೆಟ್ಟಿಂಗ್‌ಗಳು |  |
+| 86 | `app.js settingsLanguage` | Language | ಭಾಷೆ |  |
+| 87 | `app.js settingsTheme` | Colours | ಬಣ್ಣಗಳು |  |
+| 88 | `app.js aboutTitle` | About this app | ಈ ಆ್ಯಪ್ ಬಗ್ಗೆ |  |
 
 ## 21. Messages from the server: Data labels
 
@@ -399,25 +474,26 @@ Sent back to the sensor and shown on the Live sensor card.
 | 8 | `risk_messages.PARAMETER_NAMES.ammonia` | Ammonia | ಅಮೋನಿಯಾ |  |
 | 9 | `risk_messages.PARAMETER_NAMES.nitrate` | Nitrate | ನೈಟ್ರೇಟ್ |  |
 | 10 | `risk_messages.PARAMETER_NAMES.turbidity` | Turbidity | ನೀರಿನ ಮಬ್ಬು (ಟರ್ಬಿಡಿಟಿ) |  |
-| 11 | `risk_messages.REASONS.dissolved_oxygen/low/warning` | Oxygen is low ({value} {unit}). Fish may stop eating. Run the aerator. | ಆಮ್ಲಜನಕ ಕಡಿಮೆ ಇದೆ ({value} {unit}). ಮೀನುಗಳು ಆಹಾರ ತಿನ್ನುವುದನ್ನು ನಿಲ್ಲಿಸಬಹುದು. ಏರೇಟರ್ ಚಾಲೂ ಮಾಡಿ. |  |
-| 12 | `risk_messages.REASONS.dissolved_oxygen/low/danger` | Oxygen is very low ({value} {unit}). Fish can die. Turn on the aerator now and add fresh water. | ಆಮ್ಲಜನಕ ತುಂಬಾ ಕಡಿಮೆ ಇದೆ ({value} {unit}). ಮೀನುಗಳು ಸಾಯಬಹುದು. ತಕ್ಷಣ ಏರೇಟರ್ ಚಾಲೂ ಮಾಡಿ ಮತ್ತು ಹೊಸ ನೀರು ಹಾಕಿ. |  |
-| 13 | `risk_messages.REASONS.ph/low/warning` | Water is acidic (pH {value}). Fish grow slowly. Contact your fisheries officer for advice on correcting pH. | ನೀರು ಆಮ್ಲೀಯವಾಗಿದೆ (pH {value}). ಮೀನುಗಳು ನಿಧಾನವಾಗಿ ಬೆಳೆಯುತ್ತವೆ. pH ಸರಿಪಡಿಸುವ ಬಗ್ಗೆ ಸಲಹೆಗಾಗಿ ನಿಮ್ಮ ಮೀನುಗಾರಿಕೆ ಅಧಿಕಾರಿಯನ್ನು ಸಂಪರ್ಕಿಸಿ. |  |
-| 14 | `risk_messages.REASONS.ph/low/danger` | Water is very acidic (pH {value}). Fish can die. Add fresh water and contact your fisheries officer today. | ನೀರು ತುಂಬಾ ಆಮ್ಲೀಯವಾಗಿದೆ (pH {value}). ಮೀನುಗಳು ಸಾಯಬಹುದು. ಹೊಸ ನೀರು ಹಾಕಿ ಮತ್ತು ಇಂದೇ ಮೀನುಗಾರಿಕೆ ಅಧಿಕಾರಿಯನ್ನು ಸಂಪರ್ಕಿಸಿ. |  |
-| 15 | `risk_messages.REASONS.ph/high/warning` | Water is alkaline (pH {value}). Ammonia becomes more harmful. Add fresh water and stop adding fertiliser. | ನೀರು ಕ್ಷಾರೀಯವಾಗಿದೆ (pH {value}). ಅಮೋನಿಯಾ ಹೆಚ್ಚು ಹಾನಿಕಾರಕವಾಗುತ್ತದೆ. ಹೊಸ ನೀರು ಹಾಕಿ ಮತ್ತು ಗೊಬ್ಬರ ಹಾಕುವುದನ್ನು ನಿಲ್ಲಿಸಿ. |  |
-| 16 | `risk_messages.REASONS.ph/high/danger` | Water is very alkaline (pH {value}). Fish can die. Add fresh water now and contact your fisheries officer. | ನೀರು ತುಂಬಾ ಕ್ಷಾರೀಯವಾಗಿದೆ (pH {value}). ಮೀನುಗಳು ಸಾಯಬಹುದು. ತಕ್ಷಣ ಹೊಸ ನೀರು ಹಾಕಿ ಮತ್ತು ಮೀನುಗಾರಿಕೆ ಅಧಿಕಾರಿಯನ್ನು ಸಂಪರ್ಕಿಸಿ. |  |
-| 17 | `risk_messages.REASONS.temperature/low/warning` | Water is cool ({value} {unit}). Fish eat less. Reduce the feed. | ನೀರು ತಣ್ಣಗಿದೆ ({value} {unit}). ಮೀನುಗಳು ಕಡಿಮೆ ತಿನ್ನುತ್ತವೆ. ಆಹಾರ ಕಡಿಮೆ ಮಾಡಿ. |  |
-| 18 | `risk_messages.REASONS.temperature/low/danger` | Water is too cold ({value} {unit}). Fish are stressed and may fall sick. Feed very little. | ನೀರು ತುಂಬಾ ತಣ್ಣಗಿದೆ ({value} {unit}). ಮೀನುಗಳಿಗೆ ಒತ್ತಡ ಉಂಟಾಗಿ ರೋಗ ಬರಬಹುದು. ತುಂಬಾ ಕಡಿಮೆ ಆಹಾರ ನೀಡಿ. |  |
-| 19 | `risk_messages.REASONS.temperature/high/warning` | Water is warm ({value} {unit}). Oxygen will drop. Run the aerator and add fresh water. | ನೀರು ಬಿಸಿಯಾಗಿದೆ ({value} {unit}). ಆಮ್ಲಜನಕ ಕಡಿಮೆಯಾಗುತ್ತದೆ. ಏರೇಟರ್ ಚಾಲೂ ಮಾಡಿ ಮತ್ತು ಹೊಸ ನೀರು ಹಾಕಿ. |  |
-| 20 | `risk_messages.REASONS.temperature/high/danger` | Water is too hot ({value} {unit}). Fish can die. Add fresh water now, run the aerator and stop feeding. | ನೀರು ತುಂಬಾ ಬಿಸಿಯಾಗಿದೆ ({value} {unit}). ಮೀನುಗಳು ಸಾಯಬಹುದು. ತಕ್ಷಣ ಹೊಸ ನೀರು ಹಾಕಿ, ಏರೇಟರ್ ಚಾಲೂ ಮಾಡಿ ಮತ್ತು ಆಹಾರ ನಿಲ್ಲಿಸಿ. |  |
-| 21 | `risk_messages.REASONS.ammonia/high/warning` | Harmful ammonia is rising ({value} {unit}). Reduce the feed and add fresh water. | ಹಾನಿಕಾರಕ ಅಮೋನಿಯಾ ಹೆಚ್ಚುತ್ತಿದೆ ({value} {unit}). ಆಹಾರ ಕಡಿಮೆ ಮಾಡಿ ಮತ್ತು ಹೊಸ ನೀರು ಹಾಕಿ. |  |
-| 22 | `risk_messages.REASONS.ammonia/high/danger` | Harmful ammonia is very high ({value} {unit}). Fish can die. Stop feeding today and add fresh water. | ಹಾನಿಕಾರಕ ಅಮೋನಿಯಾ ತುಂಬಾ ಹೆಚ್ಚಾಗಿದೆ ({value} {unit}). ಮೀನುಗಳು ಸಾಯಬಹುದು. ಇಂದು ಆಹಾರ ನೀಡುವುದನ್ನು ನಿಲ್ಲಿಸಿ ಮತ್ತು ಹೊಸ ನೀರು ಹಾಕಿ. |  |
-| 23 | `risk_messages.REASONS.nitrate/high/warning` | Nitrate is high ({value} {unit}). Change some of the water and reduce the feed. | ನೈಟ್ರೇಟ್ ಹೆಚ್ಚಾಗಿದೆ ({value} {unit}). ಸ್ವಲ್ಪ ನೀರು ಬದಲಾಯಿಸಿ ಮತ್ತು ಆಹಾರ ಕಡಿಮೆ ಮಾಡಿ. |  |
-| 24 | `risk_messages.ALL_SAFE` | All readings are in the safe range. | ಎಲ್ಲಾ ಅಳತೆಗಳು ಸುರಕ್ಷಿತ ಮಟ್ಟದಲ್ಲಿವೆ. |  |
-| 25 | `risk_messages.SENSOR_ERROR` | {name} reading looks wrong ({value}). Check the sensor. | {name} ಅಳತೆ ತಪ್ಪಾಗಿರುವಂತೆ ಕಾಣುತ್ತಿದೆ ({value}). ಸೆನ್ಸರ್ ಪರಿಶೀಲಿಸಿ. |  |
-| 26 | `risk_messages.TEST_KIT_ERROR` | {name} reading looks impossible ({value}). Check your test kit and test again. | {name} ಅಳತೆ ಅಸಾಧ್ಯವೆಂದು ಕಾಣುತ್ತಿದೆ ({value}). ನಿಮ್ಮ ಟೆಸ್ಟ್ ಕಿಟ್ ಪರಿಶೀಲಿಸಿ ಮತ್ತೆ ಪರೀಕ್ಷಿಸಿ. |  |
-| 27 | `risk_messages.AMMONIA_NEEDS_PH_AND_TEMPERATURE` | Ammonia could not be checked because pH or temperature is missing. | pH ಅಥವಾ ತಾಪಮಾನ ಇಲ್ಲದ ಕಾರಣ ಅಮೋನಿಯಾ ಪರಿಶೀಲಿಸಲು ಆಗಲಿಲ್ಲ. |  |
-| 28 | `risk_messages.NO_VALID_READINGS` | No valid readings. Check the sensors. | ಸರಿಯಾದ ಅಳತೆಗಳು ಇಲ್ಲ. ಸೆನ್ಸರ್‌ಗಳನ್ನು ಪರಿಶೀಲಿಸಿ. |  |
-| 29 | `risk_messages.NO_VALID_TEST_KIT_READINGS` | No valid readings. Check your test kit. | ಸರಿಯಾದ ಅಳತೆಗಳು ಇಲ್ಲ. ನಿಮ್ಮ ಟೆಸ್ಟ್ ಕಿಟ್ ಪರಿಶೀಲಿಸಿ. |  |
+| 11 | `risk_messages.PARAMETER_NAMES.salinity` | Salinity | ಲವಣಾಂಶ |  |
+| 12 | `risk_messages.REASONS.dissolved_oxygen/low/warning` | Oxygen is low ({value} {unit}). Fish may stop eating. Run the aerator. | ಆಮ್ಲಜನಕ ಕಡಿಮೆ ಇದೆ ({value} {unit}). ಮೀನುಗಳು ಆಹಾರ ತಿನ್ನುವುದನ್ನು ನಿಲ್ಲಿಸಬಹುದು. ಏರೇಟರ್ ಚಾಲೂ ಮಾಡಿ. |  |
+| 13 | `risk_messages.REASONS.dissolved_oxygen/low/danger` | Oxygen is very low ({value} {unit}). Fish can die. Turn on the aerator now and add fresh water. | ಆಮ್ಲಜನಕ ತುಂಬಾ ಕಡಿಮೆ ಇದೆ ({value} {unit}). ಮೀನುಗಳು ಸಾಯಬಹುದು. ತಕ್ಷಣ ಏರೇಟರ್ ಚಾಲೂ ಮಾಡಿ ಮತ್ತು ಹೊಸ ನೀರು ಹಾಕಿ. |  |
+| 14 | `risk_messages.REASONS.ph/low/warning` | Water is acidic (pH {value}). Fish grow slowly. Contact your fisheries officer for advice on correcting pH. | ನೀರು ಆಮ್ಲೀಯವಾಗಿದೆ (pH {value}). ಮೀನುಗಳು ನಿಧಾನವಾಗಿ ಬೆಳೆಯುತ್ತವೆ. pH ಸರಿಪಡಿಸುವ ಬಗ್ಗೆ ಸಲಹೆಗಾಗಿ ನಿಮ್ಮ ಮೀನುಗಾರಿಕೆ ಅಧಿಕಾರಿಯನ್ನು ಸಂಪರ್ಕಿಸಿ. |  |
+| 15 | `risk_messages.REASONS.ph/low/danger` | Water is very acidic (pH {value}). Fish can die. Add fresh water and contact your fisheries officer today. | ನೀರು ತುಂಬಾ ಆಮ್ಲೀಯವಾಗಿದೆ (pH {value}). ಮೀನುಗಳು ಸಾಯಬಹುದು. ಹೊಸ ನೀರು ಹಾಕಿ ಮತ್ತು ಇಂದೇ ಮೀನುಗಾರಿಕೆ ಅಧಿಕಾರಿಯನ್ನು ಸಂಪರ್ಕಿಸಿ. |  |
+| 16 | `risk_messages.REASONS.ph/high/warning` | Water is alkaline (pH {value}). Ammonia becomes more harmful. Add fresh water and stop adding fertiliser. | ನೀರು ಕ್ಷಾರೀಯವಾಗಿದೆ (pH {value}). ಅಮೋನಿಯಾ ಹೆಚ್ಚು ಹಾನಿಕಾರಕವಾಗುತ್ತದೆ. ಹೊಸ ನೀರು ಹಾಕಿ ಮತ್ತು ಗೊಬ್ಬರ ಹಾಕುವುದನ್ನು ನಿಲ್ಲಿಸಿ. |  |
+| 17 | `risk_messages.REASONS.ph/high/danger` | Water is very alkaline (pH {value}). Fish can die. Add fresh water now and contact your fisheries officer. | ನೀರು ತುಂಬಾ ಕ್ಷಾರೀಯವಾಗಿದೆ (pH {value}). ಮೀನುಗಳು ಸಾಯಬಹುದು. ತಕ್ಷಣ ಹೊಸ ನೀರು ಹಾಕಿ ಮತ್ತು ಮೀನುಗಾರಿಕೆ ಅಧಿಕಾರಿಯನ್ನು ಸಂಪರ್ಕಿಸಿ. |  |
+| 18 | `risk_messages.REASONS.temperature/low/warning` | Water is cool ({value} {unit}). Fish eat less. Reduce the feed. | ನೀರು ತಣ್ಣಗಿದೆ ({value} {unit}). ಮೀನುಗಳು ಕಡಿಮೆ ತಿನ್ನುತ್ತವೆ. ಆಹಾರ ಕಡಿಮೆ ಮಾಡಿ. |  |
+| 19 | `risk_messages.REASONS.temperature/low/danger` | Water is too cold ({value} {unit}). Fish are stressed and may fall sick. Feed very little. | ನೀರು ತುಂಬಾ ತಣ್ಣಗಿದೆ ({value} {unit}). ಮೀನುಗಳಿಗೆ ಒತ್ತಡ ಉಂಟಾಗಿ ರೋಗ ಬರಬಹುದು. ತುಂಬಾ ಕಡಿಮೆ ಆಹಾರ ನೀಡಿ. |  |
+| 20 | `risk_messages.REASONS.temperature/high/warning` | Water is warm ({value} {unit}). Oxygen will drop. Run the aerator and add fresh water. | ನೀರು ಬಿಸಿಯಾಗಿದೆ ({value} {unit}). ಆಮ್ಲಜನಕ ಕಡಿಮೆಯಾಗುತ್ತದೆ. ಏರೇಟರ್ ಚಾಲೂ ಮಾಡಿ ಮತ್ತು ಹೊಸ ನೀರು ಹಾಕಿ. |  |
+| 21 | `risk_messages.REASONS.temperature/high/danger` | Water is too hot ({value} {unit}). Fish can die. Add fresh water now, run the aerator and stop feeding. | ನೀರು ತುಂಬಾ ಬಿಸಿಯಾಗಿದೆ ({value} {unit}). ಮೀನುಗಳು ಸಾಯಬಹುದು. ತಕ್ಷಣ ಹೊಸ ನೀರು ಹಾಕಿ, ಏರೇಟರ್ ಚಾಲೂ ಮಾಡಿ ಮತ್ತು ಆಹಾರ ನಿಲ್ಲಿಸಿ. |  |
+| 22 | `risk_messages.REASONS.ammonia/high/warning` | Harmful ammonia is rising ({value} {unit}). Reduce the feed and add fresh water. | ಹಾನಿಕಾರಕ ಅಮೋನಿಯಾ ಹೆಚ್ಚುತ್ತಿದೆ ({value} {unit}). ಆಹಾರ ಕಡಿಮೆ ಮಾಡಿ ಮತ್ತು ಹೊಸ ನೀರು ಹಾಕಿ. |  |
+| 23 | `risk_messages.REASONS.ammonia/high/danger` | Harmful ammonia is very high ({value} {unit}). Fish can die. Stop feeding today and add fresh water. | ಹಾನಿಕಾರಕ ಅಮೋನಿಯಾ ತುಂಬಾ ಹೆಚ್ಚಾಗಿದೆ ({value} {unit}). ಮೀನುಗಳು ಸಾಯಬಹುದು. ಇಂದು ಆಹಾರ ನೀಡುವುದನ್ನು ನಿಲ್ಲಿಸಿ ಮತ್ತು ಹೊಸ ನೀರು ಹಾಕಿ. |  |
+| 24 | `risk_messages.REASONS.nitrate/high/warning` | Nitrate is high ({value} {unit}). Change some of the water and reduce the feed. | ನೈಟ್ರೇಟ್ ಹೆಚ್ಚಾಗಿದೆ ({value} {unit}). ಸ್ವಲ್ಪ ನೀರು ಬದಲಾಯಿಸಿ ಮತ್ತು ಆಹಾರ ಕಡಿಮೆ ಮಾಡಿ. |  |
+| 25 | `risk_messages.ALL_SAFE` | All readings are in the safe range. | ಎಲ್ಲಾ ಅಳತೆಗಳು ಸುರಕ್ಷಿತ ಮಟ್ಟದಲ್ಲಿವೆ. |  |
+| 26 | `risk_messages.SENSOR_ERROR` | {name} reading looks wrong ({value}). Check the sensor. | {name} ಅಳತೆ ತಪ್ಪಾಗಿರುವಂತೆ ಕಾಣುತ್ತಿದೆ ({value}). ಸೆನ್ಸರ್ ಪರಿಶೀಲಿಸಿ. |  |
+| 27 | `risk_messages.TEST_KIT_ERROR` | {name} reading looks impossible ({value}). Check your test kit and test again. | {name} ಅಳತೆ ಅಸಾಧ್ಯವೆಂದು ಕಾಣುತ್ತಿದೆ ({value}). ನಿಮ್ಮ ಟೆಸ್ಟ್ ಕಿಟ್ ಪರಿಶೀಲಿಸಿ ಮತ್ತೆ ಪರೀಕ್ಷಿಸಿ. |  |
+| 28 | `risk_messages.AMMONIA_NEEDS_PH_AND_TEMPERATURE` | Ammonia could not be checked because pH or temperature is missing. | pH ಅಥವಾ ತಾಪಮಾನ ಇಲ್ಲದ ಕಾರಣ ಅಮೋನಿಯಾ ಪರಿಶೀಲಿಸಲು ಆಗಲಿಲ್ಲ. |  |
+| 29 | `risk_messages.NO_VALID_READINGS` | No valid readings. Check the sensors. | ಸರಿಯಾದ ಅಳತೆಗಳು ಇಲ್ಲ. ಸೆನ್ಸರ್‌ಗಳನ್ನು ಪರಿಶೀಲಿಸಿ. |  |
+| 30 | `risk_messages.NO_VALID_TEST_KIT_READINGS` | No valid readings. Check your test kit. | ಸರಿಯಾದ ಅಳತೆಗಳು ಇಲ್ಲ. ನಿಮ್ಮ ಟೆಸ್ಟ್ ಕಿಟ್ ಪರಿಶೀಲಿಸಿ. |  |
 
 ## 24. Messages from the server: Time until danger (messages)
 
@@ -630,7 +706,28 @@ Labels, safety replies and the suggested questions. Ready answers are built from
 | 31 | `assistant.BAND.no_danger` | {name}: Safe {safe}. Otherwise Warning (no Danger level). | {name}: ಸುರಕ್ಷಿತ {safe}. ಇಲ್ಲದಿದ್ದರೆ ಎಚ್ಚರಿಕೆ (ಅಪಾಯ ಮಟ್ಟ ಇಲ್ಲ). |  |
 | 32 | `assistant._answer (tonight)` | Oxygen crash risk tonight: {level}. | ಇಂದು ರಾತ್ರಿ ಆಮ್ಲಜನಕ ಕುಸಿತದ ಅಪಾಯ: {level}. |  |
 
-## 31. Messages from the server: Shop: assistant answers
+## 31. Messages from the server: My ponds and devices (server messages)
+
+Shown on the Pond page, the status strip and to devices (backend/ponds.py). The cause words follow the pond name in the strip, e.g. "Pond 2: Danger · low oxygen".
+
+| # | Where in the code | English | Kannada | Correct? / suggestion |
+|---|---|---|---|---|
+| 1 | `ponds.DEMO_MODE` | Demo mode: ponds reset when the server sleeps. | ಡೆಮೊ ಮೋಡ್: ಸರ್ವರ್ ನಿದ್ರಿಸಿದಾಗ ಕೊಳಗಳು ಅಳಿಸಿಹೋಗುತ್ತವೆ. |  |
+| 2 | `ponds.BAD_FARM_CODE` | Missing or wrong farm code. | ಫಾರ್ಮ್ ಕೋಡ್ ಇಲ್ಲ ಅಥವಾ ತಪ್ಪಾಗಿದೆ. |  |
+| 3 | `ponds.NOT_FOUND` | Pond not found. | ಕೊಳ ಸಿಗಲಿಲ್ಲ. |  |
+| 4 | `ponds.TOO_MANY_PONDS` | You can add up to 20 ponds. | ನೀವು 20 ಕೊಳಗಳವರೆಗೆ ಸೇರಿಸಬಹುದು. |  |
+| 5 | `ponds.HAS_DEVICE` | This pond already has a device. Remove it first, or make a new key. | ಈ ಕೊಳಕ್ಕೆ ಈಗಾಗಲೇ ಸಾಧನವಿದೆ. ಮೊದಲು ಅದನ್ನು ತೆಗೆಯಿರಿ, ಅಥವಾ ಹೊಸ ಕೀ ಮಾಡಿ. |  |
+| 6 | `ponds.NO_DEVICE` | This pond has no device. | ಈ ಕೊಳಕ್ಕೆ ಯಾವುದೇ ಸಾಧನವಿಲ್ಲ. |  |
+| 7 | `ponds.TOO_SOON` | Too many readings. Send at most one reading every 30 seconds. | ತುಂಬಾ ಅಳತೆಗಳು. 30 ಸೆಕೆಂಡಿಗೆ ಒಂದಕ್ಕಿಂತ ಹೆಚ್ಚು ಅಳತೆ ಕಳುಹಿಸಬೇಡಿ. |  |
+| 8 | `ponds.CAUSE_WORDS dissolved_oxygen low` | low oxygen | ಕಡಿಮೆ ಆಮ್ಲಜನಕ |  |
+| 9 | `ponds.CAUSE_WORDS ph low` | low pH | ಕಡಿಮೆ pH |  |
+| 10 | `ponds.CAUSE_WORDS ph high` | high pH | ಹೆಚ್ಚು pH |  |
+| 11 | `ponds.CAUSE_WORDS temperature high` | hot water | ಬಿಸಿ ನೀರು |  |
+| 12 | `ponds.CAUSE_WORDS temperature low` | cold water | ತಣ್ಣನೆಯ ನೀರು |  |
+| 13 | `ponds.CAUSE_WORDS ammonia high` | high ammonia | ಹೆಚ್ಚು ಅಮೋನಿಯಾ |  |
+| 14 | `ponds.CAUSE_WORDS nitrate high` | high nitrate | ಹೆಚ್ಚು ನೈಟ್ರೇಟ್ |  |
+
+## 32. Messages from the server: Shop: assistant answers
 
 Ready answers to Shop questions (backend/shop.py). `{name}` is a product name, `{n}` a number of ponds or alerts, `{price}` e.g. ಅಂದಾಜು ₹23,000, `{budget}` e.g. 5,000.
 
@@ -660,7 +757,7 @@ Ready answers to Shop questions (backend/shop.py). `{name}` is a product name, `
 | 22 | `shop.TEXT.budget` | The {name} is {price}, more than your budget of ₹{budget}. Start with the test kit and the free app. | {name} ಬೆಲೆ {price}, ಇದು ನಿಮ್ಮ ₹{budget} ಬಜೆಟ್‌ಗಿಂತ ಹೆಚ್ಚು. ಟೆಸ್ಟ್ ಕಿಟ್ ಮತ್ತು ಉಚಿತ ಆ್ಯಪ್‌ನಿಂದ ಪ್ರಾರಂಭಿಸಿ. |  |
 | 23 | `shop.TEXT.simulated` | (simulated data) | (ಅನುಕರಿಸಿದ ಡೇಟಾ) |  |
 
-## 32. Messages from the server: Shop: products
+## 33. Messages from the server: Shop: products
 
 frontend/shop-data.json: shown on the Shop page and used by the assistant.
 
@@ -726,7 +823,7 @@ frontend/shop-data.json: shown on the Shop page and used by the assistant.
 | 58 | `shop-data.json solar-10w.steps[3]` | Point the panel at the sun and switch the box on. | ಫಲಕವನ್ನು ಸೂರ್ಯನ ಕಡೆಗೆ ತಿರುಗಿಸಿ, ಪೆಟ್ಟಿಗೆಯನ್ನು ಆನ್ ಮಾಡಿ. |  |
 | 59 | `shop-data.json solar-10w.care` | Wipe dust and bird droppings off the solar panel every month. | ಪ್ರತಿ ತಿಂಗಳು ಸೌರ ಫಲಕದ ಮೇಲಿನ ಧೂಳು ಮತ್ತು ಹಕ್ಕಿ ಹಿಕ್ಕೆಯನ್ನು ಒರೆಸಿ. |  |
 
-## 33. Messages from the server: Alert preview (SMS / WhatsApp)
+## 34. Messages from the server: Alert preview (SMS / WhatsApp)
 
 The SMS and WhatsApp text is built from the risk card and time-until-danger messages above, plus these.
 

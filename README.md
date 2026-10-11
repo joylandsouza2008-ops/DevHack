@@ -7,7 +7,7 @@
 Early-warning web app for small aquaculture farmers in coastal Karnataka.
 It predicts pond water-quality risk (**Safe / Warning / Danger**) and shows alerts in Kannada and English.
 Software only: sensor readings are simulated from public datasets.
-A real pond sensor (e.g. an ESP32) can also send live readings: see [docs/sensor-api.md](docs/sensor-api.md).
+Farmers can add their own ponds (no account: a random farm code groups them) and connect one sensor (e.g. an ESP32) to each, to see live readings from all of them: see [docs/sensor-api.md](docs/sensor-api.md).
 
 Built for DevHack 2026, problem statement 1.1.
 
@@ -30,12 +30,14 @@ Built for DevHack 2026, problem statement 1.1.
 | `backend/diseases.py` | Fish disease guide: 9 carp-pond diseases (English + Kannada), symptom checker ("possible matches", never a diagnosis), diseases made more likely by risky readings. No medicines or doses |
 | `backend/security.py` | Security for every request: rate limits on the assistant and sensor API, request size limit, Content-Security-Policy and other security headers ([docs/security.md](docs/security.md)) |
 | `backend/sensor.py` | Live sensor: per-pond key check (key only in an environment variable), clock check, readings kept in memory |
-| `tools/fake_sensor.py` | Demo device: a pretend sensor that sends made-up readings every few seconds (labelled "Demo device") |
+| `backend/ponds.py` | My ponds: farm codes, ponds, one device per pond (key shown once, stored as a hash), rate limit, online/offline, worst pond, alerts |
+| `backend/db.py` | The database for My ponds: Postgres if `DATABASE_URL` is set, a SQLite file locally, memory ("demo mode") on Render without it |
+| `tools/fake_sensor.py` | Demo devices: pretend sensors that send made-up readings (labelled "Simulated data"); `--devices 3` makes three live demo ponds, one with a night oxygen crash |
 | `docs/how-it-works.md` | Beginner's guide: how every part works, which file does what, 20 likely judge questions |
 | `docs/assistant.md` | Assistant safety rules, provider research and setup |
 | `docs/diseases.md` | Sources for every disease-guide entry, and why there's no photo check |
 | `docs/security.md` | Security checklist results: what was checked, fixed, or not applicable |
-| `docs/sensor-api.md` | Live sensor API, refusals, memory-only limits on free Render, ESP32 example |
+| `docs/sensor-api.md` | Live sensor API, My ponds devices (keys, values, rate limit, storage), refusals, ESP32 example |
 | `ml/train_do_forecast.py` | Trains and evaluates the DO forecast (`python -m ml.train_do_forecast`) |
 | `ml/experiment_3h_average.py` | Experiment: forecasting the 3-hour average DO (not adopted, see docs) |
 | `ml/evaluate_time_to_danger.py` | Checks "time until danger" on real Pondsdata (`python -m ml.evaluate_time_to_danger`) |

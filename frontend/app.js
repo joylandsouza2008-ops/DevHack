@@ -47,9 +47,10 @@ const TEXT = {
     termsTreat: "The app never suggests chemicals, medicines or amounts to add to the pond. Treatment must come from a fisheries officer or KVK.",
     termsPrivacyTitle: "Privacy",
     termsNoAccount: "No account and no sign-up.",
+    termsPonds: "My ponds: your pond names, sizes, fish types, device readings (for 48 hours) and alerts (for 14 days) are saved on our server under your farm code. We keep only a scrambled copy (hash) of the farm code and of device keys. No name, phone number or email is asked for. Anyone with your farm code can see and change your ponds.",
     termsLocation: "The app does not ask for your location. Tonight's weather is always for Mangaluru. Your phone gets it straight from Open-Meteo, so Open-Meteo sees your internet address, as any website would.",
-    termsBrowser: "Your language, theme, ticked steps, alert history, the last weather forecast and your Shop cart are saved only in this browser. Clearing the browser's data removes them.",
-    termsServer: "Test-kit numbers and the readings on screen go to our server to be checked, and are not saved there. Readings from a pond sensor stay in the server's memory only until it restarts.",
+    termsBrowser: "Your language, theme, ticked steps, alert history, the last weather forecast, your Shop cart and your farm code are saved only in this browser. Clearing the browser's data removes them.",
+    termsServer: "Test-kit numbers and the readings on screen go to our server to be checked, and are not saved there. Readings sent to the demo Live sensor card stay in the server's memory only until it restarts.",
     termsAi: "Questions to the assistant are sent, with the readings on screen and the level, cause and time of your recent alerts, to the AI service (now Google Gemini) to get an answer. Google's own terms apply to what it receives. Don't type your name, phone number or other personal details.",
     termsLogs: "To keep the site working and stop misuse, our server and our host (Render) keep short technical records, such as which page was asked for and the internet address it came from.",
     termsNoAds: "No ads, no tracking, and nothing about you is sold.",
@@ -171,6 +172,53 @@ const TEXT = {
     // Phones under 480 px: 7 tabs leave about 50 px each, so the two long English words get short forms.
     tabWeatherShort: "Sky", tabDiseasesShort: "Fish",
     titleWeather: "Weather", titleDiseases: "Fish diseases", titleMore: "More",
+    // My ponds and devices (ponds.js): the farmer's own ponds, real readings.
+    pondsTitle: "My ponds", pondAdd: "Add pond", demoPondTitle: "Demo pond",
+    pondsDemoMode: "Demo mode: ponds reset when the server sleeps.",
+    pondsEmpty: "Add your ponds, then connect a device to see live readings from each one.",
+    pondsLoadFailed: "Could not load your ponds. Check your internet.",
+    pondNoReadings: "No readings yet", pondLastReading: (t) => `Last reading: ${t}`,
+    pondConnectFirst: "Connect a device to see this pond's readings.",
+    deviceOnline: "Device online", deviceOfflineSince: (t) => `Offline since ${t}`,
+    deviceWaiting: "Device connected. Waiting for the first reading.", deviceNone: "No device",
+    pondBack: "All ponds", pondEdit: "Edit", pondDelete: "Delete pond",
+    pondDeleteConfirm: (n) => `Delete "${n}" with its device, readings and alerts?`,
+    pondNotFound: "Pond not found",
+    pondNotFoundHelp: "This pond is not in your farm. It may have been deleted, or it belongs to another farm code.",
+    pondSize: "Size", pondFish: "Fish",
+    pondReadingsTitle: "Readings", pondChartTitle: "Oxygen, last 12 hours",
+    pondChartOxygen: "Oxygen (mg/L)", pondChartWarnLine: "Warning below 5", pondChartDangerLine: "Danger below 3",
+    pondChartSummary: (a, b, n) => `Oxygen went from ${a} to ${b} mg/L over the last ${n} readings.`,
+    pondChartNone: "Not enough oxygen readings for a chart yet.",
+    pondDialogAdd: "Add a pond", pondDialogEdit: "Edit pond",
+    pondNameLabel: "Pond name", pondNameHelp: "For example: Pond near road. Don't use your own name or phone number.",
+    pondSizeLabel: "Size (optional)", pondSizeHelp: "For example: 0.5 acre",
+    pondFishLabel: "Fish type (optional)", pondFishHelp: "For example: rohu, catla",
+    pondSave: "Save", pondCancel: "Cancel", pondNameMissing: "Type a name for the pond.",
+    pondSaveFailed: "Could not save. Check your internet and try again.",
+    deviceTitle: "Device", deviceConnect: "Connect a device", deviceNewKey: "New key", deviceRemove: "Remove device",
+    deviceRemoveConfirm: "Remove this device? It will stop sending readings to this pond.",
+    deviceNewKeyConfirm: "Make a new key? The old key stops working at once.",
+    deviceKeyOnce: "Save this key now. It is shown only once. AquaNexus keeps only a scrambled copy (a hash).",
+    deviceIdLabel: "Device ID", deviceKeyLabel: "Device key", deviceUrlLabel: "Address",
+    copy: "Copy", copied: "Copied", copyByHand: "Copy by hand",
+    deviceSetupTitle: "Set up the device", deviceKeyDone: "I have saved the key",
+    deviceStep1: "Open the ESP32 sketch in docs/sensor-api.md. Put the device ID and key in it.",
+    deviceStep2: (url) => `It sends each reading to POST ${url} with the header X-Sensor-Key.`,
+    deviceStep3: (s) => `At most one reading every ${s} seconds. Leave out values the device does not measure.`,
+    deviceStep4: "Switch it on. The pond shows Device online when the first reading arrives.",
+    deviceLastRefused: "Last reading refused:",
+    pondAlertsTitle: "Alerts from my ponds", pondAlertsHelp: "From your own devices, newest first.",
+    pondAlertsEmpty: "No warnings from your ponds yet.",
+    farmTitle: "My farm code",
+    farmHelp: "This code keeps your ponds together. Type it on another phone to open the same ponds. No name, phone number or email is needed.",
+    farmWarn: "Anyone with this code can see and change your ponds. Share it only with people you trust.",
+    farmCopy: "Copy code", farmNotSaved: "This browser is not saving the code. Write it down.",
+    farmUseLabel: "Code from another phone", farmOpen: "Open these ponds",
+    farmBad: "That is not a farm code. It has 12 letters and numbers, like K7QM-3XRP-9TFD.",
+    farmSwitchConfirm: "Open the ponds for this code? Write down your current code first if you want to come back to it.",
+    farmSwitched: (c) => `Now showing the ponds for ${c}.`,
+    stripAllSafe: "All your ponds are safe",
     // Shop (shop.js): estimated prices only, nothing is sold or sent anywhere.
     titleShop: "Shop",
     shopIntro: "Sensors and spare parts that work with AquaNexus. Make a list and share it.",
@@ -239,9 +287,10 @@ const TEXT = {
     termsTreat: "ಆ್ಯಪ್ ಎಂದಿಗೂ ಕೊಳಕ್ಕೆ ಹಾಕಬೇಕಾದ ರಾಸಾಯನಿಕ, ಔಷಧಿ ಅಥವಾ ಪ್ರಮಾಣವನ್ನು ಸೂಚಿಸುವುದಿಲ್ಲ. ಚಿಕಿತ್ಸೆಯನ್ನು ಮೀನುಗಾರಿಕೆ ಅಧಿಕಾರಿ ಅಥವಾ KVK ಮಾತ್ರ ನೀಡಬೇಕು.",
     termsPrivacyTitle: "ಗೌಪ್ಯತೆ",
     termsNoAccount: "ಖಾತೆ ಇಲ್ಲ, ನೋಂದಣಿ ಇಲ್ಲ.",
+    termsPonds: "ನನ್ನ ಕೊಳಗಳು: ನಿಮ್ಮ ಕೊಳಗಳ ಹೆಸರು, ಗಾತ್ರ, ಮೀನಿನ ಪ್ರಕಾರ, ಸಾಧನದ ಅಳತೆಗಳು (48 ಗಂಟೆಗಳವರೆಗೆ) ಮತ್ತು ಎಚ್ಚರಿಕೆಗಳು (14 ದಿನಗಳವರೆಗೆ) ನಿಮ್ಮ ಫಾರ್ಮ್ ಕೋಡ್ ಅಡಿಯಲ್ಲಿ ನಮ್ಮ ಸರ್ವರ್‌ನಲ್ಲಿ ಉಳಿಯುತ್ತವೆ. ಫಾರ್ಮ್ ಕೋಡ್ ಮತ್ತು ಸಾಧನದ ಕೀಗಳ ಗೂಢ ಪ್ರತಿಯನ್ನು (ಹ್ಯಾಶ್) ಮಾತ್ರ ಇಡುತ್ತೇವೆ. ಹೆಸರು, ಫೋನ್ ಸಂಖ್ಯೆ ಅಥವಾ ಇಮೇಲ್ ಕೇಳುವುದಿಲ್ಲ. ನಿಮ್ಮ ಫಾರ್ಮ್ ಕೋಡ್ ಇರುವ ಯಾರಾದರೂ ನಿಮ್ಮ ಕೊಳಗಳನ್ನು ನೋಡಬಹುದು ಮತ್ತು ಬದಲಿಸಬಹುದು.",
     termsLocation: "ಆ್ಯಪ್ ನಿಮ್ಮ ಸ್ಥಳವನ್ನು ಕೇಳುವುದಿಲ್ಲ. ಇಂದು ರಾತ್ರಿಯ ಹವಾಮಾನ ಯಾವಾಗಲೂ ಮಂಗಳೂರಿನದು. ನಿಮ್ಮ ಫೋನ್ ಅದನ್ನು ನೇರವಾಗಿ Open-Meteo ಯಿಂದ ಪಡೆಯುತ್ತದೆ, ಆದ್ದರಿಂದ ಯಾವುದೇ ವೆಬ್‌ಸೈಟ್‌ನಂತೆ Open-Meteo ನಿಮ್ಮ ಇಂಟರ್ನೆಟ್ ವಿಳಾಸವನ್ನು ನೋಡುತ್ತದೆ.",
-    termsBrowser: "ನಿಮ್ಮ ಭಾಷೆ, ಥೀಮ್, ಗುರುತು ಹಾಕಿದ ಹಂತಗಳು, ಎಚ್ಚರಿಕೆಗಳ ಇತಿಹಾಸ, ಕೊನೆಯ ಹವಾಮಾನ ಮುನ್ಸೂಚನೆ ಮತ್ತು ಅಂಗಡಿಯ ಕಾರ್ಟ್ ಈ ಬ್ರೌಸರ್‌ನಲ್ಲಿ ಮಾತ್ರ ಉಳಿಯುತ್ತವೆ. ಬ್ರೌಸರ್‌ನ ಡೇಟಾ ಅಳಿಸಿದರೆ ಅವು ಹೋಗುತ್ತವೆ.",
-    termsServer: "ಟೆಸ್ಟ್-ಕಿಟ್ ಅಳತೆಗಳು ಮತ್ತು ಪರದೆಯ ಮೇಲಿನ ಅಳತೆಗಳು ಪರಿಶೀಲನೆಗಾಗಿ ನಮ್ಮ ಸರ್ವರ್‌ಗೆ ಹೋಗುತ್ತವೆ, ಅಲ್ಲಿ ಉಳಿಸಲಾಗುವುದಿಲ್ಲ. ಕೊಳದ ಸೆನ್ಸರ್ ಕಳುಹಿಸಿದ ಅಳತೆಗಳು ಸರ್ವರ್ ಮರುಪ್ರಾರಂಭವಾಗುವವರೆಗೆ ಮಾತ್ರ ಅದರ ಮೆಮೊರಿಯಲ್ಲಿ ಇರುತ್ತವೆ.",
+    termsBrowser: "ನಿಮ್ಮ ಭಾಷೆ, ಥೀಮ್, ಗುರುತು ಹಾಕಿದ ಹಂತಗಳು, ಎಚ್ಚರಿಕೆಗಳ ಇತಿಹಾಸ, ಕೊನೆಯ ಹವಾಮಾನ ಮುನ್ಸೂಚನೆ, ಅಂಗಡಿಯ ಕಾರ್ಟ್ ಮತ್ತು ನಿಮ್ಮ ಫಾರ್ಮ್ ಕೋಡ್ ಈ ಬ್ರೌಸರ್‌ನಲ್ಲಿ ಮಾತ್ರ ಉಳಿಯುತ್ತವೆ. ಬ್ರೌಸರ್‌ನ ಡೇಟಾ ಅಳಿಸಿದರೆ ಅವು ಹೋಗುತ್ತವೆ.",
+    termsServer: "ಟೆಸ್ಟ್-ಕಿಟ್ ಅಳತೆಗಳು ಮತ್ತು ಪರದೆಯ ಮೇಲಿನ ಅಳತೆಗಳು ಪರಿಶೀಲನೆಗಾಗಿ ನಮ್ಮ ಸರ್ವರ್‌ಗೆ ಹೋಗುತ್ತವೆ, ಅಲ್ಲಿ ಉಳಿಸಲಾಗುವುದಿಲ್ಲ. ಡೆಮೊ ಲೈವ್ ಸೆನ್ಸರ್ ಕಾರ್ಡ್‌ಗೆ ಕಳುಹಿಸಿದ ಅಳತೆಗಳು ಸರ್ವರ್ ಮರುಪ್ರಾರಂಭವಾಗುವವರೆಗೆ ಮಾತ್ರ ಅದರ ಮೆಮೊರಿಯಲ್ಲಿ ಇರುತ್ತವೆ.",
     termsAi: "ಸಹಾಯಕನಿಗೆ ಕೇಳುವ ಪ್ರಶ್ನೆಗಳು, ಪರದೆಯ ಮೇಲಿನ ಅಳತೆಗಳು ಮತ್ತು ಇತ್ತೀಚಿನ ಎಚ್ಚರಿಕೆಗಳ ಮಟ್ಟ, ಕಾರಣ ಹಾಗೂ ಸಮಯದ ಜೊತೆಗೆ, ಉತ್ತರ ಪಡೆಯಲು AI ಸೇವೆಗೆ (ಈಗ Google Gemini) ಹೋಗುತ್ತವೆ. ಅದು ಪಡೆಯುವುದಕ್ಕೆ Google ನ ಸ್ವಂತ ನಿಯಮಗಳು ಅನ್ವಯಿಸುತ್ತವೆ. ನಿಮ್ಮ ಹೆಸರು, ಫೋನ್ ಸಂಖ್ಯೆ ಅಥವಾ ಇತರ ವೈಯಕ್ತಿಕ ವಿವರಗಳನ್ನು ಟೈಪ್ ಮಾಡಬೇಡಿ.",
     termsLogs: "ಸೈಟ್ ಸರಿಯಾಗಿ ನಡೆಯಲು ಮತ್ತು ದುರುಪಯೋಗ ತಡೆಯಲು, ನಮ್ಮ ಸರ್ವರ್ ಮತ್ತು ನಮ್ಮ ಹೋಸ್ಟ್ (Render) ಸಣ್ಣ ತಾಂತ್ರಿಕ ದಾಖಲೆಗಳನ್ನು ಇಡುತ್ತವೆ, ಉದಾಹರಣೆಗೆ ಯಾವ ಪುಟ ಕೇಳಲಾಯಿತು ಮತ್ತು ಅದು ಬಂದ ಇಂಟರ್ನೆಟ್ ವಿಳಾಸ.",
     termsNoAds: "ಜಾಹೀರಾತುಗಳಿಲ್ಲ, ಟ್ರ್ಯಾಕಿಂಗ್ ಇಲ್ಲ, ಮತ್ತು ನಿಮ್ಮ ಬಗ್ಗೆ ಏನನ್ನೂ ಮಾರಾಟ ಮಾಡುವುದಿಲ್ಲ.",
@@ -362,6 +411,52 @@ const TEXT = {
     tabPond: "ಕೊಳ", tabAlerts: "ಎಚ್ಚರಿಕೆ", tabWeather: "ಹವೆ", tabDiseases: "ರೋಗ", tabAsk: "ಕೇಳಿ", tabShop: "ಅಂಗಡಿ", tabMore: "ಇತರೆ",
     tabWeatherShort: "ಹವೆ", tabDiseasesShort: "ರೋಗ",
     titleWeather: "ಹವಾಮಾನ", titleDiseases: "ಮೀನು ರೋಗಗಳು", titleMore: "ಇನ್ನಷ್ಟು",
+    pondsTitle: "ನನ್ನ ಕೊಳಗಳು", pondAdd: "ಕೊಳ ಸೇರಿಸಿ", demoPondTitle: "ಡೆಮೊ ಕೊಳ",
+    pondsDemoMode: "ಡೆಮೊ ಮೋಡ್: ಸರ್ವರ್ ನಿದ್ರಿಸಿದಾಗ ಕೊಳಗಳು ಅಳಿಸಿಹೋಗುತ್ತವೆ.",
+    pondsEmpty: "ನಿಮ್ಮ ಕೊಳಗಳನ್ನು ಸೇರಿಸಿ, ನಂತರ ಪ್ರತಿಯೊಂದರ ಲೈವ್ ಅಳತೆಗಳನ್ನು ನೋಡಲು ಸಾಧನವನ್ನು ಸಂಪರ್ಕಿಸಿ.",
+    pondsLoadFailed: "ನಿಮ್ಮ ಕೊಳಗಳನ್ನು ತೆರೆಯಲು ಆಗಲಿಲ್ಲ. ಇಂಟರ್ನೆಟ್ ಪರಿಶೀಲಿಸಿ.",
+    pondNoReadings: "ಇನ್ನೂ ಅಳತೆಗಳಿಲ್ಲ", pondLastReading: (t) => `ಕೊನೆಯ ಅಳತೆ: ${t}`,
+    pondConnectFirst: "ಈ ಕೊಳದ ಅಳತೆಗಳನ್ನು ನೋಡಲು ಸಾಧನವನ್ನು ಸಂಪರ್ಕಿಸಿ.",
+    deviceOnline: "ಸಾಧನ ಆನ್‌ಲೈನ್", deviceOfflineSince: (t) => `${t} ರಿಂದ ಆಫ್‌ಲೈನ್`,
+    deviceWaiting: "ಸಾಧನ ಸಂಪರ್ಕಗೊಂಡಿದೆ. ಮೊದಲ ಅಳತೆಗಾಗಿ ಕಾಯಲಾಗುತ್ತಿದೆ.", deviceNone: "ಸಾಧನವಿಲ್ಲ",
+    pondBack: "ಎಲ್ಲಾ ಕೊಳಗಳು", pondEdit: "ಬದಲಿಸಿ", pondDelete: "ಕೊಳ ಅಳಿಸಿ",
+    pondDeleteConfirm: (n) => `"${n}" ಅನ್ನು ಅದರ ಸಾಧನ, ಅಳತೆಗಳು ಮತ್ತು ಎಚ್ಚರಿಕೆಗಳೊಂದಿಗೆ ಅಳಿಸಬೇಕೇ?`,
+    pondNotFound: "ಕೊಳ ಸಿಗಲಿಲ್ಲ",
+    pondNotFoundHelp: "ಈ ಕೊಳ ನಿಮ್ಮ ಫಾರ್ಮ್‌ನಲ್ಲಿಲ್ಲ. ಅದನ್ನು ಅಳಿಸಿರಬಹುದು, ಅಥವಾ ಅದು ಬೇರೆ ಫಾರ್ಮ್ ಕೋಡ್‌ಗೆ ಸೇರಿರಬಹುದು.",
+    pondSize: "ಗಾತ್ರ", pondFish: "ಮೀನು",
+    pondReadingsTitle: "ಅಳತೆಗಳು", pondChartTitle: "ಆಮ್ಲಜನಕ, ಕಳೆದ 12 ಗಂಟೆಗಳು",
+    pondChartOxygen: "ಆಮ್ಲಜನಕ (mg/L)", pondChartWarnLine: "5 ಕ್ಕಿಂತ ಕಡಿಮೆ: ಎಚ್ಚರಿಕೆ", pondChartDangerLine: "3 ಕ್ಕಿಂತ ಕಡಿಮೆ: ಅಪಾಯ",
+    pondChartSummary: (a, b, n) => `ಕೊನೆಯ ${n} ಅಳತೆಗಳಲ್ಲಿ ಆಮ್ಲಜನಕ ${a} ರಿಂದ ${b} mg/L ಗೆ ಬದಲಾಗಿದೆ.`,
+    pondChartNone: "ಚಾರ್ಟ್‌ಗೆ ಇನ್ನೂ ಸಾಕಷ್ಟು ಆಮ್ಲಜನಕ ಅಳತೆಗಳಿಲ್ಲ.",
+    pondDialogAdd: "ಕೊಳ ಸೇರಿಸಿ", pondDialogEdit: "ಕೊಳವನ್ನು ಬದಲಿಸಿ",
+    pondNameLabel: "ಕೊಳದ ಹೆಸರು", pondNameHelp: "ಉದಾ: ರಸ್ತೆ ಬದಿಯ ಕೊಳ. ನಿಮ್ಮ ಸ್ವಂತ ಹೆಸರು ಅಥವಾ ಫೋನ್ ಸಂಖ್ಯೆ ಬಳಸಬೇಡಿ.",
+    pondSizeLabel: "ಗಾತ್ರ (ಐಚ್ಛಿಕ)", pondSizeHelp: "ಉದಾ: 0.5 ಎಕರೆ",
+    pondFishLabel: "ಮೀನಿನ ಪ್ರಕಾರ (ಐಚ್ಛಿಕ)", pondFishHelp: "ಉದಾ: ರೋಹು, ಕಾಟ್ಲಾ",
+    pondSave: "ಉಳಿಸಿ", pondCancel: "ರದ್ದುಮಾಡಿ", pondNameMissing: "ಕೊಳಕ್ಕೆ ಹೆಸರು ಬರೆಯಿರಿ.",
+    pondSaveFailed: "ಉಳಿಸಲು ಆಗಲಿಲ್ಲ. ಇಂಟರ್ನೆಟ್ ಪರಿಶೀಲಿಸಿ, ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.",
+    deviceTitle: "ಸಾಧನ", deviceConnect: "ಸಾಧನ ಸಂಪರ್ಕಿಸಿ", deviceNewKey: "ಹೊಸ ಕೀ", deviceRemove: "ಸಾಧನ ತೆಗೆಯಿರಿ",
+    deviceRemoveConfirm: "ಈ ಸಾಧನವನ್ನು ತೆಗೆಯಬೇಕೇ? ಇದು ಈ ಕೊಳಕ್ಕೆ ಅಳತೆ ಕಳುಹಿಸುವುದನ್ನು ನಿಲ್ಲಿಸುತ್ತದೆ.",
+    deviceNewKeyConfirm: "ಹೊಸ ಕೀ ಮಾಡಬೇಕೇ? ಹಳೆಯ ಕೀ ತಕ್ಷಣ ಕೆಲಸ ನಿಲ್ಲಿಸುತ್ತದೆ.",
+    deviceKeyOnce: "ಈ ಕೀಯನ್ನು ಈಗಲೇ ಉಳಿಸಿ. ಇದನ್ನು ಒಮ್ಮೆ ಮಾತ್ರ ತೋರಿಸಲಾಗುತ್ತದೆ. AquaNexus ಅದರ ಗೂಢ ಪ್ರತಿಯನ್ನು (ಹ್ಯಾಶ್) ಮಾತ್ರ ಇಡುತ್ತದೆ.",
+    deviceIdLabel: "ಸಾಧನದ ID", deviceKeyLabel: "ಸಾಧನದ ಕೀ", deviceUrlLabel: "ವಿಳಾಸ",
+    copy: "ನಕಲಿಸಿ", copied: "ನಕಲಾಗಿದೆ", copyByHand: "ಕೈಯಾರೆ ನಕಲಿಸಿ",
+    deviceSetupTitle: "ಸಾಧನವನ್ನು ಸಿದ್ಧಪಡಿಸಿ", deviceKeyDone: "ನಾನು ಕೀ ಉಳಿಸಿದ್ದೇನೆ",
+    deviceStep1: "docs/sensor-api.md ನಲ್ಲಿರುವ ESP32 ಸ್ಕೆಚ್ ತೆರೆಯಿರಿ. ಅದರಲ್ಲಿ ಸಾಧನದ ID ಮತ್ತು ಕೀ ಹಾಕಿ.",
+    deviceStep2: (url) => `ಇದು ಪ್ರತಿ ಅಳತೆಯನ್ನು X-Sensor-Key ಹೆಡರ್ ಜೊತೆಗೆ POST ${url} ಗೆ ಕಳುಹಿಸುತ್ತದೆ.`,
+    deviceStep3: (s) => `${s} ಸೆಕೆಂಡಿಗೆ ಹೆಚ್ಚೆಂದರೆ ಒಂದು ಅಳತೆ. ಸಾಧನ ಅಳೆಯದ ಮೌಲ್ಯಗಳನ್ನು ಬಿಟ್ಟುಬಿಡಿ.`,
+    deviceStep4: "ಸ್ವಿಚ್ ಆನ್ ಮಾಡಿ. ಮೊದಲ ಅಳತೆ ಬಂದಾಗ ಕೊಳ \"ಸಾಧನ ಆನ್‌ಲೈನ್\" ಎಂದು ತೋರಿಸುತ್ತದೆ.",
+    deviceLastRefused: "ಕೊನೆಯ ಅಳತೆ ತಿರಸ್ಕರಿಸಲಾಗಿದೆ:",
+    pondAlertsTitle: "ನನ್ನ ಕೊಳಗಳ ಎಚ್ಚರಿಕೆಗಳು", pondAlertsHelp: "ನಿಮ್ಮ ಸ್ವಂತ ಸಾಧನಗಳಿಂದ, ಹೊಸದು ಮೊದಲು.",
+    pondAlertsEmpty: "ನಿಮ್ಮ ಕೊಳಗಳಿಂದ ಇನ್ನೂ ಎಚ್ಚರಿಕೆಗಳಿಲ್ಲ.",
+    farmTitle: "ನನ್ನ ಫಾರ್ಮ್ ಕೋಡ್",
+    farmHelp: "ಈ ಕೋಡ್ ನಿಮ್ಮ ಕೊಳಗಳನ್ನು ಒಟ್ಟಿಗೆ ಇಡುತ್ತದೆ. ಅದೇ ಕೊಳಗಳನ್ನು ತೆರೆಯಲು ಇನ್ನೊಂದು ಫೋನ್‌ನಲ್ಲಿ ಇದನ್ನು ಬರೆಯಿರಿ. ಹೆಸರು, ಫೋನ್ ಸಂಖ್ಯೆ ಅಥವಾ ಇಮೇಲ್ ಬೇಕಾಗಿಲ್ಲ.",
+    farmWarn: "ಈ ಕೋಡ್ ಇರುವ ಯಾರಾದರೂ ನಿಮ್ಮ ಕೊಳಗಳನ್ನು ನೋಡಬಹುದು ಮತ್ತು ಬದಲಿಸಬಹುದು. ನೀವು ನಂಬುವವರೊಂದಿಗೆ ಮಾತ್ರ ಹಂಚಿಕೊಳ್ಳಿ.",
+    farmCopy: "ಕೋಡ್ ನಕಲಿಸಿ", farmNotSaved: "ಈ ಬ್ರೌಸರ್ ಕೋಡ್ ಉಳಿಸುತ್ತಿಲ್ಲ. ಅದನ್ನು ಬರೆದಿಟ್ಟುಕೊಳ್ಳಿ.",
+    farmUseLabel: "ಇನ್ನೊಂದು ಫೋನ್‌ನ ಕೋಡ್", farmOpen: "ಈ ಕೊಳಗಳನ್ನು ತೆರೆಯಿರಿ",
+    farmBad: "ಇದು ಫಾರ್ಮ್ ಕೋಡ್ ಅಲ್ಲ. ಇದರಲ್ಲಿ K7QM-3XRP-9TFD ತರಹ 12 ಅಕ್ಷರ ಮತ್ತು ಅಂಕಿಗಳಿರುತ್ತವೆ.",
+    farmSwitchConfirm: "ಈ ಕೋಡ್‌ನ ಕೊಳಗಳನ್ನು ತೆರೆಯಬೇಕೇ? ಹಿಂತಿರುಗಲು ಬಯಸಿದರೆ ಮೊದಲು ನಿಮ್ಮ ಈಗಿನ ಕೋಡ್ ಬರೆದಿಟ್ಟುಕೊಳ್ಳಿ.",
+    farmSwitched: (c) => `ಈಗ ${c} ಕೋಡ್‌ನ ಕೊಳಗಳನ್ನು ತೋರಿಸಲಾಗುತ್ತಿದೆ.`,
+    stripAllSafe: "ನಿಮ್ಮ ಎಲ್ಲಾ ಕೊಳಗಳು ಸುರಕ್ಷಿತ",
     titleShop: "ಅಂಗಡಿ",
     shopIntro: "AquaNexus ಜೊತೆ ಕೆಲಸ ಮಾಡುವ ಸೆನ್ಸರ್‌ಗಳು ಮತ್ತು ಬಿಡಿಭಾಗಗಳು. ಪಟ್ಟಿ ಮಾಡಿ ಹಂಚಿಕೊಳ್ಳಿ.",
     shopNotForSale: "ಇನ್ನೂ ಮಾರಾಟಕ್ಕಿಲ್ಲ. ರೈತರೊಂದಿಗಿನ ನಮ್ಮ ಪ್ರಾಯೋಗಿಕ ಯೋಜನೆಯ ನಂತರ ಆರ್ಡರ್‌ಗಳು ಆರಂಭವಾಗುತ್ತವೆ.",
@@ -479,6 +574,7 @@ function setLanguage(lang) {
   window.DiseaseGuide.render(lang, TEXT[lang]);
   window.Assistant.setLanguage(lang, TEXT[lang]);
   window.Shop.render(lang, TEXT[lang]);
+  window.Ponds.render(lang, TEXT[lang]);
   if (!state.last) renderHealth(null, "unknown", lang);
   renderHistory();
   renderVoice();
@@ -607,9 +703,29 @@ function stripCountdown(ttd, lang) {
   return TEXT[lang].stripDangerIn(TEXT[lang].duration(Math.floor(minutes / 60), minutes % 60));
 }
 
+// The farmer's own ponds come first: the WORST pond (ponds.js), e.g. "Pond 2: Danger · low oxygen".
+// Tapping the strip then opens that pond. With no pond readings, the strip shows the simulated pond.
+function renderPondStrip(pond) {
+  const lang = state.lang;
+  const t = TEXT[lang];
+  const strip = $("status-strip");
+  strip.className = `status-strip strip-${pond.level}`;
+  strip.href = `#/pond/${pond.id}`;
+  $("strip-icon").innerHTML = ICONS[pond.level] || "";
+  $("strip-level").textContent = `${pond.name}: ${pond.level_name ? pond.level_name[lang] : t.pondNoReadings}`;
+  const dev = window.Ponds.deviceLine(pond);
+  const detail = pond.cause ? pond.cause[lang] : pond.level === "safe" ? t.stripAllSafe : "";
+  $("strip-detail").textContent = dev && dev.state === "offline" ? `${detail} · ${dev.text}`.replace(/^ · /, "") : detail;
+  $("strip-sim").hidden = !pond.demo;              // a demo device sends simulated readings
+}
+
 // A message ("Connecting…", "Demo finished…") wins over the last reading, as in the big banner.
 function renderStrip() {
   const lang = state.lang;
+  const worstPond = window.Ponds && window.Ponds.worst();
+  if (worstPond) { renderPondStrip(worstPond); return; }
+  $("status-strip").href = "#/pond";
+  $("strip-sim").hidden = false;
   const data = state.message ? null : state.last;
   const level = data ? data.risk.level : "unknown";
   $("status-strip").className = `status-strip strip-${level}`;
@@ -1325,6 +1441,8 @@ window.Assistant.init(() => ({
 // Pages (router.js). The simulator, history and checklist ticks live here in
 // app.js, so they carry on while you switch pages.
 window.Router.init();
+// New readings from the farmer's own ponds (ponds.js, every 20 s): the strip may show another pond now.
+document.addEventListener("pondschange", renderStrip);
 document.addEventListener("pagechange", (e) => {
   // The pond picker was hidden, so its sliding highlight could not be measured.
   if (e.detail.page === "pond" && state.effectsReady) moveHighlight(true);

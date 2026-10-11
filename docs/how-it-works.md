@@ -131,6 +131,8 @@ shown. It is never used to train a model or to report accuracy.
 
 **Files:** `backend/sensor.py`, `backend/main.py`. **Details:** `docs/sensor-api.md`.
 
+**My ponds.** Farmers can add their own ponds on the Pond page and connect one device to each. There is no account: a random farm code, made in the browser and shown on the More page, groups the ponds, and the server keeps only a hash of it. Each device gets an ID and a key that is shown once (the server keeps only its hash), may send one reading every 30 seconds, and is Online if a reading came in the last 15 minutes. The status strip shows the worst pond. Ponds are saved in a database (Postgres on Render if `DATABASE_URL` is set, otherwise memory with a "Demo mode" note). **Files:** `backend/ponds.py`, `backend/db.py`, `frontend/ponds.js`.
+
 A real sensor box, such as an ESP32 with probes, can send readings to `POST /api/sensor/pond1` (or pond2, pond3).
 
 1. **Key check.** Each pond has a secret key, kept only in a server environment variable (`SENSOR_KEY_POND1` …).
@@ -226,6 +228,7 @@ AI is always shown as plain text, so it can't run as code. Keys come only from e
 | `weather.js` | Downloads tonight's forecast and applies the crash-risk rules |
 | `assistant.js` | The chat card |
 | `diseases.js` | The disease guide and symptom checker |
+| `ponds.js` | My ponds: the farmer's own ponds and devices, one pond's dashboard (`#/pond/<id>`), the farm code, alerts from all ponds |
 | `shop-data.js`, `shop.js` | The Shop page: sensor kits with estimated prices, and a cart saved only in this browser. Checkout only says "Coming soon": no payment, no form, nothing sent to the server |
 | `history.js` | Past alerts, saved in the browser |
 | `voice.js` | Reads an alert aloud when the farmer taps the speaker |

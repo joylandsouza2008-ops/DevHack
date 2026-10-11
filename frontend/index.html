@@ -141,7 +141,7 @@
           <strong class="strip-level" id="strip-level">…</strong>
           <span class="strip-detail" id="strip-detail"></span>
         </span>
-        <span class="strip-sim" data-i18n="simulatedTag">Simulated data</span>
+        <span class="strip-sim" id="strip-sim" data-i18n="simulatedTag">Simulated data</span>
         <svg class="strip-go" aria-hidden="true" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
       <!-- Says a new level out loud (screen readers) when you are not on the Pond page. -->
@@ -152,7 +152,96 @@
       <!-- ===================== Pond (home) ===================== -->
       <section class="page" id="page-pond" aria-labelledby="page-pond-title">
         <h1 class="page-title visually-hidden" id="page-pond-title" tabindex="-1" data-i18n="tabPond">Pond</h1>
-      <!-- Always visible: everything on this page comes from the simulator. -->
+
+      <!-- My ponds (ponds.js): the farmer's own ponds and devices. REAL readings, kept apart from the
+           simulated demo pond below. A demo device (tools/fake_sensor.py) still gets the "Simulated data" tag. -->
+      <section class="ponds-section" id="ponds-section" aria-labelledby="ponds-title">
+        <div class="page-head">
+          <h2 class="ponds-title" id="ponds-title" data-i18n="pondsTitle">My ponds</h2>
+          <button type="button" class="button-primary" id="pond-add" aria-haspopup="dialog" data-i18n="pondAdd">Add pond</button>
+        </div>
+        <p class="preview-note" id="ponds-demo" hidden>
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm1 15h-2v-6h2v6Zm0-8h-2V7h2v2Z"/></svg>
+          <span data-i18n="pondsDemoMode">Demo mode: ponds reset when the server sleeps.</span>
+        </p>
+        <p class="kit-help" id="ponds-empty" data-i18n="pondsEmpty">Add your ponds, then connect a device to see live readings from each one.</p>
+        <p class="kit-form-error" id="ponds-error" role="alert" hidden></p>
+        <ul class="pond-tiles" id="pond-cards"></ul>
+      </section>
+
+      <!-- One pond's full dashboard (#/pond/<id>). Shown instead of everything else on this page. -->
+      <section class="pond-detail" id="pond-detail" aria-labelledby="pond-detail-name" hidden>
+        <p><a class="button-ghost back-link" href="#/pond"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m15 6-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="pondBack">All ponds</span></a></p>
+        <div class="page-head">
+          <h2 class="page-title" id="pond-detail-name" tabindex="-1">…</h2>
+          <div class="pond-detail-tools">
+            <button type="button" class="button-secondary" id="pond-edit" aria-haspopup="dialog" data-i18n="pondEdit">Edit</button>
+            <button type="button" class="button-ghost" id="pond-delete" data-i18n="pondDelete">Delete pond</button>
+          </div>
+        </div>
+        <p class="kit-help" id="pond-detail-missing" data-i18n="pondNotFoundHelp" hidden>This pond is not in your farm. It may have been deleted, or it belongs to another farm code.</p>
+        <div class="pond-detail-body" id="pond-detail-body" hidden>
+          <p class="pond-detail-meta" id="pond-detail-meta" hidden></p>
+          <p class="sim-tag" id="pond-detail-demo" data-i18n="simulatedTag" hidden>Simulated data</p>
+          <div class="status-banner status-unknown" id="pond-detail-status" role="status">
+            <span class="status-icon" id="pond-detail-status-icon" aria-hidden="true"></span>
+            <div>
+              <p class="status-level" id="pond-detail-status-level"></p>
+              <p class="status-summary" id="pond-detail-status-summary"></p>
+            </div>
+          </div>
+          <p class="live-time" id="pond-detail-time"></p>
+          <p class="ttd-message" id="pond-detail-ttd" hidden></p>
+          <div class="board board-pond-detail">
+            <section class="card pond-readings-card" id="pond-detail-readings" aria-labelledby="pond-readings-title" hidden>
+              <h3 id="pond-readings-title" data-i18n="pondReadingsTitle">Readings</h3>
+              <dl class="live-values" id="pond-detail-values"></dl>
+              <div class="likely-box" id="pond-detail-likely" hidden></div>
+            </section>
+            <section class="card chart-card" aria-labelledby="pond-chart-title">
+              <h3 id="pond-chart-title" data-i18n="pondChartTitle">Oxygen, last 12 hours</h3>
+              <div class="chart-wrap" id="pond-detail-chart-wrap"><canvas id="pond-detail-chart" role="img" aria-describedby="pond-detail-chart-summary"></canvas></div>
+              <p class="chart-summary" id="pond-detail-chart-summary"></p>
+            </section>
+            <section class="card kit-actions" id="pond-detail-actions" aria-labelledby="pond-actions-title" hidden>
+              <h3 id="pond-actions-title" data-i18n="actionsTitle">What to do now</h3>
+              <ol class="pond-action-list" id="pond-detail-action-list"></ol>
+              <p class="actions-source" data-i18n="actionsSource">Based on FAO, TNAU and university extension guides. No chemicals.</p>
+            </section>
+            <!-- The pond's device: connect, new key, remove. A new key is shown ONCE (memory only). -->
+            <section class="card device-card" id="device-card" aria-labelledby="device-title">
+              <h3 id="device-title" data-i18n="deviceTitle">Device</h3>
+              <p class="pond-tile-device" id="device-status"></p>
+              <p class="sensor-errors" id="device-error" role="alert" hidden></p>
+              <div class="kit-buttons">
+                <button type="button" class="button-primary" id="device-connect" data-i18n="deviceConnect">Connect a device</button>
+                <button type="button" class="button-secondary" id="device-new-key" data-i18n="deviceNewKey" hidden>New key</button>
+                <button type="button" class="button-ghost" id="device-remove" data-i18n="deviceRemove" hidden>Remove device</button>
+              </div>
+              <div class="device-key-box" id="device-key-box" role="region" aria-labelledby="device-key-title" hidden>
+                <p class="preview-note" id="device-key-title">
+                  <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm1 15h-2v-6h2v6Zm0-8h-2V7h2v2Z"/></svg>
+                  <span data-i18n="deviceKeyOnce">Save this key now. It is shown only once. AquaNexus keeps only a scrambled copy (a hash).</span>
+                </p>
+                <dl class="device-secrets">
+                  <div><dt data-i18n="deviceIdLabel">Device ID</dt><dd><code id="device-id-value"></code>
+                    <button type="button" class="button-secondary copy-button" data-copy="device-id-value"><span data-i18n="copy">Copy</span></button></dd></div>
+                  <div><dt data-i18n="deviceKeyLabel">Device key</dt><dd><code id="device-key-value"></code>
+                    <button type="button" class="button-secondary copy-button" data-copy="device-key-value"><span data-i18n="copy">Copy</span></button></dd></div>
+                  <div><dt data-i18n="deviceUrlLabel">Address</dt><dd><code id="device-url-value"></code>
+                    <button type="button" class="button-secondary copy-button" data-copy="device-url-value"><span data-i18n="copy">Copy</span></button></dd></div>
+                </dl>
+                <h4 data-i18n="deviceSetupTitle">Set up the device</h4>
+                <ol class="device-steps" id="device-steps"></ol>
+                <button type="button" class="button-primary" id="device-key-done" data-i18n="deviceKeyDone">I have saved the key</button>
+              </div>
+            </section>
+          </div>
+        </div>
+      </section>
+
+      <h2 class="demo-pond-title" data-i18n="demoPondTitle">Demo pond</h2>
+      <!-- Always visible: everything below on this page comes from the simulator. -->
       <p class="simulated-banner" id="simulated-banner">
         <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm1 15h-2v-6h2v6Zm0-8h-2V7h2v2Z"/></svg>
         <span><strong id="simulated-label">Simulated data</strong>. <span data-i18n="simulatedNote">Not a real pond. For demonstration only.</span></span>
@@ -263,6 +352,13 @@
           <h1 class="page-title" id="page-alerts-title" tabindex="-1" data-i18n="tabAlerts">Alerts</h1>
           <span class="sim-tag" data-i18n="simulatedTag">Simulated data</span>
         </div>
+      <!-- Alerts from the farmer's own ponds (ponds.js), each with its pond name. Real readings. -->
+      <section class="card history-card pond-alerts-card" id="pond-alerts-card" aria-labelledby="pond-alerts-title" hidden>
+        <h2 id="pond-alerts-title" data-i18n="pondAlertsTitle">Alerts from my ponds</h2>
+        <p class="history-help" data-i18n="pondAlertsHelp">From your own devices, newest first.</p>
+        <ol class="history-list" id="pond-alerts-list"></ol>
+        <p class="history-empty" id="pond-alerts-empty" data-i18n="pondAlertsEmpty">No warnings from your ponds yet.</p>
+      </section>
       <!-- Voice alert: reads the status aloud ONLY when the farmer taps it (voice.js). -->
       <div class="voice-row">
         <button type="button" class="button-secondary voice-button" id="voice-button" aria-describedby="voice-note">
@@ -470,6 +566,23 @@
             </div>
           </div>
         </section>
+        <!-- Farm code (ponds.js): groups this farmer's ponds. No account, no name or phone number. -->
+        <section class="card farm-card" aria-labelledby="farm-title">
+          <h2 id="farm-title" data-i18n="farmTitle">My farm code</h2>
+          <p class="kit-help" data-i18n="farmHelp">This code keeps your ponds together. Type it on another phone to open the same ponds. No name, phone number or email is needed.</p>
+          <p class="farm-code-row"><code class="farm-code" id="farm-code" lang="en"></code>
+            <button type="button" class="button-secondary copy-button" id="farm-copy"><span data-i18n="farmCopy">Copy code</span></button></p>
+          <p class="kit-help farm-warn" data-i18n="farmWarn">Anyone with this code can see and change your ponds. Share it only with people you trust.</p>
+          <p class="kit-form-error" id="farm-not-saved" data-i18n="farmNotSaved" hidden>This browser is not saving the code. Write it down.</p>
+          <form class="farm-form" id="farm-form" novalidate>
+            <label class="kit-field">
+              <span class="kit-label" data-i18n="farmUseLabel">Code from another phone</span>
+              <span class="kit-input"><input type="text" id="farm-input" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="20" placeholder="K7QM-3XRP-9TFD" lang="en"></span>
+            </label>
+            <button type="submit" class="button-secondary" data-i18n="farmOpen">Open these ponds</button>
+          </form>
+          <p class="farm-status" id="farm-status" role="status"></p>
+        </section>
         <div class="board board-more">
         <!-- Manual test-kit entry. Results are marked "manual", never mixed with the simulated pond. -->
         <section class="card kit-card in-view" data-doodle="ripples" aria-labelledby="kit-title">
@@ -664,9 +777,10 @@
       <h3 data-i18n="termsPrivacyTitle">Privacy</h3>
       <ul class="terms-list">
         <li data-i18n="termsNoAccount">No account and no sign-up.</li>
+        <li data-i18n="termsPonds">My ponds: your pond names, sizes, fish types, device readings (for 48 hours) and alerts (for 14 days) are saved on our server under your farm code. We keep only a scrambled copy (hash) of the farm code and of device keys. No name, phone number or email is asked for. Anyone with your farm code can see and change your ponds.</li>
         <li data-i18n="termsLocation">The app does not ask for your location. Tonight's weather is always for Mangaluru. Your phone gets it straight from Open-Meteo, so Open-Meteo sees your internet address, as any website would.</li>
-        <li data-i18n="termsBrowser">Your language, theme, ticked steps, alert history, the last weather forecast and your Shop cart are saved only in this browser. Clearing the browser's data removes them.</li>
-        <li data-i18n="termsServer">Test-kit numbers and the readings on screen go to our server to be checked, and are not saved there. Readings from a pond sensor stay in the server's memory only until it restarts.</li>
+        <li data-i18n="termsBrowser">Your language, theme, ticked steps, alert history, the last weather forecast, your Shop cart and your farm code are saved only in this browser. Clearing the browser's data removes them.</li>
+        <li data-i18n="termsServer">Test-kit numbers and the readings on screen go to our server to be checked, and are not saved there. Readings sent to the demo Live sensor card stay in the server's memory only until it restarts.</li>
         <li data-i18n="termsAi">Questions to the assistant are sent, with the readings on screen and the level, cause and time of your recent alerts, to the AI service (now Google Gemini) to get an answer. Google's own terms apply to what it receives. Don't type your name, phone number or other personal details.</li>
         <li data-i18n="termsLogs">To keep the site working and stop misuse, our server and our host (Render) keep short technical records, such as which page was asked for and the internet address it came from.</li>
         <li data-i18n="termsNoAds">No ads, no tracking, and nothing about you is sold.</li>
@@ -677,6 +791,35 @@
       <h3 data-i18n="termsContactTitle">Contact</h3>
       <p data-i18n="termsContact">AquaNexus is made by Team Orbit. For questions or problems, reach us through our GitHub page.</p>
       <p><a href="https://github.com/joylandsouza2008-ops/DevHack" target="_blank" rel="noopener" data-i18n="termsContactLink">Team Orbit on GitHub</a></p>
+    </dialog>
+
+    <!-- Add or edit a pond (ponds.js). Only what the farmer calls the pond: no personal details. -->
+    <dialog class="sources-dialog pond-dialog" id="pond-dialog" aria-labelledby="pond-dialog-title">
+      <form class="pond-form" id="pond-form" novalidate>
+        <div class="sources-head">
+          <h2 id="pond-dialog-title">Add a pond</h2>
+        </div>
+        <label class="kit-field">
+          <span class="kit-label" data-i18n="pondNameLabel">Pond name</span>
+          <span class="kit-input"><input type="text" id="pond-name" maxlength="40" required autocomplete="off" aria-describedby="pond-name-help"></span>
+          <span class="kit-help" id="pond-name-help" data-i18n="pondNameHelp">For example: Pond near road. Don't use your own name or phone number.</span>
+        </label>
+        <label class="kit-field">
+          <span class="kit-label" data-i18n="pondSizeLabel">Size (optional)</span>
+          <span class="kit-input"><input type="text" id="pond-size" maxlength="20" autocomplete="off" aria-describedby="pond-size-help"></span>
+          <span class="kit-help" id="pond-size-help" data-i18n="pondSizeHelp">For example: 0.5 acre</span>
+        </label>
+        <label class="kit-field">
+          <span class="kit-label" data-i18n="pondFishLabel">Fish type (optional)</span>
+          <span class="kit-input"><input type="text" id="pond-fish" maxlength="30" autocomplete="off" aria-describedby="pond-fish-help"></span>
+          <span class="kit-help" id="pond-fish-help" data-i18n="pondFishHelp">For example: rohu, catla</span>
+        </label>
+        <p class="kit-form-error" id="pond-form-error" role="alert" hidden></p>
+        <div class="kit-buttons">
+          <button type="submit" class="button-primary" data-i18n="pondSave">Save</button>
+          <button type="button" class="button-secondary" id="pond-cancel" data-i18n="pondCancel">Cancel</button>
+        </div>
+      </form>
     </dialog>
 
     <!-- Shop cart: a side drawer (shop.js). Saved only in this browser. -->
@@ -735,6 +878,7 @@
   <script src="/diseases.js"></script>
   <script src="/assistant.js"></script>
   <script src="/shop.js"></script>           <!-- Shop page and cart (this browser only); products: shop-data.json -->
+  <script src="/ponds.js"></script>          <!-- My ponds and devices (farm code, real readings) -->
   <script src="/router.js"></script>         <!-- pages: #/pond, #/alerts, ... -->
   <script src="/app.js"></script>
   <script src="/welcome.js"></script>

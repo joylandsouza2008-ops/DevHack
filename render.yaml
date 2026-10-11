@@ -22,6 +22,10 @@ services:
         sync: false
       - key: SENSOR_KEY_POND3
         sync: false
+      # My ponds database (docs/sensor-api.md, section 8). Paste a Render Postgres "Internal Database URL"
+      # into the Environment tab. Left empty, ponds live in memory and the app says "Demo mode".
+      - key: DATABASE_URL
+        sync: false
       # "Ask AquaNexus" assistant (docs/assistant.md). The key is typed into Render, never written here.
       - key: ASSISTANT_PROVIDER
         value: gemini

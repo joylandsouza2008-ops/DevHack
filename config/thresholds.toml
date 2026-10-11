@@ -83,6 +83,14 @@ unit = "NTU"
 use_for_risk = false
 plausible = { min = 0.0, max = 1000.0 }
 
+[salinity]
+# From a pond device (backend/ponds.py). Shown to farmers as information only:
+# we have no sourced Safe / Warning limits for salinity yet, so it never
+# changes the pond's level. Sea water is about 35 ppt.
+unit = "ppt"
+use_for_risk = false
+plausible = { min = 0.0, max = 50.0 }   # J: above 50 ppt is saltier than any pond = sensor fault
+
 # ---------------------------------------------------------------------------
 # Tonight's oxygen crash risk, from the weather forecast (backend/weather.py).
 # Not a pond reading: these rate the WEATHER that is known to cause night-time

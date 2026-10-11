@@ -37,6 +37,11 @@ KNOWN_API = {
     ("POST", "/api/time-to-danger"), ("GET", "/api/weather/tonight"),
     ("POST", "/api/sensor/{pond_id}"), ("GET", "/api/sensor/{pond_id}"), ("GET", "/api/sensor/{pond_id}/stream"),
     ("GET", "/api/simulator/scenarios"), ("GET", "/api/simulator/stream"),
+    # My ponds (backend/ponds.py): pond names, sizes and fish types, grouped by a farm code. No personal data.
+    ("GET", "/api/ponds"), ("POST", "/api/ponds"), ("GET", "/api/ponds/{pond_id}"),
+    ("PATCH", "/api/ponds/{pond_id}"), ("DELETE", "/api/ponds/{pond_id}"),
+    ("POST", "/api/ponds/{pond_id}/device"), ("DELETE", "/api/ponds/{pond_id}/device"),
+    ("POST", "/api/ponds/{pond_id}/device/new-key"),
 }
 PERSONAL_FIELDS = {"name", "full_name", "phone", "mobile", "email", "address", "pincode", "pin_code",
                    "upi", "card", "card_number", "payment", "aadhaar", "customer"}

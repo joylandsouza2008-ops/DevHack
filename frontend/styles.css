@@ -1074,6 +1074,90 @@ button { position: relative; isolation: isolate; overflow: hidden; }
 .about-card h2 { margin-bottom: 0.75rem; }
 
 /* ================================================================
+   My ponds and devices (ponds.js): the farmer's own ponds, one pond's
+   dashboard, devices and the farm code. Real readings: status colours
+   only as status, always with an icon and a word.
+   ================================================================ */
+.strip-sim[hidden] { display: none; }
+.ponds-section { display: flex; flex-direction: column; gap: 0.75rem; }
+.ponds-title, .demo-pond-title { margin: 0; font-size: 1.375rem; font-weight: 600; line-height: 1.45; }
+.demo-pond-title { margin-top: 0.5rem; }
+.pond-tiles {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; gap: 1rem; grid-template-columns: minmax(0, 1fr);
+}
+@media (min-width: 640px) { .pond-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1024px) { .pond-tiles { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.pond-tile { padding: 0; border-left: 6px solid var(--hairline-strong); }
+.pond-tile.level-safe    { border-left-color: var(--safe); }
+.pond-tile.level-warning { border-left-color: var(--warning); box-shadow: inset 2px 0 0 var(--warning-edge); }
+.pond-tile.level-danger  { border-left-color: var(--danger); }
+.pond-tile-link {
+  display: flex; flex-direction: column; gap: 0.375rem;
+  min-height: 48px; padding: 1rem 1.25rem; color: var(--text); text-decoration: none;
+}
+.pond-tile-link:focus-visible { outline: 3px solid var(--primary); outline-offset: -3px; border-radius: 14px; }
+.pond-tile-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem 0.75rem; }
+.pond-tile-name { margin: 0; font-size: 1.25rem; font-weight: 600; line-height: 1.4; overflow-wrap: anywhere; }
+.pond-tile-cause { font-weight: 600; }
+.pond-tile-time { color: var(--text-secondary); font-size: 1rem; }
+.pond-tile-device { display: flex; align-items: center; gap: 0.5rem; color: var(--text-secondary); font-size: 1rem; margin: 0; }
+.pond-tile .sim-tag { align-self: flex-start; }
+/* Online / offline: a dot AND a word (never colour alone). Not a status colour. */
+.device-dot { width: 10px; height: 10px; flex: none; border-radius: 9999px; border: 2px solid var(--text-secondary); }
+.device-online .device-dot { background: var(--primary); border-color: var(--primary); }
+.device-online { color: var(--text); font-weight: 600; }
+
+/* One pond open (#/pond/<id>): only its dashboard shows on the Pond page. */
+#page-pond.showing-pond > :not(.pond-detail):not(.page-title) { display: none; }
+.pond-detail { display: flex; flex-direction: column; gap: 1rem; }
+.pond-detail[hidden] { display: none; }
+.pond-detail-body { display: flex; flex-direction: column; gap: 1rem; }
+.pond-detail-body[hidden] { display: none; }
+.back-link { display: inline-flex; align-items: center; gap: 0.25rem; color: var(--primary); }
+.back-link svg { width: 22px; height: 22px; }
+.pond-detail .page-title { overflow-wrap: anywhere; }
+.pond-detail-tools { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.pond-detail-meta { color: var(--text-secondary); }
+.pond-detail .sim-tag { align-self: flex-start; }
+.board-pond-detail { display: grid; gap: 1.25rem; grid-template-columns: minmax(0, 1fr); align-items: start; }
+@media (min-width: 1024px) { .board-pond-detail { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.board-pond-detail h3 { margin: 0 0 0.5rem; font-size: 1.25rem; font-weight: 600; }
+.pond-readings-card, .device-card { display: flex; flex-direction: column; gap: 0.75rem; }
+.pond-action-list { margin: 0; padding-left: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; font-weight: 500; }
+.chart-wrap[hidden] { display: none; }
+
+/* A new device key: shown once, with copy buttons and setup steps. */
+.device-key-box { display: flex; flex-direction: column; gap: 0.75rem; padding-top: 0.75rem; border-top: 1px solid var(--hairline); }
+.device-key-box[hidden] { display: none; }
+.device-key-box h4 { margin: 0; font-size: 1.125rem; }
+.device-secrets { margin: 0; display: flex; flex-direction: column; gap: 0.75rem; }
+.device-secrets dt { font-weight: 600; color: var(--text-secondary); font-size: 1rem; }
+.device-secrets dd { margin: 0.25rem 0 0; display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; }
+.device-secrets code, .farm-code {
+  padding: 0.375rem 0.625rem; border-radius: 8px;
+  background: var(--surface); border: 1px solid var(--hairline-strong); color: var(--text);
+  font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 1rem; overflow-wrap: anywhere;
+}
+.copy-button { min-height: 44px; padding: 0 1rem; }
+.device-steps { margin: 0; padding-left: 1.5rem; display: flex; flex-direction: column; gap: 0.375rem; overflow-wrap: anywhere; }
+
+/* Farm code (More page). */
+.farm-card { display: flex; flex-direction: column; gap: 0.75rem; }
+.farm-card h2 { margin: 0; }
+.farm-code-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; }
+.farm-code { font-size: 1.375rem; font-weight: 700; letter-spacing: 0; }
+.farm-form { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 0.75rem; }
+.farm-form .kit-field { flex: 1 1 14rem; }
+.farm-status { font-weight: 600; }
+.farm-status:empty { display: none; }
+.pond-alerts-card[hidden] { display: none; }
+
+/* Add / edit a pond. */
+.pond-form { display: flex; flex-direction: column; gap: 1rem; }
+.pond-form .kit-help { font-size: 0.9375rem; }
+
+/* ================================================================
    Team Orbit touches (scene.js, health-ring.js, app.js). Subtle space
    details; the pond stays the main picture. Pearl and pond-blue only:
    never a status colour, and never the magenta accent (it stays on

@@ -91,7 +91,7 @@ def pairs_in(obj, path=""):
 
 def backend_groups() -> list[tuple[str, str, list]]:
     """(heading, note, rows) for the text the API sends to the page."""
-    from backend import actions, alerts, assistant, diseases, main, risk_messages, sensor, shop, simulator, weather
+    from backend import actions, alerts, assistant, diseases, main, ponds, risk_messages, sensor, shop, simulator, weather
 
     def rows(module, *names):
         return [(f"{module.__name__.split('.')[-1]}.{p}", en, kn)
@@ -138,6 +138,10 @@ def backend_groups() -> list[tuple[str, str, list]]:
                if KANNADA.search(kn)],
              ("assistant._answer (tonight)", "Oxygen crash risk tonight: {level}.", "ಇಂದು ರಾತ್ರಿ ಆಮ್ಲಜನಕ ಕುಸಿತದ ಅಪಾಯ: {level}."),
          ]),
+        ("My ponds and devices (server messages)", "Shown on the Pond page, the status strip and to devices "
+         "(backend/ponds.py). The cause words follow the pond name in the strip, e.g. \"Pond 2: Danger · low oxygen\".",
+         rows(ponds, "DEMO_MODE", "BAD_FARM_CODE", "NOT_FOUND", "TOO_MANY_PONDS", "HAS_DEVICE", "NO_DEVICE", "TOO_SOON")
+         + [(f"ponds.CAUSE_WORDS {p} {d}", w["en"], w["kn"]) for (p, d), w in ponds.CAUSE_WORDS.items()]),
         ("Shop: assistant answers", "Ready answers to Shop questions (backend/shop.py). `{name}` is a product "
          "name, `{n}` a number of ponds or alerts, `{price}` e.g. ಅಂದಾಜು ₹23,000, `{budget}` e.g. 5,000.",
          [(f"shop.TEXT.{k}", shop.TEXT["en"][k].strip(), shop.TEXT["kn"][k].strip())

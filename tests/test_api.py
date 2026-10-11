@@ -109,7 +109,7 @@ def test_text_effect_never_splits_kannada_letters():
 
 def test_page_has_no_em_dashes():
     # design-taste-frontend rule: no em/en dashes in visible text.
-    for path in ("/", "/app.js", "/welcome.js", "/motion.js", "/pond-view.js", "/gauge.js", "/do-chart.js",
+    for path in ("/", "/app.js", "/ponds.js", "/welcome.js", "/motion.js", "/pond-view.js", "/gauge.js", "/do-chart.js",
                  "/health-ring.js", "/history.js", "/voice.js", "/weather.js", "/debug.js"):
         assert "—" not in client.get(path).text and "–" not in client.get(path).text, path
 

@@ -8,3 +8,4 @@ fastapi             # the web API (backend/main.py)
 uvicorn             # runs the FastAPI server
 httpx               # used by FastAPI's TestClient in tests/test_api.py
 pytest              # running the tests in tests/
+psycopg[binary]     # Postgres for "My ponds" on Render, used only when DATABASE_URL is set

@@ -25,6 +25,7 @@ PARAMETER_NAMES = {
     "ammonia":          {"en": "Ammonia",          "kn": "ಅಮೋನಿಯಾ"},
     "nitrate":          {"en": "Nitrate",          "kn": "ನೈಟ್ರೇಟ್"},
     "turbidity":        {"en": "Turbidity",        "kn": "ನೀರಿನ ಮಬ್ಬು (ಟರ್ಬಿಡಿಟಿ)"},
+    "salinity":         {"en": "Salinity",         "kn": "ಲವಣಾಂಶ"},
 }
 
 # (parameter, direction, level) -> message

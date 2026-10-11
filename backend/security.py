@@ -57,6 +57,11 @@ LIMITS = {
     ("POST", "/api/sensor/"): (30, 600),
     ("GET", "/api/sensor/"): (60, 1200),
     ("POST", "/api/assistant/"): (30, 600),
+    # My ponds: the page checks every 20 s; adding, editing and devices are rare.
+    ("GET", "/api/ponds"): (60, 3000),
+    ("POST", "/api/ponds"): (20, 600),
+    ("PATCH", "/api/ponds"): (20, 600),
+    ("DELETE", "/api/ponds"): (20, 600),
 }
 
 TOO_MANY = {"en": "Too many requests. Please wait a minute and try again.",

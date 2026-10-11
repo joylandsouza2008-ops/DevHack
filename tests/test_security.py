@@ -276,11 +276,16 @@ def test_frontend_never_mentions_the_secret_variables():
 # ----------------------------------------------------------------- 5. browser storage
 
 def test_browser_storage_holds_only_these_harmless_keys():
-    allowed = {'"meenuraksha-lang"', "THEME_KEY", "`meenuraksha-ticks:${key}`", "STORAGE_KEY"}
+    allowed = {'"meenuraksha-lang"', "THEME_KEY", "`meenuraksha-ticks:${key}`", "STORAGE_KEY", "FARM_KEY"}
     used = set()
     for js in FRONTEND.glob("*.js"):
         used |= set(re.findall(r"\.setItem\(\s*([^,]+),", js.read_text(encoding="utf-8")))
     assert used == allowed
+    # FARM_KEY: the random farm code that groups this farmer's ponds (frontend/ponds.js). Not personal,
+    # but it opens the ponds, so it is kept like a password: only in this browser and the X-Farm-Code header.
+    ponds_js = (FRONTEND / "ponds.js").read_text(encoding="utf-8")
+    assert 'const FARM_KEY = "aquanexus_farm_code";' in ponds_js
+    assert "setItem(" not in ponds_js.replace("localStorage.setItem(FARM_KEY, code)", ""), "device keys are never stored"
     keys = {m for js in FRONTEND.glob("*.js") for m in re.findall(r"STORAGE_KEY = (\"[^\"]+\")", js.read_text(encoding="utf-8"))}
     # aquanexus_cart: the Shop list (product ids and quantities only, frontend/shop.js).
     assert keys == {'"meenuraksha-history"', '"meenuraksha-weather-forecast"', '"aquanexus_cart"'}

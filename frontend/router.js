@@ -21,7 +21,14 @@
     return PAGES.includes(name) ? name : HOME;
   }
 
-  const api = { PAGES, HOME, pageFromHash };
+  // The address to show for a hash: "#/alerts/" -> "#/alerts". One pond's dashboard
+  // keeps its pond id ("#/pond/p-k7qm3xrp9t", opened by ponds.js).
+  function canonicalHash(hash) {
+    if (/^#\/pond\/p-[a-z0-9]{10}$/.test(String(hash || ""))) return hash;
+    return `#/${pageFromHash(hash)}`;
+  }
+
+  const api = { PAGES, HOME, pageFromHash, canonicalHash };
   if (typeof module !== "undefined" && module.exports) { module.exports = api; return; }   // Node tests
 
   const gsap = window.gsap;
@@ -87,7 +94,7 @@
 
   function onHashChange() {
     const name = pageFromHash(location.hash);
-    if (`#/${name}` !== location.hash) history.replaceState(null, "", `#/${name}`);
+    if (canonicalHash(location.hash) !== location.hash) history.replaceState(null, "", canonicalHash(location.hash));
     show(name);
   }
 
@@ -100,7 +107,7 @@
   function init() {
     PAGES.forEach((p) => { if (pages[p]) pages[p].hidden = true; });
     const name = pageFromHash(location.hash);
-    if (`#/${name}` !== location.hash) history.replaceState(null, "", `#/${name}`);
+    if (canonicalHash(location.hash) !== location.hash) history.replaceState(null, "", canonicalHash(location.hash));
     show(name, { focus: false });
     window.addEventListener("hashchange", onHashChange);
     // Tapping the tab of the page you are on: back to the top of it.

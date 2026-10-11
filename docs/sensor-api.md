@@ -6,9 +6,20 @@ probes) can send its readings to AquaNexus. They appear on the dashboard in the
 Danger rules as everything else and are always labelled **"Live sensor" / "ಲೈವ್ ಸೆನ್ಸರ್"**,
 kept apart from the simulated pond.
 
+There are two ways to connect a sensor:
+
+- **My ponds (for farmers, section 8):** the farmer adds their ponds in the app and taps
+  **Connect a device**. Each device gets its own ID and key, made by the app, and its
+  readings are saved in the database. Any number of ponds.
+- **The demo dashboard's Live sensor card (sections 1 to 7):** three fixed ponds, `pond1`
+  to `pond3`, with keys set by us on the server. Readings are kept in memory only.
+
+Both use the same address and the same JSON. Only the ID in the address and the key differ.
+
 | | |
 |---|---|
 | Send a reading | `POST /api/sensor/{pond_id}` with header `X-Sensor-Key` |
+| My ponds devices | `POST /api/sensor/{device_id}` (e.g. `dev-k7qm3xrp9t`), see section 8 |
 | Ponds | `pond1`, `pond2`, `pond3` (the Pond 1 / 2 / 3 buttons on the dashboard) |
 | Latest reading | `GET /api/sensor/{pond_id}` (no key needed) |
 | Live updates | `GET /api/sensor/{pond_id}/stream` (Server-Sent Events, used by the dashboard) |
@@ -279,3 +290,94 @@ curl -X POST https://meenuraksha.onrender.com/api/sensor/pond1 \
 ```
 
 (Change the timestamp to the current time, or it is refused as too old.)
+
+## 8. My ponds: one device per pond
+
+Farmers add their own ponds on the **Pond** page (**My ponds** → **Add pond**) and connect
+one device to each. Code: `backend/ponds.py` (rules), `backend/db.py` (storage),
+`frontend/ponds.js` (page). Tests: `tests/test_ponds.py`.
+
+### No account, no personal data
+
+- A **farm code** (12 letters and numbers, e.g. `K7QM-3XRP-9TFD`) groups a farmer's ponds.
+  The page makes it at random on the first visit and keeps it in the browser. It is shown
+  on the **More** page, so the farmer can type it on another phone to open the same ponds.
+  Anyone with the code can see and change those ponds, so it is long (60 random bits) and
+  is sent only in the `X-Farm-Code` header, never in the address.
+- The server stores only a **hash** of the farm code, never the code itself.
+- A pond has a name (e.g. "Pond near road"), and optionally a size and a fish type.
+  The app asks farmers not to use their own name or phone number.
+
+### Connecting a device
+
+1. Open the pond and tap **Connect a device**.
+2. The app shows the **device ID** (e.g. `dev-k7qm3xrp9t`), a **secret key** and the
+   address, with copy buttons. **The key is shown once.** The server keeps only a hash of
+   it, so it can't show it again. Lost it? Tap **New key**: the old key stops at once.
+3. In the ESP32 sketch (section 6), set `POND_ID` to the device ID and `SENSOR_KEY` to the
+   key. Readings go to `POST /api/sensor/<device ID>` with the header `X-Sensor-Key`.
+4. **Remove device** stops it for good. The pond keeps its past readings.
+
+### What a device can send
+
+Any of these, in one JSON body with a `timestamp`. Leave out what the device doesn't
+measure (send at least one). Impossible values are refused with "Check the sensor"
+(HTTP 422) and nothing is stored. The pond's card shows why the last reading was refused.
+
+| Field | Unit | Refused if | Graded? |
+|---|---|---|---|
+| `dissolved_oxygen` | mg/L | below 0.1 or above 30 | Safe / Warning / Danger |
+| `ph` | | below 2 or above 12 | Safe / Warning / Danger |
+| `temperature` | °C | below 5 or above 45 (e.g. 84 °C) | Safe / Warning / Danger |
+| `ammonia` | mg/L total | below 0 or above 20 | Safe / Warning / Danger |
+| `turbidity` | NTU | below 0 or above 1000 | information only |
+| `salinity` | ppt | below 0 or above 50 | information only (no sourced limits yet) |
+
+The limits are the `plausible` ranges in `config/thresholds.toml`.
+
+### Limits and status
+
+| | |
+|---|---|
+| Rate limit | **one reading per device every 30 seconds** (HTTP 429 with `Retry-After`). Refused readings count too, so a broken device can't flood the server. Change with the `DEVICE_MIN_SECONDS` variable. |
+| Wrong or missing key, unknown device | HTTP 401. Never shown on the pond, so guessing keys can't disturb what the farmer sees. |
+| Online / offline | **Online** if a reading arrived in the last 15 minutes, otherwise "Offline since 2:10 AM". |
+| Ponds per farm | up to 20 |
+| Kept | readings for 48 hours, alerts for 14 days |
+| Alerts | a new alert each time a pond enters Warning or Danger, or its level or cause changes. The Alerts page lists them from all ponds, with the pond name. |
+| Status strip | shows the **worst** pond, e.g. "Pond 2: Danger · low oxygen". Tap it to open that pond. |
+
+### Where the data is kept
+
+| Where the server runs | Storage |
+|---|---|
+| Render with `DATABASE_URL` set (a Render Postgres database) | Postgres: ponds survive restarts |
+| Render without `DATABASE_URL` | **memory only**: the app shows "Demo mode: ponds reset when the server sleeps." |
+| Your own computer | a SQLite file, `data/aquanexus.db` (not in git; change with `SQLITE_PATH`) |
+
+To keep ponds on Render: create a free Postgres database in Render, copy its
+**Internal Database URL**, and paste it as `DATABASE_URL` in the web service's
+Environment tab. Never put it in the code or in git.
+
+### Several live demo ponds (for the demo video)
+
+```powershell
+# Copy the farm code from the app (More page, "My farm code"), then:
+python tools/fake_sensor.py --url https://meenuraksha.onrender.com --farm-code K7QM-3XRP-9TFD --devices 3
+```
+
+This adds **Demo pond 1, 2 and 3** to that farm, connects a device to each, and sends a
+reading from every device every 30 seconds. **Demo pond 1 has a night oxygen crash**,
+sped up: Warning after about 3 minutes, Danger after about 5. All readings say
+`demo: true`, so the app labels them **"Simulated data"**. The keys stay in the
+program's memory and are never printed.
+
+Devices you already connected in the app: `--device dev-k7qm3xrp9t:<key>` (repeat it).
+
+### Try it with curl
+
+```bash
+curl -X POST https://meenuraksha.onrender.com/api/sensor/dev-k7qm3xrp9t \
+  -H "Content-Type: application/json" -H "X-Sensor-Key: <the device key>" \
+  -d '{"timestamp": "2026-10-10T21:30:00+05:30", "dissolved_oxygen": 4.2, "salinity": 1.8}'
+```

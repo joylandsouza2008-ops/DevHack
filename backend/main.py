@@ -19,8 +19,12 @@ Endpoints:
     POST /api/assistant/ask          "Ask AquaNexus": one question, answered only from the app's content
     GET  /api/weather/tonight        tonight's oxygen crash risk from the real weather forecast
     POST /api/sensor/{pond_id}       one reading from a REAL pond sensor (needs the pond's key)
+    POST /api/sensor/{device_id}     one reading from a farmer's own device ("My ponds", needs its key)
     GET  /api/sensor/{pond_id}       the latest live-sensor reading for a pond
     GET  /api/sensor/{pond_id}/stream  live-sensor readings as they arrive (Server-Sent Events)
+    GET/POST /api/ponds              the farmer's ponds (X-Farm-Code header), with status and alerts
+    GET/PATCH/DELETE /api/ponds/{id} one pond: its full dashboard, edit, delete
+    POST/DELETE /api/ponds/{id}/device, POST /api/ponds/{id}/device/new-key   connect / remove a device, new key
     /                                the web page (files in frontend/)
 
 The DO forecast model is deliberately NOT exposed: its typical error (±4.5 mg/L)
@@ -39,11 +43,12 @@ from typing import Annotated, Literal
 
 import pandas as pd
 from fastapi import FastAPI, Header, HTTPException, Query, Request
+from fastapi import Path as UrlPath
 from fastapi.responses import JSONResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
-from backend import assistant, diseases, security, sensor
+from backend import assistant, db, diseases, ponds, security, sensor
 from backend.actions import checklist
 from backend.ai_provider import provider_from_env
 from backend.alerts import POND_NAMES, compose_alert
@@ -102,6 +107,8 @@ class SensorReading(BaseModel):
     ph: float | None = Field(None, examples=[7.4])
     temperature: float | None = Field(None, description="°C", examples=[29.5])
     ammonia: float | None = Field(None, description="mg/L total ammonia", examples=[0.3])
+    turbidity: float | None = Field(None, description="NTU, information only (pond devices)", examples=[35.0])
+    salinity: float | None = Field(None, description="ppt, information only (pond devices)", examples=[2.0])
     device: str | None = Field(None, max_length=40, description="optional name, e.g. esp32-pond1")
     demo: bool = Field(False, description="true for a demo device that sends made-up readings")
 
@@ -301,14 +308,21 @@ def _refuse(status: int, pond_id: str, error: str, message: dict,
 
 
 @app.post("/api/sensor/{pond_id}", status_code=201)
-def sensor_reading(reading: SensorReading, pond_id: PondId,
-                   x_sensor_key: str | None = Header(None, description="this pond's secret key")):
+def sensor_reading(reading: SensorReading,
+                   pond_id: Annotated[str, UrlPath(pattern=r"^(pond[123]|dev-[a-z0-9]{10})$",
+                                                   description="pond1/2/3, or a device id from My ponds")],
+                   x_sensor_key: str | None = Header(None, description="this pond's or device's secret key")):
     """
-    One reading from a real pond sensor (pond_id: pond1, pond2 or pond3).
-    Needs the pond's key in the `X-Sensor-Key` header; the server compares it
-    with the SENSOR_KEY_POND1 / _POND2 / _POND3 environment variable.
+    One reading from a real pond sensor.
+    - pond1, pond2 or pond3: the demo dashboard's Live sensor card. The key in the
+      `X-Sensor-Key` header is compared with the SENSOR_KEY_POND1 / _POND2 / _POND3
+      environment variable. Kept in memory only.
+    - a device id (dev-...) from "My ponds": the key made when the device was
+      connected. Stored in the database (backend/ponds.py).
     Impossible values are refused with "Check the sensor" and nothing is stored.
     """
+    if ponds.DEVICE_ID.match(pond_id):
+        return _device_reading(reading, pond_id, x_sensor_key)
     expected = sensor.sensor_key(pond_id)
     if expected is None:
         variable = sensor.key_variable(pond_id)
@@ -404,6 +418,198 @@ async def sensor_stream(
 
     return StreamingResponse(events(), media_type="text/event-stream",
                              headers={"Cache-Control": "no-cache"})
+
+
+# ----------------------------------------------------------------- my ponds and devices
+# A farmer's own ponds, grouped by a farm code (no account, no personal data),
+# with one device per pond. Logic: backend/ponds.py. Storage: backend/db.py.
+
+_farm_store: ponds.FarmStore | None = None
+
+
+def farms() -> ponds.FarmStore:
+    """The pond store, opened on first use (Postgres, a SQLite file, or memory: see backend/db.py)."""
+    global _farm_store
+    if _farm_store is None:
+        _farm_store = ponds.FarmStore(db.open_from_env())
+    return _farm_store
+
+
+def _problem(status: int, error: str, message: dict, headers: dict | None = None) -> JSONResponse:
+    return JSONResponse(status_code=status, content={"error": error, "message": message}, headers=headers)
+
+
+PondPath = Annotated[str, UrlPath(pattern=r"^p-[a-z0-9]{10}$", description="pond id, e.g. p-k7qm3xrp9t")]
+FarmCode = Annotated[str | None, Header(description="the farm code, e.g. K7QM-3XRP-9TFD")]
+
+
+class PondIn(BaseModel):
+    """A new pond. No personal details: just what the farmer calls the pond."""
+    pond_name: str = Field(..., min_length=1, max_length=40, examples=["Pond near road"])
+    size: str | None = Field(None, max_length=20, description="optional, e.g. 0.5 acre", examples=["0.5 acre"])
+    fish: str | None = Field(None, max_length=30, description="optional, e.g. rohu, catla", examples=["Rohu, catla"])
+
+
+class PondEdit(BaseModel):
+    pond_name: str | None = Field(None, min_length=1, max_length=40)
+    size: str | None = Field(None, max_length=20)
+    fish: str | None = Field(None, max_length=30)
+
+
+def _farm_of(x_farm_code: str | None) -> str | None:
+    code = ponds.normalize_farm_code(x_farm_code)
+    return ponds.farm_id(code) if code else None
+
+
+def _summary(pond: dict, now: datetime) -> dict:
+    store = farms()
+    return ponds.pond_summary(pond, store.latest(pond["id"]), store.device_for_pond(pond["id"]), now, assess)
+
+
+@app.get("/api/ponds")
+def list_ponds(x_farm_code: FarmCode = None):
+    """The farm's ponds (status, last reading, device online/offline), the worst one, and recent alerts."""
+    farm = _farm_of(x_farm_code)
+    if not farm:
+        return _problem(400, "bad_farm_code", ponds.BAD_FARM_CODE)
+    now = _now()
+    store = farms()
+    summaries = [_summary(p, now) for p in store.ponds(farm)]
+    worst = ponds.worst(summaries)
+    return {"storage": store.db.kind, "demo_mode": not store.db.persistent,
+            "demo_mode_note": None if store.db.persistent else ponds.DEMO_MODE,
+            "server_time": now.isoformat(timespec="seconds"), "online_minutes": ponds.ONLINE_MINUTES,
+            "ponds": summaries, "worst": worst["id"] if worst else None, "alerts": store.alerts(farm)}
+
+
+@app.post("/api/ponds", status_code=201)
+def add_pond(pond: PondIn, x_farm_code: FarmCode = None):
+    farm = _farm_of(x_farm_code)
+    if not farm:
+        return _problem(400, "bad_farm_code", ponds.BAD_FARM_CODE)
+    row = farms().add_pond(farm, pond.pond_name, pond.size, pond.fish, _now())
+    if row is None:
+        return _problem(409, "too_many_ponds", ponds.TOO_MANY_PONDS)
+    return _summary(row, _now())
+
+
+@app.get("/api/ponds/{pond_id}")
+def pond_dashboard(pond_id: PondPath, x_farm_code: FarmCode = None):
+    """One pond's full dashboard: status, every reading with its level, what to do now,
+    likely diseases, the last 12 hours of readings and the time until danger."""
+    farm = _farm_of(x_farm_code)
+    store = farms()
+    pond = store.pond(farm, pond_id) if farm else None
+    if not pond:
+        return _problem(404, "not_found", ponds.NOT_FOUND)
+    now = _now()
+    summary = _summary(pond, now)
+    history = store.history(pond_id, now)
+    risk = assess(summary["reading"], source="sensor") if summary["reading"] else None
+    oxygen = {r["measured_at"]: r["values"]["dissolved_oxygen"] for r in history if "dissolved_oxygen" in r["values"]}
+    ttd = None
+    if len(oxygen) >= 2:
+        series = pd.Series(oxygen, dtype="float64")
+        series.index = pd.to_datetime(series.index, utc=True, format="ISO8601")
+        ttd = estimate_time_to_danger(series)
+    return {**summary, "risk": risk, "time_to_danger": ttd,
+            "history": [{"time": r["measured_at"], "level": r["level"], **r["values"]} for r in history]}
+
+
+@app.patch("/api/ponds/{pond_id}")
+def edit_pond(pond_id: PondPath, changes: PondEdit, x_farm_code: FarmCode = None):
+    farm = _farm_of(x_farm_code)
+    fields = changes.model_dump(exclude_unset=True)
+    if "pond_name" in fields:
+        fields["name"] = fields.pop("pond_name")
+    row = farms().edit_pond(farm, pond_id, fields) if farm else None
+    if not row:
+        return _problem(404, "not_found", ponds.NOT_FOUND)
+    return _summary(row, _now())
+
+
+@app.delete("/api/ponds/{pond_id}")
+def delete_pond(pond_id: PondPath, x_farm_code: FarmCode = None):
+    """Deletes the pond with its device, readings and alerts."""
+    farm = _farm_of(x_farm_code)
+    if not (farm and farms().delete_pond(farm, pond_id)):
+        return _problem(404, "not_found", ponds.NOT_FOUND)
+    return {"deleted": True}
+
+
+def _device_reply(device_id: str, key: str) -> dict:
+    """The new key: shown to the farmer ONCE (the server keeps only its hash)."""
+    return {"device_id": device_id, "key": key, "endpoint": f"/api/sensor/{device_id}",
+            "header": "X-Sensor-Key", "every_seconds": ponds.MIN_SECONDS_BETWEEN}
+
+
+@app.post("/api/ponds/{pond_id}/device", status_code=201)
+def connect_device(pond_id: PondPath, x_farm_code: FarmCode = None):
+    farm = _farm_of(x_farm_code)
+    store = farms()
+    if not (farm and store.pond(farm, pond_id)):
+        return _problem(404, "not_found", ponds.NOT_FOUND)
+    made = store.connect_device(farm, pond_id, _now())
+    if not made:
+        return _problem(409, "has_device", ponds.HAS_DEVICE)
+    return _device_reply(*made)
+
+
+@app.post("/api/ponds/{pond_id}/device/new-key")
+def new_device_key(pond_id: PondPath, x_farm_code: FarmCode = None):
+    """A new key for the pond's device. The old key stops working at once."""
+    farm = _farm_of(x_farm_code)
+    made = farms().new_key(farm, pond_id) if farm else None
+    if not made:
+        return _problem(404, "no_device", ponds.NO_DEVICE)
+    return _device_reply(*made)
+
+
+@app.delete("/api/ponds/{pond_id}/device")
+def remove_device(pond_id: PondPath, x_farm_code: FarmCode = None):
+    farm = _farm_of(x_farm_code)
+    if not (farm and farms().remove_device(farm, pond_id)):
+        return _problem(404, "no_device", ponds.NO_DEVICE)
+    return {"removed": True}
+
+
+def _device_reading(reading: SensorReading, device_id: str, key: str | None):
+    """One reading from a farmer's device: right key, at most one per MIN_SECONDS_BETWEEN,
+    possible values only. Wrong keys are never shown on the pond (no one can disturb it by guessing)."""
+    store = farms()
+    now = _now()
+    device = store.device(device_id)
+    if not store.key_ok(device, key):
+        return JSONResponse(status_code=401, content={"accepted": False, "error": "wrong_key",
+                                                      "message": sensor.WRONG_KEY, "sensor_errors": []})
+    wait = store.seconds_to_wait(device, now)
+    if wait:
+        return JSONResponse(status_code=429, headers={"Retry-After": str(wait)},
+                            content={"accepted": False, "error": "too_soon", "message": ponds.TOO_SOON,
+                                     "retry_after_seconds": wait, "sensor_errors": []})
+
+    def refuse(error: str, message: dict, details: list | None = None) -> JSONResponse:
+        body = {"accepted": False, "error": error, "message": message, "sensor_errors": details or []}
+        store.note_try(device_id, now, {**body, "received_at": now.isoformat(timespec="seconds")})
+        return JSONResponse(status_code=422, content=body)
+
+    values = reading.model_dump(include=set(ponds.DEVICE_VALUES), exclude_none=True)
+    if not values:
+        return refuse("no_values", sensor.NO_VALUES)
+    clock_problem = sensor.check_timestamp(reading.timestamp, now)
+    if clock_problem:
+        return refuse("bad_timestamp", clock_problem)
+    broken = sensor.not_a_number_errors(values)
+    if broken:
+        return refuse("check_the_sensor", sensor.REJECTED, broken)
+    risk = assess(values, source="sensor")
+    if risk["sensor_errors"]:                 # e.g. water at 84 °C: the whole reading can't be trusted
+        return refuse("check_the_sensor", sensor.REJECTED, risk["sensor_errors"])
+    store.note_try(device_id, now)
+    store.add_reading(device, values, risk, reading.timestamp, reading.demo, now)
+    return JSONResponse(status_code=201, content={
+        "accepted": True, "level": risk["level"], "summary": risk["summary"],
+        "received_at": now.isoformat(timespec="seconds"), "pond_id": device["pond_id"]})
 
 
 @app.get("/api/simulator/scenarios")
