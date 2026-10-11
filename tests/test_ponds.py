@@ -592,3 +592,15 @@ def test_terms_show_one_storage_line_chosen_by_the_server():
         assert "device readings (for 48 hours)" not in text and "(48 ಗಂಟೆಗಳವರೆಗೆ)" not in text
     # The promised times match the code that deletes old data.
     assert ponds.KEEP_READINGS == timedelta(hours=48) and ponds.KEEP_ALERTS == timedelta(days=14)
+
+
+def test_live_sensor_card_and_terms_say_the_same_about_clearing():
+    app = (FRONTEND / "app.js").read_text(encoding="utf-8")
+    html = (FRONTEND / "index.html").read_text(encoding="utf-8")
+    texts = {k: re.findall(rf'{k}: "([^"]*)"', app) for k in ("liveNote", "termsServer", "sourcesIntro")}
+    for key in ("liveNote", "termsServer"):
+        en, kn = texts[key]
+        assert "cleared when the server sleeps or restarts" in en, key
+        assert "ಸರ್ವರ್ ನಿದ್ರಿಸಿದಾಗ ಅಥವಾ ಮರುಪ್ರಾರಂಭವಾದಾಗ ಅಳಿಸಿಹೋಗುತ್ತವೆ" in kn, key
+        assert f'data-i18n="{key}">{en}<' in html, key                 # the page's first paint says the same
+    assert "the Live sensor card and the devices in My ponds" in texts["sourcesIntro"][0]
