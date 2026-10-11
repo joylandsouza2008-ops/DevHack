@@ -276,7 +276,8 @@ def test_frontend_never_mentions_the_secret_variables():
 # ----------------------------------------------------------------- 5. browser storage
 
 def test_browser_storage_holds_only_these_harmless_keys():
-    allowed = {'"meenuraksha-lang"', "THEME_KEY", "`meenuraksha-ticks:${key}`", "STORAGE_KEY", "FARM_KEY"}
+    # key (weather.js): the saved forecast, one per place: STORAGE_KEY, or STORAGE_KEY:<village name from the list>.
+    allowed = {'"meenuraksha-lang"', "THEME_KEY", "`meenuraksha-ticks:${key}`", "STORAGE_KEY", "FARM_KEY", "key"}
     used = set()
     for js in FRONTEND.glob("*.js"):
         used |= set(re.findall(r"\.setItem\(\s*([^,]+),", js.read_text(encoding="utf-8")))
@@ -286,6 +287,9 @@ def test_browser_storage_holds_only_these_harmless_keys():
     ponds_js = (FRONTEND / "ponds.js").read_text(encoding="utf-8")
     assert 'const FARM_KEY = "aquanexus_farm_code";' in ponds_js
     assert "setItem(" not in ponds_js.replace("localStorage.setItem(FARM_KEY, code)", ""), "device keys are never stored"
+    weather_js = (FRONTEND / "weather.js").read_text(encoding="utf-8")
+    assert "storage.setItem(key, JSON.stringify(value))" in weather_js
+    assert "isDemoPlace(location) ? STORAGE_KEY : `${STORAGE_KEY}:${location.name.en}`" in weather_js
     keys = {m for js in FRONTEND.glob("*.js") for m in re.findall(r"STORAGE_KEY = (\"[^\"]+\")", js.read_text(encoding="utf-8"))}
     # aquanexus_cart: the Shop list (product ids and quantities only, frontend/shop.js).
     assert keys == {'"meenuraksha-history"', '"meenuraksha-weather-forecast"', '"aquanexus_cart"'}

@@ -1,6 +1,8 @@
 # Tonight's oxygen crash risk — weather rules
 
-The **Weather** page of the app (`#/weather`) shows **Tonight's weather** for Mangaluru with an **oxygen crash risk** of **Low**, **Medium** or **High**. It is worked out from the free [Open-Meteo](https://open-meteo.com/) forecast (no API key) by `backend/weather.py`, and served at `GET /api/weather/tonight`.
+The **Weather** page of the app (`#/weather`) shows **Tonight's weather** for Mangaluru (the demo pond) with an **oxygen crash risk** of **Low**, **Medium** or **High**. It is worked out from the free [Open-Meteo](https://open-meteo.com/) forecast (no API key) by `backend/weather.py`, and served at `GET /api/weather/tonight`.
+
+Each of the farmer's own ponds (My ponds) can have a village, chosen from a list of towns and villages in Udupi, Dakshina Kannada and Uttara Kannada (`backend/places.py`, `GET /api/places`). No GPS and no address: only the village name is stored. The pond's page then shows tonight's weather for that village (`GET /api/weather/tonight?place=Kota`), with the same rules. Each place keeps its own saved forecast.
 
 This is **real forecast data, not simulated data**. It is not a pond reading and it is never used to train or test a model. It only rates how much the *weather* favours a night-time oxygen crash.
 
@@ -39,7 +41,7 @@ The level uses the same colour + icon pairs as the pond status (green / amber / 
 
 ## Limits
 
-- One location (Mangaluru). Ponds far inland may have different weather.
+- One point per village (the village centre, rounded to about 1 km). A pond with no village chosen has no pond weather; the Weather page always shows Mangaluru.
 - Air temperature, not pond water temperature.
 - This is a weather warning, not a measurement. A pond with few algae and few fish may be fine on a High night; a heavily stocked pond can crash on a Low night. The pond's own oxygen readings always come first.
 

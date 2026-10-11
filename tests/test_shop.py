@@ -42,9 +42,12 @@ KNOWN_API = {
     ("PATCH", "/api/ponds/{pond_id}"), ("DELETE", "/api/ponds/{pond_id}"),
     ("POST", "/api/ponds/{pond_id}/device"), ("DELETE", "/api/ponds/{pond_id}/device"),
     ("POST", "/api/ponds/{pond_id}/device/new-key"),
+    # The fixed list of coastal Karnataka villages a pond can be in (backend/places.py). Read-only.
+    ("GET", "/api/places"),
 }
 PERSONAL_FIELDS = {"name", "full_name", "phone", "mobile", "email", "address", "pincode", "pin_code",
-                   "upi", "card", "card_number", "payment", "aadhaar", "customer"}
+                   "upi", "card", "card_number", "payment", "aadhaar", "customer",
+                   "latitude", "longitude", "lat", "lon", "gps"}     # a pond's place is a village name from a list
 
 
 def shop_page() -> str:

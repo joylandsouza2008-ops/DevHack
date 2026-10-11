@@ -29,7 +29,7 @@ SCHEMA = [
     # A farm is a group of ponds. Its id is a hash of the farm code: the code itself is never stored.
     "CREATE TABLE IF NOT EXISTS farms (id TEXT PRIMARY KEY, created_at TEXT NOT NULL)",
     "CREATE TABLE IF NOT EXISTS ponds (id TEXT PRIMARY KEY, farm_id TEXT NOT NULL, name TEXT NOT NULL, "
-    "size TEXT, fish TEXT, created_at TEXT NOT NULL)",
+    "size TEXT, fish TEXT, created_at TEXT NOT NULL, village TEXT)",
     "CREATE INDEX IF NOT EXISTS ponds_farm ON ponds (farm_id)",
     # One device per pond. Only a hash of its key is kept.
     "CREATE TABLE IF NOT EXISTS devices (id TEXT PRIMARY KEY, pond_id TEXT NOT NULL UNIQUE, "
@@ -45,6 +45,12 @@ SCHEMA = [
     "CREATE INDEX IF NOT EXISTS alerts_farm_time ON alerts (farm_id, time)",
 ]
 
+# Columns added after the first version. A database made before then gets them
+# here; on a newer one the column is already there and the statement just fails.
+ADD_COLUMNS = [
+    "ALTER TABLE ponds ADD COLUMN village TEXT",     # where the pond is (backend/places.py), for its weather
+]
+
 
 class Database:
     """One connection, shared by all requests, with a lock (the app is small)."""
@@ -57,6 +63,11 @@ class Database:
         self._lock = threading.Lock()
         for statement in SCHEMA:
             self.execute(statement)
+        for statement in ADD_COLUMNS:
+            try:
+                self.execute(statement)
+            except Exception:
+                pass                         # the column is already there
 
     @property
     def persistent(self) -> bool:

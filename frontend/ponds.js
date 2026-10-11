@@ -10,6 +10,11 @@
 // These are REAL readings from the farmer's devices, kept apart from the
 // simulated demo pond. A demo device (tools/fake_sensor.py) still gets the
 // "Simulated data" tag. The page asks the server for news every 20 seconds.
+//
+// Each pond can have a village, picked from a list (district, then taluk /
+// village; GET /api/places, backend/places.py). No GPS and no address: only
+// the village name is saved. The pond's page shows tonight's weather for that
+// village (weather.js, the real Open-Meteo forecast).
 
 (function () {
   "use strict";
@@ -75,6 +80,8 @@
   let timer = null;
   let chart = null;
   let editing = null;                 // pond id being edited, or null when adding
+  let placeList = null;               // GET /api/places: districts -> taluks -> villages (null until loaded)
+  let pondWeather = null;             // {village, at, done, result}: tonight's weather for the open pond's village
 
   function make(tag, className, text) {
     const node = document.createElement(tag);
@@ -169,6 +176,7 @@
     head.append(make("h3", "pond-tile-name", pond.name));
     if (pond.level_name) head.append(badge(pond.level, pond.level_name[lang]));
     link.append(head);
+    if (pond.location) link.append(make("p", "pond-tile-place", `${pond.location.name[lang]}, ${pond.location.district[lang]}`));
     if (pond.cause) link.append(make("p", "pond-tile-cause", pond.cause[lang]));
     link.append(make("p", "pond-tile-time", pond.measured_at ? words.pondLastReading(timeText(pond.measured_at)) : words.pondNoReadings));
     const dev = deviceLine(pond);
@@ -276,7 +284,8 @@
 
     const pond = detail;
     $("pond-detail-name").textContent = pond.name;
-    const meta = [pond.size && `${words.pondSize}: ${pond.size}`, pond.fish && `${words.pondFish}: ${pond.fish}`].filter(Boolean);
+    const meta = [placeText(pond.location), pond.size && `${words.pondSize}: ${pond.size}`,
+      pond.fish && `${words.pondFish}: ${pond.fish}`].filter(Boolean);
     $("pond-detail-meta").textContent = meta.join(" · ");
     $("pond-detail-meta").hidden = !meta.length;
     $("pond-detail-demo").hidden = !pond.demo;
@@ -305,7 +314,78 @@
     if (window.DiseaseGuide && risk) window.DiseaseGuide.renderLikely($("pond-detail-likely"), risk.likely_diseases, lang, words);
     else $("pond-detail-likely").hidden = true;
     renderChart(pond.history || []);
+    renderPondWeather(pond);
     renderDevice(pond);
+    if (pond.location) ensurePondWeather(pond.location);
+  }
+
+  // "Kota · Brahmavar taluk · Udupi" (null: no place chosen).
+  function placeText(location) {
+    if (!location) return null;
+    return [location.name[lang], words.pondTaluk(location.taluk[lang]), location.district[lang]].join(" · ");
+  }
+
+  // ---------------------------------------------------------------- tonight's weather for the open pond's village
+  // Real forecast (weather.js: Open-Meteo in the browser, then our server, then a saved copy). Not simulated.
+
+  const CRASH_BADGE = { low: "safe", medium: "warning", high: "danger" };   // same pairs as app.js
+  const WEATHER_MAX_AGE_MS = 30 * 60 * 1000;                                // download again after 30 minutes
+
+  function browserStorage() {
+    try { return window.localStorage; } catch { return null; }
+  }
+
+  function ensurePondWeather(location) {
+    const same = pondWeather && pondWeather.village === location.village;
+    if (same && Date.now() - pondWeather.at < WEATHER_MAX_AGE_MS) return;
+    // Keep showing the old answer for this village while the new one downloads.
+    pondWeather = { village: location.village, at: Date.now(), done: same && pondWeather.done, result: same ? pondWeather.result : null };
+    loadPondWeather(location);
+  }
+
+  async function loadPondWeather(location) {
+    let result = null;
+    try {
+      result = await window.TonightWeather.loadTonight({ location, storage: browserStorage(), log: (text) => console.warn(text) });
+    } catch { result = null; }
+    if (!pondWeather || pondWeather.village !== location.village) return;   // another pond was opened meanwhile
+    pondWeather.result = result;
+    pondWeather.done = true;
+    if (detail && !detail.missing) renderPondWeather(detail);
+  }
+
+  // The forecast's saved time: the server's has no zone (India time), the browser's ends in "Z".
+  function savedText(savedAt) {
+    return timeText(/(Z|[+-]\d\d:\d\d)$/.test(savedAt) ? savedAt : `${savedAt}+05:30`);
+  }
+
+  function renderPondWeather(pond) {
+    const location = pond.location;
+    const mine = location && pondWeather && pondWeather.village === location.village ? pondWeather : null;
+    const w = mine && mine.done ? mine.result : null;
+    const ok = Boolean(w && w.status === "ok");
+    $("pond-weather-place").textContent = location ? ` · ${location.name[lang]}` : "";
+    $("pond-weather-choose-row").hidden = Boolean(location);
+    const badgeBox = $("pond-weather-badge");
+    badgeBox.hidden = !ok;
+    if (ok) {
+      const level = CRASH_BADGE[w.level];
+      badgeBox.className = `badge weather-badge badge-${level}`;
+      badgeBox.innerHTML = ICON[level] || "";                 // fixed icons only; the words go in as text
+      badgeBox.append(words.crashRisk(w.level_name[lang]));
+    }
+    let message = words.weatherLoading;
+    if (!location) message = words.pondWeatherNoPlace;
+    else if (mine && mine.done) message = w ? w.message[lang] : words.weatherUnavailable;
+    $("pond-weather-message").textContent = message;
+    $("pond-weather-details").textContent = ok
+      ? words.weatherDetails(w.day_cloud_cover_pct, w.night_wind_speed_kmh, w.night_temperature_c) : "";
+    const minutes = ok ? window.TonightWeather.minutesSince(w.saved_at, Date.now()) : null;
+    $("pond-weather-updated").hidden = minutes === null;
+    $("pond-weather-updated").textContent = minutes === null ? "" : words.weatherUpdated(minutes);
+    const offline = Boolean(mine && mine.done && (!w || w.offline));
+    $("pond-weather-offline").hidden = !offline;
+    $("pond-weather-offline").textContent = offline ? words.weatherOffline(w && w.saved_at ? savedText(w.saved_at) : null) : "";
   }
 
   async function openFromHash(focus) {
@@ -375,15 +455,60 @@
 
   // ---------------------------------------------------------------- add, edit, delete, devices
 
-  function openDialog(pond) {
+  // The place list, downloaded once. Without it (no internet) the place can be chosen later.
+  async function loadPlaces() {
+    if (placeList) return;
+    try {
+      const response = await fetch("/api/places");
+      if (response.ok) placeList = (await response.json()).districts;
+    } catch { placeList = null; }
+  }
+
+  function option(value, text) {
+    const node = make("option", "", text);
+    node.value = value;
+    return node;
+  }
+
+  // District dropdown: "Not chosen", then the three districts (value = position in the list).
+  function fillDistricts(selected) {
+    $("pond-district").replaceChildren(option("", words.pondDistrictNone),
+      ...(placeList || []).map((d, i) => option(String(i), d.name[lang])));
+    $("pond-district").value = selected;
+  }
+
+  // Village dropdown for the chosen district, grouped by taluk. Its value is the village name (what is saved).
+  function fillVillages(selected) {
+    const district = $("pond-district").value === "" ? null : placeList[Number($("pond-district").value)];
+    const groups = district ? district.taluks.map((t) => {
+      const group = make("optgroup");
+      group.label = words.pondTaluk(t.name[lang]);
+      group.append(...t.places.map((p) => option(p.village, p.name[lang])));
+      return group;
+    }) : [];
+    $("pond-village").replaceChildren(option("", district ? words.pondVillageNone : words.pondVillageFirst), ...groups);
+    $("pond-village").disabled = !district;
+    $("pond-village").value = selected || "";
+  }
+
+  function fillPlace(location) {
+    const index = location && placeList ? placeList.findIndex((d) => d.name.en === location.district.en) : -1;
+    fillDistricts(index >= 0 ? String(index) : "");
+    fillVillages(index >= 0 ? location.village : null);
+  }
+
+  async function openDialog(pond, focusId = "pond-name") {
     editing = pond ? pond.id : null;
     $("pond-dialog-title").textContent = pond ? words.pondDialogEdit : words.pondDialogAdd;
     $("pond-name").value = pond ? pond.name : "";
     $("pond-size").value = pond && pond.size ? pond.size : "";
     $("pond-fish").value = pond && pond.fish ? pond.fish : "";
     $("pond-form-error").hidden = true;
+    await loadPlaces();
+    fillPlace(pond && pond.location);
+    $("pond-place-help").closest("fieldset").hidden = !placeList;
     $("pond-dialog").showModal();
-    $("pond-name").focus();
+    $(placeList ? focusId : "pond-name").focus();
   }
 
   async function savePond(event) {
@@ -391,7 +516,13 @@
     const name = $("pond-name").value.trim();
     const error = $("pond-form-error");
     if (!name) { error.textContent = words.pondNameMissing; error.hidden = false; $("pond-name").focus(); return; }
-    const body = JSON.stringify({ pond_name: name, size: $("pond-size").value.trim() || null, fish: $("pond-fish").value.trim() || null });
+    const village = $("pond-village").value || null;
+    if (placeList && $("pond-district").value !== "" && !village) {
+      error.textContent = words.pondVillageMissing; error.hidden = false; $("pond-village").focus(); return;
+    }
+    const fields = { pond_name: name, size: $("pond-size").value.trim() || null, fish: $("pond-fish").value.trim() || null };
+    if (placeList) fields.village = village;          // no list (offline): leave the saved village as it is
+    const body = JSON.stringify(fields);
     try {
       if (editing) await call(`/api/ponds/${editing}`, { method: "PATCH", body });
       else await call("/api/ponds", { method: "POST", body });
@@ -445,6 +576,8 @@
     $("pond-cancel").addEventListener("click", () => $("pond-dialog").close());
     $("pond-dialog").addEventListener("click", (e) => { if (e.target === e.currentTarget) e.currentTarget.close(); });
     $("pond-edit").addEventListener("click", () => detail && !detail.missing && openDialog(detail));
+    $("pond-weather-choose").addEventListener("click", () => detail && !detail.missing && openDialog(detail, "pond-district"));
+    $("pond-district").addEventListener("change", () => fillVillages(null));
     $("pond-delete").addEventListener("click", deletePond);
     $("device-connect").addEventListener("click", () => deviceAction("connect"));
     $("device-new-key").addEventListener("click", () => deviceAction("new-key"));
@@ -466,6 +599,11 @@
     lang = newLang;
     words = newWords;
     renderAll();
+    if ($("pond-dialog").open && placeList) {          // dropdowns open in the old language: refill, keep the choice
+      const [district, village] = [$("pond-district").value, $("pond-village").value];
+      fillDistricts(district);
+      fillVillages(village);
+    }
   }
 
   // The pond in the worst state, for the status strip (null: no pond has a reading).

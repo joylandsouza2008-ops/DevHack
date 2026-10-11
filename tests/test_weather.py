@@ -195,3 +195,49 @@ def test_download_says_who_is_asking(monkeypatch):
     monkeypatch.setattr(backend.weather.urllib.request, "urlopen", fake_urlopen)
     assert backend.weather.download_forecast(12.9, 74.8) == {"hourly": {}}
     assert sent["agent"].startswith("MeenuRaksha/") and "timezone=Asia%2FKolkata" in sent["url"]
+
+
+# --- a farmer's own pond: the weather for its village ------------------------
+
+def test_a_village_downloads_its_own_forecast_and_saves_its_own_copy(tmp_path):
+    from backend import places
+    cache = tmp_path / "weather_cache.json"
+    asked = []
+
+    def download(latitude, longitude):
+        asked.append((latitude, longitude))
+        return fake_forecast(cloud=90, wind=3)
+    r = tonight_crash_risk(AFTERNOON, location=places.place("Kota"), cache_file=cache, download=download)
+    assert asked == [(13.52, 74.70)]
+    assert r["location"] == {"en": "Kota", "kn": "ಕೋಟ"} and r["level"] == "high"
+    assert (tmp_path / "weather_cache-kota.json").exists() and not cache.exists()
+
+
+def test_offline_a_village_never_gets_another_places_saved_forecast(tmp_path):
+    from backend import places
+    cache = tmp_path / "weather_cache.json"
+    tonight_crash_risk(AFTERNOON, cache_file=cache, download=lambda la, lo: fake_forecast())     # Mangaluru saved
+    r = tonight_crash_risk(AFTERNOON, location=places.place("Karwar"), cache_file=cache, download=no_internet)
+    assert r["status"] == "unavailable" and r["location"]["en"] == "Karwar"
+    # Choosing the village Mangaluru uses the demo pond's saved copy: it is the same place.
+    assert backend.weather.cache_for(cache, places.place("Mangaluru")) == cache
+
+
+def test_endpoint_for_a_village(monkeypatch):
+    seen = {}
+
+    def fake(location=None):
+        seen["location"] = location
+        return {"status": "ok", "level": "low"}
+    monkeypatch.setattr(backend.main, "tonight_crash_risk", fake)
+    client = TestClient(backend.main.app)
+    assert client.get("/api/weather/tonight", params={"place": "Gokarna"}).json()["level"] == "low"
+    assert seen["location"]["district"]["en"] == "Uttara Kannada"
+
+
+def test_endpoint_refuses_a_place_not_in_the_list():
+    client = TestClient(backend.main.app)
+    for place in ("Paris", "12.9,74.8", ""):
+        r = client.get("/api/weather/tonight", params={"place": place})
+        assert r.status_code == 404 and r.json()["error"] == "unknown_place", place
+        assert r.json()["message"]["kn"]

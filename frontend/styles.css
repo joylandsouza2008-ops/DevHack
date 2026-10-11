@@ -1101,7 +1101,21 @@ button { position: relative; isolation: isolate; overflow: hidden; }
 .pond-tile-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem 0.75rem; }
 .pond-tile-name { margin: 0; font-size: 1.25rem; font-weight: 600; line-height: 1.4; overflow-wrap: anywhere; }
 .pond-tile-cause { font-weight: 600; }
-.pond-tile-time { color: var(--text-secondary); font-size: 1rem; }
+.pond-tile-time, .pond-tile-place { color: var(--text-secondary); font-size: 1rem; }
+
+/* Where the pond is (Add / Edit pond): district, then taluk / village. Same look as the text boxes. */
+.pond-place { display: flex; flex-direction: column; gap: 0.75rem; min-width: 0; margin: 0; padding: 0; border: 0; }
+.pond-place[hidden] { display: none; }
+.pond-place legend { padding: 0; margin-bottom: 0.25rem; font-size: 1.125rem; }
+.kit-select select {
+  flex: 1; width: 100%; min-width: 0; min-height: 60px; padding: 0 1rem;
+  border: 0; background: transparent; color: var(--text);
+  font: inherit; font-size: 1.25rem; font-weight: 600; cursor: pointer;
+}
+.kit-select select:focus { outline: none; }
+.kit-select select:disabled { color: var(--muted); cursor: not-allowed; }
+.kit-select option, .kit-select optgroup { background: var(--card); color: var(--text); }
+.pond-weather-card .weather-icon svg { width: 32px; height: 32px; }
 .pond-tile-device { display: flex; align-items: center; gap: 0.5rem; color: var(--text-secondary); font-size: 1rem; margin: 0; }
 .pond-tile .sim-tag { align-self: flex-start; }
 /* Online / offline: a dot AND a word (never colour alone). Not a status colour. */

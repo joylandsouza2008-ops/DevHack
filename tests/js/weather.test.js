@@ -137,3 +137,29 @@ test("minutesSince reads the server's India time and the browser's UTC time alik
   assert.equal(W.minutesSince("2026-10-02T09:30:00.000Z", now), 10);
   assert.equal(W.minutesSince(null, now), null);
 });
+
+// --- a farmer's own pond: the weather for its village --------------------------
+
+const KOTA = { village: "Kota", name: { en: "Kota", kn: "ಕೋಟ" }, latitude: 13.52, longitude: 74.70 };
+
+test("a pond's village: its own coordinates, its own saved copy, its own server address", async () => {
+  const storage = fakeStorage();
+  const fetchFn = fakeFetch({ openMeteo: { body: fakeForecast({ cloud: 90, wind: 3 }) } });
+  const r = await W.loadTonight({ fetchFn, storage, nowMs: AFTERNOON, location: KOTA });
+  assert.equal(r.location.kn, "ಕೋಟ");
+  assert.ok(fetchFn.calls[0].includes("latitude=13.52") && fetchFn.calls[0].includes("longitude=74.7"));
+  assert.ok(storage.data[`${W.STORAGE_KEY}:Kota`]);
+  assert.equal(storage.data[W.STORAGE_KEY], undefined);           // Mangaluru's saved copy is untouched
+
+  const server = { status: "ok", offline: false, level: "low", saved_at: "2026-10-02T14:50" };
+  const fallback = fakeFetch({ server: { body: server } });
+  await W.loadTonight({ fetchFn: fallback, storage: fakeStorage(), nowMs: AFTERNOON, location: KOTA });
+  assert.equal(fallback.calls[1], "/api/weather/tonight?place=Kota");
+});
+
+test("offline, a village never shows another place's saved forecast", async () => {
+  const storage = fakeStorage({ [W.STORAGE_KEY]: JSON.stringify({ saved_at: AFTERNOON - HOUR, forecast: fakeForecast() }) });
+  assert.equal(await W.loadTonight({ fetchFn: fakeFetch(), storage, nowMs: AFTERNOON, location: KOTA }), null);
+  assert.equal(W.storageKey(W.LOCATION), W.STORAGE_KEY);
+  assert.equal(W.serverUrl(W.LOCATION), "/api/weather/tonight");
+});

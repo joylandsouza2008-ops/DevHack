@@ -584,7 +584,9 @@ def test_every_new_page_label_has_kannada():
     kn = app[app.index("\n  kn: {"):]
     keys = ["pondsTitle", "pondAdd", "pondsDemoMode", "pondsEmpty", "deviceOnline", "deviceOfflineSince", "deviceConnect",
             "deviceNewKey", "deviceRemove", "deviceKeyOnce", "farmTitle", "farmHelp", "farmWarn", "pondAlertsTitle",
-            "stripAllSafe", "pondNameHelp", "deviceStep2", "demoPondTitle"]
+            "stripAllSafe", "pondNameHelp", "deviceStep2", "demoPondTitle", "pondPlaceLabel", "pondDistrictLabel",
+            "pondVillageLabel", "pondPlaceHelp", "pondDistrictNone", "pondVillageNone", "pondVillageFirst", "pondTaluk",
+            "pondVillageMissing", "pondWeatherNoPlace", "pondWeatherChoose", "weatherDemoNote"]
     for key in keys:
         line = re.search(rf"\b{key}: ([^\n]+)", kn)
         assert line and KANNADA.search(line.group(1)), key
@@ -593,7 +595,8 @@ def test_every_new_page_label_has_kannada():
 def test_page_has_the_ponds_sections():
     html = (ROOT / "frontend" / "index.html").read_text(encoding="utf-8")
     pond_page = html[html.index('id="page-pond"'):html.index('id="page-alerts"')]
-    for element in ("ponds-section", "pond-add", "pond-cards", "pond-detail", "device-connect", "device-key-box"):
+    for element in ("ponds-section", "pond-add", "pond-cards", "pond-detail", "device-connect", "device-key-box",
+                    "pond-weather", "pond-weather-choose"):
         assert f'id="{element}"' in pond_page, element
     assert pond_page.index('id="ponds-section"') < pond_page.index('id="simulated-banner"')
     alerts_page = html[html.index('id="page-alerts"'):html.index('id="page-weather"')]
@@ -644,3 +647,62 @@ def test_live_sensor_card_and_terms_say_the_same_about_clearing():
         assert "ಸರ್ವರ್ ನಿದ್ರಿಸಿದಾಗ ಅಥವಾ ಮರುಪ್ರಾರಂಭವಾದಾಗ ಅಳಿಸಿಹೋಗುತ್ತವೆ" in kn, key
         assert f'data-i18n="{key}">{en}<' in html, key                 # the page's first paint says the same
     assert "the Live sensor card and the devices in My ponds" in texts["sourcesIntro"][0]
+
+
+# ----------------------------------------------------------------- where the pond is (for its weather)
+
+def test_a_pond_can_have_a_village_from_the_list(clock):
+    h = farm()
+    pond = add(h, "Pond near road", village="Kota")
+    assert pond["village"] == "Kota"
+    assert pond["location"]["taluk"] == {"en": "Brahmavar", "kn": "ಬ್ರಹ್ಮಾವರ"}
+    assert pond["location"]["district"]["en"] == "Udupi" and pond["location"]["latitude"] == 13.52
+    assert listing(h)["ponds"][0]["location"]["name"]["kn"] == "ಕೋಟ"
+
+    r = client.patch(f"/api/ponds/{pond['id']}", json={"village": " Karwar "}, headers=h)
+    assert r.json()["village"] == "Karwar" and r.json()["location"]["district"]["en"] == "Uttara Kannada"
+    r = client.patch(f"/api/ponds/{pond['id']}", json={"size": "1 acre"}, headers=h)
+    assert r.json()["village"] == "Karwar"                          # left out = unchanged
+    r = client.patch(f"/api/ponds/{pond['id']}", json={"village": None}, headers=h)
+    assert r.json()["village"] is None and r.json()["location"] is None
+
+
+def test_village_is_optional():
+    pond = add(farm(), "Pond near road")
+    assert pond["village"] is None and pond["location"] is None
+
+
+def test_a_village_not_in_the_list_is_refused(clock):
+    h = farm()
+    for village in ("Paris", "13.52, 74.70", "Kota, near the temple"):
+        r = client.post("/api/ponds", json={"pond_name": "P", "village": village}, headers=h)
+        assert r.status_code == 422 and r.json()["error"] == "unknown_place", village
+        assert KANNADA.search(r.json()["message"]["kn"])
+    assert listing(h)["ponds"] == []
+    pond = add(h, "P", village="Malpe")
+    r = client.patch(f"/api/ponds/{pond['id']}", json={"village": "Goa"}, headers=h)
+    assert r.status_code == 422
+    assert listing(h)["ponds"][0]["village"] == "Malpe"
+
+
+def test_only_the_village_name_is_stored(clock):
+    store = main.farms()
+    add(farm(), "P", village="Gokarna")
+    row = store.db.one("SELECT * FROM ponds")
+    assert row["village"] == "Gokarna"
+    assert set(row) == {"id", "farm_id", "name", "size", "fish", "created_at", "village"}   # no coordinates, no address
+
+
+def test_an_old_database_gets_the_village_column(tmp_path):
+    import sqlite3
+    path = tmp_path / "old.db"
+    old = sqlite3.connect(path)
+    old.execute("CREATE TABLE ponds (id TEXT PRIMARY KEY, farm_id TEXT NOT NULL, name TEXT NOT NULL, "
+                "size TEXT, fish TEXT, created_at TEXT NOT NULL)")
+    old.execute("INSERT INTO ponds VALUES ('p-aaaaaaaaaa', 'f', 'Old pond', NULL, NULL, '2026-10-01T00:00:00')")
+    old.commit()
+    old.close()
+    store = ponds.FarmStore(db.sqlite_file(path))
+    assert store.pond("f", "p-aaaaaaaaaa")["village"] is None
+    assert store.edit_pond("f", "p-aaaaaaaaaa", {"village": "Ullal"})["village"] == "Ullal"
+    db.sqlite_file(path)                                            # opening it again is fine too

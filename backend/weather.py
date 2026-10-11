@@ -4,14 +4,17 @@ Tonight's oxygen crash risk, from the weather forecast.
 What this file does, step by step:
     1. Download the hourly forecast (air temperature, cloud cover, wind speed)
        for the pond's location from Open-Meteo. It is free and needs no API key.
+       The demo pond uses Mangaluru; a farmer's own pond uses its village
+       (backend/places.py).
     2. Pick out "tonight": 18:00 to 06:00. Cloud cover is taken from the DAY
        before tonight (06:00 to 18:00), because clouds matter by stopping algae
        from making oxygen in daylight; at night no oxygen is made anyway.
     3. Count the risk factors: a cloudy day, a still night, a warm night.
        0 -> Low, 1 -> Medium, 2 or 3 -> High. The numbers are in
        config/thresholds.toml ([night_crash]); the reasons are in docs/night_crash.md.
-    4. Save the downloaded forecast to data/weather_cache.json. With no internet,
-       the saved forecast is used instead and the answer says "offline".
+    4. Save the downloaded forecast to data/weather_cache.json (Mangaluru) or
+       data/weather_cache-<village>.json. With no internet, the saved forecast
+       for that place is used instead and the answer says "offline".
 
 This is real weather data, not simulated data. It is never used to train a model.
 """
@@ -97,6 +100,14 @@ def _write_cache(path: Path, saved_at: datetime, forecast: dict) -> None:
         pass                # can't save: the app still works, just without a saved copy
 
 
+def cache_for(cache_file: Path, location: dict) -> Path:
+    """Each place keeps its own saved forecast: weather_cache.json for Mangaluru, weather_cache-kota.json for Kota."""
+    slug = "".join(c for c in location["name"]["en"].lower() if c.isascii() and c.isalnum())
+    if slug == MANGALURU["name"]["en"].lower():
+        return cache_file
+    return cache_file.with_name(f"{cache_file.stem}-{slug}{cache_file.suffix}")
+
+
 # ----------------------------------------------------------------- rules
 
 def tonight_window(now: datetime) -> tuple[datetime, datetime, datetime]:
@@ -166,8 +177,10 @@ def tonight_crash_risk(now: datetime | None = None, location: dict = MANGALURU,
     Tonight's crash risk. Tries the internet first (unless the saved forecast is
     less than 30 minutes old); with no internet, uses the saved forecast and
     sets offline = True. `download` can be swapped out in tests.
+    `location` is MANGALURU (the demo pond) or a village from backend/places.py.
     """
     now = now or now_in_india()
+    cache_file = cache_for(cache_file, location)
     cached = _read_cache(cache_file)
     saved_at = datetime.fromisoformat(cached["saved_at"]) if cached else None
     forecast, offline = None, False

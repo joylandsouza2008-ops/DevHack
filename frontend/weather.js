@@ -10,6 +10,10 @@
 // The numbers below must match config/thresholds.toml [night_crash]
 // (a test checks this: node --test tests/js).
 //
+// The demo pond's weather is for Mangaluru (LOCATION). A farmer's own pond
+// passes its village ({name, latitude, longitude} from backend/places.py);
+// each place keeps its own saved forecast in this browser.
+//
 // Real weather data, not simulated. Never used to train a model.
 
 (function () {
@@ -39,9 +43,11 @@
               kn: "{night} ರಾತ್ರಿ ಬರಲಿದೆ: ಏರೇಟರ್ ಸಿದ್ಧವಾಗಿಡಿ." },
   };
 
-  function forecastUrl() {
+  const isDemoPlace = (location) => location.name.en === LOCATION.name.en;
+
+  function forecastUrl(location = LOCATION) {
     const query = new URLSearchParams({
-      latitude: LOCATION.latitude, longitude: LOCATION.longitude,
+      latitude: location.latitude, longitude: location.longitude,
       hourly: "temperature_2m,cloud_cover,wind_speed_10m",
       timezone: "Asia/Kolkata", past_days: 1, forecast_days: 3,
     });
@@ -104,11 +110,11 @@
 
   // Same shape as GET /api/weather/tonight. savedAtMs = when the forecast was
   // downloaded; null result means the forecast doesn't reach tonight.
-  function tonightFromForecast(forecast, savedAtMs, nowMs, offline) {
+  function tonightFromForecast(forecast, savedAtMs, nowMs, offline, location = LOCATION) {
     const weather = summarise(forecast, indiaNow(nowMs));
     if (!weather) return null;
     return {
-      source: "open-meteo", location: LOCATION.name, offline, status: "ok",
+      source: "open-meteo", location: location.name, offline, status: "ok",
       saved_at: new Date(savedAtMs).toISOString(),
       ...weather,
       ...rateCrashRisk(weather.day_cloud_cover_pct, weather.night_wind_speed_kmh, weather.night_temperature_c),
@@ -116,11 +122,11 @@
   }
 
   // Download straight from Open-Meteo. Throws on no internet, a slow reply or a bad answer.
-  async function download(fetchFn = fetch, timeoutMs = 8000) {
+  async function download(fetchFn = fetch, timeoutMs = 8000, location = LOCATION) {
     const controller = typeof AbortController !== "undefined" ? new AbortController() : null;
     const timer = controller && setTimeout(() => controller.abort(), timeoutMs);
     try {
-      const response = await fetchFn(forecastUrl(), controller ? { signal: controller.signal } : {});
+      const response = await fetchFn(forecastUrl(location), controller ? { signal: controller.signal } : {});
       if (!response.ok) throw new Error(`Open-Meteo replied ${response.status}`);
       const forecast = await response.json();
       if (!forecast || !forecast.hourly) throw new Error("Open-Meteo reply has no hourly forecast");
@@ -139,10 +145,15 @@
     return Number.isNaN(ms) ? null : Math.max(0, Math.floor((nowMs - ms) / 60000));
   }
 
-  const STORAGE_KEY = "meenuraksha-weather-forecast";   // last forecast this browser downloaded
+  const STORAGE_KEY = "meenuraksha-weather-forecast";   // last forecast this browser downloaded (Mangaluru)
 
-  const readSaved = (storage) => { try { return JSON.parse(storage.getItem(STORAGE_KEY)); } catch { return null; } };
-  const writeSaved = (storage, value) => { try { storage.setItem(STORAGE_KEY, JSON.stringify(value)); } catch { /* storage blocked */ } };
+  // Mangaluru keeps the old key; a village gets its own, e.g. "meenuraksha-weather-forecast:Kota".
+  const storageKey = (location) => (isDemoPlace(location) ? STORAGE_KEY : `${STORAGE_KEY}:${location.name.en}`);
+  const serverUrl = (location) => (isDemoPlace(location) ? "/api/weather/tonight"
+    : `/api/weather/tonight?place=${encodeURIComponent(location.name.en)}`);
+
+  const readSaved = (storage, key) => { try { return JSON.parse(storage.getItem(key)); } catch { return null; } };
+  const writeSaved = (storage, key, value) => { try { storage.setItem(key, JSON.stringify(value)); } catch { /* storage blocked */ } };
 
   // The whole plan, in order:
   //   1. download from Open-Meteo in this browser (works even when our server can't);
@@ -150,12 +161,14 @@
   //   3. else the newest saved forecast (this browser's, or the server's), marked offline;
   //   4. else null: the page says tonight's weather is not known.
   // fetchFn, storage and nowMs can be swapped out in tests, so no test touches the internet.
-  async function loadTonight({ fetchFn = fetch, storage = null, nowMs = Date.now(), log = () => {} } = {}) {
+  async function loadTonight({ fetchFn = fetch, storage = null, nowMs = Date.now(), log = () => {},
+                               location = LOCATION } = {}) {
+    const key = storageKey(location);
     try {
-      const forecast = await download(fetchFn);
-      const result = tonightFromForecast(forecast, nowMs, nowMs, false);
+      const forecast = await download(fetchFn, 8000, location);
+      const result = tonightFromForecast(forecast, nowMs, nowMs, false, location);
       if (result) {
-        if (storage) writeSaved(storage, { saved_at: nowMs, forecast });
+        if (storage) writeSaved(storage, key, { saved_at: nowMs, forecast });
         return result;
       }
       log("Open-Meteo forecast does not reach tonight");
@@ -165,22 +178,22 @@
 
     let server = null;
     try {
-      const response = await fetchFn("/api/weather/tonight");
+      const response = await fetchFn(serverUrl(location));
       if (response.ok) server = await response.json();
     } catch (error) {
       log(`Weather from our server failed: ${error && error.message}`);
     }
     if (server && server.status === "ok" && !server.offline) return server;
 
-    const saved = storage && readSaved(storage);
-    const mine = saved && saved.forecast ? tonightFromForecast(saved.forecast, saved.saved_at, nowMs, true) : null;
+    const saved = storage && readSaved(storage, key);
+    const mine = saved && saved.forecast ? tonightFromForecast(saved.forecast, saved.saved_at, nowMs, true, location) : null;
     const theirs = server && server.status === "ok" ? { ...server, offline: true } : null;
     const age = (w) => minutesSince(w.saved_at, nowMs);
     const copies = [mine, theirs].filter(Boolean).sort((a, b) => age(a) - age(b));
     return copies[0] || null;
   }
 
-  const api = { LOCATION, RULES, STORAGE_KEY, forecastUrl, tonightWindow, summarise, rateCrashRisk,
+  const api = { LOCATION, RULES, STORAGE_KEY, storageKey, serverUrl, forecastUrl, tonightWindow, summarise, rateCrashRisk,
                 tonightFromForecast, download, minutesSince, loadTonight };
   if (typeof module !== "undefined" && module.exports) module.exports = api;   // Node tests
   if (typeof window !== "undefined") window.TonightWeather = api;

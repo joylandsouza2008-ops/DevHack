@@ -17,7 +17,8 @@ Endpoints:
     POST /api/diseases/check         "possible matches" for the signs a farmer ticked (never a diagnosis)
     POST /api/assistant/suggestions  "Ask AquaNexus": suggested questions with ready answers (no AI)
     POST /api/assistant/ask          "Ask AquaNexus": one question, answered only from the app's content
-    GET  /api/weather/tonight        tonight's oxygen crash risk from the real weather forecast
+    GET  /api/weather/tonight        tonight's oxygen crash risk from the real weather forecast (?place=Kota for a pond's village)
+    GET  /api/places                 the coastal Karnataka villages a pond can be in (district -> taluk -> village)
     POST /api/sensor/{pond_id}       one reading from a REAL pond sensor (needs the pond's key)
     POST /api/sensor/{device_id}     one reading from a farmer's own device ("My ponds", needs its key)
     GET  /api/sensor/{pond_id}       the latest live-sensor reading for a pond
@@ -49,7 +50,7 @@ from fastapi.responses import JSONResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
-from backend import assistant, db, diseases, ponds, security, sensor
+from backend import assistant, db, diseases, places, ponds, security, sensor
 from backend.actions import checklist
 from backend.ai_provider import provider_from_env
 from backend.alerts import POND_NAMES, compose_alert
@@ -302,14 +303,26 @@ def time_to_danger(history: DOHistory) -> dict:
 
 
 @app.get("/api/weather/tonight")
-def weather_tonight() -> dict:
+def weather_tonight(place: str | None = Query(None, max_length=40, examples=["Kota"],
+                                              description="a village from GET /api/places; leave out for Mangaluru")):
     """
-    Tonight's oxygen crash risk (Low / Medium / High) for Mangaluru, from the
-    Open-Meteo forecast. With no internet it uses the last saved forecast and
-    says offline = true. A plain `def` (not async) so a slow download never
-    blocks the simulator stream.
+    Tonight's oxygen crash risk (Low / Medium / High) from the Open-Meteo
+    forecast: for Mangaluru (the demo pond), or for a pond's village. With no
+    internet it uses the last saved forecast and says offline = true. A plain
+    `def` (not async) so a slow download never blocks the simulator stream.
     """
-    return tonight_crash_risk()
+    if place is None:
+        return tonight_crash_risk()
+    location = places.place(place)
+    if not location:
+        return _problem(404, "unknown_place", places.UNKNOWN_PLACE)
+    return tonight_crash_risk(location=location)
+
+
+@app.get("/api/places")
+def place_list() -> dict:
+    """Districts, taluks and villages for the "Where is the pond?" dropdowns. Only the village name is stored."""
+    return places.for_page()
 
 
 # ----------------------------------------------------------------- live sensor
@@ -471,17 +484,30 @@ PondPath = Annotated[str, UrlPath(pattern=r"^p-[a-z0-9]{10}$", description="pond
 FarmCode = Annotated[str | None, Header(description="the farm code, e.g. K7QM-3XRP-9TFD")]
 
 
+VILLAGE_HELP = "optional: a village from GET /api/places, for the pond's weather. No GPS, no address."
+
+
 class PondIn(BaseModel):
-    """A new pond. No personal details: just what the farmer calls the pond."""
+    """A new pond. No personal details: just what the farmer calls the pond, and its village."""
     pond_name: str = Field(..., min_length=1, max_length=40, examples=["Pond near road"])
     size: str | None = Field(None, max_length=20, description="optional, e.g. 0.5 acre", examples=["0.5 acre"])
     fish: str | None = Field(None, max_length=30, description="optional, e.g. rohu, catla", examples=["Rohu, catla"])
+    village: str | None = Field(None, max_length=40, description=VILLAGE_HELP, examples=["Kota"])
 
 
 class PondEdit(BaseModel):
     pond_name: str | None = Field(None, min_length=1, max_length=40)
     size: str | None = Field(None, max_length=20)
     fish: str | None = Field(None, max_length=30)
+    village: str | None = Field(None, max_length=40, description=VILLAGE_HELP + " null removes it.")
+
+
+def _village(name: str | None) -> tuple[bool, str | None]:
+    """(ok, the village's name as in the list). No village is fine; one that isn't in the list is not."""
+    if name is None or not name.strip():
+        return True, None
+    found = places.place(name)
+    return (True, found["village"]) if found else (False, None)
 
 
 def _farm_of(x_farm_code: str | None) -> str | None:
@@ -523,7 +549,10 @@ def add_pond(pond: PondIn, x_farm_code: FarmCode = None):
     farm = _farm_of(x_farm_code)
     if not farm:
         return _problem(400, "bad_farm_code", ponds.BAD_FARM_CODE)
-    row = farms().add_pond(farm, pond.pond_name, pond.size, pond.fish, _now())
+    ok, village = _village(pond.village)
+    if not ok:
+        return _problem(422, "unknown_place", places.UNKNOWN_PLACE)
+    row = farms().add_pond(farm, pond.pond_name, pond.size, pond.fish, _now(), village)
     if row is None:
         return _problem(409, "too_many_ponds", ponds.TOO_MANY_PONDS)
     return _summary(row, _now())
@@ -558,6 +587,10 @@ def edit_pond(pond_id: PondPath, changes: PondEdit, x_farm_code: FarmCode = None
     fields = changes.model_dump(exclude_unset=True)
     if "pond_name" in fields:
         fields["name"] = fields.pop("pond_name")
+    if "village" in fields:
+        ok, fields["village"] = _village(fields["village"])
+        if not ok:
+            return _problem(422, "unknown_place", places.UNKNOWN_PLACE)
     row = farms().edit_pond(farm, pond_id, fields) if farm else None
     if not row:
         return _problem(404, "not_found", ponds.NOT_FOUND)

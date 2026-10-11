@@ -8,13 +8,15 @@ No accounts and no personal data:
     on the first visit and keeps it in the browser; typing it on another phone
     opens the same ponds. The server stores only a hash of it, never the code.
     Anyone with the code can see and change those ponds, so it is long and random.
+  - A pond can have a village from a fixed list (backend/places.py), for its weather.
+    Only the village name is stored: no GPS, no address.
   - Each device gets an ID (public, in the address) and a secret KEY, shown once.
     The server stores only a hash of the key.
 
 What this file does:
     normalize_farm_code / farm_id     check a farm code and turn it into the stored id
     FarmStore                          ponds, devices, readings and alerts (add, change, read)
-    pond_summary(...)                  one pond's card: status, last reading, device online/offline
+    pond_summary(...)                  one pond's card: status, last reading, device online/offline, village
     worst(...)                         the pond in the worst state, for the status strip
 """
 
@@ -28,6 +30,7 @@ import re
 import secrets
 from datetime import datetime, timedelta
 
+from backend import places
 from backend import risk_messages as msg
 from backend.db import Database
 
@@ -126,20 +129,22 @@ class FarmStore:
     def pond(self, farm: str, pond_id: str) -> dict | None:
         return self.db.one("SELECT * FROM ponds WHERE id = ? AND farm_id = ?", (pond_id, farm))
 
-    def add_pond(self, farm: str, name: str, size: str | None, fish: str | None, now: datetime) -> dict | None:
-        """The new pond, or None if the farm already has MAX_PONDS."""
+    def add_pond(self, farm: str, name: str, size: str | None, fish: str | None, now: datetime,
+                 village: str | None = None) -> dict | None:
+        """The new pond, or None if the farm already has MAX_PONDS. `village` must be from backend/places.py."""
         if len(self.ponds(farm)) >= MAX_PONDS:
             return None
         self.db.execute("INSERT INTO farms (id, created_at) VALUES (?, ?) ON CONFLICT (id) DO NOTHING", (farm, _iso(now)))
         pond_id = _random_id("p-")
-        self.db.execute("INSERT INTO ponds (id, farm_id, name, size, fish, created_at) VALUES (?, ?, ?, ?, ?, ?)",
-                        (pond_id, farm, _clean(name), _clean(size), _clean(fish), _iso(now)))
+        self.db.execute("INSERT INTO ponds (id, farm_id, name, size, fish, created_at, village) "
+                        "VALUES (?, ?, ?, ?, ?, ?, ?)",
+                        (pond_id, farm, _clean(name), _clean(size), _clean(fish), _iso(now), _clean(village)))
         return self.pond(farm, pond_id)
 
     def edit_pond(self, farm: str, pond_id: str, changes: dict) -> dict | None:
         if not self.pond(farm, pond_id):
             return None
-        for column in ("name", "size", "fish"):
+        for column in ("name", "size", "fish", "village"):
             if column in changes:
                 value = _clean(changes[column])
                 if column == "name" and not value:
@@ -296,6 +301,7 @@ def pond_summary(pond: dict, latest: dict | None, device: dict | None, now: date
     risk = assess(latest["values"], source="sensor") if latest else None
     return {
         "id": pond["id"], "name": pond["name"], "size": pond["size"], "fish": pond["fish"],
+        "village": pond.get("village"), "location": places.place(pond.get("village")),
         "level": risk["level"] if risk else "none",
         "level_name": risk["level_name"] if risk else None,
         "summary": risk["summary"] if risk else None,

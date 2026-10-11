@@ -93,7 +93,7 @@ experiment in `docs/do_forecast.md` and is **not shown** in the app.
 **Details:** `docs/night_crash.md`.
 
 At night, algae stop making oxygen but everything in the pond keeps using it. Some weather makes this worse.
-The app downloads the free Open-Meteo forecast for Mangaluru and counts three risk factors:
+The app downloads the free Open-Meteo forecast (for Mangaluru on the demo pond, or for the village chosen for each of your own ponds) and counts three risk factors:
 
 | Factor | Rule |
 |---|---|

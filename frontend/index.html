@@ -203,6 +203,23 @@
               <div class="chart-wrap" id="pond-detail-chart-wrap"><canvas id="pond-detail-chart" role="img" aria-describedby="pond-detail-chart-summary"></canvas></div>
               <p class="chart-summary" id="pond-detail-chart-summary"></p>
             </section>
+            <!-- Tonight's weather for this pond's village (REAL Open-Meteo forecast, not simulated). -->
+            <section class="card pond-weather-card" id="pond-weather" aria-labelledby="pond-weather-title">
+              <div class="weather-tonight">
+                <span class="weather-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14.5 3a7 7 0 1 0 6.5 9.6A5.5 5.5 0 0 1 14.5 3Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></span>
+                <div class="weather-body">
+                  <h3 class="weather-title" id="pond-weather-title"><span data-i18n="weatherTitle">Tonight's weather</span><span class="weather-place" id="pond-weather-place"></span></h3>
+                  <p class="weather-line">
+                    <span class="badge weather-badge" id="pond-weather-badge" hidden></span>
+                    <span class="weather-message" id="pond-weather-message"></span>
+                  </p>
+                  <p class="weather-details" id="pond-weather-details"></p>
+                  <p class="weather-details" id="pond-weather-updated" hidden></p>
+                  <p class="weather-offline" id="pond-weather-offline" hidden></p>
+                  <p class="pond-weather-choose" id="pond-weather-choose-row" hidden><button type="button" class="button-secondary" id="pond-weather-choose" aria-haspopup="dialog" data-i18n="pondWeatherChoose">Choose the village</button></p>
+                </div>
+              </div>
+            </section>
             <section class="card kit-actions" id="pond-detail-actions" aria-labelledby="pond-actions-title" hidden>
               <h3 id="pond-actions-title" data-i18n="actionsTitle">What to do now</h3>
               <ol class="pond-action-list" id="pond-detail-action-list"></ol>
@@ -447,6 +464,7 @@
         </div>
       </section>
         </div>
+        <p class="kit-help" data-i18n="weatherDemoNote">This is the weather for the demo pond, in Mangaluru. Each of your own ponds shows the weather for its village on its page.</p>
         <section class="card weather-why in-view" aria-labelledby="weather-why-title">
           <h2 id="weather-why-title" class="text-effect" data-i18n="weatherWhyTitle">Why the weather matters</h2>
           <p data-i18n="weatherWhy">Water plants make oxygen only in sunlight. After a cloudy day, on a calm, warm night, they use up oxygen and no wind mixes in fresh air, so oxygen is lowest just before sunrise. That is when fish die.</p>
@@ -757,7 +775,7 @@
           </li>
           <li>
             <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a>
-            <p><span data-i18n="sourcesMeteoUse">Tonight's real weather forecast for Mangaluru, for the night oxygen-crash warning.</span></p>
+            <p><span data-i18n="sourcesMeteoUse">Tonight's real weather forecast for the night oxygen-crash warning: for Mangaluru (the demo pond), or for the village you chose for each of your ponds.</span></p>
             <p class="source-licence"><span data-i18n="sourcesMeteoLicence">Licence: data CC BY 4.0. Free API, non-commercial use only.</span></p>
           </li>
           <li>
@@ -798,7 +816,7 @@
         <!-- Which one shows depends on the server (app.js, /api/storage): a database keeps data, demo mode doesn't. -->
         <li data-i18n="termsKeep" id="terms-keep" hidden>Device readings are kept for 48 hours and alerts for 14 days.</li>
         <li data-i18n="termsDemo" id="terms-demo" hidden>Demo mode: data resets when the server sleeps.</li>
-        <li data-i18n="termsLocation">The app does not ask for your location. Tonight's weather is always for Mangaluru. Your phone gets it straight from Open-Meteo, so Open-Meteo sees your internet address, as any website would.</li>
+        <li data-i18n="termsLocation">The app never asks for your GPS location or address. For each of your ponds you can choose a village from a list: only the village name is saved, and that pond's weather is for that village. The demo pond's weather is for Mangaluru. Your phone gets the forecast straight from Open-Meteo, so Open-Meteo sees your internet address, as any website would, and the village's position on the map (not yours).</li>
         <li data-i18n="termsBrowser">Your language, theme, ticked steps, alert history, the last weather forecast, your Shop cart and your farm code are saved only in this browser. Clearing the browser's data removes them.</li>
         <li data-i18n="termsServer">Test-kit numbers and the readings on screen go to our server to be checked, and are not saved there. Readings sent to the demo Live sensor card are kept in the server's memory only and are cleared when the server sleeps or restarts.</li>
         <li data-i18n="termsAi">Questions to the assistant are sent, with the readings on screen and the level, cause and time of your recent alerts, to the AI service (now Google Gemini) to get an answer. Google's own terms apply to what it receives. Don't type your name, phone number or other personal details.</li>
@@ -824,6 +842,19 @@
           <span class="kit-input"><input type="text" id="pond-name" maxlength="40" required autocomplete="off" aria-describedby="pond-name-help"></span>
           <span class="kit-help" id="pond-name-help" data-i18n="pondNameHelp">For example: Pond near road. Don't use your own name or phone number.</span>
         </label>
+        <!-- Where the pond is, for its weather: picked from a list (backend/places.py). No GPS, no address. -->
+        <fieldset class="pond-place" aria-describedby="pond-place-help">
+          <legend class="kit-label" data-i18n="pondPlaceLabel">Where is the pond?</legend>
+          <label class="kit-field">
+            <span class="kit-label" data-i18n="pondDistrictLabel">District</span>
+            <span class="kit-input kit-select"><select id="pond-district"></select></span>
+          </label>
+          <label class="kit-field">
+            <span class="kit-label" data-i18n="pondVillageLabel">Taluk / village</span>
+            <span class="kit-input kit-select"><select id="pond-village"></select></span>
+          </label>
+          <span class="kit-help" id="pond-place-help" data-i18n="pondPlaceHelp">For tonight's weather at the pond. Only the village name is saved: no GPS, no address.</span>
+        </fieldset>
         <label class="kit-field">
           <span class="kit-label" data-i18n="pondSizeLabel">Size (optional)</span>
           <span class="kit-input"><input type="text" id="pond-size" maxlength="20" autocomplete="off" aria-describedby="pond-size-help"></span>
