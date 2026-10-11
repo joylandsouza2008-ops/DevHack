@@ -8,7 +8,7 @@ coastal Karnataka to understand. Write any fix in the last column.
 - `A  /  B` means the app shows one of two versions, depending on the situation.
 - Unit symbols (mg/L, °C, km/h, pH) and the names SMS, WhatsApp, FAO, TNAU, Open-Meteo stay in English.
 
-416 strings. Generated from the code by `python tools/kannada_review.py`; re-run it after changing any text.
+450 strings. Generated from the code by `python tools/kannada_review.py`; re-run it after changing any text.
 
 ## 1. Language and theme switches
 
@@ -282,7 +282,7 @@ Shown over the day/night pond picture.
 | 9 | `app.js termsPrivacyTitle` | Privacy | ಗೌಪ್ಯತೆ |  |
 | 10 | `app.js termsNoAccount` | No account and no sign-up. | ಖಾತೆ ಇಲ್ಲ, ನೋಂದಣಿ ಇಲ್ಲ. |  |
 | 11 | `app.js termsLocation` | The app does not ask for your location. Tonight's weather is always for Mangaluru. Your phone gets it straight from Open-Meteo, so Open-Meteo sees your internet address, as any website would. | ಆ್ಯಪ್ ನಿಮ್ಮ ಸ್ಥಳವನ್ನು ಕೇಳುವುದಿಲ್ಲ. ಇಂದು ರಾತ್ರಿಯ ಹವಾಮಾನ ಯಾವಾಗಲೂ ಮಂಗಳೂರಿನದು. ನಿಮ್ಮ ಫೋನ್ ಅದನ್ನು ನೇರವಾಗಿ Open-Meteo ಯಿಂದ ಪಡೆಯುತ್ತದೆ, ಆದ್ದರಿಂದ ಯಾವುದೇ ವೆಬ್‌ಸೈಟ್‌ನಂತೆ Open-Meteo ನಿಮ್ಮ ಇಂಟರ್ನೆಟ್ ವಿಳಾಸವನ್ನು ನೋಡುತ್ತದೆ. |  |
-| 12 | `app.js termsBrowser` | Your language, theme, ticked steps, alert history and the last weather forecast are saved only in this browser. Clearing the browser's data removes them. | ನಿಮ್ಮ ಭಾಷೆ, ಥೀಮ್, ಗುರುತು ಹಾಕಿದ ಹಂತಗಳು, ಎಚ್ಚರಿಕೆಗಳ ಇತಿಹಾಸ ಮತ್ತು ಕೊನೆಯ ಹವಾಮಾನ ಮುನ್ಸೂಚನೆ ಈ ಬ್ರೌಸರ್‌ನಲ್ಲಿ ಮಾತ್ರ ಉಳಿಯುತ್ತವೆ. ಬ್ರೌಸರ್‌ನ ಡೇಟಾ ಅಳಿಸಿದರೆ ಅವು ಹೋಗುತ್ತವೆ. |  |
+| 12 | `app.js termsBrowser` | Your language, theme, ticked steps, alert history, the last weather forecast and your Shop cart are saved only in this browser. Clearing the browser's data removes them. | ನಿಮ್ಮ ಭಾಷೆ, ಥೀಮ್, ಗುರುತು ಹಾಕಿದ ಹಂತಗಳು, ಎಚ್ಚರಿಕೆಗಳ ಇತಿಹಾಸ, ಕೊನೆಯ ಹವಾಮಾನ ಮುನ್ಸೂಚನೆ ಮತ್ತು ಅಂಗಡಿಯ ಕಾರ್ಟ್ ಈ ಬ್ರೌಸರ್‌ನಲ್ಲಿ ಮಾತ್ರ ಉಳಿಯುತ್ತವೆ. ಬ್ರೌಸರ್‌ನ ಡೇಟಾ ಅಳಿಸಿದರೆ ಅವು ಹೋಗುತ್ತವೆ. |  |
 | 13 | `app.js termsServer` | Test-kit numbers and the readings on screen go to our server to be checked, and are not saved there. Readings from a pond sensor stay in the server's memory only until it restarts. | ಟೆಸ್ಟ್-ಕಿಟ್ ಅಳತೆಗಳು ಮತ್ತು ಪರದೆಯ ಮೇಲಿನ ಅಳತೆಗಳು ಪರಿಶೀಲನೆಗಾಗಿ ನಮ್ಮ ಸರ್ವರ್‌ಗೆ ಹೋಗುತ್ತವೆ, ಅಲ್ಲಿ ಉಳಿಸಲಾಗುವುದಿಲ್ಲ. ಕೊಳದ ಸೆನ್ಸರ್ ಕಳುಹಿಸಿದ ಅಳತೆಗಳು ಸರ್ವರ್ ಮರುಪ್ರಾರಂಭವಾಗುವವರೆಗೆ ಮಾತ್ರ ಅದರ ಮೆಮೊರಿಯಲ್ಲಿ ಇರುತ್ತವೆ. |  |
 | 14 | `app.js termsAi` | Questions to the assistant are sent, with the readings on screen, to the AI service (now Google Gemini) to get an answer. Google's own terms apply to what it receives. Don't type your name, phone number or other personal details. | ಸಹಾಯಕನಿಗೆ ಕೇಳುವ ಪ್ರಶ್ನೆಗಳು, ಪರದೆಯ ಮೇಲಿನ ಅಳತೆಗಳ ಜೊತೆಗೆ, ಉತ್ತರ ಪಡೆಯಲು AI ಸೇವೆಗೆ (ಈಗ Google Gemini) ಹೋಗುತ್ತವೆ. ಅದು ಪಡೆಯುವುದಕ್ಕೆ Google ನ ಸ್ವಂತ ನಿಯಮಗಳು ಅನ್ವಯಿಸುತ್ತವೆ. ನಿಮ್ಮ ಹೆಸರು, ಫೋನ್ ಸಂಖ್ಯೆ ಅಥವಾ ಇತರ ವೈಯಕ್ತಿಕ ವಿವರಗಳನ್ನು ಟೈಪ್ ಮಾಡಬೇಡಿ. |  |
 | 15 | `app.js termsLogs` | To keep the site working and stop misuse, our server and our host (Render) keep short technical records, such as which page was asked for and the internet address it came from. | ಸೈಟ್ ಸರಿಯಾಗಿ ನಡೆಯಲು ಮತ್ತು ದುರುಪಯೋಗ ತಡೆಯಲು, ನಮ್ಮ ಸರ್ವರ್ ಮತ್ತು ನಮ್ಮ ಹೋಸ್ಟ್ (Render) ಸಣ್ಣ ತಾಂತ್ರಿಕ ದಾಖಲೆಗಳನ್ನು ಇಡುತ್ತವೆ, ಉದಾಹರಣೆಗೆ ಯಾವ ಪುಟ ಕೇಳಲಾಯಿತು ಮತ್ತು ಅದು ಬಂದ ಇಂಟರ್ನೆಟ್ ವಿಳಾಸ. |  |
@@ -315,14 +315,48 @@ Shown over the day/night pond picture.
 | 7 | `app.js titleWeather` | Weather | ಹವಾಮಾನ |  |
 | 8 | `app.js titleDiseases` | Fish diseases | ಮೀನು ರೋಗಗಳು |  |
 | 9 | `app.js titleMore` | More | ಇನ್ನಷ್ಟು |  |
-| 10 | `app.js stripDangerIn` | Danger in {d} | ಅಪಾಯಕ್ಕೆ ಉಳಿದ ಸಮಯ: {d} |  |
-| 11 | `app.js stripNoDanger` | No danger expected | ಅಪಾಯದ ನಿರೀಕ್ಷೆ ಇಲ್ಲ |  |
-| 12 | `app.js stripActNow` | Act now: tap to see | ಈಗಲೇ ಕ್ರಮ ಕೈಗೊಳ್ಳಿ: ನೋಡಲು ಒತ್ತಿ |  |
-| 13 | `app.js stripAttention` | Needs attention: tap to see | ಗಮನ ಕೊಡಿ: ನೋಡಲು ಒತ್ತಿ |  |
-| 14 | `app.js settingsTitle` | Settings | ಸೆಟ್ಟಿಂಗ್‌ಗಳು |  |
-| 15 | `app.js settingsLanguage` | Language | ಭಾಷೆ |  |
-| 16 | `app.js settingsTheme` | Colours | ಬಣ್ಣಗಳು |  |
-| 17 | `app.js aboutTitle` | About this app | ಈ ಆ್ಯಪ್ ಬಗ್ಗೆ |  |
+| 10 | `app.js titleShop` | Shop | ಅಂಗಡಿ |  |
+| 11 | `app.js moreShopTitle` | Shop | ಅಂಗಡಿ |  |
+| 12 | `app.js moreShopText` | Sensors and spare parts that work with AquaNexus. Not for sale yet. | AquaNexus ಜೊತೆ ಕೆಲಸ ಮಾಡುವ ಸೆನ್ಸರ್‌ಗಳು ಮತ್ತು ಬಿಡಿಭಾಗಗಳು. ಇನ್ನೂ ಮಾರಾಟಕ್ಕಿಲ್ಲ. |  |
+| 13 | `app.js moreShopLink` | Open the Shop | ಅಂಗಡಿ ತೆರೆಯಿರಿ |  |
+| 14 | `app.js shopIntro` | Sensors and spare parts that work with AquaNexus. Make a list and share it. | AquaNexus ಜೊತೆ ಕೆಲಸ ಮಾಡುವ ಸೆನ್ಸರ್‌ಗಳು ಮತ್ತು ಬಿಡಿಭಾಗಗಳು. ಪಟ್ಟಿ ಮಾಡಿ ಹಂಚಿಕೊಳ್ಳಿ. |  |
+| 15 | `app.js shopNotForSale` | Not for sale yet. Orders open after our pilot with farmers. | ಇನ್ನೂ ಮಾರಾಟಕ್ಕಿಲ್ಲ. ರೈತರೊಂದಿಗಿನ ನಮ್ಮ ಪ್ರಾಯೋಗಿಕ ಯೋಜನೆಯ ನಂತರ ಆರ್ಡರ್‌ಗಳು ಆರಂಭವಾಗುತ್ತವೆ. |  |
+| 16 | `app.js shopOnePondTitle` | Before you buy | ಖರೀದಿಸುವ ಮೊದಲು |  |
+| 17 | `app.js shopOnePond` | A sensor watches one pond. For several ponds, each needs its own sensor. Start with the free app and the test kit. | ಒಂದು ಸೆನ್ಸರ್ ಒಂದೇ ಕೊಳವನ್ನು ಗಮನಿಸುತ್ತದೆ. ಹಲವು ಕೊಳಗಳಿದ್ದರೆ, ಪ್ರತಿಯೊಂದಕ್ಕೂ ಬೇರೆ ಸೆನ್ಸರ್ ಬೇಕು. ಉಚಿತ ಆ್ಯಪ್ ಮತ್ತು ಟೆಸ್ಟ್ ಕಿಟ್‌ನಿಂದ ಪ್ರಾರಂಭಿಸಿ. |  |
+| 18 | `app.js shopPriceNote` | Estimated component cost. Prices may change. | ಅಂದಾಜು ಬಿಡಿಭಾಗಗಳ ವೆಚ್ಚ. ಬೆಲೆಗಳು ಬದಲಾಗಬಹುದು. |  |
+| 19 | `app.js shopMeasures` | What it measures | ಏನನ್ನು ಅಳೆಯುತ್ತದೆ |  |
+| 20 | `app.js shopWhy` | Why you need it | ಇದು ಏಕೆ ಬೇಕು |  |
+| 21 | `app.js shopAdd` | Add to cart | ಕಾರ್ಟ್‌ಗೆ ಸೇರಿಸಿ |  |
+| 22 | `app.js shopAdded` | Added to cart: | ಕಾರ್ಟ್‌ಗೆ ಸೇರಿಸಲಾಗಿದೆ: |  |
+| 23 | `app.js estWord` | est. | ಅಂದಾಜು |  |
+| 24 | `app.js cartTitle` | Cart | ಕಾರ್ಟ್ |  |
+| 25 | `app.js cartAria` | Cart: {n} items | ಕಾರ್ಟ್: {n} ವಸ್ತುಗಳು |  |
+| 26 | `app.js cartEmpty` | Your cart is empty. Add items from the Shop. | ನಿಮ್ಮ ಕಾರ್ಟ್ ಖಾಲಿಯಾಗಿದೆ. ಅಂಗಡಿಯಿಂದ ವಸ್ತುಗಳನ್ನು ಸೇರಿಸಿ. |  |
+| 27 | `app.js cartTotal` | Estimated total | ಅಂದಾಜು ಒಟ್ಟು |  |
+| 28 | `app.js cartRemove` | Remove | ತೆಗೆಯಿರಿ |  |
+| 29 | `app.js cartLess` | One less | ಒಂದು ಕಡಿಮೆ |  |
+| 30 | `app.js cartMore` | One more | ಒಂದು ಹೆಚ್ಚು |  |
+| 31 | `app.js cartQty` | Quantity | ಪ್ರಮಾಣ |  |
+| 32 | `app.js cartCheckout` | Checkout | ಚೆಕ್‌ಔಟ್ |  |
+| 33 | `app.js cartClear` | Clear cart | ಕಾರ್ಟ್ ಖಾಲಿ ಮಾಡಿ |  |
+| 34 | `app.js cartCleared` | Cart cleared. | ಕಾರ್ಟ್ ಖಾಲಿ ಮಾಡಲಾಗಿದೆ. |  |
+| 35 | `app.js cartMemory` | This browser is not saving the cart. It is kept only until you close the page. | ಈ ಬ್ರೌಸರ್ ಕಾರ್ಟ್ ಅನ್ನು ಉಳಿಸುತ್ತಿಲ್ಲ. ಪುಟ ಮುಚ್ಚುವವರೆಗೆ ಮಾತ್ರ ಇರುತ್ತದೆ. |  |
+| 36 | `app.js checkoutTitle` | Checkout | ಚೆಕ್‌ಔಟ್ |  |
+| 37 | `app.js checkoutSoon` | Coming soon. Orders open after our pilot with farmers. No payment is taken and no details are collected. | ಶೀಘ್ರದಲ್ಲೇ ಬರಲಿದೆ. ರೈತರೊಂದಿಗಿನ ನಮ್ಮ ಪ್ರಾಯೋಗಿಕ ಯೋಜನೆಯ ನಂತರ ಆರ್ಡರ್‌ಗಳು ಆರಂಭವಾಗುತ್ತವೆ. ಯಾವುದೇ ಹಣ ಪಡೆಯುವುದಿಲ್ಲ ಮತ್ತು ಯಾವುದೇ ವಿವರಗಳನ್ನು ಸಂಗ್ರಹಿಸುವುದಿಲ್ಲ. |  |
+| 38 | `app.js checkoutShare` | Copy your list to share it with your cooperative. | ನಿಮ್ಮ ಸಹಕಾರ ಸಂಘದೊಂದಿಗೆ ಹಂಚಿಕೊಳ್ಳಲು ಪಟ್ಟಿಯನ್ನು ನಕಲಿಸಿ. |  |
+| 39 | `app.js copyList` | Copy my list | ನನ್ನ ಪಟ್ಟಿ ನಕಲಿಸಿ |  |
+| 40 | `app.js checkoutBack` | Back to cart | ಕಾರ್ಟ್‌ಗೆ ಹಿಂತಿರುಗಿ |  |
+| 41 | `app.js copyDone` | List copied. You can paste it into WhatsApp or SMS. | ಪಟ್ಟಿ ನಕಲಾಗಿದೆ. WhatsApp ಅಥವಾ SMS ನಲ್ಲಿ ಅಂಟಿಸಬಹುದು. |  |
+| 42 | `app.js copyFailed` | Could not copy. Select the list above and copy it by hand. | ನಕಲಿಸಲು ಆಗಲಿಲ್ಲ. ಮೇಲಿನ ಪಟ್ಟಿಯನ್ನು ಆಯ್ಕೆಮಾಡಿ ಕೈಯಾರೆ ನಕಲಿಸಿ. |  |
+| 43 | `app.js copyHeading` | AquaNexus: my list (estimated prices, not an order) | AquaNexus: ನನ್ನ ಪಟ್ಟಿ (ಅಂದಾಜು ಬೆಲೆಗಳು, ಆರ್ಡರ್ ಅಲ್ಲ) |  |
+| 44 | `app.js stripDangerIn` | Danger in {d} | ಅಪಾಯಕ್ಕೆ ಉಳಿದ ಸಮಯ: {d} |  |
+| 45 | `app.js stripNoDanger` | No danger expected | ಅಪಾಯದ ನಿರೀಕ್ಷೆ ಇಲ್ಲ |  |
+| 46 | `app.js stripActNow` | Act now: tap to see | ಈಗಲೇ ಕ್ರಮ ಕೈಗೊಳ್ಳಿ: ನೋಡಲು ಒತ್ತಿ |  |
+| 47 | `app.js stripAttention` | Needs attention: tap to see | ಗಮನ ಕೊಡಿ: ನೋಡಲು ಒತ್ತಿ |  |
+| 48 | `app.js settingsTitle` | Settings | ಸೆಟ್ಟಿಂಗ್‌ಗಳು |  |
+| 49 | `app.js settingsLanguage` | Language | ಭಾಷೆ |  |
+| 50 | `app.js settingsTheme` | Colours | ಬಣ್ಣಗಳು |  |
+| 51 | `app.js aboutTitle` | About this app | ಈ ಆ್ಯಪ್ ಬಗ್ಗೆ |  |
 
 ## 21. Messages from the server: Data labels
 

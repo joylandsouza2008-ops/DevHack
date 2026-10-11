@@ -219,13 +219,14 @@ AI is always shown as plain text, so it can't run as code. Keys come only from e
 
 | File | What it does |
 |---|---|
-| `index.html` | The page layout: six pages (Pond, Alerts, Weather, Diseases, Ask, More), the tab bar and the status strip |
+| `index.html` | The page layout: seven pages (Pond, Alerts, Weather, Diseases, Ask, More, and Shop, which opens from More), the tab bar and the status strip |
 | `router.js` | Switches pages from the address (`#/pond`, `#/alerts` ...), so the phone back button works; nothing new is downloaded |
 | `styles.css`, `welcome.css`, `fonts/` | Look and feel (see `DESIGN.md`); fonts are stored locally so they work offline |
 | `app.js` | The main app: status and status strip, readings, checklist, alert preview, test kit, live sensor, history. Keeps running while you switch pages |
 | `weather.js` | Downloads tonight's forecast and applies the crash-risk rules |
 | `assistant.js` | The chat card |
 | `diseases.js` | The disease guide and symptom checker |
+| `shop-data.js`, `shop.js` | The Shop page: sensor kits with estimated prices, and a cart saved only in this browser. Checkout only says "Coming soon": no payment, no form, nothing sent to the server |
 | `history.js` | Past alerts, saved in the browser |
 | `voice.js` | Reads an alert aloud when the farmer taps the speaker |
 | `do-chart.js`, `gauge.js`, `health-ring.js`, `pond-view.js` | The oxygen chart, risk gauge, score ring and pond picture |
@@ -323,7 +324,7 @@ AI is always shown as plain text, so it can't run as code. Keys come only from e
 18. **What does it cost to run?**
     It runs on Render's free plan with the free Open-Meteo forecast. The AI uses a provider's free tier, with limits
     so the quota isn't used up. Note: the free plan sleeps after 15 minutes with no visitors (about 1 minute to wake
-    up), and live readings are kept in memory only. We haven't priced sensor hardware yet.
+    up), and live readings are kept in memory only. Sensor kits have estimated component costs on the Shop page (from est. ₹1,200 for a test kit to est. ₹35,000 for the Full Pond kit); nothing is for sale yet.
 
 19. **Is the Kannada correct?**
     All fixed Kannada text is collected in `docs/kannada-review.md` for a native-speaker review before release. AI

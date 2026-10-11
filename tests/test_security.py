@@ -282,7 +282,8 @@ def test_browser_storage_holds_only_these_harmless_keys():
         used |= set(re.findall(r"\.setItem\(\s*([^,]+),", js.read_text(encoding="utf-8")))
     assert used == allowed
     keys = {m for js in FRONTEND.glob("*.js") for m in re.findall(r"STORAGE_KEY = (\"[^\"]+\")", js.read_text(encoding="utf-8"))}
-    assert keys == {'"meenuraksha-history"', '"meenuraksha-weather-forecast"'}
+    # aquanexus_cart: the Shop list (product ids and quantities only, frontend/shop.js).
+    assert keys == {'"meenuraksha-history"', '"meenuraksha-weather-forecast"', '"aquanexus_cart"'}
 
 
 # ----------------------------------------------------------------- 6. SSRF: only fixed outside addresses
