@@ -1,7 +1,7 @@
 // Pages inside the one app: Pond, Alerts, Weather, Diseases, Ask, Shop, More.
 // The address ends in #/pond, #/alerts ... so the phone's back button works,
-// and nothing new is downloaded when you switch (the app stays fast and works
-// offline). Every page is already in index.html; switching just shows one and
+// and nothing new is downloaded when you switch (the app stays fast on cheap
+// phones and slow internet). Every page is already in index.html; switching just shows one and
 // hides the others. The simulator keeps running underneath (app.js).
 //
 // Clean-up when leaving a page: its short animations jump to their end (so no

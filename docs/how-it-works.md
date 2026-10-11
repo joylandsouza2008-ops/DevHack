@@ -103,7 +103,7 @@ The app downloads the free Open-Meteo forecast for Mangaluru and counts three ri
 
 0 factors → **Low**, 1 → **Medium**, 2 or 3 → **High** (*"keep the aerator ready"*).
 
-The forecast is saved, so with no internet the app shows the last saved one and says it is offline. The phone
+The forecast is saved, so if the download fails, the app shows the last saved one and says it is a saved copy. The phone
 downloads the forecast itself, because the free Render server was often refused by the weather service. If that
 fails, the phone asks our server.
 
@@ -221,7 +221,7 @@ AI is always shown as plain text, so it can't run as code. Keys come only from e
 |---|---|
 | `index.html` | The page layout: seven pages (Pond, Alerts, Weather, Diseases, Ask, Shop, More), the tab bar and the status strip |
 | `router.js` | Switches pages from the address (`#/pond`, `#/alerts` ...), so the phone back button works; nothing new is downloaded |
-| `styles.css`, `welcome.css`, `fonts/` | Look and feel (see `DESIGN.md`); fonts are stored locally so they work offline |
+| `styles.css`, `welcome.css`, `fonts/` | Look and feel (see `DESIGN.md`); fonts are stored on our own server, so the app works on cheap phones and slow internet |
 | `app.js` | The main app: status and status strip, readings, checklist, alert preview, test kit, live sensor, history. Keeps running while you switch pages |
 | `weather.js` | Downloads tonight's forecast and applies the crash-risk rules |
 | `assistant.js` | The chat card |
@@ -284,8 +284,9 @@ AI is always shown as plain text, so it can't run as code. Keys come only from e
    Medium, 2 or more means High.
 
 9. **Does it work without internet?**
-   Mostly yes. Fonts and libraries are stored locally, the last forecast is saved, the alert history is saved in the
-   browser, and the chat falls back to ready answers. Only fresh weather and the AI need internet.
+   No, it needs internet, but it works on cheap phones and slow internet. Fonts and libraries come from our own server (no outside downloads),
+   switching pages downloads nothing new, the last forecast and the alert history are saved in the browser, and if
+   the AI (Gemini) can't be reached, the chat falls back to ready answers from the app.
 
 10. **Can a farmer who can't read well use it?**
     Every alert is in Kannada and uses colour, icon and word together. A speaker button reads it aloud. The

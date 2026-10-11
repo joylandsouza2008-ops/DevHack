@@ -174,7 +174,7 @@ These colors are reserved for pond and fish condition: water quality, oxygen, te
 ### Font Family
 **Noto Sans** (Latin) + **Noto Sans Kannada** (Kannada), both under the SIL Open Font License. The two are designed to match, so mixed Kannada and English lines (for example, "ಆಮ್ಲಜನಕ 6.2 mg/L") share the same weight and baseline.
 
-**The fonts are bundled locally so the app works offline.** Never load them from Google Fonts or any other CDN. They live in `frontend/fonts/`, and every page links the local stylesheet:
+**The fonts are bundled locally, so the app works on cheap phones and slow internet.** Never load them from Google Fonts or any other CDN. They live in `frontend/fonts/`, and every page links the local stylesheet:
 
 ```html
 <link rel="stylesheet" href="/fonts/fonts.css">

@@ -22,7 +22,7 @@ fisheries officer. This page covers which datasets exist, which one to use, and 
   accuracy numbers will be lower than the 95–99 % that papers report on it.
 - **Model:** MobileNetV3-Small, starting from a model that is already trained on general images
   (transfer learning). Export it to ONNX (about 2–3 MB after int8 quantisation) and run it **in
-  the browser** with ONNX Runtime Web. Photos never leave the phone and it works offline.
+  the browser** with ONNX Runtime Web. Photos never leave the phone.
 - **Training time:** about 15–30 minutes on your laptop's CPU, or about 5 minutes on a free Kaggle
   T4 GPU. Both are fine for a dataset this size.
 
@@ -105,7 +105,7 @@ images. Training a model from scratch would need far more data.
 
 **Run it in the browser, not on Render.** The free Render server has 512 MB of RAM and goes to sleep
 when idle. Adding PyTorch to it would make it heavier and slower. In the browser:
-- the model file (~3 MB) is cached once and then **works offline**, which matters at ponds with weak signal;
+- the model file (~3 MB) is cached once, so it is **not downloaded again**, which matters at ponds with weak signal;
 - the farmer's photo **never leaves the phone**;
 - the server does no extra work.
 

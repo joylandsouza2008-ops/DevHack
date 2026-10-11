@@ -94,7 +94,7 @@ def _write_cache(path: Path, saved_at: datetime, forecast: dict) -> None:
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(json.dumps({"saved_at": saved_at.isoformat(), "forecast": forecast}), encoding="utf-8")
     except OSError:
-        pass                # can't save: the app still works, just without an offline copy
+        pass                # can't save: the app still works, just without a saved copy
 
 
 # ----------------------------------------------------------------- rules

@@ -88,7 +88,7 @@ const TEXT = {
     weatherUnavailable: "No internet and no saved forecast. Tonight's weather is not known.",
     crashRisk: (level) => `Oxygen crash risk: ${level}`,
     weatherDetails: (c, w, t) => `Day cloud ${c}% · Night wind ${w} km/h · Night ${t} °C · Forecast: Open-Meteo`,
-    weatherOffline: (when) => (when ? `Offline: showing the forecast saved on ${when}.` : "Offline."),
+    weatherOffline: (when) => (when ? `No connection: showing the forecast saved on ${when}.` : "No connection."),
     weatherUpdated: (min) => (min < 1 ? "Updated just now"
       : min < 60 ? `Updated ${min} min ago` : `Updated ${Math.floor(min / 60)} h ago`),
     actionsTitle: "What to do now",
@@ -279,7 +279,7 @@ const TEXT = {
     weatherUnavailable: "ಇಂಟರ್ನೆಟ್ ಇಲ್ಲ, ಉಳಿಸಿದ ಮುನ್ಸೂಚನೆಯೂ ಇಲ್ಲ. ಇಂದು ರಾತ್ರಿಯ ಹವಾಮಾನ ತಿಳಿದಿಲ್ಲ.",
     crashRisk: (level) => `ಆಮ್ಲಜನಕ ಕುಸಿತದ ಅಪಾಯ: ${level}`,
     weatherDetails: (c, w, t) => `ಹಗಲಿನ ಮೋಡ ${c}% · ರಾತ್ರಿ ಗಾಳಿ ${w} km/h · ರಾತ್ರಿ ${t} °C · ಮುನ್ಸೂಚನೆ: Open-Meteo`,
-    weatherOffline: (when) => (when ? `ಆಫ್‌ಲೈನ್: ${when} ರಂದು ಉಳಿಸಿದ ಮುನ್ಸೂಚನೆ ತೋರಿಸಲಾಗುತ್ತಿದೆ.` : "ಆಫ್‌ಲೈನ್."),
+    weatherOffline: (when) => (when ? `ಸಂಪರ್ಕ ಇಲ್ಲ: ${when} ರಂದು ಉಳಿಸಿದ ಮುನ್ಸೂಚನೆ ತೋರಿಸಲಾಗುತ್ತಿದೆ.` : "ಸಂಪರ್ಕ ಇಲ್ಲ."),
     weatherUpdated: (min) => (min < 1 ? "ಈಗಷ್ಟೇ ನವೀಕರಿಸಲಾಗಿದೆ"
       : min < 60 ? `${min} ನಿಮಿಷ ಹಿಂದೆ ನವೀಕರಿಸಲಾಗಿದೆ` : `${Math.floor(min / 60)} ಗಂಟೆ ಹಿಂದೆ ನವೀಕರಿಸಲಾಗಿದೆ`),
     actionsTitle: "ಈಗ ಏನು ಮಾಡಬೇಕು",
@@ -1101,7 +1101,7 @@ async function toggleVoice() {
 // ---------------------------------------------------------------- tonight's weather (bottom toolbar)
 // Real forecast, not simulated. weather.js downloads it in the browser first
 // (Open-Meteo allows that), then asks our server, then uses the newest saved
-// copy. A saved copy is marked "offline".
+// copy. A saved copy is marked as one ("No connection: ...").
 
 const CRASH_BADGE = { low: "safe", medium: "warning", high: "danger" };   // same colour + icon pairs as the status
 

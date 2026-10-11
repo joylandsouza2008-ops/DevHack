@@ -229,7 +229,7 @@ def assistant_suggestions(page: PageReadings) -> dict:
 def assistant_ask(question: Question, request: Request) -> dict:
     """
     One question, answered only from the app's content, in English or Kannada.
-    No key, an error or the rate limit -> mode "offline" / "limited" plus the
+    No key, an error or the rate limit -> mode "fallback" / "limited" plus the
     suggested questions with ready answers, so the page always has something to show.
     """
     evals = _evaluate(question)

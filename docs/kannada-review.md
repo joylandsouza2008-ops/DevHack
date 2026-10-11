@@ -110,7 +110,7 @@ Shown over the day/night pond picture.
 | 3 | `app.js weatherUnavailable` | No internet and no saved forecast. Tonight's weather is not known. | ಇಂಟರ್ನೆಟ್ ಇಲ್ಲ, ಉಳಿಸಿದ ಮುನ್ಸೂಚನೆಯೂ ಇಲ್ಲ. ಇಂದು ರಾತ್ರಿಯ ಹವಾಮಾನ ತಿಳಿದಿಲ್ಲ. |  |
 | 4 | `app.js crashRisk` | Oxygen crash risk: {level} | ಆಮ್ಲಜನಕ ಕುಸಿತದ ಅಪಾಯ: {level} |  |
 | 5 | `app.js weatherDetails` | Day cloud {c}% · Night wind {w} km/h · Night {t} °C · Forecast: Open-Meteo | ಹಗಲಿನ ಮೋಡ {c}% · ರಾತ್ರಿ ಗಾಳಿ {w} km/h · ರಾತ್ರಿ {t} °C · ಮುನ್ಸೂಚನೆ: Open-Meteo |  |
-| 6 | `app.js weatherOffline` | Offline: showing the forecast saved on {when}.  /  Offline. | ಆಫ್‌ಲೈನ್: {when} ರಂದು ಉಳಿಸಿದ ಮುನ್ಸೂಚನೆ ತೋರಿಸಲಾಗುತ್ತಿದೆ.  /  ಆಫ್‌ಲೈನ್. |  |
+| 6 | `app.js weatherOffline` | No connection: showing the forecast saved on {when}.  /  No connection. | ಸಂಪರ್ಕ ಇಲ್ಲ: {when} ರಂದು ಉಳಿಸಿದ ಮುನ್ಸೂಚನೆ ತೋರಿಸಲಾಗುತ್ತಿದೆ.  /  ಸಂಪರ್ಕ ಇಲ್ಲ. |  |
 | 7 | `app.js weatherUpdated` | Updated just now  /  Updated {min} min ago  /  Updated ${Math.floor(min / 60)} h ago | ಈಗಷ್ಟೇ ನವೀಕರಿಸಲಾಗಿದೆ  /  {min} ನಿಮಿಷ ಹಿಂದೆ ನವೀಕರಿಸಲಾಗಿದೆ  /  ${Math.floor(min / 60)} ಗಂಟೆ ಹಿಂದೆ ನವೀಕರಿಸಲಾಗಿದೆ |  |
 | 8 | `app.js weatherWhyTitle` | Why the weather matters | ಹವಾಮಾನ ಏಕೆ ಮುಖ್ಯ |  |
 | 9 | `app.js weatherWhy` | Water plants make oxygen only in sunlight. After a cloudy day, on a calm, warm night, they use up oxygen and no wind mixes in fresh air, so oxygen is lowest just before sunrise. That is when fish die. | ನೀರಿನ ಸಸ್ಯಗಳು ಬಿಸಿಲಿನಲ್ಲಿ ಮಾತ್ರ ಆಮ್ಲಜನಕ ತಯಾರಿಸುತ್ತವೆ. ಮೋಡ ಕವಿದ ದಿನದ ನಂತರ, ಗಾಳಿ ಇಲ್ಲದ ಬೆಚ್ಚಗಿನ ರಾತ್ರಿಯಲ್ಲಿ ಅವು ಆಮ್ಲಜನಕವನ್ನು ಬಳಸಿಕೊಳ್ಳುತ್ತವೆ, ಹೊಸ ಗಾಳಿ ನೀರಿಗೆ ಬೆರೆಯುವುದಿಲ್ಲ. ಆದ್ದರಿಂದ ಸೂರ್ಯೋದಯಕ್ಕೆ ಸ್ವಲ್ಪ ಮೊದಲು ಆಮ್ಲಜನಕ ಅತ್ಯಂತ ಕಡಿಮೆ ಇರುತ್ತದೆ. ಆಗಲೇ ಮೀನುಗಳು ಸಾಯುತ್ತವೆ. |  |
@@ -600,7 +600,7 @@ Labels, safety replies and the suggested questions. Ready answers are built from
 | 2 | `assistant.I_DONT_KNOW` | I don't know, please ask your fisheries officer. | ನನಗೆ ಗೊತ್ತಿಲ್ಲ, ದಯವಿಟ್ಟು ನಿಮ್ಮ ಮೀನುಗಾರಿಕೆ ಅಧಿಕಾರಿಯನ್ನು ಕೇಳಿ. |  |
 | 3 | `assistant.CONFIRM` | Please confirm with your fisheries officer / KVK. | ದಯವಿಟ್ಟು ನಿಮ್ಮ ಮೀನುಗಾರಿಕೆ ಅಧಿಕಾರಿ / KVK ಜೊತೆ ಖಚಿತಪಡಿಸಿಕೊಳ್ಳಿ. |  |
 | 4 | `assistant.NO_TREATMENT` | I can't suggest medicines, chemicals or amounts to add, and I can't say which disease your fish have. The Fish disease guide shows possible matches for the signs you see. | ನಾನು ಔಷಧಿ, ರಾಸಾಯನಿಕ ಅಥವಾ ಪ್ರಮಾಣಗಳನ್ನು ಸೂಚಿಸಲು ಆಗುವುದಿಲ್ಲ, ಮತ್ತು ನಿಮ್ಮ ಮೀನುಗಳಿಗೆ ಯಾವ ರೋಗ ಎಂದು ಹೇಳಲು ಆಗುವುದಿಲ್ಲ. ನೀವು ನೋಡುವ ಲಕ್ಷಣಗಳಿಗೆ ಸಾಧ್ಯವಿರುವ ಹೊಂದಾಣಿಕೆಗಳನ್ನು ಮೀನು ರೋಗ ಮಾರ್ಗದರ್ಶಿ ತೋರಿಸುತ್ತದೆ. |  |
-| 5 | `assistant.OFFLINE_NOTE` | The AI assistant is not available right now. Tap a question below for a ready answer from the app. | AI ಸಹಾಯಕ ಈಗ ಲಭ್ಯವಿಲ್ಲ. ಆ್ಯಪ್‌ನ ಸಿದ್ಧ ಉತ್ತರಕ್ಕಾಗಿ ಕೆಳಗಿನ ಪ್ರಶ್ನೆಯೊಂದನ್ನು ಒತ್ತಿ. |  |
+| 5 | `assistant.FALLBACK_NOTE` | The AI assistant is not available right now. Tap a question below for a ready answer from the app. | AI ಸಹಾಯಕ ಈಗ ಲಭ್ಯವಿಲ್ಲ. ಆ್ಯಪ್‌ನ ಸಿದ್ಧ ಉತ್ತರಕ್ಕಾಗಿ ಕೆಳಗಿನ ಪ್ರಶ್ನೆಯೊಂದನ್ನು ಒತ್ತಿ. |  |
 | 6 | `assistant.LIMITED_NOTE` | Too many questions for now. Please wait a minute, or tap a question below for a ready answer. | ಸದ್ಯಕ್ಕೆ ತುಂಬಾ ಪ್ರಶ್ನೆಗಳು. ದಯವಿಟ್ಟು ಒಂದು ನಿಮಿಷ ಕಾಯಿರಿ, ಅಥವಾ ಸಿದ್ಧ ಉತ್ತರಕ್ಕಾಗಿ ಕೆಳಗಿನ ಪ್ರಶ್ನೆಯೊಂದನ್ನು ಒತ್ತಿ. |  |
 | 7 | `assistant.SIMULATED_NOTE` | These are simulated readings from the demo pond, not a real pond. | ಇವು ಡೆಮೊ ಕೊಳದ ಅನುಕರಿಸಿದ (ಸಿಮ್ಯುಲೇಟೆಡ್) ಅಳತೆಗಳು, ನಿಜವಾದ ಕೊಳದ್ದಲ್ಲ. |  |
 | 8 | `assistant.QUESTIONS.pond_now` | Is my pond safe right now? | ನನ್ನ ಕೊಳ ಈಗ ಸುರಕ್ಷಿತವಾಗಿದೆಯೇ? |  |

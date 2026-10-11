@@ -52,7 +52,7 @@ NO_TREATMENT = {"en": "I can't suggest medicines, chemicals or amounts to add, a
                       "The Fish disease guide shows possible matches for the signs you see.",
                 "kn": "ನಾನು ಔಷಧಿ, ರಾಸಾಯನಿಕ ಅಥವಾ ಪ್ರಮಾಣಗಳನ್ನು ಸೂಚಿಸಲು ಆಗುವುದಿಲ್ಲ, ಮತ್ತು ನಿಮ್ಮ ಮೀನುಗಳಿಗೆ ಯಾವ ರೋಗ ಎಂದು "
                       "ಹೇಳಲು ಆಗುವುದಿಲ್ಲ. ನೀವು ನೋಡುವ ಲಕ್ಷಣಗಳಿಗೆ ಸಾಧ್ಯವಿರುವ ಹೊಂದಾಣಿಕೆಗಳನ್ನು ಮೀನು ರೋಗ ಮಾರ್ಗದರ್ಶಿ ತೋರಿಸುತ್ತದೆ."}
-OFFLINE_NOTE = {"en": "The AI assistant is not available right now. Tap a question below for a ready answer from the app.",
+FALLBACK_NOTE = {"en": "The AI assistant is not available right now. Tap a question below for a ready answer from the app.",
                 "kn": "AI ಸಹಾಯಕ ಈಗ ಲಭ್ಯವಿಲ್ಲ. ಆ್ಯಪ್‌ನ ಸಿದ್ಧ ಉತ್ತರಕ್ಕಾಗಿ ಕೆಳಗಿನ ಪ್ರಶ್ನೆಯೊಂದನ್ನು ಒತ್ತಿ."}
 LIMITED_NOTE = {"en": "Too many questions for now. Please wait a minute, or tap a question below for a ready answer.",
                 "kn": "ಸದ್ಯಕ್ಕೆ ತುಂಬಾ ಪ್ರಶ್ನೆಗಳು. ದಯವಿಟ್ಟು ಒಂದು ನಿಮಿಷ ಕಾಯಿರಿ, ಅಥವಾ ಸಿದ್ಧ ಉತ್ತರಕ್ಕಾಗಿ ಕೆಳಗಿನ ಪ್ರಶ್ನೆಯೊಂದನ್ನು ಒತ್ತಿ."}
@@ -223,7 +223,7 @@ def build_content(evals: list[dict], weather: dict, lang: str) -> str:
         msg = weather.get("message", {}).get(lg, "")
         level = weather.get("level_name", {}).get(lg) if weather.get("status") == "ok" else None
         out.append(f"- {'Oxygen crash risk tonight: ' + level + '. ' if level else ''}{msg}"
-                   + (" (offline: last saved forecast)" if weather.get("offline") else ""))
+                   + (" (saved forecast, no fresh download)" if weather.get("offline") else ""))
 
     out.append("\n## Fish disease guide (docs/diseases.md). Possible matches only, never a diagnosis. "
                "No medicines, chemicals or doses.")
@@ -402,14 +402,14 @@ def ask(question: str, lang: str, evals: list[dict], weather: dict, provider, li
     """
     One farmer question -> one safe answer:
         {"text", "lang", "mode", "notice"}
-    mode: "ai", "unknown", "safety" (refused or replaced), "offline" (no key / error), "limited".
-    For "offline" and "limited" text is None: the page shows the suggested questions instead.
+    mode: "ai", "unknown", "safety" (refused or replaced), "fallback" (no key, Gemini unreachable, error), "limited".
+    For "fallback" and "limited" text is None: the page shows the suggested questions instead.
     """
     question = question.strip()
     if safety.asks_for_treatment(question):          # never send these to the AI at all
         return {"text": _join(NO_TREATMENT[lang], CONFIRM[lang]), "lang": lang, "mode": "safety", "notice": None}
     if provider is None:
-        return {"text": None, "lang": lang, "mode": "offline", "notice": OFFLINE_NOTE}
+        return {"text": None, "lang": lang, "mode": "fallback", "notice": FALLBACK_NOTE}
     if not limiter.allow(visitor):
         return {"text": None, "lang": lang, "mode": "limited", "notice": LIMITED_NOTE}
 
@@ -421,6 +421,6 @@ def ask(question: str, lang: str, evals: list[dict], weather: dict, provider, li
         reply = provider.complete(system, messages)
     except ProviderError as error:
         log.warning("assistant provider error: %s", error)   # never logs the key
-        return {"text": None, "lang": lang, "mode": "offline", "notice": OFFLINE_NOTE}
+        return {"text": None, "lang": lang, "mode": "fallback", "notice": FALLBACK_NOTE}
     text, mode = make_safe(reply, question, lang)
     return {"text": text, "lang": lang, "mode": mode, "notice": None}

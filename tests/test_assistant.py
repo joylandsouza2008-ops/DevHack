@@ -164,15 +164,15 @@ def test_history_is_limited_and_cleaned(ai):
 
 def test_no_key_means_ready_answers_and_no_network():
     body = ask("Is my pond safe?")                      # no fake installed: no ASSISTANT_API_KEY in tests
-    assert body["mode"] == "offline" and body["text"] is None
-    assert body["notice"] == A.OFFLINE_NOTE
+    assert body["mode"] == "fallback" and body["text"] is None
+    assert body["notice"] == A.FALLBACK_NOTE
     assert [s["id"] for s in body["suggestions"]] == list(A.QUESTIONS)
 
 
 def test_ai_error_falls_back_to_ready_answers(ai):
     ai.error = True
     body = ask("Is my pond safe?")
-    assert body["mode"] == "offline" and body["suggestions"]
+    assert body["mode"] == "fallback" and body["suggestions"]
 
 
 def test_suggestions_endpoint_never_calls_the_ai(ai):
@@ -318,7 +318,7 @@ def test_key_is_never_sent_to_the_page(ai, monkeypatch):
 
 def test_assistant_kannada_is_in_the_review_sheet():
     sheet = (Path(__file__).resolve().parent.parent / "docs" / "kannada-review.md").read_text(encoding="utf-8")
-    texts = [A.LABEL, A.I_DONT_KNOW, A.CONFIRM, A.NO_TREATMENT, A.OFFLINE_NOTE, A.LIMITED_NOTE, A.SIMULATED_NOTE,
+    texts = [A.LABEL, A.I_DONT_KNOW, A.CONFIRM, A.NO_TREATMENT, A.FALLBACK_NOTE, A.LIMITED_NOTE, A.SIMULATED_NOTE,
              A.NO_READINGS, A.ALL_SAFE_ACTION, A.NO_LIKELY, A.USE_CHECKER, A.LEVELS_INTRO, A.AMMONIA_NOTE,
              *A.QUESTIONS.values()]
     missing = [t["kn"] for t in texts if t["kn"] not in sheet]

@@ -2,8 +2,7 @@
 // checker and "diseases more likely now" notes for risky readings.
 //
 // The data and the matching come from the server (backend/diseases.py,
-// GET /api/diseases and POST /api/diseases/check), so the page works offline
-// with the local server. Sources for every entry: docs/diseases.md.
+// GET /api/diseases and POST /api/diseases/check). Sources for every entry: docs/diseases.md.
 //
 // Rules: possible matches only, never a diagnosis; no medicines or doses.
 // The drawings are simple original SVGs. Disease marks use the magenta accent

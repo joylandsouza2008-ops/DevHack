@@ -328,7 +328,7 @@
 
       <!-- ===================== Weather ===================== -->
       <!-- Tonight's weather is REAL (Open-Meteo forecast), not simulated.
-           With no internet it shows the last saved forecast and says "offline". -->
+           If the download fails it shows the last saved forecast and says so. -->
       <section class="page" id="page-weather" aria-labelledby="page-weather-title" hidden>
         <h1 class="page-title" id="page-weather-title" tabindex="-1" data-i18n="titleWeather">Weather</h1>
         <div class="card weather-card in-view">
@@ -717,7 +717,7 @@
     </dialog>
   </div>
 
-  <!-- All scripts are local files: the app works offline. -->
+  <!-- All scripts are local files: the app works on cheap phones and slow internet. -->
   <script src="/debug.js"></script>          <!-- does nothing unless the address ends in ?debug -->
   <script src="/vendor/gsap/gsap.min.js"></script>
   <script src="/vendor/chartjs/chart.umd.min.js"></script>

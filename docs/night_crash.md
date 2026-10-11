@@ -30,11 +30,11 @@ The words in *italics* change with the factors (cloudy / still / warm). Equal we
 
 The level uses the same colour + icon pairs as the pond status (green / amber / red), always with the word.
 
-## "Tonight" and offline use
+## "Tonight" and a weak connection
 
 - **Tonight** is 18:00 to 06:00 (Asia/Kolkata). Before 06:00, it is the night we are already in.
 - The server saves each forecast to `data/weather_cache.json` and re-downloads at most every 30 minutes.
-- **No internet:** the saved forecast is used and the Weather page says *"Offline: showing the forecast saved on …"*. The forecast covers three days, so a saved copy still works the next night. If nothing usable is saved, it says the weather is not known.
+- **No connection to the weather service:** the saved forecast is used and the Weather page says *"No connection: showing the forecast saved on …"*. The forecast covers three days, so a saved copy still works the next night. If nothing usable is saved, it says the weather is not known.
 - The download gives up after 8 seconds and runs off the main loop, so the rest of the app (simulator, alerts, chart) works the same with or without internet.
 
 ## Limits

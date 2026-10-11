@@ -251,7 +251,7 @@ def test_assistant_key_never_appears_in_logs(caplog, monkeypatch):
     monkeypatch.setattr(main, "provider_from_env",
                         lambda: type("P", (), {"complete": lambda self, s, m: provider.complete(s, m, opener=failing_opener)})())
     body = ask("Is my pond ok?")
-    assert body["mode"] == "offline"
+    assert body["mode"] == "fallback"
     assert "AIza-secret-assistant-key" not in caplog.text + json.dumps(body)
 
 

@@ -51,12 +51,12 @@ Built for DevHack 2026, problem statement 1.1.
 | `frontend/assistant.js` | "Ask AquaNexus" chat card (suggested questions, speaker button per reply) |
 | `frontend/diseases.js` | Fish disease guide card: symptom checker, disease library with original SVG fish drawings |
 | `frontend/health-ring.js`, `history.js`, `voice.js` | Health score ring, alert history (saved in the browser), voice alerts (phone's own voices, only when tapped) |
-| `frontend/vendor/gsap/` | GSAP 3.15.0 animation library, bundled locally (works offline) |
+| `frontend/vendor/gsap/` | GSAP 3.15.0 animation library, bundled locally (the app works on cheap phones and slow internet) |
 | `frontend/assets/` | Dashboard background waves: original artwork + brand-blue copies (`*-brand.svg`) used by the app |
 | `tools/kannada_review.py` | Regenerates `docs/kannada-review.md` (every Kannada string next to its English, by screen, for a native-speaker review) |
 | `render.yaml`, `docs/deploy.md` | Free online deployment on Render, with step-by-step setup and its limits |
 | `tools/recolor_backgrounds.py` | Regenerates the brand-blue wave copies after the artwork is edited |
-| `frontend/fonts/` | Noto Sans + Noto Sans Kannada, bundled so the app works offline |
+| `frontend/fonts/` | Noto Sans + Noto Sans Kannada, bundled so the app works on cheap phones and slow internet |
 | `.claude/skills/` | Shared Claude Code skills for the team |
 | `data/` | Datasets. **Not in git**: download them yourself (steps below) |
 

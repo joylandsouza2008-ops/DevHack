@@ -1,5 +1,5 @@
 // Alert history: a log of past Warning and Danger alerts, saved in this
-// browser (localStorage) so it survives a refresh and works offline.
+// browser (localStorage) so it survives a refresh.
 //
 // Each entry keeps: when it happened, Safe/Warning/Danger, the cause (in
 // English and Kannada), the suggested actions, and which ones the farmer

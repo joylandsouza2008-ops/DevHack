@@ -59,7 +59,7 @@ def test_page_is_served_with_simulated_label_and_local_fonts():
     html = client.get("/").text
     assert "Simulated data" in html
     assert "/fonts/fonts.css" in html
-    assert "googleapis" not in html          # works offline
+    assert "googleapis" not in html          # local fonts: fast on cheap phones and slow internet
     assert client.get("/fonts/fonts.css").status_code == 200
     assert client.get("/app.js").status_code == 200
 

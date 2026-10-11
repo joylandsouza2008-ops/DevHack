@@ -130,7 +130,7 @@ def backend_groups() -> list[tuple[str, str, list]]:
         ("Ask AquaNexus assistant", "Labels, safety replies and the suggested questions. Ready answers are "
          "built from the texts in the other sections. AI replies in Kannada are written by the AI and are not in "
          "this sheet.",
-         rows(assistant, "LABEL", "I_DONT_KNOW", "CONFIRM", "NO_TREATMENT", "OFFLINE_NOTE", "LIMITED_NOTE",
+         rows(assistant, "LABEL", "I_DONT_KNOW", "CONFIRM", "NO_TREATMENT", "FALLBACK_NOTE", "LIMITED_NOTE",
               "SIMULATED_NOTE", "QUESTIONS", "NO_READINGS", "ALL_SAFE_ACTION", "NO_LIKELY", "USE_CHECKER",
               "LEVELS_INTRO", "AMMONIA_NOTE") + [
              *[(f"assistant.BAND.{key}", en, kn) for key, en, kn in

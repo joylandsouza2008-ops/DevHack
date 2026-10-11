@@ -5,7 +5,7 @@
 // It never switches language on its own: if Kannada is chosen and the device
 // has no Kannada voice, speak() reports "no-voice" and the page says so
 // politely. Voices installed on the device are preferred, because online
-// voices do not work without internet.
+// voices stop when the signal drops.
 //
 // pickVoice is a plain function so it can be tested with Node: node --test tests/js
 
@@ -15,7 +15,7 @@
   const LANG_PREFIX = { kn: "kn", en: "en" };
 
   // Choose the best voice for "kn" or "en" from a list of SpeechSynthesisVoice.
-  // Order: offline voice for India (kn-IN / en-IN), any offline voice, then online ones.
+  // Order: on-device voice for India (kn-IN / en-IN), any on-device voice, then online ones.
   function pickVoice(voices, lang) {
     const prefix = LANG_PREFIX[lang];
     const matching = voices.filter((v) => (v.lang || "").toLowerCase().replace("_", "-").startsWith(prefix));
