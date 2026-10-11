@@ -389,6 +389,46 @@ def test_old_readings_are_dropped_after_48_hours(clock):
     assert len(main.farms().db.query("SELECT * FROM readings")) == 1
 
 
+def test_timed_clean_up_also_cleans_a_pond_whose_device_went_quiet(clock):
+    h = farm()
+    quiet = connect(h, add(h, "Quiet pond")["id"])
+    send(quiet, reading(clock, dissolved_oxygen=2.0))              # Danger: one reading and one alert
+    db_ = main.farms().db
+    count = lambda table: len(db_.query(f"SELECT * FROM {table}"))
+    assert (count("readings"), count("alerts")) == (1, 1)
+    # The device never sends again. After 47 h the reading is still kept...
+    clock.move(hours=47)
+    main.clean_up_old_pond_data()
+    assert (count("readings"), count("alerts")) == (1, 1)
+    # ...after 49 h the reading is gone, the alert (kept 14 days) stays...
+    clock.move(hours=2)
+    main.clean_up_old_pond_data()
+    assert (count("readings"), count("alerts")) == (0, 1)
+    # ...and after 15 days the alert is gone too. The pond itself is kept.
+    clock.move(days=14)
+    main.clean_up_old_pond_data()
+    assert (count("readings"), count("alerts")) == (0, 0)
+    assert [p["name"] for p in listing(h)["ponds"]] == ["Quiet pond"]
+
+
+def test_clean_up_runs_on_startup_and_then_every_hour(monkeypatch):
+    calls = []
+    monkeypatch.setattr(main, "clean_up_old_pond_data", lambda: calls.append("clean"))
+    with TestClient(main.app):                                      # starting the app runs the clean-up once
+        pass
+    assert calls == ["clean"]
+    assert main.CLEAN_UP_EVERY == 60 * 60
+
+
+def test_clean_up_failure_is_logged_not_raised(monkeypatch, caplog):
+    class Broken:
+        def delete_old(self, now):
+            raise RuntimeError("database asleep")
+    monkeypatch.setattr(main, "farms", lambda: Broken())
+    main.clean_up_old_pond_data()                                   # no exception: the timer keeps running
+    assert "Clean-up of old pond data failed (RuntimeError)" in caplog.text
+
+
 # ----------------------------------------------------------------- storage
 
 def test_memory_storage_is_demo_mode_and_says_so():

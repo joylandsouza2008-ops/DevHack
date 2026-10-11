@@ -37,6 +37,7 @@ import asyncio
 import json
 import logging
 import time
+from contextlib import asynccontextmanager
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Annotated, Literal
@@ -69,8 +70,35 @@ HISTORY_HOURS = 2          # simulated readings generated before the stream star
 MANUAL = "manual"
 MANUAL_LABEL = {"en": "Manual test-kit reading", "kn": "ಕೈಯಿಂದ ನಮೂದಿಸಿದ ಟೆಸ್ಟ್ ಕಿಟ್ ಅಳತೆ"}
 
+CLEAN_UP_EVERY = 60 * 60       # seconds: delete old pond readings and alerts once an hour
+
+
+def clean_up_old_pond_data() -> None:
+    """Readings older than 48 hours and alerts older than 14 days (backend/ponds.py), for every pond."""
+    try:
+        farms().delete_old(_now())
+    except Exception as error:                  # e.g. database asleep: try again next hour
+        log.warning("Clean-up of old pond data failed (%s).", type(error).__name__)
+
+
+async def _clean_up_every_hour() -> None:
+    while True:
+        await asyncio.sleep(CLEAN_UP_EVERY)
+        await asyncio.to_thread(clean_up_old_pond_data)     # the database call must not block requests
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """On startup: clean up now, then once an hour. On shutdown: stop the timer."""
+    await asyncio.to_thread(clean_up_old_pond_data)
+    task = asyncio.create_task(_clean_up_every_hour())
+    yield
+    task.cancel()
+
+
 app = FastAPI(title="AquaNexus API",
-              description="Pond water-quality early warning for small aquaculture farmers.")
+              description="Pond water-quality early warning for small aquaculture farmers.",
+              lifespan=lifespan)
 # Rate limits, request size limit and security headers for every request (docs/security.md).
 request_limiter = security.RequestLimiter()
 app.add_middleware(security.SecurityMiddleware, limiter=request_limiter)

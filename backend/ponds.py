@@ -227,9 +227,17 @@ class FarmStore:
                             "VALUES (?, ?, ?, ?, ?, ?, ?)",
                             (pond_id, pond["farm_id"], _iso(now), level, ",".join(causes),
                              json.dumps(risk["summary"], ensure_ascii=False), int(demo)))
-        # Keep the database small: readings for 48 hours, alerts for 14 days.
-        self.db.execute("DELETE FROM readings WHERE pond_id = ? AND received_at < ?", (pond_id, _iso(now - KEEP_READINGS)))
-        self.db.execute("DELETE FROM alerts WHERE pond_id = ? AND time < ?", (pond_id, _iso(now - KEEP_ALERTS)))
+        self.delete_old(now)
+
+    def delete_old(self, now: datetime) -> None:
+        """
+        Keep the database small, as the Terms promise: delete readings older than
+        48 hours and alerts older than 14 days, for EVERY pond. Runs after each
+        new reading, and on a timer (backend/main.py) so a pond whose device has
+        gone quiet is cleaned too.
+        """
+        self.db.execute("DELETE FROM readings WHERE received_at < ?", (_iso(now - KEEP_READINGS),))
+        self.db.execute("DELETE FROM alerts WHERE time < ?", (_iso(now - KEEP_ALERTS),))
 
     @staticmethod
     def _reading(row: dict | None) -> dict | None:
