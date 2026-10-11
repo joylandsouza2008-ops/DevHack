@@ -37,7 +37,7 @@ import asyncio
 import json
 import logging
 import time
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Annotated, Literal
 
@@ -464,6 +464,14 @@ def _farm_of(x_farm_code: str | None) -> str | None:
 def _summary(pond: dict, now: datetime) -> dict:
     store = farms()
     return ponds.pond_summary(pond, store.latest(pond["id"]), store.device_for_pond(pond["id"]), now, assess)
+
+
+@app.get("/api/storage")
+def storage() -> dict:
+    """For the Terms page: is "My ponds" data kept in a database, or in memory (demo mode)?"""
+    return {"demo_mode": not farms().db.persistent,
+            "keep_readings_hours": ponds.KEEP_READINGS // timedelta(hours=1),
+            "keep_alerts_days": ponds.KEEP_ALERTS.days}
 
 
 @app.get("/api/ponds")

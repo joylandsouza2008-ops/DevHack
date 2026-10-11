@@ -47,7 +47,9 @@ const TEXT = {
     termsTreat: "The app never suggests chemicals, medicines or amounts to add to the pond. Treatment must come from a fisheries officer or KVK.",
     termsPrivacyTitle: "Privacy",
     termsNoAccount: "No account and no sign-up.",
-    termsPonds: "My ponds: your pond names, sizes, fish types, device readings (for 48 hours) and alerts (for 14 days) are saved on our server under your farm code. We keep only a scrambled copy (hash) of the farm code and of device keys. No name, phone number or email is asked for. Anyone with your farm code can see and change your ponds.",
+    termsPonds: "My ponds: your pond names, sizes, fish types, device readings and alerts are saved on our server under your farm code. We keep only a scrambled copy (hash) of the farm code and of device keys. No name, phone number or email is asked for. Anyone with your farm code can see and change your ponds.",
+    termsKeep: "Device readings are kept for 48 hours and alerts for 14 days.",
+    termsDemo: "Demo mode: data resets when the server sleeps.",
     termsLocation: "The app does not ask for your location. Tonight's weather is always for Mangaluru. Your phone gets it straight from Open-Meteo, so Open-Meteo sees your internet address, as any website would.",
     termsBrowser: "Your language, theme, ticked steps, alert history, the last weather forecast, your Shop cart and your farm code are saved only in this browser. Clearing the browser's data removes them.",
     termsServer: "Test-kit numbers and the readings on screen go to our server to be checked, and are not saved there. Readings sent to the demo Live sensor card stay in the server's memory only until it restarts.",
@@ -226,6 +228,11 @@ const TEXT = {
     shopOnePondTitle: "Before you buy",
     shopOnePond: "One sensor watches one pond. For several ponds, each needs its own sensor. Start with the free app and the test kit.",
     shopPriceNote: "Estimated component cost. Prices may change.",
+    shopWiringTitle: "How the kit is wired",
+    shopWiringOpen: "Open the diagram full size",
+    shopWiringProposed: "Proposed design, not yet built",
+    shopWiringCaption: "Solar power, battery, ESP32 board, 4G modem and the oxygen, temperature and pH sensors. Part names are in English.",
+    shopWiringAlt: "Wiring diagram. A 10 W solar panel charges an 18650 battery pack through a CN3791 charger. The pack powers the ESP32 board (through a 3.3 V regulator), a switched 12 V supply for the oxygen probe, and an A7670C 4G modem. The ESP32 reads the optical oxygen probe over isolated RS485, a DS18B20 temperature sensor, and the pH probe through an isolator and an ADS1115 converter.",
     shopLoadFailed: "Could not load the products. Check your internet and reload the page.",
     shopMeasures: "What it measures", shopWhy: "Why you need it",
     shopAdd: "Add to cart", shopAdded: "Added to cart:", estWord: "est.",
@@ -287,7 +294,9 @@ const TEXT = {
     termsTreat: "ಆ್ಯಪ್ ಎಂದಿಗೂ ಕೊಳಕ್ಕೆ ಹಾಕಬೇಕಾದ ರಾಸಾಯನಿಕ, ಔಷಧಿ ಅಥವಾ ಪ್ರಮಾಣವನ್ನು ಸೂಚಿಸುವುದಿಲ್ಲ. ಚಿಕಿತ್ಸೆಯನ್ನು ಮೀನುಗಾರಿಕೆ ಅಧಿಕಾರಿ ಅಥವಾ KVK ಮಾತ್ರ ನೀಡಬೇಕು.",
     termsPrivacyTitle: "ಗೌಪ್ಯತೆ",
     termsNoAccount: "ಖಾತೆ ಇಲ್ಲ, ನೋಂದಣಿ ಇಲ್ಲ.",
-    termsPonds: "ನನ್ನ ಕೊಳಗಳು: ನಿಮ್ಮ ಕೊಳಗಳ ಹೆಸರು, ಗಾತ್ರ, ಮೀನಿನ ಪ್ರಕಾರ, ಸಾಧನದ ಅಳತೆಗಳು (48 ಗಂಟೆಗಳವರೆಗೆ) ಮತ್ತು ಎಚ್ಚರಿಕೆಗಳು (14 ದಿನಗಳವರೆಗೆ) ನಿಮ್ಮ ಫಾರ್ಮ್ ಕೋಡ್ ಅಡಿಯಲ್ಲಿ ನಮ್ಮ ಸರ್ವರ್‌ನಲ್ಲಿ ಉಳಿಯುತ್ತವೆ. ಫಾರ್ಮ್ ಕೋಡ್ ಮತ್ತು ಸಾಧನದ ಕೀಗಳ ಗೂಢ ಪ್ರತಿಯನ್ನು (ಹ್ಯಾಶ್) ಮಾತ್ರ ಇಡುತ್ತೇವೆ. ಹೆಸರು, ಫೋನ್ ಸಂಖ್ಯೆ ಅಥವಾ ಇಮೇಲ್ ಕೇಳುವುದಿಲ್ಲ. ನಿಮ್ಮ ಫಾರ್ಮ್ ಕೋಡ್ ಇರುವ ಯಾರಾದರೂ ನಿಮ್ಮ ಕೊಳಗಳನ್ನು ನೋಡಬಹುದು ಮತ್ತು ಬದಲಿಸಬಹುದು.",
+    termsPonds: "ನನ್ನ ಕೊಳಗಳು: ನಿಮ್ಮ ಕೊಳಗಳ ಹೆಸರು, ಗಾತ್ರ, ಮೀನಿನ ಪ್ರಕಾರ, ಸಾಧನದ ಅಳತೆಗಳು ಮತ್ತು ಎಚ್ಚರಿಕೆಗಳು ನಿಮ್ಮ ಫಾರ್ಮ್ ಕೋಡ್ ಅಡಿಯಲ್ಲಿ ನಮ್ಮ ಸರ್ವರ್‌ನಲ್ಲಿ ಉಳಿಯುತ್ತವೆ. ಫಾರ್ಮ್ ಕೋಡ್ ಮತ್ತು ಸಾಧನದ ಕೀಗಳ ಗೂಢ ಪ್ರತಿಯನ್ನು (ಹ್ಯಾಶ್) ಮಾತ್ರ ಇಡುತ್ತೇವೆ. ಹೆಸರು, ಫೋನ್ ಸಂಖ್ಯೆ ಅಥವಾ ಇಮೇಲ್ ಕೇಳುವುದಿಲ್ಲ. ನಿಮ್ಮ ಫಾರ್ಮ್ ಕೋಡ್ ಇರುವ ಯಾರಾದರೂ ನಿಮ್ಮ ಕೊಳಗಳನ್ನು ನೋಡಬಹುದು ಮತ್ತು ಬದಲಿಸಬಹುದು.",
+    termsKeep: "ಸಾಧನದ ಅಳತೆಗಳನ್ನು 48 ಗಂಟೆ ಮತ್ತು ಎಚ್ಚರಿಕೆಗಳನ್ನು 14 ದಿನ ಇಡಲಾಗುತ್ತದೆ.",
+    termsDemo: "ಡೆಮೊ ಮೋಡ್: ಸರ್ವರ್ ನಿದ್ರಿಸಿದಾಗ ಡೇಟಾ ಅಳಿಸಿಹೋಗುತ್ತದೆ.",
     termsLocation: "ಆ್ಯಪ್ ನಿಮ್ಮ ಸ್ಥಳವನ್ನು ಕೇಳುವುದಿಲ್ಲ. ಇಂದು ರಾತ್ರಿಯ ಹವಾಮಾನ ಯಾವಾಗಲೂ ಮಂಗಳೂರಿನದು. ನಿಮ್ಮ ಫೋನ್ ಅದನ್ನು ನೇರವಾಗಿ Open-Meteo ಯಿಂದ ಪಡೆಯುತ್ತದೆ, ಆದ್ದರಿಂದ ಯಾವುದೇ ವೆಬ್‌ಸೈಟ್‌ನಂತೆ Open-Meteo ನಿಮ್ಮ ಇಂಟರ್ನೆಟ್ ವಿಳಾಸವನ್ನು ನೋಡುತ್ತದೆ.",
     termsBrowser: "ನಿಮ್ಮ ಭಾಷೆ, ಥೀಮ್, ಗುರುತು ಹಾಕಿದ ಹಂತಗಳು, ಎಚ್ಚರಿಕೆಗಳ ಇತಿಹಾಸ, ಕೊನೆಯ ಹವಾಮಾನ ಮುನ್ಸೂಚನೆ, ಅಂಗಡಿಯ ಕಾರ್ಟ್ ಮತ್ತು ನಿಮ್ಮ ಫಾರ್ಮ್ ಕೋಡ್ ಈ ಬ್ರೌಸರ್‌ನಲ್ಲಿ ಮಾತ್ರ ಉಳಿಯುತ್ತವೆ. ಬ್ರೌಸರ್‌ನ ಡೇಟಾ ಅಳಿಸಿದರೆ ಅವು ಹೋಗುತ್ತವೆ.",
     termsServer: "ಟೆಸ್ಟ್-ಕಿಟ್ ಅಳತೆಗಳು ಮತ್ತು ಪರದೆಯ ಮೇಲಿನ ಅಳತೆಗಳು ಪರಿಶೀಲನೆಗಾಗಿ ನಮ್ಮ ಸರ್ವರ್‌ಗೆ ಹೋಗುತ್ತವೆ, ಅಲ್ಲಿ ಉಳಿಸಲಾಗುವುದಿಲ್ಲ. ಡೆಮೊ ಲೈವ್ ಸೆನ್ಸರ್ ಕಾರ್ಡ್‌ಗೆ ಕಳುಹಿಸಿದ ಅಳತೆಗಳು ಸರ್ವರ್ ಮರುಪ್ರಾರಂಭವಾಗುವವರೆಗೆ ಮಾತ್ರ ಅದರ ಮೆಮೊರಿಯಲ್ಲಿ ಇರುತ್ತವೆ.",
@@ -463,6 +472,11 @@ const TEXT = {
     shopOnePondTitle: "ಖರೀದಿಸುವ ಮೊದಲು",
     shopOnePond: "ಒಂದು ಸೆನ್ಸರ್ ಒಂದೇ ಕೊಳವನ್ನು ಗಮನಿಸುತ್ತದೆ. ಹಲವು ಕೊಳಗಳಿದ್ದರೆ, ಪ್ರತಿಯೊಂದಕ್ಕೂ ಬೇರೆ ಸೆನ್ಸರ್ ಬೇಕು. ಉಚಿತ ಆ್ಯಪ್ ಮತ್ತು ಟೆಸ್ಟ್ ಕಿಟ್‌ನಿಂದ ಪ್ರಾರಂಭಿಸಿ.",
     shopPriceNote: "ಅಂದಾಜು ಬಿಡಿಭಾಗಗಳ ವೆಚ್ಚ. ಬೆಲೆಗಳು ಬದಲಾಗಬಹುದು.",
+    shopWiringTitle: "ಕಿಟ್‌ನ ವೈರಿಂಗ್ ಹೇಗಿದೆ",
+    shopWiringOpen: "ಚಿತ್ರವನ್ನು ಪೂರ್ಣ ಗಾತ್ರದಲ್ಲಿ ತೆರೆಯಿರಿ",
+    shopWiringProposed: "ಪ್ರಸ್ತಾವಿತ ವಿನ್ಯಾಸ, ಇನ್ನೂ ನಿರ್ಮಿಸಿಲ್ಲ",
+    shopWiringCaption: "ಸೌರ ವಿದ್ಯುತ್, ಬ್ಯಾಟರಿ, ESP32 ಬೋರ್ಡ್, 4G ಮೋಡೆಮ್ ಮತ್ತು ಆಮ್ಲಜನಕ, ತಾಪಮಾನ, pH ಸೆನ್ಸರ್‌ಗಳು. ಭಾಗಗಳ ಹೆಸರುಗಳು ಇಂಗ್ಲಿಷ್‌ನಲ್ಲಿವೆ.",
+    shopWiringAlt: "ವೈರಿಂಗ್ ಚಿತ್ರ. 10 W ಸೌರ ಫಲಕವು CN3791 ಚಾರ್ಜರ್ ಮೂಲಕ 18650 ಬ್ಯಾಟರಿ ಪ್ಯಾಕ್ ಅನ್ನು ಚಾರ್ಜ್ ಮಾಡುತ್ತದೆ. ಬ್ಯಾಟರಿಯು ESP32 ಬೋರ್ಡ್ (3.3 V ರೆಗ್ಯುಲೇಟರ್ ಮೂಲಕ), ಆಮ್ಲಜನಕ ಪ್ರೋಬ್‌ಗೆ 12 V ಮತ್ತು A7670C 4G ಮೋಡೆಮ್‌ಗೆ ವಿದ್ಯುತ್ ನೀಡುತ್ತದೆ. ESP32 ಆಮ್ಲಜನಕ ಪ್ರೋಬ್, DS18B20 ತಾಪಮಾನ ಸೆನ್ಸರ್ ಮತ್ತು pH ಪ್ರೋಬ್‌ನ ಅಳತೆಗಳನ್ನು ಓದುತ್ತದೆ.",
     shopLoadFailed: "ವಸ್ತುಗಳ ಪಟ್ಟಿ ತೆರೆಯಲು ಆಗಲಿಲ್ಲ. ಇಂಟರ್ನೆಟ್ ಪರಿಶೀಲಿಸಿ, ಪುಟವನ್ನು ಮತ್ತೆ ತೆರೆಯಿರಿ.",
     shopMeasures: "ಏನನ್ನು ಅಳೆಯುತ್ತದೆ", shopWhy: "ಇದು ಏಕೆ ಬೇಕು",
     shopAdd: "ಕಾರ್ಟ್‌ಗೆ ಸೇರಿಸಿ", shopAdded: "ಕಾರ್ಟ್‌ಗೆ ಸೇರಿಸಲಾಗಿದೆ:", estWord: "ಅಂದಾಜು",
@@ -550,6 +564,7 @@ function setLanguage(lang) {
   document.querySelectorAll("[data-i18n]").forEach((el) => {
     el.textContent = TEXT[lang][el.dataset.i18n];
   });
+  $("shop-wiring-img").alt = TEXT[lang].shopWiringAlt;   // a picture's text, not just its label
   document.querySelectorAll(".language-toggle button[data-lang]").forEach((b) => {
     b.setAttribute("aria-pressed", String(b.dataset.lang === lang));
   });
@@ -1391,6 +1406,19 @@ $("sources-dialog").addEventListener("click", (e) => {
   if (e.target === e.currentTarget) e.currentTarget.close();   // tap outside the panel closes it
 });
 // Terms & Privacy panel (footer button), the same kind of panel as Data sources.
+// How long pond data is kept depends on the server: with a database, 48 hours /
+// 14 days; without one (demo mode), it resets when the server sleeps. Ask the
+// server; if it can't be reached, show the demo line, which promises nothing.
+async function showStorageTerms() {
+  let demo = true;
+  try {
+    const response = await fetch("/api/storage");
+    if (response.ok) demo = (await response.json()).demo_mode !== false;
+  } catch { /* offline: keep the demo line */ }
+  $("terms-keep").hidden = demo;
+  $("terms-demo").hidden = !demo;
+}
+showStorageTerms();
 $("terms-open").addEventListener("click", () => $("terms-dialog").showModal());
 $("terms-close").addEventListener("click", () => $("terms-dialog").close());
 $("terms-dialog").addEventListener("click", (e) => {

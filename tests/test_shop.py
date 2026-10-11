@@ -38,7 +38,7 @@ KNOWN_API = {
     ("POST", "/api/sensor/{pond_id}"), ("GET", "/api/sensor/{pond_id}"), ("GET", "/api/sensor/{pond_id}/stream"),
     ("GET", "/api/simulator/scenarios"), ("GET", "/api/simulator/stream"),
     # My ponds (backend/ponds.py): pond names, sizes and fish types, grouped by a farm code. No personal data.
-    ("GET", "/api/ponds"), ("POST", "/api/ponds"), ("GET", "/api/ponds/{pond_id}"),
+    ("GET", "/api/storage"), ("GET", "/api/ponds"), ("POST", "/api/ponds"), ("GET", "/api/ponds/{pond_id}"),
     ("PATCH", "/api/ponds/{pond_id}"), ("DELETE", "/api/ponds/{pond_id}"),
     ("POST", "/api/ponds/{pond_id}/device"), ("DELETE", "/api/ponds/{pond_id}/device"),
     ("POST", "/api/ponds/{pond_id}/device/new-key"),
@@ -193,3 +193,16 @@ def test_order_like_requests_are_refused():
     for path in ("/api/order", "/api/checkout", "/api/cart"):
         r = client.post(path, json={"name": "x", "phone": "9999999999", "address": "y"})
         assert r.status_code in (404, 405), path
+
+
+def test_wiring_section_is_labelled_as_a_proposed_design():
+    assert (FRONTEND / "assets" / "sensor-kit-wiring.svg").exists()
+    section = HTML[HTML.index('class="card shop-wiring"'):]
+    section = section[:section.index("</section>")]
+    assert 'data-i18n="shopWiringTitle">How the kit is wired<' in section
+    assert 'data-i18n="shopWiringProposed">Proposed design, not yet built<' in section
+    assert 'src="/assets/sensor-kit-wiring.svg"' in section and 'alt="Wiring diagram.' in section
+    assert 'shopWiringProposed: "Proposed design, not yet built"' in APP
+    assert re.search(r'shopWiringProposed: "[^"]*[ಀ-೿]', APP)          # and in Kannada
+    svg = (FRONTEND / "assets" / "sensor-kit-wiring.svg").read_text(encoding="utf-8")
+    assert not re.search(r"<script|href=|<foreignObject|\son\w+=", svg, re.I)    # a plain picture

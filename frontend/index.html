@@ -702,6 +702,22 @@
         <p class="kit-form-error" id="shop-error" role="alert" hidden></p>
         <ul class="shop-grid" id="shop-grid"></ul>
         <p class="shop-price-note" data-i18n="shopPriceNote">Estimated component cost. Prices may change.</p>
+        <!-- Wiring of the sensor kit: a design on paper, not a product. The picture keeps its own dark
+             background in both themes, like the other night-water pictures (DESIGN.md). -->
+        <section class="card shop-wiring" aria-labelledby="shop-wiring-title">
+          <h2 id="shop-wiring-title" data-i18n="shopWiringTitle">How the kit is wired</h2>
+          <p class="preview-note">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm1 15h-2v-6h2v6Zm0-8h-2V7h2v2Z"/></svg>
+            <span data-i18n="shopWiringProposed">Proposed design, not yet built</span>
+          </p>
+          <figure class="shop-wiring-figure">
+            <img id="shop-wiring-img" src="/assets/sensor-kit-wiring.svg" width="680" height="520" loading="lazy"
+                 alt="Wiring diagram. A 10 W solar panel charges an 18650 battery pack through a CN3791 charger. The pack powers the ESP32 board (through a 3.3 V regulator), a switched 12 V supply for the oxygen probe, and an A7670C 4G modem. The ESP32 reads the optical oxygen probe over isolated RS485, a DS18B20 temperature sensor, and the pH probe through an isolator and an ADS1115 converter.">
+            <a class="shop-wiring-open" href="/assets/sensor-kit-wiring.svg" target="_blank" rel="noopener"
+               data-i18n="shopWiringOpen">Open the diagram full size</a>
+            <figcaption data-i18n="shopWiringCaption">Solar power, battery, ESP32 board, 4G modem and the oxygen, temperature and pH sensors. Part names are in English.</figcaption>
+          </figure>
+        </section>
         <p class="shop-toast" id="shop-toast" role="status" aria-live="polite" hidden></p>
       </section>
     </main>
@@ -777,7 +793,10 @@
       <h3 data-i18n="termsPrivacyTitle">Privacy</h3>
       <ul class="terms-list">
         <li data-i18n="termsNoAccount">No account and no sign-up.</li>
-        <li data-i18n="termsPonds">My ponds: your pond names, sizes, fish types, device readings (for 48 hours) and alerts (for 14 days) are saved on our server under your farm code. We keep only a scrambled copy (hash) of the farm code and of device keys. No name, phone number or email is asked for. Anyone with your farm code can see and change your ponds.</li>
+        <li data-i18n="termsPonds">My ponds: your pond names, sizes, fish types, device readings and alerts are saved on our server under your farm code. We keep only a scrambled copy (hash) of the farm code and of device keys. No name, phone number or email is asked for. Anyone with your farm code can see and change your ponds.</li>
+        <!-- Which one shows depends on the server (app.js, /api/storage): a database keeps data, demo mode doesn't. -->
+        <li data-i18n="termsKeep" id="terms-keep" hidden>Device readings are kept for 48 hours and alerts for 14 days.</li>
+        <li data-i18n="termsDemo" id="terms-demo" hidden>Demo mode: data resets when the server sleeps.</li>
         <li data-i18n="termsLocation">The app does not ask for your location. Tonight's weather is always for Mangaluru. Your phone gets it straight from Open-Meteo, so Open-Meteo sees your internet address, as any website would.</li>
         <li data-i18n="termsBrowser">Your language, theme, ticked steps, alert history, the last weather forecast, your Shop cart and your farm code are saved only in this browser. Clearing the browser's data removes them.</li>
         <li data-i18n="termsServer">Test-kit numbers and the readings on screen go to our server to be checked, and are not saved there. Readings sent to the demo Live sensor card stay in the server's memory only until it restarts.</li>

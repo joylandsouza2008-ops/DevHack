@@ -355,6 +355,10 @@ The limits are the `plausible` ranges in `config/thresholds.toml`.
 | Render without `DATABASE_URL` | **memory only**: the app shows "Demo mode: ponds reset when the server sleeps." |
 | Your own computer | a SQLite file, `data/aquanexus.db` (not in git; change with `SQLITE_PATH`) |
 
+The Terms & Privacy panel asks `GET /api/storage` (`{"demo_mode": true|false, ...}`) and shows the
+matching line: with a database, "Device readings are kept for 48 hours and alerts for 14 days";
+in memory, "Demo mode: data resets when the server sleeps."
+
 To keep ponds on Render: create a free Postgres database in Render, copy its
 **Internal Database URL**, and paste it as `DATABASE_URL` in the web service's
 Environment tab. Never put it in the code or in git.

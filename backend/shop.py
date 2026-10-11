@@ -46,8 +46,9 @@ TEXT = {
         "get": "Get the {name}, and keep using the free app and a test kit.",
         "for": "What it is for:", "where": "Where:", "how": "How:", "why": "Why:", "care": "Care:",
         "why_need": "Why you need it:",
-        "recommend": "Our advice for you:",
         "see_shop": "See the Shop tab: {prices}.",
+        "see_shop_how": "See the Shop tab for how to use each one.",
+        "one_sensor": "One sensor watches one pond. For several ponds, each needs its own sensor.",
         "one_pond": "One sensor watches one pond.",
         "n_ponds": "For {n} ponds you need {n} sensors, one in each pond.",
         "several": "Each pond needs its own sensor.",
@@ -69,7 +70,8 @@ TEXT = {
         "get": "{name} ಪಡೆಯಿರಿ, ಜೊತೆಗೆ ಉಚಿತ ಆ್ಯಪ್ ಮತ್ತು ಟೆಸ್ಟ್ ಕಿಟ್ ಬಳಸುತ್ತಿರಿ.",
         "for": "ಇದು ಯಾವುದಕ್ಕೆ:", "where": "ಎಲ್ಲಿ:", "how": "ಹೇಗೆ:", "why": "ಏಕೆ:", "care": "ಆರೈಕೆ:",
         "why_need": "ಇದು ಏಕೆ ಬೇಕು:",
-        "recommend": "ನಿಮಗೆ ನಮ್ಮ ಸಲಹೆ:",
+        "see_shop_how": "ಪ್ರತಿಯೊಂದನ್ನು ಹೇಗೆ ಬಳಸುವುದು ಎಂದು ಅಂಗಡಿ ಟ್ಯಾಬ್‌ನಲ್ಲಿ ನೋಡಿ.",
+        "one_sensor": "ಒಂದು ಸೆನ್ಸರ್ ಒಂದೇ ಕೊಳವನ್ನು ಗಮನಿಸುತ್ತದೆ. ಹಲವು ಕೊಳಗಳಿದ್ದರೆ, ಪ್ರತಿಯೊಂದಕ್ಕೂ ಬೇರೆ ಸೆನ್ಸರ್ ಬೇಕು.",
         "see_shop": "ಅಂಗಡಿ ಟ್ಯಾಬ್ ನೋಡಿ: {prices}.",
         "one_pond": "ಒಂದು ಸೆನ್ಸರ್ ಒಂದೇ ಕೊಳವನ್ನು ಗಮನಿಸುತ್ತದೆ.",
         "n_ponds": "{n} ಕೊಳಗಳಿಗೆ {n} ಸೆನ್ಸರ್‌ಗಳು ಬೇಕು, ಪ್ರತಿ ಕೊಳಕ್ಕೆ ಒಂದು.",
@@ -321,18 +323,16 @@ def answer(kind: str, question: str, evals: list[dict], weather: dict, alerts: l
                      f"{t['why_need']} {p['why'][lang]}"]
             ids = [p["id"]]
         elif kind == "buy":
-            # "Can I buy?": not yet; then every product (what it is for, where, how),
-            # and what this farmer should start with, and why (one line).
+            # "Can I buy?", kept short (about 500 characters): what to start with and
+            # why, one sensor per pond, one line per product, then "not for sale yet".
+            # The chat keeps line breaks, so each product gets its own line.
             p = PRODUCTS[rec["product"]]
             head = t["start"] if rec["product"] == "test-kit" else t["get"].format(name=p["name"][lang])
-            # Long, so one block per product, with a blank line between (the chat keeps line breaks).
-            blocks = [f"{t['not_for_sale']} {t['orders']}"]
-            blocks += [f"{q['name'][lang]} ({product_price(q, lang)}): {t['for']} {q['solves'][lang]} "
-                       f"{t['where']} {q['where'][lang]} {t['how']} {_steps(q, lang)}" for q in PRODUCTS.values()]
-            blocks.append(" ".join([f"{t['recommend']} {head}", f"{t['why']} {_sentence(rec['reasons'][lang])}"]
-                                   + _ponds_lines(rec, lang)))
-            blocks.append(t["see_shop"].format(prices=_prices(list(PRODUCTS), lang)))
-            out[lang] = "\n\n".join(blocks)
+            ponds = [t["n_ponds"].format(n=rec["ponds"])] if rec["ponds"] and rec["ponds"] > 1 else []
+            lines = [f"{head} {t['why']} {_sentence(rec['reasons'][lang])}", " ".join([t["one_sensor"]] + ponds)]
+            lines += [f"- {q['name'][lang]} ({product_price(q, lang)}): {q['short'][lang]}" for q in PRODUCTS.values()]
+            lines.append(f"{t['not_for_sale']} {t['see_shop_how']}")
+            out[lang] = "\n".join(lines)
             continue
         else:                                    # "recommend"
             lines = _recommendation(rec, lang)

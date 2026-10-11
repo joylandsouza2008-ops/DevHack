@@ -562,3 +562,33 @@ def test_page_has_the_ponds_sections():
     assert 'id="farm-code"' in more_page and 'id="farm-form"' in more_page
     ponds_js = (ROOT / "frontend" / "ponds.js").read_text(encoding="utf-8")
     assert '"X-Farm-Code": farmCode' in ponds_js and "?farm" not in ponds_js    # header, never the address
+
+
+# ----------------------------------------------------------------- Terms: how long pond data is kept
+
+FRONTEND = Path(__file__).resolve().parent.parent / "frontend"
+
+
+def test_storage_says_demo_mode_without_a_database():
+    # The tests use an in-memory database: the same as Render without DATABASE_URL.
+    assert client.get("/api/storage").json() == {"demo_mode": True, "keep_readings_hours": 48, "keep_alerts_days": 14}
+
+
+def test_storage_says_data_is_kept_with_a_database(tmp_path):
+    main._farm_store = ponds.FarmStore(db.sqlite_file(tmp_path / "farms.db"))
+    assert client.get("/api/storage").json()["demo_mode"] is False
+
+
+def test_terms_show_one_storage_line_chosen_by_the_server():
+    html = (FRONTEND / "index.html").read_text(encoding="utf-8")
+    app = (FRONTEND / "app.js").read_text(encoding="utf-8")
+    assert '<li data-i18n="termsKeep" id="terms-keep" hidden>' in html
+    assert '<li data-i18n="termsDemo" id="terms-demo" hidden>' in html
+    assert 'fetch("/api/storage")' in app
+    assert 'termsKeep: "Device readings are kept for 48 hours and alerts for 14 days."' in app
+    assert 'termsDemo: "Demo mode: data resets when the server sleeps."' in app
+    # The always-shown line no longer promises how long data is kept (that depends on the server).
+    for text in (html, app):
+        assert "device readings (for 48 hours)" not in text and "(48 ಗಂಟೆಗಳವರೆಗೆ)" not in text
+    # The promised times match the code that deletes old data.
+    assert ponds.KEEP_READINGS == timedelta(hours=48) and ponds.KEEP_ALERTS == timedelta(days=14)

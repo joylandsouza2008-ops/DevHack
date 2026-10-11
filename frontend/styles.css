@@ -14,6 +14,7 @@
 
   /* Brand palette (exact Realtime Colors values) */
   --background: #060351;      /* deep indigo */
+  --picture-bg: #060351;      /* behind always-dark pictures (wiring diagram), same in both themes */
   --text: #def0f8;
   --primary: #88cce6;         /* light pond blue: every action */
   --primary-pressed: #a8daee;
@@ -1270,6 +1271,16 @@ button { position: relative; isolation: isolate; overflow: hidden; }
 .link-button { display: inline-flex; align-items: center; justify-content: center; text-decoration: none; }
 .shop-intro { color: var(--text-secondary); }
 .shop-one-pond h2 { margin: 0 0 0.25rem; }
+/* Wiring diagram: its labels are light, so it sits on the deep indigo in both themes. */
+.shop-wiring { display: grid; gap: 0.75rem; }
+.shop-wiring h2 { margin: 0; }
+.shop-wiring-figure { margin: 0; display: grid; gap: 0.5rem; }
+.shop-wiring-figure img {
+  display: block; width: 100%; height: auto;
+  background: var(--picture-bg); border-radius: 12px; padding: 0.5rem; box-sizing: border-box;
+}
+.shop-wiring-open { color: var(--primary); justify-self: start; min-height: 44px; display: inline-flex; align-items: center; }
+.shop-wiring-figure figcaption { color: var(--text-secondary); font-size: 1rem; }
 
 /* Cart button in the page head: icon + word + count (never icon only). */
 .cart-button {

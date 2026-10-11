@@ -111,7 +111,7 @@ def test_assistant_uses_the_same_products_as_the_shop_page():
 
 def test_every_product_has_checked_content_for_the_assistant():
     for p in shop.PRODUCTS.values():
-        for field in ("name", "desc", "measures", "solves", "where", "why"):
+        for field in ("name", "desc", "short", "measures", "solves", "where", "why"):
             assert p[field]["en"] and KANNADA.search(p[field]["kn"]), (p["id"], field)
         assert 3 <= len(p["steps"]) <= 5, p["id"]
         assert p["care"], p["id"]
@@ -141,15 +141,21 @@ def test_can_i_buy_products(no_ai, lang):
     assert body["mode"] == "ready" and body["texts"]["en"] and KANNADA.search(body["texts"]["kn"])
     text = body["text"]
     assert text == body["texts"][lang]
-    assert NOT_FOR_SALE[lang] in text and SEE_SHOP[lang] in text and START[lang] in text
-    assert PARTS[lang][0] in text and PARTS[lang][3] in text              # what it is for, and why
-    for p in shop.PRODUCTS.values():                                     # every product and its estimated price
-        assert f"{p['name'][lang]} {shop.product_price(p, lang)}" in text
-        for field in ("solves", "where"):                                # what it is for, and where
-            assert p[field][lang] in text, (p["id"], field)
-        assert shop._steps(p, lang) in text, p["id"]                     # how to use it
-    assert shop.TEXT[lang]["recommend"] in text                          # and a recommendation
+    lines = text.split("\n")
+    assert lines[0].startswith(START[lang]) and PARTS[lang][3] in lines[0]   # recommendation and why, first
+    assert lines[1].startswith(shop.TEXT[lang]["one_sensor"])               # one sensor per pond
+    for p, line in zip(shop.PRODUCTS.values(), lines[2:]):                   # one line per product
+        assert line == f"- {p['name'][lang]} ({shop.product_price(p, lang)}): {p['short'][lang]}"
+    assert lines[-1] == f"{NOT_FOR_SALE[lang]} {shop.TEXT[lang]['see_shop_how']}"
+    assert len(lines) == 3 + len(shop.PRODUCTS)
+    assert len(body["texts"]["en"]) <= 700                                   # short: about 500-700 characters
     honest_and_safe(text)
+
+
+def test_can_i_buy_with_several_ponds_says_how_many_sensors():
+    text = shop.answer("buy", "Can I buy products? I have 3 ponds", [], CALM, [])["en"]
+    assert "One sensor watches one pond. For several ponds, each needs its own sensor. " \
+           "For 3 ponds you need 3 sensors, one in each pond." in text
 
 
 def test_full_pond_kit_price_is_a_range_in_both_languages():

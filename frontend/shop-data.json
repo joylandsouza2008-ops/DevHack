@@ -1,5 +1,5 @@
 {
-  "about": "AquaNexus Shop products: the ONE source for the Shop page (frontend/shop.js) and the assistant (backend/shop.py). Prices are estimated component costs in rupees, always shown as 'est. ₹X'. A product with price_max has a price range ('est. ₹X–Y'), and price_note says why. Nothing is for sale yet and no payment is taken.",
+  "about": "AquaNexus Shop products: the ONE source for the Shop page (frontend/shop.js) and the assistant (backend/shop.py). Prices are estimated component costs in rupees, always shown as 'est. ₹X'. 'short' is the one-line summary the assistant uses. A product with price_max has a price range ('est. ₹X–Y'), and price_note says why. Nothing is for sale yet and no payment is taken.",
   "products": [
     {
       "id": "test-kit",
@@ -12,6 +12,10 @@
       "desc": {
         "en": "Drops and a colour chart for a weekly check by hand.",
         "kn": "ವಾರಕ್ಕೊಮ್ಮೆ ಕೈಯಿಂದ ಪರೀಕ್ಷಿಸಲು ಹನಿಗಳು ಮತ್ತು ಬಣ್ಣದ ಚಾರ್ಟ್."
+      },
+      "short": {
+        "en": "weekly ammonia and pH check",
+        "kn": "ವಾರದ ಅಮೋನಿಯಾ ಮತ್ತು pH ಪರೀಕ್ಷೆ"
       },
       "measures": {
         "en": "Ammonia, pH",
@@ -69,6 +73,10 @@
       "desc": {
         "en": "Optical oxygen (DO) and temperature sensor, ESP32 board, 4G, solar panel, in a waterproof IP65 box.",
         "kn": "ಆಪ್ಟಿಕಲ್ ಆಮ್ಲಜನಕ (DO) ಮತ್ತು ತಾಪಮಾನ ಸೆನ್ಸರ್, ESP32 ಬೋರ್ಡ್, 4G, ಸೌರ ಫಲಕ, ನೀರು ನುಗ್ಗದ IP65 ಪೆಟ್ಟಿಗೆಯಲ್ಲಿ."
+      },
+      "short": {
+        "en": "warns of a night oxygen crash",
+        "kn": "ರಾತ್ರಿಯ ಆಮ್ಲಜನಕ ಕುಸಿತದ ಬಗ್ಗೆ ಎಚ್ಚರಿಸುತ್ತದೆ"
       },
       "measures": {
         "en": "Dissolved oxygen, water temperature",
@@ -136,6 +144,10 @@
         "en": "The Night-Watch kit plus an industrial pH probe with a signal isolator.",
         "kn": "ನೈಟ್-ವಾಚ್ ಕಿಟ್ ಜೊತೆಗೆ ಸಿಗ್ನಲ್ ಐಸೊಲೇಟರ್ ಇರುವ ಕೈಗಾರಿಕಾ pH ಪ್ರೋಬ್."
       },
+      "short": {
+        "en": "Night-Watch plus pH",
+        "kn": "ನೈಟ್-ವಾಚ್ ಜೊತೆಗೆ pH"
+      },
       "measures": {
         "en": "Dissolved oxygen, water temperature, pH",
         "kn": "ಕರಗಿದ ಆಮ್ಲಜನಕ, ನೀರಿನ ತಾಪಮಾನ, pH"
@@ -201,6 +213,10 @@
         "en": "Replacement cap for the optical oxygen sensor.",
         "kn": "ಆಪ್ಟಿಕಲ್ ಆಮ್ಲಜನಕ ಸೆನ್ಸರ್‌ಗೆ ಬದಲಿ ಕ್ಯಾಪ್."
       },
+      "short": {
+        "en": "keeps oxygen readings right",
+        "kn": "ಆಮ್ಲಜನಕ ಅಳತೆ ಸರಿಯಾಗಿರಲು"
+      },
       "measures": {
         "en": "Part of the oxygen sensor",
         "kn": "ಆಮ್ಲಜನಕ ಸೆನ್ಸರ್‌ನ ಭಾಗ"
@@ -249,6 +265,10 @@
       "desc": {
         "en": "Panel and charging board that keep the sensor box powered.",
         "kn": "ಸೆನ್ಸರ್ ಪೆಟ್ಟಿಗೆಗೆ ವಿದ್ಯುತ್ ನೀಡುವ ಫಲಕ ಮತ್ತು ಚಾರ್ಜಿಂಗ್ ಬೋರ್ಡ್."
+      },
+      "short": {
+        "en": "keeps the sensor box charged",
+        "kn": "ಸೆನ್ಸರ್ ಪೆಟ್ಟಿಗೆಯನ್ನು ಚಾರ್ಜ್ ಇಡುತ್ತದೆ"
       },
       "measures": {
         "en": "Power for the sensor box",
