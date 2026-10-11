@@ -86,6 +86,17 @@ COLUMNS = {"DO": "dissolved_oxygen", "TEMP": "temperature", "PH": "ph",
            "AMMONIA(mg/l)": "ammonia", "NITRATE(PPM)": "nitrate", "TURBIDITY": "turbidity"}
 
 
+def data_basis() -> str:
+    """
+    What the demo pond is built from, so the page can say it honestly:
+      "pondsdata": Pondsdata's daily levels (data/Ponds data.csv is here, e.g. a laptop)
+      "typical":   FALLBACK_LEVELS, our typical healthy values (the online demo: the
+                   dataset's licence is unknown, so it is not published)
+    Either way a simulated daily oxygen cycle is added: never real readings.
+    """
+    return "pondsdata" if DATA_FILE.exists() else "typical"
+
+
 def is_simulated(df: pd.DataFrame) -> bool:
     """True if a DataFrame (or any row in it) came from this simulator."""
     if df.attrs.get("source") == SIMULATED:

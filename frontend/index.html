@@ -244,7 +244,8 @@
       <!-- Always visible: everything below on this page comes from the simulator. -->
       <p class="simulated-banner" id="simulated-banner">
         <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm1 15h-2v-6h2v6Zm0-8h-2V7h2v2Z"/></svg>
-        <span><strong id="simulated-label">Simulated data</strong>. <span data-i18n="simulatedNote">Not a real pond. For demonstration only.</span></span>
+        <span><strong id="simulated-label">Simulated data</strong>. <span data-i18n="simulatedNote">Not a real pond. For demonstration only.</span>
+          <span id="sim-basis" data-i18n="simBasisTypical">Demo data from typical healthy pond values with a simulated day-night oxygen cycle. Not real readings.</span></span>
       </p>
 
       <section class="controls" aria-label="Demo controls">
@@ -751,7 +752,7 @@
       <ul class="sources-list">
           <li>
             <a href="https://www.kaggle.com/datasets/apgopi/pondsdata" target="_blank" rel="noopener">Pondsdata (Kaggle)</a>
-            <p><span data-i18n="sourcesPondsUse">Real sensor readings from 3 fish ponds in Andhra Pradesh (2022-23). Used to make the simulated demo pond and to test our oxygen predictions.</span></p>
+            <p><span id="sources-ponds-use" data-i18n="sourcesPondsUseOnline">Real sensor readings from 3 fish ponds in Andhra Pradesh (2022-23). We test our oxygen predictions on them. Their licence is unknown, so this online demo does not include them: its demo pond uses typical healthy values instead.</span></p>
             <p class="source-licence"><span data-i18n="sourcesPondsLicence">Licence: unknown (not stated by the uploader).</span></p>
           </li>
           <li>

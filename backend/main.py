@@ -56,7 +56,7 @@ from backend.alerts import POND_NAMES, compose_alert
 from backend.do_features import STEP_MINUTES
 from backend.health_score import health_score
 from backend.risk_classifier import classify
-from backend.simulator import SCENARIOS, SIMULATED, SIMULATED_LABEL, simulate_readings
+from backend.simulator import SCENARIOS, SIMULATED, SIMULATED_LABEL, data_basis, simulate_readings
 from backend.time_to_danger import estimate_time_to_danger
 from backend.weather import tonight_crash_risk
 
@@ -651,7 +651,7 @@ def _device_reading(reading: SensorReading, device_id: str, key: str | None):
 @app.get("/api/simulator/scenarios")
 def scenarios() -> dict:
     return {"scenarios": list(SCENARIOS), "stations": list(STATIONS),
-            "source": SIMULATED, "label": SIMULATED_LABEL}
+            "source": SIMULATED, "label": SIMULATED_LABEL, "basis": data_basis()}
 
 
 def _default_start(scenario: str) -> pd.Timestamp:

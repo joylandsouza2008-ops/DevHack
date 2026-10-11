@@ -8,7 +8,7 @@ coastal Karnataka to understand. Write any fix in the last column.
 - `A  /  B` means the app shows one of two versions, depending on the situation.
 - Unit symbols (mg/L, °C, km/h, pH) and the names SMS, WhatsApp, FAO, TNAU, Open-Meteo stay in English.
 
-640 strings. Generated from the code by `python tools/kannada_review.py`; re-run it after changing any text.
+643 strings. Generated from the code by `python tools/kannada_review.py`; re-run it after changing any text.
 
 ## 1. Language and theme switches
 
@@ -293,17 +293,18 @@ Shown over the day/night pond picture.
 | 1 | `app.js sourcesTitle` | Data sources | ಡೇಟಾ ಮೂಲಗಳು |  |
 | 2 | `app.js sourcesClose` | Close | ಮುಚ್ಚಿ |  |
 | 3 | `app.js sourcesIntro` | The simulated pond uses these open datasets and public services. Only the Live sensor card and the devices in My ponds show readings sent by a pond sensor. | ಅನುಕರಿಸಿದ ಕೊಳವು ಈ ಮುಕ್ತ ಡೇಟಾಸೆಟ್‌ಗಳು ಮತ್ತು ಸಾರ್ವಜನಿಕ ಸೇವೆಗಳನ್ನು ಬಳಸುತ್ತದೆ. ಕೊಳದ ಸೆನ್ಸರ್ ಕಳುಹಿಸಿದ ಅಳತೆಗಳನ್ನು ಲೈವ್ ಸೆನ್ಸರ್ ಕಾರ್ಡ್ ಮತ್ತು ನನ್ನ ಕೊಳಗಳು ವಿಭಾಗದ ಸಾಧನಗಳು ಮಾತ್ರ ತೋರಿಸುತ್ತವೆ. |  |
-| 4 | `app.js sourcesPondsUse` | Real sensor readings from 3 fish ponds in Andhra Pradesh (2022-23). Used to make the simulated demo pond and to test our oxygen predictions. | ಆಂಧ್ರಪ್ರದೇಶದ 3 ಮೀನು ಕೊಳಗಳ ನಿಜವಾದ ಸೆನ್ಸರ್ ಅಳತೆಗಳು (2022-23). ಅನುಕರಿಸಿದ (ಸಿಮ್ಯುಲೇಟೆಡ್) ಪ್ರದರ್ಶನ ಕೊಳವನ್ನು ಮಾಡಲು ಮತ್ತು ನಮ್ಮ ಆಮ್ಲಜನಕ ಮುನ್ಸೂಚನೆಗಳನ್ನು ಪರೀಕ್ಷಿಸಲು ಬಳಸಲಾಗಿದೆ. |  |
-| 5 | `app.js sourcesPondsLicence` | Licence: unknown (not stated by the uploader). | ಪರವಾನಗಿ: ತಿಳಿದಿಲ್ಲ (ಅಪ್‌ಲೋಡ್ ಮಾಡಿದವರು ತಿಳಿಸಿಲ್ಲ). |  |
-| 6 | `app.js sourcesMeteoUse` | Tonight's real weather forecast for Mangaluru, for the night oxygen-crash warning. | ರಾತ್ರಿ ಆಮ್ಲಜನಕ ಕುಸಿತದ ಎಚ್ಚರಿಕೆಗಾಗಿ ಮಂಗಳೂರಿನ ಇಂದು ರಾತ್ರಿಯ ನಿಜವಾದ ಹವಾಮಾನ ಮುನ್ಸೂಚನೆ. |  |
-| 7 | `app.js sourcesMeteoLicence` | Licence: data CC BY 4.0. Free API, non-commercial use only. | ಪರವಾನಗಿ: ಡೇಟಾ CC BY 4.0. ಉಚಿತ API, ವಾಣಿಜ್ಯೇತರ ಬಳಕೆಗೆ ಮಾತ್ರ. |  |
-| 8 | `app.js sourcesGuidesUse` | Published guides and research papers behind the Safe / Warning / Danger limits and the “What to do now” steps. | ಸುರಕ್ಷಿತ / ಎಚ್ಚರಿಕೆ / ಅಪಾಯ ಮಿತಿಗಳು ಮತ್ತು “ಈಗ ಏನು ಮಾಡಬೇಕು” ಹಂತಗಳಿಗೆ ಆಧಾರವಾದ ಪ್ರಕಟಿತ ಮಾರ್ಗದರ್ಶಿಗಳು ಮತ್ತು ಸಂಶೋಧನಾ ಲೇಖನಗಳು. |  |
-| 9 | `app.js sourcesGuidesLicence` | Copyright of each publisher. We cite their facts; we don't copy them. | ಹಕ್ಕುಸ್ವಾಮ್ಯ ಆಯಾ ಪ್ರಕಾಶಕರದು. ನಾವು ಅವುಗಳ ಮಾಹಿತಿಯನ್ನು ಉಲ್ಲೇಖಿಸುತ್ತೇವೆ, ನಕಲು ಮಾಡುವುದಿಲ್ಲ. |  |
-| 10 | `app.js sourcesMendeleyUse` | Checked but not used: some values are impossible (e.g. water at 84 °C). | ಪರಿಶೀಲಿಸಲಾಗಿದೆ, ಆದರೆ ಬಳಸಿಲ್ಲ: ಕೆಲವು ಮೌಲ್ಯಗಳು ಅಸಾಧ್ಯ (ಉದಾ: 84 °C ನೀರು). |  |
-| 11 | `app.js sourcesMendeleyLicence` | Licence: CC BY 4.0. | ಪರವಾನಗಿ: CC BY 4.0. |  |
-| 12 | `app.js sourcesFishUse` | Fish disease photos for research only. Not used in the app. | ಮೀನು ರೋಗದ ಫೋಟೋಗಳು, ಸಂಶೋಧನೆಗೆ ಮಾತ್ರ. ಆಪ್‌ನಲ್ಲಿ ಬಳಸಿಲ್ಲ. |  |
-| 13 | `app.js sourcesFishLicence` | Licence: CC0 (public domain). | ಪರವಾನಗಿ: CC0 (ಸಾರ್ವಜನಿಕ ಸ್ವತ್ತು). |  |
-| 14 | `app.js sourcesFull` | Full list with links and licences | ಲಿಂಕ್‌ಗಳು ಮತ್ತು ಪರವಾನಗಿಗಳ ಪೂರ್ಣ ಪಟ್ಟಿ |  |
+| 4 | `app.js sourcesPondsUse` | Real sensor readings from 3 fish ponds in Andhra Pradesh (2022-23). Their daily levels shape the simulated demo pond, and we test our oxygen predictions on them. | ಆಂಧ್ರಪ್ರದೇಶದ 3 ಮೀನು ಕೊಳಗಳ ನಿಜವಾದ ಸೆನ್ಸರ್ ಅಳತೆಗಳು (2022-23). ಅವುಗಳ ದೈನಂದಿನ ಮಟ್ಟಗಳಿಂದ ಅನುಕರಿಸಿದ (ಸಿಮ್ಯುಲೇಟೆಡ್) ಪ್ರದರ್ಶನ ಕೊಳವನ್ನು ಮಾಡಲಾಗಿದೆ, ಮತ್ತು ನಮ್ಮ ಆಮ್ಲಜನಕ ಮುನ್ಸೂಚನೆಗಳನ್ನು ಅವುಗಳ ಮೇಲೆ ಪರೀಕ್ಷಿಸಲಾಗಿದೆ. |  |
+| 5 | `app.js sourcesPondsUseOnline` | Real sensor readings from 3 fish ponds in Andhra Pradesh (2022-23). We test our oxygen predictions on them. Their licence is unknown, so this online demo does not include them: its demo pond uses typical healthy values instead. | ಆಂಧ್ರಪ್ರದೇಶದ 3 ಮೀನು ಕೊಳಗಳ ನಿಜವಾದ ಸೆನ್ಸರ್ ಅಳತೆಗಳು (2022-23). ನಮ್ಮ ಆಮ್ಲಜನಕ ಮುನ್ಸೂಚನೆಗಳನ್ನು ಅವುಗಳ ಮೇಲೆ ಪರೀಕ್ಷಿಸಲಾಗಿದೆ. ಅವುಗಳ ಪರವಾನಗಿ ತಿಳಿದಿಲ್ಲ, ಆದ್ದರಿಂದ ಈ ಆನ್‌ಲೈನ್ ಡೆಮೊದಲ್ಲಿ ಅವು ಇಲ್ಲ: ಇದರ ಪ್ರದರ್ಶನ ಕೊಳವು ಸಾಮಾನ್ಯ ಆರೋಗ್ಯಕರ ಮೌಲ್ಯಗಳನ್ನು ಬಳಸುತ್ತದೆ. |  |
+| 6 | `app.js sourcesPondsLicence` | Licence: unknown (not stated by the uploader). | ಪರವಾನಗಿ: ತಿಳಿದಿಲ್ಲ (ಅಪ್‌ಲೋಡ್ ಮಾಡಿದವರು ತಿಳಿಸಿಲ್ಲ). |  |
+| 7 | `app.js sourcesMeteoUse` | Tonight's real weather forecast for Mangaluru, for the night oxygen-crash warning. | ರಾತ್ರಿ ಆಮ್ಲಜನಕ ಕುಸಿತದ ಎಚ್ಚರಿಕೆಗಾಗಿ ಮಂಗಳೂರಿನ ಇಂದು ರಾತ್ರಿಯ ನಿಜವಾದ ಹವಾಮಾನ ಮುನ್ಸೂಚನೆ. |  |
+| 8 | `app.js sourcesMeteoLicence` | Licence: data CC BY 4.0. Free API, non-commercial use only. | ಪರವಾನಗಿ: ಡೇಟಾ CC BY 4.0. ಉಚಿತ API, ವಾಣಿಜ್ಯೇತರ ಬಳಕೆಗೆ ಮಾತ್ರ. |  |
+| 9 | `app.js sourcesGuidesUse` | Published guides and research papers behind the Safe / Warning / Danger limits and the “What to do now” steps. | ಸುರಕ್ಷಿತ / ಎಚ್ಚರಿಕೆ / ಅಪಾಯ ಮಿತಿಗಳು ಮತ್ತು “ಈಗ ಏನು ಮಾಡಬೇಕು” ಹಂತಗಳಿಗೆ ಆಧಾರವಾದ ಪ್ರಕಟಿತ ಮಾರ್ಗದರ್ಶಿಗಳು ಮತ್ತು ಸಂಶೋಧನಾ ಲೇಖನಗಳು. |  |
+| 10 | `app.js sourcesGuidesLicence` | Copyright of each publisher. We cite their facts; we don't copy them. | ಹಕ್ಕುಸ್ವಾಮ್ಯ ಆಯಾ ಪ್ರಕಾಶಕರದು. ನಾವು ಅವುಗಳ ಮಾಹಿತಿಯನ್ನು ಉಲ್ಲೇಖಿಸುತ್ತೇವೆ, ನಕಲು ಮಾಡುವುದಿಲ್ಲ. |  |
+| 11 | `app.js sourcesMendeleyUse` | Checked but not used: some values are impossible (e.g. water at 84 °C). | ಪರಿಶೀಲಿಸಲಾಗಿದೆ, ಆದರೆ ಬಳಸಿಲ್ಲ: ಕೆಲವು ಮೌಲ್ಯಗಳು ಅಸಾಧ್ಯ (ಉದಾ: 84 °C ನೀರು). |  |
+| 12 | `app.js sourcesMendeleyLicence` | Licence: CC BY 4.0. | ಪರವಾನಗಿ: CC BY 4.0. |  |
+| 13 | `app.js sourcesFishUse` | Fish disease photos for research only. Not used in the app. | ಮೀನು ರೋಗದ ಫೋಟೋಗಳು, ಸಂಶೋಧನೆಗೆ ಮಾತ್ರ. ಆಪ್‌ನಲ್ಲಿ ಬಳಸಿಲ್ಲ. |  |
+| 14 | `app.js sourcesFishLicence` | Licence: CC0 (public domain). | ಪರವಾನಗಿ: CC0 (ಸಾರ್ವಜನಿಕ ಸ್ವತ್ತು). |  |
+| 15 | `app.js sourcesFull` | Full list with links and licences | ಲಿಂಕ್‌ಗಳು ಮತ್ತು ಪರವಾನಗಿಗಳ ಪೂರ್ಣ ಪಟ್ಟಿ |  |
 
 ## 18. Terms & Privacy panel (footer)
 
@@ -347,99 +348,101 @@ Shown over the day/night pond picture.
 
 | # | Where in the code | English | Kannada | Correct? / suggestion |
 |---|---|---|---|---|
-| 1 | `app.js tabPond` | Pond | ಕೊಳ |  |
-| 2 | `app.js tabAlerts` | Alerts | ಎಚ್ಚರಿಕೆ |  |
-| 3 | `app.js tabWeather` | Weather | ಹವೆ |  |
-| 4 | `app.js tabDiseases` | Diseases | ರೋಗ |  |
-| 5 | `app.js tabAsk` | Ask | ಕೇಳಿ |  |
-| 6 | `app.js tabShop` | Shop | ಅಂಗಡಿ |  |
-| 7 | `app.js tabMore` | More | ಇತರೆ |  |
-| 8 | `app.js tabWeatherShort` | Sky | ಹವೆ |  |
-| 9 | `app.js tabDiseasesShort` | Fish | ರೋಗ |  |
-| 10 | `app.js titleWeather` | Weather | ಹವಾಮಾನ |  |
-| 11 | `app.js titleDiseases` | Fish diseases | ಮೀನು ರೋಗಗಳು |  |
-| 12 | `app.js titleMore` | More | ಇನ್ನಷ್ಟು |  |
-| 13 | `app.js demoPondTitle` | Demo pond | ಡೆಮೊ ಕೊಳ |  |
-| 14 | `app.js deviceOnline` | Device online | ಸಾಧನ ಆನ್‌ಲೈನ್ |  |
-| 15 | `app.js deviceOfflineSince` | Offline since {t} | {t} ರಿಂದ ಆಫ್‌ಲೈನ್ |  |
-| 16 | `app.js deviceWaiting` | Device connected. Waiting for the first reading. | ಸಾಧನ ಸಂಪರ್ಕಗೊಂಡಿದೆ. ಮೊದಲ ಅಳತೆಗಾಗಿ ಕಾಯಲಾಗುತ್ತಿದೆ. |  |
-| 17 | `app.js deviceNone` | No device | ಸಾಧನವಿಲ್ಲ |  |
-| 18 | `app.js deviceTitle` | Device | ಸಾಧನ |  |
-| 19 | `app.js deviceConnect` | Connect a device | ಸಾಧನ ಸಂಪರ್ಕಿಸಿ |  |
-| 20 | `app.js deviceNewKey` | New key | ಹೊಸ ಕೀ |  |
-| 21 | `app.js deviceRemove` | Remove device | ಸಾಧನ ತೆಗೆಯಿರಿ |  |
-| 22 | `app.js deviceRemoveConfirm` | Remove this device? It will stop sending readings to this pond. | ಈ ಸಾಧನವನ್ನು ತೆಗೆಯಬೇಕೇ? ಇದು ಈ ಕೊಳಕ್ಕೆ ಅಳತೆ ಕಳುಹಿಸುವುದನ್ನು ನಿಲ್ಲಿಸುತ್ತದೆ. |  |
-| 23 | `app.js deviceNewKeyConfirm` | Make a new key? The old key stops working at once. | ಹೊಸ ಕೀ ಮಾಡಬೇಕೇ? ಹಳೆಯ ಕೀ ತಕ್ಷಣ ಕೆಲಸ ನಿಲ್ಲಿಸುತ್ತದೆ. |  |
-| 24 | `app.js deviceKeyOnce` | Save this key now. It is shown only once. AquaNexus keeps only a scrambled copy (a hash). | ಈ ಕೀಯನ್ನು ಈಗಲೇ ಉಳಿಸಿ. ಇದನ್ನು ಒಮ್ಮೆ ಮಾತ್ರ ತೋರಿಸಲಾಗುತ್ತದೆ. AquaNexus ಅದರ ಗೂಢ ಪ್ರತಿಯನ್ನು (ಹ್ಯಾಶ್) ಮಾತ್ರ ಇಡುತ್ತದೆ. |  |
-| 25 | `app.js deviceIdLabel` | Device ID | ಸಾಧನದ ID |  |
-| 26 | `app.js deviceKeyLabel` | Device key | ಸಾಧನದ ಕೀ |  |
-| 27 | `app.js deviceUrlLabel` | Address | ವಿಳಾಸ |  |
-| 28 | `app.js copy` | Copy | ನಕಲಿಸಿ |  |
-| 29 | `app.js copied` | Copied | ನಕಲಾಗಿದೆ |  |
-| 30 | `app.js copyByHand` | Copy by hand | ಕೈಯಾರೆ ನಕಲಿಸಿ |  |
-| 31 | `app.js deviceSetupTitle` | Set up the device | ಸಾಧನವನ್ನು ಸಿದ್ಧಪಡಿಸಿ |  |
-| 32 | `app.js deviceKeyDone` | I have saved the key | ನಾನು ಕೀ ಉಳಿಸಿದ್ದೇನೆ |  |
-| 33 | `app.js deviceStep1` | Open the ESP32 sketch in docs/sensor-api.md. Put the device ID and key in it. | docs/sensor-api.md ನಲ್ಲಿರುವ ESP32 ಸ್ಕೆಚ್ ತೆರೆಯಿರಿ. ಅದರಲ್ಲಿ ಸಾಧನದ ID ಮತ್ತು ಕೀ ಹಾಕಿ. |  |
-| 34 | `app.js deviceStep2` | It sends each reading to POST {url} with the header X-Sensor-Key. | ಇದು ಪ್ರತಿ ಅಳತೆಯನ್ನು X-Sensor-Key ಹೆಡರ್ ಜೊತೆಗೆ POST {url} ಗೆ ಕಳುಹಿಸುತ್ತದೆ. |  |
-| 35 | `app.js deviceStep3` | At most one reading every {s} seconds. Leave out values the device does not measure. | {s} ಸೆಕೆಂಡಿಗೆ ಹೆಚ್ಚೆಂದರೆ ಒಂದು ಅಳತೆ. ಸಾಧನ ಅಳೆಯದ ಮೌಲ್ಯಗಳನ್ನು ಬಿಟ್ಟುಬಿಡಿ. |  |
-| 36 | `app.js deviceStep4` | Switch it on. The pond shows Device online when the first reading arrives. | ಸ್ವಿಚ್ ಆನ್ ಮಾಡಿ. ಮೊದಲ ಅಳತೆ ಬಂದಾಗ ಕೊಳ "ಸಾಧನ ಆನ್‌ಲೈನ್" ಎಂದು ತೋರಿಸುತ್ತದೆ. |  |
-| 37 | `app.js deviceLastRefused` | Last reading refused: | ಕೊನೆಯ ಅಳತೆ ತಿರಸ್ಕರಿಸಲಾಗಿದೆ: |  |
-| 38 | `app.js farmTitle` | My farm code | ನನ್ನ ಫಾರ್ಮ್ ಕೋಡ್ |  |
-| 39 | `app.js farmHelp` | This code keeps your ponds together. Type it on another phone to open the same ponds. No name, phone number or email is needed. | ಈ ಕೋಡ್ ನಿಮ್ಮ ಕೊಳಗಳನ್ನು ಒಟ್ಟಿಗೆ ಇಡುತ್ತದೆ. ಅದೇ ಕೊಳಗಳನ್ನು ತೆರೆಯಲು ಇನ್ನೊಂದು ಫೋನ್‌ನಲ್ಲಿ ಇದನ್ನು ಬರೆಯಿರಿ. ಹೆಸರು, ಫೋನ್ ಸಂಖ್ಯೆ ಅಥವಾ ಇಮೇಲ್ ಬೇಕಾಗಿಲ್ಲ. |  |
-| 40 | `app.js farmWarn` | Anyone with this code can see and change your ponds. Share it only with people you trust. | ಈ ಕೋಡ್ ಇರುವ ಯಾರಾದರೂ ನಿಮ್ಮ ಕೊಳಗಳನ್ನು ನೋಡಬಹುದು ಮತ್ತು ಬದಲಿಸಬಹುದು. ನೀವು ನಂಬುವವರೊಂದಿಗೆ ಮಾತ್ರ ಹಂಚಿಕೊಳ್ಳಿ. |  |
-| 41 | `app.js farmCopy` | Copy code | ಕೋಡ್ ನಕಲಿಸಿ |  |
-| 42 | `app.js farmNotSaved` | This browser is not saving the code. Write it down. | ಈ ಬ್ರೌಸರ್ ಕೋಡ್ ಉಳಿಸುತ್ತಿಲ್ಲ. ಅದನ್ನು ಬರೆದಿಟ್ಟುಕೊಳ್ಳಿ. |  |
-| 43 | `app.js farmUseLabel` | Code from another phone | ಇನ್ನೊಂದು ಫೋನ್‌ನ ಕೋಡ್ |  |
-| 44 | `app.js farmOpen` | Open these ponds | ಈ ಕೊಳಗಳನ್ನು ತೆರೆಯಿರಿ |  |
-| 45 | `app.js farmBad` | That is not a farm code. It has 12 letters and numbers, like K7QM-3XRP-9TFD. | ಇದು ಫಾರ್ಮ್ ಕೋಡ್ ಅಲ್ಲ. ಇದರಲ್ಲಿ K7QM-3XRP-9TFD ತರಹ 12 ಅಕ್ಷರ ಮತ್ತು ಅಂಕಿಗಳಿರುತ್ತವೆ. |  |
-| 46 | `app.js farmSwitchConfirm` | Open the ponds for this code? Write down your current code first if you want to come back to it. | ಈ ಕೋಡ್‌ನ ಕೊಳಗಳನ್ನು ತೆರೆಯಬೇಕೇ? ಹಿಂತಿರುಗಲು ಬಯಸಿದರೆ ಮೊದಲು ನಿಮ್ಮ ಈಗಿನ ಕೋಡ್ ಬರೆದಿಟ್ಟುಕೊಳ್ಳಿ. |  |
-| 47 | `app.js farmSwitched` | Now showing the ponds for {c}. | ಈಗ {c} ಕೋಡ್‌ನ ಕೊಳಗಳನ್ನು ತೋರಿಸಲಾಗುತ್ತಿದೆ. |  |
-| 48 | `app.js stripAllSafe` | All your ponds are safe | ನಿಮ್ಮ ಎಲ್ಲಾ ಕೊಳಗಳು ಸುರಕ್ಷಿತ |  |
-| 49 | `app.js titleShop` | Shop | ಅಂಗಡಿ |  |
-| 50 | `app.js shopIntro` | Sensors and spare parts that work with AquaNexus. Make a list and share it. | AquaNexus ಜೊತೆ ಕೆಲಸ ಮಾಡುವ ಸೆನ್ಸರ್‌ಗಳು ಮತ್ತು ಬಿಡಿಭಾಗಗಳು. ಪಟ್ಟಿ ಮಾಡಿ ಹಂಚಿಕೊಳ್ಳಿ. |  |
-| 51 | `app.js shopNotForSale` | Not for sale yet. Orders open after our pilot with farmers. | ಇನ್ನೂ ಮಾರಾಟಕ್ಕಿಲ್ಲ. ರೈತರೊಂದಿಗಿನ ನಮ್ಮ ಪ್ರಾಯೋಗಿಕ ಯೋಜನೆಯ ನಂತರ ಆರ್ಡರ್‌ಗಳು ಆರಂಭವಾಗುತ್ತವೆ. |  |
-| 52 | `app.js shopOnePondTitle` | Before you buy | ಖರೀದಿಸುವ ಮೊದಲು |  |
-| 53 | `app.js shopOnePond` | One sensor watches one pond. For several ponds, each needs its own sensor. Start with the free app and the test kit. | ಒಂದು ಸೆನ್ಸರ್ ಒಂದೇ ಕೊಳವನ್ನು ಗಮನಿಸುತ್ತದೆ. ಹಲವು ಕೊಳಗಳಿದ್ದರೆ, ಪ್ರತಿಯೊಂದಕ್ಕೂ ಬೇರೆ ಸೆನ್ಸರ್ ಬೇಕು. ಉಚಿತ ಆ್ಯಪ್ ಮತ್ತು ಟೆಸ್ಟ್ ಕಿಟ್‌ನಿಂದ ಪ್ರಾರಂಭಿಸಿ. |  |
-| 54 | `app.js shopPriceNote` | Estimated component cost. Prices may change. | ಅಂದಾಜು ಬಿಡಿಭಾಗಗಳ ವೆಚ್ಚ. ಬೆಲೆಗಳು ಬದಲಾಗಬಹುದು. |  |
-| 55 | `app.js shopWiringTitle` | How the kit is wired | ಕಿಟ್‌ನ ವೈರಿಂಗ್ ಹೇಗಿದೆ |  |
-| 56 | `app.js shopWiringOpen` | Open the diagram full size | ಚಿತ್ರವನ್ನು ಪೂರ್ಣ ಗಾತ್ರದಲ್ಲಿ ತೆರೆಯಿರಿ |  |
-| 57 | `app.js shopWiringProposed` | Proposed design, not yet built | ಪ್ರಸ್ತಾವಿತ ವಿನ್ಯಾಸ, ಇನ್ನೂ ನಿರ್ಮಿಸಿಲ್ಲ |  |
-| 58 | `app.js shopWiringCaption` | Solar power, battery, ESP32 board, 4G modem and the oxygen, temperature and pH sensors. Part names are in English. | ಸೌರ ವಿದ್ಯುತ್, ಬ್ಯಾಟರಿ, ESP32 ಬೋರ್ಡ್, 4G ಮೋಡೆಮ್ ಮತ್ತು ಆಮ್ಲಜನಕ, ತಾಪಮಾನ, pH ಸೆನ್ಸರ್‌ಗಳು. ಭಾಗಗಳ ಹೆಸರುಗಳು ಇಂಗ್ಲಿಷ್‌ನಲ್ಲಿವೆ. |  |
-| 59 | `app.js shopWiringAlt` | Wiring diagram. A 10 W solar panel charges an 18650 battery pack through a CN3791 charger. The pack powers the ESP32 board (through a 3.3 V regulator), a switched 12 V supply for the oxygen probe, and an A7670C 4G modem. The ESP32 reads the optical oxygen probe over isolated RS485, a DS18B20 temperature sensor, and the pH probe through an isolator and an ADS1115 converter. | ವೈರಿಂಗ್ ಚಿತ್ರ. 10 W ಸೌರ ಫಲಕವು CN3791 ಚಾರ್ಜರ್ ಮೂಲಕ 18650 ಬ್ಯಾಟರಿ ಪ್ಯಾಕ್ ಅನ್ನು ಚಾರ್ಜ್ ಮಾಡುತ್ತದೆ. ಬ್ಯಾಟರಿಯು ESP32 ಬೋರ್ಡ್ (3.3 V ರೆಗ್ಯುಲೇಟರ್ ಮೂಲಕ), ಆಮ್ಲಜನಕ ಪ್ರೋಬ್‌ಗೆ 12 V ಮತ್ತು A7670C 4G ಮೋಡೆಮ್‌ಗೆ ವಿದ್ಯುತ್ ನೀಡುತ್ತದೆ. ESP32 ಆಮ್ಲಜನಕ ಪ್ರೋಬ್, DS18B20 ತಾಪಮಾನ ಸೆನ್ಸರ್ ಮತ್ತು pH ಪ್ರೋಬ್‌ನ ಅಳತೆಗಳನ್ನು ಓದುತ್ತದೆ. |  |
-| 60 | `app.js shopLoadFailed` | Could not load the products. Check your internet and reload the page. | ವಸ್ತುಗಳ ಪಟ್ಟಿ ತೆರೆಯಲು ಆಗಲಿಲ್ಲ. ಇಂಟರ್ನೆಟ್ ಪರಿಶೀಲಿಸಿ, ಪುಟವನ್ನು ಮತ್ತೆ ತೆರೆಯಿರಿ. |  |
-| 61 | `app.js shopMeasures` | What it measures | ಏನನ್ನು ಅಳೆಯುತ್ತದೆ |  |
-| 62 | `app.js shopWhy` | Why you need it | ಇದು ಏಕೆ ಬೇಕು |  |
-| 63 | `app.js shopAdd` | Add to cart | ಕಾರ್ಟ್‌ಗೆ ಸೇರಿಸಿ |  |
-| 64 | `app.js shopAdded` | Added to cart: | ಕಾರ್ಟ್‌ಗೆ ಸೇರಿಸಲಾಗಿದೆ: |  |
-| 65 | `app.js estWord` | est. | ಅಂದಾಜು |  |
-| 66 | `app.js cartTitle` | Cart | ಕಾರ್ಟ್ |  |
-| 67 | `app.js cartAria` | Cart: {n} items | ಕಾರ್ಟ್: {n} ವಸ್ತುಗಳು |  |
-| 68 | `app.js cartEmpty` | Your cart is empty. Add items from the Shop. | ನಿಮ್ಮ ಕಾರ್ಟ್ ಖಾಲಿಯಾಗಿದೆ. ಅಂಗಡಿಯಿಂದ ವಸ್ತುಗಳನ್ನು ಸೇರಿಸಿ. |  |
-| 69 | `app.js cartTotal` | Estimated total | ಅಂದಾಜು ಒಟ್ಟು |  |
-| 70 | `app.js cartRemove` | Remove | ತೆಗೆಯಿರಿ |  |
-| 71 | `app.js cartLess` | One less | ಒಂದು ಕಡಿಮೆ |  |
-| 72 | `app.js cartMore` | One more | ಒಂದು ಹೆಚ್ಚು |  |
-| 73 | `app.js cartQty` | Quantity | ಪ್ರಮಾಣ |  |
-| 74 | `app.js cartCheckout` | Checkout | ಚೆಕ್‌ಔಟ್ |  |
-| 75 | `app.js cartClear` | Clear cart | ಕಾರ್ಟ್ ಖಾಲಿ ಮಾಡಿ |  |
-| 76 | `app.js cartCleared` | Cart cleared. | ಕಾರ್ಟ್ ಖಾಲಿ ಮಾಡಲಾಗಿದೆ. |  |
-| 77 | `app.js cartMemory` | This browser is not saving the cart. It is kept only until you close the page. | ಈ ಬ್ರೌಸರ್ ಕಾರ್ಟ್ ಅನ್ನು ಉಳಿಸುತ್ತಿಲ್ಲ. ಪುಟ ಮುಚ್ಚುವವರೆಗೆ ಮಾತ್ರ ಇರುತ್ತದೆ. |  |
-| 78 | `app.js checkoutTitle` | Checkout | ಚೆಕ್‌ಔಟ್ |  |
-| 79 | `app.js checkoutSoon` | Coming soon. Orders open after our pilot with farmers. No payment is taken and no details are collected. | ಶೀಘ್ರದಲ್ಲೇ ಬರಲಿದೆ. ರೈತರೊಂದಿಗಿನ ನಮ್ಮ ಪ್ರಾಯೋಗಿಕ ಯೋಜನೆಯ ನಂತರ ಆರ್ಡರ್‌ಗಳು ಆರಂಭವಾಗುತ್ತವೆ. ಯಾವುದೇ ಹಣ ಪಡೆಯುವುದಿಲ್ಲ ಮತ್ತು ಯಾವುದೇ ವಿವರಗಳನ್ನು ಸಂಗ್ರಹಿಸುವುದಿಲ್ಲ. |  |
-| 80 | `app.js checkoutShare` | Copy your list to share it with your cooperative. | ನಿಮ್ಮ ಸಹಕಾರ ಸಂಘದೊಂದಿಗೆ ಹಂಚಿಕೊಳ್ಳಲು ಪಟ್ಟಿಯನ್ನು ನಕಲಿಸಿ. |  |
-| 81 | `app.js copyList` | Copy my list | ನನ್ನ ಪಟ್ಟಿ ನಕಲಿಸಿ |  |
-| 82 | `app.js checkoutBack` | Back to cart | ಕಾರ್ಟ್‌ಗೆ ಹಿಂತಿರುಗಿ |  |
-| 83 | `app.js copyDone` | List copied. You can paste it into WhatsApp or SMS. | ಪಟ್ಟಿ ನಕಲಾಗಿದೆ. WhatsApp ಅಥವಾ SMS ನಲ್ಲಿ ಅಂಟಿಸಬಹುದು. |  |
-| 84 | `app.js copyFailed` | Could not copy. Select the list above and copy it by hand. | ನಕಲಿಸಲು ಆಗಲಿಲ್ಲ. ಮೇಲಿನ ಪಟ್ಟಿಯನ್ನು ಆಯ್ಕೆಮಾಡಿ ಕೈಯಾರೆ ನಕಲಿಸಿ. |  |
-| 85 | `app.js copyHeading` | AquaNexus: my list (estimated prices, not an order) | AquaNexus: ನನ್ನ ಪಟ್ಟಿ (ಅಂದಾಜು ಬೆಲೆಗಳು, ಆರ್ಡರ್ ಅಲ್ಲ) |  |
-| 86 | `app.js stripDangerIn` | Danger in {d} | ಅಪಾಯಕ್ಕೆ ಉಳಿದ ಸಮಯ: {d} |  |
-| 87 | `app.js stripNoDanger` | No danger expected | ಅಪಾಯದ ನಿರೀಕ್ಷೆ ಇಲ್ಲ |  |
-| 88 | `app.js stripActNow` | Act now: tap to see | ಈಗಲೇ ಕ್ರಮ ಕೈಗೊಳ್ಳಿ: ನೋಡಲು ಒತ್ತಿ |  |
-| 89 | `app.js stripAttention` | Needs attention: tap to see | ಗಮನ ಕೊಡಿ: ನೋಡಲು ಒತ್ತಿ |  |
-| 90 | `app.js settingsTitle` | Settings | ಸೆಟ್ಟಿಂಗ್‌ಗಳು |  |
-| 91 | `app.js settingsLanguage` | Language | ಭಾಷೆ |  |
-| 92 | `app.js settingsTheme` | Colours | ಬಣ್ಣಗಳು |  |
-| 93 | `app.js aboutTitle` | About this app | ಈ ಆ್ಯಪ್ ಬಗ್ಗೆ |  |
+| 1 | `app.js simBasisPondsdata` | Demo data modelled on Pondsdata: its daily levels with a simulated day-night oxygen cycle. Not real readings. | Pondsdata ಆಧಾರಿತ ಡೆಮೊ ಡೇಟಾ: ಅದರ ದೈನಂದಿನ ಮಟ್ಟಗಳು ಮತ್ತು ಅನುಕರಿಸಿದ ಹಗಲು-ರಾತ್ರಿ ಆಮ್ಲಜನಕ ಚಕ್ರ. ನಿಜವಾದ ಅಳತೆಗಳಲ್ಲ. |  |
+| 2 | `app.js simBasisTypical` | Demo data from typical healthy pond values with a simulated day-night oxygen cycle. Not real readings. | ಸಾಮಾನ್ಯ ಆರೋಗ್ಯಕರ ಕೊಳದ ಮೌಲ್ಯಗಳು ಮತ್ತು ಅನುಕರಿಸಿದ ಹಗಲು-ರಾತ್ರಿ ಆಮ್ಲಜನಕ ಚಕ್ರದಿಂದ ಮಾಡಿದ ಡೆಮೊ ಡೇಟಾ. ನಿಜವಾದ ಅಳತೆಗಳಲ್ಲ. |  |
+| 3 | `app.js tabPond` | Pond | ಕೊಳ |  |
+| 4 | `app.js tabAlerts` | Alerts | ಎಚ್ಚರಿಕೆ |  |
+| 5 | `app.js tabWeather` | Weather | ಹವೆ |  |
+| 6 | `app.js tabDiseases` | Diseases | ರೋಗ |  |
+| 7 | `app.js tabAsk` | Ask | ಕೇಳಿ |  |
+| 8 | `app.js tabShop` | Shop | ಅಂಗಡಿ |  |
+| 9 | `app.js tabMore` | More | ಇತರೆ |  |
+| 10 | `app.js tabWeatherShort` | Sky | ಹವೆ |  |
+| 11 | `app.js tabDiseasesShort` | Fish | ರೋಗ |  |
+| 12 | `app.js titleWeather` | Weather | ಹವಾಮಾನ |  |
+| 13 | `app.js titleDiseases` | Fish diseases | ಮೀನು ರೋಗಗಳು |  |
+| 14 | `app.js titleMore` | More | ಇನ್ನಷ್ಟು |  |
+| 15 | `app.js demoPondTitle` | Demo pond | ಡೆಮೊ ಕೊಳ |  |
+| 16 | `app.js deviceOnline` | Device online | ಸಾಧನ ಆನ್‌ಲೈನ್ |  |
+| 17 | `app.js deviceOfflineSince` | Offline since {t} | {t} ರಿಂದ ಆಫ್‌ಲೈನ್ |  |
+| 18 | `app.js deviceWaiting` | Device connected. Waiting for the first reading. | ಸಾಧನ ಸಂಪರ್ಕಗೊಂಡಿದೆ. ಮೊದಲ ಅಳತೆಗಾಗಿ ಕಾಯಲಾಗುತ್ತಿದೆ. |  |
+| 19 | `app.js deviceNone` | No device | ಸಾಧನವಿಲ್ಲ |  |
+| 20 | `app.js deviceTitle` | Device | ಸಾಧನ |  |
+| 21 | `app.js deviceConnect` | Connect a device | ಸಾಧನ ಸಂಪರ್ಕಿಸಿ |  |
+| 22 | `app.js deviceNewKey` | New key | ಹೊಸ ಕೀ |  |
+| 23 | `app.js deviceRemove` | Remove device | ಸಾಧನ ತೆಗೆಯಿರಿ |  |
+| 24 | `app.js deviceRemoveConfirm` | Remove this device? It will stop sending readings to this pond. | ಈ ಸಾಧನವನ್ನು ತೆಗೆಯಬೇಕೇ? ಇದು ಈ ಕೊಳಕ್ಕೆ ಅಳತೆ ಕಳುಹಿಸುವುದನ್ನು ನಿಲ್ಲಿಸುತ್ತದೆ. |  |
+| 25 | `app.js deviceNewKeyConfirm` | Make a new key? The old key stops working at once. | ಹೊಸ ಕೀ ಮಾಡಬೇಕೇ? ಹಳೆಯ ಕೀ ತಕ್ಷಣ ಕೆಲಸ ನಿಲ್ಲಿಸುತ್ತದೆ. |  |
+| 26 | `app.js deviceKeyOnce` | Save this key now. It is shown only once. AquaNexus keeps only a scrambled copy (a hash). | ಈ ಕೀಯನ್ನು ಈಗಲೇ ಉಳಿಸಿ. ಇದನ್ನು ಒಮ್ಮೆ ಮಾತ್ರ ತೋರಿಸಲಾಗುತ್ತದೆ. AquaNexus ಅದರ ಗೂಢ ಪ್ರತಿಯನ್ನು (ಹ್ಯಾಶ್) ಮಾತ್ರ ಇಡುತ್ತದೆ. |  |
+| 27 | `app.js deviceIdLabel` | Device ID | ಸಾಧನದ ID |  |
+| 28 | `app.js deviceKeyLabel` | Device key | ಸಾಧನದ ಕೀ |  |
+| 29 | `app.js deviceUrlLabel` | Address | ವಿಳಾಸ |  |
+| 30 | `app.js copy` | Copy | ನಕಲಿಸಿ |  |
+| 31 | `app.js copied` | Copied | ನಕಲಾಗಿದೆ |  |
+| 32 | `app.js copyByHand` | Copy by hand | ಕೈಯಾರೆ ನಕಲಿಸಿ |  |
+| 33 | `app.js deviceSetupTitle` | Set up the device | ಸಾಧನವನ್ನು ಸಿದ್ಧಪಡಿಸಿ |  |
+| 34 | `app.js deviceKeyDone` | I have saved the key | ನಾನು ಕೀ ಉಳಿಸಿದ್ದೇನೆ |  |
+| 35 | `app.js deviceStep1` | Open the ESP32 sketch in docs/sensor-api.md. Put the device ID and key in it. | docs/sensor-api.md ನಲ್ಲಿರುವ ESP32 ಸ್ಕೆಚ್ ತೆರೆಯಿರಿ. ಅದರಲ್ಲಿ ಸಾಧನದ ID ಮತ್ತು ಕೀ ಹಾಕಿ. |  |
+| 36 | `app.js deviceStep2` | It sends each reading to POST {url} with the header X-Sensor-Key. | ಇದು ಪ್ರತಿ ಅಳತೆಯನ್ನು X-Sensor-Key ಹೆಡರ್ ಜೊತೆಗೆ POST {url} ಗೆ ಕಳುಹಿಸುತ್ತದೆ. |  |
+| 37 | `app.js deviceStep3` | At most one reading every {s} seconds. Leave out values the device does not measure. | {s} ಸೆಕೆಂಡಿಗೆ ಹೆಚ್ಚೆಂದರೆ ಒಂದು ಅಳತೆ. ಸಾಧನ ಅಳೆಯದ ಮೌಲ್ಯಗಳನ್ನು ಬಿಟ್ಟುಬಿಡಿ. |  |
+| 38 | `app.js deviceStep4` | Switch it on. The pond shows Device online when the first reading arrives. | ಸ್ವಿಚ್ ಆನ್ ಮಾಡಿ. ಮೊದಲ ಅಳತೆ ಬಂದಾಗ ಕೊಳ "ಸಾಧನ ಆನ್‌ಲೈನ್" ಎಂದು ತೋರಿಸುತ್ತದೆ. |  |
+| 39 | `app.js deviceLastRefused` | Last reading refused: | ಕೊನೆಯ ಅಳತೆ ತಿರಸ್ಕರಿಸಲಾಗಿದೆ: |  |
+| 40 | `app.js farmTitle` | My farm code | ನನ್ನ ಫಾರ್ಮ್ ಕೋಡ್ |  |
+| 41 | `app.js farmHelp` | This code keeps your ponds together. Type it on another phone to open the same ponds. No name, phone number or email is needed. | ಈ ಕೋಡ್ ನಿಮ್ಮ ಕೊಳಗಳನ್ನು ಒಟ್ಟಿಗೆ ಇಡುತ್ತದೆ. ಅದೇ ಕೊಳಗಳನ್ನು ತೆರೆಯಲು ಇನ್ನೊಂದು ಫೋನ್‌ನಲ್ಲಿ ಇದನ್ನು ಬರೆಯಿರಿ. ಹೆಸರು, ಫೋನ್ ಸಂಖ್ಯೆ ಅಥವಾ ಇಮೇಲ್ ಬೇಕಾಗಿಲ್ಲ. |  |
+| 42 | `app.js farmWarn` | Anyone with this code can see and change your ponds. Share it only with people you trust. | ಈ ಕೋಡ್ ಇರುವ ಯಾರಾದರೂ ನಿಮ್ಮ ಕೊಳಗಳನ್ನು ನೋಡಬಹುದು ಮತ್ತು ಬದಲಿಸಬಹುದು. ನೀವು ನಂಬುವವರೊಂದಿಗೆ ಮಾತ್ರ ಹಂಚಿಕೊಳ್ಳಿ. |  |
+| 43 | `app.js farmCopy` | Copy code | ಕೋಡ್ ನಕಲಿಸಿ |  |
+| 44 | `app.js farmNotSaved` | This browser is not saving the code. Write it down. | ಈ ಬ್ರೌಸರ್ ಕೋಡ್ ಉಳಿಸುತ್ತಿಲ್ಲ. ಅದನ್ನು ಬರೆದಿಟ್ಟುಕೊಳ್ಳಿ. |  |
+| 45 | `app.js farmUseLabel` | Code from another phone | ಇನ್ನೊಂದು ಫೋನ್‌ನ ಕೋಡ್ |  |
+| 46 | `app.js farmOpen` | Open these ponds | ಈ ಕೊಳಗಳನ್ನು ತೆರೆಯಿರಿ |  |
+| 47 | `app.js farmBad` | That is not a farm code. It has 12 letters and numbers, like K7QM-3XRP-9TFD. | ಇದು ಫಾರ್ಮ್ ಕೋಡ್ ಅಲ್ಲ. ಇದರಲ್ಲಿ K7QM-3XRP-9TFD ತರಹ 12 ಅಕ್ಷರ ಮತ್ತು ಅಂಕಿಗಳಿರುತ್ತವೆ. |  |
+| 48 | `app.js farmSwitchConfirm` | Open the ponds for this code? Write down your current code first if you want to come back to it. | ಈ ಕೋಡ್‌ನ ಕೊಳಗಳನ್ನು ತೆರೆಯಬೇಕೇ? ಹಿಂತಿರುಗಲು ಬಯಸಿದರೆ ಮೊದಲು ನಿಮ್ಮ ಈಗಿನ ಕೋಡ್ ಬರೆದಿಟ್ಟುಕೊಳ್ಳಿ. |  |
+| 49 | `app.js farmSwitched` | Now showing the ponds for {c}. | ಈಗ {c} ಕೋಡ್‌ನ ಕೊಳಗಳನ್ನು ತೋರಿಸಲಾಗುತ್ತಿದೆ. |  |
+| 50 | `app.js stripAllSafe` | All your ponds are safe | ನಿಮ್ಮ ಎಲ್ಲಾ ಕೊಳಗಳು ಸುರಕ್ಷಿತ |  |
+| 51 | `app.js titleShop` | Shop | ಅಂಗಡಿ |  |
+| 52 | `app.js shopIntro` | Sensors and spare parts that work with AquaNexus. Make a list and share it. | AquaNexus ಜೊತೆ ಕೆಲಸ ಮಾಡುವ ಸೆನ್ಸರ್‌ಗಳು ಮತ್ತು ಬಿಡಿಭಾಗಗಳು. ಪಟ್ಟಿ ಮಾಡಿ ಹಂಚಿಕೊಳ್ಳಿ. |  |
+| 53 | `app.js shopNotForSale` | Not for sale yet. Orders open after our pilot with farmers. | ಇನ್ನೂ ಮಾರಾಟಕ್ಕಿಲ್ಲ. ರೈತರೊಂದಿಗಿನ ನಮ್ಮ ಪ್ರಾಯೋಗಿಕ ಯೋಜನೆಯ ನಂತರ ಆರ್ಡರ್‌ಗಳು ಆರಂಭವಾಗುತ್ತವೆ. |  |
+| 54 | `app.js shopOnePondTitle` | Before you buy | ಖರೀದಿಸುವ ಮೊದಲು |  |
+| 55 | `app.js shopOnePond` | One sensor watches one pond. For several ponds, each needs its own sensor. Start with the free app and the test kit. | ಒಂದು ಸೆನ್ಸರ್ ಒಂದೇ ಕೊಳವನ್ನು ಗಮನಿಸುತ್ತದೆ. ಹಲವು ಕೊಳಗಳಿದ್ದರೆ, ಪ್ರತಿಯೊಂದಕ್ಕೂ ಬೇರೆ ಸೆನ್ಸರ್ ಬೇಕು. ಉಚಿತ ಆ್ಯಪ್ ಮತ್ತು ಟೆಸ್ಟ್ ಕಿಟ್‌ನಿಂದ ಪ್ರಾರಂಭಿಸಿ. |  |
+| 56 | `app.js shopPriceNote` | Estimated component cost. Prices may change. | ಅಂದಾಜು ಬಿಡಿಭಾಗಗಳ ವೆಚ್ಚ. ಬೆಲೆಗಳು ಬದಲಾಗಬಹುದು. |  |
+| 57 | `app.js shopWiringTitle` | How the kit is wired | ಕಿಟ್‌ನ ವೈರಿಂಗ್ ಹೇಗಿದೆ |  |
+| 58 | `app.js shopWiringOpen` | Open the diagram full size | ಚಿತ್ರವನ್ನು ಪೂರ್ಣ ಗಾತ್ರದಲ್ಲಿ ತೆರೆಯಿರಿ |  |
+| 59 | `app.js shopWiringProposed` | Proposed design, not yet built | ಪ್ರಸ್ತಾವಿತ ವಿನ್ಯಾಸ, ಇನ್ನೂ ನಿರ್ಮಿಸಿಲ್ಲ |  |
+| 60 | `app.js shopWiringCaption` | Solar power, battery, ESP32 board, 4G modem and the oxygen, temperature and pH sensors. Part names are in English. | ಸೌರ ವಿದ್ಯುತ್, ಬ್ಯಾಟರಿ, ESP32 ಬೋರ್ಡ್, 4G ಮೋಡೆಮ್ ಮತ್ತು ಆಮ್ಲಜನಕ, ತಾಪಮಾನ, pH ಸೆನ್ಸರ್‌ಗಳು. ಭಾಗಗಳ ಹೆಸರುಗಳು ಇಂಗ್ಲಿಷ್‌ನಲ್ಲಿವೆ. |  |
+| 61 | `app.js shopWiringAlt` | Wiring diagram. A 10 W solar panel charges an 18650 battery pack through a CN3791 charger. The pack powers the ESP32 board (through a 3.3 V regulator), a switched 12 V supply for the oxygen probe, and an A7670C 4G modem. The ESP32 reads the optical oxygen probe over isolated RS485, a DS18B20 temperature sensor, and the pH probe through an isolator and an ADS1115 converter. | ವೈರಿಂಗ್ ಚಿತ್ರ. 10 W ಸೌರ ಫಲಕವು CN3791 ಚಾರ್ಜರ್ ಮೂಲಕ 18650 ಬ್ಯಾಟರಿ ಪ್ಯಾಕ್ ಅನ್ನು ಚಾರ್ಜ್ ಮಾಡುತ್ತದೆ. ಬ್ಯಾಟರಿಯು ESP32 ಬೋರ್ಡ್ (3.3 V ರೆಗ್ಯುಲೇಟರ್ ಮೂಲಕ), ಆಮ್ಲಜನಕ ಪ್ರೋಬ್‌ಗೆ 12 V ಮತ್ತು A7670C 4G ಮೋಡೆಮ್‌ಗೆ ವಿದ್ಯುತ್ ನೀಡುತ್ತದೆ. ESP32 ಆಮ್ಲಜನಕ ಪ್ರೋಬ್, DS18B20 ತಾಪಮಾನ ಸೆನ್ಸರ್ ಮತ್ತು pH ಪ್ರೋಬ್‌ನ ಅಳತೆಗಳನ್ನು ಓದುತ್ತದೆ. |  |
+| 62 | `app.js shopLoadFailed` | Could not load the products. Check your internet and reload the page. | ವಸ್ತುಗಳ ಪಟ್ಟಿ ತೆರೆಯಲು ಆಗಲಿಲ್ಲ. ಇಂಟರ್ನೆಟ್ ಪರಿಶೀಲಿಸಿ, ಪುಟವನ್ನು ಮತ್ತೆ ತೆರೆಯಿರಿ. |  |
+| 63 | `app.js shopMeasures` | What it measures | ಏನನ್ನು ಅಳೆಯುತ್ತದೆ |  |
+| 64 | `app.js shopWhy` | Why you need it | ಇದು ಏಕೆ ಬೇಕು |  |
+| 65 | `app.js shopAdd` | Add to cart | ಕಾರ್ಟ್‌ಗೆ ಸೇರಿಸಿ |  |
+| 66 | `app.js shopAdded` | Added to cart: | ಕಾರ್ಟ್‌ಗೆ ಸೇರಿಸಲಾಗಿದೆ: |  |
+| 67 | `app.js estWord` | est. | ಅಂದಾಜು |  |
+| 68 | `app.js cartTitle` | Cart | ಕಾರ್ಟ್ |  |
+| 69 | `app.js cartAria` | Cart: {n} items | ಕಾರ್ಟ್: {n} ವಸ್ತುಗಳು |  |
+| 70 | `app.js cartEmpty` | Your cart is empty. Add items from the Shop. | ನಿಮ್ಮ ಕಾರ್ಟ್ ಖಾಲಿಯಾಗಿದೆ. ಅಂಗಡಿಯಿಂದ ವಸ್ತುಗಳನ್ನು ಸೇರಿಸಿ. |  |
+| 71 | `app.js cartTotal` | Estimated total | ಅಂದಾಜು ಒಟ್ಟು |  |
+| 72 | `app.js cartRemove` | Remove | ತೆಗೆಯಿರಿ |  |
+| 73 | `app.js cartLess` | One less | ಒಂದು ಕಡಿಮೆ |  |
+| 74 | `app.js cartMore` | One more | ಒಂದು ಹೆಚ್ಚು |  |
+| 75 | `app.js cartQty` | Quantity | ಪ್ರಮಾಣ |  |
+| 76 | `app.js cartCheckout` | Checkout | ಚೆಕ್‌ಔಟ್ |  |
+| 77 | `app.js cartClear` | Clear cart | ಕಾರ್ಟ್ ಖಾಲಿ ಮಾಡಿ |  |
+| 78 | `app.js cartCleared` | Cart cleared. | ಕಾರ್ಟ್ ಖಾಲಿ ಮಾಡಲಾಗಿದೆ. |  |
+| 79 | `app.js cartMemory` | This browser is not saving the cart. It is kept only until you close the page. | ಈ ಬ್ರೌಸರ್ ಕಾರ್ಟ್ ಅನ್ನು ಉಳಿಸುತ್ತಿಲ್ಲ. ಪುಟ ಮುಚ್ಚುವವರೆಗೆ ಮಾತ್ರ ಇರುತ್ತದೆ. |  |
+| 80 | `app.js checkoutTitle` | Checkout | ಚೆಕ್‌ಔಟ್ |  |
+| 81 | `app.js checkoutSoon` | Coming soon. Orders open after our pilot with farmers. No payment is taken and no details are collected. | ಶೀಘ್ರದಲ್ಲೇ ಬರಲಿದೆ. ರೈತರೊಂದಿಗಿನ ನಮ್ಮ ಪ್ರಾಯೋಗಿಕ ಯೋಜನೆಯ ನಂತರ ಆರ್ಡರ್‌ಗಳು ಆರಂಭವಾಗುತ್ತವೆ. ಯಾವುದೇ ಹಣ ಪಡೆಯುವುದಿಲ್ಲ ಮತ್ತು ಯಾವುದೇ ವಿವರಗಳನ್ನು ಸಂಗ್ರಹಿಸುವುದಿಲ್ಲ. |  |
+| 82 | `app.js checkoutShare` | Copy your list to share it with your cooperative. | ನಿಮ್ಮ ಸಹಕಾರ ಸಂಘದೊಂದಿಗೆ ಹಂಚಿಕೊಳ್ಳಲು ಪಟ್ಟಿಯನ್ನು ನಕಲಿಸಿ. |  |
+| 83 | `app.js copyList` | Copy my list | ನನ್ನ ಪಟ್ಟಿ ನಕಲಿಸಿ |  |
+| 84 | `app.js checkoutBack` | Back to cart | ಕಾರ್ಟ್‌ಗೆ ಹಿಂತಿರುಗಿ |  |
+| 85 | `app.js copyDone` | List copied. You can paste it into WhatsApp or SMS. | ಪಟ್ಟಿ ನಕಲಾಗಿದೆ. WhatsApp ಅಥವಾ SMS ನಲ್ಲಿ ಅಂಟಿಸಬಹುದು. |  |
+| 86 | `app.js copyFailed` | Could not copy. Select the list above and copy it by hand. | ನಕಲಿಸಲು ಆಗಲಿಲ್ಲ. ಮೇಲಿನ ಪಟ್ಟಿಯನ್ನು ಆಯ್ಕೆಮಾಡಿ ಕೈಯಾರೆ ನಕಲಿಸಿ. |  |
+| 87 | `app.js copyHeading` | AquaNexus: my list (estimated prices, not an order) | AquaNexus: ನನ್ನ ಪಟ್ಟಿ (ಅಂದಾಜು ಬೆಲೆಗಳು, ಆರ್ಡರ್ ಅಲ್ಲ) |  |
+| 88 | `app.js stripDangerIn` | Danger in {d} | ಅಪಾಯಕ್ಕೆ ಉಳಿದ ಸಮಯ: {d} |  |
+| 89 | `app.js stripNoDanger` | No danger expected | ಅಪಾಯದ ನಿರೀಕ್ಷೆ ಇಲ್ಲ |  |
+| 90 | `app.js stripActNow` | Act now: tap to see | ಈಗಲೇ ಕ್ರಮ ಕೈಗೊಳ್ಳಿ: ನೋಡಲು ಒತ್ತಿ |  |
+| 91 | `app.js stripAttention` | Needs attention: tap to see | ಗಮನ ಕೊಡಿ: ನೋಡಲು ಒತ್ತಿ |  |
+| 92 | `app.js settingsTitle` | Settings | ಸೆಟ್ಟಿಂಗ್‌ಗಳು |  |
+| 93 | `app.js settingsLanguage` | Language | ಭಾಷೆ |  |
+| 94 | `app.js settingsTheme` | Colours | ಬಣ್ಣಗಳು |  |
+| 95 | `app.js aboutTitle` | About this app | ಈ ಆ್ಯಪ್ ಬಗ್ಗೆ |  |
 
 ## 21. Messages from the server: Data labels
 

@@ -26,7 +26,8 @@ const TEXT = {
     footerCredit: "AquaNexus by Team Orbit (Nexus Orbit)",
     sourcesTitle: "Data sources", sourcesClose: "Close",
     sourcesIntro: "The simulated pond uses these open datasets and public services. Only the Live sensor card and the devices in My ponds show readings sent by a pond sensor.",
-    sourcesPondsUse: "Real sensor readings from 3 fish ponds in Andhra Pradesh (2022-23). Used to make the simulated demo pond and to test our oxygen predictions.",
+    sourcesPondsUse: "Real sensor readings from 3 fish ponds in Andhra Pradesh (2022-23). Their daily levels shape the simulated demo pond, and we test our oxygen predictions on them.",
+    sourcesPondsUseOnline: "Real sensor readings from 3 fish ponds in Andhra Pradesh (2022-23). We test our oxygen predictions on them. Their licence is unknown, so this online demo does not include them: its demo pond uses typical healthy values instead.",
     sourcesPondsLicence: "Licence: unknown (not stated by the uploader).",
     sourcesMeteoUse: "Tonight's real weather forecast for Mangaluru, for the night oxygen-crash warning.",
     sourcesMeteoLicence: "Licence: data CC BY 4.0. Free API, non-commercial use only.",
@@ -63,6 +64,8 @@ const TEXT = {
     termsContact: "AquaNexus is made by Team Orbit. For questions or problems, reach us through our GitHub page.",
     termsContactLink: "Team Orbit on GitHub",
     simulatedNote: "Not a real pond. For demonstration only.",
+    simBasisPondsdata: "Demo data modelled on Pondsdata: its daily levels with a simulated day-night oxygen cycle. Not real readings.",
+    simBasisTypical: "Demo data from typical healthy pond values with a simulated day-night oxygen cycle. Not real readings.",
     pond: "Pond", pond1: "Pond 1", pond2: "Pond 2", pond3: "Pond 3",
     scenario: "Scenario", scenarioNormal: "Normal day", scenarioCrash: "Night oxygen crash",
     restart: "Restart", pause: "Pause", resume: "Resume",
@@ -273,7 +276,8 @@ const TEXT = {
     footerCredit: "AquaNexus · ನಿರ್ಮಾಣ: ಟೀಮ್ ಆರ್ಬಿಟ್ (Nexus Orbit)",
     sourcesTitle: "ಡೇಟಾ ಮೂಲಗಳು", sourcesClose: "ಮುಚ್ಚಿ",
     sourcesIntro: "ಅನುಕರಿಸಿದ ಕೊಳವು ಈ ಮುಕ್ತ ಡೇಟಾಸೆಟ್‌ಗಳು ಮತ್ತು ಸಾರ್ವಜನಿಕ ಸೇವೆಗಳನ್ನು ಬಳಸುತ್ತದೆ. ಕೊಳದ ಸೆನ್ಸರ್ ಕಳುಹಿಸಿದ ಅಳತೆಗಳನ್ನು ಲೈವ್ ಸೆನ್ಸರ್ ಕಾರ್ಡ್ ಮತ್ತು ನನ್ನ ಕೊಳಗಳು ವಿಭಾಗದ ಸಾಧನಗಳು ಮಾತ್ರ ತೋರಿಸುತ್ತವೆ.",
-    sourcesPondsUse: "ಆಂಧ್ರಪ್ರದೇಶದ 3 ಮೀನು ಕೊಳಗಳ ನಿಜವಾದ ಸೆನ್ಸರ್ ಅಳತೆಗಳು (2022-23). ಅನುಕರಿಸಿದ (ಸಿಮ್ಯುಲೇಟೆಡ್) ಪ್ರದರ್ಶನ ಕೊಳವನ್ನು ಮಾಡಲು ಮತ್ತು ನಮ್ಮ ಆಮ್ಲಜನಕ ಮುನ್ಸೂಚನೆಗಳನ್ನು ಪರೀಕ್ಷಿಸಲು ಬಳಸಲಾಗಿದೆ.",
+    sourcesPondsUse: "ಆಂಧ್ರಪ್ರದೇಶದ 3 ಮೀನು ಕೊಳಗಳ ನಿಜವಾದ ಸೆನ್ಸರ್ ಅಳತೆಗಳು (2022-23). ಅವುಗಳ ದೈನಂದಿನ ಮಟ್ಟಗಳಿಂದ ಅನುಕರಿಸಿದ (ಸಿಮ್ಯುಲೇಟೆಡ್) ಪ್ರದರ್ಶನ ಕೊಳವನ್ನು ಮಾಡಲಾಗಿದೆ, ಮತ್ತು ನಮ್ಮ ಆಮ್ಲಜನಕ ಮುನ್ಸೂಚನೆಗಳನ್ನು ಅವುಗಳ ಮೇಲೆ ಪರೀಕ್ಷಿಸಲಾಗಿದೆ.",
+    sourcesPondsUseOnline: "ಆಂಧ್ರಪ್ರದೇಶದ 3 ಮೀನು ಕೊಳಗಳ ನಿಜವಾದ ಸೆನ್ಸರ್ ಅಳತೆಗಳು (2022-23). ನಮ್ಮ ಆಮ್ಲಜನಕ ಮುನ್ಸೂಚನೆಗಳನ್ನು ಅವುಗಳ ಮೇಲೆ ಪರೀಕ್ಷಿಸಲಾಗಿದೆ. ಅವುಗಳ ಪರವಾನಗಿ ತಿಳಿದಿಲ್ಲ, ಆದ್ದರಿಂದ ಈ ಆನ್‌ಲೈನ್ ಡೆಮೊದಲ್ಲಿ ಅವು ಇಲ್ಲ: ಇದರ ಪ್ರದರ್ಶನ ಕೊಳವು ಸಾಮಾನ್ಯ ಆರೋಗ್ಯಕರ ಮೌಲ್ಯಗಳನ್ನು ಬಳಸುತ್ತದೆ.",
     sourcesPondsLicence: "ಪರವಾನಗಿ: ತಿಳಿದಿಲ್ಲ (ಅಪ್‌ಲೋಡ್ ಮಾಡಿದವರು ತಿಳಿಸಿಲ್ಲ).",
     sourcesMeteoUse: "ರಾತ್ರಿ ಆಮ್ಲಜನಕ ಕುಸಿತದ ಎಚ್ಚರಿಕೆಗಾಗಿ ಮಂಗಳೂರಿನ ಇಂದು ರಾತ್ರಿಯ ನಿಜವಾದ ಹವಾಮಾನ ಮುನ್ಸೂಚನೆ.",
     sourcesMeteoLicence: "ಪರವಾನಗಿ: ಡೇಟಾ CC BY 4.0. ಉಚಿತ API, ವಾಣಿಜ್ಯೇತರ ಬಳಕೆಗೆ ಮಾತ್ರ.",
@@ -310,6 +314,8 @@ const TEXT = {
     termsContact: "AquaNexus ಅನ್ನು ಟೀಮ್ ಆರ್ಬಿಟ್ ತಯಾರಿಸಿದೆ. ಪ್ರಶ್ನೆಗಳು ಅಥವಾ ಸಮಸ್ಯೆಗಳಿದ್ದರೆ ನಮ್ಮ GitHub ಪುಟದ ಮೂಲಕ ಸಂಪರ್ಕಿಸಿ.",
     termsContactLink: "GitHub ನಲ್ಲಿ ಟೀಮ್ ಆರ್ಬಿಟ್",
     simulatedNote: "ನಿಜವಾದ ಕೊಳವಲ್ಲ. ಪ್ರದರ್ಶನಕ್ಕಾಗಿ ಮಾತ್ರ.",
+    simBasisPondsdata: "Pondsdata ಆಧಾರಿತ ಡೆಮೊ ಡೇಟಾ: ಅದರ ದೈನಂದಿನ ಮಟ್ಟಗಳು ಮತ್ತು ಅನುಕರಿಸಿದ ಹಗಲು-ರಾತ್ರಿ ಆಮ್ಲಜನಕ ಚಕ್ರ. ನಿಜವಾದ ಅಳತೆಗಳಲ್ಲ.",
+    simBasisTypical: "ಸಾಮಾನ್ಯ ಆರೋಗ್ಯಕರ ಕೊಳದ ಮೌಲ್ಯಗಳು ಮತ್ತು ಅನುಕರಿಸಿದ ಹಗಲು-ರಾತ್ರಿ ಆಮ್ಲಜನಕ ಚಕ್ರದಿಂದ ಮಾಡಿದ ಡೆಮೊ ಡೇಟಾ. ನಿಜವಾದ ಅಳತೆಗಳಲ್ಲ.",
     pond: "ಕೊಳ", pond1: "ಕೊಳ 1", pond2: "ಕೊಳ 2", pond3: "ಕೊಳ 3",
     scenario: "ಸನ್ನಿವೇಶ", scenarioNormal: "ಸಾಮಾನ್ಯ ದಿನ", scenarioCrash: "ರಾತ್ರಿ ಆಮ್ಲಜನಕ ಕುಸಿತ",
     restart: "ಮರುಪ್ರಾರಂಭಿಸಿ", pause: "ವಿರಾಮ", resume: "ಮುಂದುವರಿಸಿ",
@@ -1405,6 +1411,22 @@ $("sources-close").addEventListener("click", () => $("sources-dialog").close());
 $("sources-dialog").addEventListener("click", (e) => {
   if (e.target === e.currentTarget) e.currentTarget.close();   // tap outside the panel closes it
 });
+// What the demo pond is built from (backend/simulator.py data_basis): Pondsdata's
+// daily levels on a computer that has the dataset, typical healthy values online
+// (the dataset's licence is unknown, so it is not published). Until the server
+// answers, the page shows the "typical" wording, which claims less.
+async function showDataBasis() {
+  let basis = "typical";
+  try {
+    const response = await fetch("/api/simulator/scenarios");
+    if (response.ok && (await response.json()).basis === "pondsdata") basis = "pondsdata";
+  } catch { /* offline: keep the "typical" wording */ }
+  $("sim-basis").dataset.i18n = basis === "pondsdata" ? "simBasisPondsdata" : "simBasisTypical";
+  $("sources-ponds-use").dataset.i18n = basis === "pondsdata" ? "sourcesPondsUse" : "sourcesPondsUseOnline";
+  for (const id of ["sim-basis", "sources-ponds-use"]) $(id).textContent = TEXT[state.lang][$(id).dataset.i18n];
+}
+showDataBasis();
+
 // Terms & Privacy panel (footer button), the same kind of panel as Data sources.
 // How long pond data is kept depends on the server: with a database, 48 hours /
 // 14 days; without one (demo mode), it resets when the server sleeps. Ask the

@@ -128,3 +128,37 @@ def test_normal_scenario_is_safe_all_year_with_real_levels(station):
     for start in ["2026-02-10", "2026-04-15", "2026-05-20", "2026-08-01", "2026-10-02", "2026-12-25"]:
         df = simulate_readings(station, start=start, hours=48)
         assert set(risk_levels(df)) == {"safe"}, f"{station} {start}"
+
+
+# ----------------------------------------------------------------- saying honestly what the demo pond is built from
+
+def test_data_basis_says_what_the_demo_pond_is_built_from(monkeypatch, tmp_path):
+    from backend import simulator
+    from fastapi.testclient import TestClient
+    import backend.main as main
+    client = TestClient(main.app)
+    monkeypatch.setattr(simulator, "DATA_FILE", tmp_path / "missing.csv")   # the online demo: no dataset
+    assert simulator.data_basis() == "typical"
+    assert client.get("/api/simulator/scenarios").json()["basis"] == "typical"
+    present = tmp_path / "Ponds data.csv"
+    present.write_text("station,Date\n", encoding="utf-8")
+    monkeypatch.setattr(simulator, "DATA_FILE", present)                    # a laptop with the dataset
+    assert client.get("/api/simulator/scenarios").json()["basis"] == "pondsdata"
+
+
+def test_page_never_calls_demo_data_real_readings():
+    import re
+    from pathlib import Path
+    frontend = Path(__file__).resolve().parent.parent / "frontend"
+    app = (frontend / "app.js").read_text(encoding="utf-8")
+    html = (frontend / "index.html").read_text(encoding="utf-8")
+    for key in ("simBasisPondsdata", "simBasisTypical"):
+        en, kn = re.findall(rf'{key}: "([^"]*)"', app)
+        assert en.endswith("Not real readings.") and kn.endswith("ನಿಜವಾದ ಅಳತೆಗಳಲ್ಲ."), key
+    assert "Demo data modelled on Pondsdata" in app
+    # Before the server answers, the page shows the wording that claims less.
+    assert 'id="sim-basis" data-i18n="simBasisTypical"' in html
+    assert 'id="sources-ponds-use" data-i18n="sourcesPondsUseOnline"' in html
+    online = re.findall(r'sourcesPondsUseOnline: "([^"]*)"', app)[0]
+    assert "this online demo does not include them" in online
+    assert "Used to make the simulated demo pond" not in app + html
