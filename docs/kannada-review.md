@@ -8,7 +8,7 @@ coastal Karnataka to understand. Write any fix in the last column.
 - `A  /  B` means the app shows one of two versions, depending on the situation.
 - Unit symbols (mg/L, °C, km/h, pH) and the names SMS, WhatsApp, FAO, TNAU, Open-Meteo stay in English.
 
-643 strings. Generated from the code by `python tools/kannada_review.py`; re-run it after changing any text.
+687 strings. Generated from the code by `python tools/kannada_review.py`; re-run it after changing any text.
 
 ## 1. Language and theme switches
 
@@ -86,28 +86,39 @@ Shown over the day/night pond picture.
 | 38 | `app.js pondNotFoundHelp` | This pond is not in your farm. It may have been deleted, or it belongs to another farm code. | ಈ ಕೊಳ ನಿಮ್ಮ ಫಾರ್ಮ್‌ನಲ್ಲಿಲ್ಲ. ಅದನ್ನು ಅಳಿಸಿರಬಹುದು, ಅಥವಾ ಅದು ಬೇರೆ ಫಾರ್ಮ್ ಕೋಡ್‌ಗೆ ಸೇರಿರಬಹುದು. |  |
 | 39 | `app.js pondSize` | Size | ಗಾತ್ರ |  |
 | 40 | `app.js pondFish` | Fish | ಮೀನು |  |
-| 41 | `app.js pondReadingsTitle` | Readings | ಅಳತೆಗಳು |  |
-| 42 | `app.js pondChartTitle` | Oxygen, last 12 hours | ಆಮ್ಲಜನಕ, ಕಳೆದ 12 ಗಂಟೆಗಳು |  |
-| 43 | `app.js pondChartOxygen` | Oxygen (mg/L) | ಆಮ್ಲಜನಕ (mg/L) |  |
-| 44 | `app.js pondChartWarnLine` | Warning below 5 | 5 ಕ್ಕಿಂತ ಕಡಿಮೆ: ಎಚ್ಚರಿಕೆ |  |
-| 45 | `app.js pondChartDangerLine` | Danger below 3 | 3 ಕ್ಕಿಂತ ಕಡಿಮೆ: ಅಪಾಯ |  |
-| 46 | `app.js pondChartSummary` | Oxygen went from {a} to {b} mg/L over the last {n} readings. | ಕೊನೆಯ {n} ಅಳತೆಗಳಲ್ಲಿ ಆಮ್ಲಜನಕ {a} ರಿಂದ {b} mg/L ಗೆ ಬದಲಾಗಿದೆ. |  |
-| 47 | `app.js pondChartNone` | Not enough oxygen readings for a chart yet. | ಚಾರ್ಟ್‌ಗೆ ಇನ್ನೂ ಸಾಕಷ್ಟು ಆಮ್ಲಜನಕ ಅಳತೆಗಳಿಲ್ಲ. |  |
-| 48 | `app.js pondDialogAdd` | Add a pond | ಕೊಳ ಸೇರಿಸಿ |  |
-| 49 | `app.js pondDialogEdit` | Edit pond | ಕೊಳವನ್ನು ಬದಲಿಸಿ |  |
-| 50 | `app.js pondNameLabel` | Pond name | ಕೊಳದ ಹೆಸರು |  |
-| 51 | `app.js pondNameHelp` | For example: Pond near road. Don't use your own name or phone number. | ಉದಾ: ರಸ್ತೆ ಬದಿಯ ಕೊಳ. ನಿಮ್ಮ ಸ್ವಂತ ಹೆಸರು ಅಥವಾ ಫೋನ್ ಸಂಖ್ಯೆ ಬಳಸಬೇಡಿ. |  |
-| 52 | `app.js pondSizeLabel` | Size (optional) | ಗಾತ್ರ (ಐಚ್ಛಿಕ) |  |
-| 53 | `app.js pondSizeHelp` | For example: 0.5 acre | ಉದಾ: 0.5 ಎಕರೆ |  |
-| 54 | `app.js pondFishLabel` | Fish type (optional) | ಮೀನಿನ ಪ್ರಕಾರ (ಐಚ್ಛಿಕ) |  |
-| 55 | `app.js pondFishHelp` | For example: rohu, catla | ಉದಾ: ರೋಹು, ಕಾಟ್ಲಾ |  |
-| 56 | `app.js pondSave` | Save | ಉಳಿಸಿ |  |
-| 57 | `app.js pondCancel` | Cancel | ರದ್ದುಮಾಡಿ |  |
-| 58 | `app.js pondNameMissing` | Type a name for the pond. | ಕೊಳಕ್ಕೆ ಹೆಸರು ಬರೆಯಿರಿ. |  |
-| 59 | `app.js pondSaveFailed` | Could not save. Check your internet and try again. | ಉಳಿಸಲು ಆಗಲಿಲ್ಲ. ಇಂಟರ್ನೆಟ್ ಪರಿಶೀಲಿಸಿ, ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ. |  |
-| 60 | `app.js pondAlertsTitle` | Alerts from my ponds | ನನ್ನ ಕೊಳಗಳ ಎಚ್ಚರಿಕೆಗಳು |  |
-| 61 | `app.js pondAlertsHelp` | From your own devices, newest first. | ನಿಮ್ಮ ಸ್ವಂತ ಸಾಧನಗಳಿಂದ, ಹೊಸದು ಮೊದಲು. |  |
-| 62 | `app.js pondAlertsEmpty` | No warnings from your ponds yet. | ನಿಮ್ಮ ಕೊಳಗಳಿಂದ ಇನ್ನೂ ಎಚ್ಚರಿಕೆಗಳಿಲ್ಲ. |  |
+| 41 | `app.js pondPlaceLabel` | Where is the pond? | ಕೊಳ ಎಲ್ಲಿದೆ? |  |
+| 42 | `app.js pondDistrictLabel` | District | ಜಿಲ್ಲೆ |  |
+| 43 | `app.js pondVillageLabel` | Taluk / village | ತಾಲ್ಲೂಕು / ಊರು |  |
+| 44 | `app.js pondPlaceHelp` | For tonight's weather at the pond. Only the village name is saved: no GPS, no address. | ಕೊಳದ ಇಂದು ರಾತ್ರಿಯ ಹವಾಮಾನಕ್ಕಾಗಿ. ಊರಿನ ಹೆಸರು ಮಾತ್ರ ಉಳಿಸಲಾಗುತ್ತದೆ: GPS ಇಲ್ಲ, ವಿಳಾಸ ಇಲ್ಲ. |  |
+| 45 | `app.js pondDistrictNone` | Not chosen | ಆರಿಸಿಲ್ಲ |  |
+| 46 | `app.js pondVillageNone` | Choose taluk / village | ತಾಲ್ಲೂಕು / ಊರು ಆರಿಸಿ |  |
+| 47 | `app.js pondVillageFirst` | Choose a district first | ಮೊದಲು ಜಿಲ್ಲೆ ಆರಿಸಿ |  |
+| 48 | `app.js pondTaluk` | {t} taluk | {t} ತಾಲ್ಲೂಕು |  |
+| 49 | `app.js pondVillageMissing` | Choose the taluk / village too, or set the district back to "Not chosen". | ತಾಲ್ಲೂಕು / ಊರನ್ನೂ ಆರಿಸಿ, ಅಥವಾ ಜಿಲ್ಲೆಯನ್ನು "ಆರಿಸಿಲ್ಲ" ಗೆ ಹಿಂತಿರುಗಿಸಿ. |  |
+| 50 | `app.js pondWeatherNoPlace` | Choose where this pond is to see tonight's weather for its village. | ಈ ಕೊಳದ ಊರಿನ ಇಂದು ರಾತ್ರಿಯ ಹವಾಮಾನ ನೋಡಲು, ಕೊಳ ಎಲ್ಲಿದೆ ಎಂದು ಆರಿಸಿ. |  |
+| 51 | `app.js pondWeatherChoose` | Choose the village | ಊರು ಆರಿಸಿ |  |
+| 52 | `app.js pondReadingsTitle` | Readings | ಅಳತೆಗಳು |  |
+| 53 | `app.js pondChartTitle` | Oxygen, last 12 hours | ಆಮ್ಲಜನಕ, ಕಳೆದ 12 ಗಂಟೆಗಳು |  |
+| 54 | `app.js pondChartOxygen` | Oxygen (mg/L) | ಆಮ್ಲಜನಕ (mg/L) |  |
+| 55 | `app.js pondChartWarnLine` | Warning below 5 | 5 ಕ್ಕಿಂತ ಕಡಿಮೆ: ಎಚ್ಚರಿಕೆ |  |
+| 56 | `app.js pondChartDangerLine` | Danger below 3 | 3 ಕ್ಕಿಂತ ಕಡಿಮೆ: ಅಪಾಯ |  |
+| 57 | `app.js pondChartSummary` | Oxygen went from {a} to {b} mg/L over the last {n} readings. | ಕೊನೆಯ {n} ಅಳತೆಗಳಲ್ಲಿ ಆಮ್ಲಜನಕ {a} ರಿಂದ {b} mg/L ಗೆ ಬದಲಾಗಿದೆ. |  |
+| 58 | `app.js pondChartNone` | Not enough oxygen readings for a chart yet. | ಚಾರ್ಟ್‌ಗೆ ಇನ್ನೂ ಸಾಕಷ್ಟು ಆಮ್ಲಜನಕ ಅಳತೆಗಳಿಲ್ಲ. |  |
+| 59 | `app.js pondDialogAdd` | Add a pond | ಕೊಳ ಸೇರಿಸಿ |  |
+| 60 | `app.js pondDialogEdit` | Edit pond | ಕೊಳವನ್ನು ಬದಲಿಸಿ |  |
+| 61 | `app.js pondNameLabel` | Pond name | ಕೊಳದ ಹೆಸರು |  |
+| 62 | `app.js pondNameHelp` | For example: Pond near road. Don't use your own name or phone number. | ಉದಾ: ರಸ್ತೆ ಬದಿಯ ಕೊಳ. ನಿಮ್ಮ ಸ್ವಂತ ಹೆಸರು ಅಥವಾ ಫೋನ್ ಸಂಖ್ಯೆ ಬಳಸಬೇಡಿ. |  |
+| 63 | `app.js pondSizeLabel` | Size (optional) | ಗಾತ್ರ (ಐಚ್ಛಿಕ) |  |
+| 64 | `app.js pondSizeHelp` | For example: 0.5 acre | ಉದಾ: 0.5 ಎಕರೆ |  |
+| 65 | `app.js pondFishLabel` | Fish type (optional) | ಮೀನಿನ ಪ್ರಕಾರ (ಐಚ್ಛಿಕ) |  |
+| 66 | `app.js pondFishHelp` | For example: rohu, catla | ಉದಾ: ರೋಹು, ಕಾಟ್ಲಾ |  |
+| 67 | `app.js pondSave` | Save | ಉಳಿಸಿ |  |
+| 68 | `app.js pondCancel` | Cancel | ರದ್ದುಮಾಡಿ |  |
+| 69 | `app.js pondNameMissing` | Type a name for the pond. | ಕೊಳಕ್ಕೆ ಹೆಸರು ಬರೆಯಿರಿ. |  |
+| 70 | `app.js pondSaveFailed` | Could not save. Check your internet and try again. | ಉಳಿಸಲು ಆಗಲಿಲ್ಲ. ಇಂಟರ್ನೆಟ್ ಪರಿಶೀಲಿಸಿ, ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ. |  |
+| 71 | `app.js pondAlertsTitle` | Alerts from my ponds | ನನ್ನ ಕೊಳಗಳ ಎಚ್ಚರಿಕೆಗಳು |  |
+| 72 | `app.js pondAlertsHelp` | From your own devices, newest first. | ನಿಮ್ಮ ಸ್ವಂತ ಸಾಧನಗಳಿಂದ, ಹೊಸದು ಮೊದಲು. |  |
+| 73 | `app.js pondAlertsEmpty` | No warnings from your ponds yet. | ನಿಮ್ಮ ಕೊಳಗಳಿಂದ ಇನ್ನೂ ಎಚ್ಚರಿಕೆಗಳಿಲ್ಲ. |  |
 
 ## 5. Pond view, risk level and readings
 
@@ -150,8 +161,9 @@ Shown over the day/night pond picture.
 | 5 | `app.js weatherDetails` | Day cloud {c}% · Night wind {w} km/h · Night {t} °C · Forecast: Open-Meteo | ಹಗಲಿನ ಮೋಡ {c}% · ರಾತ್ರಿ ಗಾಳಿ {w} km/h · ರಾತ್ರಿ {t} °C · ಮುನ್ಸೂಚನೆ: Open-Meteo |  |
 | 6 | `app.js weatherOffline` | No connection: showing the forecast saved on {when}.  /  No connection. | ಸಂಪರ್ಕ ಇಲ್ಲ: {when} ರಂದು ಉಳಿಸಿದ ಮುನ್ಸೂಚನೆ ತೋರಿಸಲಾಗುತ್ತಿದೆ.  /  ಸಂಪರ್ಕ ಇಲ್ಲ. |  |
 | 7 | `app.js weatherUpdated` | Updated just now  /  Updated {min} min ago  /  Updated ${Math.floor(min / 60)} h ago | ಈಗಷ್ಟೇ ನವೀಕರಿಸಲಾಗಿದೆ  /  {min} ನಿಮಿಷ ಹಿಂದೆ ನವೀಕರಿಸಲಾಗಿದೆ  /  ${Math.floor(min / 60)} ಗಂಟೆ ಹಿಂದೆ ನವೀಕರಿಸಲಾಗಿದೆ |  |
-| 8 | `app.js weatherWhyTitle` | Why the weather matters | ಹವಾಮಾನ ಏಕೆ ಮುಖ್ಯ |  |
-| 9 | `app.js weatherWhy` | Water plants make oxygen only in sunlight. After a cloudy day, on a calm, warm night, they use up oxygen and no wind mixes in fresh air, so oxygen is lowest just before sunrise. That is when fish die. | ನೀರಿನ ಸಸ್ಯಗಳು ಬಿಸಿಲಿನಲ್ಲಿ ಮಾತ್ರ ಆಮ್ಲಜನಕ ತಯಾರಿಸುತ್ತವೆ. ಮೋಡ ಕವಿದ ದಿನದ ನಂತರ, ಗಾಳಿ ಇಲ್ಲದ ಬೆಚ್ಚಗಿನ ರಾತ್ರಿಯಲ್ಲಿ ಅವು ಆಮ್ಲಜನಕವನ್ನು ಬಳಸಿಕೊಳ್ಳುತ್ತವೆ, ಹೊಸ ಗಾಳಿ ನೀರಿಗೆ ಬೆರೆಯುವುದಿಲ್ಲ. ಆದ್ದರಿಂದ ಸೂರ್ಯೋದಯಕ್ಕೆ ಸ್ವಲ್ಪ ಮೊದಲು ಆಮ್ಲಜನಕ ಅತ್ಯಂತ ಕಡಿಮೆ ಇರುತ್ತದೆ. ಆಗಲೇ ಮೀನುಗಳು ಸಾಯುತ್ತವೆ. |  |
+| 8 | `app.js weatherDemoNote` | This is the weather for the demo pond, in Mangaluru. Each of your own ponds shows the weather for its village on its page. | ಇದು ಮಂಗಳೂರಿನಲ್ಲಿರುವ ಡೆಮೊ ಕೊಳದ ಹವಾಮಾನ. ನಿಮ್ಮ ಪ್ರತಿ ಕೊಳದ ಪುಟದಲ್ಲಿ ಅದರ ಊರಿನ ಹವಾಮಾನ ಕಾಣುತ್ತದೆ. |  |
+| 9 | `app.js weatherWhyTitle` | Why the weather matters | ಹವಾಮಾನ ಏಕೆ ಮುಖ್ಯ |  |
+| 10 | `app.js weatherWhy` | Water plants make oxygen only in sunlight. After a cloudy day, on a calm, warm night, they use up oxygen and no wind mixes in fresh air, so oxygen is lowest just before sunrise. That is when fish die. | ನೀರಿನ ಸಸ್ಯಗಳು ಬಿಸಿಲಿನಲ್ಲಿ ಮಾತ್ರ ಆಮ್ಲಜನಕ ತಯಾರಿಸುತ್ತವೆ. ಮೋಡ ಕವಿದ ದಿನದ ನಂತರ, ಗಾಳಿ ಇಲ್ಲದ ಬೆಚ್ಚಗಿನ ರಾತ್ರಿಯಲ್ಲಿ ಅವು ಆಮ್ಲಜನಕವನ್ನು ಬಳಸಿಕೊಳ್ಳುತ್ತವೆ, ಹೊಸ ಗಾಳಿ ನೀರಿಗೆ ಬೆರೆಯುವುದಿಲ್ಲ. ಆದ್ದರಿಂದ ಸೂರ್ಯೋದಯಕ್ಕೆ ಸ್ವಲ್ಪ ಮೊದಲು ಆಮ್ಲಜನಕ ಅತ್ಯಂತ ಕಡಿಮೆ ಇರುತ್ತದೆ. ಆಗಲೇ ಮೀನುಗಳು ಸಾಯುತ್ತವೆ. |  |
 
 ## 9. What to do now (checklist)
 
@@ -245,7 +257,7 @@ Shown over the day/night pond picture.
 |---|---|---|---|---|
 | 1 | `app.js assistantTitle` | Ask AquaNexus | AquaNexus ಅನ್ನು ಕೇಳಿ |  |
 | 2 | `app.js assistantLabel` | AI assistant: can make mistakes | AI ಸಹಾಯಕ: ತಪ್ಪುಗಳಾಗಬಹುದು |  |
-| 3 | `app.js assistantHelp` | Ask about your readings, safe levels, tonight's weather or fish diseases. Answers come only from this app's own information. | ನಿಮ್ಮ ಅಳತೆಗಳು, ಸುರಕ್ಷಿತ ಮಟ್ಟಗಳು, ಇಂದು ರಾತ್ರಿಯ ಹವಾಮಾನ ಅಥವಾ ಮೀನು ರೋಗಗಳ ಬಗ್ಗೆ ಕೇಳಿ. ಉತ್ತರಗಳು ಈ ಆ್ಯಪ್‌ನ ಸ್ವಂತ ಮಾಹಿತಿಯಿಂದ ಮಾತ್ರ ಬರುತ್ತವೆ. |  |
+| 3 | `app.js assistantHelp` | Ask about your readings, safe levels, tonight's weather, pond care (cleaning, water, feeding) or fish diseases. Answers come only from this app's own information. | ನಿಮ್ಮ ಅಳತೆಗಳು, ಸುರಕ್ಷಿತ ಮಟ್ಟಗಳು, ಇಂದು ರಾತ್ರಿಯ ಹವಾಮಾನ, ಕೊಳದ ಆರೈಕೆ (ಸ್ವಚ್ಛತೆ, ನೀರು, ಆಹಾರ) ಅಥವಾ ಮೀನು ರೋಗಗಳ ಬಗ್ಗೆ ಕೇಳಿ. ಉತ್ತರಗಳು ಈ ಆ್ಯಪ್‌ನ ಸ್ವಂತ ಮಾಹಿತಿಯಿಂದ ಮಾತ್ರ ಬರುತ್ತವೆ. |  |
 | 4 | `app.js assistantPrivacy` | Do not type your name, phone number or other personal details. | ನಿಮ್ಮ ಹೆಸರು, ಫೋನ್ ಸಂಖ್ಯೆ ಅಥವಾ ಇತರ ವೈಯಕ್ತಿಕ ವಿವರಗಳನ್ನು ಬರೆಯಬೇಡಿ. |  |
 | 5 | `app.js assistantSuggested` | Suggested questions (ready answers) | ಸೂಚಿಸಿದ ಪ್ರಶ್ನೆಗಳು (ಸಿದ್ಧ ಉತ್ತರಗಳು) |  |
 | 6 | `app.js assistantAsk` | Your question | ನಿಮ್ಮ ಪ್ರಶ್ನೆ |  |
@@ -257,8 +269,9 @@ Shown over the day/night pond picture.
 | 12 | `app.js assistantSafety` | Safety answer from the app | ಆ್ಯಪ್‌ನ ಸುರಕ್ಷತಾ ಉತ್ತರ |  |
 | 13 | `app.js assistantListen` | Listen | ಆಲಿಸಿ |  |
 | 14 | `app.js assistantNotice` | Message from the app | ಆ್ಯಪ್‌ನ ಸಂದೇಶ |  |
-| 15 | `app.js assistantEmpty` | Type a question first, or tap a suggested question. | ಮೊದಲು ಪ್ರಶ್ನೆ ಬರೆಯಿರಿ, ಅಥವಾ ಸೂಚಿಸಿದ ಪ್ರಶ್ನೆಯೊಂದನ್ನು ಒತ್ತಿ. |  |
-| 16 | `app.js assistantFailed` | Could not reach the app server. Tap a suggested question for a ready answer. | ಆ್ಯಪ್ ಸರ್ವರ್ ತಲುಪಲು ಆಗಲಿಲ್ಲ. ಸಿದ್ಧ ಉತ್ತರಕ್ಕಾಗಿ ಸೂಚಿಸಿದ ಪ್ರಶ್ನೆಯೊಂದನ್ನು ಒತ್ತಿ. |  |
+| 15 | `app.js assistantRelated` | You could ask: | ನೀವು ಹೀಗೆ ಕೇಳಬಹುದು: |  |
+| 16 | `app.js assistantEmpty` | Type a question first, or tap a suggested question. | ಮೊದಲು ಪ್ರಶ್ನೆ ಬರೆಯಿರಿ, ಅಥವಾ ಸೂಚಿಸಿದ ಪ್ರಶ್ನೆಯೊಂದನ್ನು ಒತ್ತಿ. |  |
+| 17 | `app.js assistantFailed` | Could not reach the app server. Tap a suggested question for a ready answer. | ಆ್ಯಪ್ ಸರ್ವರ್ ತಲುಪಲು ಆಗಲಿಲ್ಲ. ಸಿದ್ಧ ಉತ್ತರಕ್ಕಾಗಿ ಸೂಚಿಸಿದ ಪ್ರಶ್ನೆಯೊಂದನ್ನು ಒತ್ತಿ. |  |
 
 ## 15. Voice alert
 
@@ -296,7 +309,7 @@ Shown over the day/night pond picture.
 | 4 | `app.js sourcesPondsUse` | Real sensor readings from 3 fish ponds in Andhra Pradesh (2022-23). Their daily levels shape the simulated demo pond, and we test our oxygen predictions on them. | ಆಂಧ್ರಪ್ರದೇಶದ 3 ಮೀನು ಕೊಳಗಳ ನಿಜವಾದ ಸೆನ್ಸರ್ ಅಳತೆಗಳು (2022-23). ಅವುಗಳ ದೈನಂದಿನ ಮಟ್ಟಗಳಿಂದ ಅನುಕರಿಸಿದ (ಸಿಮ್ಯುಲೇಟೆಡ್) ಪ್ರದರ್ಶನ ಕೊಳವನ್ನು ಮಾಡಲಾಗಿದೆ, ಮತ್ತು ನಮ್ಮ ಆಮ್ಲಜನಕ ಮುನ್ಸೂಚನೆಗಳನ್ನು ಅವುಗಳ ಮೇಲೆ ಪರೀಕ್ಷಿಸಲಾಗಿದೆ. |  |
 | 5 | `app.js sourcesPondsUseOnline` | Real sensor readings from 3 fish ponds in Andhra Pradesh (2022-23). We test our oxygen predictions on them. Their licence is unknown, so this online demo does not include them: its demo pond uses typical healthy values instead. | ಆಂಧ್ರಪ್ರದೇಶದ 3 ಮೀನು ಕೊಳಗಳ ನಿಜವಾದ ಸೆನ್ಸರ್ ಅಳತೆಗಳು (2022-23). ನಮ್ಮ ಆಮ್ಲಜನಕ ಮುನ್ಸೂಚನೆಗಳನ್ನು ಅವುಗಳ ಮೇಲೆ ಪರೀಕ್ಷಿಸಲಾಗಿದೆ. ಅವುಗಳ ಪರವಾನಗಿ ತಿಳಿದಿಲ್ಲ, ಆದ್ದರಿಂದ ಈ ಆನ್‌ಲೈನ್ ಡೆಮೊದಲ್ಲಿ ಅವು ಇಲ್ಲ: ಇದರ ಪ್ರದರ್ಶನ ಕೊಳವು ಸಾಮಾನ್ಯ ಆರೋಗ್ಯಕರ ಮೌಲ್ಯಗಳನ್ನು ಬಳಸುತ್ತದೆ. |  |
 | 6 | `app.js sourcesPondsLicence` | Licence: unknown (not stated by the uploader). | ಪರವಾನಗಿ: ತಿಳಿದಿಲ್ಲ (ಅಪ್‌ಲೋಡ್ ಮಾಡಿದವರು ತಿಳಿಸಿಲ್ಲ). |  |
-| 7 | `app.js sourcesMeteoUse` | Tonight's real weather forecast for Mangaluru, for the night oxygen-crash warning. | ರಾತ್ರಿ ಆಮ್ಲಜನಕ ಕುಸಿತದ ಎಚ್ಚರಿಕೆಗಾಗಿ ಮಂಗಳೂರಿನ ಇಂದು ರಾತ್ರಿಯ ನಿಜವಾದ ಹವಾಮಾನ ಮುನ್ಸೂಚನೆ. |  |
+| 7 | `app.js sourcesMeteoUse` | Tonight's real weather forecast for the night oxygen-crash warning: for Mangaluru (the demo pond), or for the village you chose for each of your ponds. | ರಾತ್ರಿ ಆಮ್ಲಜನಕ ಕುಸಿತದ ಎಚ್ಚರಿಕೆಗಾಗಿ ಇಂದು ರಾತ್ರಿಯ ನಿಜವಾದ ಹವಾಮಾನ ಮುನ್ಸೂಚನೆ: ಮಂಗಳೂರಿನದು (ಡೆಮೊ ಕೊಳ), ಅಥವಾ ನಿಮ್ಮ ಪ್ರತಿ ಕೊಳಕ್ಕೆ ನೀವು ಆರಿಸಿದ ಊರಿನದು. |  |
 | 8 | `app.js sourcesMeteoLicence` | Licence: data CC BY 4.0. Free API, non-commercial use only. | ಪರವಾನಗಿ: ಡೇಟಾ CC BY 4.0. ಉಚಿತ API, ವಾಣಿಜ್ಯೇತರ ಬಳಕೆಗೆ ಮಾತ್ರ. |  |
 | 9 | `app.js sourcesGuidesUse` | Published guides and research papers behind the Safe / Warning / Danger limits and the “What to do now” steps. | ಸುರಕ್ಷಿತ / ಎಚ್ಚರಿಕೆ / ಅಪಾಯ ಮಿತಿಗಳು ಮತ್ತು “ಈಗ ಏನು ಮಾಡಬೇಕು” ಹಂತಗಳಿಗೆ ಆಧಾರವಾದ ಪ್ರಕಟಿತ ಮಾರ್ಗದರ್ಶಿಗಳು ಮತ್ತು ಸಂಶೋಧನಾ ಲೇಖನಗಳು. |  |
 | 10 | `app.js sourcesGuidesLicence` | Copyright of each publisher. We cite their facts; we don't copy them. | ಹಕ್ಕುಸ್ವಾಮ್ಯ ಆಯಾ ಪ್ರಕಾಶಕರದು. ನಾವು ಅವುಗಳ ಮಾಹಿತಿಯನ್ನು ಉಲ್ಲೇಖಿಸುತ್ತೇವೆ, ನಕಲು ಮಾಡುವುದಿಲ್ಲ. |  |
@@ -323,7 +336,7 @@ Shown over the day/night pond picture.
 | 11 | `app.js termsPonds` | My ponds: your pond names, sizes, fish types, device readings and alerts are saved on our server under your farm code. We keep only a scrambled copy (hash) of the farm code and of device keys. No name, phone number or email is asked for. Anyone with your farm code can see and change your ponds. | ನನ್ನ ಕೊಳಗಳು: ನಿಮ್ಮ ಕೊಳಗಳ ಹೆಸರು, ಗಾತ್ರ, ಮೀನಿನ ಪ್ರಕಾರ, ಸಾಧನದ ಅಳತೆಗಳು ಮತ್ತು ಎಚ್ಚರಿಕೆಗಳು ನಿಮ್ಮ ಫಾರ್ಮ್ ಕೋಡ್ ಅಡಿಯಲ್ಲಿ ನಮ್ಮ ಸರ್ವರ್‌ನಲ್ಲಿ ಉಳಿಯುತ್ತವೆ. ಫಾರ್ಮ್ ಕೋಡ್ ಮತ್ತು ಸಾಧನದ ಕೀಗಳ ಗೂಢ ಪ್ರತಿಯನ್ನು (ಹ್ಯಾಶ್) ಮಾತ್ರ ಇಡುತ್ತೇವೆ. ಹೆಸರು, ಫೋನ್ ಸಂಖ್ಯೆ ಅಥವಾ ಇಮೇಲ್ ಕೇಳುವುದಿಲ್ಲ. ನಿಮ್ಮ ಫಾರ್ಮ್ ಕೋಡ್ ಇರುವ ಯಾರಾದರೂ ನಿಮ್ಮ ಕೊಳಗಳನ್ನು ನೋಡಬಹುದು ಮತ್ತು ಬದಲಿಸಬಹುದು. |  |
 | 12 | `app.js termsKeep` | Device readings are kept for 48 hours and alerts for 14 days. | ಸಾಧನದ ಅಳತೆಗಳನ್ನು 48 ಗಂಟೆ ಮತ್ತು ಎಚ್ಚರಿಕೆಗಳನ್ನು 14 ದಿನ ಇಡಲಾಗುತ್ತದೆ. |  |
 | 13 | `app.js termsDemo` | Demo mode: data resets when the server sleeps. | ಡೆಮೊ ಮೋಡ್: ಸರ್ವರ್ ನಿದ್ರಿಸಿದಾಗ ಡೇಟಾ ಅಳಿಸಿಹೋಗುತ್ತದೆ. |  |
-| 14 | `app.js termsLocation` | The app does not ask for your location. Tonight's weather is always for Mangaluru. Your phone gets it straight from Open-Meteo, so Open-Meteo sees your internet address, as any website would. | ಆ್ಯಪ್ ನಿಮ್ಮ ಸ್ಥಳವನ್ನು ಕೇಳುವುದಿಲ್ಲ. ಇಂದು ರಾತ್ರಿಯ ಹವಾಮಾನ ಯಾವಾಗಲೂ ಮಂಗಳೂರಿನದು. ನಿಮ್ಮ ಫೋನ್ ಅದನ್ನು ನೇರವಾಗಿ Open-Meteo ಯಿಂದ ಪಡೆಯುತ್ತದೆ, ಆದ್ದರಿಂದ ಯಾವುದೇ ವೆಬ್‌ಸೈಟ್‌ನಂತೆ Open-Meteo ನಿಮ್ಮ ಇಂಟರ್ನೆಟ್ ವಿಳಾಸವನ್ನು ನೋಡುತ್ತದೆ. |  |
+| 14 | `app.js termsLocation` | The app never asks for your GPS location or address. For each of your ponds you can choose a village from a list: only the village name is saved, and that pond's weather is for that village. The demo pond's weather is for Mangaluru. Your phone gets the forecast straight from Open-Meteo, so Open-Meteo sees your internet address, as any website would, and the village's position on the map (not yours). | ಆ್ಯಪ್ ನಿಮ್ಮ GPS ಸ್ಥಳ ಅಥವಾ ವಿಳಾಸವನ್ನು ಎಂದಿಗೂ ಕೇಳುವುದಿಲ್ಲ. ನಿಮ್ಮ ಪ್ರತಿ ಕೊಳಕ್ಕೆ ಪಟ್ಟಿಯಿಂದ ಒಂದು ಊರನ್ನು ಆರಿಸಬಹುದು: ಊರಿನ ಹೆಸರು ಮಾತ್ರ ಉಳಿಸಲಾಗುತ್ತದೆ, ಮತ್ತು ಆ ಕೊಳದ ಹವಾಮಾನ ಆ ಊರಿನದು. ಡೆಮೊ ಕೊಳದ ಹವಾಮಾನ ಮಂಗಳೂರಿನದು. ನಿಮ್ಮ ಫೋನ್ ಮುನ್ಸೂಚನೆಯನ್ನು ನೇರವಾಗಿ Open-Meteo ಯಿಂದ ಪಡೆಯುತ್ತದೆ, ಆದ್ದರಿಂದ ಯಾವುದೇ ವೆಬ್‌ಸೈಟ್‌ನಂತೆ Open-Meteo ನಿಮ್ಮ ಇಂಟರ್ನೆಟ್ ವಿಳಾಸವನ್ನು ನೋಡುತ್ತದೆ, ಮತ್ತು ಊರಿನ ನಕ್ಷೆಯ ಸ್ಥಾನವನ್ನು (ನಿಮ್ಮದಲ್ಲ). |  |
 | 15 | `app.js termsBrowser` | Your language, theme, ticked steps, alert history, the last weather forecast, your Shop cart and your farm code are saved only in this browser. Clearing the browser's data removes them. | ನಿಮ್ಮ ಭಾಷೆ, ಥೀಮ್, ಗುರುತು ಹಾಕಿದ ಹಂತಗಳು, ಎಚ್ಚರಿಕೆಗಳ ಇತಿಹಾಸ, ಕೊನೆಯ ಹವಾಮಾನ ಮುನ್ಸೂಚನೆ, ಅಂಗಡಿಯ ಕಾರ್ಟ್ ಮತ್ತು ನಿಮ್ಮ ಫಾರ್ಮ್ ಕೋಡ್ ಈ ಬ್ರೌಸರ್‌ನಲ್ಲಿ ಮಾತ್ರ ಉಳಿಯುತ್ತವೆ. ಬ್ರೌಸರ್‌ನ ಡೇಟಾ ಅಳಿಸಿದರೆ ಅವು ಹೋಗುತ್ತವೆ. |  |
 | 16 | `app.js termsServer` | Test-kit numbers and the readings on screen go to our server to be checked, and are not saved there. Readings sent to the demo Live sensor card are kept in the server's memory only and are cleared when the server sleeps or restarts. | ಟೆಸ್ಟ್-ಕಿಟ್ ಅಳತೆಗಳು ಮತ್ತು ಪರದೆಯ ಮೇಲಿನ ಅಳತೆಗಳು ಪರಿಶೀಲನೆಗಾಗಿ ನಮ್ಮ ಸರ್ವರ್‌ಗೆ ಹೋಗುತ್ತವೆ, ಅಲ್ಲಿ ಉಳಿಸಲಾಗುವುದಿಲ್ಲ. ಡೆಮೊ ಲೈವ್ ಸೆನ್ಸರ್ ಕಾರ್ಡ್‌ಗೆ ಕಳುಹಿಸಿದ ಅಳತೆಗಳು ಸರ್ವರ್‌ನ ಮೆಮೊರಿಯಲ್ಲಿ ಮಾತ್ರ ಇರುತ್ತವೆ ಮತ್ತು ಸರ್ವರ್ ನಿದ್ರಿಸಿದಾಗ ಅಥವಾ ಮರುಪ್ರಾರಂಭವಾದಾಗ ಅಳಿಸಿಹೋಗುತ್ತವೆ. |  |
 | 17 | `app.js termsAi` | Questions to the assistant are sent, with the readings on screen and the level, cause and time of your recent alerts, to the AI service (now Google Gemini) to get an answer. Google's own terms apply to what it receives. Don't type your name, phone number or other personal details. | ಸಹಾಯಕನಿಗೆ ಕೇಳುವ ಪ್ರಶ್ನೆಗಳು, ಪರದೆಯ ಮೇಲಿನ ಅಳತೆಗಳು ಮತ್ತು ಇತ್ತೀಚಿನ ಎಚ್ಚರಿಕೆಗಳ ಮಟ್ಟ, ಕಾರಣ ಹಾಗೂ ಸಮಯದ ಜೊತೆಗೆ, ಉತ್ತರ ಪಡೆಯಲು AI ಸೇವೆಗೆ (ಈಗ Google Gemini) ಹೋಗುತ್ತವೆ. ಅದು ಪಡೆಯುವುದಕ್ಕೆ Google ನ ಸ್ವಂತ ನಿಯಮಗಳು ಅನ್ವಯಿಸುತ್ತವೆ. ನಿಮ್ಮ ಹೆಸರು, ಫೋನ್ ಸಂಖ್ಯೆ ಅಥವಾ ಇತರ ವೈಯಕ್ತಿಕ ವಿವರಗಳನ್ನು ಟೈಪ್ ಮಾಡಬೇಡಿ. |  |
@@ -684,39 +697,77 @@ Labels, safety replies and the suggested questions. Ready answers are built from
 | # | Where in the code | English | Kannada | Correct? / suggestion |
 |---|---|---|---|---|
 | 1 | `assistant.LABEL` | AI assistant: can make mistakes | AI ಸಹಾಯಕ: ತಪ್ಪುಗಳಾಗಬಹುದು |  |
-| 2 | `assistant.I_DONT_KNOW` | I don't know, please ask your fisheries officer. | ನನಗೆ ಗೊತ್ತಿಲ್ಲ, ದಯವಿಟ್ಟು ನಿಮ್ಮ ಮೀನುಗಾರಿಕೆ ಅಧಿಕಾರಿಯನ್ನು ಕೇಳಿ. |  |
-| 3 | `assistant.CONFIRM` | Please confirm with your fisheries officer / KVK. | ದಯವಿಟ್ಟು ನಿಮ್ಮ ಮೀನುಗಾರಿಕೆ ಅಧಿಕಾರಿ / KVK ಜೊತೆ ಖಚಿತಪಡಿಸಿಕೊಳ್ಳಿ. |  |
-| 4 | `assistant.NO_TREATMENT` | I can't suggest medicines, chemicals or amounts to add, and I can't say which disease your fish have. The Fish disease guide shows possible matches for the signs you see. | ನಾನು ಔಷಧಿ, ರಾಸಾಯನಿಕ ಅಥವಾ ಪ್ರಮಾಣಗಳನ್ನು ಸೂಚಿಸಲು ಆಗುವುದಿಲ್ಲ, ಮತ್ತು ನಿಮ್ಮ ಮೀನುಗಳಿಗೆ ಯಾವ ರೋಗ ಎಂದು ಹೇಳಲು ಆಗುವುದಿಲ್ಲ. ನೀವು ನೋಡುವ ಲಕ್ಷಣಗಳಿಗೆ ಸಾಧ್ಯವಿರುವ ಹೊಂದಾಣಿಕೆಗಳನ್ನು ಮೀನು ರೋಗ ಮಾರ್ಗದರ್ಶಿ ತೋರಿಸುತ್ತದೆ. |  |
-| 5 | `assistant.FALLBACK_NOTE` | The AI assistant is not available right now. Tap a question below for a ready answer from the app. | AI ಸಹಾಯಕ ಈಗ ಲಭ್ಯವಿಲ್ಲ. ಆ್ಯಪ್‌ನ ಸಿದ್ಧ ಉತ್ತರಕ್ಕಾಗಿ ಕೆಳಗಿನ ಪ್ರಶ್ನೆಯೊಂದನ್ನು ಒತ್ತಿ. |  |
-| 6 | `assistant.LIMITED_NOTE` | Too many questions for now. Please wait a minute, or tap a question below for a ready answer. | ಸದ್ಯಕ್ಕೆ ತುಂಬಾ ಪ್ರಶ್ನೆಗಳು. ದಯವಿಟ್ಟು ಒಂದು ನಿಮಿಷ ಕಾಯಿರಿ, ಅಥವಾ ಸಿದ್ಧ ಉತ್ತರಕ್ಕಾಗಿ ಕೆಳಗಿನ ಪ್ರಶ್ನೆಯೊಂದನ್ನು ಒತ್ತಿ. |  |
-| 7 | `assistant.SIMULATED_NOTE` | These are simulated readings from the demo pond, not a real pond. | ಇವು ಡೆಮೊ ಕೊಳದ ಅನುಕರಿಸಿದ (ಸಿಮ್ಯುಲೇಟೆಡ್) ಅಳತೆಗಳು, ನಿಜವಾದ ಕೊಳದ್ದಲ್ಲ. |  |
-| 8 | `assistant.QUESTIONS.pond_now` | Is my pond safe right now? | ನನ್ನ ಕೊಳ ಈಗ ಸುರಕ್ಷಿತವಾಗಿದೆಯೇ? |  |
-| 9 | `assistant.QUESTIONS.what_to_do` | What should I do now? | ನಾನು ಈಗ ಏನು ಮಾಡಬೇಕು? |  |
-| 10 | `assistant.QUESTIONS.tonight` | Is there a risk of an oxygen crash tonight? | ಇಂದು ರಾತ್ರಿ ಆಮ್ಲಜನಕ ಕುಸಿತದ ಅಪಾಯವಿದೆಯೇ? |  |
-| 11 | `assistant.QUESTIONS.safe_levels` | What are the safe levels for oxygen, pH, temperature and ammonia? | ಆಮ್ಲಜನಕ, pH, ತಾಪಮಾನ ಮತ್ತು ಅಮೋನಿಯಾದ ಸುರಕ್ಷಿತ ಮಟ್ಟಗಳು ಯಾವುವು? |  |
-| 12 | `assistant.QUESTIONS.likely_now` | Which diseases are more likely with my readings? | ನನ್ನ ಅಳತೆಗಳಿಂದ ಯಾವ ರೋಗಗಳ ಸಾಧ್ಯತೆ ಹೆಚ್ಚು? |  |
-| 13 | `assistant.QUESTIONS.sick_fish` | My fish look sick. What should I do? | ನನ್ನ ಮೀನುಗಳು ರೋಗಪೀಡಿತವಾಗಿ ಕಾಣುತ್ತಿವೆ. ನಾನು ಏನು ಮಾಡಬೇಕು? |  |
-| 14 | `assistant.QUESTIONS.prevent` | How can I prevent fish diseases? | ಮೀನು ರೋಗಗಳನ್ನು ಹೇಗೆ ತಡೆಯಬಹುದು? |  |
-| 15 | `assistant.QUESTIONS.shop_which` | Which sensor or kit should I buy? | ನಾನು ಯಾವ ಸೆನ್ಸರ್ ಅಥವಾ ಕಿಟ್ ಖರೀದಿಸಬೇಕು? |  |
-| 16 | `assistant.QUESTIONS.shop_test_kit` | How do I use the test kit? | ಟೆಸ್ಟ್ ಕಿಟ್ ಅನ್ನು ಹೇಗೆ ಬಳಸುವುದು? |  |
-| 17 | `assistant.NO_READINGS` | There are no readings yet. Press Start, enter test-kit readings, or connect a sensor. | ಇನ್ನೂ ಯಾವುದೇ ಅಳತೆಗಳಿಲ್ಲ. ಪ್ರಾರಂಭಿಸಿ ಒತ್ತಿ, ಟೆಸ್ಟ್ ಕಿಟ್ ಅಳತೆಗಳನ್ನು ನಮೂದಿಸಿ, ಅಥವಾ ಸೆನ್ಸರ್ ಸಂಪರ್ಕಿಸಿ. |  |
-| 18 | `assistant.ALL_SAFE_ACTION` | All readings are in the safe range. No action is needed now. | ಎಲ್ಲಾ ಅಳತೆಗಳು ಸುರಕ್ಷಿತ ಮಟ್ಟದಲ್ಲಿವೆ. ಈಗ ಯಾವುದೇ ಕ್ರಮದ ಅಗತ್ಯವಿಲ್ಲ. |  |
-| 19 | `assistant.NO_LIKELY` | None of your readings makes a disease in the guide more likely right now. | ನಿಮ್ಮ ಯಾವುದೇ ಅಳತೆ ಈಗ ಮಾರ್ಗದರ್ಶಿಯ ಯಾವುದೇ ರೋಗದ ಸಾಧ್ಯತೆಯನ್ನು ಹೆಚ್ಚಿಸುವುದಿಲ್ಲ. |  |
-| 20 | `assistant.USE_CHECKER` | Use the symptom checker in the Fish disease guide to see possible matches. | ಸಾಧ್ಯವಿರುವ ಹೊಂದಾಣಿಕೆಗಳನ್ನು ನೋಡಲು ಮೀನು ರೋಗ ಮಾರ್ಗದರ್ಶಿಯ ಲಕ್ಷಣ ಪರಿಶೀಲಕ ಬಳಸಿ. |  |
-| 21 | `assistant.LEVELS_INTRO` | Safe, Warning and Danger levels used by the app: | ಆ್ಯಪ್ ಬಳಸುವ ಸುರಕ್ಷಿತ, ಎಚ್ಚರಿಕೆ ಮತ್ತು ಅಪಾಯ ಮಟ್ಟಗಳು: |  |
-| 22 | `assistant.AMMONIA_NOTE` | (the toxic part, NH3, worked out from total ammonia, pH and temperature) | (ವಿಷಕಾರಿ ಭಾಗ NH3, ಒಟ್ಟು ಅಮೋನಿಯಾ, pH ಮತ್ತು ತಾಪಮಾನದಿಂದ ಲೆಕ್ಕ ಹಾಕಲಾಗುತ್ತದೆ) |  |
-| 23 | `assistant.BAND.from_to_below` | {a} to below {b} | {a} ರಿಂದ {b} ಕ್ಕಿಂತ ಕಡಿಮೆ |  |
-| 24 | `assistant.BAND.below` | below {a} | {a} ಕ್ಕಿಂತ ಕಡಿಮೆ |  |
-| 25 | `assistant.BAND.above` | above {a} | {a} ಕ್ಕಿಂತ ಹೆಚ್ಚು |  |
-| 26 | `assistant.BAND.or_more` | {a} or more | {a} ಅಥವಾ ಹೆಚ್ಚು |  |
-| 27 | `assistant.BAND.up_to` | up to {b} | {b} ವರೆಗೆ |  |
-| 28 | `assistant.BAND.to_below` | to below {b} | ರಿಂದ {b} ಕ್ಕಿಂತ ಕಡಿಮೆ |  |
-| 29 | `assistant.BAND.or` | or | ಅಥವಾ |  |
-| 30 | `assistant.BAND.line` | {name}: Safe {safe}. Warning {warning}. Danger {danger}. | {name}: ಸುರಕ್ಷಿತ {safe}. ಎಚ್ಚರಿಕೆ {warning}. ಅಪಾಯ {danger}. |  |
-| 31 | `assistant.BAND.no_danger` | {name}: Safe {safe}. Otherwise Warning (no Danger level). | {name}: ಸುರಕ್ಷಿತ {safe}. ಇಲ್ಲದಿದ್ದರೆ ಎಚ್ಚರಿಕೆ (ಅಪಾಯ ಮಟ್ಟ ಇಲ್ಲ). |  |
-| 32 | `assistant._answer (tonight)` | Oxygen crash risk tonight: {level}. | ಇಂದು ರಾತ್ರಿ ಆಮ್ಲಜನಕ ಕುಸಿತದ ಅಪಾಯ: {level}. |  |
+| 2 | `assistant.I_DONT_KNOW` | I can't answer that from the app's information. For that, please ask your fisheries officer or KVK. | ಆ್ಯಪ್‌ನ ಮಾಹಿತಿಯಿಂದ ನಾನು ಅದಕ್ಕೆ ಉತ್ತರಿಸಲು ಆಗುವುದಿಲ್ಲ. ಅದಕ್ಕಾಗಿ ದಯವಿಟ್ಟು ನಿಮ್ಮ ಮೀನುಗಾರಿಕೆ ಅಧಿಕಾರಿ ಅಥವಾ KVK ಅನ್ನು ಕೇಳಿ. |  |
+| 3 | `assistant.CAN_HELP` | I can help with: your pond readings and what to do now, safe levels, tonight's oxygen risk, pond care (cleaning, changing water, feeding, aerators, daily checks, how many fish), fish diseases and the Shop. Try one of these questions: | ನಾನು ಇವುಗಳಲ್ಲಿ ಸಹಾಯ ಮಾಡಬಲ್ಲೆ: ನಿಮ್ಮ ಕೊಳದ ಅಳತೆಗಳು ಮತ್ತು ಈಗ ಏನು ಮಾಡಬೇಕು, ಸುರಕ್ಷಿತ ಮಟ್ಟಗಳು, ಇಂದು ರಾತ್ರಿಯ ಆಮ್ಲಜನಕ ಅಪಾಯ, ಕೊಳದ ಆರೈಕೆ (ಸ್ವಚ್ಛಗೊಳಿಸುವುದು, ನೀರು ಬದಲಾಯಿಸುವುದು, ಆಹಾರ, ಏರೇಟರ್, ದಿನನಿತ್ಯ ಪರಿಶೀಲನೆ, ಎಷ್ಟು ಮೀನು), ಮೀನು ರೋಗಗಳು ಮತ್ತು ಅಂಗಡಿ. ಈ ಪ್ರಶ್ನೆಗಳಲ್ಲಿ ಒಂದನ್ನು ಪ್ರಯತ್ನಿಸಿ: |  |
+| 4 | `assistant.CONFIRM` | Please confirm with your fisheries officer / KVK. | ದಯವಿಟ್ಟು ನಿಮ್ಮ ಮೀನುಗಾರಿಕೆ ಅಧಿಕಾರಿ / KVK ಜೊತೆ ಖಚಿತಪಡಿಸಿಕೊಳ್ಳಿ. |  |
+| 5 | `assistant.NO_TREATMENT` | I can't suggest medicines, chemicals or amounts to add, and I can't say which disease your fish have. The Fish disease guide shows possible matches for the signs you see. | ನಾನು ಔಷಧಿ, ರಾಸಾಯನಿಕ ಅಥವಾ ಪ್ರಮಾಣಗಳನ್ನು ಸೂಚಿಸಲು ಆಗುವುದಿಲ್ಲ, ಮತ್ತು ನಿಮ್ಮ ಮೀನುಗಳಿಗೆ ಯಾವ ರೋಗ ಎಂದು ಹೇಳಲು ಆಗುವುದಿಲ್ಲ. ನೀವು ನೋಡುವ ಲಕ್ಷಣಗಳಿಗೆ ಸಾಧ್ಯವಿರುವ ಹೊಂದಾಣಿಕೆಗಳನ್ನು ಮೀನು ರೋಗ ಮಾರ್ಗದರ್ಶಿ ತೋರಿಸುತ್ತದೆ. |  |
+| 6 | `assistant.FALLBACK_NOTE` | The AI assistant is not available right now. Tap a question below for a ready answer from the app. | AI ಸಹಾಯಕ ಈಗ ಲಭ್ಯವಿಲ್ಲ. ಆ್ಯಪ್‌ನ ಸಿದ್ಧ ಉತ್ತರಕ್ಕಾಗಿ ಕೆಳಗಿನ ಪ್ರಶ್ನೆಯೊಂದನ್ನು ಒತ್ತಿ. |  |
+| 7 | `assistant.LIMITED_NOTE` | Too many questions for now. Please wait a minute, or tap a question below for a ready answer. | ಸದ್ಯಕ್ಕೆ ತುಂಬಾ ಪ್ರಶ್ನೆಗಳು. ದಯವಿಟ್ಟು ಒಂದು ನಿಮಿಷ ಕಾಯಿರಿ, ಅಥವಾ ಸಿದ್ಧ ಉತ್ತರಕ್ಕಾಗಿ ಕೆಳಗಿನ ಪ್ರಶ್ನೆಯೊಂದನ್ನು ಒತ್ತಿ. |  |
+| 8 | `assistant.SIMULATED_NOTE` | These are simulated readings from the demo pond, not a real pond. | ಇವು ಡೆಮೊ ಕೊಳದ ಅನುಕರಿಸಿದ (ಸಿಮ್ಯುಲೇಟೆಡ್) ಅಳತೆಗಳು, ನಿಜವಾದ ಕೊಳದ್ದಲ್ಲ. |  |
+| 9 | `assistant.QUESTIONS.pond_now` | Is my pond safe right now? | ನನ್ನ ಕೊಳ ಈಗ ಸುರಕ್ಷಿತವಾಗಿದೆಯೇ? |  |
+| 10 | `assistant.QUESTIONS.what_to_do` | What should I do now? | ನಾನು ಈಗ ಏನು ಮಾಡಬೇಕು? |  |
+| 11 | `assistant.QUESTIONS.tonight` | Is there a risk of an oxygen crash tonight? | ಇಂದು ರಾತ್ರಿ ಆಮ್ಲಜನಕ ಕುಸಿತದ ಅಪಾಯವಿದೆಯೇ? |  |
+| 12 | `assistant.QUESTIONS.pond_clean` | When should I clean my pond? | ನನ್ನ ಕೊಳವನ್ನು ಯಾವಾಗ ಸ್ವಚ್ಛಗೊಳಿಸಬೇಕು? |  |
+| 13 | `assistant.QUESTIONS.safe_levels` | What are the safe levels for oxygen, pH, temperature and ammonia? | ಆಮ್ಲಜನಕ, pH, ತಾಪಮಾನ ಮತ್ತು ಅಮೋನಿಯಾದ ಸುರಕ್ಷಿತ ಮಟ್ಟಗಳು ಯಾವುವು? |  |
+| 14 | `assistant.QUESTIONS.likely_now` | Which diseases are more likely with my readings? | ನನ್ನ ಅಳತೆಗಳಿಂದ ಯಾವ ರೋಗಗಳ ಸಾಧ್ಯತೆ ಹೆಚ್ಚು? |  |
+| 15 | `assistant.QUESTIONS.sick_fish` | My fish look sick. What should I do? | ನನ್ನ ಮೀನುಗಳು ರೋಗಪೀಡಿತವಾಗಿ ಕಾಣುತ್ತಿವೆ. ನಾನು ಏನು ಮಾಡಬೇಕು? |  |
+| 16 | `assistant.QUESTIONS.prevent` | How can I prevent fish diseases? | ಮೀನು ರೋಗಗಳನ್ನು ಹೇಗೆ ತಡೆಯಬಹುದು? |  |
+| 17 | `assistant.QUESTIONS.shop_which` | Which sensor or kit should I buy? | ನಾನು ಯಾವ ಸೆನ್ಸರ್ ಅಥವಾ ಕಿಟ್ ಖರೀದಿಸಬೇಕು? |  |
+| 18 | `assistant.QUESTIONS.shop_test_kit` | How do I use the test kit? | ಟೆಸ್ಟ್ ಕಿಟ್ ಅನ್ನು ಹೇಗೆ ಬಳಸುವುದು? |  |
+| 19 | `assistant.NO_READINGS` | There are no readings yet. Press Start, enter test-kit readings, or connect a sensor. | ಇನ್ನೂ ಯಾವುದೇ ಅಳತೆಗಳಿಲ್ಲ. ಪ್ರಾರಂಭಿಸಿ ಒತ್ತಿ, ಟೆಸ್ಟ್ ಕಿಟ್ ಅಳತೆಗಳನ್ನು ನಮೂದಿಸಿ, ಅಥವಾ ಸೆನ್ಸರ್ ಸಂಪರ್ಕಿಸಿ. |  |
+| 20 | `assistant.ALL_SAFE_ACTION` | All readings are in the safe range. No action is needed now. | ಎಲ್ಲಾ ಅಳತೆಗಳು ಸುರಕ್ಷಿತ ಮಟ್ಟದಲ್ಲಿವೆ. ಈಗ ಯಾವುದೇ ಕ್ರಮದ ಅಗತ್ಯವಿಲ್ಲ. |  |
+| 21 | `assistant.NO_LIKELY` | None of your readings makes a disease in the guide more likely right now. | ನಿಮ್ಮ ಯಾವುದೇ ಅಳತೆ ಈಗ ಮಾರ್ಗದರ್ಶಿಯ ಯಾವುದೇ ರೋಗದ ಸಾಧ್ಯತೆಯನ್ನು ಹೆಚ್ಚಿಸುವುದಿಲ್ಲ. |  |
+| 22 | `assistant.USE_CHECKER` | Use the symptom checker in the Fish disease guide to see possible matches. | ಸಾಧ್ಯವಿರುವ ಹೊಂದಾಣಿಕೆಗಳನ್ನು ನೋಡಲು ಮೀನು ರೋಗ ಮಾರ್ಗದರ್ಶಿಯ ಲಕ್ಷಣ ಪರಿಶೀಲಕ ಬಳಸಿ. |  |
+| 23 | `assistant.LEVELS_INTRO` | Safe, Warning and Danger levels used by the app: | ಆ್ಯಪ್ ಬಳಸುವ ಸುರಕ್ಷಿತ, ಎಚ್ಚರಿಕೆ ಮತ್ತು ಅಪಾಯ ಮಟ್ಟಗಳು: |  |
+| 24 | `assistant.AMMONIA_NOTE` | (the toxic part, NH3, worked out from total ammonia, pH and temperature) | (ವಿಷಕಾರಿ ಭಾಗ NH3, ಒಟ್ಟು ಅಮೋನಿಯಾ, pH ಮತ್ತು ತಾಪಮಾನದಿಂದ ಲೆಕ್ಕ ಹಾಕಲಾಗುತ್ತದೆ) |  |
+| 25 | `assistant.BAND.from_to_below` | {a} to below {b} | {a} ರಿಂದ {b} ಕ್ಕಿಂತ ಕಡಿಮೆ |  |
+| 26 | `assistant.BAND.below` | below {a} | {a} ಕ್ಕಿಂತ ಕಡಿಮೆ |  |
+| 27 | `assistant.BAND.above` | above {a} | {a} ಕ್ಕಿಂತ ಹೆಚ್ಚು |  |
+| 28 | `assistant.BAND.or_more` | {a} or more | {a} ಅಥವಾ ಹೆಚ್ಚು |  |
+| 29 | `assistant.BAND.up_to` | up to {b} | {b} ವರೆಗೆ |  |
+| 30 | `assistant.BAND.to_below` | to below {b} | ರಿಂದ {b} ಕ್ಕಿಂತ ಕಡಿಮೆ |  |
+| 31 | `assistant.BAND.or` | or | ಅಥವಾ |  |
+| 32 | `assistant.BAND.line` | {name}: Safe {safe}. Warning {warning}. Danger {danger}. | {name}: ಸುರಕ್ಷಿತ {safe}. ಎಚ್ಚರಿಕೆ {warning}. ಅಪಾಯ {danger}. |  |
+| 33 | `assistant.BAND.no_danger` | {name}: Safe {safe}. Otherwise Warning (no Danger level). | {name}: ಸುರಕ್ಷಿತ {safe}. ಇಲ್ಲದಿದ್ದರೆ ಎಚ್ಚರಿಕೆ (ಅಪಾಯ ಮಟ್ಟ ಇಲ್ಲ). |  |
+| 34 | `assistant._answer (tonight)` | Oxygen crash risk tonight: {level}. | ಇಂದು ರಾತ್ರಿ ಆಮ್ಲಜನಕ ಕುಸಿತದ ಅಪಾಯ: {level}. |  |
 
-## 31. Messages from the server: My ponds and devices (server messages)
+## 31. Messages from the server: Ask AquaNexus: pond care basics
+
+Ready answers to pond care questions (backend/pond_care.py). Each answer is its sentences joined together, ending with the fisheries officer note.
+
+| # | Where in the code | English | Kannada | Correct? / suggestion |
+|---|---|---|---|---|
+| 1 | `pond_care.OFFICER_NOTE` | For liming, chemicals, medicines or amounts of anything, ask your fisheries officer or KVK. | ಸುಣ್ಣ ಹಾಕುವುದು, ರಾಸಾಯನಿಕಗಳು, ಔಷಧಿಗಳು ಅಥವಾ ಯಾವುದರ ಪ್ರಮಾಣಕ್ಕಾಗಿ ನಿಮ್ಮ ಮೀನುಗಾರಿಕೆ ಅಧಿಕಾರಿ ಅಥವಾ KVK ಅನ್ನು ಕೇಳಿ. |  |
+| 2 | `pond_care.TOPICS.water_change.title` | Changing water | ನೀರು ಬದಲಾಯಿಸುವುದು |  |
+| 3 | `pond_care.TOPICS.water_change.text[0]` | Change part of the water, not all of it, when the water smells bad, is very green, or oxygen is low (fish gasp at the surface at dawn). | ನೀರು ಕೆಟ್ಟ ವಾಸನೆ ಬಂದಾಗ, ತುಂಬಾ ಹಸಿರಾಗಿದ್ದಾಗ, ಅಥವಾ ಆಮ್ಲಜನಕ ಕಡಿಮೆ ಇದ್ದಾಗ (ಬೆಳಗಿನ ಜಾವ ಮೀನುಗಳು ಮೇಲ್ಮೈಯಲ್ಲಿ ಉಸಿರಿಗಾಗಿ ಒದ್ದಾಡಿದಾಗ) ನೀರಿನ ಒಂದು ಭಾಗವನ್ನು ಬದಲಾಯಿಸಿ, ಎಲ್ಲವನ್ನೂ ಅಲ್ಲ. |  |
+| 4 | `pond_care.TOPICS.water_change.text[1]` | Let some water out and fill in clean water. | ಸ್ವಲ್ಪ ನೀರನ್ನು ಹೊರಬಿಟ್ಟು ಶುದ್ಧ ನೀರನ್ನು ತುಂಬಿಸಿ. |  |
+| 5 | `pond_care.TOPICS.water_change.text[2]` | Don't empty the pond while the fish are in it. | ಮೀನುಗಳು ಒಳಗಿರುವಾಗ ಕೊಳವನ್ನು ಖಾಲಿ ಮಾಡಬೇಡಿ. |  |
+| 6 | `pond_care.TOPICS.cleaning.title` | Cleaning the pond or tank | ಕೊಳ ಅಥವಾ ಟ್ಯಾಂಕ್ ಸ್ವಚ್ಛಗೊಳಿಸುವುದು |  |
+| 7 | `pond_care.TOPICS.cleaning.text[0]` | While fish are growing, don't fully drain or scrub the pond. | ಮೀನುಗಳು ಬೆಳೆಯುತ್ತಿರುವಾಗ ಕೊಳವನ್ನು ಪೂರ್ತಿ ಖಾಲಿ ಮಾಡಬೇಡಿ ಅಥವಾ ಉಜ್ಜಬೇಡಿ. |  |
+| 8 | `pond_care.TOPICS.cleaning.text[1]` | Every day, take out leftover feed and dead fish. | ಪ್ರತಿದಿನ ಉಳಿದ ಆಹಾರ ಮತ್ತು ಸತ್ತ ಮೀನುಗಳನ್ನು ಹೊರತೆಗೆಯಿರಿ. |  |
+| 9 | `pond_care.TOPICS.cleaning.text[2]` | Between crops, after the harvest: drain the pond, remove the black sludge from the bottom, let the bottom dry in the sun until it cracks, then fill it again. | ಎರಡು ಬೆಳೆಗಳ ನಡುವೆ, ಕೊಯ್ಲಿನ ನಂತರ: ಕೊಳದ ನೀರನ್ನು ಖಾಲಿ ಮಾಡಿ, ತಳದ ಕಪ್ಪು ಕೆಸರನ್ನು ತೆಗೆಯಿರಿ, ತಳ ಬಿರುಕು ಬಿಡುವವರೆಗೆ ಬಿಸಿಲಿನಲ್ಲಿ ಒಣಗಿಸಿ, ನಂತರ ಮತ್ತೆ ನೀರು ತುಂಬಿಸಿ. |  |
+| 10 | `pond_care.TOPICS.cleaning.tank` | In a tank: change part of the water and clean the bottom while the fish stay in. | ಟ್ಯಾಂಕ್‌ನಲ್ಲಿ: ಮೀನುಗಳು ಒಳಗೇ ಇರುವಾಗ ನೀರಿನ ಒಂದು ಭಾಗವನ್ನು ಬದಲಾಯಿಸಿ ಮತ್ತು ತಳವನ್ನು ಸ್ವಚ್ಛಗೊಳಿಸಿ. |  |
+| 11 | `pond_care.TOPICS.feeding.title` | Feeding | ಆಹಾರ ನೀಡುವುದು |  |
+| 12 | `pond_care.TOPICS.feeding.text[0]` | Feed at the same set times every day. | ಪ್ರತಿದಿನ ಅದೇ ನಿಗದಿತ ಸಮಯಗಳಲ್ಲಿ ಆಹಾರ ನೀಡಿ. |  |
+| 13 | `pond_care.TOPICS.feeding.text[1]` | Give less feed on cloudy or very hot days. | ಮೋಡ ಕವಿದ ಅಥವಾ ತುಂಬಾ ಬಿಸಿಯಾದ ದಿನಗಳಲ್ಲಿ ಕಡಿಮೆ ಆಹಾರ ನೀಡಿ. |  |
+| 14 | `pond_care.TOPICS.feeding.text[2]` | Stop feeding if the fish don't eat or the oxygen is low. | ಮೀನುಗಳು ತಿನ್ನದಿದ್ದರೆ ಅಥವಾ ಆಮ್ಲಜನಕ ಕಡಿಮೆ ಇದ್ದರೆ ಆಹಾರ ನೀಡುವುದನ್ನು ನಿಲ್ಲಿಸಿ. |  |
+| 15 | `pond_care.TOPICS.feeding.text[3]` | If feed is left over, give less next time and take the leftover out. | ಆಹಾರ ಉಳಿದರೆ, ಮುಂದಿನ ಬಾರಿ ಕಡಿಮೆ ನೀಡಿ ಮತ್ತು ಉಳಿದದ್ದನ್ನು ಹೊರತೆಗೆಯಿರಿ. |  |
+| 16 | `pond_care.TOPICS.feeding.text[4]` | For how much feed suits your fish, ask your fisheries officer or KVK. | ನಿಮ್ಮ ಮೀನುಗಳಿಗೆ ಎಷ್ಟು ಆಹಾರ ಸರಿ ಎಂದು ನಿಮ್ಮ ಮೀನುಗಾರಿಕೆ ಅಧಿಕಾರಿ ಅಥವಾ KVK ಅನ್ನು ಕೇಳಿ. |  |
+| 17 | `pond_care.TOPICS.aeration.title` | Aerators | ಏರೇಟರ್ |  |
+| 18 | `pond_care.TOPICS.aeration.text[0]` | Run the aerator at night and before dawn, when oxygen is lowest. | ಆಮ್ಲಜನಕ ಅತಿ ಕಡಿಮೆ ಇರುವ ರಾತ್ರಿ ಮತ್ತು ಬೆಳಗಿನ ಜಾವಕ್ಕೆ ಮೊದಲು ಏರೇಟರ್ ಚಾಲನೆ ಮಾಡಿ. |  |
+| 19 | `pond_care.TOPICS.aeration.text[1]` | It matters most after a cloudy, warm, still day. | ಮೋಡ ಕವಿದ, ಬಿಸಿಯಾದ, ಗಾಳಿಯಿಲ್ಲದ ದಿನದ ನಂತರ ಇದು ಅತ್ಯಂತ ಮುಖ್ಯ. |  |
+| 20 | `pond_care.TOPICS.aeration.text[2]` | If fish gasp at the surface, run it at once. | ಮೀನುಗಳು ಮೇಲ್ಮೈಯಲ್ಲಿ ಉಸಿರಿಗಾಗಿ ಒದ್ದಾಡಿದರೆ, ತಕ್ಷಣ ಚಾಲನೆ ಮಾಡಿ. |  |
+| 21 | `pond_care.TOPICS.aeration.text[3]` | The Weather page shows tonight's oxygen crash risk. | ಇಂದು ರಾತ್ರಿಯ ಆಮ್ಲಜನಕ ಕುಸಿತದ ಅಪಾಯವನ್ನು ಹವಾಮಾನ ಪುಟ ತೋರಿಸುತ್ತದೆ. |  |
+| 22 | `pond_care.TOPICS.stocking.title` | How many fish | ಎಷ್ಟು ಮೀನು |  |
+| 23 | `pond_care.TOPICS.stocking.text[0]` | Don't put too many fish in one pond: crowded fish get stressed, use up the oxygen and dirty the water. | ಒಂದೇ ಕೊಳದಲ್ಲಿ ತುಂಬಾ ಮೀನುಗಳನ್ನು ಹಾಕಬೇಡಿ: ಕಿಕ್ಕಿರಿದ ಮೀನುಗಳು ಒತ್ತಡಕ್ಕೆ ಒಳಗಾಗುತ್ತವೆ, ಆಮ್ಲಜನಕವನ್ನು ಮುಗಿಸುತ್ತವೆ ಮತ್ತು ನೀರನ್ನು ಕೊಳಕು ಮಾಡುತ್ತವೆ. |  |
+| 24 | `pond_care.TOPICS.stocking.text[1]` | For how many fish to put in your pond, follow your hatchery or fisheries officer. | ನಿಮ್ಮ ಕೊಳಕ್ಕೆ ಎಷ್ಟು ಮೀನು ಹಾಕಬೇಕು ಎಂದು ನಿಮ್ಮ ಮರಿ ಉತ್ಪಾದನಾ ಕೇಂದ್ರ (ಹ್ಯಾಚರಿ) ಅಥವಾ ಮೀನುಗಾರಿಕೆ ಅಧಿಕಾರಿಯ ಸಲಹೆ ಪಾಲಿಸಿ. |  |
+| 25 | `pond_care.TOPICS.checks.title` | Daily and weekly checks | ದಿನನಿತ್ಯ ಮತ್ತು ವಾರದ ಪರಿಶೀಲನೆ |  |
+| 26 | `pond_care.TOPICS.checks.text[0]` | Every day at dawn, watch the fish: gasping at the surface means low oxygen. | ಪ್ರತಿದಿನ ಬೆಳಗಿನ ಜಾವ ಮೀನುಗಳನ್ನು ಗಮನಿಸಿ: ಮೇಲ್ಮೈಯಲ್ಲಿ ಉಸಿರಿಗಾಗಿ ಒದ್ದಾಡುವುದು ಎಂದರೆ ಆಮ್ಲಜನಕ ಕಡಿಮೆ. |  |
+| 27 | `pond_care.TOPICS.checks.text[1]` | Every day, look at the water colour and smell it: very green water or a rotten-egg smell are warning signs. | ಪ್ರತಿದಿನ ನೀರಿನ ಬಣ್ಣ ನೋಡಿ ಮತ್ತು ವಾಸನೆ ಗಮನಿಸಿ: ತುಂಬಾ ಹಸಿರು ನೀರು ಅಥವಾ ಕೊಳೆತ ಮೊಟ್ಟೆಯ ವಾಸನೆ ಎಚ್ಚರಿಕೆಯ ಲಕ್ಷಣಗಳು. |  |
+| 28 | `pond_care.TOPICS.checks.text[2]` | Take out leftover feed and dead fish. | ಉಳಿದ ಆಹಾರ ಮತ್ತು ಸತ್ತ ಮೀನುಗಳನ್ನು ಹೊರತೆಗೆಯಿರಿ. |  |
+| 29 | `pond_care.TOPICS.checks.text[3]` | Once a week, test the water with the test kit and enter the readings in the app. | ವಾರಕ್ಕೊಮ್ಮೆ ಟೆಸ್ಟ್ ಕಿಟ್‌ನಿಂದ ನೀರನ್ನು ಪರೀಕ್ಷಿಸಿ ಮತ್ತು ಅಳತೆಗಳನ್ನು ಆ್ಯಪ್‌ನಲ್ಲಿ ನಮೂದಿಸಿ. |  |
+
+## 32. Messages from the server: My ponds and devices (server messages)
 
 Shown on the Pond page, the status strip and to devices (backend/ponds.py). The cause words follow the pond name in the strip, e.g. "Pond 2: Danger · low oxygen".
 
@@ -737,7 +788,7 @@ Shown on the Pond page, the status strip and to devices (backend/ponds.py). The 
 | 13 | `ponds.CAUSE_WORDS ammonia high` | high ammonia | ಹೆಚ್ಚು ಅಮೋನಿಯಾ |  |
 | 14 | `ponds.CAUSE_WORDS nitrate high` | high nitrate | ಹೆಚ್ಚು ನೈಟ್ರೇಟ್ |  |
 
-## 32. Messages from the server: Shop: assistant answers
+## 33. Messages from the server: Shop: assistant answers
 
 Ready answers to Shop questions (backend/shop.py). `{name}` is a product name, `{n}` a number of ponds or alerts, `{price}` e.g. ಅಂದಾಜು ₹23,000, `{budget}` e.g. 5,000.
 
@@ -769,7 +820,7 @@ Ready answers to Shop questions (backend/shop.py). `{name}` is a product name, `
 | 24 | `shop.TEXT.budget` | The {name} is {price}, more than your budget of ₹{budget}. Start with the test kit and the free app. | {name} ಬೆಲೆ {price}, ಇದು ನಿಮ್ಮ ₹{budget} ಬಜೆಟ್‌ಗಿಂತ ಹೆಚ್ಚು. ಟೆಸ್ಟ್ ಕಿಟ್ ಮತ್ತು ಉಚಿತ ಆ್ಯಪ್‌ನಿಂದ ಪ್ರಾರಂಭಿಸಿ. |  |
 | 25 | `shop.TEXT.simulated` | (simulated data) | (ಅನುಕರಿಸಿದ ಡೇಟಾ) |  |
 
-## 33. Messages from the server: Shop: products
+## 34. Messages from the server: Shop: products
 
 frontend/shop-data.json: shown on the Shop page and used by the assistant.
 
@@ -841,7 +892,7 @@ frontend/shop-data.json: shown on the Shop page and used by the assistant.
 | 64 | `shop-data.json solar-10w.steps[3]` | Point the panel at the sun and switch the box on. | ಫಲಕವನ್ನು ಸೂರ್ಯನ ಕಡೆಗೆ ತಿರುಗಿಸಿ, ಪೆಟ್ಟಿಗೆಯನ್ನು ಆನ್ ಮಾಡಿ. |  |
 | 65 | `shop-data.json solar-10w.care` | Wipe dust and bird droppings off the solar panel every month. | ಪ್ರತಿ ತಿಂಗಳು ಸೌರ ಫಲಕದ ಮೇಲಿನ ಧೂಳು ಮತ್ತು ಹಕ್ಕಿ ಹಿಕ್ಕೆಯನ್ನು ಒರೆಸಿ. |  |
 
-## 34. Messages from the server: Alert preview (SMS / WhatsApp)
+## 35. Messages from the server: Alert preview (SMS / WhatsApp)
 
 The SMS and WhatsApp text is built from the risk card and time-until-danger messages above, plus these.
 

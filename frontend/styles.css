@@ -598,6 +598,8 @@ main {
 .chat-speak { min-height: 44px; padding: 0 0.875rem; font-size: 1rem; }
 .chat-speak svg { width: 22px; height: 22px; }
 .suggestion-list { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.chat-related { display: flex; flex-direction: column; gap: 0.5rem; }
+.chat-related-title { margin: 0; font-size: 0.9375rem; font-weight: 600; color: var(--text-secondary); }
 .suggestion {
   min-height: 48px; padding: 0.5rem 1rem; border-radius: 12px;    /* not a pill: Kannada wraps */
   border: 2px solid var(--primary); background: var(--card); color: var(--text);

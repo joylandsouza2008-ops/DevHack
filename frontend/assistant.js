@@ -72,10 +72,10 @@
     }
     const { text, lang: textLang } = messageText(m);
     const meta = make("div", "chat-meta");
-    const kindWord = { ai: words.assistantAiAnswer, unknown: words.assistantAiAnswer,
+    const kindWord = { ai: words.assistantAiAnswer, unknown: words.assistantNotice,
       ready: words.assistantReady, safety: words.assistantSafety, notice: words.assistantNotice }[m.kind]
       || words.assistantReady;
-    meta.append(make("span", m.kind === "ai" || m.kind === "unknown" ? "chat-kind chat-kind-ai" : "chat-kind", kindWord),
+    meta.append(make("span", m.kind === "ai" ? "chat-kind chat-kind-ai" : "chat-kind", kindWord),
       ...usedTags(m.used));
     const body = make("p", "chat-text", text);
     body.lang = textLang;
@@ -86,6 +86,21 @@
     speak.setAttribute("aria-pressed", String(speakingId === m.id));
     speak.addEventListener("click", () => toggleSpeak(m));
     item.append(meta, body, speak);
+    const related = (m.related || []).map((id) => suggestions.find((s) => s.id === id)).filter(Boolean);
+    if (related.length) {
+      // "I can't answer that": 2-3 suggested questions close to what was asked (ready answers).
+      const box = make("div", "chat-related");
+      const list = make("div", "suggestion-list");
+      list.append(...related.map((s) => {
+        const button = make("button", "suggestion", s.question[lang]);
+        button.type = "button";
+        button.disabled = busy;
+        button.addEventListener("click", () => askSuggestion(s.id));
+        return button;
+      }));
+      box.append(make("p", "chat-related-title", words.assistantRelated), list);
+      item.append(box);
+    }
     return item;
   }
 
@@ -195,15 +210,17 @@
     busy = false;
     if (body && body.label) label = body.label;
     if (body && body.text && body.mode === "ready") {
-      // A ready Shop answer (backend/shop.py): labelled as the app's, both languages, built from the readings.
-      messages.push({ id: nextId++, role: "assistant", kind: "ready", texts: body.texts, used: body.used });
+      // A ready Shop answer (backend/shop.py, built from the readings) or Pond care answer
+      // (backend/pond_care.py, no readings): labelled as the app's, both languages.
+      messages.push({ id: nextId++, role: "assistant", kind: "ready", texts: body.texts,
+        used: body.topic === "pond_care" ? [] : body.used });
     } else if (body && body.text) {
       const kind = body.mode === "safety" ? "safety" : body.mode === "unknown" ? "unknown" : "ai";
       messages.push({ id: nextId++, role: "assistant", kind, text: body.text, lang: body.lang,
-        used: kind === "ai" ? body.used : [] });          // refusals and "I don't know" use no readings
+        used: kind === "ai" ? body.used : [], related: body.related });   // refusals and "can't answer" use no readings
     } else {
-      // No AI answer: say why in the chat, and point to the suggested questions (ready answers).
-      messages.push(body ? { id: nextId++, role: "assistant", kind: "notice", texts: body.notice }
+      // No AI answer: say why in the chat, with 2-3 related suggested questions (ready answers).
+      messages.push(body ? { id: nextId++, role: "assistant", kind: "notice", texts: body.notice, related: body.related }
         : { id: nextId++, role: "assistant", kind: "notice", key: "assistantFailed" });
       if (body && body.suggestions) suggestions = body.suggestions;
     }

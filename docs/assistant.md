@@ -17,10 +17,14 @@ weather or fish diseases. It is always labelled **"AI assistant: can make mistak
    - the Safe / Warning / Danger levels from `config/thresholds.toml`;
    - the action checklist (`backend/actions.py`, documented in `docs/actions.md`);
    - the Fish disease guide (`backend/diseases.py`);
-   - tonight's crash risk (`backend/weather.py`).
+   - tonight's crash risk (`backend/weather.py`);
+   - Pond care basics: cleaning, changing water, feeding, aerators, checks, how many fish (`backend/pond_care.py`,
+     sources in `docs/pond-care.md`).
 
-   It is told to use nothing else. If the answer isn't there it must reply `UNKNOWN`, which the server turns into
-   **"I don't know, please ask your fisheries officer."**
+   It is told to use nothing else. If the answer isn't there it must reply `UNKNOWN`. A pond care question then gets
+   the ready Pond care answer. Anything else gets **"I can't answer that from the app's information. For that,
+   please ask your fisheries officer or KVK."**, a line saying what the assistant *can* help with, and 2–3
+   related suggested questions as buttons.
 2. **No chemicals, medicines, doses or diagnosis.**
    - Questions asking for a medicine, chemical or dose are refused *before* reaching the AI.
    - Every AI reply is checked against `backend/safety.py`: the same banned-word list as the disease guide (English
@@ -52,9 +56,10 @@ The page always shows **suggested questions** whose answers the server builds fr
 | Which diseases are more likely with my readings? | the disease guide's links to readings |
 | My fish look sick. What should I do? | the guide's "what to do" steps |
 | How can I prevent fish diseases? | the guide's prevention steps |
+| When should I clean my pond? | Pond care basics (`docs/pond-care.md`) |
 
-If there is no key, no internet, a provider error or the rate limit is reached, a typed question gets a message
-saying so, and the farmer can tap a suggested question. Tapping one never calls the AI, so the demo always works.
+If there is no key, no internet, a provider error or the rate limit is reached, a typed Shop or pond care question
+still gets its ready answer. Any other question gets a message saying so, with 2–3 related suggested questions under it. Tapping one never calls the AI, so the demo always works.
 
 ## Rate limit
 

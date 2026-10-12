@@ -91,7 +91,8 @@ def pairs_in(obj, path=""):
 
 def backend_groups() -> list[tuple[str, str, list]]:
     """(heading, note, rows) for the text the API sends to the page."""
-    from backend import actions, alerts, assistant, diseases, main, ponds, risk_messages, sensor, shop, simulator, weather
+    from backend import (actions, alerts, assistant, diseases, main, pond_care, ponds, risk_messages, sensor, shop,
+                         simulator, weather)
 
     def rows(module, *names):
         return [(f"{module.__name__.split('.')[-1]}.{p}", en, kn)
@@ -130,13 +131,22 @@ def backend_groups() -> list[tuple[str, str, list]]:
         ("Ask AquaNexus assistant", "Labels, safety replies and the suggested questions. Ready answers are "
          "built from the texts in the other sections. AI replies in Kannada are written by the AI and are not in "
          "this sheet.",
-         rows(assistant, "LABEL", "I_DONT_KNOW", "CONFIRM", "NO_TREATMENT", "FALLBACK_NOTE", "LIMITED_NOTE",
+         rows(assistant, "LABEL", "I_DONT_KNOW", "CAN_HELP", "CONFIRM", "NO_TREATMENT", "FALLBACK_NOTE", "LIMITED_NOTE",
               "SIMULATED_NOTE", "QUESTIONS", "NO_READINGS", "ALL_SAFE_ACTION", "NO_LIKELY", "USE_CHECKER",
               "LEVELS_INTRO", "AMMONIA_NOTE") + [
              *[(f"assistant.BAND.{key}", en, kn) for key, en, kn in
                ((k, assistant.BAND["en"][k].strip(), assistant.BAND["kn"][k].strip()) for k in assistant.BAND["en"])
                if KANNADA.search(kn)],
              ("assistant._answer (tonight)", "Oxygen crash risk tonight: {level}.", "ಇಂದು ರಾತ್ರಿ ಆಮ್ಲಜನಕ ಕುಸಿತದ ಅಪಾಯ: {level}."),
+         ]),
+        ("Ask AquaNexus: pond care basics", "Ready answers to pond care questions (backend/pond_care.py). "
+         "Each answer is its sentences joined together, ending with the fisheries officer note.",
+         rows(pond_care, "OFFICER_NOTE") + [
+             (f"pond_care.TOPICS.{topic}.{part}", en, kn)
+             for topic, t in pond_care.TOPICS.items()
+             for part, (en, kn) in [("title", (t["title"]["en"], t["title"]["kn"]))]
+             + [(f"text[{i}]", pair) for i, pair in enumerate(zip(t["text"]["en"], t["text"]["kn"]))]
+             + ([("tank", (t["tank"]["en"], t["tank"]["kn"]))] if "tank" in t else [])
          ]),
         ("My ponds and devices (server messages)", "Shown on the Pond page, the status strip and to devices "
          "(backend/ponds.py). The cause words follow the pond name in the strip, e.g. \"Pond 2: Danger · low oxygen\".",

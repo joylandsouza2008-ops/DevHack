@@ -81,9 +81,16 @@ def looks_like_diagnosis(text: str) -> bool:
     return DIAGNOSIS_PATTERN.search(text) is not None
 
 
+# "ಆಹಾರ ಎಷ್ಟು ಹಾಕಬೇಕು?" (how much feed to put in?) is a feeding question, not a dose question.
+FEED_WORDS = ["feed", "food", "ಆಹಾರ", "ಮೇವು"]
+
+
 def asks_for_treatment(text: str) -> bool:
     low = text.lower()
-    return any(_contains(low, w) for w in TREATMENT_WORDS)
+    found = [w for w in TREATMENT_WORDS if _contains(low, w)]
+    if found == ["ಎಷ್ಟು ಹಾಕ"] and any(_contains(low, w) for w in FEED_WORDS):
+        return False
+    return bool(found)
 
 
 def is_health_topic(text: str) -> bool:

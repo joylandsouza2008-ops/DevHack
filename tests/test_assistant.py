@@ -84,12 +84,25 @@ def test_kannada_question_asks_for_a_kannada_reply_with_our_kannada_words(ai):
 
 
 @pytest.mark.parametrize("lang", ["en", "kn"])
-def test_unknown_becomes_i_dont_know(ai, lang):
+def test_unknown_says_what_it_can_help_with_and_suggests_questions(ai, lang):
     ai.reply = "UNKNOWN"
     body = ask("Who won the cricket match?", lang=lang)
     assert body["mode"] == "unknown"
-    assert body["text"] == A.I_DONT_KNOW[lang]
-    assert "fisheries officer" in A.I_DONT_KNOW["en"]
+    assert body["text"] == f"{A.I_DONT_KNOW[lang]} {A.CAN_HELP[lang]}"
+    assert "fisheries officer" in A.I_DONT_KNOW["en"] and "pond care" in A.CAN_HELP["en"]
+    assert 2 <= len(body["related"]) <= 3 and set(body["related"]) <= set(A.QUESTIONS)
+
+
+def test_related_questions_follow_the_question():
+    assert A.related("Can I wash the nets in the kere?")[0] == "pond_clean"
+    assert A.related("Will it rain tonight?")[0] == "tonight"
+    assert A.related("My fish have a strange spot")[:3] == ["sick_fish", "prevent", "pond_now"]
+    assert A.related("hello") == A.DEFAULT_RELATED
+
+
+def test_no_key_and_no_ready_answer_gives_related_questions():
+    body = ask("Who won the cricket match?")
+    assert body["mode"] == "fallback" and len(body["related"]) == 3
 
 
 def test_the_word_unknown_in_a_normal_sentence_is_kept(ai):
@@ -222,6 +235,86 @@ def test_real_readings_come_before_simulated_ones():
     assert body["used"] == ["live_sensor", "simulated"]
 
 
+# ----------------------------------------------------------------- pond care basics (backend/pond_care.py)
+
+POND_CARE = [
+    ("When should I clean the pond", "en", "cleaning"),
+    ("when to clean the tank", "en", "cleaning"),
+    ("how often to change water", "en", "water_change"),
+    ("how much to feed", "en", "feeding"),
+    ("Can I wash my kere?", "en", "cleaning"),
+    ("When should I run the aerator?", "en", "aeration"),
+    ("How many fish can I stock?", "en", "stocking"),
+    ("What should I check every day?", "en", "checks"),
+    ("ಕೆರೆಯನ್ನು ಯಾವಾಗ ಸ್ವಚ್ಛಗೊಳಿಸಬೇಕು?", "kn", "cleaning"),
+    ("ಟ್ಯಾಂಕ್ ಅನ್ನು ಯಾವಾಗ ತೊಳೆಯಬೇಕು?", "kn", "cleaning"),
+    ("ನೀರು ಎಷ್ಟು ಸಲ ಬದಲಾಯಿಸಬೇಕು?", "kn", "water_change"),
+    ("ಆಹಾರ ಎಷ್ಟು ಹಾಕಬೇಕು?", "kn", "feeding"),
+]
+# Amounts or chemicals that must never appear in a pond care answer.
+NO_AMOUNTS = re.compile(r"\d|%|\b(kg|g|ml|lime|limestone|quicklime|urea|fertili[sz]er|salt)\b|ಕೆಜಿ|ಗ್ರಾಂ|ಉಪ್ಪು", re.I)
+
+
+@pytest.mark.parametrize("question, lang, topic", POND_CARE)
+def test_pond_care_questions_are_understood(question, lang, topic):
+    from backend import pond_care
+    assert pond_care.classify(question) == topic
+    assert not safety.asks_for_treatment(question)          # feeding in Kannada is not a "dose" question
+
+
+@pytest.mark.parametrize("question, lang, topic", POND_CARE)
+def test_pond_care_gets_a_ready_answer_without_ai(question, lang, topic):
+    body = ask(question, lang=lang)                          # no key in tests
+    assert body["mode"] == "ready" and body["topic"] == "pond_care"
+    for lg in ("en", "kn"):
+        text = body["texts"][lg]
+        assert safety.find_banned(text) == [] and not NO_AMOUNTS.search(text), text
+        assert "fisheries officer" in text or "ಮೀನುಗಾರಿಕೆ ಅಧಿಕಾರಿ" in text
+    assert body["text"] == body["texts"][lang]
+    if lang == "kn":
+        assert KANNADA.search(body["text"])
+
+
+@pytest.mark.parametrize("question, lang, topic", POND_CARE)
+def test_pond_care_question_the_ai_misses_gets_the_ready_answer(ai, question, lang, topic):
+    ai.reply = "UNKNOWN"
+    body = ask(question, lang=lang)
+    assert body["mode"] == "ready" and "I can't answer" not in body["text"]
+
+
+def test_cleaning_answers_say_what_to_do_in_a_crop_between_crops_and_in_a_tank():
+    from backend import pond_care
+    pond = pond_care.answer("cleaning", "When should I clean the pond")["en"]
+    assert "don't fully drain or scrub" in pond and "leftover feed and dead fish" in pond
+    assert "sun until it cracks" in pond and "black sludge" in pond
+    tank = pond_care.answer("cleaning", "when to clean the tank")["en"]
+    assert tank.startswith("In a tank: change part of the water and clean the bottom while the fish stay in.")
+    assert "change part of the water" in pond_care.answer("water_change")["en"].lower()
+    feed = pond_care.answer("feeding")["en"]
+    assert "set times" in feed and "cloudy" in feed and "Stop feeding" in feed
+
+
+def test_pond_care_is_in_the_ai_content(ai):
+    ask("When should I clean the tank?")
+    system = ai.calls[0]["system"]
+    assert "## Pond care basics" in system and "sun until it cracks" in system
+    assert "Pond care questions" in system
+
+
+def test_pond_clean_suggested_question_has_a_ready_answer(ai):
+    body = client.post("/api/assistant/suggestions", json={}).json()
+    clean = next(s for s in body["suggestions"] if s["id"] == "pond_clean")
+    assert clean["question"]["en"] == "When should I clean my pond?"
+    assert "sun until it cracks" in clean["answer"]["en"] and KANNADA.search(clean["answer"]["kn"])
+    assert ai.calls == []
+
+
+def test_chemical_questions_about_the_pond_are_still_refused(ai):
+    for question in ("Which chemical should I add when I clean the pond?", "ಕೆರೆ ಸ್ವಚ್ಛಗೊಳಿಸಲು ಯಾವ ರಾಸಾಯನಿಕ?"):
+        assert ask(question, lang="kn" if KANNADA.search(question) else "en")["mode"] == "safety"
+    assert ai.calls == []
+
+
 # ----------------------------------------------------------------- rate limit
 
 def test_rate_limit_per_visitor_and_for_everyone():
@@ -318,7 +411,8 @@ def test_key_is_never_sent_to_the_page(ai, monkeypatch):
 
 def test_assistant_kannada_is_in_the_review_sheet():
     sheet = (Path(__file__).resolve().parent.parent / "docs" / "kannada-review.md").read_text(encoding="utf-8")
-    texts = [A.LABEL, A.I_DONT_KNOW, A.CONFIRM, A.NO_TREATMENT, A.FALLBACK_NOTE, A.LIMITED_NOTE, A.SIMULATED_NOTE,
+    from backend import pond_care
+    texts = [A.LABEL, A.I_DONT_KNOW, A.CAN_HELP, pond_care.OFFICER_NOTE, A.CONFIRM, A.NO_TREATMENT, A.FALLBACK_NOTE, A.LIMITED_NOTE, A.SIMULATED_NOTE,
              A.NO_READINGS, A.ALL_SAFE_ACTION, A.NO_LIKELY, A.USE_CHECKER, A.LEVELS_INTRO, A.AMMONIA_NOTE,
              *A.QUESTIONS.values()]
     missing = [t["kn"] for t in texts if t["kn"] not in sheet]
