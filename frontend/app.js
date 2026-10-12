@@ -1512,7 +1512,8 @@ document.querySelectorAll("#alert-source-picker button").forEach((b) => {
 });
 
 $("history-clear").addEventListener("click", clearHistory);
-document.querySelectorAll("#theme-toggle button").forEach((b) => {
+// Both colour toggles: the top bar (hidden on phones) and More → Settings → Colours.
+document.querySelectorAll(".theme-toggle [data-theme-choice]").forEach((b) => {
   b.addEventListener("click", () => setTheme(b.dataset.themeChoice, true));
 });
 // No saved choice yet: follow the phone if its light/dark setting changes.

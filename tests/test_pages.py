@@ -107,3 +107,19 @@ def test_terms_list_your_rights_server_logs_and_a_privacy_contact():
 def test_delete_all_button_is_a_danger_button():
     assert re.search(r'class="button-danger" id="delete-all"', page_html("more"))
     assert ".button-danger {" in CSS
+
+
+def test_every_colour_toggle_button_has_a_click_handler():
+    """Bug fix: only the top bar's toggle (#theme-toggle, hidden on phones) was wired up,
+    so on a phone the More page's Light/Dark buttons did nothing. Every theme button,
+    in every .theme-toggle group, must be matched by the selector that adds the clicks."""
+    groups = re.findall(r'<div class="([^"]*\btheme-toggle\b[^"]*)"[^>]*>(.*?)</div>', HTML, re.S)
+    assert len(groups) >= 2, "top bar and More page"
+    assert 'id="theme-toggle"' in HTML and 'data-theme-choice' in page_html("more")
+    for _, buttons in groups:
+        assert re.findall(r'data-theme-choice="(\w+)"', buttons) == ["light", "dark"]
+    wiring = re.search(r'document\.querySelectorAll\("([^"]+)"\)\.forEach\(\(b\) => \{\s*'
+                       r'b\.addEventListener\("click", \(\) => setTheme\(', APP)
+    assert wiring, "the theme buttons get their click handler in app.js"
+    assert wiring.group(1) == ".theme-toggle [data-theme-choice]", \
+        "select by class, not by the top bar's id, so the More page buttons work too"
