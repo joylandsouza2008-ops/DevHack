@@ -45,3 +45,20 @@ test("the router keeps a pond dashboard address and tidies the others", () => {
   assert.equal(R.canonicalHash("#/pond/<script>"), "#/pond");
   assert.equal(R.canonicalHash(""), "#/pond");
 });
+
+test("delete all my data clears only this app's saved keys", () => {
+  const saved = new Map([
+    ["meenuraksha-lang", "en"], ["meenuraksha-theme", "dark"], ["meenuraksha-ticks:danger-low-do", "[1]"],
+    ["meenuraksha-history", "[]"], ["meenuraksha-weather-forecast:Kota", "{}"],
+    ["aquanexus_farm_code", "K7QM3XRP9TFD"], ["aquanexus_cart", "[]"],
+    ["some-other-site-key", "keep"],
+  ]);
+  const storage = {
+    get length() { return saved.size; },
+    key: (i) => [...saved.keys()][i] ?? null,
+    removeItem: (k) => saved.delete(k),
+  };
+  P.clearSavedData(storage);
+  assert.deepEqual([...saved.keys()], ["some-other-site-key"]);
+  P.clearSavedData(null);              // storage blocked: nothing to do, no error
+});

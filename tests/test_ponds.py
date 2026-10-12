@@ -133,6 +133,39 @@ def test_deleting_a_pond_removes_its_device_readings_and_alerts(clock):
     assert send(device, reading(clock)).status_code == 401              # its key is gone too
 
 
+def test_delete_all_my_data_erases_the_whole_farm_and_nothing_else(clock):
+    """DPDP 'right to erasure': More page -> Delete all my data -> DELETE /api/farm."""
+    h, other = farm(), farm()
+    first, second = add(h, "Pond 1"), add(h, "Pond 2")
+    device = connect(h, first["id"])
+    connect(h, second["id"])
+    assert send(device, reading(clock, dissolved_oxygen=2.5)).status_code == 201   # a reading and a Danger alert
+    kept = add(other, "Neighbour's pond")
+
+    r = client.delete("/api/farm", headers=h)
+    assert r.status_code == 200
+    assert r.json() == {"deleted": {"ponds": 2, "devices": 2, "readings": 1, "alerts": 1}}
+
+    store = main.farms()
+    farm_hash = ponds.farm_id(ponds.normalize_farm_code(h["X-Farm-Code"]))
+    assert store.db.query("SELECT * FROM farms WHERE id = ?", (farm_hash,)) == []
+    for table in ("devices", "readings", "alerts"):
+        assert store.db.query(f"SELECT * FROM {table}") == [], table
+    assert listing(h)["ponds"] == [] and listing(h)["alerts"] == []
+    assert [p["id"] for p in listing(other)["ponds"]] == [kept["id"]]       # another farm is untouched
+    clock.move(seconds=31)
+    assert send(device, reading(clock)).status_code == 401                   # device keys stop working
+
+    # Again, or for a farm with nothing saved: fine, nothing to delete.
+    assert client.delete("/api/farm", headers=h).json() == \
+        {"deleted": {"ponds": 0, "devices": 0, "readings": 0, "alerts": 0}}
+
+
+def test_delete_all_needs_a_farm_code():
+    assert client.delete("/api/farm").status_code == 400
+    assert client.delete("/api/farm", headers={"X-Farm-Code": "not-a-code"}).status_code == 400
+
+
 def test_pond_names_are_checked():
     h = farm()
     assert client.post("/api/ponds", json={"pond_name": ""}, headers=h).status_code == 422

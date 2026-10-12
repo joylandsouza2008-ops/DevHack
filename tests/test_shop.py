@@ -39,7 +39,7 @@ KNOWN_API = {
     ("GET", "/api/simulator/scenarios"), ("GET", "/api/simulator/stream"),
     # My ponds (backend/ponds.py): pond names, sizes and fish types, grouped by a farm code. No personal data.
     ("GET", "/api/storage"), ("GET", "/api/ponds"), ("POST", "/api/ponds"), ("GET", "/api/ponds/{pond_id}"),
-    ("PATCH", "/api/ponds/{pond_id}"), ("DELETE", "/api/ponds/{pond_id}"),
+    ("PATCH", "/api/ponds/{pond_id}"), ("DELETE", "/api/ponds/{pond_id}"), ("DELETE", "/api/farm"),
     ("POST", "/api/ponds/{pond_id}/device"), ("DELETE", "/api/ponds/{pond_id}/device"),
     ("POST", "/api/ponds/{pond_id}/device/new-key"),
     # The fixed list of coastal Karnataka villages a pond can be in (backend/places.py). Read-only.

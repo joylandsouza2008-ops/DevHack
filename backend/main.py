@@ -26,6 +26,7 @@ Endpoints:
     GET/POST /api/ponds              the farmer's ponds (X-Farm-Code header), with status and alerts
     GET/PATCH/DELETE /api/ponds/{id} one pond: its full dashboard, edit, delete
     POST/DELETE /api/ponds/{id}/device, POST /api/ponds/{id}/device/new-key   connect / remove a device, new key
+    DELETE /api/farm                 "Delete all my data": every pond, device, reading and alert under the farm code
     /                                the web page (files in frontend/)
 
 The DO forecast model is deliberately NOT exposed: its typical error (±4.5 mg/L)
@@ -604,6 +605,18 @@ def delete_pond(pond_id: PondPath, x_farm_code: FarmCode = None):
     if not (farm and farms().delete_pond(farm, pond_id)):
         return _problem(404, "not_found", ponds.NOT_FOUND)
     return {"deleted": True}
+
+
+@app.delete("/api/farm")
+def delete_farm(x_farm_code: FarmCode = None):
+    """
+    "Delete all my data" (More page): erases every pond, device, reading and alert
+    under this farm code. Cannot be undone. The page then clears its own saved data.
+    """
+    farm = _farm_of(x_farm_code)
+    if not farm:
+        return _problem(400, "bad_farm_code", ponds.BAD_FARM_CODE)
+    return {"deleted": farms().delete_farm(farm)}
 
 
 def _device_reply(device_id: str, key: str) -> dict:

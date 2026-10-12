@@ -602,6 +602,14 @@
           </form>
           <p class="farm-status" id="farm-status" role="status"></p>
         </section>
+        <!-- Delete all my data (ponds.js deleteAll): DELETE /api/farm erases this farm code's ponds,
+             devices, readings and alerts on the server; then this browser's saved data is cleared. -->
+        <section class="card delete-all-card" aria-labelledby="delete-all-title">
+          <h2 id="delete-all-title" data-i18n="deleteAllTitle">Delete all my data</h2>
+          <p class="kit-help" data-i18n="deleteAllHelp">Erases every pond, device, reading and alert saved under your farm code on our server, and everything this app saved in this browser. This cannot be undone.</p>
+          <p><button type="button" class="button-danger" id="delete-all" data-i18n="deleteAllButton">Delete all my data</button></p>
+          <p class="farm-status" id="delete-all-status" role="status"></p>
+        </section>
         <div class="board board-more">
         <!-- Manual test-kit entry. Results are marked "manual", never mixed with the simulated pond. -->
         <section class="card kit-card in-view" data-doodle="ripples" aria-labelledby="kit-title">
@@ -823,6 +831,15 @@
         <li data-i18n="termsLogs">To keep the site working and stop misuse, our server and our host (Render) keep short technical records, such as which page was asked for and the internet address it came from.</li>
         <li data-i18n="termsNoAds">No ads, no tracking, and nothing about you is sold.</li>
       </ul>
+      <h3 data-i18n="termsRightsTitle">Your rights</h3>
+      <p data-i18n="termsRightsIntro">Under India's Digital Personal Data Protection Act, 2023, you can see, correct and delete your data. You can do all three in the app yourself:</p>
+      <ul class="terms-list">
+        <li data-i18n="termsRightSee">See: the Pond page shows every pond, device, reading and alert saved under your farm code.</li>
+        <li data-i18n="termsRightCorrect">Correct: open a pond and tap Edit to change its name, size, fish or village.</li>
+        <li data-i18n="termsRightDelete">Delete: delete one pond from its page, or everything at once with "Delete all my data" on the More page.</li>
+      </ul>
+      <p data-i18n="termsRightsAsk">For any other privacy request, or if the app does not work for you, write to Team Orbit. Include your farm code so we can find your ponds. AquaNexus is a student project, not a company.</p>
+      <p><span data-i18n="termsRightsEmail">Privacy requests: Team Orbit,</span> <a href="mailto:teamorbit.aquanexus@gmail.com" id="terms-email" lang="en">teamorbit.aquanexus@gmail.com</a></p>
       <h3 data-i18n="termsDataTitle">Open data and licences</h3>
       <p data-i18n="termsData">The app uses open datasets and public services. The Data sources list shows each one and its licence.</p>
       <p><button type="button" class="button-ghost" id="terms-sources" data-i18n="termsDataButton">Open Data sources</button></p>

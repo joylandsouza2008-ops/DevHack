@@ -160,6 +160,24 @@ class FarmStore:
         self.db.execute("DELETE FROM ponds WHERE id = ? AND farm_id = ?", (pond_id, farm))
         return True
 
+    def delete_farm(self, farm: str) -> dict:
+        """
+        "Delete all my data": every pond, device, reading and alert under this farm
+        code, and the farm itself. Returns how many of each were deleted (all 0 if
+        the farm had nothing saved). Nothing is kept afterwards, not even a note.
+        """
+        pond_ids = [p["id"] for p in self.ponds(farm)]
+        counts = {"ponds": len(pond_ids), "devices": 0, "readings": 0, "alerts": 0}
+        for pond_id in pond_ids:
+            for table in ("readings", "devices"):
+                counts[table] += self.db.one(f"SELECT COUNT(*) AS n FROM {table} WHERE pond_id = ?", (pond_id,))["n"]
+                self.db.execute(f"DELETE FROM {table} WHERE pond_id = ?", (pond_id,))
+        counts["alerts"] = self.db.one("SELECT COUNT(*) AS n FROM alerts WHERE farm_id = ?", (farm,))["n"]
+        self.db.execute("DELETE FROM alerts WHERE farm_id = ?", (farm,))
+        self.db.execute("DELETE FROM ponds WHERE farm_id = ?", (farm,))
+        self.db.execute("DELETE FROM farms WHERE id = ?", (farm,))
+        return counts
+
     # ---- devices
 
     def device_for_pond(self, pond_id: str) -> dict | None:

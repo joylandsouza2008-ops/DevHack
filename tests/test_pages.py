@@ -49,7 +49,7 @@ def test_old_bottom_toolbar_is_gone():
     ("weather", ["weather-tonight", "weather-message", "weather-offline"]),
     ("diseases", ["likely-card", "guide", "checker-form", "disease-library"]),
     ("ask", ["assistant", "chat-form", "suggestion-list"]),
-    ("more", ["kit-form", "live-card"]),
+    ("more", ["kit-form", "live-card", "farm-code", "delete-all", "delete-all-status"]),
     ("shop", ["cart-open", "cart-count", "shop-grid", "shop-toast"]),
 ])
 def test_every_feature_is_on_its_page(page, ids):
@@ -87,3 +87,23 @@ def test_every_label_has_english_and_kannada_text():
     keys = set(re.findall(r'data-i18n="(\w+)"', HTML))
     for key in keys:
         assert len(re.findall(rf"\b{key}:", APP)) >= 2, f"{key} needs an English and a Kannada text in app.js"
+
+
+def test_terms_list_your_rights_server_logs_and_a_privacy_contact():
+    """DPDP Act 2023: see / correct / delete, how to do it in the app, who to write to."""
+    terms = HTML[HTML.index('id="terms-dialog"'):]
+    terms = terms[:terms.index("</dialog>")]
+    for key in ("termsRightsTitle", "termsRightSee", "termsRightCorrect", "termsRightDelete",
+                "termsRightsAsk", "termsRightsEmail", "termsLogs"):
+        assert f'data-i18n="{key}"' in terms, key
+    email = re.search(r'<a href="mailto:([^"]+)" id="terms-email"[^>]*>([^<]+)</a>', terms)
+    assert email and email.group(1) == email.group(2) and "@" in email.group(1)
+    for lang_text in re.findall(r"termsLogs: \"([^\"]+)\"", APP):
+        assert "Render" in lang_text and "IP" in lang_text
+    for lang_text in re.findall(r"termsRightsAsk: \"([^\"]+)\"", APP):
+        assert ("student project" in lang_text) or ("ವಿದ್ಯಾರ್ಥಿ" in lang_text)
+
+
+def test_delete_all_button_is_a_danger_button():
+    assert re.search(r'class="button-danger" id="delete-all"', page_html("more"))
+    assert ".button-danger {" in CSS

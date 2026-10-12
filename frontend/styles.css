@@ -208,6 +208,12 @@ main {
 .button-primary { background: var(--primary); color: var(--on-primary); border: 0; }
 .button-primary:active { background: var(--primary-pressed); }
 .button-secondary { background: transparent; color: var(--primary); border: 2px solid var(--primary); }
+/* DESIGN.md button-danger: destructive actions only. White on Danger red (5.6:1). */
+.button-danger {
+  min-height: 52px; padding: 0 1.75rem; border-radius: 9999px; border: 0;
+  background: var(--danger); color: var(--on-status); font-weight: 600; cursor: pointer;
+}
+.button-danger:disabled { opacity: 0.6; cursor: wait; }
 
 .sim-clock { color: var(--text-secondary); font-size: 1rem; line-height: 1.5; }
 .sim-clock strong { color: var(--text); font-variant-numeric: tabular-nums; }
@@ -1168,6 +1174,8 @@ button { position: relative; isolation: isolate; overflow: hidden; }
 .farm-form .kit-field { flex: 1 1 14rem; }
 .farm-status { font-weight: 600; }
 .farm-status:empty { display: none; }
+.delete-all-card { display: flex; flex-direction: column; gap: 0.75rem; }
+.delete-all-card h2, .delete-all-card p { margin: 0; }
 .pond-alerts-card[hidden] { display: none; }
 
 /* Add / edit a pond. */

@@ -52,7 +52,19 @@
     return m ? m[1] : null;
   }
 
-  const api = { ALPHABET, CODE_LENGTH, makeFarmCode, normalizeFarmCode, formatFarmCode, pondFromHash };
+  // Every key this app saves in the browser starts with one of these
+  // (language, theme, ticked steps, alert history, weather, cart, farm code).
+  const OUR_KEYS = /^(meenuraksha|aquanexus)[-_:]/;
+
+  // "Delete all my data", browser side: removes the app's keys (and nobody else's) from `storage`.
+  function clearSavedData(storage) {
+    if (!storage) return;
+    const keys = [];
+    for (let i = 0; i < storage.length; i++) keys.push(storage.key(i));
+    keys.filter((k) => OUR_KEYS.test(k)).forEach((k) => storage.removeItem(k));
+  }
+
+  const api = { ALPHABET, CODE_LENGTH, makeFarmCode, normalizeFarmCode, formatFarmCode, pondFromHash, clearSavedData };
   if (typeof module !== "undefined" && module.exports) { module.exports = api; return; }   // Node tests
 
   // ---------------------------------------------------------------- page
@@ -425,6 +437,49 @@
   function renderFarm() {
     $("farm-code").textContent = formatFarmCode(farmCode);
     $("farm-not-saved").hidden = codeSaved;
+    if (justDeleted) {
+      $("delete-all-status").textContent = DELETED_TEXT[lang];
+      $("delete-all-status").dataset.ok = "true";
+    }
+  }
+
+  // ---- delete all my data (More page)
+  // The server deletes first; only if that worked is this browser cleared. Then the
+  // page reloads, so nothing stays in memory, with ?deleted=1 to say it is done.
+
+  const DELETED_PARAM = "deleted";
+  const DELETED_TEXT = { en: "All your data was deleted. This phone now has a new, empty farm code.",
+    kn: "ನಿಮ್ಮ ಎಲ್ಲಾ ಡೇಟಾ ಅಳಿಸಲಾಗಿದೆ. ಈ ಫೋನ್‌ಗೆ ಈಗ ಹೊಸ, ಖಾಲಿ ಫಾರ್ಮ್ ಕೋಡ್ ಇದೆ." };
+  let justDeleted = false;
+
+  async function deleteAll() {
+    const status = $("delete-all-status");
+    if (!window.confirm(words.deleteAllConfirm(formatFarmCode(farmCode)))) return;
+    const button = $("delete-all");
+    button.disabled = true;
+    status.textContent = words.deleteAllBusy;
+    status.dataset.ok = "true";
+    try {
+      await call("/api/farm", { method: "DELETE" });
+    } catch {
+      button.disabled = false;
+      status.textContent = words.deleteAllFailed;
+      status.dataset.ok = "false";
+      return;
+    }
+    clearTimeout(timer);
+    clearSavedData(browserStorage());
+    window.location.replace(`/?${DELETED_PARAM}=1#/more`);
+  }
+
+  // After the reload: show "deleted" once, then take ?deleted=1 out of the address.
+  function noteDeleted() {
+    const params = new URLSearchParams(window.location.search);
+    if (!params.has(DELETED_PARAM)) return;
+    justDeleted = true;
+    params.delete(DELETED_PARAM);
+    const query = params.toString();
+    history.replaceState(null, "", window.location.pathname + (query ? `?${query}` : "") + window.location.hash);
   }
 
   async function copyText(text, button) {
@@ -570,6 +625,7 @@
   }
 
   function init() {
+    noteDeleted();
     farmCode = loadFarmCode();
     $("pond-add").addEventListener("click", () => openDialog(null));
     $("pond-form").addEventListener("submit", savePond);
@@ -588,6 +644,7 @@
     });
     $("farm-copy").addEventListener("click", () => copyText(formatFarmCode(farmCode), $("farm-copy")));
     $("farm-form").addEventListener("submit", useCode);
+    $("delete-all").addEventListener("click", deleteAll);
     window.addEventListener("hashchange", () => openFromHash(true));
     document.addEventListener("visibilitychange", () => { if (!document.hidden && !timer) refresh(); });
     openFromHash(false);
