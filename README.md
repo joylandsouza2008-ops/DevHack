@@ -53,6 +53,7 @@ Built for DevHack 2026, problem statement 1.1.
 | `frontend/assistant.js` | "Ask AquaNexus" chat card (suggested questions, speaker button per reply) |
 | `frontend/diseases.js` | Fish disease guide card: symptom checker, disease library with original SVG fish drawings |
 | `frontend/health-ring.js`, `history.js`, `voice.js` | Health score ring, alert history (saved in the browser), voice alerts (phone's own voices, only when tapped) |
+| `frontend/pond-3d.js`, `frontend/vendor/three/` | 3D pond (Three.js r170, bundled locally): moving water, bubbles that follow the oxygen, night/day light. Pond view card and the start screen's right half; 30 fps max, pauses off screen, falls back to the 2D pond (`pond-view.js`) on weak phones, without WebGL or with "reduce motion" |
 | `frontend/vendor/gsap/` | GSAP 3.15.0 animation library, bundled locally (the app works on cheap phones and slow internet) |
 | `frontend/assets/` | Sensor-kit wiring diagram shown in the Shop |
 | `tools/kannada_review.py` | Regenerates `docs/kannada-review.md` (every Kannada string next to its English, by screen, for a native-speaker review) |

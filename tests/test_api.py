@@ -93,11 +93,50 @@ def test_animated_dashboard_files_are_local():
 
 
 def test_every_status_shows_icon_and_word_not_colour_alone():
-    # The pond view caption and gauge label reuse the badge (icon + word), never colour only.
+    # The level is said once, in the status block (icon + word); readings that need attention
+    # get a badge (icon + word). Never colour only.
     app = client.get("/app.js").text
     assert "function badgeHTML(level, lang)" in app and "ICONS[level]" in app and "LEVEL_WORDS[level][lang]" in app
-    for target in ('$("pond-view-badge")', '$("gauge-label")', "c.badge"):
-        assert target in app
+    assert '$("status-icon").innerHTML = ICONS[risk.level]' in app
+    assert 'const marked = level === "warning" || level === "danger";' in app
+    assert "setBadge(c.badge, level, lang, `badge badge-${level}`)" in app
+
+
+def test_3d_pond_is_bundled_and_light():
+    html = client.get("/").text
+    assert '<script type="module" src="/pond-3d.js"></script>' in html
+    js = client.get("/pond-3d.js").text
+    assert 'from "./vendor/three/three.module.min.js"' in js and "cdn" not in js.lower()
+    three = client.get("/vendor/three/three.module.min.js")
+    assert three.status_code == 200 and 'const t="170"' in three.text
+    # 30 fps cap, pixel ratio cap, stops off screen and in a hidden tab, falls back when the GPU fails.
+    for rule in ("1000 / 30", "Math.min(window.devicePixelRatio || 1, 1.5)", "IntersectionObserver",
+                 "visibilitychange", "webglcontextlost", "MAX_BUBBLES"):
+        assert rule in js, rule
+    # Weak phones, "reduce motion" or no WebGL: the 2D pond (pond-view.js) is used instead.
+    view = client.get("/pond-view.js").text
+    assert "const want3D = () => !reduce() && !lowPower;" in view
+    assert "if (!window.Pond3D.supported()) { init2D(); return; }" in view and "switchTo2D" in view
+
+
+def test_more_oxygen_means_more_bubbles():
+    import subprocess
+    out = subprocess.run(["node", "--input-type=module", "-e",
+                          "const src = (await import('node:fs')).readFileSync('frontend/pond-3d.js', 'utf8');"
+                          "const fn = src.slice(src.indexOf('function bubblesFor'), src.indexOf('// options:'));"
+                          "const bubblesFor = new Function(fn + '; return bubblesFor;')();"
+                          "console.log([0, 3, 5, 8, 12, 20].map(bubblesFor).join(','));"],
+                         capture_output=True, text=True, check=True).stdout.strip()
+    counts = [int(n) for n in out.split(",")]
+    assert counts == sorted(counts) and counts[0] == 4 and counts[-1] == 44, counts
+
+
+def test_heading_font_is_bundled():
+    fonts = client.get("/fonts/fonts.css").text
+    assert 'font-family: "Manrope";' in fonts and 'src: url("Manrope-latin.woff2")' in fonts
+    assert client.get("/fonts/Manrope-latin.woff2").status_code == 200
+    css = client.get("/styles.css").text
+    assert '--font-display: "Manrope", "Noto Sans", "Noto Sans Kannada"' in css   # Kannada falls back to Noto
 
 
 def test_motion_never_splits_kannada_letters():
@@ -111,7 +150,7 @@ def test_motion_never_splits_kannada_letters():
 def test_page_has_no_em_dashes():
     # design-taste-frontend rule: no em/en dashes in visible text.
     for path in ("/", "/app.js", "/ponds.js", "/welcome.js", "/motion.js", "/pond-view.js", "/gauge.js", "/do-chart.js",
-                 "/health-ring.js", "/history.js", "/voice.js", "/weather.js", "/debug.js"):
+                 "/health-ring.js", "/history.js", "/voice.js", "/weather.js", "/debug.js", "/pond-3d.js"):
         assert "—" not in client.get(path).text and "–" not in client.get(path).text, path
 
 

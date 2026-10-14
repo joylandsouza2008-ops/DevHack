@@ -8,7 +8,7 @@ coastal Karnataka to understand. Write any fix in the last column.
 - `A  /  B` means the app shows one of two versions, depending on the situation.
 - Unit symbols (mg/L, °C, km/h, pH) and the names SMS, WhatsApp, FAO, TNAU, Open-Meteo stay in English.
 
-687 strings. Generated from the code by `python tools/kannada_review.py`; re-run it after changing any text.
+706 strings. Generated from the code by `python tools/kannada_review.py`; re-run it after changing any text.
 
 ## 1. Language and theme switches
 
@@ -65,67 +65,70 @@ Shown over the day/night pond picture.
 | 17 | `app.js ended` | Demo finished. Press Restart to play again. | ಪ್ರದರ್ಶನ ಮುಗಿದಿದೆ. ಮತ್ತೆ ನೋಡಲು ಮರುಪ್ರಾರಂಭಿಸಿ ಒತ್ತಿ. |  |
 | 18 | `app.js connectionLost` | Connection lost. Press Restart. | ಸಂಪರ್ಕ ಕಡಿದುಹೋಗಿದೆ. ಮರುಪ್ರಾರಂಭಿಸಿ ಒತ್ತಿ. |  |
 | 19 | `app.js pondViewTitle` | Pond view | ಕೊಳದ ನೋಟ |  |
-| 20 | `app.js pondCaption.safe` | Fish are swimming normally. | ಮೀನುಗಳು ಸಾಮಾನ್ಯವಾಗಿ ಈಜುತ್ತಿವೆ. |  |
-| 21 | `app.js pondCaption.warning` | Fish are slowing down. | ಮೀನುಗಳು ನಿಧಾನವಾಗಿ ಈಜುತ್ತಿವೆ. |  |
-| 22 | `app.js pondCaption.danger` | Fish are gasping for air at the surface. | ಮೀನುಗಳು ಮೇಲ್ಮೈಗೆ ಬಂದು ಗಾಳಿಗಾಗಿ ಒದ್ದಾಡುತ್ತಿವೆ. |  |
-| 23 | `app.js pondCaption.unknown` | Waiting for readings. | ಅಳತೆಗಳಿಗಾಗಿ ಕಾಯಲಾಗುತ್ತಿದೆ. |  |
-| 24 | `app.js simulatedTag` | Simulated data | ಅನುಕರಿಸಿದ (ಸಿಮ್ಯುಲೇಟೆಡ್) ಡೇಟಾ |  |
-| 25 | `app.js pondsTitle` | My ponds | ನನ್ನ ಕೊಳಗಳು |  |
-| 26 | `app.js pondAdd` | Add pond | ಕೊಳ ಸೇರಿಸಿ |  |
-| 27 | `app.js pondsDemoMode` | Demo mode: ponds reset when the server sleeps. | ಡೆಮೊ ಮೋಡ್: ಸರ್ವರ್ ನಿದ್ರಿಸಿದಾಗ ಕೊಳಗಳು ಅಳಿಸಿಹೋಗುತ್ತವೆ. |  |
-| 28 | `app.js pondsEmpty` | Add your ponds, then connect a device to see live readings from each one. | ನಿಮ್ಮ ಕೊಳಗಳನ್ನು ಸೇರಿಸಿ, ನಂತರ ಪ್ರತಿಯೊಂದರ ಲೈವ್ ಅಳತೆಗಳನ್ನು ನೋಡಲು ಸಾಧನವನ್ನು ಸಂಪರ್ಕಿಸಿ. |  |
-| 29 | `app.js pondsLoadFailed` | Could not load your ponds. Check your internet. | ನಿಮ್ಮ ಕೊಳಗಳನ್ನು ತೆರೆಯಲು ಆಗಲಿಲ್ಲ. ಇಂಟರ್ನೆಟ್ ಪರಿಶೀಲಿಸಿ. |  |
-| 30 | `app.js pondNoReadings` | No readings yet | ಇನ್ನೂ ಅಳತೆಗಳಿಲ್ಲ |  |
-| 31 | `app.js pondLastReading` | Last reading: {t} | ಕೊನೆಯ ಅಳತೆ: {t} |  |
-| 32 | `app.js pondConnectFirst` | Connect a device to see this pond's readings. | ಈ ಕೊಳದ ಅಳತೆಗಳನ್ನು ನೋಡಲು ಸಾಧನವನ್ನು ಸಂಪರ್ಕಿಸಿ. |  |
-| 33 | `app.js pondBack` | All ponds | ಎಲ್ಲಾ ಕೊಳಗಳು |  |
-| 34 | `app.js pondEdit` | Edit | ಬದಲಿಸಿ |  |
-| 35 | `app.js pondDelete` | Delete pond | ಕೊಳ ಅಳಿಸಿ |  |
-| 36 | `app.js pondDeleteConfirm` | Delete "{n}" with its device, readings and alerts? | "{n}" ಅನ್ನು ಅದರ ಸಾಧನ, ಅಳತೆಗಳು ಮತ್ತು ಎಚ್ಚರಿಕೆಗಳೊಂದಿಗೆ ಅಳಿಸಬೇಕೇ? |  |
-| 37 | `app.js pondNotFound` | Pond not found | ಕೊಳ ಸಿಗಲಿಲ್ಲ |  |
-| 38 | `app.js pondNotFoundHelp` | This pond is not in your farm. It may have been deleted, or it belongs to another farm code. | ಈ ಕೊಳ ನಿಮ್ಮ ಫಾರ್ಮ್‌ನಲ್ಲಿಲ್ಲ. ಅದನ್ನು ಅಳಿಸಿರಬಹುದು, ಅಥವಾ ಅದು ಬೇರೆ ಫಾರ್ಮ್ ಕೋಡ್‌ಗೆ ಸೇರಿರಬಹುದು. |  |
-| 39 | `app.js pondSize` | Size | ಗಾತ್ರ |  |
-| 40 | `app.js pondFish` | Fish | ಮೀನು |  |
-| 41 | `app.js pondPlaceLabel` | Where is the pond? | ಕೊಳ ಎಲ್ಲಿದೆ? |  |
-| 42 | `app.js pondDistrictLabel` | District | ಜಿಲ್ಲೆ |  |
-| 43 | `app.js pondVillageLabel` | Taluk / village | ತಾಲ್ಲೂಕು / ಊರು |  |
-| 44 | `app.js pondPlaceHelp` | For tonight's weather at the pond. Only the village name is saved: no GPS, no address. | ಕೊಳದ ಇಂದು ರಾತ್ರಿಯ ಹವಾಮಾನಕ್ಕಾಗಿ. ಊರಿನ ಹೆಸರು ಮಾತ್ರ ಉಳಿಸಲಾಗುತ್ತದೆ: GPS ಇಲ್ಲ, ವಿಳಾಸ ಇಲ್ಲ. |  |
-| 45 | `app.js pondDistrictNone` | Not chosen | ಆರಿಸಿಲ್ಲ |  |
-| 46 | `app.js pondVillageNone` | Choose taluk / village | ತಾಲ್ಲೂಕು / ಊರು ಆರಿಸಿ |  |
-| 47 | `app.js pondVillageFirst` | Choose a district first | ಮೊದಲು ಜಿಲ್ಲೆ ಆರಿಸಿ |  |
-| 48 | `app.js pondTaluk` | {t} taluk | {t} ತಾಲ್ಲೂಕು |  |
-| 49 | `app.js pondVillageMissing` | Choose the taluk / village too, or set the district back to "Not chosen". | ತಾಲ್ಲೂಕು / ಊರನ್ನೂ ಆರಿಸಿ, ಅಥವಾ ಜಿಲ್ಲೆಯನ್ನು "ಆರಿಸಿಲ್ಲ" ಗೆ ಹಿಂತಿರುಗಿಸಿ. |  |
-| 50 | `app.js pondWeatherNoPlace` | Choose where this pond is to see tonight's weather for its village. | ಈ ಕೊಳದ ಊರಿನ ಇಂದು ರಾತ್ರಿಯ ಹವಾಮಾನ ನೋಡಲು, ಕೊಳ ಎಲ್ಲಿದೆ ಎಂದು ಆರಿಸಿ. |  |
-| 51 | `app.js pondWeatherChoose` | Choose the village | ಊರು ಆರಿಸಿ |  |
-| 52 | `app.js pondReadingsTitle` | Readings | ಅಳತೆಗಳು |  |
-| 53 | `app.js pondChartTitle` | Oxygen, last 12 hours | ಆಮ್ಲಜನಕ, ಕಳೆದ 12 ಗಂಟೆಗಳು |  |
-| 54 | `app.js pondChartOxygen` | Oxygen (mg/L) | ಆಮ್ಲಜನಕ (mg/L) |  |
-| 55 | `app.js pondChartWarnLine` | Warning below 5 | 5 ಕ್ಕಿಂತ ಕಡಿಮೆ: ಎಚ್ಚರಿಕೆ |  |
-| 56 | `app.js pondChartDangerLine` | Danger below 3 | 3 ಕ್ಕಿಂತ ಕಡಿಮೆ: ಅಪಾಯ |  |
-| 57 | `app.js pondChartSummary` | Oxygen went from {a} to {b} mg/L over the last {n} readings. | ಕೊನೆಯ {n} ಅಳತೆಗಳಲ್ಲಿ ಆಮ್ಲಜನಕ {a} ರಿಂದ {b} mg/L ಗೆ ಬದಲಾಗಿದೆ. |  |
-| 58 | `app.js pondChartNone` | Not enough oxygen readings for a chart yet. | ಚಾರ್ಟ್‌ಗೆ ಇನ್ನೂ ಸಾಕಷ್ಟು ಆಮ್ಲಜನಕ ಅಳತೆಗಳಿಲ್ಲ. |  |
-| 59 | `app.js pondDialogAdd` | Add a pond | ಕೊಳ ಸೇರಿಸಿ |  |
-| 60 | `app.js pondDialogEdit` | Edit pond | ಕೊಳವನ್ನು ಬದಲಿಸಿ |  |
-| 61 | `app.js pondNameLabel` | Pond name | ಕೊಳದ ಹೆಸರು |  |
-| 62 | `app.js pondNameHelp` | For example: Pond near road. Don't use your own name or phone number. | ಉದಾ: ರಸ್ತೆ ಬದಿಯ ಕೊಳ. ನಿಮ್ಮ ಸ್ವಂತ ಹೆಸರು ಅಥವಾ ಫೋನ್ ಸಂಖ್ಯೆ ಬಳಸಬೇಡಿ. |  |
-| 63 | `app.js pondSizeLabel` | Size (optional) | ಗಾತ್ರ (ಐಚ್ಛಿಕ) |  |
-| 64 | `app.js pondSizeHelp` | For example: 0.5 acre | ಉದಾ: 0.5 ಎಕರೆ |  |
-| 65 | `app.js pondFishLabel` | Fish type (optional) | ಮೀನಿನ ಪ್ರಕಾರ (ಐಚ್ಛಿಕ) |  |
-| 66 | `app.js pondFishHelp` | For example: rohu, catla | ಉದಾ: ರೋಹು, ಕಾಟ್ಲಾ |  |
-| 67 | `app.js pondSave` | Save | ಉಳಿಸಿ |  |
-| 68 | `app.js pondCancel` | Cancel | ರದ್ದುಮಾಡಿ |  |
-| 69 | `app.js pondNameMissing` | Type a name for the pond. | ಕೊಳಕ್ಕೆ ಹೆಸರು ಬರೆಯಿರಿ. |  |
-| 70 | `app.js pondSaveFailed` | Could not save. Check your internet and try again. | ಉಳಿಸಲು ಆಗಲಿಲ್ಲ. ಇಂಟರ್ನೆಟ್ ಪರಿಶೀಲಿಸಿ, ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ. |  |
-| 71 | `app.js pondAlertsTitle` | Alerts from my ponds | ನನ್ನ ಕೊಳಗಳ ಎಚ್ಚರಿಕೆಗಳು |  |
-| 72 | `app.js pondAlertsHelp` | From your own devices, newest first. | ನಿಮ್ಮ ಸ್ವಂತ ಸಾಧನಗಳಿಂದ, ಹೊಸದು ಮೊದಲು. |  |
-| 73 | `app.js pondAlertsEmpty` | No warnings from your ponds yet. | ನಿಮ್ಮ ಕೊಳಗಳಿಂದ ಇನ್ನೂ ಎಚ್ಚರಿಕೆಗಳಿಲ್ಲ. |  |
+| 20 | `app.js pondViewHelp` | More oxygen in the water, more bubbles. | ನೀರಿನಲ್ಲಿ ಹೆಚ್ಚು ಆಮ್ಲಜನಕ ಇದ್ದರೆ ಹೆಚ್ಚು ಗುಳ್ಳೆಗಳು. |  |
+| 21 | `app.js pondCaption.safe` | Fish are swimming normally. | ಮೀನುಗಳು ಸಾಮಾನ್ಯವಾಗಿ ಈಜುತ್ತಿವೆ. |  |
+| 22 | `app.js pondCaption.warning` | Fish are slowing down. | ಮೀನುಗಳು ನಿಧಾನವಾಗಿ ಈಜುತ್ತಿವೆ. |  |
+| 23 | `app.js pondCaption.danger` | Fish are gasping for air at the surface. | ಮೀನುಗಳು ಮೇಲ್ಮೈಗೆ ಬಂದು ಗಾಳಿಗಾಗಿ ಒದ್ದಾಡುತ್ತಿವೆ. |  |
+| 24 | `app.js pondCaption.unknown` | Waiting for readings. | ಅಳತೆಗಳಿಗಾಗಿ ಕಾಯಲಾಗುತ್ತಿದೆ. |  |
+| 25 | `app.js simulatedTag` | Simulated data | ಅನುಕರಿಸಿದ (ಸಿಮ್ಯುಲೇಟೆಡ್) ಡೇಟಾ |  |
+| 26 | `app.js pondsTitle` | My ponds | ನನ್ನ ಕೊಳಗಳು |  |
+| 27 | `app.js pondAdd` | Add pond | ಕೊಳ ಸೇರಿಸಿ |  |
+| 28 | `app.js demoPondTitle` | Demo pond | ಡೆಮೊ ಕೊಳ |  |
+| 29 | `app.js demoPondHelp` | Choose "Night oxygen crash" to see how a warning looks. | ಎಚ್ಚರಿಕೆ ಹೇಗೆ ಕಾಣುತ್ತದೆ ಎಂದು ನೋಡಲು "ರಾತ್ರಿ ಆಮ್ಲಜನಕ ಕುಸಿತ" ಆಯ್ಕೆಮಾಡಿ. |  |
+| 30 | `app.js pondsDemoMode` | Demo mode: ponds reset when the server sleeps. | ಡೆಮೊ ಮೋಡ್: ಸರ್ವರ್ ನಿದ್ರಿಸಿದಾಗ ಕೊಳಗಳು ಅಳಿಸಿಹೋಗುತ್ತವೆ. |  |
+| 31 | `app.js pondsEmpty` | Add your ponds, then connect a device to see live readings from each one. | ನಿಮ್ಮ ಕೊಳಗಳನ್ನು ಸೇರಿಸಿ, ನಂತರ ಪ್ರತಿಯೊಂದರ ಲೈವ್ ಅಳತೆಗಳನ್ನು ನೋಡಲು ಸಾಧನವನ್ನು ಸಂಪರ್ಕಿಸಿ. |  |
+| 32 | `app.js pondsLoadFailed` | Could not load your ponds. Check your internet. | ನಿಮ್ಮ ಕೊಳಗಳನ್ನು ತೆರೆಯಲು ಆಗಲಿಲ್ಲ. ಇಂಟರ್ನೆಟ್ ಪರಿಶೀಲಿಸಿ. |  |
+| 33 | `app.js pondNoReadings` | No readings yet | ಇನ್ನೂ ಅಳತೆಗಳಿಲ್ಲ |  |
+| 34 | `app.js pondLastReading` | Last reading: {t} | ಕೊನೆಯ ಅಳತೆ: {t} |  |
+| 35 | `app.js pondConnectFirst` | Connect a device to see this pond's readings. | ಈ ಕೊಳದ ಅಳತೆಗಳನ್ನು ನೋಡಲು ಸಾಧನವನ್ನು ಸಂಪರ್ಕಿಸಿ. |  |
+| 36 | `app.js pondBack` | All ponds | ಎಲ್ಲಾ ಕೊಳಗಳು |  |
+| 37 | `app.js pondEdit` | Edit | ಬದಲಿಸಿ |  |
+| 38 | `app.js pondDelete` | Delete pond | ಕೊಳ ಅಳಿಸಿ |  |
+| 39 | `app.js pondDeleteConfirm` | Delete "{n}" with its device, readings and alerts? | "{n}" ಅನ್ನು ಅದರ ಸಾಧನ, ಅಳತೆಗಳು ಮತ್ತು ಎಚ್ಚರಿಕೆಗಳೊಂದಿಗೆ ಅಳಿಸಬೇಕೇ? |  |
+| 40 | `app.js pondNotFound` | Pond not found | ಕೊಳ ಸಿಗಲಿಲ್ಲ |  |
+| 41 | `app.js pondNotFoundHelp` | This pond is not in your farm. It may have been deleted, or it belongs to another farm code. | ಈ ಕೊಳ ನಿಮ್ಮ ಫಾರ್ಮ್‌ನಲ್ಲಿಲ್ಲ. ಅದನ್ನು ಅಳಿಸಿರಬಹುದು, ಅಥವಾ ಅದು ಬೇರೆ ಫಾರ್ಮ್ ಕೋಡ್‌ಗೆ ಸೇರಿರಬಹುದು. |  |
+| 42 | `app.js pondSize` | Size | ಗಾತ್ರ |  |
+| 43 | `app.js pondFish` | Fish | ಮೀನು |  |
+| 44 | `app.js pondPlaceLabel` | Where is the pond? | ಕೊಳ ಎಲ್ಲಿದೆ? |  |
+| 45 | `app.js pondDistrictLabel` | District | ಜಿಲ್ಲೆ |  |
+| 46 | `app.js pondVillageLabel` | Taluk / village | ತಾಲ್ಲೂಕು / ಊರು |  |
+| 47 | `app.js pondPlaceHelp` | For tonight's weather at the pond. Only the village name is saved: no GPS, no address. | ಕೊಳದ ಇಂದು ರಾತ್ರಿಯ ಹವಾಮಾನಕ್ಕಾಗಿ. ಊರಿನ ಹೆಸರು ಮಾತ್ರ ಉಳಿಸಲಾಗುತ್ತದೆ: GPS ಇಲ್ಲ, ವಿಳಾಸ ಇಲ್ಲ. |  |
+| 48 | `app.js pondDistrictNone` | Not chosen | ಆರಿಸಿಲ್ಲ |  |
+| 49 | `app.js pondVillageNone` | Choose taluk / village | ತಾಲ್ಲೂಕು / ಊರು ಆರಿಸಿ |  |
+| 50 | `app.js pondVillageFirst` | Choose a district first | ಮೊದಲು ಜಿಲ್ಲೆ ಆರಿಸಿ |  |
+| 51 | `app.js pondTaluk` | {t} taluk | {t} ತಾಲ್ಲೂಕು |  |
+| 52 | `app.js pondVillageMissing` | Choose the taluk / village too, or set the district back to "Not chosen". | ತಾಲ್ಲೂಕು / ಊರನ್ನೂ ಆರಿಸಿ, ಅಥವಾ ಜಿಲ್ಲೆಯನ್ನು "ಆರಿಸಿಲ್ಲ" ಗೆ ಹಿಂತಿರುಗಿಸಿ. |  |
+| 53 | `app.js pondWeatherNoPlace` | Choose where this pond is to see tonight's weather for its village. | ಈ ಕೊಳದ ಊರಿನ ಇಂದು ರಾತ್ರಿಯ ಹವಾಮಾನ ನೋಡಲು, ಕೊಳ ಎಲ್ಲಿದೆ ಎಂದು ಆರಿಸಿ. |  |
+| 54 | `app.js pondWeatherChoose` | Choose the village | ಊರು ಆರಿಸಿ |  |
+| 55 | `app.js pondReadingsTitle` | Readings | ಅಳತೆಗಳು |  |
+| 56 | `app.js pondChartTitle` | Oxygen, last 12 hours | ಆಮ್ಲಜನಕ, ಕಳೆದ 12 ಗಂಟೆಗಳು |  |
+| 57 | `app.js pondChartOxygen` | Oxygen (mg/L) | ಆಮ್ಲಜನಕ (mg/L) |  |
+| 58 | `app.js pondChartWarnLine` | Warning below 5 | 5 ಕ್ಕಿಂತ ಕಡಿಮೆ: ಎಚ್ಚರಿಕೆ |  |
+| 59 | `app.js pondChartDangerLine` | Danger below 3 | 3 ಕ್ಕಿಂತ ಕಡಿಮೆ: ಅಪಾಯ |  |
+| 60 | `app.js pondChartSummary` | Oxygen went from {a} to {b} mg/L over the last {n} readings. | ಕೊನೆಯ {n} ಅಳತೆಗಳಲ್ಲಿ ಆಮ್ಲಜನಕ {a} ರಿಂದ {b} mg/L ಗೆ ಬದಲಾಗಿದೆ. |  |
+| 61 | `app.js pondChartNone` | Not enough oxygen readings for a chart yet. | ಚಾರ್ಟ್‌ಗೆ ಇನ್ನೂ ಸಾಕಷ್ಟು ಆಮ್ಲಜನಕ ಅಳತೆಗಳಿಲ್ಲ. |  |
+| 62 | `app.js pondDialogAdd` | Add a pond | ಕೊಳ ಸೇರಿಸಿ |  |
+| 63 | `app.js pondDialogEdit` | Edit pond | ಕೊಳವನ್ನು ಬದಲಿಸಿ |  |
+| 64 | `app.js pondNameLabel` | Pond name | ಕೊಳದ ಹೆಸರು |  |
+| 65 | `app.js pondNameHelp` | For example: Pond near road. Don't use your own name or phone number. | ಉದಾ: ರಸ್ತೆ ಬದಿಯ ಕೊಳ. ನಿಮ್ಮ ಸ್ವಂತ ಹೆಸರು ಅಥವಾ ಫೋನ್ ಸಂಖ್ಯೆ ಬಳಸಬೇಡಿ. |  |
+| 66 | `app.js pondSizeLabel` | Size (optional) | ಗಾತ್ರ (ಐಚ್ಛಿಕ) |  |
+| 67 | `app.js pondSizeHelp` | For example: 0.5 acre | ಉದಾ: 0.5 ಎಕರೆ |  |
+| 68 | `app.js pondFishLabel` | Fish type (optional) | ಮೀನಿನ ಪ್ರಕಾರ (ಐಚ್ಛಿಕ) |  |
+| 69 | `app.js pondFishHelp` | For example: rohu, catla | ಉದಾ: ರೋಹು, ಕಾಟ್ಲಾ |  |
+| 70 | `app.js pondSave` | Save | ಉಳಿಸಿ |  |
+| 71 | `app.js pondCancel` | Cancel | ರದ್ದುಮಾಡಿ |  |
+| 72 | `app.js pondNameMissing` | Type a name for the pond. | ಕೊಳಕ್ಕೆ ಹೆಸರು ಬರೆಯಿರಿ. |  |
+| 73 | `app.js pondSaveFailed` | Could not save. Check your internet and try again. | ಉಳಿಸಲು ಆಗಲಿಲ್ಲ. ಇಂಟರ್ನೆಟ್ ಪರಿಶೀಲಿಸಿ, ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ. |  |
+| 74 | `app.js pondAlertsTitle` | Alerts from my ponds | ನನ್ನ ಕೊಳಗಳ ಎಚ್ಚರಿಕೆಗಳು |  |
+| 75 | `app.js pondAlertsHelp` | From your own devices, newest first. | ನಿಮ್ಮ ಸ್ವಂತ ಸಾಧನಗಳಿಂದ, ಹೊಸದು ಮೊದಲು. |  |
+| 76 | `app.js pondAlertsEmpty` | No warnings from your ponds yet. | ನಿಮ್ಮ ಕೊಳಗಳಿಂದ ಇನ್ನೂ ಎಚ್ಚರಿಕೆಗಳಿಲ್ಲ. |  |
 
-## 5. Pond view, risk level and readings
+## 5. Pond view, pond health and readings
 
 | # | Where in the code | English | Kannada | Correct? / suggestion |
 |---|---|---|---|---|
-| 1 | `app.js gaugeTitle` | Risk level | ಅಪಾಯದ ಮಟ್ಟ |  |
-| 2 | `app.js readingsTitle` | Latest readings | ಇತ್ತೀಚಿನ ಅಳತೆಗಳು |  |
+| 1 | `app.js readingsTitle` | Latest readings | ಇತ್ತೀಚಿನ ಅಳತೆಗಳು |  |
+| 2 | `app.js readingsHelp` | A reading is marked only when it needs attention. | ಗಮನ ಬೇಕಾದ ಅಳತೆಗೆ ಮಾತ್ರ ಗುರುತು ಹಾಕಲಾಗುತ್ತದೆ. |  |
 | 3 | `app.js infoOnly` | For information | ಮಾಹಿತಿಗಾಗಿ |  |
 
 ## 6. Time until danger and oxygen chart
@@ -135,20 +138,23 @@ Shown over the day/night pond picture.
 | 1 | `app.js ttdTitle` | Time until danger | ಅಪಾಯದವರೆಗಿನ ಸಮಯ |  |
 | 2 | `app.js countdownLabel` | Danger expected in | ಅಪಾಯಕ್ಕೆ ಉಳಿದ ಸಮಯ |  |
 | 3 | `app.js chartTitle` | Dissolved oxygen, last 12 hours | ಕರಗಿದ ಆಮ್ಲಜನಕ, ಕಳೆದ 12 ಗಂಟೆಗಳು |  |
-| 4 | `app.js duration` | {h} h {m} min  /  {m} min | {h} ಗಂಟೆ {m} ನಿಮಿಷ  /  {m} ನಿಮಿಷ |  |
-| 5 | `app.js around` | around {clock} | ಸುಮಾರು {clock} ಹೊತ್ತಿಗೆ |  |
-| 6 | `app.js chartSummary` | Now {now} mg/L. Lowest in this period: {min} mg/L. | ಈಗ {now} mg/L. ಈ ಅವಧಿಯ ಕನಿಷ್ಠ: {min} mg/L. |  |
+| 4 | `app.js chartHelp` | Below 5 mg/L is Warning, below 3 mg/L is Danger. | 5 mg/L ಕ್ಕಿಂತ ಕಡಿಮೆ ಎಚ್ಚರಿಕೆ, 3 mg/L ಕ್ಕಿಂತ ಕಡಿಮೆ ಅಪಾಯ. |  |
+| 5 | `app.js ttdHelp` | From the oxygen trend of the last 2 hours. | ಕಳೆದ 2 ಗಂಟೆಗಳ ಆಮ್ಲಜನಕದ ಬದಲಾವಣೆಯಿಂದ ಅಂದಾಜು. |  |
+| 6 | `app.js duration` | {h} h {m} min  /  {m} min | {h} ಗಂಟೆ {m} ನಿಮಿಷ  /  {m} ನಿಮಿಷ |  |
+| 7 | `app.js around` | around {clock} | ಸುಮಾರು {clock} ಹೊತ್ತಿಗೆ |  |
+| 8 | `app.js chartSummary` | Now {now} mg/L. Lowest in this period: {min} mg/L. | ಈಗ {now} mg/L. ಈ ಅವಧಿಯ ಕನಿಷ್ಠ: {min} mg/L. |  |
 
 ## 7. Pond health score
 
 | # | Where in the code | English | Kannada | Correct? / suggestion |
 |---|---|---|---|---|
 | 1 | `app.js healthTitle` | Pond health score | ಕೊಳದ ಆರೋಗ್ಯ ಅಂಕ |  |
-| 2 | `app.js healthScale` | Safe 75‑100 · Warning 40‑74 · Danger 0‑39 | ಸುರಕ್ಷಿತ 75‑100 · ಎಚ್ಚರಿಕೆ 40‑74 · ಅಪಾಯ 0‑39 |  |
-| 3 | `app.js healthText.safe` | {s} out of 100. All readings are in the safe range. | 100 ರಲ್ಲಿ {s}. ಎಲ್ಲಾ ಅಳತೆಗಳು ಸುರಕ್ಷಿತ ಮಟ್ಟದಲ್ಲಿವೆ. |  |
-| 4 | `app.js healthText.warning` | {s} out of 100. The water needs attention. | 100 ರಲ್ಲಿ {s}. ನೀರಿನ ಕಡೆ ಗಮನ ಕೊಡಿ. |  |
-| 5 | `app.js healthText.danger` | {s} out of 100. The water is dangerous for fish. | 100 ರಲ್ಲಿ {s}. ನೀರು ಮೀನುಗಳಿಗೆ ಅಪಾಯಕಾರಿಯಾಗಿದೆ. |  |
-| 6 | `app.js healthText.unknown` | Waiting for readings. | ಅಳತೆಗಳಿಗಾಗಿ ಕಾಯಲಾಗುತ್ತಿದೆ. |  |
+| 2 | `app.js healthScale` | Danger 0‑39 · Warning 40‑74 · Safe 75‑100 | ಅಪಾಯ 0‑39 · ಎಚ್ಚರಿಕೆ 40‑74 · ಸುರಕ್ಷಿತ 75‑100 |  |
+| 3 | `app.js healthHelp` | One number for all the readings together. | ಎಲ್ಲಾ ಅಳತೆಗಳನ್ನು ಸೇರಿಸಿ ಒಂದೇ ಅಂಕ. |  |
+| 4 | `app.js healthText.safe` | {s} out of 100. All readings are in the safe range. | 100 ರಲ್ಲಿ {s}. ಎಲ್ಲಾ ಅಳತೆಗಳು ಸುರಕ್ಷಿತ ಮಟ್ಟದಲ್ಲಿವೆ. |  |
+| 5 | `app.js healthText.warning` | {s} out of 100. The water needs attention. | 100 ರಲ್ಲಿ {s}. ನೀರಿನ ಕಡೆ ಗಮನ ಕೊಡಿ. |  |
+| 6 | `app.js healthText.danger` | {s} out of 100. The water is dangerous for fish. | 100 ರಲ್ಲಿ {s}. ನೀರು ಮೀನುಗಳಿಗೆ ಅಪಾಯಕಾರಿಯಾಗಿದೆ. |  |
+| 7 | `app.js healthText.unknown` | Waiting for readings. | ಅಳತೆಗಳಿಗಾಗಿ ಕಾಯಲಾಗುತ್ತಿದೆ. |  |
 
 ## 8. Tonight's weather
 
@@ -340,14 +346,21 @@ Shown over the day/night pond picture.
 | 15 | `app.js termsBrowser` | Your language, theme, ticked steps, alert history, the last weather forecast, your Shop cart and your farm code are saved only in this browser. Clearing the browser's data removes them. | ನಿಮ್ಮ ಭಾಷೆ, ಥೀಮ್, ಗುರುತು ಹಾಕಿದ ಹಂತಗಳು, ಎಚ್ಚರಿಕೆಗಳ ಇತಿಹಾಸ, ಕೊನೆಯ ಹವಾಮಾನ ಮುನ್ಸೂಚನೆ, ಅಂಗಡಿಯ ಕಾರ್ಟ್ ಮತ್ತು ನಿಮ್ಮ ಫಾರ್ಮ್ ಕೋಡ್ ಈ ಬ್ರೌಸರ್‌ನಲ್ಲಿ ಮಾತ್ರ ಉಳಿಯುತ್ತವೆ. ಬ್ರೌಸರ್‌ನ ಡೇಟಾ ಅಳಿಸಿದರೆ ಅವು ಹೋಗುತ್ತವೆ. |  |
 | 16 | `app.js termsServer` | Test-kit numbers and the readings on screen go to our server to be checked, and are not saved there. Readings sent to the demo Live sensor card are kept in the server's memory only and are cleared when the server sleeps or restarts. | ಟೆಸ್ಟ್-ಕಿಟ್ ಅಳತೆಗಳು ಮತ್ತು ಪರದೆಯ ಮೇಲಿನ ಅಳತೆಗಳು ಪರಿಶೀಲನೆಗಾಗಿ ನಮ್ಮ ಸರ್ವರ್‌ಗೆ ಹೋಗುತ್ತವೆ, ಅಲ್ಲಿ ಉಳಿಸಲಾಗುವುದಿಲ್ಲ. ಡೆಮೊ ಲೈವ್ ಸೆನ್ಸರ್ ಕಾರ್ಡ್‌ಗೆ ಕಳುಹಿಸಿದ ಅಳತೆಗಳು ಸರ್ವರ್‌ನ ಮೆಮೊರಿಯಲ್ಲಿ ಮಾತ್ರ ಇರುತ್ತವೆ ಮತ್ತು ಸರ್ವರ್ ನಿದ್ರಿಸಿದಾಗ ಅಥವಾ ಮರುಪ್ರಾರಂಭವಾದಾಗ ಅಳಿಸಿಹೋಗುತ್ತವೆ. |  |
 | 17 | `app.js termsAi` | Questions to the assistant are sent, with the readings on screen and the level, cause and time of your recent alerts, to the AI service (now Google Gemini) to get an answer. Google's own terms apply to what it receives. Don't type your name, phone number or other personal details. | ಸಹಾಯಕನಿಗೆ ಕೇಳುವ ಪ್ರಶ್ನೆಗಳು, ಪರದೆಯ ಮೇಲಿನ ಅಳತೆಗಳು ಮತ್ತು ಇತ್ತೀಚಿನ ಎಚ್ಚರಿಕೆಗಳ ಮಟ್ಟ, ಕಾರಣ ಹಾಗೂ ಸಮಯದ ಜೊತೆಗೆ, ಉತ್ತರ ಪಡೆಯಲು AI ಸೇವೆಗೆ (ಈಗ Google Gemini) ಹೋಗುತ್ತವೆ. ಅದು ಪಡೆಯುವುದಕ್ಕೆ Google ನ ಸ್ವಂತ ನಿಯಮಗಳು ಅನ್ವಯಿಸುತ್ತವೆ. ನಿಮ್ಮ ಹೆಸರು, ಫೋನ್ ಸಂಖ್ಯೆ ಅಥವಾ ಇತರ ವೈಯಕ್ತಿಕ ವಿವರಗಳನ್ನು ಟೈಪ್ ಮಾಡಬೇಡಿ. |  |
-| 18 | `app.js termsLogs` | To keep the site working and stop misuse, our server and our host (Render) keep short technical records, such as which page was asked for and the internet address it came from. | ಸೈಟ್ ಸರಿಯಾಗಿ ನಡೆಯಲು ಮತ್ತು ದುರುಪಯೋಗ ತಡೆಯಲು, ನಮ್ಮ ಸರ್ವರ್ ಮತ್ತು ನಮ್ಮ ಹೋಸ್ಟ್ (Render) ಸಣ್ಣ ತಾಂತ್ರಿಕ ದಾಖಲೆಗಳನ್ನು ಇಡುತ್ತವೆ, ಉದಾಹರಣೆಗೆ ಯಾವ ಪುಟ ಕೇಳಲಾಯಿತು ಮತ್ತು ಅದು ಬಂದ ಇಂಟರ್ನೆಟ್ ವಿಳಾಸ. |  |
+| 18 | `app.js termsLogs` | Server logs: our host, Render, keeps server logs for a short time, to keep the site working and stop misuse. They show the internet address (IP address) a request came from and which page was requested. | ಸರ್ವರ್ ಲಾಗ್‌ಗಳು: ಸೈಟ್ ಸರಿಯಾಗಿ ನಡೆಯಲು ಮತ್ತು ದುರುಪಯೋಗ ತಡೆಯಲು, ನಮ್ಮ ಹೋಸ್ಟ್ Render ಸರ್ವರ್ ಲಾಗ್‌ಗಳನ್ನು ಸ್ವಲ್ಪ ಸಮಯ ಮಾತ್ರ ಇಡುತ್ತದೆ. ಅವುಗಳಲ್ಲಿ ವಿನಂತಿ ಬಂದ ಇಂಟರ್ನೆಟ್ ವಿಳಾಸ (IP ವಿಳಾಸ) ಮತ್ತು ಕೇಳಿದ ಪುಟ ಇರುತ್ತವೆ. |  |
 | 19 | `app.js termsNoAds` | No ads, no tracking, and nothing about you is sold. | ಜಾಹೀರಾತುಗಳಿಲ್ಲ, ಟ್ರ್ಯಾಕಿಂಗ್ ಇಲ್ಲ, ಮತ್ತು ನಿಮ್ಮ ಬಗ್ಗೆ ಏನನ್ನೂ ಮಾರಾಟ ಮಾಡುವುದಿಲ್ಲ. |  |
 | 20 | `app.js termsDataTitle` | Open data and licences | ಮುಕ್ತ ಡೇಟಾ ಮತ್ತು ಪರವಾನಗಿಗಳು |  |
 | 21 | `app.js termsData` | The app uses open datasets and public services. The Data sources list shows each one and its licence. | ಆ್ಯಪ್ ಮುಕ್ತ ಡೇಟಾಸೆಟ್‌ಗಳು ಮತ್ತು ಸಾರ್ವಜನಿಕ ಸೇವೆಗಳನ್ನು ಬಳಸುತ್ತದೆ. ಪ್ರತಿಯೊಂದನ್ನೂ ಅದರ ಪರವಾನಗಿಯೊಂದಿಗೆ ಡೇಟಾ ಮೂಲಗಳ ಪಟ್ಟಿ ತೋರಿಸುತ್ತದೆ. |  |
 | 22 | `app.js termsDataButton` | Open Data sources | ಡೇಟಾ ಮೂಲಗಳನ್ನು ತೆರೆಯಿರಿ |  |
-| 23 | `app.js termsContactTitle` | Contact | ಸಂಪರ್ಕ |  |
-| 24 | `app.js termsContact` | AquaNexus is made by Team Orbit. For questions or problems, reach us through our GitHub page. | AquaNexus ಅನ್ನು ಟೀಮ್ ಆರ್ಬಿಟ್ ತಯಾರಿಸಿದೆ. ಪ್ರಶ್ನೆಗಳು ಅಥವಾ ಸಮಸ್ಯೆಗಳಿದ್ದರೆ ನಮ್ಮ GitHub ಪುಟದ ಮೂಲಕ ಸಂಪರ್ಕಿಸಿ. |  |
-| 25 | `app.js termsContactLink` | Team Orbit on GitHub | GitHub ನಲ್ಲಿ ಟೀಮ್ ಆರ್ಬಿಟ್ |  |
+| 23 | `app.js termsRightsTitle` | Your rights | ನಿಮ್ಮ ಹಕ್ಕುಗಳು |  |
+| 24 | `app.js termsRightsIntro` | Under India's Digital Personal Data Protection Act, 2023, you can see, correct and delete your data. You can do all three in the app yourself: | ಭಾರತದ ಡಿಜಿಟಲ್ ವೈಯಕ್ತಿಕ ಡೇಟಾ ಸಂರಕ್ಷಣಾ ಕಾಯ್ದೆ, 2023 ರ ಅಡಿಯಲ್ಲಿ ನೀವು ನಿಮ್ಮ ಡೇಟಾವನ್ನು ನೋಡಬಹುದು, ಸರಿಪಡಿಸಬಹುದು ಮತ್ತು ಅಳಿಸಬಹುದು. ಈ ಮೂರನ್ನೂ ಆ್ಯಪ್‌ನಲ್ಲೇ ನೀವೇ ಮಾಡಬಹುದು: |  |
+| 25 | `app.js termsRightSee` | See: the Pond page shows every pond, device, reading and alert saved under your farm code. | ನೋಡಿ: ನಿಮ್ಮ ಫಾರ್ಮ್ ಕೋಡ್ ಅಡಿಯಲ್ಲಿ ಉಳಿಸಿದ ಎಲ್ಲಾ ಕೊಳ, ಸಾಧನ, ಅಳತೆ ಮತ್ತು ಎಚ್ಚರಿಕೆಗಳನ್ನು ಕೊಳ ಪುಟ ತೋರಿಸುತ್ತದೆ. |  |
+| 26 | `app.js termsRightCorrect` | Correct: open a pond and tap Edit to change its name, size, fish or village. | ಸರಿಪಡಿಸಿ: ಕೊಳವನ್ನು ತೆರೆದು "ಬದಲಿಸಿ" ಒತ್ತಿ, ಅದರ ಹೆಸರು, ಗಾತ್ರ, ಮೀನು ಅಥವಾ ಊರನ್ನು ಬದಲಿಸಿ. |  |
+| 27 | `app.js termsRightDelete` | Delete: delete one pond from its page, or everything at once with "Delete all my data" on the More page. Data saved only in this browser is cleared there too. | ಅಳಿಸಿ: ಒಂದು ಕೊಳವನ್ನು ಅದರ ಪುಟದಿಂದ ಅಳಿಸಿ, ಅಥವಾ ಇತರೆ ಪುಟದಲ್ಲಿ "ನನ್ನ ಎಲ್ಲಾ ಡೇಟಾ ಅಳಿಸಿ" ಮೂಲಕ ಎಲ್ಲವನ್ನೂ ಒಮ್ಮೆಗೇ ಅಳಿಸಿ. ಈ ಬ್ರೌಸರ್‌ನಲ್ಲಿ ಮಾತ್ರ ಉಳಿಸಿದ ಡೇಟಾವೂ ಅಲ್ಲಿ ಅಳಿಸಿಹೋಗುತ್ತದೆ. |  |
+| 28 | `app.js termsRightsAsk` | For any other privacy request, or if the app does not work for you, write to Team Orbit. Include your farm code so we can find your ponds. AquaNexus is a student project, not a company. | ಬೇರೆ ಯಾವುದೇ ಗೌಪ್ಯತೆ ವಿನಂತಿಗೆ, ಅಥವಾ ಆ್ಯಪ್ ನಿಮಗೆ ಕೆಲಸ ಮಾಡದಿದ್ದರೆ, ಟೀಮ್ ಆರ್ಬಿಟ್‌ಗೆ ಬರೆಯಿರಿ. ನಿಮ್ಮ ಕೊಳಗಳನ್ನು ಹುಡುಕಲು ನಿಮ್ಮ ಫಾರ್ಮ್ ಕೋಡ್ ಸೇರಿಸಿ. AquaNexus ವಿದ್ಯಾರ್ಥಿಗಳ ಯೋಜನೆ, ಕಂಪನಿಯಲ್ಲ. |  |
+| 29 | `app.js termsRightsEmail` | Privacy requests: Team Orbit, | ಗೌಪ್ಯತೆ ವಿನಂತಿಗಳು: ಟೀಮ್ ಆರ್ಬಿಟ್, |  |
+| 30 | `app.js termsContactTitle` | Contact | ಸಂಪರ್ಕ |  |
+| 31 | `app.js termsContact` | AquaNexus is a student project made by Team Orbit. For questions or problems, reach us through our GitHub page. | AquaNexus ಟೀಮ್ ಆರ್ಬಿಟ್ ತಯಾರಿಸಿದ ವಿದ್ಯಾರ್ಥಿಗಳ ಯೋಜನೆ. ಪ್ರಶ್ನೆಗಳು ಅಥವಾ ಸಮಸ್ಯೆಗಳಿದ್ದರೆ ನಮ್ಮ GitHub ಪುಟದ ಮೂಲಕ ಸಂಪರ್ಕಿಸಿ. |  |
+| 32 | `app.js termsContactLink` | Team Orbit on GitHub | GitHub ನಲ್ಲಿ ಟೀಮ್ ಆರ್ಬಿಟ್ |  |
 
 ## 19. Footer (privacy, source code)
 
@@ -363,19 +376,19 @@ Shown over the day/night pond picture.
 |---|---|---|---|---|
 | 1 | `app.js simBasisPondsdata` | Demo data modelled on Pondsdata: its daily levels with a simulated day-night oxygen cycle. Not real readings. | Pondsdata ಆಧಾರಿತ ಡೆಮೊ ಡೇಟಾ: ಅದರ ದೈನಂದಿನ ಮಟ್ಟಗಳು ಮತ್ತು ಅನುಕರಿಸಿದ ಹಗಲು-ರಾತ್ರಿ ಆಮ್ಲಜನಕ ಚಕ್ರ. ನಿಜವಾದ ಅಳತೆಗಳಲ್ಲ. |  |
 | 2 | `app.js simBasisTypical` | Demo data from typical healthy pond values with a simulated day-night oxygen cycle. Not real readings. | ಸಾಮಾನ್ಯ ಆರೋಗ್ಯಕರ ಕೊಳದ ಮೌಲ್ಯಗಳು ಮತ್ತು ಅನುಕರಿಸಿದ ಹಗಲು-ರಾತ್ರಿ ಆಮ್ಲಜನಕ ಚಕ್ರದಿಂದ ಮಾಡಿದ ಡೆಮೊ ಡೇಟಾ. ನಿಜವಾದ ಅಳತೆಗಳಲ್ಲ. |  |
-| 3 | `app.js tabPond` | Pond | ಕೊಳ |  |
-| 4 | `app.js tabAlerts` | Alerts | ಎಚ್ಚರಿಕೆ |  |
-| 5 | `app.js tabWeather` | Weather | ಹವೆ |  |
-| 6 | `app.js tabDiseases` | Diseases | ರೋಗ |  |
-| 7 | `app.js tabAsk` | Ask | ಕೇಳಿ |  |
-| 8 | `app.js tabShop` | Shop | ಅಂಗಡಿ |  |
-| 9 | `app.js tabMore` | More | ಇತರೆ |  |
-| 10 | `app.js tabWeatherShort` | Sky | ಹವೆ |  |
-| 11 | `app.js tabDiseasesShort` | Fish | ರೋಗ |  |
-| 12 | `app.js titleWeather` | Weather | ಹವಾಮಾನ |  |
-| 13 | `app.js titleDiseases` | Fish diseases | ಮೀನು ರೋಗಗಳು |  |
-| 14 | `app.js titleMore` | More | ಇನ್ನಷ್ಟು |  |
-| 15 | `app.js demoPondTitle` | Demo pond | ಡೆಮೊ ಕೊಳ |  |
+| 3 | `app.js gaugeTitle` | Risk level | ಅಪಾಯದ ಮಟ್ಟ |  |
+| 4 | `app.js tabPond` | Pond | ಕೊಳ |  |
+| 5 | `app.js tabAlerts` | Alerts | ಎಚ್ಚರಿಕೆ |  |
+| 6 | `app.js tabWeather` | Weather | ಹವೆ |  |
+| 7 | `app.js tabDiseases` | Diseases | ರೋಗ |  |
+| 8 | `app.js tabAsk` | Ask | ಕೇಳಿ |  |
+| 9 | `app.js tabShop` | Shop | ಅಂಗಡಿ |  |
+| 10 | `app.js tabMore` | More | ಇತರೆ |  |
+| 11 | `app.js tabWeatherShort` | Sky | ಹವೆ |  |
+| 12 | `app.js tabDiseasesShort` | Fish | ರೋಗ |  |
+| 13 | `app.js titleWeather` | Weather | ಹವಾಮಾನ |  |
+| 14 | `app.js titleDiseases` | Fish diseases | ಮೀನು ರೋಗಗಳು |  |
+| 15 | `app.js titleMore` | More | ಇನ್ನಷ್ಟು |  |
 | 16 | `app.js deviceOnline` | Device online | ಸಾಧನ ಆನ್‌ಲೈನ್ |  |
 | 17 | `app.js deviceOfflineSince` | Offline since {t} | {t} ರಿಂದ ಆಫ್‌ಲೈನ್ |  |
 | 18 | `app.js deviceWaiting` | Device connected. Waiting for the first reading. | ಸಾಧನ ಸಂಪರ್ಕಗೊಂಡಿದೆ. ಮೊದಲ ಅಳತೆಗಾಗಿ ಕಾಯಲಾಗುತ್ತಿದೆ. |  |
@@ -410,52 +423,58 @@ Shown over the day/night pond picture.
 | 47 | `app.js farmBad` | That is not a farm code. It has 12 letters and numbers, like K7QM-3XRP-9TFD. | ಇದು ಫಾರ್ಮ್ ಕೋಡ್ ಅಲ್ಲ. ಇದರಲ್ಲಿ K7QM-3XRP-9TFD ತರಹ 12 ಅಕ್ಷರ ಮತ್ತು ಅಂಕಿಗಳಿರುತ್ತವೆ. |  |
 | 48 | `app.js farmSwitchConfirm` | Open the ponds for this code? Write down your current code first if you want to come back to it. | ಈ ಕೋಡ್‌ನ ಕೊಳಗಳನ್ನು ತೆರೆಯಬೇಕೇ? ಹಿಂತಿರುಗಲು ಬಯಸಿದರೆ ಮೊದಲು ನಿಮ್ಮ ಈಗಿನ ಕೋಡ್ ಬರೆದಿಟ್ಟುಕೊಳ್ಳಿ. |  |
 | 49 | `app.js farmSwitched` | Now showing the ponds for {c}. | ಈಗ {c} ಕೋಡ್‌ನ ಕೊಳಗಳನ್ನು ತೋರಿಸಲಾಗುತ್ತಿದೆ. |  |
-| 50 | `app.js stripAllSafe` | All your ponds are safe | ನಿಮ್ಮ ಎಲ್ಲಾ ಕೊಳಗಳು ಸುರಕ್ಷಿತ |  |
-| 51 | `app.js titleShop` | Shop | ಅಂಗಡಿ |  |
-| 52 | `app.js shopIntro` | Sensors and spare parts that work with AquaNexus. Make a list and share it. | AquaNexus ಜೊತೆ ಕೆಲಸ ಮಾಡುವ ಸೆನ್ಸರ್‌ಗಳು ಮತ್ತು ಬಿಡಿಭಾಗಗಳು. ಪಟ್ಟಿ ಮಾಡಿ ಹಂಚಿಕೊಳ್ಳಿ. |  |
-| 53 | `app.js shopNotForSale` | Not for sale yet. Orders open after our pilot with farmers. | ಇನ್ನೂ ಮಾರಾಟಕ್ಕಿಲ್ಲ. ರೈತರೊಂದಿಗಿನ ನಮ್ಮ ಪ್ರಾಯೋಗಿಕ ಯೋಜನೆಯ ನಂತರ ಆರ್ಡರ್‌ಗಳು ಆರಂಭವಾಗುತ್ತವೆ. |  |
-| 54 | `app.js shopOnePondTitle` | Before you buy | ಖರೀದಿಸುವ ಮೊದಲು |  |
-| 55 | `app.js shopOnePond` | One sensor watches one pond. For several ponds, each needs its own sensor. Start with the free app and the test kit. | ಒಂದು ಸೆನ್ಸರ್ ಒಂದೇ ಕೊಳವನ್ನು ಗಮನಿಸುತ್ತದೆ. ಹಲವು ಕೊಳಗಳಿದ್ದರೆ, ಪ್ರತಿಯೊಂದಕ್ಕೂ ಬೇರೆ ಸೆನ್ಸರ್ ಬೇಕು. ಉಚಿತ ಆ್ಯಪ್ ಮತ್ತು ಟೆಸ್ಟ್ ಕಿಟ್‌ನಿಂದ ಪ್ರಾರಂಭಿಸಿ. |  |
-| 56 | `app.js shopPriceNote` | Estimated component cost. Prices may change. | ಅಂದಾಜು ಬಿಡಿಭಾಗಗಳ ವೆಚ್ಚ. ಬೆಲೆಗಳು ಬದಲಾಗಬಹುದು. |  |
-| 57 | `app.js shopWiringTitle` | How the kit is wired | ಕಿಟ್‌ನ ವೈರಿಂಗ್ ಹೇಗಿದೆ |  |
-| 58 | `app.js shopWiringOpen` | Open the diagram full size | ಚಿತ್ರವನ್ನು ಪೂರ್ಣ ಗಾತ್ರದಲ್ಲಿ ತೆರೆಯಿರಿ |  |
-| 59 | `app.js shopWiringProposed` | Proposed design, not yet built | ಪ್ರಸ್ತಾವಿತ ವಿನ್ಯಾಸ, ಇನ್ನೂ ನಿರ್ಮಿಸಿಲ್ಲ |  |
-| 60 | `app.js shopWiringCaption` | Solar power, battery, ESP32 board, 4G modem and the oxygen, temperature and pH sensors. Part names are in English. | ಸೌರ ವಿದ್ಯುತ್, ಬ್ಯಾಟರಿ, ESP32 ಬೋರ್ಡ್, 4G ಮೋಡೆಮ್ ಮತ್ತು ಆಮ್ಲಜನಕ, ತಾಪಮಾನ, pH ಸೆನ್ಸರ್‌ಗಳು. ಭಾಗಗಳ ಹೆಸರುಗಳು ಇಂಗ್ಲಿಷ್‌ನಲ್ಲಿವೆ. |  |
-| 61 | `app.js shopWiringAlt` | Wiring diagram. A 10 W solar panel charges an 18650 battery pack through a CN3791 charger. The pack powers the ESP32 board (through a 3.3 V regulator), a switched 12 V supply for the oxygen probe, and an A7670C 4G modem. The ESP32 reads the optical oxygen probe over isolated RS485, a DS18B20 temperature sensor, and the pH probe through an isolator and an ADS1115 converter. | ವೈರಿಂಗ್ ಚಿತ್ರ. 10 W ಸೌರ ಫಲಕವು CN3791 ಚಾರ್ಜರ್ ಮೂಲಕ 18650 ಬ್ಯಾಟರಿ ಪ್ಯಾಕ್ ಅನ್ನು ಚಾರ್ಜ್ ಮಾಡುತ್ತದೆ. ಬ್ಯಾಟರಿಯು ESP32 ಬೋರ್ಡ್ (3.3 V ರೆಗ್ಯುಲೇಟರ್ ಮೂಲಕ), ಆಮ್ಲಜನಕ ಪ್ರೋಬ್‌ಗೆ 12 V ಮತ್ತು A7670C 4G ಮೋಡೆಮ್‌ಗೆ ವಿದ್ಯುತ್ ನೀಡುತ್ತದೆ. ESP32 ಆಮ್ಲಜನಕ ಪ್ರೋಬ್, DS18B20 ತಾಪಮಾನ ಸೆನ್ಸರ್ ಮತ್ತು pH ಪ್ರೋಬ್‌ನ ಅಳತೆಗಳನ್ನು ಓದುತ್ತದೆ. |  |
-| 62 | `app.js shopLoadFailed` | Could not load the products. Check your internet and reload the page. | ವಸ್ತುಗಳ ಪಟ್ಟಿ ತೆರೆಯಲು ಆಗಲಿಲ್ಲ. ಇಂಟರ್ನೆಟ್ ಪರಿಶೀಲಿಸಿ, ಪುಟವನ್ನು ಮತ್ತೆ ತೆರೆಯಿರಿ. |  |
-| 63 | `app.js shopMeasures` | What it measures | ಏನನ್ನು ಅಳೆಯುತ್ತದೆ |  |
-| 64 | `app.js shopWhy` | Why you need it | ಇದು ಏಕೆ ಬೇಕು |  |
-| 65 | `app.js shopAdd` | Add to cart | ಕಾರ್ಟ್‌ಗೆ ಸೇರಿಸಿ |  |
-| 66 | `app.js shopAdded` | Added to cart: | ಕಾರ್ಟ್‌ಗೆ ಸೇರಿಸಲಾಗಿದೆ: |  |
-| 67 | `app.js estWord` | est. | ಅಂದಾಜು |  |
-| 68 | `app.js cartTitle` | Cart | ಕಾರ್ಟ್ |  |
-| 69 | `app.js cartAria` | Cart: {n} items | ಕಾರ್ಟ್: {n} ವಸ್ತುಗಳು |  |
-| 70 | `app.js cartEmpty` | Your cart is empty. Add items from the Shop. | ನಿಮ್ಮ ಕಾರ್ಟ್ ಖಾಲಿಯಾಗಿದೆ. ಅಂಗಡಿಯಿಂದ ವಸ್ತುಗಳನ್ನು ಸೇರಿಸಿ. |  |
-| 71 | `app.js cartTotal` | Estimated total | ಅಂದಾಜು ಒಟ್ಟು |  |
-| 72 | `app.js cartRemove` | Remove | ತೆಗೆಯಿರಿ |  |
-| 73 | `app.js cartLess` | One less | ಒಂದು ಕಡಿಮೆ |  |
-| 74 | `app.js cartMore` | One more | ಒಂದು ಹೆಚ್ಚು |  |
-| 75 | `app.js cartQty` | Quantity | ಪ್ರಮಾಣ |  |
-| 76 | `app.js cartCheckout` | Checkout | ಚೆಕ್‌ಔಟ್ |  |
-| 77 | `app.js cartClear` | Clear cart | ಕಾರ್ಟ್ ಖಾಲಿ ಮಾಡಿ |  |
-| 78 | `app.js cartCleared` | Cart cleared. | ಕಾರ್ಟ್ ಖಾಲಿ ಮಾಡಲಾಗಿದೆ. |  |
-| 79 | `app.js cartMemory` | This browser is not saving the cart. It is kept only until you close the page. | ಈ ಬ್ರೌಸರ್ ಕಾರ್ಟ್ ಅನ್ನು ಉಳಿಸುತ್ತಿಲ್ಲ. ಪುಟ ಮುಚ್ಚುವವರೆಗೆ ಮಾತ್ರ ಇರುತ್ತದೆ. |  |
-| 80 | `app.js checkoutTitle` | Checkout | ಚೆಕ್‌ಔಟ್ |  |
-| 81 | `app.js checkoutSoon` | Coming soon. Orders open after our pilot with farmers. No payment is taken and no details are collected. | ಶೀಘ್ರದಲ್ಲೇ ಬರಲಿದೆ. ರೈತರೊಂದಿಗಿನ ನಮ್ಮ ಪ್ರಾಯೋಗಿಕ ಯೋಜನೆಯ ನಂತರ ಆರ್ಡರ್‌ಗಳು ಆರಂಭವಾಗುತ್ತವೆ. ಯಾವುದೇ ಹಣ ಪಡೆಯುವುದಿಲ್ಲ ಮತ್ತು ಯಾವುದೇ ವಿವರಗಳನ್ನು ಸಂಗ್ರಹಿಸುವುದಿಲ್ಲ. |  |
-| 82 | `app.js checkoutShare` | Copy your list to share it with your cooperative. | ನಿಮ್ಮ ಸಹಕಾರ ಸಂಘದೊಂದಿಗೆ ಹಂಚಿಕೊಳ್ಳಲು ಪಟ್ಟಿಯನ್ನು ನಕಲಿಸಿ. |  |
-| 83 | `app.js copyList` | Copy my list | ನನ್ನ ಪಟ್ಟಿ ನಕಲಿಸಿ |  |
-| 84 | `app.js checkoutBack` | Back to cart | ಕಾರ್ಟ್‌ಗೆ ಹಿಂತಿರುಗಿ |  |
-| 85 | `app.js copyDone` | List copied. You can paste it into WhatsApp or SMS. | ಪಟ್ಟಿ ನಕಲಾಗಿದೆ. WhatsApp ಅಥವಾ SMS ನಲ್ಲಿ ಅಂಟಿಸಬಹುದು. |  |
-| 86 | `app.js copyFailed` | Could not copy. Select the list above and copy it by hand. | ನಕಲಿಸಲು ಆಗಲಿಲ್ಲ. ಮೇಲಿನ ಪಟ್ಟಿಯನ್ನು ಆಯ್ಕೆಮಾಡಿ ಕೈಯಾರೆ ನಕಲಿಸಿ. |  |
-| 87 | `app.js copyHeading` | AquaNexus: my list (estimated prices, not an order) | AquaNexus: ನನ್ನ ಪಟ್ಟಿ (ಅಂದಾಜು ಬೆಲೆಗಳು, ಆರ್ಡರ್ ಅಲ್ಲ) |  |
-| 88 | `app.js stripDangerIn` | Danger in {d} | ಅಪಾಯಕ್ಕೆ ಉಳಿದ ಸಮಯ: {d} |  |
-| 89 | `app.js stripNoDanger` | No danger expected | ಅಪಾಯದ ನಿರೀಕ್ಷೆ ಇಲ್ಲ |  |
-| 90 | `app.js stripActNow` | Act now: tap to see | ಈಗಲೇ ಕ್ರಮ ಕೈಗೊಳ್ಳಿ: ನೋಡಲು ಒತ್ತಿ |  |
-| 91 | `app.js stripAttention` | Needs attention: tap to see | ಗಮನ ಕೊಡಿ: ನೋಡಲು ಒತ್ತಿ |  |
-| 92 | `app.js settingsTitle` | Settings | ಸೆಟ್ಟಿಂಗ್‌ಗಳು |  |
-| 93 | `app.js settingsLanguage` | Language | ಭಾಷೆ |  |
-| 94 | `app.js settingsTheme` | Colours | ಬಣ್ಣಗಳು |  |
-| 95 | `app.js aboutTitle` | About this app | ಈ ಆ್ಯಪ್ ಬಗ್ಗೆ |  |
+| 50 | `app.js deleteAllTitle` | Delete all my data | ನನ್ನ ಎಲ್ಲಾ ಡೇಟಾ ಅಳಿಸಿ |  |
+| 51 | `app.js deleteAllHelp` | Erases every pond, device, reading and alert saved under your farm code on our server, and everything this app saved in this browser (farm code, language, alert history, ticked steps, cart). This cannot be undone. | ನಿಮ್ಮ ಫಾರ್ಮ್ ಕೋಡ್ ಅಡಿಯಲ್ಲಿ ನಮ್ಮ ಸರ್ವರ್‌ನಲ್ಲಿ ಉಳಿಸಿದ ಎಲ್ಲಾ ಕೊಳ, ಸಾಧನ, ಅಳತೆ ಮತ್ತು ಎಚ್ಚರಿಕೆಗಳನ್ನು, ಹಾಗೂ ಈ ಆ್ಯಪ್ ಈ ಬ್ರೌಸರ್‌ನಲ್ಲಿ ಉಳಿಸಿದ ಎಲ್ಲವನ್ನೂ (ಫಾರ್ಮ್ ಕೋಡ್, ಭಾಷೆ, ಎಚ್ಚರಿಕೆಗಳ ಇತಿಹಾಸ, ಗುರುತು ಹಾಕಿದ ಹಂತಗಳು, ಕಾರ್ಟ್) ಅಳಿಸುತ್ತದೆ. ಇದನ್ನು ಮರಳಿ ಪಡೆಯಲು ಆಗುವುದಿಲ್ಲ. |  |
+| 52 | `app.js deleteAllButton` | Delete all my data | ನನ್ನ ಎಲ್ಲಾ ಡೇಟಾ ಅಳಿಸಿ |  |
+| 53 | `app.js deleteAllConfirm` | Delete ALL ponds, devices, readings and alerts for farm code {c}, and this browser's saved data? This cannot be undone. | ಫಾರ್ಮ್ ಕೋಡ್ {c} ನ ಎಲ್ಲಾ ಕೊಳ, ಸಾಧನ, ಅಳತೆ ಮತ್ತು ಎಚ್ಚರಿಕೆಗಳನ್ನು, ಹಾಗೂ ಈ ಬ್ರೌಸರ್‌ನಲ್ಲಿ ಉಳಿಸಿದ ಡೇಟಾವನ್ನು ಅಳಿಸಬೇಕೇ? ಇದನ್ನು ಮರಳಿ ಪಡೆಯಲು ಆಗುವುದಿಲ್ಲ. |  |
+| 54 | `app.js deleteAllBusy` | Deleting… | ಅಳಿಸಲಾಗುತ್ತಿದೆ… |  |
+| 55 | `app.js deleteAllFailed` | Could not reach the server. Nothing was deleted. Try again. | ಸರ್ವರ್ ತಲುಪಲಾಗಲಿಲ್ಲ. ಏನನ್ನೂ ಅಳಿಸಿಲ್ಲ. ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ. |  |
+| 56 | `app.js stripAllSafe` | All your ponds are safe | ನಿಮ್ಮ ಎಲ್ಲಾ ಕೊಳಗಳು ಸುರಕ್ಷಿತ |  |
+| 57 | `app.js titleShop` | Shop | ಅಂಗಡಿ |  |
+| 58 | `app.js shopIntro` | Sensors and spare parts that work with AquaNexus. Make a list and share it. | AquaNexus ಜೊತೆ ಕೆಲಸ ಮಾಡುವ ಸೆನ್ಸರ್‌ಗಳು ಮತ್ತು ಬಿಡಿಭಾಗಗಳು. ಪಟ್ಟಿ ಮಾಡಿ ಹಂಚಿಕೊಳ್ಳಿ. |  |
+| 59 | `app.js shopNotForSale` | Not for sale yet. Orders open after our pilot with farmers. | ಇನ್ನೂ ಮಾರಾಟಕ್ಕಿಲ್ಲ. ರೈತರೊಂದಿಗಿನ ನಮ್ಮ ಪ್ರಾಯೋಗಿಕ ಯೋಜನೆಯ ನಂತರ ಆರ್ಡರ್‌ಗಳು ಆರಂಭವಾಗುತ್ತವೆ. |  |
+| 60 | `app.js shopOnePondTitle` | Before you buy | ಖರೀದಿಸುವ ಮೊದಲು |  |
+| 61 | `app.js shopOnePond` | One sensor watches one pond. For several ponds, each needs its own sensor. Start with the free app and the test kit. | ಒಂದು ಸೆನ್ಸರ್ ಒಂದೇ ಕೊಳವನ್ನು ಗಮನಿಸುತ್ತದೆ. ಹಲವು ಕೊಳಗಳಿದ್ದರೆ, ಪ್ರತಿಯೊಂದಕ್ಕೂ ಬೇರೆ ಸೆನ್ಸರ್ ಬೇಕು. ಉಚಿತ ಆ್ಯಪ್ ಮತ್ತು ಟೆಸ್ಟ್ ಕಿಟ್‌ನಿಂದ ಪ್ರಾರಂಭಿಸಿ. |  |
+| 62 | `app.js shopPriceNote` | Estimated component cost. Prices may change. | ಅಂದಾಜು ಬಿಡಿಭಾಗಗಳ ವೆಚ್ಚ. ಬೆಲೆಗಳು ಬದಲಾಗಬಹುದು. |  |
+| 63 | `app.js shopWiringTitle` | How the kit is wired | ಕಿಟ್‌ನ ವೈರಿಂಗ್ ಹೇಗಿದೆ |  |
+| 64 | `app.js shopWiringOpen` | Open the diagram full size | ಚಿತ್ರವನ್ನು ಪೂರ್ಣ ಗಾತ್ರದಲ್ಲಿ ತೆರೆಯಿರಿ |  |
+| 65 | `app.js shopWiringProposed` | Proposed design, not yet built | ಪ್ರಸ್ತಾವಿತ ವಿನ್ಯಾಸ, ಇನ್ನೂ ನಿರ್ಮಿಸಿಲ್ಲ |  |
+| 66 | `app.js shopWiringCaption` | Solar power, battery, ESP32 board, 4G modem and the oxygen, temperature and pH sensors. Part names are in English. | ಸೌರ ವಿದ್ಯುತ್, ಬ್ಯಾಟರಿ, ESP32 ಬೋರ್ಡ್, 4G ಮೋಡೆಮ್ ಮತ್ತು ಆಮ್ಲಜನಕ, ತಾಪಮಾನ, pH ಸೆನ್ಸರ್‌ಗಳು. ಭಾಗಗಳ ಹೆಸರುಗಳು ಇಂಗ್ಲಿಷ್‌ನಲ್ಲಿವೆ. |  |
+| 67 | `app.js shopWiringAlt` | Wiring diagram. A 10 W solar panel charges an 18650 battery pack through a CN3791 charger. The pack powers the ESP32 board (through a 3.3 V regulator), a switched 12 V supply for the oxygen probe, and an A7670C 4G modem. The ESP32 reads the optical oxygen probe over isolated RS485, a DS18B20 temperature sensor, and the pH probe through an isolator and an ADS1115 converter. | ವೈರಿಂಗ್ ಚಿತ್ರ. 10 W ಸೌರ ಫಲಕವು CN3791 ಚಾರ್ಜರ್ ಮೂಲಕ 18650 ಬ್ಯಾಟರಿ ಪ್ಯಾಕ್ ಅನ್ನು ಚಾರ್ಜ್ ಮಾಡುತ್ತದೆ. ಬ್ಯಾಟರಿಯು ESP32 ಬೋರ್ಡ್ (3.3 V ರೆಗ್ಯುಲೇಟರ್ ಮೂಲಕ), ಆಮ್ಲಜನಕ ಪ್ರೋಬ್‌ಗೆ 12 V ಮತ್ತು A7670C 4G ಮೋಡೆಮ್‌ಗೆ ವಿದ್ಯುತ್ ನೀಡುತ್ತದೆ. ESP32 ಆಮ್ಲಜನಕ ಪ್ರೋಬ್, DS18B20 ತಾಪಮಾನ ಸೆನ್ಸರ್ ಮತ್ತು pH ಪ್ರೋಬ್‌ನ ಅಳತೆಗಳನ್ನು ಓದುತ್ತದೆ. |  |
+| 68 | `app.js shopLoadFailed` | Could not load the products. Check your internet and reload the page. | ವಸ್ತುಗಳ ಪಟ್ಟಿ ತೆರೆಯಲು ಆಗಲಿಲ್ಲ. ಇಂಟರ್ನೆಟ್ ಪರಿಶೀಲಿಸಿ, ಪುಟವನ್ನು ಮತ್ತೆ ತೆರೆಯಿರಿ. |  |
+| 69 | `app.js shopMeasures` | What it measures | ಏನನ್ನು ಅಳೆಯುತ್ತದೆ |  |
+| 70 | `app.js shopWhy` | Why you need it | ಇದು ಏಕೆ ಬೇಕು |  |
+| 71 | `app.js shopAdd` | Add to cart | ಕಾರ್ಟ್‌ಗೆ ಸೇರಿಸಿ |  |
+| 72 | `app.js shopAdded` | Added to cart: | ಕಾರ್ಟ್‌ಗೆ ಸೇರಿಸಲಾಗಿದೆ: |  |
+| 73 | `app.js estWord` | est. | ಅಂದಾಜು |  |
+| 74 | `app.js cartTitle` | Cart | ಕಾರ್ಟ್ |  |
+| 75 | `app.js cartAria` | Cart: {n} items | ಕಾರ್ಟ್: {n} ವಸ್ತುಗಳು |  |
+| 76 | `app.js cartEmpty` | Your cart is empty. Add items from the Shop. | ನಿಮ್ಮ ಕಾರ್ಟ್ ಖಾಲಿಯಾಗಿದೆ. ಅಂಗಡಿಯಿಂದ ವಸ್ತುಗಳನ್ನು ಸೇರಿಸಿ. |  |
+| 77 | `app.js cartTotal` | Estimated total | ಅಂದಾಜು ಒಟ್ಟು |  |
+| 78 | `app.js cartRemove` | Remove | ತೆಗೆಯಿರಿ |  |
+| 79 | `app.js cartLess` | One less | ಒಂದು ಕಡಿಮೆ |  |
+| 80 | `app.js cartMore` | One more | ಒಂದು ಹೆಚ್ಚು |  |
+| 81 | `app.js cartQty` | Quantity | ಪ್ರಮಾಣ |  |
+| 82 | `app.js cartCheckout` | Checkout | ಚೆಕ್‌ಔಟ್ |  |
+| 83 | `app.js cartClear` | Clear cart | ಕಾರ್ಟ್ ಖಾಲಿ ಮಾಡಿ |  |
+| 84 | `app.js cartCleared` | Cart cleared. | ಕಾರ್ಟ್ ಖಾಲಿ ಮಾಡಲಾಗಿದೆ. |  |
+| 85 | `app.js cartMemory` | This browser is not saving the cart. It is kept only until you close the page. | ಈ ಬ್ರೌಸರ್ ಕಾರ್ಟ್ ಅನ್ನು ಉಳಿಸುತ್ತಿಲ್ಲ. ಪುಟ ಮುಚ್ಚುವವರೆಗೆ ಮಾತ್ರ ಇರುತ್ತದೆ. |  |
+| 86 | `app.js checkoutTitle` | Checkout | ಚೆಕ್‌ಔಟ್ |  |
+| 87 | `app.js checkoutSoon` | Coming soon. Orders open after our pilot with farmers. No payment is taken and no details are collected. | ಶೀಘ್ರದಲ್ಲೇ ಬರಲಿದೆ. ರೈತರೊಂದಿಗಿನ ನಮ್ಮ ಪ್ರಾಯೋಗಿಕ ಯೋಜನೆಯ ನಂತರ ಆರ್ಡರ್‌ಗಳು ಆರಂಭವಾಗುತ್ತವೆ. ಯಾವುದೇ ಹಣ ಪಡೆಯುವುದಿಲ್ಲ ಮತ್ತು ಯಾವುದೇ ವಿವರಗಳನ್ನು ಸಂಗ್ರಹಿಸುವುದಿಲ್ಲ. |  |
+| 88 | `app.js checkoutShare` | Copy your list to share it with your cooperative. | ನಿಮ್ಮ ಸಹಕಾರ ಸಂಘದೊಂದಿಗೆ ಹಂಚಿಕೊಳ್ಳಲು ಪಟ್ಟಿಯನ್ನು ನಕಲಿಸಿ. |  |
+| 89 | `app.js copyList` | Copy my list | ನನ್ನ ಪಟ್ಟಿ ನಕಲಿಸಿ |  |
+| 90 | `app.js checkoutBack` | Back to cart | ಕಾರ್ಟ್‌ಗೆ ಹಿಂತಿರುಗಿ |  |
+| 91 | `app.js copyDone` | List copied. You can paste it into WhatsApp or SMS. | ಪಟ್ಟಿ ನಕಲಾಗಿದೆ. WhatsApp ಅಥವಾ SMS ನಲ್ಲಿ ಅಂಟಿಸಬಹುದು. |  |
+| 92 | `app.js copyFailed` | Could not copy. Select the list above and copy it by hand. | ನಕಲಿಸಲು ಆಗಲಿಲ್ಲ. ಮೇಲಿನ ಪಟ್ಟಿಯನ್ನು ಆಯ್ಕೆಮಾಡಿ ಕೈಯಾರೆ ನಕಲಿಸಿ. |  |
+| 93 | `app.js copyHeading` | AquaNexus: my list (estimated prices, not an order) | AquaNexus: ನನ್ನ ಪಟ್ಟಿ (ಅಂದಾಜು ಬೆಲೆಗಳು, ಆರ್ಡರ್ ಅಲ್ಲ) |  |
+| 94 | `app.js stripDangerIn` | Danger in {d} | ಅಪಾಯಕ್ಕೆ ಉಳಿದ ಸಮಯ: {d} |  |
+| 95 | `app.js stripNoDanger` | No danger expected | ಅಪಾಯದ ನಿರೀಕ್ಷೆ ಇಲ್ಲ |  |
+| 96 | `app.js stripActNow` | Act now: tap to see | ಈಗಲೇ ಕ್ರಮ ಕೈಗೊಳ್ಳಿ: ನೋಡಲು ಒತ್ತಿ |  |
+| 97 | `app.js stripAttention` | Needs attention: tap to see | ಗಮನ ಕೊಡಿ: ನೋಡಲು ಒತ್ತಿ |  |
+| 98 | `app.js settingsTitle` | Settings | ಸೆಟ್ಟಿಂಗ್‌ಗಳು |  |
+| 99 | `app.js settingsLanguage` | Language | ಭಾಷೆ |  |
+| 100 | `app.js settingsTheme` | Colours | ಬಣ್ಣಗಳು |  |
+| 101 | `app.js aboutTitle` | About this app | ಈ ಆ್ಯಪ್ ಬಗ್ಗೆ |  |
 
 ## 21. Messages from the server: Data labels
 

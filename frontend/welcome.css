@@ -14,8 +14,20 @@ body.has-welcome { overflow: hidden; }
   min-height: 100dvh;
   display: grid;
   grid-template-rows: auto 1fr;
+  overflow-y: auto;          /* short screens: scroll to Start instead of cutting it off */
   color: var(--text);
   background: var(--background);
+}
+
+/* 3D pond (pond-3d.js) on the empty right half, full height, behind nothing important. */
+.welcome-3d { display: none; }
+@media (min-width: 900px) {
+  .welcome-3d {
+    display: block; position: absolute; top: 0; right: 0; bottom: 0; width: 52%;
+    pointer-events: none; will-change: transform;
+  }
+  .welcome-3d .pond3d-canvas { display: block; width: 100%; height: 100%; }
+  .welcome-content { max-width: min(44rem, 48vw); }
 }
 
 /* ---------------- Pond scene ---------------- */
@@ -144,7 +156,7 @@ body.has-welcome { overflow: hidden; }
   justify-content: center;
   gap: 0.75rem;
   border: 0;
-  border-radius: 9999px;
+  border-radius: var(--radius-card);
   background: var(--primary);         /* brand primary, 10.6:1 with on-primary text */
   color: var(--on-primary);
   font: inherit;
@@ -164,7 +176,7 @@ body.has-welcome { overflow: hidden; }
 }
 
 /* Example alert: the same Warning banner the dashboard shows, on solid colours. */
-.welcome-example { margin: 0; width: 100%; max-width: 30rem; display: flex; flex-direction: column; gap: 0.5rem; }
+.welcome-example { margin: 0; width: 100%; max-width: 30rem; display: flex; flex-direction: column; gap: 0.5rem; transform-style: preserve-3d; }
 .welcome-example-head {
   display: flex; flex-wrap: wrap; align-items: center; gap: 0.375rem 0.75rem;
   font-size: 0.9375rem; font-weight: 600; line-height: 1.6; color: var(--text);

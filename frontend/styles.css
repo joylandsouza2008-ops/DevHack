@@ -57,6 +57,9 @@
   --on-status: #ffffff;
 
   --font: "Noto Sans", "Noto Sans Kannada", "Tunga", "Nirmala UI", system-ui, sans-serif;
+  /* Titles and big numbers. Manrope has Latin only, so Kannada letters in a title fall back
+     to Noto Sans Kannada one by one (fonts/fonts.css). */
+  --font-display: "Manrope", "Noto Sans", "Noto Sans Kannada", "Tunga", "Nirmala UI", system-ui, sans-serif;
 }
 
 /* Light theme, made from the same palette: the indigo becomes the text, the
@@ -107,7 +110,15 @@ body {
   line-height: 1.7;             /* tall enough for Kannada vowel signs */
 }
 
-h2 { font-size: var(--fs-section); font-weight: 600; line-height: 1.45; margin: 0 0 0.5rem; }
+h2 { font-size: var(--fs-section); font-weight: 650; line-height: 1.45; margin: 0 0 0.5rem; }
+h1, h2, h3, .page-title, .app-name, .weather-title, .status-level, .reading-value, .health-number,
+.countdown-value, .live-value dd, .shop-price, .cart-total, .farm-code-row .farm-code { font-family: var(--font-display); }
+
+/* ---- Section heading: left-aligned title with one short line of help under it ---- */
+.section-head { display: flex; flex-direction: column; gap: 0.25rem; min-width: 0; }
+.section-head h2, .section-head h3 { margin: 0; }
+.section-head-row { flex-direction: row; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem 1rem; }
+.section-help { margin: 0; color: var(--text-secondary); font-size: var(--fs-small); line-height: 1.6; }
 p { margin: 0; }
 
 button, select { font: inherit; }
@@ -115,14 +126,14 @@ button, select { font: inherit; }
 
 /* ---- Top bar ---- */
 .top-bar {
-  display: flex; flex-wrap: wrap; gap: 0.75rem;
+  display: flex; flex-wrap: wrap; gap: 1rem;
   align-items: center; justify-content: space-between;
   padding: 0.75rem 1rem;
   background: var(--surface);
   border-bottom: 1px solid var(--hairline);
 }
 .brand { display: flex; flex-direction: column; }
-.app-name { font-size: 1.625rem; font-weight: 600; line-height: 1.3; color: var(--primary); }
+.app-name { font-size: 1.625rem; font-weight: 700; line-height: 1.3; color: var(--primary); }
 .tagline { font-size: 1rem; color: var(--text-secondary); }
 
 .language-toggle {
@@ -142,15 +153,16 @@ button, select { font: inherit; }
 
 /* ---- Layout ---- */
 main {
-  max-width: 1100px; margin: 0 auto;
-  padding: 1.25rem 1rem 3rem;
-  display: flex; flex-direction: column; gap: 1.25rem;
+  max-width: 1200px; margin: 0 auto;
+  padding: 1.5rem 1rem 4rem;
+  display: flex; flex-direction: column; gap: 1.5rem;
 }
+@media (min-width: 768px) { main { padding: 2rem 1.5rem 4rem; } }
 
 /* ---- Notes: simulated-data banner (always visible), "preview only", "not for sale" ----
    A calm surface with a hairline and a pond-blue info icon. The words carry the message. */
 .simulated-banner, .preview-note {
-  display: flex; gap: 0.75rem; align-items: flex-start;
+  display: flex; gap: 1rem; align-items: flex-start;
   padding: 0.75rem 1rem;
   background: var(--surface); color: var(--text);
   border: 1px solid var(--hairline); border-radius: var(--radius-inner);
@@ -168,17 +180,18 @@ main {
   background: var(--card); color: var(--text);
 }
 .button-primary, .button-secondary {
-  min-height: 52px; padding: 0 1.75rem; border-radius: 9999px;
+  min-height: 52px; padding: 0 1.5rem; border-radius: var(--radius-card);
   font-weight: 600; cursor: pointer;
 }
 .button-primary { background: var(--primary); color: var(--on-primary); border: 0; }
 .button-primary:active { background: var(--primary-pressed); }
 .button-secondary { background: transparent; color: var(--text); border: 1px solid var(--hairline-strong); }
 .button-secondary:hover, .button-secondary:active { background: var(--surface); }
-/* DESIGN.md button-danger: destructive actions only. White on Danger red (5.6:1). */
+/* DESIGN.md button-danger: destructive actions only ("Delete all my data", with a confirm step).
+   Quiet on purpose: a thin red outline, normal text. Red fills are for Danger alerts only. */
 .button-danger {
-  min-height: 52px; padding: 0 1.75rem; border-radius: 9999px; border: 0;
-  background: var(--danger); color: var(--on-status); font-weight: 600; cursor: pointer;
+  min-height: 52px; padding: 0 1.5rem; border-radius: var(--radius-card);
+  border: 1px solid var(--danger); background: transparent; color: var(--text); font-weight: 600; cursor: pointer;
 }
 .button-danger:disabled { opacity: 0.6; cursor: wait; }
 
@@ -196,8 +209,9 @@ main {
 .status-level { font-size: 1.625rem; font-weight: 700; line-height: 1.35; }
 .status-summary { font-size: 1.125rem; font-weight: 500; }
 
-/* Unchanged status pairs: light background + dark text, so they stand out on the dark page. */
-.status-safe    { background: var(--safe-bg);    border-color: var(--safe);    color: var(--safe-text); }
+/* Safe is calm: the card colour, a hairline and a green edge, with the icon and the word.
+   Warning and Danger keep their light status fills; Danger is the only loud thing in the app. */
+.status-safe    { background: var(--card); border: 1px solid var(--hairline); border-left: 4px solid var(--safe); color: var(--text); }
 .status-warning { background: var(--warning-bg); border-color: var(--warning); color: var(--warning-text); }
 .status-danger  { background: var(--danger-bg);  border-color: var(--danger);  color: var(--danger-text); }
 .status-safe .status-icon    { color: var(--safe); }
@@ -218,21 +232,21 @@ main {
   border-left: 6px solid var(--danger); border-radius: var(--radius-inner);
 }
 
-.readings {
-  display: grid; gap: 1rem;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
-}
+.readings-card { display: flex; flex-direction: column; gap: 0.5rem; }
+.readings { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 1.5rem; }
+/* Each reading: a thin line on top, no box. Warning and Danger get a status edge + badge;
+   Safe readings stay plain (the status block already says Safe). */
 .reading {
-  background: var(--card);
-  border: 1px solid var(--hairline); border-left: 6px solid var(--hairline-strong);
-  border-radius: var(--radius-card); padding: 1rem 1.5rem;
+  min-width: 0; padding: 1rem 0 1rem 0.75rem;
+  border-top: 1px solid var(--hairline); border-left: 3px solid transparent;
   display: flex; flex-direction: column; gap: 0.25rem;
 }
-.reading.level-safe    { border-left-color: var(--safe); }
+.reading.level-safe    { border-left-color: transparent; }
 .reading.level-warning { border-left-color: var(--warning); box-shadow: inset 2px 0 0 var(--warning-edge); }
 .reading.level-danger  { border-left-color: var(--danger); }
-.reading-name { font-size: 1rem; font-weight: 500; color: var(--text-secondary); }
-.reading-value { font-size: 2.25rem; font-weight: 600; line-height: 1.2; font-variant-numeric: tabular-nums; }
+.reading-name { font-size: var(--fs-small); font-weight: 500; color: var(--text-secondary); }
+.reading-value { font-size: 2rem; font-weight: 700; line-height: 1.2; font-variant-numeric: tabular-nums; }
+.reading-note { font-size: var(--fs-caption); color: var(--text-tertiary); }
 .reading-unit { font-size: var(--fs-caption); font-weight: 400; color: var(--text-tertiary); margin-left: 0.3rem; }
 
 .badge {
@@ -295,10 +309,12 @@ main {
   100% { opacity: 0;   transform: scale(1.025); }
 }
 
-/* ---- Pond view + gauge cards ---- */
-.pond-card, .gauge-card { display: flex; flex-direction: column; gap: 0.75rem; }
+/* ---- Pond view: the 3D pond (pond-3d.js) or the 2D fallback (pond-view.js) ---- */
+.pond-card { display: flex; flex-direction: column; gap: 1rem; }
 
-.pond-view { aspect-ratio: 16 / 9; border-radius: var(--radius-inner); overflow: hidden; background: #0c2633; }
+.pond-view { aspect-ratio: 16 / 10; border-radius: var(--radius-inner); overflow: hidden; background: #0c2633; }
+.pond-view.is-3d { background: #060351; }
+.pond3d-canvas { display: block; width: 100%; height: 100%; }
 .pv-svg { display: block; width: 100%; height: 100%; }
 .pv-svg path:not(.pv-surface-line):not(.pv-floor):not(.pv-moon) { fill: #04161e; }
 .pv-moon { fill: var(--text); }
@@ -306,36 +322,25 @@ main {
 .pv-surface-line { fill: none; stroke: rgba(222, 240, 248, 0.45); stroke-width: 1.5; }
 .pv-floor { fill: rgba(3, 10, 14, 0.45); }
 .pv-bubble { fill: none; stroke: rgba(222, 240, 248, 0.75); stroke-width: 1; }
-.pond-caption { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.75rem; }
+.pond-caption { margin: 0; color: var(--text-secondary); font-size: var(--fs-small); }
 
-.gauge { position: relative; width: 100%; max-width: 340px; margin: 0 auto; padding-top: 1.6rem; }
-.gauge-svg { display: block; width: 100%; height: auto; overflow: visible; }
-.gauge-arc { fill: none; stroke-width: 16; opacity: 0.3; transition: opacity 0.6s ease, stroke-width 0.6s ease; }
-.gauge-arc.is-active { opacity: 1; stroke-width: 20; }
-.gauge-arc-safe { stroke: var(--safe); }
-.gauge-arc-warning { stroke: var(--warning); }
-.gauge-arc-danger { stroke: var(--danger); }
-.gauge-needle { fill: var(--text); }
-.gauge-word {
-  position: absolute; font-size: 0.9375rem; font-weight: 600; line-height: 1.4;
-  color: var(--text-tertiary); transition: color 0.6s ease;
+/* ---- Risk scale in the Pond health panel (gauge.js): Danger | Warning | Safe, 0 to 100 ---- */
+.gauge { width: 100%; padding: 0.5rem 0 0.25rem; }
+.risk-track { position: relative; display: flex; gap: 3px; height: 10px; }
+.risk-zone { border-radius: 9999px; opacity: 0.3; transition: opacity 0.6s ease; }
+.risk-zone.is-active { opacity: 1; }
+.risk-zone-danger { background: var(--danger); }
+.risk-zone-warning { background: var(--warning); }
+.risk-zone-safe { background: var(--safe); }
+.risk-marker {
+  position: absolute; top: -6px; left: 0; width: 8px; height: 22px; margin-left: -4px;
+  border-radius: 4px; background: var(--text); border: 2px solid var(--card);
+  transition: left 0.9s ease;
 }
-.gauge-word.is-active { color: var(--text); }
-.gauge-word-safe { left: 0; bottom: 0; }
-.gauge-word-warning { left: 50%; top: 0; transform: translateX(-50%); }
-.gauge-word-danger { right: 0; bottom: 0; }
-.gauge-label {
-  align-self: center; display: inline-flex; align-items: center; gap: 0.5rem;
-  min-height: 2.75rem; padding: 0.25rem 1.25rem; border-radius: 9999px;
-  font-size: 1.25rem; font-weight: 700;
-}
-.gauge-label svg { width: 24px; height: 24px; }
-.gauge-label-safe    { background: var(--safe);    color: var(--on-status); }
-.gauge-label-warning { background: var(--warning); color: var(--on-warning); }
-.gauge-label-danger  { background: var(--danger);  color: var(--on-status); }
 
 /* ---- Countdown (time until danger) ---- */
-.ttd-card { display: flex; flex-direction: column; gap: 0.75rem; }
+.ttd-card { display: flex; flex-direction: column; gap: 1rem; }
+.chart-card .section-head, .ttd-card .section-head { margin-bottom: 0.25rem; }
 .countdown {
   display: grid; gap: 0.125rem;
   padding: 1rem 1.25rem; border-radius: var(--radius-inner);
@@ -352,7 +357,7 @@ main {
 .countdown-at { font-size: 1.125rem; font-weight: 500; }
 
 /* ---- Oxygen chart ---- */
-.chart-card { display: flex; flex-direction: column; gap: 0.75rem; }
+.chart-card { display: flex; flex-direction: column; gap: 1rem; }
 .chart-wrap { position: relative; height: 280px; }
 @media (max-width: 480px) { .chart-wrap { height: 230px; } }
 .chart-summary { color: var(--text-secondary); font-size: 1rem; }
@@ -361,7 +366,7 @@ main {
 
 /* ---- Reduce motion: everything still, changes appear at once ---- */
 @media (prefers-reduced-motion: reduce) {
-  .status-banner, .gauge-arc, .gauge-word { transition: none; }
+  .status-banner, .risk-zone, .risk-marker { transition: none; }
   .status-danger::after { animation: none; opacity: 0; }
 }
 
@@ -396,9 +401,9 @@ main {
 .action-list li { counter-increment: step; }
 .action-item {
   position: relative;
-  display: flex; align-items: flex-start; gap: 0.875rem;
+  display: flex; align-items: flex-start; gap: 1rem;
   min-height: 56px; padding: 0.75rem 1rem;
-  border: 1px solid var(--hairline-strong); border-radius: var(--radius-inner);
+  border: 0; border-radius: var(--radius-inner);
   background: var(--surface); cursor: pointer;
 }
 .action-item input { position: absolute; opacity: 0; width: 1px; height: 1px; }
@@ -416,8 +421,8 @@ main {
 .actions-source { font-size: 1rem; color: var(--text-secondary); }
 
 /* ---- SMS / WhatsApp preview ---- */
-.alert-card { display: flex; flex-direction: column; gap: 0.875rem; }
-.alert-controls { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+.alert-card { display: flex; flex-direction: column; gap: 1rem; }
+.alert-controls { display: flex; flex-wrap: wrap; gap: 1rem; }
 .picker-hint { margin: 0; font-size: 0.9375rem; color: var(--text-secondary); }
 .picker-hint[hidden] { display: none; }
 .segmented {
@@ -479,7 +484,7 @@ main {
   background: var(--card); color: var(--text); font-weight: 600;
   border-left: 3px solid var(--primary);   /* not a status colour: this is a form message, not pond condition */
 }
-.kit-result { display: flex; flex-direction: column; gap: 0.75rem; }
+.kit-result { display: flex; flex-direction: column; gap: 1rem; }
 /* Data-source labels (manual reading, live sensor, AI assistant): quiet outlined tags,
    not buttons. Not a pill: Kannada wraps to two lines on phones. */
 .manual-tag {
@@ -495,7 +500,7 @@ main {
 .kit-actions h3 { margin: 0; font-size: var(--fs-sub); font-weight: 600; }
 
 /* ---- Live sensor card (DESIGN.md card-pond: pond name, status, key readings, "last updated") ---- */
-.live-card { display: flex; flex-direction: column; gap: 0.75rem; }
+.live-card { display: flex; flex-direction: column; gap: 1rem; }
 .live-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem 1rem; }
 .live-head h2 { margin: 0; }
 /* Same quiet tag as the test-kit label: a data-source label, never a status. */
@@ -515,14 +520,14 @@ main {
 .live-demo { align-self: flex-start; margin: 0; }
 .live-waiting, .live-note, .live-time { margin: 0; color: var(--text-secondary); }
 .live-note, .live-time { font-size: 0.9375rem; }
-.live-result { display: flex; flex-direction: column; gap: 0.75rem; }
+.live-result { display: flex; flex-direction: column; gap: 1rem; }
 .live-values {
-  display: grid; gap: 0.75rem; margin: 0;
+  display: grid; gap: 1rem; margin: 0;
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 11rem), 1fr));
 }
 .live-value {
   display: flex; flex-direction: column; gap: 0.25rem;
-  padding: 0.75rem 1rem; border: 1px solid var(--hairline); border-radius: var(--radius-inner);
+  padding: 0.75rem 0; border-top: 1px solid var(--hairline);
 }
 .live-value dt { font-size: 1rem; font-weight: 500; color: var(--text-secondary); }
 .live-value dd {
@@ -538,14 +543,14 @@ main {
 }
 
 /* ---- "Ask AquaNexus" assistant (assistant.js) ---- */
-.assistant-card { display: flex; flex-direction: column; gap: 0.875rem; }
+.assistant-card { display: flex; flex-direction: column; gap: 1rem; }
 .assistant-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem 1rem; }
 .assistant-head h2 { margin: 0; }
 .ai-tag { margin: 0; }
 .assistant-privacy { margin: 0; color: var(--text-secondary); font-size: 1rem; }
 .assistant-card h3 { margin: 0 0 0.5rem; font-size: 1.125rem; font-weight: 600; }
 .chat-log {
-  list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.75rem;
+  list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 1rem;
   max-height: 32rem; overflow-y: auto;
 }
 .chat-message {
@@ -573,7 +578,7 @@ main {
 .suggestion:focus-visible { outline: 3px solid var(--primary); outline-offset: 2px; }
 .suggestion:disabled { opacity: 0.6; cursor: wait; }
 .chat-form { display: flex; flex-direction: column; gap: 0.25rem; }
-.chat-row { display: flex; gap: 0.75rem; align-items: flex-end; }
+.chat-row { display: flex; gap: 1rem; align-items: flex-end; }
 .chat-row textarea {
   flex: 1; min-width: 0; min-height: 56px; padding: 0.75rem 1rem; resize: vertical;
   border: 1px solid var(--hairline-strong); border-radius: var(--radius-inner); background: var(--surface); color: var(--text);
@@ -587,13 +592,14 @@ main {
 .guide-card h3 { margin: 0; font-size: var(--fs-sub); font-weight: 600; line-height: 1.4; }
 .guide-intro, .guide-loading { margin: 0; color: var(--text-secondary); }
 .guide-content { display: flex; flex-direction: column; gap: 1.5rem; }
+.guide-content > .checker, .guide-content > .library, .guide-content > .no-photo { padding-top: 1.5rem; border-top: 1px solid var(--hairline); }
 /* Important notes (no medicines; confirm with the officer): a message, not a pond status. */
 .guide-warning, .checker-message, .guide-note {
   margin: 0; padding: 0.75rem 1rem; border-radius: var(--radius-inner);
   background: var(--surface); color: var(--text); font-weight: 600;
   border-left: 3px solid var(--primary);
 }
-.checker, .library { display: flex; flex-direction: column; gap: 0.75rem; }
+.checker, .library { display: flex; flex-direction: column; gap: 1rem; }
 .checker-form { display: flex; flex-direction: column; gap: 1rem; }
 .checker-form fieldset { margin: 0; padding: 0; border: 0; min-width: 0; }
 .checker-form legend { padding: 0; margin-bottom: 0.5rem; font-weight: 600; font-size: var(--fs-small); color: var(--text-secondary); }
@@ -603,18 +609,19 @@ main {
 }
 .checker-signs .action-text::before { content: none; }
 .checker-signs .action-item input:checked ~ .action-text { color: var(--text); text-decoration: none; }
-.checker-result { display: flex; flex-direction: column; gap: 0.75rem; }
+.checker-result { display: flex; flex-direction: column; gap: 1rem; }
 .checker-result h4 { margin: 0; font-size: 1.125rem; }
-.match-list { margin: 0; padding-left: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem; }
+.match-list { margin: 0; padding-left: 1.5rem; display: flex; flex-direction: column; gap: 1rem; }
 .match { display: flex; flex-direction: column; align-items: flex-start; gap: 0.125rem; }
 .match-signs, .match-more { color: var(--text-secondary); }
 .match-more { margin: 0; }
 .guide-link { padding: 0; min-height: 44px; }
 
-.disease-library { display: flex; flex-direction: column; gap: 0.75rem; }
-.disease { border: 1px solid var(--hairline); border-radius: var(--radius-inner); background: var(--surface); }
+.disease-library { display: flex; flex-direction: column; }
+.disease { border-top: 1px solid var(--hairline); }
+.disease:last-child { border-bottom: 1px solid var(--hairline); }
 .disease > summary {
-  display: flex; align-items: center; gap: 1rem; padding: 0.75rem 1rem;
+  display: flex; align-items: center; gap: 1rem; padding: 0.75rem 0;
   cursor: pointer; list-style: none; border-radius: var(--radius-inner);
 }
 .disease > summary::-webkit-details-marker { display: none; }
@@ -628,13 +635,13 @@ main {
 .disease-title { display: flex; flex-direction: column; align-items: flex-start; gap: 0.25rem; min-width: 0; }
 .disease-name { font-size: 1.125rem; font-weight: 600; line-height: 1.4; }
 .disease-other { color: var(--text-secondary); font-size: 1rem; }
-.disease-body { display: flex; flex-direction: column; gap: 0.75rem; padding: 0 1rem 1rem; }
+.disease-body { display: flex; flex-direction: column; gap: 1rem; padding: 0 0 1.5rem; }
 .disease-agent { margin: 0; color: var(--text-secondary); }
 .disease-field h4 { margin: 0 0 0.25rem; font-size: 1rem; font-weight: 600; color: var(--text-secondary); }
 .disease-field p, .disease-field ul, .disease-field ol { margin: 0; }
 .disease-field ul, .disease-field ol { padding-left: 1.5rem; display: flex; flex-direction: column; gap: 0.25rem; }
 .disease-sources { margin: 0; font-size: 0.9375rem; color: var(--text-secondary); }
-.no-photo { border-top: 1px solid var(--hairline); padding-top: 0.75rem; }
+.no-photo { margin: 0; }
 .no-photo summary { cursor: pointer; font-weight: 600; min-height: 44px; display: flex; align-items: center; }
 .no-photo p { margin: 0.5rem 0 0; }
 
@@ -652,7 +659,7 @@ main {
 .fish-art .mark-flat { fill: var(--card); stroke: var(--text-secondary); stroke-width: 1.8; }
 .fish-art .spot { fill: var(--card); stroke: var(--text); stroke-width: 0.8; }
 .fish-art .shade { fill: var(--text); opacity: 0.35; }
-@media (max-width: 480px) { .fish-art { width: 76px; } .disease > summary { gap: 0.75rem; padding: 0.75rem; } }
+@media (max-width: 480px) { .fish-art { width: 76px; } .disease > summary { gap: 1rem; padding: 0.75rem; } }
 
 /* "Diseases more likely now" for a risky reading */
 .likely-card { display: flex; flex-direction: column; align-items: flex-start; gap: 0.5rem; }
@@ -661,7 +668,7 @@ main {
 .likely-list { margin: 0; padding-left: 1.5rem; display: flex; flex-direction: column; gap: 0.25rem; }
 .likely-note { margin: 0; color: var(--text-secondary); }
 .kit-result .likely-box, .live-result .likely-box {
-  padding: 0.75rem 1rem; border: 1px solid var(--hairline); border-radius: var(--radius-inner);
+  padding: 0.75rem 1rem; background: var(--surface); border-radius: var(--radius-inner);
 }
 
 /* ---- "Simulated data" tag: on every card that shows simulated values ----
@@ -686,29 +693,28 @@ main {
   border-left: 3px solid var(--primary);   /* a device message, not pond condition: no status colour */
 }
 
-/* ---- Pond health score ring ---- */
-.health-card { display: flex; flex-direction: column; gap: 0.75rem; }
-.health-head, .history-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem 1rem; }
-.health-head h2, .history-head h2 { margin: 0; }
-.health-body { display: flex; flex-wrap: wrap; align-items: center; gap: 1.25rem 2rem; }
-.health-ring { position: relative; width: min(200px, 60vw); aspect-ratio: 1; flex: none; margin: 0 auto; }
-@media (min-width: 640px) { .health-ring { margin: 0; } }
+/* ---- Pond health panel: score ring + risk scale ---- */
+.health-card { display: flex; flex-direction: column; gap: 1rem; }
+.history-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem 1rem; }
+.history-head h2 { margin: 0; }
+.health-body { display: flex; align-items: center; gap: 1.5rem; }
+.health-ring { position: relative; width: 128px; aspect-ratio: 1; flex: none; }
 .health-svg { display: block; width: 100%; height: 100%; }
-.health-track { fill: none; stroke: var(--hairline); stroke-width: 11; }
-.health-arc { fill: none; stroke: var(--hairline-strong); stroke-width: 11; stroke-linecap: round; transition: stroke 0.6s ease; }
+.health-track { fill: none; stroke: var(--hairline); stroke-width: 10; }
+.health-arc { fill: none; stroke: var(--hairline-strong); stroke-width: 10; stroke-linecap: round; transition: stroke 0.6s ease; }
 .health-arc-safe { stroke: var(--safe); }
 .health-arc-warning { stroke: var(--warning); }
 .health-arc-danger { stroke: var(--danger); }
 .health-number {
   position: absolute; inset: 0; display: grid; place-items: center;
-  font-size: 3rem; font-weight: 600; line-height: 1.2; font-variant-numeric: tabular-nums;
+  font-size: 2.5rem; font-weight: 700; line-height: 1.2; font-variant-numeric: tabular-nums;
 }
-.health-info { flex: 1 1 16rem; display: flex; flex-direction: column; gap: 0.5rem; }
-.health-text { font-size: var(--fs-body); font-weight: 500; }
-.health-scale { font-size: var(--fs-caption); color: var(--text-secondary); }
+.health-info { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+.health-scale { margin: 0; font-size: var(--fs-caption); color: var(--text-secondary); font-variant-numeric: tabular-nums; }
+@media (max-width: 400px) { .health-ring { width: 104px; } .health-number { font-size: 2rem; } .health-body { gap: 1rem; } }
 
 /* ---- Alert history timeline ---- */
-.history-card { display: flex; flex-direction: column; gap: 0.75rem; }
+.history-card { display: flex; flex-direction: column; gap: 1rem; }
 .history-help, .history-empty { color: var(--text-secondary); }
 .history-empty[hidden] { display: none; }
 .button-ghost {
@@ -823,37 +829,16 @@ main {
 
 /* The status banner sits directly under the sky it happens in: flat, no overlap or shadow. */
 
-/* ---- Bento boards: varied card sizes, one board per page ----
-   Phones: one column in reading order. Tablets: two columns. Computers: six
-   on the Pond page, with wide and narrow cards side by side. */
-.board { display: grid; gap: 1.25rem; grid-template-columns: minmax(0, 1fr); align-items: start; }
-@media (min-width: 768px) {
-  .board-pond {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    grid-template-areas: "health health" "gauge ttd" "pond pond" "chart chart" "readings readings";
-  }
-  .board-pond > .health-card { grid-area: health; }
-  .board-pond > .gauge-card { grid-area: gauge; align-self: stretch; }
-  .board-pond > .pond-card { grid-area: pond; }
-  .board-pond > .ttd-card { grid-area: ttd; align-self: stretch; }
-  .board-pond > .chart-card { grid-area: chart; }
-  .board-pond > .readings-block { grid-area: readings; }
-}
-@media (min-width: 1024px) {
-  .board-pond {
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-    grid-template-areas:
-      "health health health health gauge gauge"
-      "pond pond pond pond ttd ttd"
-      "chart chart chart chart chart chart"
-      "readings readings readings readings readings readings";
-  }
-  /* Alerts: phone preview beside the history. More: test kit beside the live sensor. */
-  .board-alerts, .board-more { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
+/* ---- Pond dashboard: condition and trend on the left, the pond and its numbers on the right.
+   Two independent columns, so a tall card on one side never leaves a gap on the other.
+   Phones: one column, left column first. ---- */
+.dash { display: grid; gap: 1.5rem; grid-template-columns: minmax(0, 1fr); align-items: start; }
+.dash-main, .dash-side { display: flex; flex-direction: column; gap: 1.5rem; min-width: 0; }
+@media (min-width: 1024px) { .dash { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); } }
 
-.readings-block { display: flex; flex-direction: column; gap: 0.75rem; min-width: 0; }
-.readings-head h2 { margin: 0; }
+/* Alerts: phone preview beside the history. More: test kit beside the live sensor. */
+.board { display: grid; gap: 1.5rem; grid-template-columns: minmax(0, 1fr); align-items: start; }
+@media (min-width: 1024px) { .board-alerts, .board-more { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 
 @media (prefers-contrast: more), (forced-colors: active) {
   .scene-glint { display: none; }
@@ -864,7 +849,7 @@ main {
    Phones: a tab bar fixed to the bottom of the screen. Computers: the same
    tabs under the top bar. The status strip is on every page.
    ================================================================ */
-.page { display: flex; flex-direction: column; gap: 1.25rem; min-width: 0; }
+.page { display: flex; flex-direction: column; gap: 1.5rem; min-width: 0; }
 .page-title {
   margin: 0; font-size: var(--fs-title); font-weight: 600; line-height: 1.35;
 }
@@ -923,8 +908,8 @@ main {
     background: var(--surface); border-top: 0; border-bottom: 1px solid var(--hairline);
   }
   .tab {
-    flex-direction: row; gap: 0.5rem; min-height: 48px; padding: 0 1.25rem;
-    border-radius: 9999px; font-size: 1rem;
+    flex-direction: row; gap: 0.5rem; min-height: 44px; padding: 0 1rem;
+    border-radius: var(--radius-card); font-size: 1rem;
   }
   .tab svg { width: 22px; height: 22px; padding: 0; background: none; }
   .tab-badge { position: static; border-color: var(--surface); }
@@ -941,7 +926,7 @@ main {
 /* ---- Status strip: level + time until danger, on every page ---- */
 /* One row on every screen: icon | level + detail (wraps inside) | simulated chip | arrow. */
 .status-strip {
-  display: grid; grid-template-columns: auto minmax(0, 1fr) auto auto; align-items: center; column-gap: 0.75rem;
+  display: grid; grid-template-columns: auto minmax(0, 1fr) auto auto; align-items: center; column-gap: 1rem;
   min-height: 52px; padding: 0.375rem 1rem;
   background: var(--surface); color: var(--text);
   border-bottom: 2px solid var(--hairline-strong);
@@ -963,7 +948,7 @@ main {
 @media (min-width: 768px) { .strip-sim { max-width: none; white-space: nowrap; } }
 .strip-go { width: 22px; height: 22px; flex: none; }
 /* Same fixed status pairs as the big banner. */
-.strip-safe    { background: var(--safe-bg);    color: var(--safe-text);    border-bottom-color: var(--safe); }
+.strip-safe    { background: var(--surface);    color: var(--text);         border-bottom-color: var(--safe); }
 .strip-warning { background: var(--warning-bg); color: var(--warning-text); border-bottom-color: var(--warning); }
 .strip-safe .strip-icon    { color: var(--safe); }
 .strip-warning .strip-icon { color: var(--warning-text); }
@@ -985,8 +970,8 @@ main {
 .strip-danger:focus-visible { outline-color: var(--on-status); }
 @media (min-width: 1024px) {
   .status-strip {
-    padding-left: max(1rem, calc((100% - 1100px) / 2 + 1rem));
-    padding-right: max(1rem, calc((100% - 1100px) / 2 + 1rem));
+    padding-left: max(1rem, calc((100% - 1200px) / 2 + 1.5rem));
+    padding-right: max(1rem, calc((100% - 1200px) / 2 + 1.5rem));
   }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -998,7 +983,7 @@ main {
 .settings-card { display: flex; flex-direction: column; gap: 1rem; }
 .settings-card h2 { margin: 0; }
 .setting { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem 1rem; }
-.about-links { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+.about-links { display: flex; flex-wrap: wrap; gap: 1rem; }
 .about-card h2 { margin-bottom: 0.75rem; }
 
 /* ================================================================
@@ -1007,7 +992,7 @@ main {
    only as status, always with an icon and a word.
    ================================================================ */
 .strip-sim[hidden] { display: none; }
-.ponds-section { display: flex; flex-direction: column; gap: 0.75rem; }
+.ponds-section { display: flex; flex-direction: column; gap: 1rem; }
 .ponds-title, .demo-pond-title { margin: 0; font-size: var(--fs-section); font-weight: 600; line-height: 1.45; }
 .demo-pond-title { margin-top: 0.5rem; }
 .pond-tiles {
@@ -1031,7 +1016,7 @@ main {
 .pond-tile-time, .pond-tile-place { color: var(--text-secondary); font-size: 1rem; }
 
 /* Where the pond is (Add / Edit pond): district, then taluk / village. Same look as the text boxes. */
-.pond-place { display: flex; flex-direction: column; gap: 0.75rem; min-width: 0; margin: 0; padding: 0; border: 0; }
+.pond-place { display: flex; flex-direction: column; gap: 1rem; min-width: 0; margin: 0; padding: 0; border: 0; }
 .pond-place[hidden] { display: none; }
 .pond-place legend { padding: 0; margin-bottom: 0.25rem; font-size: 1.125rem; }
 .kit-select select {
@@ -1062,18 +1047,18 @@ main {
 .pond-detail-tools { display: flex; flex-wrap: wrap; gap: 0.5rem; }
 .pond-detail-meta { color: var(--text-secondary); }
 .pond-detail .sim-tag { align-self: flex-start; }
-.board-pond-detail { display: grid; gap: 1.25rem; grid-template-columns: minmax(0, 1fr); align-items: start; }
+.board-pond-detail { display: grid; gap: 1.5rem; grid-template-columns: minmax(0, 1fr); align-items: start; }
 @media (min-width: 1024px) { .board-pond-detail { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .board-pond-detail h3 { margin: 0 0 0.5rem; font-size: var(--fs-sub); font-weight: 600; }
-.pond-readings-card, .device-card { display: flex; flex-direction: column; gap: 0.75rem; }
+.pond-readings-card, .device-card { display: flex; flex-direction: column; gap: 1rem; }
 .pond-action-list { margin: 0; padding-left: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; font-weight: 500; }
 .chart-wrap[hidden] { display: none; }
 
 /* A new device key: shown once, with copy buttons and setup steps. */
-.device-key-box { display: flex; flex-direction: column; gap: 0.75rem; padding-top: 0.75rem; border-top: 1px solid var(--hairline); }
+.device-key-box { display: flex; flex-direction: column; gap: 1rem; padding-top: 0.75rem; border-top: 1px solid var(--hairline); }
 .device-key-box[hidden] { display: none; }
 .device-key-box h4 { margin: 0; font-size: 1.125rem; }
-.device-secrets { margin: 0; display: flex; flex-direction: column; gap: 0.75rem; }
+.device-secrets { margin: 0; display: flex; flex-direction: column; gap: 1rem; }
 .device-secrets dt { font-weight: 600; color: var(--text-secondary); font-size: 1rem; }
 .device-secrets dd { margin: 0.25rem 0 0; display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; }
 .device-secrets code, .farm-code {
@@ -1085,15 +1070,15 @@ main {
 .device-steps { margin: 0; padding-left: 1.5rem; display: flex; flex-direction: column; gap: 0.375rem; overflow-wrap: anywhere; }
 
 /* Farm code (More page). */
-.farm-card { display: flex; flex-direction: column; gap: 0.75rem; }
+.farm-card { display: flex; flex-direction: column; gap: 1rem; }
 .farm-card h2 { margin: 0; }
-.farm-code-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; }
+.farm-code-row { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; }
 .farm-code { font-size: 1.375rem; font-weight: 700; letter-spacing: 0; }
-.farm-form { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 0.75rem; }
+.farm-form { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 1rem; }
 .farm-form .kit-field { flex: 1 1 14rem; }
 .farm-status { font-weight: 600; }
 .farm-status:empty { display: none; }
-.delete-all-card { display: flex; flex-direction: column; gap: 0.75rem; }
+.delete-all-card { display: flex; flex-direction: column; gap: 1rem; }
 .delete-all-card h2, .delete-all-card p { margin: 0; }
 .pond-alerts-card[hidden] { display: none; }
 
@@ -1164,7 +1149,7 @@ main {
   padding: 1rem 1rem calc(1.25rem + env(safe-area-inset-bottom));
 }
 .site-footer-row {
-  max-width: 1100px; margin: 0 auto;
+  max-width: 1200px; margin: 0 auto;
   display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem 1.5rem;
 }
 .site-footer-links { display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem 1rem; }
@@ -1174,7 +1159,7 @@ main {
 }
 .footer-link svg { width: 22px; height: 22px; flex: none; }
 .footer-privacy {
-  max-width: 1100px; margin: 0.75rem auto 0;
+  max-width: 1200px; margin: 0.75rem auto 0;
   display: flex; gap: 0.5rem; align-items: flex-start;
   font-size: 0.9375rem; line-height: 1.6; color: var(--text-secondary);
 }
@@ -1188,7 +1173,7 @@ main {
 .shop-intro { color: var(--text-secondary); }
 .shop-one-pond h2 { margin: 0 0 0.25rem; }
 /* Wiring diagram: its labels are light, so it sits on the deep indigo in both themes. */
-.shop-wiring { display: grid; gap: 0.75rem; }
+.shop-wiring { display: grid; gap: 1rem; }
 .shop-wiring h2 { margin: 0; }
 .shop-wiring-figure { margin: 0; display: grid; gap: 0.5rem; }
 .shop-wiring-figure img {
@@ -1201,7 +1186,7 @@ main {
 /* Cart button in the page head: icon + word + count (never icon only). */
 .cart-button {
   display: inline-flex; align-items: center; gap: 0.5rem;
-  min-height: 48px; padding: 0 0.75rem 0 1rem; border-radius: 9999px;
+  min-height: 48px; padding: 0 0.75rem 0 1rem; border-radius: var(--radius-card);
   background: transparent; color: var(--text); border: 1px solid var(--hairline-strong);
   font-weight: 600; cursor: pointer;
 }
@@ -1217,13 +1202,13 @@ main {
 /* Product grid: 1-up phone, 2-up tablet, 3-up desktop. */
 .shop-grid {
   list-style: none; margin: 0; padding: 0;
-  display: grid; gap: 1.25rem; grid-template-columns: minmax(0, 1fr);
+  display: grid; gap: 1.5rem; grid-template-columns: minmax(0, 1fr);
 }
 @media (min-width: 640px) { .shop-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (min-width: 1024px) { .shop-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-.shop-card { display: flex; flex-direction: column; gap: 0.75rem; }
-.shop-card-head { display: flex; align-items: center; gap: 0.875rem; }
-.shop-icon { flex: none; display: flex; width: 48px; height: 48px; padding: 6px; border-radius: var(--radius-inner); background: var(--surface); border: 1px solid var(--hairline); }
+.shop-card { display: flex; flex-direction: column; gap: 1rem; }
+.shop-card-head { display: flex; align-items: center; gap: 1rem; }
+.shop-icon { flex: none; display: flex; width: 48px; height: 48px; padding: 6px; border-radius: var(--radius-inner); background: var(--surface); }
 .shop-icon svg { width: 100%; height: 100%; fill: none; stroke: var(--primary); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
 .shop-name { margin: 0; font-size: var(--fs-sub); font-weight: 600; line-height: 1.45; }
 .shop-desc { color: var(--text-secondary); }
@@ -1262,7 +1247,7 @@ main {
 .cart-item-name { font-weight: 600; }
 .cart-item-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; }
 .cart-step {
-  width: 44px; height: 44px; flex: none; border-radius: 9999px;
+  width: 44px; height: 44px; flex: none; border-radius: var(--radius-inner);
   background: transparent; color: var(--text); border: 1px solid var(--hairline-strong);
   font-size: 1.5rem; font-weight: 600; line-height: 1; cursor: pointer;
 }
@@ -1276,7 +1261,7 @@ main {
 .cart-total strong { font-variant-numeric: tabular-nums; }
 .cart-note { color: var(--text-secondary); font-size: 0.9375rem; }
 .cart-note[hidden] { display: none; }
-.cart-buttons { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; margin-top: 0.5rem; }
+.cart-buttons { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; margin-top: 0.5rem; }
 
 /* Checkout panel: "Coming soon" and the list to copy. */
 .checkout-soon { margin: 0 0 0.75rem; }

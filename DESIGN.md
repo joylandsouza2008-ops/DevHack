@@ -74,7 +74,7 @@ The most important job of the interface is to make pond condition clear at a gla
 Text is set larger than a typical web app: body text is 18px, and nothing that must be read is smaller than 15px. Every style is tuned so Kannada (ಕನ್ನಡ) renders as comfortably as English, with generous line height and no negative letter-spacing.
 
 **Key Characteristics:**
-- Deep indigo (dark) or pale indigo-white (light) with pond-blue pill CTAs ({colors.primary} + `{rounded.full}`)
+- Deep indigo (dark) or pale indigo-white (light) with pond-blue CTAs ({colors.primary}, 12px corners like the cards)
 - Bright cyan ({colors.secondary}) for small tags and highlighted items, always with dark text
 - Calm and flat: one colour per meaning, hairline borders, no decorative shadows, glows, blobs or waves
 - Motion only where it means something: a level change, a reading moving, the countdown, a Danger alert
@@ -174,7 +174,9 @@ These colors are reserved for pond and fish condition: water quality, oxygen, te
 ## Typography
 
 ### Font Family
-**Noto Sans** (Latin) + **Noto Sans Kannada** (Kannada), both under the SIL Open Font License. The two are designed to match, so mixed Kannada and English lines (for example, "ಆಮ್ಲಜನಕ 6.2 mg/L") share the same weight and baseline.
+**Manrope** for titles and big numbers (page titles, section headings, the status word, readings, the health score, the countdown), via `--font-display`. It has Latin letters only, so Kannada letters in a title fall back to Noto Sans Kannada, letter by letter. Bundled in `frontend/fonts/` (SIL Open Font License), like the others.
+
+**Noto Sans** (Latin) + **Noto Sans Kannada** (Kannada) for everything else, both under the SIL Open Font License. The two are designed to match, so mixed Kannada and English lines (for example, "ಆಮ್ಲಜನಕ 6.2 mg/L") share the same weight and baseline.
 
 **The fonts are bundled locally, so the app works on cheap phones and slow internet.** Never load them from Google Fonts or any other CDN. They live in `frontend/fonts/`, and every page links the local stylesheet:
 
@@ -254,15 +256,18 @@ Readings use tabular numbers; their **units are smaller and muted** (`--fs-capti
 - **Card internal padding**: `{spacing.xl}` (24px) for compact cards; `{spacing.xxl}` (32px) for feature panels.
 
 ### Grid & Container
-- 1200px max-width with 24–32px gutters; 16px minimum side padding on phones.
-- Dashboard: one `card-pond` per pond in a responsive grid (1-up phone → 2-up tablet → 3-up desktop).
+- 1200px max-width with 24px gutters on computers; 16px minimum side padding on phones. Spacing between blocks is on an 8px grid (8, 16, 24, 32).
+- **Pond page dashboard** (1024px and wider): two independent columns, 7 : 5. Left: the sky scene with the status block under it, the oxygen chart, time until danger. Right: the pond view (3D), the Pond health panel, the latest readings. Phones: one column, left column first.
+- My ponds: one `card-pond` per pond in a responsive grid (1-up phone → 2-up tablet → 3-up desktop).
 - Reading lines stay under ~70 characters wide, and slightly narrower for Kannada.
 
 ## Elevation & Depth
 
 The system is **flat**, like still water: every surface is a solid fill with a 1px `{colors.hairline}` border, and **no card has a shadow**. Cards are never nested inside cards; inside a card, parts are separated by thin dividers or small inner panels. Dialogs get a dark backdrop, not a shadow.
 
-The only 3D in the app is deliberate and small (the pond view and the start card), never a drop shadow.
+The only 3D in the app is deliberate and small, never a drop shadow:
+- **Pond view** (`pond-3d.js`, Three.js bundled in `frontend/vendor/three/`, never a CDN): a glass-tank pond with gently moving water, a few fish, and bubbles whose number follows dissolved oxygen (4 at 0 mg/L, up to 44 at 12 mg/L). Night and day light, moon and stars follow the simulated time. Murky blues and greys only; in Danger the water greys and the fish rise to the surface. At most 30 fps and a 1.5 pixel ratio; it stops drawing off screen or in a hidden tab. **Falls back to the 2D pond** on low-power phones, with "reduce motion", without WebGL, or if the GPU drops it.
+- **Start screen**: the same 3D pond fills the empty right half on screens 900px and wider (not on phones). The example warning card tilts toward the mouse, 6 degrees at most (mouse only, not with "reduce motion"); if the screen scrolls, the ponds move a little slower than the text.
 
 ## Shapes
 
@@ -272,9 +277,9 @@ Three values only (`styles.css`):
 
 | Token | Value | Use |
 |---|---|---|
-| `--radius-card` | 12px | **Every** card, panel, status banner, scene, dialog |
+| `--radius-card` | 12px | **Every** card, panel, status banner, scene, dialog, **and every button** (also the page tabs on computers) |
 | `--radius-inner` | 8px | Inputs, notes, checklist items, tags and other small parts inside a card (chips: 6px) |
-| pill | 9999px | All buttons, tabs, toggles, status badges |
+| pill | 9999px | **Only** small chips and toggles: status badges, language / theme / pond toggles, SMS / WhatsApp switch |
 
 ## Components
 
@@ -282,8 +287,8 @@ Three values only (`styles.css`):
 
 ### Buttons
 
-**`button-primary`**: the light pond-blue pill used for the main action on a screen ("Check pond", "Save reading").
-- Background `{colors.primary}`, text `{colors.on-primary}`, `{typography.button-md}`, padding `14px 28px`, min-height 52px, `{rounded.full}`.
+**`button-primary`**: the light pond-blue button used for the main action on a screen ("Check pond", "Save reading").
+- Background `{colors.primary}`, text `{colors.on-primary}`, `{typography.button-md}`, padding `0 24px`, min-height 52px, 12px corners (`--radius-card`).
 - Pressed state: `{colors.primary-pressed}`. Disabled: `{colors.hairline}` background with `{colors.muted}` text.
 
 **`button-secondary-filled`**: bright cyan ({colors.secondary}) pill with dark text, for a secondary filled action.
@@ -310,14 +315,18 @@ All cards look the same: `{colors.canvas}`, hairline border, `--radius-card`. No
 
 **`card-pond`**: the core dashboard card for one pond. It has a `{colors.canvas}` background, a hairline border, and a **6px left border in the pond's current status color**. It shows the pond name (`heading-3`), a status badge, 2–4 key readings in `stat-display`, and a "last updated" caption.
 
-**`card-stat`**: a single large reading ("6.2 mg/L") in `stat-display`, with its label and unit beneath in `body-sm`.
+**`card-stat`**: a single large reading ("6.2 mg/L") in Manrope with tabular numbers; the unit is smaller and muted. On the Pond page the readings sit in **one** card as a two-column grid split by thin lines (no box per reading).
+
+**Pond health panel**: the 0-100 score ring next to a slim risk scale (Danger 0-39 | Warning 40-74 | Safe 75-100) with a marker at the score, and the legend under it. Replaces the old separate gauge card.
 
 **`card-highlighted`**: a pale water background with a 2px `{colors.primary}` border, for a recommended or featured item.
 
 ### Status
 
 **`status-banner-safe` / `status-banner-warning` / `status-banner-danger`**: full-width banners at the top of a pond screen.
-- The status's own light background, 2px solid border in the status color, `{typography.status-label}` text in the matching dark text color, and a 24px leading icon. On the dark page these are the brightest elements on screen.
+- **Safe** is calm: the card colour, a hairline and a 4px green left edge, the green icon and the word in the text colour.
+- **Warning** and **Danger** keep their own light status background, a 2px border in the status colour and the matching dark text. **Danger is the only loud thing in the app** (the status strip turns solid red with a slow ring; destructive buttons such as "Delete all my data" are only outlined in red).
+- **One status, said once:** the status strip (every page) and this block say the level. Other parts of the Pond page do not repeat "Safe": the Pond health panel shows the score on a Danger / Warning / Safe scale, the pond view has a plain caption, and readings get a badge only in Warning or Danger.
 - Structure: **icon + status word + one-line reason + next step**. For example: (warning icon) **Warning**: Oxygen is low (4.1 mg/L). Run the aerator.
 - Danger banners use `role="alert"`. Safe and Warning banners use `role="status"`.
 
@@ -384,7 +393,7 @@ Numeric inputs for readings use `inputmode="decimal"` and show the unit as a suf
 - Put dark text ({colors.on-warning}) on amber
 - Keep body text at 18px and use nothing readable below 15px
 - Test every screen in Kannada, with long labels and deep conjuncts
-- Use `{rounded.full}` on every button, tab and badge
+- Use 12px corners on buttons and cards; pills only for chips and toggles
 - Keep touch targets at 48px or larger
 
 ### Don't
@@ -433,7 +442,7 @@ Numeric inputs for readings use `inputmode="decimal"` and show the unit as a suf
 4. Add new variants as separate `components:` entries
 5. Default to `{typography.body-md}` (18px) for body text
 6. Any new color must come from the brand palette (or be derived from it), must pass 4.5:1 for text (3:1 for borders and icons) in **both** themes, and must not look like a status color. Add it to both theme blocks in `styles.css` and run `python -m pytest tests/test_contrast.py`
-7. Use pill-shaped buttons (`{rounded.full}`) everywhere
+7. Use 12px corners (`--radius-card`) on buttons; pills only for chips and toggles
 8. Check every new component in both Kannada and English before calling it done
 
 ## Known Gaps

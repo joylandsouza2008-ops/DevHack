@@ -38,6 +38,34 @@ def test_tab_bar_has_an_icon_and_a_word_for_every_page():
         assert f'data-i18n="tab{name.capitalize()}"' in inner          # and a word, never icon only
 
 
+def test_pond_page_is_a_two_column_dashboard():
+    # Left: scene + status, oxygen chart, time until danger. Right: pond view, pond health, readings.
+    html = page_html("pond")
+    main = html[html.index('<div class="dash-main">'):html.index('<div class="dash-side">')]
+    side = html[html.index('<div class="dash-side">'):]
+    order = [main.index(f'id="{i}"') for i in ("scene", "status", "do-chart", "countdown")]
+    assert order == sorted(order)
+    order = [side.index(f'id="{i}"') for i in ("pond-view", "health-ring", "gauge", "readings")]
+    assert order == sorted(order)
+    assert "@media (min-width: 1024px) { .dash { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); } }" in CSS
+    assert "max-width: 1200px" in CSS
+
+
+def test_the_level_is_said_once_on_the_pond_page():
+    # The status strip and the status block say the level; no extra Safe badges on the pond view,
+    # the health panel or a separate risk gauge.
+    html = page_html("pond")
+    for gone in ('id="pond-view-badge"', 'id="gauge-label"', 'id="health-badge"', 'gauge-card'):
+        assert gone not in html, gone
+
+
+def test_buttons_and_cards_share_one_radius():
+    import re
+    for selector in (r"\.button-primary, \.button-secondary \{", r"\.button-danger \{", r"\n\.card \{"):
+        rule = re.search(selector + r"(.*?)\}", CSS, re.S).group(1)
+        assert "border-radius: var(--radius-card)" in rule, selector
+
+
 def test_old_bottom_toolbar_is_gone():
     assert "bottom-toolbar" not in HTML and "bottom-toolbar" not in CSS
 

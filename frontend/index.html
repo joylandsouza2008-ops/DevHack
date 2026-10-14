@@ -28,6 +28,8 @@
       <div class="pond-fish" id="pond-fish"></div>
       <div class="pond-scrim"></div>
     </div>
+    <!-- 3D pond on the right half (wide screens only, pond-3d.js). Decoration: the 2D pond stays behind it. -->
+    <div class="welcome-3d" id="welcome-3d" aria-hidden="true"></div>
 
     <div class="welcome-bar">
       <!-- Team credit: small orbit-ring logo (a water drop with an orbit), static. -->
@@ -251,7 +253,10 @@
         </div>
       </section>
 
-      <h2 class="demo-pond-title" data-i18n="demoPondTitle">Demo pond</h2>
+      <div class="section-head">
+        <h2 class="demo-pond-title" data-i18n="demoPondTitle">Demo pond</h2>
+        <p class="section-help" data-i18n="demoPondHelp">Choose "Night oxygen crash" to see how a warning looks.</p>
+      </div>
       <!-- Always visible: everything below on this page comes from the simulator. -->
       <p class="simulated-banner" id="simulated-banner">
         <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm1 15h-2v-6h2v6Zm0-8h-2V7h2v2Z"/></svg>
@@ -281,81 +286,95 @@
         <button type="button" class="button-secondary" id="pause" data-i18n="pause">Pause</button>
       </section>
 
-      <!-- Day/night pond scene (scene.js). The sky follows the SIMULATED time of day. -->
-      <section class="scene dark-scope" id="scene" aria-labelledby="scene-clock">
-        <div class="scene-art" id="scene-art" aria-hidden="true"></div>
-        <div class="scene-chip">
-          <p class="sim-clock" id="scene-clock"><span data-i18n="simTime">Simulated time</span>: <strong id="sim-time">-</strong> <span class="scene-phase" id="scene-phase"></span></p>
-          <span class="sim-tag" data-i18n="simulatedTag">Simulated data</span>
-        </div>
-      </section>
 
-      <section id="status" class="status-banner status-unknown" role="status" aria-live="polite" tabindex="-1">
-        <span class="status-icon" id="status-icon" aria-hidden="true"></span>
-        <div class="status-text" id="status-text">
-          <p class="status-level" id="status-level" data-i18n="connecting">Connecting…</p>
-          <p class="status-summary" id="status-summary"></p>
-        </div>
-      </section>
-
-        <!-- Bento board: cards of different sizes (grid areas in styles.css). -->
-        <div class="board board-pond">
-        <!-- Pond health score 0-100. Always inside the status's range (backend/health_score.py). -->
-        <section class="card health-card" aria-labelledby="health-title">
-          <div class="health-head">
-            <h2 id="health-title" data-i18n="healthTitle">Pond health score</h2>
-            <span class="sim-tag" data-i18n="simulatedTag">Simulated data</span>
-          </div>
-          <div class="health-body">
-            <div class="health-ring" id="health-ring" role="img" aria-labelledby="health-text"></div>
-            <div class="health-info">
-              <span class="badge" id="health-badge" hidden></span>
-              <p class="health-text" id="health-text"></p>
-              <p class="health-scale" data-i18n="healthScale">Safe 75‑100 · Warning 40‑74 · Danger 0‑39</p>
+      <!-- Dashboard: on computers, condition and trend on the left, the pond and its numbers on the right.
+           Phones: one column, in this order. -->
+      <div class="dash">
+        <div class="dash-main">
+          <!-- Day/night pond scene (scene.js). The sky follows the SIMULATED time of day. -->
+          <section class="scene dark-scope" id="scene" aria-labelledby="scene-clock">
+            <div class="scene-art" id="scene-art" aria-hidden="true"></div>
+            <div class="scene-chip">
+              <p class="sim-clock" id="scene-clock"><span data-i18n="simTime">Simulated time</span>: <strong id="sim-time">-</strong> <span class="scene-phase" id="scene-phase"></span></p>
+              <span class="sim-tag" data-i18n="simulatedTag">Simulated data</span>
             </div>
-          </div>
-        </section>
+          </section>
 
-        <section class="card gauge-card" aria-labelledby="gauge-title">
-          <h2 id="gauge-title" data-i18n="gaugeTitle">Risk level</h2>
-          <div class="gauge" id="gauge" role="img" aria-labelledby="gauge-label"></div>
-          <p class="gauge-label" id="gauge-label"></p>
-        </section>
+          <section id="status" class="status-banner status-unknown" role="status" aria-live="polite" tabindex="-1">
+            <span class="status-icon" id="status-icon" aria-hidden="true"></span>
+            <div class="status-text" id="status-text">
+              <p class="status-level" id="status-level" data-i18n="connecting">Connecting…</p>
+              <p class="status-summary" id="status-summary"></p>
+            </div>
+          </section>
 
-        <section class="card pond-card" aria-labelledby="pond-view-title">
-          <h2 id="pond-view-title" data-i18n="pondViewTitle">Pond view</h2>
-          <div class="pond-view dark-scope" id="pond-view" role="img" aria-labelledby="pond-view-text"></div>
-          <p class="pond-caption">
-            <span class="badge" id="pond-view-badge"></span>
-            <span id="pond-view-text"></span>
-          </p>
-        </section>
 
-        <section class="card ttd-card" aria-labelledby="ttd-title">
-          <h2 id="ttd-title" data-i18n="ttdTitle">Time until danger</h2>
-          <!-- Countdown: shown while danger is expected; the numbers count down smoothly. -->
-          <div class="countdown" id="countdown" hidden>
-            <p class="countdown-label" data-i18n="countdownLabel">Danger expected in</p>
-            <p class="countdown-value" id="countdown-value" aria-live="off"></p>
-            <p class="countdown-at" id="countdown-at"></p>
-          </div>
-          <p id="ttd-message" class="ttd-message">-</p>
-        </section>
+          <section class="card chart-card" aria-labelledby="chart-title">
+            <div class="section-head">
+              <h2 id="chart-title" data-i18n="chartTitle">Dissolved oxygen, last 12 hours</h2>
+              <p class="section-help" data-i18n="chartHelp">Below 5 mg/L is Warning, below 3 mg/L is Danger.</p>
+            </div>
+            <div class="chart-wrap">
+              <canvas id="do-chart" role="img" aria-labelledby="chart-summary"></canvas>
+            </div>
+            <p class="chart-summary" id="chart-summary"></p>
+          </section>
 
-        <section class="card chart-card" aria-labelledby="chart-title">
-          <h2 id="chart-title" data-i18n="chartTitle">Dissolved oxygen, last 12 hours</h2>
-          <div class="chart-wrap">
-            <canvas id="do-chart" role="img" aria-labelledby="chart-summary"></canvas>
-          </div>
-          <p class="chart-summary" id="chart-summary"></p>
-        </section>
-
-        <section class="readings-block" aria-labelledby="readings-title">
-          <div class="readings-head"><h2 id="readings-title" data-i18n="readingsTitle">Latest readings</h2></div>
-          <div class="readings" id="readings"></div>
-          <p class="sensor-errors" id="sensor-errors" hidden></p>
-        </section>
+          <section class="card ttd-card" aria-labelledby="ttd-title">
+            <div class="section-head">
+              <h2 id="ttd-title" data-i18n="ttdTitle">Time until danger</h2>
+              <p class="section-help" data-i18n="ttdHelp">From the oxygen trend of the last few hours.</p>
+            </div>
+            <!-- Countdown: shown while danger is expected; the numbers count down smoothly. -->
+            <div class="countdown" id="countdown" hidden>
+              <p class="countdown-label" data-i18n="countdownLabel">Danger expected in</p>
+              <p class="countdown-value" id="countdown-value" aria-live="off"></p>
+              <p class="countdown-at" id="countdown-at"></p>
+            </div>
+            <p id="ttd-message" class="ttd-message">-</p>
+          </section>
         </div>
+
+        <div class="dash-side">
+          <section class="card pond-card" aria-labelledby="pond-view-title">
+            <div class="section-head">
+              <h2 id="pond-view-title" data-i18n="pondViewTitle">Pond view</h2>
+              <p class="section-help" id="pond-view-help" data-i18n="pondViewHelp" hidden>More oxygen in the water, more bubbles.</p>
+            </div>
+            <!-- 3D pond (pond-3d.js) on capable devices, else the 2D pond (pond-view.js). -->
+            <div class="pond-view dark-scope" id="pond-view" role="img" aria-labelledby="pond-view-text"></div>
+            <p class="pond-caption" id="pond-view-text"></p>
+          </section>
+
+          <!-- Pond health: the 0-100 score (always inside the status's range, backend/health_score.py)
+               and where it sits on the Danger / Warning / Safe scale. The level itself is said once,
+               in the status block. -->
+          <section class="card health-card" aria-labelledby="health-title">
+            <div class="section-head section-head-row">
+              <h2 id="health-title" data-i18n="healthTitle">Pond health score</h2>
+              <span class="sim-tag" data-i18n="simulatedTag">Simulated data</span>
+            </div>
+            <div class="health-body">
+              <div class="health-ring" id="health-ring" role="img" aria-labelledby="health-text"></div>
+              <div class="health-info">
+                <p class="section-help" data-i18n="healthHelp">One number for all the readings together.</p>
+                <div class="gauge" id="gauge" aria-hidden="true"></div>
+                <p class="health-scale" data-i18n="healthScale">Danger 0‑39 · Warning 40‑74 · Safe 75‑100</p>
+                <p class="visually-hidden" id="health-text"></p>
+              </div>
+            </div>
+          </section>
+
+          <section class="card readings-card" aria-labelledby="readings-title">
+            <div class="section-head">
+              <h2 id="readings-title" data-i18n="readingsTitle">Latest readings</h2>
+              <p class="section-help" data-i18n="readingsHelp">A reading is marked only when it needs attention.</p>
+            </div>
+            <div class="readings" id="readings"></div>
+            <p class="sensor-errors" id="sensor-errors" hidden></p>
+          </section>
+        </div>
+      </div>
       </section>
 
       <!-- ===================== Alerts ===================== -->
@@ -387,7 +406,7 @@
         <ol class="action-list" id="action-list"></ol>
         <p class="actions-source" data-i18n="actionsSource">Based on FAO, TNAU and university extension guides. No chemicals.</p>
       </section>
-        <p class="card page-calm" id="alerts-calm" data-i18n="alertsCalm">Nothing to do now. Steps appear here when the pond has a Warning or Danger.</p>
+        <p class="page-calm" id="alerts-calm" data-i18n="alertsCalm">Nothing to do now. Steps appear here when the pond has a Warning or Danger.</p>
 
         <div class="board board-alerts">
 
@@ -943,5 +962,8 @@
   <script src="/router.js"></script>         <!-- pages: #/pond, #/alerts, ... -->
   <script src="/app.js"></script>
   <script src="/welcome.js"></script>
+  <!-- 3D pond (Three.js, bundled locally). A module loads in the background; until it is ready,
+       or on weak phones, the 2D pond is used. -->
+  <script type="module" src="/pond-3d.js"></script>
 </body>
 </html>

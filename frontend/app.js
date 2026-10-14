@@ -1,9 +1,9 @@
 // AquaNexus dashboard: shows the simulator stream (current risk, pond view,
-// risk gauge, time until danger, oxygen chart, latest readings) in Kannada or
+// pond health, time until danger, oxygen chart, latest readings) in Kannada or
 // English. Alert text (reasons, time until danger) comes from the API in both
 // languages; only the page labels are translated here.
 //
-// Motion (motion.js, pond-view.js, gauge.js, do-chart.js) is kept to what helps
+// Motion (motion.js, pond-view.js, pond-3d.js, do-chart.js) is kept to what helps
 // farmers notice a change: a new level, a moving number, the countdown. Every
 // status is still shown as colour + icon + word. scene.js draws the day/night
 // sky for the simulated time.
@@ -86,6 +86,10 @@ const TEXT = {
     countdownLabel: "Danger expected in",
     chartTitle: "Dissolved oxygen, last 12 hours",
     readingsTitle: "Latest readings",
+    readingsHelp: "A reading is marked only when it needs attention.",
+    chartHelp: "Below 5 mg/L is Warning, below 3 mg/L is Danger.",
+    ttdHelp: "From the oxygen trend of the last 2 hours.",
+    pondViewHelp: "More oxygen in the water, more bubbles.",
     infoOnly: "For information",
     pondCaption: {
       safe: "Fish are swimming normally.",
@@ -128,7 +132,8 @@ const TEXT = {
     kitFailed: "Could not check the readings. Please try again.",
     simulatedTag: "Simulated data",
     healthTitle: "Pond health score",
-    healthScale: "Safe 75‑100 · Warning 40‑74 · Danger 0‑39",
+    healthScale: "Danger 0‑39 · Warning 40‑74 · Safe 75‑100",
+    healthHelp: "One number for all the readings together.",
     healthText: {
       safe: (s) => `${s} out of 100. All readings are in the safe range.`,
       warning: (s) => `${s} out of 100. The water needs attention.`,
@@ -186,6 +191,7 @@ const TEXT = {
     titleWeather: "Weather", titleDiseases: "Fish diseases", titleMore: "More",
     // My ponds and devices (ponds.js): the farmer's own ponds, real readings.
     pondsTitle: "My ponds", pondAdd: "Add pond", demoPondTitle: "Demo pond",
+    demoPondHelp: 'Choose "Night oxygen crash" to see how a warning looks.',
     pondsDemoMode: "Demo mode: ponds reset when the server sleeps.",
     pondsEmpty: "Add your ponds, then connect a device to see live readings from each one.",
     pondsLoadFailed: "Could not load your ponds. Check your internet.",
@@ -357,6 +363,10 @@ const TEXT = {
     countdownLabel: "ಅಪಾಯಕ್ಕೆ ಉಳಿದ ಸಮಯ",
     chartTitle: "ಕರಗಿದ ಆಮ್ಲಜನಕ, ಕಳೆದ 12 ಗಂಟೆಗಳು",
     readingsTitle: "ಇತ್ತೀಚಿನ ಅಳತೆಗಳು",
+    readingsHelp: "ಗಮನ ಬೇಕಾದ ಅಳತೆಗೆ ಮಾತ್ರ ಗುರುತು ಹಾಕಲಾಗುತ್ತದೆ.",
+    chartHelp: "5 mg/L ಕ್ಕಿಂತ ಕಡಿಮೆ ಎಚ್ಚರಿಕೆ, 3 mg/L ಕ್ಕಿಂತ ಕಡಿಮೆ ಅಪಾಯ.",
+    ttdHelp: "ಕಳೆದ 2 ಗಂಟೆಗಳ ಆಮ್ಲಜನಕದ ಬದಲಾವಣೆಯಿಂದ ಅಂದಾಜು.",
+    pondViewHelp: "ನೀರಿನಲ್ಲಿ ಹೆಚ್ಚು ಆಮ್ಲಜನಕ ಇದ್ದರೆ ಹೆಚ್ಚು ಗುಳ್ಳೆಗಳು.",
     infoOnly: "ಮಾಹಿತಿಗಾಗಿ",
     pondCaption: {
       safe: "ಮೀನುಗಳು ಸಾಮಾನ್ಯವಾಗಿ ಈಜುತ್ತಿವೆ.",
@@ -399,7 +409,8 @@ const TEXT = {
     kitFailed: "ಅಳತೆ ಪರಿಶೀಲಿಸಲು ಆಗಲಿಲ್ಲ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.",
     simulatedTag: "ಅನುಕರಿಸಿದ (ಸಿಮ್ಯುಲೇಟೆಡ್) ಡೇಟಾ",
     healthTitle: "ಕೊಳದ ಆರೋಗ್ಯ ಅಂಕ",
-    healthScale: "ಸುರಕ್ಷಿತ 75‑100 · ಎಚ್ಚರಿಕೆ 40‑74 · ಅಪಾಯ 0‑39",
+    healthScale: "ಅಪಾಯ 0‑39 · ಎಚ್ಚರಿಕೆ 40‑74 · ಸುರಕ್ಷಿತ 75‑100",
+    healthHelp: "ಎಲ್ಲಾ ಅಳತೆಗಳನ್ನು ಸೇರಿಸಿ ಒಂದೇ ಅಂಕ.",
     healthText: {
       safe: (s) => `100 ರಲ್ಲಿ ${s}. ಎಲ್ಲಾ ಅಳತೆಗಳು ಸುರಕ್ಷಿತ ಮಟ್ಟದಲ್ಲಿವೆ.`,
       warning: (s) => `100 ರಲ್ಲಿ ${s}. ನೀರಿನ ಕಡೆ ಗಮನ ಕೊಡಿ.`,
@@ -455,6 +466,7 @@ const TEXT = {
     tabWeatherShort: "ಹವೆ", tabDiseasesShort: "ರೋಗ",
     titleWeather: "ಹವಾಮಾನ", titleDiseases: "ಮೀನು ರೋಗಗಳು", titleMore: "ಇನ್ನಷ್ಟು",
     pondsTitle: "ನನ್ನ ಕೊಳಗಳು", pondAdd: "ಕೊಳ ಸೇರಿಸಿ", demoPondTitle: "ಡೆಮೊ ಕೊಳ",
+    demoPondHelp: 'ಎಚ್ಚರಿಕೆ ಹೇಗೆ ಕಾಣುತ್ತದೆ ಎಂದು ನೋಡಲು "ರಾತ್ರಿ ಆಮ್ಲಜನಕ ಕುಸಿತ" ಆಯ್ಕೆಮಾಡಿ.',
     pondsDemoMode: "ಡೆಮೊ ಮೋಡ್: ಸರ್ವರ್ ನಿದ್ರಿಸಿದಾಗ ಕೊಳಗಳು ಅಳಿಸಿಹೋಗುತ್ತವೆ.",
     pondsEmpty: "ನಿಮ್ಮ ಕೊಳಗಳನ್ನು ಸೇರಿಸಿ, ನಂತರ ಪ್ರತಿಯೊಂದರ ಲೈವ್ ಅಳತೆಗಳನ್ನು ನೋಡಲು ಸಾಧನವನ್ನು ಸಂಪರ್ಕಿಸಿ.",
     pondsLoadFailed: "ನಿಮ್ಮ ಕೊಳಗಳನ್ನು ತೆರೆಯಲು ಆಗಲಿಲ್ಲ. ಇಂಟರ್ನೆಟ್ ಪರಿಶೀಲಿಸಿ.",
@@ -620,7 +632,6 @@ function setLanguage(lang) {
   const cap = (p) => p[0].toUpperCase() + p.slice(1);
   window.Router.setTitles(Object.fromEntries(window.Router.PAGES.map((p) => [p, TEXT[lang][`title${cap(p)}`] || TEXT[lang][`tab${cap(p)}`]])));
   if (state.effectsReady) {
-    window.RiskGauge.setWords(levelWords(lang));
     window.DOChart.setWords(levelWords(lang));
     moveHighlight(true);                       // option widths change with the language
     window.Scene.setLanguage(lang);
@@ -698,7 +709,7 @@ function buildReadingCards() {
   const box = $("readings");
   for (const [parameter, unit] of PARAMETERS) {
     const card = document.createElement("article");
-    card.className = "reading in-view";
+    card.className = "reading";
     card.hidden = true;
     card.innerHTML =
       `<span class="reading-name"></span>` +
@@ -724,15 +735,20 @@ function renderReadings(data, lang) {
     c.card.hidden = !result;
     if (!result) continue;
     const level = graded[parameter] ? result.level : "info";
-    if (!c.card.classList.contains(`level-${level}`)) c.card.className = `reading in-view level-${level}`;
+    if (!c.card.classList.contains(`level-${level}`)) c.card.className = `reading level-${level}`;
     c.name.textContent = result.name[lang];
-    // Animated Number: the value counts to the new reading.
+    // The value counts to the new reading.
     M.animateNumber(c.number, data.reading[parameter], (v) => v.toFixed(decimals));
-    setBadge(c.badge, level, lang, `badge badge-${level}`);
+    // Only Warning and Danger get a badge (icon + word). Safe readings stay plain: the
+    // status block already says "Safe" once. Information-only values get a quiet note.
+    const marked = level === "warning" || level === "danger";
+    c.badge.hidden = !marked && level !== "info";
+    if (marked) setBadge(c.badge, level, lang, `badge badge-${level}`);
+    else if (level === "info") setBadge(c.badge, "info", lang, "reading-note");
   }
 }
 
-// ---------------------------------------------------------------- status, pond view, gauge, countdown, chart
+// ---------------------------------------------------------------- status, pond view, countdown, chart
 
 function renderStatus(risk, lang) {
   const banner = $("status");
@@ -802,14 +818,10 @@ function renderStrip() {
     : level === "warning" ? TEXT[lang].stripAttention : TEXT[lang].stripNoDanger;
 }
 
-function renderPondAndGauge(level, lang) {
+function renderPondView(level, oxygen, lang) {
   window.PondView.setLevel(level);
-  window.RiskGauge.setLevel(level);
-  const badge = $("pond-view-badge");
-  setBadge(badge, level, lang, `badge badge-${level}`);
-  badge.hidden = level === "unknown";
+  window.PondView.setOxygen(oxygen);            // 3D pond: more oxygen, more bubbles
   $("pond-view-text").textContent = TEXT[lang].pondCaption[level] || TEXT[lang].pondCaption.unknown;
-  setBadge($("gauge-label"), level, lang, `gauge-label gauge-label-${level}`);
 }
 
 function renderCountdown(ttd, level, lang) {
@@ -849,7 +861,7 @@ function render(data) {
   window.Scene.setTime(data.time, lang);        // sky follows the simulated time of day
 
   renderStatus(risk, lang);
-  renderPondAndGauge(risk.level, lang);
+  renderPondView(risk.level, data.reading.dissolved_oxygen, lang);
   renderHealth(risk.health_score, risk.level, lang);
   recordHistory(data);
 
@@ -1159,10 +1171,8 @@ function renderHealth(score, level, lang) {
   if (!state.effectsReady) return;
   const shown = score == null ? "unknown" : level;
   window.HealthRing.set(score, shown);
-  const badge = $("health-badge");
-  badge.hidden = shown === "unknown";
-  if (!badge.hidden) setBadge(badge, shown, lang, `badge badge-${shown}`);
-  $("health-text").textContent = TEXT[lang].healthText[shown](score);
+  window.RiskGauge.set(score, shown);          // marker on the Danger / Warning / Safe scale
+  $("health-text").textContent = TEXT[lang].healthText[shown](score);   // read by screen readers with the ring
 }
 
 // ---------------------------------------------------------------- alert history (saved in this browser)
@@ -1355,14 +1365,13 @@ function initEffects() {
   state.effectsReady = true;
   window.PondView.init($("pond-view"));
   window.RiskGauge.init($("gauge"));
-  window.RiskGauge.setWords(levelWords(state.lang));
   window.DOChart.init($("do-chart"));
   window.DOChart.setWords(levelWords(state.lang));
   window.HealthRing.init($("health-ring"));
   window.Scene.init();                          // day/night sky for the simulated time
   moveHighlight(true);
   window.addEventListener("resize", () => moveHighlight(true));
-  renderPondAndGauge("unknown", state.lang);
+  renderPondView("unknown", null, state.lang);
   renderHealth(null, "unknown", state.lang);
   loadWeather();
   setInterval(loadWeather, 30 * 60 * 1000);     // a fresh forecast every 30 minutes

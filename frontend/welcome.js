@@ -1,6 +1,13 @@
 // Welcome screen: a calm animated pond (light shimmer, slow fish) and the
 // Start button that hands over to the dashboard.
 //
+// Wide screens: a 3D pond (pond-3d.js: water, bubbles, moon) fills the empty
+// right half. Not on phones (no empty half), low-power devices or with
+// "reduce motion": those keep the 2D pond only. With a mouse, the example
+// warning card tilts gently toward the cursor (6 degrees at most), and if the
+// screen is short enough to scroll, the ponds move a little slower than the
+// text (soft parallax).
+//
 // Performance (cheap Android phones):
 //   - Only transform and opacity are animated, so the GPU moves ready-made
 //     layers instead of the browser repainting the page every frame.
@@ -105,6 +112,78 @@
     });
   }
 
+  // ---------------------------------------------------------------- 3D pond, right half (wide screens)
+
+  const pond3dHost = document.getElementById("welcome-3d");
+  const wide = window.matchMedia("(min-width: 900px)");
+  let pond3d = null;
+
+  function start3D() {
+    if (pond3d || entered || !pond3dHost || !wide.matches || reduceMotion.matches || lowPower) return;
+    const go = () => {
+      if (pond3d || entered || !window.Pond3D.supported()) return;
+      pond3d = window.Pond3D.create(pond3dHost, {
+        transparent: true, level: "safe", oxygen: 7.5, night: 1,
+        onFail: () => { pond3d = null; welcome.classList.remove("has-3d"); },   // the 2D pond is still there
+      });
+      if (!pond3d) return;
+      pond3d.setSky("#060351", "#1a1f7a", 1);              // night: moon and stars
+      welcome.classList.add("has-3d");
+    };
+    if (window.Pond3D) go();
+    else window.addEventListener("pond3d-ready", go, { once: true });
+  }
+
+  function stop3D() {
+    if (pond3d) pond3d.destroy();
+    pond3d = null;
+    welcome.classList.remove("has-3d");
+  }
+
+  wide.addEventListener("change", () => (wide.matches ? start3D() : stop3D()));
+
+  // ---------------------------------------------------------------- tilt (mouse) and parallax (scroll)
+
+  const card = welcome.querySelector(".welcome-example");
+  const mouse = window.matchMedia("(hover: hover) and (pointer: fine)");
+  const MAX_TILT = 6;                          // degrees
+  let tiltFx = null, parallaxFrame = 0;
+
+  function startTilt() {
+    if (!gsap || !card || tiltFx || !mouse.matches || reduceMotion.matches) return;
+    tiltFx = new AbortController();
+    gsap.set(card, { transformPerspective: 900 });
+    const rx = gsap.quickTo(card, "rotationX", { duration: 0.6, ease: "power3" });
+    const ry = gsap.quickTo(card, "rotationY", { duration: 0.6, ease: "power3" });
+    const clamp = (v) => Math.max(-1, Math.min(1, v));
+    welcome.addEventListener("pointermove", (e) => {
+      if (e.pointerType !== "mouse") return;
+      const r = card.getBoundingClientRect();
+      const px = clamp((e.clientX - (r.left + r.width / 2)) / (window.innerWidth / 2));
+      const py = clamp((e.clientY - (r.top + r.height / 2)) / (window.innerHeight / 2));
+      ry(px * MAX_TILT);
+      rx(-py * MAX_TILT);
+    }, { passive: true, signal: tiltFx.signal });
+    welcome.addEventListener("pointerleave", () => { rx(0); ry(0); }, { signal: tiltFx.signal });
+  }
+
+  function stopTilt() {
+    if (tiltFx) tiltFx.abort();
+    tiltFx = null;
+    if (gsap && card) { gsap.killTweensOf(card); gsap.set(card, { rotationX: 0, rotationY: 0 }); }
+  }
+
+  function onScroll() {
+    if (parallaxFrame || !gsap || reduceMotion.matches) return;
+    parallaxFrame = requestAnimationFrame(() => {
+      parallaxFrame = 0;
+      const y = welcome.scrollTop;
+      gsap.set(".pond", { y: y * 0.25 });
+      if (pond3dHost) gsap.set(pond3dHost, { y: y * 0.4 });
+    });
+  }
+  welcome.addEventListener("scroll", onScroll, { passive: true });
+
   // ---------------------------------------------------------------- light
 
   function startLight() {
@@ -124,10 +203,14 @@
     if (lowPower) gsap.ticker.fps(30);
     startLight();
     startFish();
+    start3D();
+    startTilt();
   }
 
   function stopScene() {
     running = false;
+    stop3D();
+    stopTilt();
     if (!gsap) return;
     const lights = [...welcome.querySelectorAll(".pond-caustics, .pond-light")];
     fishes.forEach((f) => { if (f.drift) f.drift.kill(); if (f.wag) f.wag.kill(); f.drift = f.wag = null; });

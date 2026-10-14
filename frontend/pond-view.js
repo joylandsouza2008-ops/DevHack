@@ -7,6 +7,11 @@
 // Reduce motion: the same scene, still. Off screen: animation pauses.
 // Above the water is a thin strip of sky that follows the simulated time of
 // day (scene.js calls setSky), with the moon at night.
+//
+// 3D: on capable devices this card shows the Three.js pond instead (pond-3d.js:
+// moving water, bubbles that follow the oxygen, night/day light). This 2D
+// scene is the fallback: on low-power phones, with "reduce motion", when
+// WebGL is missing, or if the 3D pond fails while running.
 
 (function () {
   "use strict";
@@ -33,6 +38,8 @@
 
   let root, stopTop, stopBottom, skyTop, skyBottom, moon, bubbleLayer, fishes = [], level = null;
   let visible = true, tweens = [], bubbleTimer = null;
+  let host = null, three = null;                      // three: the 3D pond, when it runs
+  const last = { sky: null, oxygen: null };           // re-applied if the view switches to 2D
 
   const el = (name, attrs) => {
     const node = document.createElementNS(NS, name);
@@ -183,6 +190,7 @@
   }
 
   function setLevel(next) {
+    if (three) { level = next; three.setLevel(next); return; }
     if (!root || next === level) return;
     const first = level === null;
     level = next in BEHAVIOUR ? next : "unknown";
@@ -219,7 +227,46 @@
     if (level === "danger") bubble();
   }
 
+  // ---------------------------------------------------------------- 3D or 2D
+
+  const want3D = () => !reduce() && !lowPower;
+
   function init(container) {
+    host = container;
+    if (!want3D()) { init2D(); return; }
+    if (window.Pond3D) { mount3D(); return; }
+    // The 3D module loads in the background; if it never arrives, show 2D.
+    const fallback = setTimeout(() => { window.removeEventListener("pond3d-ready", ready); init2D(); }, 4000);
+    function ready() { clearTimeout(fallback); mount3D(); }
+    window.addEventListener("pond3d-ready", ready, { once: true });
+  }
+
+  function mount3D() {
+    if (!window.Pond3D.supported()) { init2D(); return; }
+    three = window.Pond3D.create(host, { level: level || "unknown", oxygen: last.oxygen, night: 1, onFail: switchTo2D });
+    if (!three) { init2D(); return; }
+    host.classList.add("is-3d");
+    const help = document.getElementById("pond-view-help");   // "more oxygen, more bubbles": true in 3D only
+    if (help) help.hidden = false;
+    if (last.sky) three.setSky(...last.sky);
+  }
+
+  // The GPU dropped the 3D pond: carry on with the 2D one, same level and sky.
+  function switchTo2D() {
+    three = null;
+    host.classList.remove("is-3d");
+    const help = document.getElementById("pond-view-help");
+    if (help) help.hidden = true;
+    const now = level;
+    init2D();
+    level = null;
+    if (now) setLevel(now);
+    if (last.sky) setSky(...last.sky, true);
+  }
+
+  function init2D() {
+    const container = host;
+    if (root) return;
     build(container);
     if (!reduce()) {
       startSwimming();
@@ -238,6 +285,8 @@
 
   // Sky colours from scene.js. overwrite: the newest sky always replaces the last change.
   function setSky(top, horizon, night, instant) {
+    last.sky = [top, horizon, night];
+    if (three) { three.setSky(top, horizon, night); return; }
     if (!root) return;
     if (instant || reduce()) {
       skyTop.setAttribute("stop-color", top);
@@ -251,5 +300,14 @@
     gsap.to(moon, { attr: { opacity: night }, ...vars });
   }
 
-  window.PondView = { init, setLevel, setSky };
+  // Dissolved oxygen (mg/L): the 3D pond shows more bubbles with more oxygen.
+  function setOxygen(oxygen) {
+    last.oxygen = oxygen;
+    if (three) three.setOxygen(oxygen);
+  }
+
+  // For the ?debug panel and the speed check.
+  const stats = () => (three ? { mode: "3d", ...three.stats() } : { mode: root ? "2d" : "none" });
+
+  window.PondView = { init, setLevel, setSky, setOxygen, stats };
 })();
