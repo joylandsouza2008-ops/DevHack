@@ -3,10 +3,10 @@
 // English. Alert text (reasons, time until danger) comes from the API in both
 // languages; only the page labels are translated here.
 //
-// Motion (motion.js, pond-view.js, gauge.js, do-chart.js) helps farmers notice
-// changes; every status is still shown as colour + icon + word.
-// scene.js draws the day/night sky for the simulated time; cursor-fx.js adds
-// the mouse and tap effects (never on the numbers themselves).
+// Motion (motion.js, pond-view.js, gauge.js, do-chart.js) is kept to what helps
+// farmers notice a change: a new level, a moving number, the countdown. Every
+// status is still shown as colour + icon + word. scene.js draws the day/night
+// sky for the simulated time.
 
 "use strict";
 
@@ -622,9 +622,6 @@ function setLanguage(lang) {
   if (state.effectsReady) {
     window.RiskGauge.setWords(levelWords(lang));
     window.DOChart.setWords(levelWords(lang));
-    // Headings on the page you see re-appear word by word in the new language
-    // (feedback for the switch). Hidden pages just get the new words.
-    document.querySelectorAll("#dashboard .page:not([hidden]) .text-effect").forEach((h) => M.textEffect(h));
     moveHighlight(true);                       // option widths change with the language
     window.Scene.setLanguage(lang);
   }
@@ -1089,7 +1086,9 @@ function liveValue(parameter, latest, lang) {
   const [, unit, decimals] = PARAMETERS.find(([p]) => p === parameter);
   const result = latest.risk.parameters.find((p) => p.parameter === parameter);
   const row = make("div", "live-value");
-  const value = make("dd", "", `${latest.reading[parameter].toFixed(decimals)}${unit ? ` ${unit}` : ""}`);
+  const value = make("dd");
+  value.append(make("span", "reading-number", latest.reading[parameter].toFixed(decimals)));
+  if (unit) value.append(make("span", "reading-unit", unit));   // smaller and muted (styles.css)
   if (result && LEVEL_WORDS[result.level] && result.level !== "unknown") {
     const badge = make("span", `badge badge-${result.level}`);
     badge.innerHTML = badgeHTML(result.level, lang);
@@ -1360,16 +1359,9 @@ function initEffects() {
   window.DOChart.init($("do-chart"));
   window.DOChart.setWords(levelWords(state.lang));
   window.HealthRing.init($("health-ring"));
-  window.Scene.init();                          // day/night sky + hand-drawn doodles
-  window.CursorFX.init();                       // ripples, tilt, magnetic buttons, tap ink
+  window.Scene.init();                          // day/night sky for the simulated time
   moveHighlight(true);
-  M.borderTrail($("pond-highlight"));           // Border Trail on the active pond card
   window.addEventListener("resize", () => moveHighlight(true));
-  // In View: cards rise in as they scroll into view; their headings get the Text Effect.
-  M.inView([...document.querySelectorAll("#dashboard .in-view")], (card) => {
-    const heading = card.querySelector(".text-effect");
-    if (heading) M.textEffect(heading);
-  });
   renderPondAndGauge("unknown", state.lang);
   renderHealth(null, "unknown", state.lang);
   loadWeather();

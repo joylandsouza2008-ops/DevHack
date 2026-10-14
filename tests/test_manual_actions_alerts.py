@@ -144,8 +144,19 @@ def test_alert_uses_the_same_message_as_the_app():
         assert r["summary"][lang] in alert["sms"][lang]
         assert r["summary"][lang] in alert["whatsapp"][lang]
         assert SIMULATED_LABEL[lang] in alert["sms"][lang]
-    assert alert["sms"]["en"].startswith("AquaNexus: DANGER - Pond 1.")
-    assert "*ಅಪಾಯ* - ಕೊಳ 1" in alert["whatsapp"]["kn"]
+    assert alert["sms"]["en"].startswith("AquaNexus DANGER - Pond 1: ")
+    assert alert["whatsapp"]["en"].startswith("*AquaNexus DANGER* - Pond 1\n")
+    assert alert["whatsapp"]["kn"].startswith("*AquaNexus ಅಪಾಯ* - ಕೊಳ 1\n")
+
+
+def test_alert_text_has_no_emoji():
+    # Words, not emoji: basic phones show emoji as empty boxes.
+    for level_do in (2.5, 4.0):
+        alert = compose_alert(risk(dissolved_oxygen=level_do), label=SIMULATED_LABEL, pond={"en": "Pond 1", "kn": "ಕೊಳ 1"})
+        for channel in ("sms", "whatsapp"):
+            for lang in ("en", "kn"):
+                text = alert[channel][lang]
+                assert not any(0x2190 <= ord(ch) <= 0x2BFF or ord(ch) >= 0x1F000 or ord(ch) == 0xFE0F for ch in text), text
 
 
 def test_alert_adds_time_until_danger_when_expected():

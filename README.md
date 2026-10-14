@@ -49,15 +49,14 @@ Built for DevHack 2026, problem statement 1.1.
 | `docs/health_score.md` | How the 0–100 health score is worked out, with examples |
 | `docs/time_to_danger.md` | "Time until danger" method and results on real + simulated data |
 | `docs/screenshots/` | App screenshots (simulated demo) |
-| `frontend/` | The web page: `index.html`, dashboard (`styles.css`, `app.js`), welcome screen (`welcome.css`, `welcome.js`), day/night pond scene that follows the simulated time + hand-drawn doodles (`scene.js`), mouse and tap effects: water ripples, card tilt and spotlight, magnetic buttons (`cursor-fx.js`). Dark and light themes (one Realtime Colors palette: indigo, pond blue, cyan, magenta decoration; toggle in the top bar); after changing theme colours re-run `python tools/recolor_backgrounds.py`. Subtle "Team Orbit" space touches: starfield, shooting star, satellite, orbiting dot on the health ring, fish-and-drop loader. Add `?debug` to the address to see live counts |
+| `frontend/` | The web page: `index.html`, dashboard (`styles.css`, `app.js`), welcome screen (`welcome.css`, `welcome.js`), day/night pond scene that follows the simulated time (`scene.js`). Calm, flat design: hairline borders, no decorative glows or shadows, colour only for the brand and Safe / Warning / Danger, and motion only where it means something (a level change, a number moving, the countdown, a Danger alert). Dark and light themes (one Realtime Colors palette: indigo, pond blue, cyan; toggle in the top bar). Add `?debug` to the address to see live counts |
 | `frontend/assistant.js` | "Ask AquaNexus" chat card (suggested questions, speaker button per reply) |
 | `frontend/diseases.js` | Fish disease guide card: symptom checker, disease library with original SVG fish drawings |
 | `frontend/health-ring.js`, `history.js`, `voice.js` | Health score ring, alert history (saved in the browser), voice alerts (phone's own voices, only when tapped) |
 | `frontend/vendor/gsap/` | GSAP 3.15.0 animation library, bundled locally (the app works on cheap phones and slow internet) |
-| `frontend/assets/` | Dashboard background waves: original artwork + brand-blue copies (`*-brand.svg`) used by the app |
+| `frontend/assets/` | Sensor-kit wiring diagram shown in the Shop |
 | `tools/kannada_review.py` | Regenerates `docs/kannada-review.md` (every Kannada string next to its English, by screen, for a native-speaker review) |
 | `render.yaml`, `docs/deploy.md` | Free online deployment on Render, with step-by-step setup and its limits |
-| `tools/recolor_backgrounds.py` | Regenerates the brand-blue wave copies after the artwork is edited |
 | `frontend/fonts/` | Noto Sans + Noto Sans Kannada, bundled so the app works on cheap phones and slow internet |
 | `.claude/skills/` | Shared Claude Code skills for the team |
 | `data/` | Datasets. **Not in git**: download them yourself (steps below) |

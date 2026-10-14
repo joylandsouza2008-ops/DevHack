@@ -45,20 +45,9 @@
     ["CSS animations", () => (document.getAnimations ? document.getAnimations().length : 0)],
     ["Timers: timeouts", () => timeouts.size],
     ["Timers: intervals", () => intervals.size],
-    // Cursor / tap effects and the sky scene: all from fixed pools, so these must stay flat.
-    ["Ripple rings (fixed pools)", () => (window.CursorFX ? window.CursorFX.stats().rings : 0)],
-    ["Tap ink elements", () => (window.CursorFX ? window.CursorFX.stats().inks : 0)],
-    ["Ripples moving", () => (window.CursorFX ? window.CursorFX.stats().moving : 0)],
-    ["Cards tilting", () => (window.CursorFX ? window.CursorFX.stats().tilting : 0)],
-    ["Buttons pulled (magnet)", () => (window.CursorFX ? window.CursorFX.stats().pulled : 0)],
-    ["Welcome fish fleeing", () => (window.WelcomeFX ? window.WelcomeFX.stats().fleeing : 0)],
+    // The sky scene: built once, so these must stay flat.
     ["Sky stars", () => (window.Scene ? window.Scene.stats().stars : 0)],
     ["Sky changes running", () => (window.Scene ? window.Scene.stats().moving : 0)],
-    // Team Orbit touches: each is one element at most, so these stay 0 or 1.
-    ["Shooting star running", () => (window.Scene ? window.Scene.stats().meteor : 0)],
-    ["Satellite crossing", () => (window.Scene ? window.Scene.stats().satellite : 0)],
-    ["Sky timers waiting (max 2)", () => (window.Scene ? window.Scene.stats().timers : 0)],
-    ["Health orbit dot", () => (window.HealthRing && window.HealthRing.stats ? window.HealthRing.stats().orbiting : 0)],
     ["Loaders spinning", () => [...document.querySelectorAll(".orbit-loader")].filter((l) => l.getClientRects().length).length],
     ["Saved items (localStorage, count only)", () => { try { return localStorage.length; } catch { return 0; } }],
   ];

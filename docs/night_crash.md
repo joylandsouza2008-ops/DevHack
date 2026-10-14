@@ -24,9 +24,9 @@ Count the factors that are met:
 
 | Factors | Level | Message (English) | Message (Kannada) |
 |---|---|---|---|
-| 0 | 🟢 **Low** | Weather looks fine tonight: low risk of an oxygen crash. | ಇಂದು ರಾತ್ರಿಯ ಹವಾಮಾನ ಸರಿಯಾಗಿದೆ: ಆಮ್ಲಜನಕ ಕುಸಿತದ ಅಪಾಯ ಕಡಿಮೆ. |
-| 1 | 🟡 **Medium** | *Still* night ahead: check the pond late at night and before dawn. | *ಗಾಳಿಯಿಲ್ಲದ* ರಾತ್ರಿ ಬರಲಿದೆ: ತಡರಾತ್ರಿ ಮತ್ತು ಬೆಳಗಾಗುವ ಮೊದಲು ಕೊಳವನ್ನು ನೋಡಿ. |
-| 2 or 3 | 🔴 **High** | *Cloudy, still* night ahead: keep the aerator ready. | *ಮೋಡ ಕವಿದ, ಗಾಳಿಯಿಲ್ಲದ* ರಾತ್ರಿ ಬರಲಿದೆ: ಏರೇಟರ್ ಸಿದ್ಧವಾಗಿಡಿ. |
+| 0 | **Low** | Weather looks fine tonight: low risk of an oxygen crash. | ಇಂದು ರಾತ್ರಿಯ ಹವಾಮಾನ ಸರಿಯಾಗಿದೆ: ಆಮ್ಲಜನಕ ಕುಸಿತದ ಅಪಾಯ ಕಡಿಮೆ. |
+| 1 | **Medium** | *Still* night ahead: check the pond late at night and before dawn. | *ಗಾಳಿಯಿಲ್ಲದ* ರಾತ್ರಿ ಬರಲಿದೆ: ತಡರಾತ್ರಿ ಮತ್ತು ಬೆಳಗಾಗುವ ಮೊದಲು ಕೊಳವನ್ನು ನೋಡಿ. |
+| 2 or 3 | **High** | *Cloudy, still* night ahead: keep the aerator ready. | *ಮೋಡ ಕವಿದ, ಗಾಳಿಯಿಲ್ಲದ* ರಾತ್ರಿ ಬರಲಿದೆ: ಏರೇಟರ್ ಸಿದ್ಧವಾಗಿಡಿ. |
 
 The words in *italics* change with the factors (cloudy / still / warm). Equal weights and the "count the factors" rule are **our judgement**: the sources say these conditions make a crash more likely, especially together [2][3], but give no formula. The advice to have the aerator ready follows [3], which says pond owners should plan aeration "before oxygen depletions occur", and [2], which recommends emergency aeration when oxygen drops below 4 mg/L.
 

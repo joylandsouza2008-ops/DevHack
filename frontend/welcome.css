@@ -10,7 +10,7 @@ body.has-welcome { overflow: hidden; }
 .welcome {
   position: fixed;
   inset: 0;
-  z-index: 10;               /* layer above the dashboard; the only z-index in the app */
+  z-index: 45;               /* above the dashboard's sticky tabs, status strip and phone tab bar (30) and toasts (40) */
   min-height: 100dvh;
   display: grid;
   grid-template-rows: auto 1fr;
@@ -66,7 +66,6 @@ body.has-welcome { overflow: hidden; }
 
 /* Fish: dark silhouettes seen from above, swimming under the surface. */
 .pond-fish { position: absolute; inset: 0; }
-.fish-flee { position: absolute; top: 0; left: 0; will-change: transform; }   /* pushed away from the cursor */
 .fish {
   position: absolute;
   top: 0;
@@ -75,21 +74,6 @@ body.has-welcome { overflow: hidden; }
 }
 .fish-body { display: block; will-change: transform; }
 .fish svg { display: block; overflow: visible; }
-
-/* Ripples: rings spreading on the surface. */
-.pond-ripples { position: absolute; inset: 0; }
-.ripple {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 160px;
-  height: 160px;
-  margin: -80px 0 0 -80px;
-  border-radius: 50%;
-  border: 2px solid rgba(222, 240, 248, 0.5);
-  opacity: 0;
-  will-change: transform, opacity;
-}
 
 /* Darker water behind the text so it stays readable over the moving scene. */
 .pond-scrim {
@@ -168,8 +152,7 @@ body.has-welcome { overflow: hidden; }
   font-weight: 600;
   white-space: nowrap;
   cursor: pointer;
-  box-shadow: 0 12px 32px -8px rgba(3, 10, 14, 0.6);
-  transition: background-color 150ms ease, scale 150ms ease;   /* transform is left to the magnet (cursor-fx.js) */
+  transition: background-color 150ms ease, scale 150ms ease;
 }
 .welcome-start svg { width: 26px; height: 26px; flex: none; }
 .welcome-start:hover { background: var(--primary-pressed); }
@@ -195,5 +178,4 @@ body.has-welcome { overflow: hidden; }
 /* Reduce motion: the scene stays still (welcome.js also skips all animation). */
 @media (prefers-reduced-motion: reduce) {
   .welcome-start { transition: none; }
-  .ripple, .fx-ripple { display: none; }
 }

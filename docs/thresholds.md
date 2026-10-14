@@ -8,7 +8,7 @@ The numbers live in [`config/thresholds.toml`](../config/thresholds.toml). Chang
 
 ## Threshold table
 
-| Parameter | 🟢 Safe | 🟡 Warning | 🔴 Danger | Basis |
+| Parameter | Safe | Warning | Danger | Basis |
 |---|---|---|---|---|
 | **Dissolved oxygen** (mg/L) | ≥ 5 | 3 – 5 | < 3 | **Sourced.** FAO: carp minimum 3 mg/L, preferred ≥ 5 mg/L [1]. FAO: Indian carps need at least 5–6 mg/L [2]. TNAU: optimum 5 mg/L to saturation [4]. |
 | **pH** | 6.5 – 8.5 | 5.5 – 6.5 or 8.5 – 9.5 | < 5.5 or > 9.5 | **Safe is sourced:** FAO says 6.5–8.5 is most suitable [1]. **Warning/Danger cut-offs are our judgement:** FAO's lethal limits (< 4.5, ≥ 11) [1] are too late for an early warning. |

@@ -216,7 +216,9 @@
     const [unit, decimals] = UNITS[parameter] || ["", 1];
     const result = risk && [...risk.parameters, ...risk.info].find((p) => p.parameter === parameter);
     const row = make("div", "live-value");
-    const dd = make("dd", "", `${Number(value).toFixed(decimals)}${unit ? ` ${unit}` : ""}`);
+    const dd = make("dd");
+    dd.append(make("span", "reading-number", Number(value).toFixed(decimals)));
+    if (unit) dd.append(make("span", "reading-unit", unit));   // smaller and muted (styles.css)
     if (result && ICON[result.level]) dd.append(" ", badge(result.level, LEVELS[result.level][lang]));
     else if (result && result.level === "unknown") dd.append(" ", make("span", "badge badge-info", words.infoOnly));
     row.append(make("dt", "", result ? result.name[lang] : parameter), dd);

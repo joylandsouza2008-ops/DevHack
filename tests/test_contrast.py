@@ -19,7 +19,6 @@ import pytest
 
 STYLES = Path(__file__).resolve().parent.parent / "frontend" / "styles.css"
 CSS = STYLES.read_text(encoding="utf-8")
-TOOL = STYLES.parent.parent / "tools" / "recolor_backgrounds.py"
 
 
 def block(selector_regex: str) -> str:
@@ -86,7 +85,7 @@ PAIRS = [
     ("hairline-strong", "card", NON_TEXT, "select borders"),
     ("hairline-strong", "background", NON_TEXT, "status banner border before data"),
     ("primary", "background", NON_TEXT, "focus ring"),
-    ("edge-on-secondary", "secondary", NON_TEXT, "dashed border of the simulated banner, border trail"),
+    ("edge-on-secondary", "secondary", NON_TEXT, "dark edge on a secondary fill"),
     ("text", "footer-bg", TEXT, "active tab label in the phone tab bar, footer text"),
     ("text-secondary", "footer-bg", TEXT, "tab labels in the phone tab bar, footer links"),
     ("primary", "footer-bg", NON_TEXT, "active tab icon pill in the phone tab bar"),
@@ -94,7 +93,8 @@ PAIRS = [
     ("text-tertiary", "surface", TEXT, "time in the phone preview"),
     ("hairline-strong", "surface", NON_TEXT, "checklist item and test-kit input borders"),
     ("primary", "surface", NON_TEXT, "unticked checklist box"),
-    ("primary", "card", NON_TEXT, "manual-reading tag border, form message stripe, weather moon icon"),
+    ("primary", "card", NON_TEXT, "form message stripe, weather moon icon, live-sensor dot"),
+    ("primary", "surface", NON_TEXT, "info icon on notes (simulated data, preview only)"),
     # Status colours (unchanged) against the theme's cards
     ("safe", "card", NON_TEXT, "Safe stripe on reading cards"),
     ("warning", "card", NON_TEXT, "Warning stripe on reading cards"),
@@ -209,20 +209,11 @@ def test_accent_vs_danger_for_tritanopia_is_a_known_limit():
     assert d >= 11.5, f"{d:.1f}"
 
 
-# The only places the accent may appear: doodles, scene lines, and the marks (sores, lice,
-# spots) on the fish drawings in the disease guide, which are pictures, not text or status.
-DECORATION_ONLY = {".doodle", ".sc-accent path",
-                   ".fish-art .mark", ".fish-art .mark-ring, .fish-art .mark-line",
-                   ".fish-art .mark-flat", ".fish-art .spot"}
-
-
-def test_accent_is_decoration_only():
-    # Magenta is 2.7:1 on the dark page: never text, never a control. It is used
-    # only for doodles and scene lines (and, as rgba glows, in the token blocks).
+def test_accent_is_not_used_in_the_interface():
+    # Colour only means something: brand (pond blue, cyan) or Safe / Warning / Danger.
+    # The magenta stays in the palette tokens, but nothing on screen uses it.
     css = CSS + (STYLES.parent / "welcome.css").read_text(encoding="utf-8")
-    for selector in re.findall(r"([^{}]+)\{[^}]*var\(--accent\)[^}]*\}", css):
-        selector = re.sub(r"/\*.*?\*/", "", selector, flags=re.S).strip()
-        assert selector in DECORATION_ONLY, selector
+    assert not re.findall(r"([^{}]+)\{[^}]*var\(--accent\)[^}]*\}", css)
     for name in (STYLES.parent).glob("*.js"):
         assert "--accent" not in name.read_text(encoding="utf-8"), name.name
 
@@ -243,64 +234,42 @@ def test_brand_colours_never_look_like_a_status_colour(theme):
             assert hue_gap(t[name], t[status]) >= 45, f"{theme} {name} {t[name]} is close in hue to {status}"
 
 
-# ---------------------------------------------------------------- background waves
+# ---------------------------------------------------------------- flat, calm surfaces
 
-ASSETS = STYLES.parent / "assets"
-WAVES = {"dark": "brand", "light": "light"}     # file suffix per theme
-
-
-def wave_opacity(theme: str) -> float:
-    selector = r"\.page-bg\s*\{" if theme == "dark" else r':root\[data-theme="light"\] \.page-bg\s*\{'
-    rule = re.search(selector + r"(.*?)\}", CSS, re.S).group(1)
-    return float(re.search(r"opacity:\s*([0-9.]+)", rule).group(1))
+def test_no_decorative_background_waves():
+    # The page is a plain colour: no wave artwork behind the cards.
+    html = (STYLES.parent / "index.html").read_text(encoding="utf-8")
+    assert "page-bg" not in html and ".page-bg" not in CSS
+    assert not list((STYLES.parent / "assets").glob("background-*.svg"))
 
 
-def wave_colours(name: str) -> list[str]:
-    return re.findall(r'<path [^>]*fill="(#[0-9a-fA-F]{6})"', (ASSETS / name).read_text(encoding="utf-8"))
+def test_one_radius_for_cards():
+    # Cards, panels and banners use --radius-card; small inner parts use --radius-inner.
+    assert "--radius-card: 12px;" in DARK_BLOCK and "--radius-inner: 8px;" in DARK_BLOCK
+    card = re.search(r"\n\.card \{(.*?)\}", CSS, re.S).group(1)
+    assert "border-radius: var(--radius-card)" in card
+    for value in ("16px", "20px;", "22px", "28px", "36px"):
+        rules = [r for r in re.findall(r"[^{}]+\{[^}]*border-radius:[^;]*" + value + r"[^}]*\}", CSS)
+                 if not r.strip().startswith((".phone ", ".phone-screen"))]   # the drawn phone is a picture
+        assert not rules, rules
 
 
-@both
-def test_dashboard_uses_the_brand_coloured_waves(theme):
-    for size in ("desktop", "phone"):
-        assert f'url("/assets/background-{size}-{WAVES[theme]}.svg")' in CSS
+def test_only_status_and_overlays_have_shadows():
+    # Flat surfaces with hairline borders. The only box-shadows left are the dark amber
+    # edge on Warning stripes (light theme) and the Danger strip's ring.
+    for rule in re.findall(r"([^{}]+)\{[^}]*box-shadow:[^}]*\}", CSS):
+        rule = re.sub(r"/\*.*?\*/", "", rule, flags=re.S).strip()
+        assert "warning" in rule or "danger" in rule or "strip-breathe" in rule or rule.endswith("%"), rule
+    assert "box-shadow" not in (STYLES.parent / "welcome.css").read_text(encoding="utf-8")
 
 
-@both
-@pytest.mark.parametrize("size", ["desktop", "phone"])
-def test_wave_colours_never_look_like_a_status_colour(theme, size):
-    name = f"background-{size}-{WAVES[theme]}.svg"
-    for colour in wave_colours(name):
-        for status in ("safe", "warning", "danger"):
-            assert hue_gap(colour, C[status]) >= 45, f"{name}: {colour} is close in hue to {status}"
-
-
-@both
-@pytest.mark.parametrize("size", ["desktop", "phone"])
-def test_text_and_controls_stay_readable_over_every_wave(theme, size):
-    # Dark theme: the brightest wave is the risk. Light theme: the darkest. Check them all.
-    t, alpha = THEMES[theme], wave_opacity(theme)
-    for colour in wave_colours(f"background-{size}-{WAVES[theme]}.svg"):
-        seen = over(colour, t["background"], alpha)
-        for fg, minimum in (("text", TEXT), ("text-secondary", TEXT), ("text-tertiary", TEXT),
-                            ("hairline-strong", NON_TEXT), ("primary", NON_TEXT)):
-            assert contrast(t[fg], seen) >= minimum, f"{theme}: {fg} over wave {colour}"
-
-
-def test_wave_tool_uses_the_theme_tokens():
-    tool = TOOL.read_text(encoding="utf-8")
-    for suffix, theme in (("brand", "dark"), ("light", "light")):
-        t = THEMES[theme]
-        assert f'"{suffix}": ("{t["background"]}", "{t["primary"]}", "{t["secondary"]}")' in tool, \
-            f"update THEMES in tools/recolor_backgrounds.py for the {theme} palette, then re-run it"
-
-
-@pytest.mark.parametrize("name", ["background-desktop", "background-phone"])
-@pytest.mark.parametrize("suffix", ["brand", "light"])
-def test_brand_waves_keep_the_original_shapes(name, suffix):
-    strip = lambda s: re.sub(r'fill="#[0-9a-fA-F]{6}"', "", s)
-    original = (ASSETS / f"{name}.svg").read_text(encoding="utf-8")
-    brand = (ASSETS / f"{name}-{suffix}.svg").read_text(encoding="utf-8")
-    assert strip(original) == strip(brand), "re-run tools/recolor_backgrounds.py after editing the artwork"
+def test_simulated_data_chip_is_solid():
+    # Calm, solid chip: cyan fill with dark text, no dashed edge (same words in both languages).
+    for selector in (r"\.sim-tag \{", r"\.strip-sim \{"):
+        rule = re.search(selector + r"(.*?)\}", CSS, re.S).group(1)
+        assert "var(--secondary)" in rule and "var(--on-secondary)" in rule
+        assert "dashed" not in rule
+    assert "dashed" not in CSS
 
 
 # ---------------------------------------------------------------- animated dashboard
@@ -387,9 +356,10 @@ def test_scene_clock_chip_is_readable_over_the_brightest_sky():
 
 @both
 def test_text_stays_readable_on_every_card_fill(theme):
-    # Plain card, health card (--card-deep-a), time-until-danger (--card-deep-b). Solid fills only.
+    # Cards and the notes / inner panels (surface). Solid fills only, the same on every card.
     t = THEMES[theme]
-    for card in (t["card"], t["card-deep-a"], t["card-deep-b"]):
+    assert "card-deep" not in CSS
+    for card in (t["card"], t["surface"]):
         assert contrast(t["text-tertiary"], card) >= TEXT, f"{theme}: {card}"
         assert contrast(t["text"], card) >= TEXT, f"{theme}: {card}"
         assert contrast(t["text-secondary"], card) >= TEXT, f"{theme}: {card}"
@@ -399,13 +369,14 @@ def test_no_glows_or_gradient_text():
     # Polish pass: no glowing blobs behind the page or cards, no gradient text,
     # no cursor spotlight. The pictures (water, sky) keep their gradients.
     css = CSS + (STYLES.parent / "welcome.css").read_text(encoding="utf-8")
-    for banned in (".page-glow", ".fx-spotlight", "background-clip: text", "--card-glow", "rgba(161, 12, 159"):
+    for banned in (".page-glow", ".fx-spotlight", "background-clip: text", "--card-glow", "rgba(161, 12, 159",
+                   ".doodle", ".fx-ripple", ".fx-ink", ".cursor-water", "--shadow-lift"):
         assert banned not in css, banned
 
 
 # ---------------------------------------------------------------- Team Orbit touches
 
-ORBIT_CSS = CSS[CSS.index("Team Orbit touches (scene.js"):]
+ORBIT_CSS = CSS[CSS.index("Team Orbit touches: the loader"):]
 
 
 def test_team_credit_on_the_welcome_screen_and_in_the_footer():
@@ -425,11 +396,42 @@ def test_team_credit_chip_is_readable_over_the_brightest_welcome_water():
 
 
 def test_space_touches_use_no_status_or_accent_colour():
-    # Satellite, shooting star, orbit dot, loader and logo: pearl and pond blue only.
+    # Loader and logo: pearl and pond blue only.
     assert not re.search(r"var\(--(safe|warning|danger|accent)", ORBIT_CSS)
 
 
 def test_space_touches_respect_reduce_motion():
     reduce_block = ORBIT_CSS[ORBIT_CSS.index("@media (prefers-reduced-motion: reduce)"):]
     assert ".ol-fish { animation: none; }" in reduce_block
-    assert ".scene-night-fx { display: none; }" in reduce_block
+
+
+# ---------------------------------------------------------------- purposeful motion only
+
+def test_only_purposeful_animations():
+    # CSS keyframes left: the Danger banner and strip (alerts) and the loading fish.
+    names = set(re.findall(r"@keyframes\s+([\w-]+)", CSS + (STYLES.parent / "welcome.css").read_text(encoding="utf-8")))
+    assert names == {"danger-breathe", "strip-breathe", "ol-orbit"}, names
+    # No cursor effects, scroll reveals, word-by-word headings, border trails or night sky extras.
+    assert not (STYLES.parent / "cursor-fx.js").exists()
+    js = "".join(p.read_text(encoding="utf-8") for p in STYLES.parent.glob("*.js"))
+    for banned in ("textEffect", "inView(", "borderTrail", "shootingStar", "satellitePass", "orbitTween", "fleeFrom", "bindMagnet"):
+        assert banned not in js, banned
+
+
+def test_no_emoji_in_the_interface():
+    # One outline icon set (inline SVG) everywhere; never emoji, in the page or in alert text.
+    files = [*STYLES.parent.glob("*.js"), STYLES.parent / "index.html",
+             *(STYLES.parent.parent / "backend").glob("*.py")]
+    for path in files:
+        for ch in path.read_text(encoding="utf-8"):
+            assert not (0x1F000 <= ord(ch) <= 0x1FAFF or 0x2600 <= ord(ch) <= 0x27BF or ord(ch) == 0xFE0F), \
+                f"{path.name}: emoji {ch!r}"
+
+
+def test_welcome_screen_covers_the_sticky_dashboard():
+    # The status strip and tabs (z-index 30) must never show over the welcome title.
+    welcome = (STYLES.parent / "welcome.css").read_text(encoding="utf-8")
+    z = int(re.search(r"\.welcome \{[^}]*z-index:\s*(\d+)", welcome, re.S).group(1))
+    for other in re.findall(r"z-index:\s*(\d+)", CSS):
+        if int(other) < 50:                     # 50: the ?debug panel, read-only, for developers
+            assert z > int(other)

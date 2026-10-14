@@ -233,7 +233,7 @@ AI is always shown as plain text, so it can't run as code. Keys come only from e
 | `history.js` | Past alerts, saved in the browser |
 | `voice.js` | Reads an alert aloud when the farmer taps the speaker |
 | `do-chart.js`, `gauge.js`, `health-ring.js`, `pond-view.js` | The oxygen chart, risk gauge, score ring and pond picture |
-| `motion.js`, `cursor-fx.js`, `scene.js`, `welcome.js` | Animations (GSAP), the day/night sky, the welcome screen |
+| `motion.js`, `scene.js`, `welcome.js` | Animations (GSAP, only where they mean something), the day/night sky, the welcome screen |
 | `theme.js` | Picks light or dark before the page appears |
 | `debug.js` | Counts for spotting slowdowns, only with `?debug` in the address |
 | `vendor/` | GSAP and Chart.js, stored locally |

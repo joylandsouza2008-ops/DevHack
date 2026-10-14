@@ -1,7 +1,7 @@
 ---
 version: alpha
 name: pond-design-system
-description: A calm, deep-water design system for a pond and fish-health app, in two themes from one Realtime Colors palette. Dark (default) puts light pond blue ({colors.primary}) on deep indigo ({colors.background}); light, for bright outdoor sunlight, puts a deepened pond blue ({colors.light-primary}) on pale indigo-white ({colors.light-background}) with the indigo as text. Bright cyan ({colors.secondary}) fills banners, tags and highlights with dark text, and magenta ({colors.accent}) is decoration only. A strict three-level status palette (Safe green, Warning amber, Danger red) is reserved for pond and fish condition readings only, identical in both themes. Type is set large for readability outdoors and on low-end phones, and every text style is tuned to render Kannada (ಕನ್ನಡ) script as comfortably as English.
+description: A calm, deep-water design system for a pond and fish-health app, in two themes from one Realtime Colors palette. Dark (default) puts light pond blue ({colors.primary}) on deep indigo ({colors.background}); light, for bright outdoor sunlight, puts a deepened pond blue ({colors.light-primary}) on pale indigo-white ({colors.light-background}) with the indigo as text. Bright cyan ({colors.secondary}) fills small tags and highlights with dark text; magenta ({colors.accent}) stays in the palette but is not used in the interface. A strict three-level status palette (Safe green, Warning amber, Danger red) is reserved for pond and fish condition readings only, identical in both themes. Type is set large for readability outdoors and on low-end phones, and every text style is tuned to render Kannada (ಕನ್ನಡ) script as comfortably as English.
 
 colors:
   # Dark theme (default): the team's Realtime Colors palette, exact values
@@ -13,7 +13,7 @@ colors:
   secondary: "#23bcd0"       # bright cyan fill, always with dark text
   on-secondary: "#060351"
   edge-on-secondary: "#060351"   # dashed borders / border trail on secondary fills
-  accent: "#a10c9f"          # magenta: DECORATION ONLY (see Colors)
+  accent: "#a10c9f"          # magenta: kept in the palette, NOT used in the interface (see Colors)
   on-accent: "#def0f8"
   # Status: unchanged
   safe: "#1a7f37"
@@ -46,7 +46,7 @@ colors:
   light-secondary: "#23bcd0" # same cyan: fill only on this page (2.0:1)
   light-on-secondary: "#060351"
   light-edge-on-secondary: "#060351"
-  light-accent: "#a10c9f"    # same magenta, decoration only
+  light-accent: "#a10c9f"    # same magenta, not used
   light-on-accent: "#f8f0fb"
   light-surface: "#f6f7fd"
   light-canvas: "#fcfcff"
@@ -67,7 +67,7 @@ This is a calm, deep-water design system for a pond and fish-health app. It is u
 - **Dark (default):** deep indigo ({colors.background}) with light, cool text ({colors.text}). The main action is a light pond-blue pill ({colors.primary}) with dark text.
 - **Light, for bright outdoor sunlight:** pale indigo-white ({colors.light-background}) with the palette's indigo as text ({colors.light-text}). The main action is a deepened pond-blue pill ({colors.light-primary}) with light text.
 
-Bright cyan ({colors.secondary}) fills banners, tags and highlighted items, always with dark text. Magenta ({colors.accent}) is the accent, and it is **decoration only**: doodles, glows and lines in the pictures, never text, never a control, never next to a status. The first theme follows the phone's light/dark setting; a **Light | Dark** toggle in the top bar overrides it and is remembered. The pictures (welcome pond, sky scene, pond view) show night water and stay dark in both themes.
+Bright cyan ({colors.secondary}) fills small tags and highlighted items, always with dark text. **Colour only means something**: pond blue is the brand and every action, and green, amber and red are Safe, Warning and Danger. Magenta ({colors.accent}) stays in the palette but is **not used** anywhere on screen: no doodles, glows or decorative lines. The first theme follows the phone's light/dark setting; a **Light | Dark** toggle in the top bar overrides it and is remembered. The pictures (welcome pond, sky scene, pond view) show night water and stay dark in both themes.
 
 The most important job of the interface is to make pond condition clear at a glance. Green, amber and red mean only one thing each: **Safe**, **Warning** and **Danger**. These colors never appear as decoration, and each status always comes with an icon and a word, never color alone. Status colours are identical in both themes. On the dark page, status banners keep their light backgrounds, so alerts are the brightest thing on screen; on the light page their 2px solid status border sets them apart.
 
@@ -75,8 +75,10 @@ Text is set larger than a typical web app: body text is 18px, and nothing that m
 
 **Key Characteristics:**
 - Deep indigo (dark) or pale indigo-white (light) with pond-blue pill CTAs ({colors.primary} + `{rounded.full}`)
-- Bright cyan ({colors.secondary}) for banners, tags and highlighted items, always with dark text
-- Magenta ({colors.accent}) for decoration only
+- Bright cyan ({colors.secondary}) for small tags and highlighted items, always with dark text
+- Calm and flat: one colour per meaning, hairline borders, no decorative shadows, glows, blobs or waves
+- Motion only where it means something: a level change, a reading moving, the countdown, a Danger alert
+- No emoji anywhere (screens, SMS, WhatsApp): one outline icon set, and words for levels
 - A strict Safe/Warning/Danger palette used only for condition status, always paired with an icon and a label
 - Large, readable type: 18px body, 52px-tall buttons, 48px minimum touch targets
 - Noto Sans + Noto Sans Kannada on every surface, with line heights tall enough for Kannada vowel signs and conjuncts
@@ -94,9 +96,9 @@ All contrast ratios below are measured (WCAG 2.x formula). Text needs at least 4
 | **Primary** ({colors.primary}) | `#88cce6` | Primary buttons, active tabs, links, focus rings, highlighted-card borders | 10.4:1 on background; dark text on it 10.4:1 |
 | **Primary Pressed** ({colors.primary-pressed}) | `#a8daee` | Pressed state of primary buttons | dark text on it 12.2:1 |
 | **On Primary** ({colors.on-primary}) | `#060351` | Text on primary | |
-| **Secondary** ({colors.secondary}) | `#23bcd0` | **Fill**: simulated-data banner, tags, selected pond, WhatsApp bubble, CTA banners | dark text on it 8.1:1 |
-| **Edge on Secondary** ({colors.edge-on-secondary}) | `#060351` | Dashed borders and the border trail on secondary fills | 8.1:1 on secondary |
-| **Accent** ({colors.accent}) | `#a10c9f` | **Decoration only** (see below) | **2.7:1 on the background: never text, never a control** |
+| **Secondary** ({colors.secondary}) | `#23bcd0` | **Fill**: "Simulated data" chip, tags, selected pond, WhatsApp bubble | dark text on it 8.1:1 |
+| **Edge on Secondary** ({colors.edge-on-secondary}) | `#060351` | A dark edge on a secondary fill, when one is needed | 8.1:1 on secondary |
+| **Accent** ({colors.accent}) | `#a10c9f` | **Not used in the interface** (see below) | 2.7:1 on the background |
 
 ### Brand palette: light theme (bright sunlight)
 Made from the same palette: the indigo becomes the text, the pond blue is deepened so light text sits on it, and cyan and magenta are used unchanged.
@@ -110,7 +112,7 @@ Made from the same palette: the indigo becomes the text, the pond blue is deepen
 | **On Primary** ({colors.light-on-primary}) | `#f4fbfe` | Text on primary: **light** in this theme | |
 | **Secondary** ({colors.light-secondary}) | `#23bcd0` | Fill, as in dark | dark text on it 8.1:1; **2.0:1 on the page, so fill only, never text or a border** |
 | **Edge on Secondary** ({colors.light-edge-on-secondary}) | `#060351` | Dashed borders / border trail on secondary | 8.1:1 on secondary |
-| **Accent** ({colors.light-accent}) | `#a10c9f` | Decoration only, as in dark | 5.9:1 on the background |
+| **Accent** ({colors.light-accent}) | `#a10c9f` | Not used, as in dark | 5.9:1 on the background |
 | **Surface / Canvas** | `#f6f7fd` / `#fcfcff` | Top bar and sections / cards and inputs | |
 | **Text Secondary / Tertiary** | `#2c2f6b` / `#4a4e85` | Secondary / tertiary text | 11.9:1 / 7.5:1 on cards |
 | **Hairline / Hairline Strong** | `#d3d6ee` / `#646a99` | Dividers / control borders | strong 5.0:1 on cards |
@@ -118,7 +120,7 @@ Made from the same palette: the indigo becomes the text, the pond blue is deepen
 
 Tokens with no light value (status colours, the font) are shared by both themes.
 
-**How to use the accent (magenta):** purple and magenta are allowed again, but the accent is **decoration only**: hand-drawn doodles, page and card glows, the cursor spotlight, and highlight lines in the pictures (the welcome pond, the sky scene). It is never text (2.7:1 on the dark page), never a fill behind text, never a stripe, badge, border or icon that carries meaning, never on anything clickable, and never right next to a status. `tests/test_contrast.py` enforces that only `.doodle` and `.sc-accent` use it.
+**The accent (magenta) is not used.** Colour only means something in this app (brand or status), and a decorative magenta next to Danger red read as a second alarm colour. The token stays in the palette; `tests/test_contrast.py` checks that no style or script uses it. The fish drawings in the disease guide are one-colour line art in the text colour.
 
 **Accent vs status colours, including colour blindness** (OKLab difference x100, 15+ = clearly different; colour blindness simulated with Machado et al. 2009):
 
@@ -128,7 +130,7 @@ Tokens with no light value (status colours, the font) are shared by both themes.
 | vs Warning amber | 41 | 42 | 39 | 28 |
 | vs Safe green | 36 | 26 | 17 | 26 |
 
-For the common red-green colour blindness (protanopia, deuteranopia) the magenta stays clearly different from Danger red. For **tritanopia** (blue-yellow, about 1 in 10 000 people) it becomes a dark rose only 12 apart from red: that is the reason the accent stays decoration only, away from every status (see Known Gaps).
+For the common red-green colour blindness (protanopia, deuteranopia) the magenta stays clearly different from Danger red. For **tritanopia** (blue-yellow, about 1 in 10 000 people) it becomes a dark rose only 12 apart from red: one more reason it is not used on screen (see Known Gaps).
 
 **Secondary vs primary:** cyan and pond blue are close (difference 9), so never use secondary as the only difference from primary. Clickable things are always {colors.primary}; secondary is a fill with dark text.
 
@@ -165,9 +167,9 @@ These colors are reserved for pond and fish condition: water quality, oxygen, te
 ### Themes
 - `styles.css` defines the dark tokens on `:root, .dark-scope` and the light overrides on `:root[data-theme="light"]`. A small script in `index.html` sets `data-theme` before the first paint: the saved choice (`localStorage` key `meenuraksha-theme`), else `prefers-color-scheme`.
 - **Pictures stay dark:** the welcome pond, the sky scene and the pond view carry the `dark-scope` class, so they keep dark tokens on the light page.
-- **Background waves:** `tools/recolor_backgrounds.py` writes `*-brand.svg` (dark, 16% opacity) and `*-light.svg` (light, 10% opacity) from the theme tokens. Re-run it after changing primary, secondary or background.
+- **Plain page:** the page is one flat colour. No background waves, blobs, glows or gradient washes behind the cards.
 - **The sky scene** uses its own indigo, blues, cyan, an orchid dusk and pale pearl (`SKY` in `scene.js`); sunrise and sunset are light and position, never orange, red or green.
-- `tests/test_contrast.py` checks every pair in both themes, the waves, the sky and the card gradients.
+- `tests/test_contrast.py` checks every pair in both themes, the sky, and that the page stays flat (no waves, doodles, decorative shadows or magenta).
 
 ## Typography
 
@@ -212,6 +214,20 @@ font-family: "Noto Sans", "Noto Sans Kannada", "Tunga", "Nirmala UI", system-ui,
 | `{typography.status-label}` | 18px | 700 | 1.4 | Safe / Warning / Danger banners |
 | `{typography.stat-display}` | 48px | 600 | 1.2 | Sensor readings (tabular numbers) |
 
+### The scale used in the app
+One scale, as CSS tokens in `styles.css` (`--fs-*`):
+
+| Token | Size | Use |
+|---|---|---|
+| `--fs-title` | 28-32px | Page title (one per page) |
+| `--fs-section` | 22px | Section heading (`h2`), left-aligned |
+| `--fs-sub` | 18px, 600 | Sub-heading inside a section (`h3`), card titles in grids |
+| `--fs-body` | 18px | Body text and important sentences |
+| `--fs-small` | 16px | Helper text under headings, notes, quiet buttons |
+| `--fs-caption` | 15px | Captions, tags, chips, **units** |
+
+Readings use tabular numbers; their **units are smaller and muted** (`--fs-caption`, text-tertiary), so the number is what the eye reads first.
+
 ### Principles
 - **Large by default.** Body text is 18px and nothing readable is under 15px. The UI must still work when the phone's text size is set to 200%, so size everything in `rem` and never fix heights on text containers.
 - **Tall line heights for Kannada.** Kannada vowel signs (ಿ ೀ ು ೂ ೃ) and stacked conjuncts (ಒತ್ತಕ್ಷರ) extend well above and below the Latin x-height. Body uses 1.7, headings at least 1.25, and nothing goes below 1.2. Tighter leading clips or collides the marks.
@@ -244,30 +260,21 @@ font-family: "Noto Sans", "Noto Sans Kannada", "Tunga", "Nirmala UI", system-ui,
 
 ## Elevation & Depth
 
-The system is mostly flat, like still water. Depth is used sparingly.
+The system is **flat**, like still water: every surface is a solid fill with a 1px `{colors.hairline}` border, and **no card has a shadow**. Cards are never nested inside cards; inside a card, parts are separated by thin dividers or small inner panels. Dialogs get a dark backdrop, not a shadow.
 
-| Level | Treatment | Use |
-|---|---|---|
-| 0 (flat) | No shadow; `{colors.hairline}` border | Default cards, table rows, inputs |
-| 1 (subtle) | `rgba(10, 31, 41, 0.05) 0px 1px 2px 0px` | Tappable cards |
-| 2 (card) | `rgba(10, 31, 41, 0.08) 0px 4px 12px 0px` | Feature cards |
-| 3 (overlay) | `rgba(10, 31, 41, 0.14) 0px 16px 48px -8px` | Modals, dropdowns, alert sheets |
+The only 3D in the app is deliberate and small (the pond view and the start card), never a drop shadow.
 
 ## Shapes
 
 ### Border Radius Scale
 
+Three values only (`styles.css`):
+
 | Token | Value | Use |
 |---|---|---|
-| `{rounded.xs}` | 4px | Small chips |
-| `{rounded.sm}` | 6px | Compact badges |
-| `{rounded.md}` | 8px | Inputs, search field, tables |
-| `{rounded.lg}` | 12px | Status banners |
-| `{rounded.xl}` | 16px | Standard and pond cards |
-| `{rounded.xxl}` | 20px | Larger cards |
-| `{rounded.xxxl}` | 28px | Feature cards |
-| `{rounded.feature}` | 32px | Dark CTA banner |
-| `{rounded.full}` | 9999px | All buttons, pill tabs, badges |
+| `--radius-card` | 12px | **Every** card, panel, status banner, scene, dialog |
+| `--radius-inner` | 8px | Inputs, notes, checklist items, tags and other small parts inside a card (chips: 6px) |
+| pill | 9999px | All buttons, tabs, toggles, status badges |
 
 ## Components
 
@@ -281,7 +288,7 @@ The system is mostly flat, like still water. Depth is used sparingly.
 
 **`button-secondary-filled`**: bright cyan ({colors.secondary}) pill with dark text, for a secondary filled action.
 
-**`button-secondary`**: an outlined pill with a 2px `{colors.primary}` border and `{colors.primary}` text.
+**`button-secondary`**: a quiet outlined pill: 1px `{colors.hairline-strong}` border, `{colors.text}` text, no fill. **Each page has one primary action**; everything else is secondary or ghost (for example on Shop, "Add to cart" is secondary because there are five of them).
 
 **`button-danger`**: red pill, used only for destructive or emergency actions ("Delete pond", "Call for help").
 
@@ -299,7 +306,7 @@ The system is mostly flat, like still water. Depth is used sparingly.
 
 **`card-base`**: `{colors.canvas}` card with a 16px radius and a hairline border.
 
-**`card-feature`** and the variants **`card-feature-secondary`** (cyan fill, dark text) and **`card-feature-deep`** (`{colors.surface}` with a hairline border): 28px radius, 32px padding. These are decorative, so a feature card never means a status.
+All cards look the same: `{colors.canvas}`, hairline border, `--radius-card`. No "feature" variants with other fills or radii.
 
 **`card-pond`**: the core dashboard card for one pond. It has a `{colors.canvas}` background, a hairline border, and a **6px left border in the pond's current status color**. It shows the pond name (`heading-3`), a status badge, 2–4 key readings in `stat-display`, and a "last updated" caption.
 
@@ -311,12 +318,18 @@ The system is mostly flat, like still water. Depth is used sparingly.
 
 **`status-banner-safe` / `status-banner-warning` / `status-banner-danger`**: full-width banners at the top of a pond screen.
 - The status's own light background, 2px solid border in the status color, `{typography.status-label}` text in the matching dark text color, and a 24px leading icon. On the dark page these are the brightest elements on screen.
-- Structure: **icon + status word + one-line reason + next step**. For example: ⚠ **Warning**: Oxygen is low (4.1 mg/L). Run the aerator.
+- Structure: **icon + status word + one-line reason + next step**. For example: (warning icon) **Warning**: Oxygen is low (4.1 mg/L). Run the aerator.
 - Danger banners use `role="alert"`. Safe and Warning banners use `role="status"`.
 
 **`badge-safe` / `badge-warning` / `badge-danger`**: solid pill badges with an icon and a word. The Warning badge uses dark text.
 
 **`badge-tag`**: neutral category tag (cyan fill, dark text) such as fish species or pond type. Never used to show status.
+
+**`sim-tag`** ("Simulated data" / "ಅನುಕರಿಸಿದ (ಸಿಮ್ಯುಲೇಟೆಡ್) ಡೇಟಾ"): a small **solid** cyan chip with dark text, 6px radius, no outline. Same words in both languages, on everything that shows simulated values. In the status strip it never wraps under the level word; long Kannada wraps inside the chip.
+
+**Notes** (simulated-data banner, "Preview only", "Not for sale yet"): `{colors.surface}` with a hairline border and a pond-blue info icon, body-sm text. Calm: the words carry the message, not a loud fill.
+
+**Data-source tags** ("AI assistant: can make mistakes", "Live sensor", "Manual test-kit reading"): quiet outlined tags in text-secondary, never styled like a button.
 
 ### Inputs & Forms
 
@@ -354,9 +367,8 @@ Numeric inputs for readings use `inputmode="decimal"` and show the unit as a suf
 
 **`cta-banner`**: bright cyan banner (`{colors.secondary}`, dark text) with a `{rounded.feature}` radius, a centered headline and a `button-primary`.
 
-**Team Orbit touches** (subtle space details from the team's name; the pond stays the main identity):
-- **Night sky:** a richer starfield, an occasional shooting star and a small satellite crossing slowly (the weather forecast relies on satellites). Night only; one element each, at most one waiting timer each.
-- **Health score ring:** a small glowing dot circles the ring, in pearl (pond blue in the light theme), never a status colour and never over the number.
+**Team Orbit touches** (small, static details from the team's name; the pond stays the main identity):
+- **Night sky:** a still starfield (no twinkle, shooting stars or satellites).
 - **Loading states:** a small fish circling a water drop, shown only while loading ("Connecting…", tonight's weather).
 - **Credit:** a small static orbit-ring logo (a water drop with an orbit) and "Built by Team Orbit" / "ನಿರ್ಮಾಣ: ಟೀಮ್ ಆರ್ಬಿಟ್" on the welcome screen (on a dark chip), and "AquaNexus by Team Orbit (Nexus Orbit)" / "AquaNexus · ನಿರ್ಮಾಣ: ಟೀಮ್ ಆರ್ಬಿಟ್ (Nexus Orbit)" in the footer.
 - **App name:** **AquaNexus**, written in Latin letters in both languages. On the welcome screen the Kannada tagline **ಮೀನು ರಕ್ಷಕ** ("fish protector") sits under the name, in `{colors.primary}`.
@@ -376,7 +388,10 @@ Numeric inputs for readings use `inputmode="decimal"` and show the unit as a suf
 - Keep touch targets at 48px or larger
 
 ### Don't
-- Don't use the magenta accent ({colors.accent}) for anything but decoration: no text, fills behind text, stripes, badges, icons that carry meaning, or controls, and never next to a status
+- Don't use the magenta accent ({colors.accent}) anywhere on screen
+- Don't add decorative blobs, waves, gradient washes, glows, rings, bubbles or doodles (the pond pictures are the only illustrations)
+- Don't use emoji, in the UI or in SMS / WhatsApp text: use the outline icons and words ("AquaNexus DANGER - Pond 1: ...")
+- Don't animate for decoration: no scroll reveals, word-by-word headings, cursor ripples, magnetic buttons, card tilt (except the start card) or orbiting dots
 - Don't use green, amber or red decoratively, in either theme (sky, waves, glows and doodles included)
 - Don't put an amber stripe on a light card without its dark edge ({colors.light-warning-edge})
 - Don't use status colors for decoration, branding or category tags
@@ -387,7 +402,7 @@ Numeric inputs for readings use `inputmode="decimal"` and show the unit as a suf
 - Don't use negative letter-spacing, ALL-CAPS labels or line heights below 1.2
 - Don't give buttons or tabs fixed widths, which clip Kannada labels
 - Don't use `{colors.muted}` for any text people need to read
-- Don't use heavy shadows. Keep the look flat and calm.
+- Don't put shadows on cards or buttons. Keep the look flat and calm.
 
 ## Responsive Behavior
 
@@ -424,7 +439,7 @@ Numeric inputs for readings use `inputmode="decimal"` and show the unit as a suf
 ## Known Gaps
 
 - In the light theme the gauge arc and health ring use plain amber for Warning (2.0:1 on cards); the word and icon beside them carry the meaning
-- For tritanopia the magenta accent is only 12 apart from Danger red (15 wanted). It is kept because the accent is decoration only; a slightly bluer magenta such as `#900caf` would reach 16 if this ever needs closing
-- Animation timings are not set; use 150–200ms ease and respect `prefers-reduced-motion`
+- For tritanopia the magenta accent is only 12 apart from Danger red (15 wanted). It does not matter today because the accent is not used on screen; a slightly bluer magenta such as `#900caf` would reach 16 if it is ever used
+- Animation timings: 150-200ms ease for small changes; every animation stops with `prefers-reduced-motion`. Kept on purpose: level change (status colours fade), numbers counting to a new reading, the countdown, the Danger banner and strip's slow ring, the loading fish
 - Exact Safe/Warning/Danger thresholds (oxygen, pH, temperature, ammonia) belong in the app's domain logic, not in this file
 - Charts for reading history need their own palette spec; reuse the status colors only for threshold bands

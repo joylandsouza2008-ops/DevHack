@@ -26,7 +26,6 @@
       <div class="pond-caustics pond-caustics-a"></div>
       <div class="pond-caustics pond-caustics-b"></div>
       <div class="pond-fish" id="pond-fish"></div>
-      <div class="pond-ripples" id="pond-ripples"></div>
       <div class="pond-scrim"></div>
     </div>
 
@@ -65,11 +64,6 @@
       </button>
     </div>
   </section>
-
-  <!-- Dashboard background waves (decoration). Outside .dashboard on purpose: the
-       Start transition leaves a transform on .dashboard, which would stop
-       position: fixed from staying put while the page scrolls. -->
-  <div class="page-bg" aria-hidden="true"></div>
 
   <!-- ============ Dashboard (inert until Start is pressed) ============ -->
   <div class="dashboard" id="dashboard" inert>
@@ -268,7 +262,7 @@
       <section class="controls" aria-label="Demo controls">
         <div class="pond-picker">
           <span class="control-label" id="pond-label" data-i18n="pond">Pond</span>
-          <!-- Animated Background: one highlight slides behind the chosen pond; it carries the Border Trail. -->
+          <!-- One highlight slides behind the chosen pond. -->
           <div class="pond-options" id="pond-options" role="group" aria-labelledby="pond-label">
             <span class="pond-highlight" id="pond-highlight" aria-hidden="true"></span>
             <button type="button" class="pond-option" data-station="station1" aria-pressed="true"><span data-i18n="pond1">Pond 1</span></button>
@@ -283,7 +277,7 @@
             <option value="oxygen_crash" data-i18n="scenarioCrash">Night oxygen crash</option>
           </select>
         </label>
-        <button type="button" class="button-primary" id="restart" data-i18n="restart">Restart</button>
+        <button type="button" class="button-secondary" id="restart" data-i18n="restart">Restart</button>
         <button type="button" class="button-secondary" id="pause" data-i18n="pause">Pause</button>
       </section>
 
@@ -307,9 +301,9 @@
         <!-- Bento board: cards of different sizes (grid areas in styles.css). -->
         <div class="board board-pond">
         <!-- Pond health score 0-100. Always inside the status's range (backend/health_score.py). -->
-        <section class="card health-card in-view" data-doodle="fish" aria-labelledby="health-title">
+        <section class="card health-card" aria-labelledby="health-title">
           <div class="health-head">
-            <h2 id="health-title" class="text-effect" data-i18n="healthTitle">Pond health score</h2>
+            <h2 id="health-title" data-i18n="healthTitle">Pond health score</h2>
             <span class="sim-tag" data-i18n="simulatedTag">Simulated data</span>
           </div>
           <div class="health-body">
@@ -322,14 +316,14 @@
           </div>
         </section>
 
-        <section class="card gauge-card in-view" aria-labelledby="gauge-title">
-          <h2 id="gauge-title" class="text-effect" data-i18n="gaugeTitle">Risk level</h2>
+        <section class="card gauge-card" aria-labelledby="gauge-title">
+          <h2 id="gauge-title" data-i18n="gaugeTitle">Risk level</h2>
           <div class="gauge" id="gauge" role="img" aria-labelledby="gauge-label"></div>
           <p class="gauge-label" id="gauge-label"></p>
         </section>
 
-        <section class="card pond-card in-view" aria-labelledby="pond-view-title">
-          <h2 id="pond-view-title" class="text-effect" data-i18n="pondViewTitle">Pond view</h2>
+        <section class="card pond-card" aria-labelledby="pond-view-title">
+          <h2 id="pond-view-title" data-i18n="pondViewTitle">Pond view</h2>
           <div class="pond-view dark-scope" id="pond-view" role="img" aria-labelledby="pond-view-text"></div>
           <p class="pond-caption">
             <span class="badge" id="pond-view-badge"></span>
@@ -337,8 +331,8 @@
           </p>
         </section>
 
-        <section class="card ttd-card in-view" aria-labelledby="ttd-title">
-          <h2 id="ttd-title" class="text-effect" data-i18n="ttdTitle">Time until danger</h2>
+        <section class="card ttd-card" aria-labelledby="ttd-title">
+          <h2 id="ttd-title" data-i18n="ttdTitle">Time until danger</h2>
           <!-- Countdown: shown while danger is expected; the numbers count down smoothly. -->
           <div class="countdown" id="countdown" hidden>
             <p class="countdown-label" data-i18n="countdownLabel">Danger expected in</p>
@@ -348,8 +342,8 @@
           <p id="ttd-message" class="ttd-message">-</p>
         </section>
 
-        <section class="card chart-card in-view" aria-labelledby="chart-title">
-          <h2 id="chart-title" class="text-effect" data-i18n="chartTitle">Dissolved oxygen, last 12 hours</h2>
+        <section class="card chart-card" aria-labelledby="chart-title">
+          <h2 id="chart-title" data-i18n="chartTitle">Dissolved oxygen, last 12 hours</h2>
           <div class="chart-wrap">
             <canvas id="do-chart" role="img" aria-labelledby="chart-summary"></canvas>
           </div>
@@ -357,7 +351,7 @@
         </section>
 
         <section class="readings-block" aria-labelledby="readings-title">
-          <div class="readings-head"><h2 id="readings-title" class="text-effect" data-i18n="readingsTitle">Latest readings</h2></div>
+          <div class="readings-head"><h2 id="readings-title" data-i18n="readingsTitle">Latest readings</h2></div>
           <div class="readings" id="readings"></div>
           <p class="sensor-errors" id="sensor-errors" hidden></p>
         </section>
@@ -379,7 +373,7 @@
       </section>
       <!-- Voice alert: reads the status aloud ONLY when the farmer taps it (voice.js). -->
       <div class="voice-row">
-        <button type="button" class="button-secondary voice-button" id="voice-button" aria-describedby="voice-note">
+        <button type="button" class="button-primary voice-button" id="voice-button" aria-describedby="voice-note">
           <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4Z" fill="currentColor"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
           <span id="voice-button-text" data-i18n="voiceListen">Listen to alert</span>
         </button>
@@ -398,8 +392,8 @@
         <div class="board board-alerts">
 
         <!-- SMS / WhatsApp PREVIEW. Nothing is sent: it only shows the text a farmer would get. -->
-        <section class="card alert-card in-view" aria-labelledby="alert-title">
-          <h2 id="alert-title" class="text-effect" data-i18n="alertTitle">Alert preview</h2>
+        <section class="card alert-card" aria-labelledby="alert-title">
+          <h2 id="alert-title" data-i18n="alertTitle">Alert preview</h2>
           <p class="preview-note">
             <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm1 15h-2v-6h2v6Zm0-8h-2V7h2v2Z"/></svg>
             <span data-i18n="previewNote">Preview only. No real SMS or WhatsApp message is sent.</span>
@@ -428,9 +422,9 @@
         </section>
 
         <!-- Alert history: saved in this browser (history.js), survives a refresh. -->
-        <section class="card history-card in-view" data-doodle="reeds" aria-labelledby="history-title">
+        <section class="card history-card" aria-labelledby="history-title">
           <div class="history-head">
-            <h2 id="history-title" class="text-effect" data-i18n="historyTitle">Alert history</h2>
+            <h2 id="history-title" data-i18n="historyTitle">Alert history</h2>
             <button type="button" class="button-ghost" id="history-clear" data-i18n="historyClear" hidden>Clear history</button>
           </div>
           <p class="history-help" data-i18n="historyHelp">Past warnings, newest first. Saved on this phone only.</p>
@@ -445,7 +439,7 @@
            If the download fails it shows the last saved forecast and says so. -->
       <section class="page" id="page-weather" aria-labelledby="page-weather-title" hidden>
         <h1 class="page-title" id="page-weather-title" tabindex="-1" data-i18n="titleWeather">Weather</h1>
-        <div class="card weather-card in-view">
+        <div class="card weather-card">
       <section class="weather-tonight" id="weather-tonight" aria-labelledby="weather-title">
         <span class="weather-icon" aria-hidden="true">
           <!-- Loading: a small fish circling a water drop, until the forecast arrives. -->
@@ -465,8 +459,8 @@
       </section>
         </div>
         <p class="kit-help" data-i18n="weatherDemoNote">This is the weather for the demo pond, in Mangaluru. Each of your own ponds shows the weather for its village on its page.</p>
-        <section class="card weather-why in-view" aria-labelledby="weather-why-title">
-          <h2 id="weather-why-title" class="text-effect" data-i18n="weatherWhyTitle">Why the weather matters</h2>
+        <section class="card weather-why" aria-labelledby="weather-why-title">
+          <h2 id="weather-why-title" data-i18n="weatherWhyTitle">Why the weather matters</h2>
           <p data-i18n="weatherWhy">Water plants make oxygen only in sunlight. After a cloudy day, on a calm, warm night, they use up oxygen and no wind mixes in fresh air, so oxygen is lowest just before sunrise. That is when fish die.</p>
         </section>
       </section>
@@ -483,8 +477,8 @@
 
         <!-- Fish disease guide (diseases.js): library, symptom checker, sources in docs/diseases.md.
              Possible matches only, never a diagnosis. No medicines or doses. -->
-        <section class="card guide-card in-view" id="guide" data-doodle="fish" aria-labelledby="guide-title">
-          <h2 id="guide-title" class="text-effect" data-i18n="guideTitle">Fish disease guide</h2>
+        <section class="card guide-card" id="guide" aria-labelledby="guide-title">
+          <h2 id="guide-title" data-i18n="guideTitle">Fish disease guide</h2>
           <p class="guide-intro" data-i18n="guideIntro">Common diseases of carp ponds: the signs to look for, when they happen and how to prevent them.</p>
           <p class="guide-loading" id="guide-loading" data-i18n="guideLoading">Loading the guide…</p>
           <div class="guide-content" id="guide-content" hidden>
@@ -504,7 +498,7 @@
                 </fieldset>
                 <div class="kit-buttons">
                   <button type="submit" class="button-primary" data-i18n="checkerCheck">Show possible matches</button>
-                  <button type="reset" class="button-secondary" data-i18n="checkerClear">Clear</button>
+                  <button type="reset" class="button-ghost" data-i18n="checkerClear">Clear</button>
                 </div>
               </form>
               <p class="kit-form-error" id="checker-error" role="alert" hidden></p>
@@ -533,9 +527,9 @@
 
         <!-- "Ask AquaNexus" assistant (assistant.js). Answers only from the app's own content
              (backend/assistant.py); AI called from the server only. Always labelled as AI. -->
-        <section class="card assistant-card in-view" id="assistant" aria-labelledby="assistant-title">
+        <section class="card assistant-card" id="assistant" aria-labelledby="assistant-title">
           <div class="assistant-head">
-            <h2 id="assistant-title" class="text-effect" data-i18n="assistantTitle">Ask AquaNexus</h2>
+            <h2 id="assistant-title" data-i18n="assistantTitle">Ask AquaNexus</h2>
             <p class="manual-tag ai-tag">
               <strong id="assistant-label">AI assistant: can make mistakes</strong>
             </p>
@@ -612,8 +606,8 @@
         </section>
         <div class="board board-more">
         <!-- Manual test-kit entry. Results are marked "manual", never mixed with the simulated pond. -->
-        <section class="card kit-card in-view" data-doodle="ripples" aria-labelledby="kit-title">
-          <h2 id="kit-title" class="text-effect" data-i18n="kitTitle">Enter test-kit readings</h2>
+        <section class="card kit-card" aria-labelledby="kit-title">
+          <h2 id="kit-title" data-i18n="kitTitle">Enter test-kit readings</h2>
           <p class="kit-help" data-i18n="kitHelp">Type the numbers from your pond test kit. Leave a box empty if you did not test it.</p>
           <form class="kit-form" id="kit-form" novalidate>
             <label class="kit-field">
@@ -634,7 +628,7 @@
             </label>
             <div class="kit-buttons">
               <button type="submit" class="button-primary" data-i18n="kitCheck">Check readings</button>
-              <button type="reset" class="button-secondary" data-i18n="kitClear">Clear</button>
+              <button type="reset" class="button-ghost" data-i18n="kitClear">Clear</button>
             </div>
           </form>
           <p class="kit-form-error" id="kit-form-error" role="alert" hidden></p>
@@ -663,9 +657,9 @@
         <!-- Live sensor: readings a REAL sensor sends to POST /api/sensor/{pond_id}, pushed
              here as they arrive (GET /api/sensor/{pond_id}/stream). Never mixed with the
              simulated pond above. A demo device (tools/fake_sensor.py) gets its own tag. -->
-        <section class="card live-card in-view" id="live-card" aria-labelledby="live-title">
+        <section class="card live-card" id="live-card" aria-labelledby="live-title">
           <div class="live-head">
-            <h2 id="live-title" class="text-effect" data-i18n="liveTitle">Live sensor</h2>
+            <h2 id="live-title" data-i18n="liveTitle">Live sensor</h2>
             <p class="live-tag">
               <span class="live-dot" id="live-dot" aria-hidden="true"></span>
               <strong id="live-label">Live sensor</strong><span id="live-pond"></span>
@@ -699,8 +693,8 @@
         <section class="card about-card" aria-labelledby="about-title">
           <h2 id="about-title" data-i18n="aboutTitle">About this app</h2>
           <div class="about-links">
-            <button type="button" class="button-secondary" data-open-dialog="sources-dialog" aria-haspopup="dialog" data-i18n="sourcesTitle">Data sources</button>
-            <button type="button" class="button-secondary" data-open-dialog="terms-dialog" aria-haspopup="dialog" data-i18n="termsTitle">Terms &amp; Privacy</button>
+            <button type="button" class="button-ghost" data-open-dialog="sources-dialog" aria-haspopup="dialog" data-i18n="sourcesTitle">Data sources</button>
+            <button type="button" class="button-ghost" data-open-dialog="terms-dialog" aria-haspopup="dialog" data-i18n="termsTitle">Terms &amp; Privacy</button>
           </div>
         </section>
       </section>
@@ -934,7 +928,6 @@
   <script src="/vendor/gsap/gsap.min.js"></script>
   <script src="/vendor/chartjs/chart.umd.min.js"></script>
   <script src="/motion.js"></script>
-  <script src="/cursor-fx.js"></script>
   <script src="/pond-view.js"></script>
   <script src="/gauge.js"></script>
   <script src="/do-chart.js"></script>

@@ -10,6 +10,10 @@ receive, built from the same messages the app shows (the risk summary and
 
 An alert is only "sent" for Warning and Danger. When the pond is Safe the
 preview says that no message would go out.
+
+No emoji: the level is written as a word, so the message reads the same on
+every phone, including basic phones that show emoji as empty boxes:
+    AquaNexus DANGER - Pond 1: Oxygen is very low (2.5 mg/L). ...
 """
 
 from __future__ import annotations
@@ -21,7 +25,7 @@ POND_NAMES = {
 }
 
 APP_NAME = {"en": "AquaNexus", "kn": "AquaNexus"}
-ICON = {"warning": "⚠️", "danger": "🚨"}
+ALERT_LEVELS = ("warning", "danger")   # levels that send a message
 
 NO_ALERT = {
     "en": "No alert would be sent: the readings are not in Warning or Danger.",
@@ -38,12 +42,13 @@ def compose_alert(risk: dict, time_to_danger: dict | None = None,
     pond            pond name {"en", "kn"}, or None for a test-kit reading
     """
     level = risk["level"]
-    if level not in ICON:
+    if level not in ALERT_LEVELS:
         return {"send": False, "sms": dict(NO_ALERT), "whatsapp": dict(NO_ALERT)}
 
     sms, whatsapp = {}, {}
     for lang in ("en", "kn"):
         level_name = risk["level_name"][lang]
+        level_word = level_name.upper() if lang == "en" else level_name   # Kannada has no capitals
         where = f" - {pond[lang]}" if pond else ""
         extra = ""
         if time_to_danger and time_to_danger.get("status") == "danger_expected":
@@ -51,10 +56,10 @@ def compose_alert(risk: dict, time_to_danger: dict | None = None,
         tag = f"[{label[lang]}]" if label else ""
 
         sms[lang] = " ".join(part for part in [
-            f"{APP_NAME[lang]}: {level_name.upper() if lang == 'en' else level_name}{where}.",
+            f"{APP_NAME[lang]} {level_word}{where}:",
             risk["summary"][lang], extra, tag] if part)
 
-        lines = [f"{ICON[level]} *{APP_NAME[lang]}*", f"*{level_name}*{where}", "", risk["summary"][lang]]
+        lines = [f"*{APP_NAME[lang]} {level_word}*{where}", "", risk["summary"][lang]]
         if extra:
             lines += ["", extra]
         if tag:

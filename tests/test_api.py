@@ -100,10 +100,11 @@ def test_every_status_shows_icon_and_word_not_colour_alone():
         assert target in app
 
 
-def test_text_effect_never_splits_kannada_letters():
-    # Splitting Kannada into letters breaks conjuncts: the Text Effect splits on spaces only.
+def test_motion_never_splits_kannada_letters():
+    # Splitting Kannada into letters breaks conjuncts. Headings are never animated word by
+    # word or letter by letter any more (calm design), and nothing splits text into letters.
     motion = client.get("/motion.js").text
-    assert "text.split(/(\\s+)/)" in motion
+    assert "textEffect" not in motion
     assert ".split(\"\")" not in motion and "Array.from(text)" not in motion
 
 

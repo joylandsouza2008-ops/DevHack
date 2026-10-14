@@ -202,7 +202,7 @@
       const facts = make("dl", "shop-facts");
       facts.append(make("dt", "", words.shopMeasures), make("dd", "", p.measures[lang]),
         make("dt", "", words.shopWhy), make("dd", "", p.why[lang]));
-      const add = make("button", "button-primary shop-add", words.shopAdd);
+      const add = make("button", "button-secondary shop-add", words.shopAdd);   // quiet: five of them on one page
       add.type = "button";
       add.dataset.add = p.id;
       add.setAttribute("aria-describedby", title.id);

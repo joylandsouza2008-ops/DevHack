@@ -21,8 +21,8 @@
   --on-primary: #060351;
   --secondary: #23bcd0;       /* bright cyan FILL: banners, tags, highlights, always with dark text */
   --on-secondary: #060351;
-  --edge-on-secondary: #060351;   /* dashed borders and the border trail on secondary fills */
-  --accent: #a10c9f;          /* magenta: DECORATION ONLY (doodles, glows, scene lines), never text or controls */
+  --edge-on-secondary: #060351;   /* a dark edge on a secondary fill, when one is needed */
+  --accent: #a10c9f;          /* magenta: part of the palette, NOT used in the interface (colour only means brand or status) */
   --on-accent: #def0f8;
 
   /* Surfaces and text, derived from the palette (contrast-checked) */
@@ -38,13 +38,17 @@
   /* Amber has enough contrast on dark cards by itself: no extra edge. */
   --warning-edge: transparent;
 
-  /* Decoration (never a status): solid feature-card fills, tap effects */
-  --card-deep-a: #0d0a5e;
-  --card-deep-b: #0a0756;
-  --ripple: rgba(136, 204, 230, 0.55);
-  --ink: rgba(136, 204, 230, 0.4);
-  --shadow-lift: rgba(2, 1, 30, 0.55);
-  --doodle-opacity: 0.55;    /* magenta is only 2.7:1 on the dark page, so doodles need more opacity to show */
+  /* Shape: one radius for cards and panels, one for small inner parts; buttons are pills. */
+  --radius-card: 12px;
+  --radius-inner: 8px;
+
+  /* Type scale (DESIGN.md): page title, section, sub-heading, body, small, caption. */
+  --fs-title: clamp(1.75rem, 4vw, 2rem);
+  --fs-section: 1.375rem;
+  --fs-sub: 1.125rem;
+  --fs-body: 1.125rem;
+  --fs-small: 1rem;
+  --fs-caption: 0.9375rem;
 
   /* Status: unchanged. Text colours only ever sit on their own light background. */
   --safe: #1a7f37;      --safe-bg: #e6f4ea;    --safe-text: #0d4d20;
@@ -56,7 +60,7 @@
 }
 
 /* Light theme, made from the same palette: the indigo becomes the text, the
-   pond blue is deepened for buttons, cyan and magenta are used as they are. */
+   pond blue is deepened for buttons, cyan is used as it is. */
 :root[data-theme="light"] {
   color-scheme: light;
 
@@ -83,12 +87,6 @@
   /* Amber is only 2:1 on light cards, so amber stripes get a dark amber edge (the unchanged warning-text). */
   --warning-edge: #7a4100;
 
-  --card-deep-a: #f1f0fc;
-  --card-deep-b: #f3f4fd;
-  --ripple: rgba(23, 105, 142, 0.45);
-  --ink: rgba(23, 105, 142, 0.22);
-  --shadow-lift: rgba(6, 3, 81, 0.16);
-  --doodle-opacity: 0.3;
 }
 
 /* Pictures that stay dark: text inside them must use the dark tokens too
@@ -99,8 +97,6 @@
 /* `hidden` must always win, even over `display: flex` on a component (e.g. .kit-result, .badge). */
 [hidden] { display: none !important; }
 
-/* Page colour on <html>, not <body>: a body background would paint over the
-   background waves (.page-bg, z-index -1). */
 html { background: var(--background); }
 
 body {
@@ -111,43 +107,11 @@ body {
   line-height: 1.7;             /* tall enough for Kannada vowel signs */
 }
 
-h2 { font-size: 1.375rem; font-weight: 600; line-height: 1.45; margin: 0 0 0.5rem; }
+h2 { font-size: var(--fs-section); font-weight: 600; line-height: 1.45; margin: 0 0 0.5rem; }
 p { margin: 0; }
 
 button, select { font: inherit; }
 :focus-visible { outline: 3px solid var(--primary); outline-offset: 2px; }
-
-/* ---- Background waves (artwork by the project team, frontend/assets) ----
-   Desktop file on wide screens, phone file on phones; the browser only
-   downloads the one that matches. Uses the *-brand.svg copies made by
-   tools/recolor_backgrounds.py: same waves, recoloured from primary (back)
-   to secondary (front). The originals' pink and coral-red waves would sit
-   behind the reading cards and look like Danger. Low opacity keeps it a quiet
-   backdrop; cards stay fully opaque. */
-.page-bg {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background: url("/assets/background-desktop-brand.svg") center bottom / cover no-repeat;
-  opacity: 0.16;               /* control edges keep 3:1 over the brightest wave (tests/test_contrast.py) */
-}
-@media (max-width: 767px) {
-  .page-bg { background-image: url("/assets/background-phone-brand.svg"); }
-}
-/* Light theme: the same waves recoloured for pale water (tools/recolor_backgrounds.py). */
-:root[data-theme="light"] .page-bg {
-  background-image: url("/assets/background-desktop-light.svg");
-  opacity: 0.1;                /* text keeps 4.5:1 over the darkest wave (tests/test_contrast.py) */
-}
-@media (max-width: 767px) {
-  :root[data-theme="light"] .page-bg { background-image: url("/assets/background-phone-light.svg"); }
-}
-/* Not needed under the welcome screen; also off for high-contrast users. */
-body.has-welcome .page-bg { display: none; }
-@media (prefers-contrast: more), (forced-colors: active) {
-  .page-bg { display: none; }
-}
 
 /* ---- Top bar ---- */
 .top-bar {
@@ -183,22 +147,24 @@ main {
   display: flex; flex-direction: column; gap: 1.25rem;
 }
 
-/* ---- Simulated-data banner: always visible ---- */
-.simulated-banner {
+/* ---- Notes: simulated-data banner (always visible), "preview only", "not for sale" ----
+   A calm surface with a hairline and a pond-blue info icon. The words carry the message. */
+.simulated-banner, .preview-note {
   display: flex; gap: 0.75rem; align-items: flex-start;
   padding: 0.75rem 1rem;
-  background: var(--secondary); color: var(--on-secondary);
-  border: 2px dashed var(--edge-on-secondary); border-radius: 12px;
-  font-weight: 500;
+  background: var(--surface); color: var(--text);
+  border: 1px solid var(--hairline); border-radius: var(--radius-inner);
+  font-size: var(--fs-small); font-weight: 400; line-height: 1.6;
 }
-.simulated-banner svg { width: 24px; height: 24px; flex: none; fill: var(--edge-on-secondary); margin-top: 0.2rem; }
+.simulated-banner svg, .preview-note svg { width: 20px; height: 20px; flex: none; fill: var(--primary); margin-top: 0.15rem; }
+.simulated-banner strong, .preview-note strong { font-weight: 600; }
 
 /* ---- Controls ---- */
 .controls { display: flex; flex-wrap: wrap; gap: 1rem; align-items: flex-end; }
 .controls label { display: flex; flex-direction: column; gap: 0.25rem; font-weight: 500; }
 .controls select {
   min-height: 52px; min-width: 12rem; padding: 0 1rem;
-  border: 1px solid var(--hairline-strong); border-radius: 8px;
+  border: 1px solid var(--hairline-strong); border-radius: var(--radius-inner);
   background: var(--card); color: var(--text);
 }
 .button-primary, .button-secondary {
@@ -207,7 +173,8 @@ main {
 }
 .button-primary { background: var(--primary); color: var(--on-primary); border: 0; }
 .button-primary:active { background: var(--primary-pressed); }
-.button-secondary { background: transparent; color: var(--primary); border: 2px solid var(--primary); }
+.button-secondary { background: transparent; color: var(--text); border: 1px solid var(--hairline-strong); }
+.button-secondary:hover, .button-secondary:active { background: var(--surface); }
 /* DESIGN.md button-danger: destructive actions only. White on Danger red (5.6:1). */
 .button-danger {
   min-height: 52px; padding: 0 1.75rem; border-radius: 9999px; border: 0;
@@ -222,7 +189,7 @@ main {
 .status-banner {
   display: flex; gap: 1rem; align-items: flex-start;
   padding: 1rem 1.25rem;
-  border: 2px solid var(--hairline-strong); border-radius: 12px;
+  border: 2px solid var(--hairline-strong); border-radius: var(--radius-card);
   background: var(--card); color: var(--text);
 }
 .status-icon svg { width: 40px; height: 40px; display: block; }
@@ -240,15 +207,15 @@ main {
 /* ---- Cards ---- */
 .card {
   background: var(--card);
-  border: 1px solid var(--hairline); border-radius: 16px;
-  padding: 1.25rem 1.5rem;
+  border: 1px solid var(--hairline); border-radius: var(--radius-card);
+  padding: 1.5rem;
 }
-.ttd-message { font-size: 1.25rem; font-weight: 500; }
+.ttd-message { font-size: var(--fs-body); font-weight: 500; }
 /* Danger text only ever on its own light background (1.8:1 on the dark page). */
 .ttd-message.ttd-alert {
   padding: 0.75rem 1rem;
   background: var(--danger-bg); color: var(--danger-text);
-  border-left: 6px solid var(--danger); border-radius: 12px;
+  border-left: 6px solid var(--danger); border-radius: var(--radius-inner);
 }
 
 .readings {
@@ -258,7 +225,7 @@ main {
 .reading {
   background: var(--card);
   border: 1px solid var(--hairline); border-left: 6px solid var(--hairline-strong);
-  border-radius: 16px; padding: 1rem 1.25rem;
+  border-radius: var(--radius-card); padding: 1rem 1.5rem;
   display: flex; flex-direction: column; gap: 0.25rem;
 }
 .reading.level-safe    { border-left-color: var(--safe); }
@@ -266,7 +233,7 @@ main {
 .reading.level-danger  { border-left-color: var(--danger); }
 .reading-name { font-size: 1rem; font-weight: 500; color: var(--text-secondary); }
 .reading-value { font-size: 2.25rem; font-weight: 600; line-height: 1.2; font-variant-numeric: tabular-nums; }
-.reading-unit { font-size: 1.125rem; font-weight: 400; color: var(--text-secondary); margin-left: 0.25rem; }
+.reading-unit { font-size: var(--fs-caption); font-weight: 400; color: var(--text-tertiary); margin-left: 0.3rem; }
 
 .badge {
   align-self: flex-start;
@@ -281,7 +248,7 @@ main {
 .badge-info    { background: var(--secondary); color: var(--on-secondary); }
 
 .sensor-errors {
-  padding: 0.75rem 1rem; border-radius: 12px;
+  padding: 0.75rem 1rem; border-radius: var(--radius-inner);
   background: var(--danger-bg); color: var(--danger-text);
   font-weight: 500;
 }
@@ -292,7 +259,7 @@ main {
 
 .control-label { font-weight: 500; }
 
-/* ---- Pond picker: Animated Background + Border Trail ---- */
+/* ---- Pond picker: one highlight slides to the chosen pond ---- */
 .pond-picker { display: flex; flex-direction: column; gap: 0.25rem; }
 .pond-options {
   position: relative;               /* the highlight is positioned inside this */
@@ -311,8 +278,6 @@ main {
   position: absolute; top: 0; left: 0; width: 0; height: 0;
   background: var(--secondary); border-radius: 9999px;
 }
-.border-trail { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
-.border-trail rect { fill: none; stroke: var(--edge-on-secondary); stroke-width: 2.5; stroke-linecap: round; }
 
 /* ---- Status banner: smooth level change, gentle pulse in Danger (no flashing) ---- */
 .status-banner {
@@ -333,9 +298,7 @@ main {
 /* ---- Pond view + gauge cards ---- */
 .pond-card, .gauge-card { display: flex; flex-direction: column; gap: 0.75rem; }
 
-.te-word { display: inline-block; }   /* lets each word of a heading move (Text Effect) */
-
-.pond-view { aspect-ratio: 16 / 9; border-radius: 12px; overflow: hidden; background: #0c2633; }
+.pond-view { aspect-ratio: 16 / 9; border-radius: var(--radius-inner); overflow: hidden; background: #0c2633; }
 .pv-svg { display: block; width: 100%; height: 100%; }
 .pv-svg path:not(.pv-surface-line):not(.pv-floor):not(.pv-moon) { fill: #04161e; }
 .pv-moon { fill: var(--text); }
@@ -375,7 +338,7 @@ main {
 .ttd-card { display: flex; flex-direction: column; gap: 0.75rem; }
 .countdown {
   display: grid; gap: 0.125rem;
-  padding: 1rem 1.25rem; border-radius: 12px;
+  padding: 1rem 1.25rem; border-radius: var(--radius-inner);
   background: var(--warning-bg); color: var(--warning-text);   /* unchanged status pair */
   border: 2px solid var(--warning);
 }
@@ -407,17 +370,17 @@ main {
 .weather-icon { flex: none; color: var(--primary); margin-top: 0.15rem; }
 .weather-icon svg { width: 36px; height: 36px; display: block; }
 .weather-body { display: flex; flex-direction: column; gap: 0.25rem; min-width: 0; }
-.weather-title { font-size: 1.375rem; font-weight: 600; line-height: 1.45; margin: 0; color: var(--text); }
+.weather-title { font-size: var(--fs-section); font-weight: 600; line-height: 1.45; margin: 0; color: var(--text); }
 .weather-line { display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem 0.75rem; }
-.weather-message { font-size: 1.25rem; font-weight: 500; color: var(--text); }
+.weather-message { font-size: var(--fs-body); font-weight: 500; color: var(--text); }
 .weather-details { font-size: 1rem; color: var(--text-secondary); }
 .weather-details:empty { display: none; }
 .weather-offline {
   align-self: flex-start;
-  padding: 0.125rem 0.75rem;
+  padding: 0.125rem 0.625rem;
   background: var(--secondary); color: var(--on-secondary);
-  border: 2px dashed var(--edge-on-secondary); border-radius: 9999px;
-  font-size: 1rem; font-weight: 600;
+  border-radius: var(--radius-inner);
+  font-size: var(--fs-caption); font-weight: 600;
 }
 
 /* Screen-reader-only text */
@@ -435,14 +398,14 @@ main {
   position: relative;
   display: flex; align-items: flex-start; gap: 0.875rem;
   min-height: 56px; padding: 0.75rem 1rem;
-  border: 1px solid var(--hairline-strong); border-radius: 12px;
+  border: 1px solid var(--hairline-strong); border-radius: var(--radius-inner);
   background: var(--surface); cursor: pointer;
 }
 .action-item input { position: absolute; opacity: 0; width: 1px; height: 1px; }
 .action-box {
   flex: none; display: grid; place-items: center;
   width: 32px; height: 32px; margin-top: 0.1rem;
-  border: 2px solid var(--primary); border-radius: 8px; color: transparent;
+  border: 2px solid var(--primary); border-radius: 6px; color: transparent;
 }
 .action-box svg { width: 22px; height: 22px; }
 .action-text { font-size: 1.125rem; font-weight: 500; }
@@ -454,13 +417,6 @@ main {
 
 /* ---- SMS / WhatsApp preview ---- */
 .alert-card { display: flex; flex-direction: column; gap: 0.875rem; }
-.preview-note {
-  display: flex; gap: 0.75rem; align-items: flex-start;
-  padding: 0.5rem 1rem;
-  background: var(--secondary); color: var(--on-secondary);
-  border: 2px dashed var(--edge-on-secondary); border-radius: 12px; font-weight: 600;
-}
-.preview-note svg { width: 22px; height: 22px; flex: none; fill: var(--edge-on-secondary); margin-top: 0.2rem; }
 .alert-controls { display: flex; flex-wrap: wrap; gap: 0.75rem; }
 .picker-hint { margin: 0; font-size: 0.9375rem; color: var(--text-secondary); }
 .picker-hint[hidden] { display: none; }
@@ -478,24 +434,24 @@ main {
 .phone {
   width: 100%; max-width: 340px; margin: 0 auto;
   padding: 0.75rem 0.75rem 1.25rem;
-  background: var(--footer-bg); border: 2px solid var(--hairline-strong); border-radius: 36px;
+  background: var(--footer-bg); border: 1px solid var(--hairline-strong); border-radius: 28px;
 }
 .phone-top { display: flex; justify-content: center; padding: 0.25rem 0 0.75rem; }
 .phone-speaker { width: 64px; height: 6px; border-radius: 9999px; background: var(--hairline); }
 .phone-screen {
   display: flex; flex-direction: column; gap: 0.5rem;
   min-height: 300px; padding: 1rem 0.875rem;
-  background: var(--surface); border-radius: 22px;
+  background: var(--surface); border-radius: 20px;
 }
 .phone-app { font-size: 0.9375rem; font-weight: 600; color: var(--text-secondary); text-align: center; }
 .bubble {
   align-self: flex-start; max-width: 92%;
-  padding: 0.75rem 0.875rem; border-radius: 4px 18px 18px 18px;
+  padding: 0.75rem 0.875rem; border-radius: 4px var(--radius-card) var(--radius-card) var(--radius-card);
   font-size: 1rem; line-height: 1.6; white-space: pre-line; overflow-wrap: anywhere;
 }
 .bubble-sms { background: var(--card); color: var(--text); border: 1px solid var(--hairline-strong); }
 .bubble-whatsapp { background: var(--secondary); color: var(--on-secondary); }
-.bubble-none { background: transparent; color: var(--text-secondary); border: 2px dashed var(--hairline-strong); }
+.bubble-none { background: transparent; color: var(--text-secondary); border: 1px solid var(--hairline); }
 .phone-time { align-self: flex-start; font-size: 0.9375rem; color: var(--text-tertiary); }
 
 /* ---- Manual test-kit entry ---- */
@@ -507,7 +463,7 @@ main {
 .kit-label { font-weight: 600; }
 .kit-input {
   display: flex; align-items: center;
-  border: 1px solid var(--hairline-strong); border-radius: 8px; background: var(--surface);
+  border: 1px solid var(--hairline-strong); border-radius: var(--radius-inner); background: var(--surface);
 }
 .kit-input:focus-within { outline: 3px solid var(--primary); outline-offset: 2px; }
 .kit-input input {
@@ -516,46 +472,46 @@ main {
   font: inherit; font-size: 1.625rem; font-weight: 600; font-variant-numeric: tabular-nums;
 }
 .kit-input input:focus { outline: none; }
-.kit-unit { padding: 0 1rem; color: var(--text-secondary); font-weight: 500; white-space: nowrap; }
+.kit-unit { padding: 0 1rem; color: var(--text-tertiary); font-size: var(--fs-caption); font-weight: 400; white-space: nowrap; }
 .kit-buttons { display: flex; flex-wrap: wrap; gap: 1rem; grid-column: 1 / -1; }
 .kit-form-error {
-  padding: 0.75rem 1rem; border-radius: 12px;
+  padding: 0.75rem 1rem; border-radius: var(--radius-inner);
   background: var(--card); color: var(--text); font-weight: 600;
-  border-left: 6px solid var(--primary);   /* not a status colour: this is a form message, not pond condition */
+  border-left: 3px solid var(--primary);   /* not a status colour: this is a form message, not pond condition */
 }
 .kit-result { display: flex; flex-direction: column; gap: 0.75rem; }
+/* Data-source labels (manual reading, live sensor, AI assistant): quiet outlined tags,
+   not buttons. Not a pill: Kannada wraps to two lines on phones. */
 .manual-tag {
   align-self: flex-start;
   display: inline-flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;
-  padding: 0.25rem 1rem;
-  background: var(--card); color: var(--text);
-  border: 2px solid var(--primary); border-radius: 12px;   /* not a pill: Kannada wraps to two lines on phones */
+  padding: 0.25rem 0.75rem;
+  background: transparent; color: var(--text-secondary);
+  border: 1px solid var(--hairline-strong); border-radius: var(--radius-inner);
+  font-size: var(--fs-caption);
 }
 .manual-tag svg { width: 20px; height: 20px; fill: var(--primary); flex: none; }
 .kit-actions { display: flex; flex-direction: column; gap: 0.5rem; }
-.kit-actions h3 { margin: 0; font-size: 1.25rem; font-weight: 600; }
+.kit-actions h3 { margin: 0; font-size: var(--fs-sub); font-weight: 600; }
 
 /* ---- Live sensor card (DESIGN.md card-pond: pond name, status, key readings, "last updated") ---- */
 .live-card { display: flex; flex-direction: column; gap: 0.75rem; }
 .live-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem 1rem; }
 .live-head h2 { margin: 0; }
-/* Same outline tag as the test-kit label: a data-source label, never a status. */
+/* Same quiet tag as the test-kit label: a data-source label, never a status. */
 .live-tag {
   display: inline-flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;
-  margin: 0; padding: 0.25rem 1rem;
-  background: var(--card); color: var(--text);
-  border: 2px solid var(--primary); border-radius: 12px;
+  margin: 0; padding: 0.25rem 0.75rem;
+  background: transparent; color: var(--text-secondary);
+  border: 1px solid var(--hairline-strong); border-radius: var(--radius-inner);
+  font-size: var(--fs-caption);
 }
-/* Pond-blue dot (not a status colour): filled and pulsing while readings arrive, hollow otherwise. */
+/* Pond-blue dot (not a status colour): filled while readings arrive, hollow otherwise. */
 .live-dot {
   width: 12px; height: 12px; flex: none; border-radius: 50%;
   border: 2px solid var(--primary); background: transparent;
 }
-.live-dot.live-dot-on { background: var(--primary); animation: live-pulse 2s ease-out infinite; }
-@keyframes live-pulse {
-  0% { box-shadow: 0 0 0 0 var(--primary); }
-  70%, 100% { box-shadow: 0 0 0 8px transparent; }
-}
+.live-dot.live-dot-on { background: var(--primary); }
 .live-demo { align-self: flex-start; margin: 0; }
 .live-waiting, .live-note, .live-time { margin: 0; color: var(--text-secondary); }
 .live-note, .live-time { font-size: 0.9375rem; }
@@ -566,19 +522,20 @@ main {
 }
 .live-value {
   display: flex; flex-direction: column; gap: 0.25rem;
-  padding: 0.75rem 1rem; border: 1px solid var(--hairline); border-radius: 12px;
+  padding: 0.75rem 1rem; border: 1px solid var(--hairline); border-radius: var(--radius-inner);
 }
 .live-value dt { font-size: 1rem; font-weight: 500; color: var(--text-secondary); }
 .live-value dd {
-  margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem;
+  margin: 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 0.5rem;
   font-size: 1.5rem; font-weight: 600; line-height: 1.3; font-variant-numeric: tabular-nums;
 }
+.live-value dd .reading-unit { margin-left: -0.2rem; }
+.live-value dd .badge { align-self: center; }
 .live-stale {
-  margin: 0; padding: 0.75rem 1rem; border-radius: 12px;
+  margin: 0; padding: 0.75rem 1rem; border-radius: var(--radius-inner);
   background: var(--card); color: var(--text); font-weight: 600;
-  border-left: 6px solid var(--primary);   /* about the sensor, not the pond: no status colour */
+  border-left: 3px solid var(--primary);   /* about the sensor, not the pond: no status colour */
 }
-@media (prefers-reduced-motion: reduce) { .live-dot.live-dot-on { animation: none; } }
 
 /* ---- "Ask AquaNexus" assistant (assistant.js) ---- */
 .assistant-card { display: flex; flex-direction: column; gap: 0.875rem; }
@@ -593,7 +550,7 @@ main {
 }
 .chat-message {
   display: flex; flex-direction: column; align-items: flex-start; gap: 0.375rem;
-  max-width: min(46rem, 100%); padding: 0.75rem 1rem; border-radius: 16px;
+  max-width: min(46rem, 100%); padding: 0.75rem 1rem; border-radius: var(--radius-card);
 }
 .chat-user { align-self: flex-end; background: var(--primary); color: var(--on-primary); border-bottom-right-radius: 4px; }
 .chat-assistant { align-self: flex-start; background: var(--surface); border: 1px solid var(--hairline-strong); border-bottom-left-radius: 4px; }
@@ -606,39 +563,40 @@ main {
 .suggestion-list { display: flex; flex-wrap: wrap; gap: 0.5rem; }
 .chat-related { display: flex; flex-direction: column; gap: 0.5rem; }
 .chat-related-title { margin: 0; font-size: 0.9375rem; font-weight: 600; color: var(--text-secondary); }
+/* Suggested questions: quiet choices; the one primary action on the page is "Ask". */
 .suggestion {
-  min-height: 48px; padding: 0.5rem 1rem; border-radius: 12px;    /* not a pill: Kannada wraps */
-  border: 2px solid var(--primary); background: var(--card); color: var(--text);
-  font: inherit; font-size: 1rem; font-weight: 600; text-align: left; cursor: pointer;
+  min-height: 48px; padding: 0.5rem 1rem; border-radius: var(--radius-inner);    /* not a pill: Kannada wraps */
+  border: 1px solid var(--hairline-strong); background: transparent; color: var(--text);
+  font: inherit; font-size: var(--fs-small); font-weight: 500; text-align: left; cursor: pointer;
 }
 .suggestion:hover { background: var(--surface); }
 .suggestion:focus-visible { outline: 3px solid var(--primary); outline-offset: 2px; }
 .suggestion:disabled { opacity: 0.6; cursor: wait; }
 .chat-form { display: flex; flex-direction: column; gap: 0.25rem; }
-.chat-row { display: flex; gap: 0.75rem; align-items: stretch; }
+.chat-row { display: flex; gap: 0.75rem; align-items: flex-end; }
 .chat-row textarea {
   flex: 1; min-width: 0; min-height: 56px; padding: 0.75rem 1rem; resize: vertical;
-  border: 1px solid var(--hairline-strong); border-radius: 8px; background: var(--surface); color: var(--text);
-  font: inherit; font-size: 1.125rem;
+  border: 1px solid var(--hairline-strong); border-radius: var(--radius-inner); background: var(--surface); color: var(--text);
+  font: inherit; font-size: var(--fs-body);
 }
 .chat-row textarea:focus { outline: 3px solid var(--primary); outline-offset: 2px; }
-@media (max-width: 480px) { .chat-row { flex-direction: column; } }
+@media (max-width: 480px) { .chat-row { flex-direction: column; align-items: stretch; } }
 
 /* ---- Fish disease guide (diseases.js) ---- */
 .guide-card { display: flex; flex-direction: column; gap: 1rem; }
-.guide-card h3 { margin: 0; font-size: 1.375rem; font-weight: 600; line-height: 1.3; }
+.guide-card h3 { margin: 0; font-size: var(--fs-sub); font-weight: 600; line-height: 1.4; }
 .guide-intro, .guide-loading { margin: 0; color: var(--text-secondary); }
 .guide-content { display: flex; flex-direction: column; gap: 1.5rem; }
 /* Important notes (no medicines; confirm with the officer): a message, not a pond status. */
 .guide-warning, .checker-message, .guide-note {
-  margin: 0; padding: 0.75rem 1rem; border-radius: 12px;
+  margin: 0; padding: 0.75rem 1rem; border-radius: var(--radius-inner);
   background: var(--surface); color: var(--text); font-weight: 600;
-  border-left: 6px solid var(--primary);
+  border-left: 3px solid var(--primary);
 }
 .checker, .library { display: flex; flex-direction: column; gap: 0.75rem; }
 .checker-form { display: flex; flex-direction: column; gap: 1rem; }
 .checker-form fieldset { margin: 0; padding: 0; border: 0; min-width: 0; }
-.checker-form legend { padding: 0; margin-bottom: 0.5rem; font-weight: 600; font-size: 1.125rem; }
+.checker-form legend { padding: 0; margin-bottom: 0.5rem; font-weight: 600; font-size: var(--fs-small); color: var(--text-secondary); }
 .checker-signs {
   display: grid; gap: 0.5rem;
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr));
@@ -654,15 +612,15 @@ main {
 .guide-link { padding: 0; min-height: 44px; }
 
 .disease-library { display: flex; flex-direction: column; gap: 0.75rem; }
-.disease { border: 1px solid var(--hairline-strong); border-radius: 16px; background: var(--surface); }
+.disease { border: 1px solid var(--hairline); border-radius: var(--radius-inner); background: var(--surface); }
 .disease > summary {
   display: flex; align-items: center; gap: 1rem; padding: 0.75rem 1rem;
-  cursor: pointer; list-style: none; border-radius: 16px;
+  cursor: pointer; list-style: none; border-radius: var(--radius-inner);
 }
 .disease > summary::-webkit-details-marker { display: none; }
 .disease > summary::after {                 /* open / closed chevron */
   content: ""; flex: none; margin-left: auto; width: 12px; height: 12px;
-  border-right: 3px solid var(--primary); border-bottom: 3px solid var(--primary);
+  border-right: 2px solid var(--text-secondary); border-bottom: 2px solid var(--text-secondary);
   transform: rotate(45deg); transition: transform 0.2s;
 }
 .disease[open] > summary::after { transform: rotate(-135deg); }
@@ -680,7 +638,7 @@ main {
 .no-photo summary { cursor: pointer; font-weight: 600; min-height: 44px; display: flex; align-items: center; }
 .no-photo p { margin: 0.5rem 0 0; }
 
-/* Original drawings. Disease marks use the magenta accent (decoration), never status colours. */
+/* Original line drawings, one colour: marks are drawn in the text colour, never magenta or a status colour. */
 .fish-art { flex: none; width: 104px; height: auto; overflow: visible; }
 .fish-art .fish { fill: var(--card); stroke: var(--text); stroke-width: 2; stroke-linejoin: round; }
 .fish-art .fin { fill: var(--card); stroke: var(--text); stroke-width: 2; }
@@ -688,43 +646,44 @@ main {
 .fish-art .gap { stroke: var(--surface); stroke-width: 4; }
 .fish-art .pupil { fill: var(--text); }
 .fish-art .eye-pop { fill: var(--card); stroke: var(--text); stroke-width: 1.6; }
-.fish-art .mark { fill: var(--accent); }
+.fish-art .mark { fill: var(--text-secondary); }
 .fish-art .tuft { fill: var(--text-secondary); opacity: 0.9; }   /* cotton-wool mould is white-grey */
-.fish-art .mark-ring, .fish-art .mark-line { fill: none; stroke: var(--accent); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-.fish-art .mark-flat { fill: var(--card); stroke: var(--accent); stroke-width: 1.8; }
-.fish-art .spot { fill: #ffffff; stroke: var(--accent); stroke-width: 0.8; }
+.fish-art .mark-ring, .fish-art .mark-line { fill: none; stroke: var(--text-secondary); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.fish-art .mark-flat { fill: var(--card); stroke: var(--text-secondary); stroke-width: 1.8; }
+.fish-art .spot { fill: var(--card); stroke: var(--text); stroke-width: 0.8; }
 .fish-art .shade { fill: var(--text); opacity: 0.35; }
 @media (max-width: 480px) { .fish-art { width: 76px; } .disease > summary { gap: 0.75rem; padding: 0.75rem; } }
 
 /* "Diseases more likely now" for a risky reading */
 .likely-card { display: flex; flex-direction: column; align-items: flex-start; gap: 0.5rem; }
 .likely-box { display: flex; flex-direction: column; gap: 0.5rem; }
-.likely-title { margin: 0; font-size: 1.25rem; font-weight: 600; }
+.likely-title { margin: 0; font-size: var(--fs-sub); font-weight: 600; }
 .likely-list { margin: 0; padding-left: 1.5rem; display: flex; flex-direction: column; gap: 0.25rem; }
 .likely-note { margin: 0; color: var(--text-secondary); }
 .kit-result .likely-box, .live-result .likely-box {
-  padding: 0.75rem 1rem; border: 1px solid var(--hairline-strong); border-radius: 12px;
+  padding: 0.75rem 1rem; border: 1px solid var(--hairline); border-radius: var(--radius-inner);
 }
 
-/* ---- "Simulated data" tag: on every card that shows simulated values ---- */
+/* ---- "Simulated data" tag: on every card that shows simulated values ----
+   A small solid chip (cyan fill, dark text), no outline. Not a pill: Kannada may wrap. */
 .sim-tag {
   display: inline-flex; align-items: center;
-  padding: 0.125rem 0.75rem;
+  padding: 0.0625rem 0.5rem;
   background: var(--secondary); color: var(--on-secondary);
-  border: 2px dashed var(--edge-on-secondary); border-radius: 12px;   /* not a pill: Kannada may wrap */
-  font-size: 0.9375rem; font-weight: 600; line-height: 1.6;
+  border-radius: 6px;
+  font-size: var(--fs-caption); font-weight: 600; line-height: 1.6;
 }
 
 /* ---- Voice alert button (plays only when tapped) ---- */
 .voice-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1rem; }
 .voice-button { display: inline-flex; align-items: center; gap: 0.6rem; }
 .voice-button svg { width: 26px; height: 26px; flex: none; }
-.voice-button[aria-pressed="true"] { background: var(--primary); color: var(--on-primary); }
+.voice-button[aria-pressed="true"] { background: var(--primary-pressed); color: var(--on-primary); }
 .voice-note {
   flex: 1 1 18rem;
-  padding: 0.5rem 1rem; border-radius: 12px;
+  padding: 0.5rem 1rem; border-radius: var(--radius-inner);
   background: var(--card); color: var(--text); font-weight: 500;
-  border-left: 6px solid var(--primary);   /* a device message, not pond condition: no status colour */
+  border-left: 3px solid var(--primary);   /* a device message, not pond condition: no status colour */
 }
 
 /* ---- Pond health score ring ---- */
@@ -745,8 +704,8 @@ main {
   font-size: 3rem; font-weight: 600; line-height: 1.2; font-variant-numeric: tabular-nums;
 }
 .health-info { flex: 1 1 16rem; display: flex; flex-direction: column; gap: 0.5rem; }
-.health-text { font-size: 1.25rem; font-weight: 500; }
-.health-scale { font-size: 1rem; color: var(--text-secondary); }
+.health-text { font-size: var(--fs-body); font-weight: 500; }
+.health-scale { font-size: var(--fs-caption); color: var(--text-secondary); }
 
 /* ---- Alert history timeline ---- */
 .history-card { display: flex; flex-direction: column; gap: 0.75rem; }
@@ -785,7 +744,7 @@ main {
   pointer-events: none;        /* read-only: taps and clicks go through to the page (it covers Start on phones) */
   padding: 0.5rem 0.75rem;
   background: var(--surface); color: var(--text);
-  border: 2px solid var(--primary); border-radius: 12px;
+  border: 1px solid var(--primary); border-radius: var(--radius-inner);
   font-size: 0.9375rem; line-height: 1.4; font-variant-numeric: tabular-nums;
 }
 .debug-title { font-weight: 700; margin-bottom: 0.25rem; }
@@ -795,31 +754,27 @@ main {
 .debug-panel .debug-grew td { background: var(--primary); color: var(--on-primary); font-weight: 700; }   /* not a status colour: dev tool */
 
 /* ================================================================
-   Personality pass: sky scene, bento board, hand-drawn touches,
-   cursor and tap effects (scene.js, cursor-fx.js).
-   Colour rules: blues, indigo, aqua and pale pearl only. Green, amber and
+   Sky scene and page boards (scene.js).
+   Colour rules: blues, indigo and pale pearl only. Green, amber and
    red stay reserved for Safe / Warning / Danger and are never decoration.
    ================================================================ */
 
-/* ---- Every card: a positioned, clipped layer, so decoration (doodles,
-   tap ink) can sit BEHIND the content with z-index: -1. ---- */
-.card { position: relative; isolation: isolate; overflow: hidden; }
+.card { position: relative; }
 
 /* ---- Day/night scene ---- */
 .scene {
   position: relative; isolation: isolate; overflow: hidden;
   height: clamp(180px, 24vw, 250px);
-  border-radius: 28px; border: 1px solid var(--hairline);
+  border-radius: var(--radius-card); border: 1px solid var(--hairline);
   background: #03022e;
 }
 .scene-art { position: absolute; inset: 0; }
 .sky-layer, .scene-stars, .scene-land { position: absolute; inset: 0; width: 100%; height: 100%; }
 .sky-layer { will-change: opacity; }
 .scene-stars { fill: var(--text); opacity: 0; }
-.scene-stars g { animation: star-twinkle 3.4s ease-in-out infinite alternate; }
-.scene-stars .sc-stars-b { animation-duration: 4.7s; animation-delay: -2s; }
-@keyframes star-twinkle { from { opacity: 1; } to { opacity: 0.45; } }
-.is-low-power .scene-stars g { animation: none; }
+.scene-stars .sc-stars-b { opacity: 0.7; }
+.scene-stars .sc-stars-c { opacity: 0.5; }
+.sc-halo { opacity: 0.18; }                 /* soft halo around the few bright stars */
 .scene-sun, .scene-moon, .scene-glint { position: absolute; top: 0; left: 0; opacity: 0; will-change: transform, opacity; }
 .scene-sun {
   width: 96px; height: 96px; margin: -48px 0 0 -48px; border-radius: 50%;
@@ -846,9 +801,7 @@ main {
 .sc-palm-far .sc-trunk { stroke-width: 4.5; }
 .sc-reeds path { stroke-width: 3; }
 .sc-pole { stroke-width: 2.5; }
-.sc-shimmer path, .sc-accent path { fill: none; stroke-linecap: round; }
-.sc-shimmer path { stroke: var(--primary); stroke-width: 2; opacity: 0.35; }
-.sc-accent path { stroke: var(--accent); stroke-width: 1.8; opacity: 0.8; }
+.sc-shimmer path { fill: none; stroke-linecap: round; stroke: var(--primary); stroke-width: 2; opacity: 0.35; }
 
 /* Clock + "Simulated data" on a solid dark chip, readable over any sky. */
 .scene-chip {
@@ -856,7 +809,7 @@ main {
   display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.75rem;
   max-width: calc(100% - 2rem);
   padding: 0.5rem 0.875rem;
-  background: rgba(4, 2, 40, 0.84); border: 1px solid rgba(222, 240, 248, 0.18); border-radius: 12px;
+  background: rgba(4, 2, 40, 0.84); border: 1px solid rgba(222, 240, 248, 0.18); border-radius: var(--radius-inner);
 }
 .scene-phase { color: var(--primary); font-weight: 600; }
 /* Narrow screens: the chip becomes a strip above the picture, so it never covers the sky. */
@@ -868,9 +821,7 @@ main {
 @media (max-width: 480px) { .scene-chip { padding: 0.5rem 0.75rem; gap: 0.25rem 0.5rem; } }
 .scene-phase:empty { display: none; }
 
-/* The status banner rises over the bottom of the scene: the alert sits under the sky it happens in. */
-.scene + .status-banner { margin: -3.25rem 1rem 0; box-shadow: var(--shadow-lift) 0 16px 40px -12px; }
-@media (max-width: 480px) { .scene + .status-banner { margin: -2.75rem 0.5rem 0; } }
+/* The status banner sits directly under the sky it happens in: flat, no overlap or shadow. */
 
 /* ---- Bento boards: varied card sizes, one board per page ----
    Phones: one column in reading order. Tablets: two columns. Computers: six
@@ -904,43 +855,8 @@ main {
 .readings-block { display: flex; flex-direction: column; gap: 0.75rem; min-width: 0; }
 .readings-head h2 { margin: 0; }
 
-/* ---- Card variety (DESIGN.md card-feature / card-feature-deep: decorative, never a status).
-   Solid fills only: no gradients or glows. ---- */
-.health-card { border-radius: 28px; padding: 1.5rem 2rem; background: var(--card-deep-a); }
-.pond-card { border-radius: 28px; background: var(--surface); }
-.ttd-card { background: var(--card-deep-b); }
-@media (max-width: 480px) { .health-card { padding: 1.25rem; } }
-
-/* ---- Hand-drawn doodles (scene.js): aqua line drawings behind card content ---- */
-.doodle { position: absolute; z-index: -1; pointer-events: none; color: var(--accent); opacity: var(--doodle-opacity); }
-.doodle svg { display: block; width: 100%; height: auto; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
-.doodle-fish { right: 1.25rem; bottom: 0.75rem; width: 130px; }
-.doodle-reeds { right: 0.75rem; bottom: 0; width: 92px; }
-.doodle-ripples { right: 1rem; top: 0.75rem; width: 120px; }
-@media (max-width: 480px) { .doodle { display: none; } }
-
-/* ---- Cursor and tap effects (cursor-fx.js) ---- */
-.cursor-water { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
-.fx-ripple {
-  position: absolute; top: 0; left: 0;
-  width: 150px; height: 150px; margin: -75px 0 0 -75px;
-  border-radius: 50%; border: 1.5px solid var(--ripple);
-  opacity: 0; pointer-events: none; will-change: transform, opacity;
-}
-.fx-ink {                           /* tap ripple on phones */
-  position: absolute; top: 0; left: 0; z-index: -1;
-  border-radius: 50%; background: var(--ink);
-  opacity: 0; pointer-events: none;
-}
-/* Buttons host their own tap ink behind the label. */
-button { position: relative; isolation: isolate; overflow: hidden; }
-
-@media (prefers-reduced-motion: reduce) {
-  .scene-stars g { animation: none; }
-  .fx-ripple, .fx-ink { display: none; }
-}
 @media (prefers-contrast: more), (forced-colors: active) {
-  .doodle, .cursor-water { display: none; }
+  .scene-glint { display: none; }
 }
 
 /* ================================================================
@@ -950,7 +866,7 @@ button { position: relative; isolation: isolate; overflow: hidden; }
    ================================================================ */
 .page { display: flex; flex-direction: column; gap: 1.25rem; min-width: 0; }
 .page-title {
-  margin: 0; font-size: clamp(1.75rem, 4vw, 2.25rem); font-weight: 600; line-height: 1.35;
+  margin: 0; font-size: var(--fs-title); font-weight: 600; line-height: 1.35;
 }
 .page-title:focus { outline: none; }            /* focused by the router, not by the farmer */
 .page-title:focus-visible { outline: 3px solid var(--primary); outline-offset: 2px; }
@@ -972,7 +888,7 @@ button { position: relative; isolation: isolate; overflow: hidden; }
   position: relative;
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.125rem;
   min-height: 56px; min-width: 0; padding: 0.25rem 0;
-  border-radius: 12px;
+  border-radius: var(--radius-inner);
   color: var(--text-secondary); text-decoration: none;
   font-size: 0.9375rem; font-weight: 500; line-height: 1.3; text-align: center;
 }
@@ -1023,8 +939,9 @@ button { position: relative; isolation: isolate; overflow: hidden; }
 @media (max-width: 767px) { .top-theme { display: none; } }
 
 /* ---- Status strip: level + time until danger, on every page ---- */
+/* One row on every screen: icon | level + detail (wraps inside) | simulated chip | arrow. */
 .status-strip {
-  display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem 0.75rem;
+  display: grid; grid-template-columns: auto minmax(0, 1fr) auto auto; align-items: center; column-gap: 0.75rem;
   min-height: 52px; padding: 0.375rem 1rem;
   background: var(--surface); color: var(--text);
   border-bottom: 2px solid var(--hairline-strong);
@@ -1032,16 +949,18 @@ button { position: relative; isolation: isolate; overflow: hidden; }
   transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
 }
 .strip-icon { display: flex; flex: none; }
+.strip-icon:empty { display: none; }
+.strip-unknown { grid-template-columns: minmax(0, 1fr) auto auto; }
 .strip-icon svg { width: 26px; height: 26px; }
-.strip-text { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 0.75rem; flex: 1 1 10rem; min-width: 0; }
+.strip-text { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 0.75rem; min-width: 0; }
 .strip-level { font-size: 1.125rem; font-weight: 700; line-height: 1.4; }
 .strip-detail { font-size: 1rem; font-weight: 500; line-height: 1.5; font-variant-numeric: tabular-nums; }
 .strip-sim {
-  padding: 0 0.625rem; border-radius: 12px;
+  max-width: 10rem; padding: 0.0625rem 0.5rem; border-radius: 6px;   /* long Kannada wraps inside the chip */
   background: var(--secondary); color: var(--on-secondary);
-  border: 2px dashed var(--edge-on-secondary);
-  font-size: 0.9375rem; font-weight: 600; line-height: 1.5;
+  font-size: var(--fs-caption); font-weight: 600; line-height: 1.4; text-align: center;
 }
+@media (min-width: 768px) { .strip-sim { max-width: none; white-space: nowrap; } }
 .strip-go { width: 22px; height: 22px; flex: none; }
 /* Same fixed status pairs as the big banner. */
 .strip-safe    { background: var(--safe-bg);    color: var(--safe-text);    border-bottom-color: var(--safe); }
@@ -1089,7 +1008,7 @@ button { position: relative; isolation: isolate; overflow: hidden; }
    ================================================================ */
 .strip-sim[hidden] { display: none; }
 .ponds-section { display: flex; flex-direction: column; gap: 0.75rem; }
-.ponds-title, .demo-pond-title { margin: 0; font-size: 1.375rem; font-weight: 600; line-height: 1.45; }
+.ponds-title, .demo-pond-title { margin: 0; font-size: var(--fs-section); font-weight: 600; line-height: 1.45; }
 .demo-pond-title { margin-top: 0.5rem; }
 .pond-tiles {
   list-style: none; margin: 0; padding: 0;
@@ -1105,9 +1024,9 @@ button { position: relative; isolation: isolate; overflow: hidden; }
   display: flex; flex-direction: column; gap: 0.375rem;
   min-height: 48px; padding: 1rem 1.25rem; color: var(--text); text-decoration: none;
 }
-.pond-tile-link:focus-visible { outline: 3px solid var(--primary); outline-offset: -3px; border-radius: 14px; }
+.pond-tile-link:focus-visible { outline: 3px solid var(--primary); outline-offset: -3px; border-radius: var(--radius-card); }
 .pond-tile-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem 0.75rem; }
-.pond-tile-name { margin: 0; font-size: 1.25rem; font-weight: 600; line-height: 1.4; overflow-wrap: anywhere; }
+.pond-tile-name { margin: 0; font-size: var(--fs-sub); font-weight: 600; line-height: 1.4; overflow-wrap: anywhere; }
 .pond-tile-cause { font-weight: 600; }
 .pond-tile-time, .pond-tile-place { color: var(--text-secondary); font-size: 1rem; }
 
@@ -1145,7 +1064,7 @@ button { position: relative; isolation: isolate; overflow: hidden; }
 .pond-detail .sim-tag { align-self: flex-start; }
 .board-pond-detail { display: grid; gap: 1.25rem; grid-template-columns: minmax(0, 1fr); align-items: start; }
 @media (min-width: 1024px) { .board-pond-detail { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-.board-pond-detail h3 { margin: 0 0 0.5rem; font-size: 1.25rem; font-weight: 600; }
+.board-pond-detail h3 { margin: 0 0 0.5rem; font-size: var(--fs-sub); font-weight: 600; }
 .pond-readings-card, .device-card { display: flex; flex-direction: column; gap: 0.75rem; }
 .pond-action-list { margin: 0; padding-left: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; font-weight: 500; }
 .chart-wrap[hidden] { display: none; }
@@ -1158,7 +1077,7 @@ button { position: relative; isolation: isolate; overflow: hidden; }
 .device-secrets dt { font-weight: 600; color: var(--text-secondary); font-size: 1rem; }
 .device-secrets dd { margin: 0.25rem 0 0; display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; }
 .device-secrets code, .farm-code {
-  padding: 0.375rem 0.625rem; border-radius: 8px;
+  padding: 0.375rem 0.625rem; border-radius: var(--radius-inner);
   background: var(--surface); border: 1px solid var(--hairline-strong); color: var(--text);
   font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: 1rem; overflow-wrap: anywhere;
 }
@@ -1183,35 +1102,9 @@ button { position: relative; isolation: isolate; overflow: hidden; }
 .pond-form .kit-help { font-size: 0.9375rem; }
 
 /* ================================================================
-   Team Orbit touches (scene.js, health-ring.js, app.js). Subtle space
-   details; the pond stays the main picture. Pearl and pond-blue only:
-   never a status colour, and never the magenta accent (it stays on
-   doodles and scene lines).
+   Team Orbit touches: the loader and the credit logo. Pearl and
+   pond-blue only: never a status colour, never the magenta accent.
    ================================================================ */
-
-/* Richer starfield: a third twinkle group and bright stars with a soft halo. */
-.scene-stars .sc-stars-c { animation-duration: 5.9s; animation-delay: -3.1s; }
-.scene-stars .sc-stars-bright { animation: none; }
-.sc-halo { opacity: 0.18; }
-
-/* Night-only layer (fades with the stars): shooting star + satellite. */
-.scene-night-fx { position: absolute; inset: 0; opacity: 0; pointer-events: none; overflow: hidden; }
-.scene-meteor {
-  position: absolute; top: 0; left: 0; width: 90px; height: 2px; margin-top: -1px;
-  transform-origin: 100% 50%;      /* the bright head leads */
-  border-radius: 2px; opacity: 0;
-  background: linear-gradient(to right, rgba(222, 240, 248, 0), rgba(222, 240, 248, 0.95));
-  will-change: transform, opacity;
-}
-.scene-satellite { position: absolute; top: 0; left: 0; width: 16px; height: 6px; margin: -3px 0 0 -8px; opacity: 0; will-change: transform; }
-.scene-satellite svg { display: block; width: 100%; height: 100%; fill: var(--text); }
-.scene-satellite svg rect:not(:last-child) { fill: var(--primary); opacity: 0.85; }   /* solar panels */
-
-/* Health ring: a small glowing dot circling the ring. */
-.health-orbit-dot { fill: var(--text); }
-.health-orbit-halo { fill: var(--text); opacity: 0.28; }
-:root[data-theme="light"] .health-orbit-dot,
-:root[data-theme="light"] .health-orbit-halo { fill: var(--primary); }
 
 /* Loading: a small fish circling a water drop. */
 .orbit-loader { display: block; width: 100%; height: 100%; overflow: visible; }
@@ -1244,7 +1137,7 @@ button { position: relative; isolation: isolate; overflow: hidden; }
 .sources-open { align-self: center; }
 .sources-dialog {
   width: min(40rem, calc(100vw - 2rem)); max-height: calc(100dvh - 2rem);
-  padding: 1.5rem; border: 1px solid var(--hairline); border-radius: 16px;
+  padding: 1.5rem; border: 1px solid var(--hairline); border-radius: var(--radius-card);
   background: var(--card); color: var(--text); line-height: 1.6;
 }
 .sources-dialog::backdrop { background: rgba(3, 2, 44, 0.7); }
@@ -1261,7 +1154,6 @@ button { position: relative; isolation: isolate; overflow: hidden; }
 
 @media (prefers-reduced-motion: reduce) {
   .ol-fish { animation: none; }    /* the fish rests beside the drop */
-  .scene-night-fx { display: none; }
 }
 
 /* Site footer: team, data sources, source code and a short privacy note.
@@ -1301,7 +1193,7 @@ button { position: relative; isolation: isolate; overflow: hidden; }
 .shop-wiring-figure { margin: 0; display: grid; gap: 0.5rem; }
 .shop-wiring-figure img {
   display: block; width: 100%; height: auto;
-  background: var(--picture-bg); border-radius: 12px; padding: 0.5rem; box-sizing: border-box;
+  background: var(--picture-bg); border-radius: var(--radius-inner); padding: 0.5rem; box-sizing: border-box;
 }
 .shop-wiring-open { color: var(--primary); justify-self: start; min-height: 44px; display: inline-flex; align-items: center; }
 .shop-wiring-figure figcaption { color: var(--text-secondary); font-size: 1rem; }
@@ -1310,7 +1202,7 @@ button { position: relative; isolation: isolate; overflow: hidden; }
 .cart-button {
   display: inline-flex; align-items: center; gap: 0.5rem;
   min-height: 48px; padding: 0 0.75rem 0 1rem; border-radius: 9999px;
-  background: transparent; color: var(--primary); border: 2px solid var(--primary);
+  background: transparent; color: var(--text); border: 1px solid var(--hairline-strong);
   font-weight: 600; cursor: pointer;
 }
 .cart-button svg { width: 24px; height: 24px; flex: none; }
@@ -1331,9 +1223,9 @@ button { position: relative; isolation: isolate; overflow: hidden; }
 @media (min-width: 1024px) { .shop-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 .shop-card { display: flex; flex-direction: column; gap: 0.75rem; }
 .shop-card-head { display: flex; align-items: center; gap: 0.875rem; }
-.shop-icon { flex: none; display: flex; width: 56px; height: 56px; padding: 6px; border-radius: 16px; background: var(--surface); border: 1px solid var(--hairline); }
+.shop-icon { flex: none; display: flex; width: 48px; height: 48px; padding: 6px; border-radius: var(--radius-inner); background: var(--surface); border: 1px solid var(--hairline); }
 .shop-icon svg { width: 100%; height: 100%; fill: none; stroke: var(--primary); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
-.shop-name { margin: 0; font-size: 1.25rem; font-weight: 600; line-height: 1.45; }
+.shop-name { margin: 0; font-size: var(--fs-sub); font-weight: 600; line-height: 1.45; }
 .shop-desc { color: var(--text-secondary); }
 .shop-facts { margin: 0; display: grid; gap: 0.125rem; }
 .shop-facts dt { font-size: 1rem; font-weight: 600; color: var(--text-secondary); }
@@ -1347,8 +1239,7 @@ button { position: relative; isolation: isolate; overflow: hidden; }
   position: fixed; left: 1rem; right: 1rem; bottom: calc(80px + env(safe-area-inset-bottom)); z-index: 40;
   max-width: 28rem; margin: 0 auto; padding: 0.75rem 1.25rem;
   background: var(--surface); color: var(--text);
-  border: 1px solid var(--hairline-strong); border-radius: 12px;
-  box-shadow: rgba(10, 31, 41, 0.14) 0px 16px 48px -8px;
+  border: 1px solid var(--hairline-strong); border-radius: var(--radius-inner);
   font-weight: 600; text-align: center;
 }
 .shop-toast[hidden] { display: none; }
@@ -1358,7 +1249,7 @@ button { position: relative; isolation: isolate; overflow: hidden; }
 .cart-drawer {
   margin: 0 0 0 auto; width: min(28rem, 100vw); max-width: 100vw;
   height: 100dvh; max-height: 100dvh;
-  padding: 1.25rem; border: 0; border-left: 1px solid var(--hairline); border-radius: 16px 0 0 16px;
+  padding: 1.25rem; border: 0; border-left: 1px solid var(--hairline); border-radius: var(--radius-card) 0 0 var(--radius-card);
   background: var(--card); color: var(--text); line-height: 1.6;
 }
 .cart-drawer::backdrop { background: rgba(3, 2, 44, 0.7); }
@@ -1372,7 +1263,7 @@ button { position: relative; isolation: isolate; overflow: hidden; }
 .cart-item-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; }
 .cart-step {
   width: 44px; height: 44px; flex: none; border-radius: 9999px;
-  background: transparent; color: var(--primary); border: 2px solid var(--primary);
+  background: transparent; color: var(--text); border: 1px solid var(--hairline-strong);
   font-size: 1.5rem; font-weight: 600; line-height: 1; cursor: pointer;
 }
 .cart-step:active { background: var(--surface); }
@@ -1392,7 +1283,7 @@ button { position: relative; isolation: isolate; overflow: hidden; }
 .checkout-list {
   margin: 0.5rem 0; padding: 0.75rem 1rem;
   background: var(--surface); color: var(--text);
-  border: 1px solid var(--hairline-strong); border-radius: 8px;
+  border: 1px solid var(--hairline-strong); border-radius: var(--radius-inner);
   font: inherit; font-size: 1rem; line-height: 1.6;
   white-space: pre-wrap; overflow-wrap: anywhere;
 }
