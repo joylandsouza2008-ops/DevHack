@@ -316,9 +316,10 @@ def test_danger_text_never_sits_on_the_dark_page():
 
 
 def test_pictures_stay_dark_in_the_light_theme():
-    # Welcome pond, sky scene and pond view are night-water pictures: always dark tokens.
+    # The sky scene and pond view are night-water pictures: always dark tokens.
+    # (The start page is light in both themes, with its own palette: test_start_page_is_light_and_flat.)
     html = (STYLES.parent / "index.html").read_text(encoding="utf-8")
-    for element in ('class="welcome dark-scope"', 'class="scene dark-scope"', 'class="pond-view dark-scope"'):
+    for element in ('class="scene dark-scope"', 'class="pond-view dark-scope"'):
         assert element in html
     # Text colour is inherited already computed, so the pictures must set it again from their own tokens.
     assert ".dark-scope { color: var(--text); }" in CSS
@@ -379,20 +380,64 @@ def test_no_glows_or_gradient_text():
 ORBIT_CSS = CSS[CSS.index("Team Orbit touches: the loader"):]
 
 
+LOGO = STYLES.parent / "assets" / "team-orbit-logo.svg"
+FAVICON = STYLES.parent / "assets" / "team-orbit-favicon.svg"
+# The Team Orbit logo, exactly as the team gave it (DESIGN.md "Team Orbit logo").
+LOGO_SVG = ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><mask id="to-cut" maskUnits="userSpaceOnUse">'
+            '<rect width="100" height="100" fill="#fff"/><line x1="10" y1="77" x2="84" y2="27.5" stroke="#000" stroke-width="13"/>'
+            '</mask></defs><circle cx="50" cy="50" r="30" fill="none" stroke="currentColor" stroke-width="11" mask="url(#to-cut)"/>'
+            '<line x1="16" y1="72.5" x2="78" y2="31" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>'
+            '<circle cx="84" cy="27" r="8" fill="currentColor"/></svg>')
+LOGO_ORBIT_LINE = '<line x1="16" y1="72.5" x2="78" y2="31" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>'
+
+
 def test_team_credit_on_the_welcome_screen_and_in_the_footer():
     html = (STYLES.parent / "index.html").read_text(encoding="utf-8")
-    assert html.count('data-i18n="builtBy">Built by Team Orbit') == 1                          # welcome screen
+    assert html.count('data-i18n="teamPresents">Team Orbit presents') == 1                     # welcome screen
     assert html.count('data-i18n="footerCredit">AquaNexus by Team Orbit (Nexus Orbit)') == 1  # footer
-    assert html.count('class="orbit-logo"') == 2
+    assert "Built by Team Orbit" not in html and "team-credit-on-dark" not in html            # the logo replaces the pill
+    # The logo inline on the start screen (top bar + flat fallback), in the header and in the footer,
+    # each copy with its own mask id; the favicon is the same logo with its colours built in.
+    assert html.count(LOGO_ORBIT_LINE) == 4
+    masks = re.findall(r'<mask id="([^"]+)"', html)
+    assert len(masks) == 4 and len(set(masks)) == 4, masks
+    for mask_id in masks:
+        assert html.count(f'mask="url(#{mask_id})"') == 1
+    assert '<link rel="icon" href="/assets/team-orbit-favicon.svg" type="image/svg+xml">' in html
 
 
-def test_team_credit_chip_is_readable_over_the_brightest_welcome_water():
-    # Welcome pond: the brightest water is the first gradient stop (welcome.css).
-    welcome = (STYLES.parent / "welcome.css").read_text(encoding="utf-8")
-    brightest = re.search(r"at 72% -12%, (#[0-9a-fA-F]{6}) 0%", welcome).group(1)
-    assert "background: rgba(6, 3, 81, 0.6)" in ORBIT_CSS
-    chip = over("#060351", brightest, 0.6)
-    assert contrast(C["text"], chip) >= TEXT
+def test_team_orbit_logo_is_the_given_svg_in_the_right_colours():
+    assert LOGO.read_text(encoding="utf-8").strip() == LOGO_SVG
+    fav = FAVICON.read_text(encoding="utf-8")
+    assert "svg{color:#0B7A85}" in fav and "(prefers-color-scheme:dark){svg{color:#8FD8E8}}" in fav
+    assert LOGO_ORBIT_LINE in fav
+    # #0B7A85 on light backgrounds, #8FD8E8 on dark: 3:1 or better wherever the logo sits.
+    assert THEMES["light"]["logo"] == "#0b7a85" and THEMES["dark"]["logo"] == "#8fd8e8"
+    for theme in ("light", "dark"):
+        for bg in ("background", "surface", "footer-bg"):
+            assert contrast(THEMES[theme]["logo"], THEMES[theme][bg]) >= NON_TEXT, (theme, bg)
+
+
+# The start page's own palette (welcome.css), light in both themes.
+WELCOME = (STYLES.parent / "welcome.css").read_text(encoding="utf-8")
+W = dict(re.findall(r"--w-([a-z]+):\s*(#[0-9a-fA-F]{6})", WELCOME))
+
+
+def test_start_page_is_light_and_flat():
+    assert W == {"bg": "#f4f7f6", "text": "#0f2a33", "muted": "#4d646b", "accent": "#0b7a85", "line": "#dce5e3"}
+    for banned in ("gradient(", "pond-light", "pond-caustics", ".fish", "box-shadow"):
+        assert banned not in WELCOME, banned
+    html = (STYLES.parent / "index.html").read_text(encoding="utf-8")
+    assert '<section class="welcome" id="welcome"' in html and 'id="pond-fish"></div>' not in html
+
+
+def test_start_page_text_is_readable():
+    assert contrast(W["text"], W["bg"]) >= TEXT          # name, facts
+    assert contrast(W["muted"], W["bg"]) >= TEXT         # tagline, fact details
+    assert contrast(W["accent"], W["bg"]) >= TEXT        # "Team Orbit presents", ಮೀನು ರಕ್ಷಕ
+    assert contrast("#ffffff", W["text"]) >= TEXT        # Start button: white on the dark text colour
+    assert contrast(W["text"], "#ffffff") >= TEXT        # language switch: dark on white, and white on dark
+    assert contrast(W["accent"], W["bg"]) >= NON_TEXT    # logo, the orbit dot
 
 
 def test_space_touches_use_no_status_or_accent_colour():

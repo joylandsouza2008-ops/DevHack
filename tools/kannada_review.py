@@ -25,7 +25,7 @@ KANNADA = re.compile("[\u0C80-\u0CFF]")
 
 # Screen headings for the frontend TEXT keys (first matching prefix wins).
 FRONTEND_SCREENS = [
-    ("Welcome screen", ["appName", "welcomeTagline", "welcomeExample", "start", "builtBy"]),
+    ("Welcome screen", ["appName", "welcomeTagline", "welcomeExample", "start", "teamPresents", "fact"]),
     ("Top bar and demo controls", ["tagline", "theme", "simulated", "demoPond", "pond", "scenario", "restart", "pause",
                                    "resume", "simTime", "connecting", "ended", "connectionLost"]),
     ("Pond view, pond health and readings", ["pondViewTitle", "pondCaption", "readings",

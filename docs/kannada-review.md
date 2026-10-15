@@ -8,7 +8,7 @@ coastal Karnataka to understand. Write any fix in the last column.
 - `A  /  B` means the app shows one of two versions, depending on the situation.
 - Unit symbols (mg/L, °C, km/h, pH) and the names SMS, WhatsApp, FAO, TNAU, Open-Meteo stay in English.
 
-706 strings. Generated from the code by `python tools/kannada_review.py`; re-run it after changing any text.
+712 strings. Generated from the code by `python tools/kannada_review.py`; re-run it after changing any text.
 
 ## 1. Language and theme switches
 
@@ -29,7 +29,13 @@ Button and screen-reader labels in index.html.
 | 3 | `app.js welcomeExampleLevel` | Warning | ಎಚ್ಚರಿಕೆ |  |
 | 4 | `app.js welcomeExampleText` | Pond 1: oxygen is low (3.8 mg/L). Run the aerator tonight. | ಕೊಳ 1: ಆಮ್ಲಜನಕ ಕಡಿಮೆ ಇದೆ (3.8 mg/L). ಇಂದು ರಾತ್ರಿ ಏರೇಟರ್ ಚಾಲೂ ಇಡಿ. |  |
 | 5 | `app.js start` | Start | ಪ್ರಾರಂಭಿಸಿ |  |
-| 6 | `app.js builtBy` | Built by Team Orbit | ನಿರ್ಮಾಣ: ಟೀಮ್ ಆರ್ಬಿಟ್ |  |
+| 6 | `app.js teamPresents` | Team Orbit presents | ಟೀಮ್ ಆರ್ಬಿಟ್ ಪ್ರಸ್ತುತಪಡಿಸುತ್ತದೆ |  |
+| 7 | `app.js factLangTitle` | Kannada + English | ಕನ್ನಡ + English |  |
+| 8 | `app.js factLangText` | Voice alerts | ಧ್ವನಿ ಎಚ್ಚರಿಕೆಗಳು |  |
+| 9 | `app.js factFreeTitle` | No sign-up | ನೋಂದಣಿ ಬೇಡ |  |
+| 10 | `app.js factFreeText` | Free to use | ಉಚಿತವಾಗಿ ಬಳಸಿ |  |
+| 11 | `app.js factPhoneTitle` | Works on any phone | ಯಾವುದೇ ಫೋನ್‌ನಲ್ಲಿ ಕೆಲಸ ಮಾಡುತ್ತದೆ |  |
+| 12 | `app.js factPhoneText` | Light and fast | ಹಗುರ ಮತ್ತು ವೇಗ |  |
 
 ## 3. Pond scene (sky label)
 

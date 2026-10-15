@@ -11,7 +11,8 @@
   <meta name="application-name" content="AquaNexus">
   <meta name="apple-mobile-web-app-title" content="AquaNexus">
   <meta name="description" content="Early warning for small fish ponds in coastal Karnataka: shows when pond water is Safe, Warning or Danger, with steps to take, in Kannada and English. Demo uses simulated sensor data.">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%2388cce6' d='M12 2s7 7.6 7 12.5A7 7 0 0 1 5 14.5C5 9.6 12 2 12 2Z'/%3E%3C/svg%3E">
+  <!-- Favicon: the Team Orbit logo with its two colours built in (assets/team-orbit-favicon.svg). -->
+  <link rel="icon" href="/assets/team-orbit-favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/fonts/fonts.css">
   <link rel="stylesheet" href="/styles.css">
   <link rel="stylesheet" href="/welcome.css">
@@ -19,34 +20,46 @@
 <body class="has-welcome">
 
   <!-- ============ Welcome screen (shown first, removed after Start) ============ -->
-  <section class="welcome dark-scope" id="welcome" aria-labelledby="welcome-title">
-    <!-- Pond scene: decoration only, hidden from screen readers. Built by welcome.js. -->
-    <div class="pond" id="pond" aria-hidden="true">
-      <div class="pond-light"></div>
-      <div class="pond-caustics pond-caustics-a"></div>
-      <div class="pond-caustics pond-caustics-b"></div>
-      <div class="pond-fish" id="pond-fish"></div>
-      <div class="pond-scrim"></div>
-    </div>
-    <!-- 3D pond on the right half (wide screens only, pond-3d.js). Decoration: the 2D pond stays behind it. -->
-    <div class="welcome-3d" id="welcome-3d" aria-hidden="true"></div>
-
-    <div class="welcome-bar">
-      <!-- Team credit: small orbit-ring logo (a water drop with an orbit), static. -->
-      <p class="team-credit team-credit-on-dark"><svg class="orbit-logo" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path class="lg-drop" d="M16 8c0 0 5 5.6 5 9a5 5 0 0 1-10 0c0-3.4 5-9 5-9Z"/><ellipse class="lg-ring" cx="16" cy="17" rx="14" ry="5.5" transform="rotate(-18 16 17)"/><circle class="lg-moon" cx="29.3" cy="12.7" r="2.2"/></svg><span data-i18n="builtBy">Built by Team Orbit</span></p>
-      <div class="language-toggle language-toggle-on-dark" role="group" aria-label="Language / ಭಾಷೆ">
+  <section class="welcome" id="welcome" aria-labelledby="welcome-title">
+    <!-- A light, quiet brand landing in both themes: flat colours, no pond picture. -->
+    <header class="welcome-bar">
+      <p class="welcome-brand"><svg class="welcome-brand-logo" viewBox="0 0 100 100" aria-hidden="true" focusable="false"><defs><mask id="to-cut-welcome-bar" maskUnits="userSpaceOnUse"><rect width="100" height="100" fill="#fff"/><line x1="10" y1="77" x2="84" y2="27.5" stroke="#000" stroke-width="13"/></mask></defs><circle cx="50" cy="50" r="30" fill="none" stroke="currentColor" stroke-width="11" mask="url(#to-cut-welcome-bar)"/><line x1="16" y1="72.5" x2="78" y2="31" stroke="currentColor" stroke-width="5" stroke-linecap="round"/><circle cx="84" cy="27" r="8" fill="currentColor"/></svg><span lang="en">Team Orbit</span></p>
+      <div class="language-toggle welcome-lang" role="group" aria-label="Language / ಭಾಷೆ">
         <button type="button" data-lang="kn" lang="kn">ಕನ್ನಡ</button>
         <button type="button" data-lang="en" lang="en">English</button>
       </div>
+    </header>
+
+    <!-- First screen. Computers: words on the left, the logo on the right. Phones: logo on top. -->
+    <div class="welcome-main">
+      <!-- Team Orbit logo (assets/team-orbit-logo.svg, flat) inside two thin orbit paths. Decoration only. -->
+      <div class="welcome-visual" aria-hidden="true">
+        <span class="welcome-orbit welcome-orbit-outer"><span class="welcome-orbit-dot"></span></span>
+        <span class="welcome-orbit welcome-orbit-inner"></span>
+        <div class="welcome-logo" id="welcome-logo"><svg class="welcome-logo-flat" viewBox="0 0 100 100" focusable="false"><defs><mask id="to-cut-welcome-logo" maskUnits="userSpaceOnUse"><rect width="100" height="100" fill="#fff"/><line x1="10" y1="77" x2="84" y2="27.5" stroke="#000" stroke-width="13"/></mask></defs><circle cx="50" cy="50" r="30" fill="none" stroke="currentColor" stroke-width="11" mask="url(#to-cut-welcome-logo)"/><line x1="16" y1="72.5" x2="78" y2="31" stroke="currentColor" stroke-width="5" stroke-linecap="round"/><circle cx="84" cy="27" r="8" fill="currentColor"/></svg></div>
+      </div>
+
+      <div class="welcome-copy" id="welcome-content">
+        <p class="welcome-presents" data-i18n="teamPresents">Team Orbit presents</p>
+        <h1 class="welcome-title" id="welcome-title">
+          <span class="welcome-name" lang="en">AquaNexus</span>
+          <span class="welcome-name-kn" lang="kn">ಮೀನು ರಕ್ಷಕ</span>
+        </h1>
+        <p class="welcome-tagline" data-i18n="welcomeTagline">Pond water warnings before your fish are in danger.</p>
+        <button type="button" class="welcome-start" id="welcome-start">
+          <span data-i18n="start">Start</span>
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h12m-5-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <ul class="welcome-facts">
+          <li><strong data-i18n="factLangTitle">Kannada + English</strong><span data-i18n="factLangText">Voice alerts</span></li>
+          <li><strong data-i18n="factFreeTitle">No sign-up</strong><span data-i18n="factFreeText">Free to use</span></li>
+          <li><strong data-i18n="factPhoneTitle">Works on any phone</strong><span data-i18n="factPhoneText">Light and fast</span></li>
+        </ul>
+      </div>
     </div>
 
-    <div class="welcome-content" id="welcome-content">
-      <h1 class="welcome-title" id="welcome-title">
-        <span class="welcome-name" lang="en">AquaNexus</span>
-        <span class="welcome-name-kn" lang="kn">ಮೀನು ರಕ್ಷಕ</span>
-      </h1>
-      <p class="welcome-tagline" data-i18n="welcomeTagline">Pond water warnings before your fish are in danger.</p>
-      <!-- A real alert, as the dashboard shows it (fixed example, so it is labelled simulated). -->
+    <!-- Below the first screen: a real alert, as the dashboard shows it (fixed example, so it is labelled simulated). -->
+    <div class="welcome-more">
       <figure class="welcome-example">
         <figcaption class="welcome-example-head">
           <span data-i18n="welcomeExample">What a warning looks like</span>
@@ -60,10 +73,6 @@
           </div>
         </div>
       </figure>
-      <button type="button" class="welcome-start" id="welcome-start">
-        <span data-i18n="start">Start</span>
-        <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h12m-5-6 6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </button>
     </div>
   </section>
 
@@ -71,8 +80,11 @@
   <div class="dashboard" id="dashboard" inert>
     <header class="top-bar">
       <div class="brand">
-        <span class="app-name" data-i18n="appName">AquaNexus</span>
-        <span class="tagline" data-i18n="tagline">Pond water early warning</span>
+        <svg class="brand-logo" viewBox="0 0 100 100" aria-hidden="true" focusable="false"><defs><mask id="to-cut-header" maskUnits="userSpaceOnUse"><rect width="100" height="100" fill="#fff"/><line x1="10" y1="77" x2="84" y2="27.5" stroke="#000" stroke-width="13"/></mask></defs><circle cx="50" cy="50" r="30" fill="none" stroke="currentColor" stroke-width="11" mask="url(#to-cut-header)"/><line x1="16" y1="72.5" x2="78" y2="31" stroke="currentColor" stroke-width="5" stroke-linecap="round"/><circle cx="84" cy="27" r="8" fill="currentColor"/></svg>
+        <div class="brand-text">
+          <span class="app-name" data-i18n="appName">AquaNexus</span>
+          <span class="tagline" data-i18n="tagline">Pond water early warning</span>
+        </div>
       </div>
       <div class="top-bar-tools">
         <!-- Light theme for bright sunlight, dark theme for evenings (icon + word, never icon only).
@@ -765,7 +777,7 @@
     <!-- Site footer: who made it, where the data comes from, privacy, source code. -->
     <footer class="site-footer">
       <div class="site-footer-row">
-        <p class="team-credit"><svg class="orbit-logo" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path class="lg-drop" d="M16 8c0 0 5 5.6 5 9a5 5 0 0 1-10 0c0-3.4 5-9 5-9Z"/><ellipse class="lg-ring" cx="16" cy="17" rx="14" ry="5.5" transform="rotate(-18 16 17)"/><circle class="lg-moon" cx="29.3" cy="12.7" r="2.2"/></svg><span data-i18n="footerCredit">AquaNexus by Team Orbit (Nexus Orbit)</span></p>
+        <p class="team-credit"><svg class="orbit-logo" viewBox="0 0 100 100" aria-hidden="true" focusable="false"><defs><mask id="to-cut-footer" maskUnits="userSpaceOnUse"><rect width="100" height="100" fill="#fff"/><line x1="10" y1="77" x2="84" y2="27.5" stroke="#000" stroke-width="13"/></mask></defs><circle cx="50" cy="50" r="30" fill="none" stroke="currentColor" stroke-width="11" mask="url(#to-cut-footer)"/><line x1="16" y1="72.5" x2="78" y2="31" stroke="currentColor" stroke-width="5" stroke-linecap="round"/><circle cx="84" cy="27" r="8" fill="currentColor"/></svg><span data-i18n="footerCredit">AquaNexus by Team Orbit (Nexus Orbit)</span></p>
         <div class="site-footer-links">
           <button type="button" class="button-ghost sources-open" id="sources-open" aria-haspopup="dialog" data-i18n="sourcesTitle">Data sources</button>
           <button type="button" class="button-ghost sources-open" id="terms-open" aria-haspopup="dialog" data-i18n="termsTitle">Terms &amp; Privacy</button>
@@ -962,8 +974,7 @@
   <script src="/router.js"></script>         <!-- pages: #/pond, #/alerts, ... -->
   <script src="/app.js"></script>
   <script src="/welcome.js"></script>
-  <!-- 3D pond (Three.js, bundled locally). A module loads in the background; until it is ready,
-       or on weak phones, the 2D pond is used. -->
-  <script type="module" src="/pond-3d.js"></script>
+  <!-- The 3D pond (pond-3d.js, Three.js) is not loaded here: pond-view.js loads it after Start,
+       so the start screen never downloads Three.js. -->
 </body>
 </html>

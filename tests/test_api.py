@@ -103,8 +103,9 @@ def test_every_status_shows_icon_and_word_not_colour_alone():
 
 
 def test_3d_pond_is_bundled_and_light():
-    html = client.get("/").text
-    assert '<script type="module" src="/pond-3d.js"></script>' in html
+    # Loaded only after Start, by pond-view.js, so the start screen never downloads Three.js.
+    view = client.get("/pond-view.js").text
+    assert 'import("/pond-3d.js")' in view
     js = client.get("/pond-3d.js").text
     assert 'from "./vendor/three/three.module.min.js"' in js and "cdn" not in js.lower()
     three = client.get("/vendor/three/three.module.min.js")
@@ -117,6 +118,33 @@ def test_3d_pond_is_bundled_and_light():
     view = client.get("/pond-view.js").text
     assert "const want3D = () => !reduce() && !lowPower;" in view
     assert "if (!window.Pond3D.supported()) { init2D(); return; }" in view and "switchTo2D" in view
+
+
+def test_start_screen_logo_is_flat_and_only_fades_in():
+    html = client.get("/").text
+    # No 3D logo, and the start screen does not load Three.js at all.
+    assert "orbit-logo-3d" not in html and client.get("/orbit-logo-3d.js").status_code == 404
+    assert 'src="/pond-3d.js"' not in html and "three.module" not in html
+    welcome = client.get("/welcome.js").text
+    assert "OrbitLogo3D" not in welcome and "Pond3D" not in welcome
+    # The only motion: the logo fades in once, 0.6 s, no movement (and nothing with "reduce motion").
+    assert 'gsap.from(logo, { opacity: 0, duration: 0.6, ease: "power1.out" })' in welcome
+    assert welcome.count("gsap.from(") == 1 and "y: 16" not in welcome     # the logo fade is the only entrance
+    css = client.get("/welcome.css").text
+    assert ".welcome-logo { position: absolute; inset: 25%;" in css          # 220 px of the 440 px orbit box
+
+
+def test_first_screen_is_logo_name_tagline_start_and_facts():
+    html = client.get("/").text
+    first = html[html.index('<div class="welcome-main"'):html.index('<div class="welcome-more">')]
+    assert 'id="welcome-logo"' in first
+    copy = first[first.index('<div class="welcome-copy"'):]
+    order = [copy.index(s) for s in ('data-i18n="teamPresents"', 'class="welcome-name"', 'class="welcome-name-kn"',
+                                     'data-i18n="welcomeTagline"', 'id="welcome-start"', 'class="welcome-facts"')]
+    assert order == sorted(order)
+    for key in ("factLangTitle", "factLangText", "factFreeTitle", "factFreeText", "factPhoneTitle", "factPhoneText"):
+        assert f'data-i18n="{key}"' in copy
+    assert "welcome-example" not in first                     # the sample warning is below the first screen
 
 
 def test_more_oxygen_means_more_bubbles():

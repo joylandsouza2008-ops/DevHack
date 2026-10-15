@@ -235,10 +235,13 @@
     host = container;
     if (!want3D()) { init2D(); return; }
     if (window.Pond3D) { mount3D(); return; }
-    // The 3D module loads in the background; if it never arrives, show 2D.
-    const fallback = setTimeout(() => { window.removeEventListener("pond3d-ready", ready); init2D(); }, 4000);
-    function ready() { clearTimeout(fallback); mount3D(); }
-    window.addEventListener("pond3d-ready", ready, { once: true });
+    // Load the 3D module (and Three.js) now, after Start: the start screen never downloads it.
+    // If it does not arrive in time, or fails to load, show 2D.
+    let settled = false;
+    const done = (use3D) => { if (settled) return; settled = true; clearTimeout(fallback); use3D ? mount3D() : init2D(); };
+    const fallback = setTimeout(() => done(false), 6000);
+    window.addEventListener("pond3d-ready", () => done(true), { once: true });
+    import("/pond-3d.js").catch(() => done(false));
   }
 
   function mount3D() {
