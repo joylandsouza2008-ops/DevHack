@@ -120,11 +120,11 @@
         </a>
         <a href="#/weather" class="tab" data-tab="weather">
           <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M7 18.5h10.5a4 4 0 0 0 .4-8A6 6 0 0 0 6.4 9.3 4.6 4.6 0 0 0 7 18.5Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
-          <span class="tab-long" data-i18n="tabWeather">Weather</span><span class="tab-short" data-i18n="tabWeatherShort">Sky</span>
+          <span data-i18n="tabWeather">Weather</span>
         </a>
         <a href="#/diseases" class="tab" data-tab="diseases">
           <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 3 5 6v5.5c0 4.3 3 8 7 9.5 4-1.5 7-5.2 7-9.5V6l-7-3Zm0 5.5v6m-3-3h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <span class="tab-long" data-i18n="tabDiseases">Diseases</span><span class="tab-short" data-i18n="tabDiseasesShort">Fish</span>
+          <span data-i18n="tabDiseases">Diseases</span>
         </a>
         <a href="#/ask" class="tab" data-tab="ask">
           <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4V5Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M8 9.5h8M8 12.5h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
@@ -303,14 +303,11 @@
            Phones: one column, in this order. -->
       <div class="dash">
         <div class="dash-main">
-          <!-- Day/night pond scene (scene.js). The sky follows the SIMULATED time of day. -->
-          <section class="scene dark-scope" id="scene" aria-labelledby="scene-clock">
-            <div class="scene-art" id="scene-art" aria-hidden="true"></div>
-            <div class="scene-chip">
-              <p class="sim-clock" id="scene-clock"><span data-i18n="simTime">Simulated time</span>: <strong id="sim-time">-</strong> <span class="scene-phase" id="scene-phase"></span></p>
-              <span class="sim-tag" data-i18n="simulatedTag">Simulated data</span>
-            </div>
-          </section>
+          <!-- The simulated clock: one line, with the time of day in words (app.js renderClock). -->
+          <p class="sim-line" id="scene">
+            <span class="sim-clock" id="scene-clock"><span data-i18n="simTime">Simulated time</span>: <strong id="sim-time">-</strong><span class="scene-phase" id="scene-phase"></span></span>
+            <span class="sim-tag" data-i18n="simulatedTag">Simulated data</span>
+          </p>
 
           <section id="status" class="status-banner status-unknown" role="status" aria-live="polite" tabindex="-1">
             <span class="status-icon" id="status-icon" aria-hidden="true"></span>
@@ -351,10 +348,10 @@
           <section class="card pond-card" aria-labelledby="pond-view-title">
             <div class="section-head">
               <h2 id="pond-view-title" data-i18n="pondViewTitle">Pond view</h2>
-              <p class="section-help" id="pond-view-help" data-i18n="pondViewHelp" hidden>More oxygen in the water, more bubbles.</p>
+              <p class="section-help" id="pond-view-help" data-i18n="pondViewHelp">More oxygen in the water, more bubbles.</p>
             </div>
-            <!-- 3D pond (pond-3d.js) on capable devices, else the 2D pond (pond-view.js). -->
-            <div class="pond-view dark-scope" id="pond-view" role="img" aria-labelledby="pond-view-text"></div>
+            <!-- Flat pond (pond-view.js): water, three fish, bubbles that follow the oxygen. -->
+            <div class="pond-view" id="pond-view" role="img" aria-labelledby="pond-view-text"></div>
             <p class="pond-caption" id="pond-view-text"></p>
           </section>
 
@@ -418,7 +415,7 @@
         <ol class="action-list" id="action-list"></ol>
         <p class="actions-source" data-i18n="actionsSource">Based on FAO, TNAU and university extension guides. No chemicals.</p>
       </section>
-        <p class="page-calm" id="alerts-calm" data-i18n="alertsCalm">Nothing to do now. Steps appear here when the pond has a Warning or Danger.</p>
+        <p class="page-calm section-help" id="alerts-calm" data-i18n="alertsCalm">Nothing to do now. Steps appear here when the pond has a Warning or Danger.</p>
 
         <div class="board board-alerts">
 
@@ -442,13 +439,10 @@
             </div>
           </div>
           <p class="picker-hint" id="live-sensor-hint" data-i18n="liveSensorHint">Waiting for a sensor. Run the demo sensor.</p>
-          <div class="phone" aria-label="Phone screen">
-            <div class="phone-top"><span class="phone-speaker"></span></div>
-            <div class="phone-screen">
-              <p class="phone-app" id="phone-app">SMS · AquaNexus</p>
-              <div class="bubble" id="alert-bubble"></div>
-              <p class="phone-time" id="phone-time"></p>
-            </div>
+          <div class="message-preview" aria-label="Message preview">
+            <p class="phone-app" id="phone-app">SMS · AquaNexus</p>
+            <div class="bubble" id="alert-bubble"></div>
+            <p class="phone-time" id="phone-time"></p>
           </div>
         </section>
 
@@ -473,9 +467,7 @@
         <div class="card weather-card">
       <section class="weather-tonight" id="weather-tonight" aria-labelledby="weather-title">
         <span class="weather-icon" aria-hidden="true">
-          <!-- Loading: a small fish circling a water drop, until the forecast arrives. -->
-          <span class="weather-loader" id="weather-loader"><svg class="orbit-loader" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><circle class="ol-path" cx="20" cy="21" r="15"/><path class="ol-drop" d="M20 11c0 0 6.5 7.2 6.5 11.6a6.5 6.5 0 0 1-13 0C13.5 18.2 20 11 20 11Z"/><g class="ol-fish"><path d="M26.5 6C24.4 3.5 20.8 3.1 18.2 4.4 17.2 4.9 16.6 5.6 16.2 6c.4.4 1 1.1 2 1.6 2.6 1.3 6.2.9 8.3-1.6ZM16.2 6 13 3.6l.7 2.4-.7 2.4Z"/></g></svg></span>
-          <svg class="weather-moon" id="weather-moon" viewBox="0 0 24 24" hidden><path d="M14.5 3a7 7 0 1 0 6.5 9.6A5.5 5.5 0 0 1 14.5 3Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+<svg class="weather-moon" id="weather-moon" viewBox="0 0 24 24"><path d="M14.5 3a7 7 0 1 0 6.5 9.6A5.5 5.5 0 0 1 14.5 3Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
         </span>
         <div class="weather-body">
           <h2 class="weather-title" id="weather-title"><span data-i18n="weatherTitle">Tonight's weather</span><span class="weather-place" id="weather-place"></span></h2>
@@ -506,18 +498,20 @@
         <div class="likely-box" id="likely-box"></div>
       </section>
 
-        <!-- Fish disease guide (diseases.js): library, symptom checker, sources in docs/diseases.md.
+        <!-- Fish disease guide (diseases.js): symptom checker and library, sources in docs/diseases.md.
              Possible matches only, never a diagnosis. No medicines or doses. -->
-        <section class="card guide-card" id="guide" aria-labelledby="guide-title">
-          <h2 id="guide-title" data-i18n="guideTitle">Fish disease guide</h2>
-          <p class="guide-intro" data-i18n="guideIntro">Common diseases of carp ponds: the signs to look for, when they happen and how to prevent them.</p>
+        <section class="guide" id="guide" aria-labelledby="guide-title">
+          <h2 class="visually-hidden" id="guide-title" data-i18n="guideTitle">Fish disease guide</h2>
+          <p class="section-help guide-intro" data-i18n="guideIntro">Common diseases of carp ponds: the signs to look for, when they happen and how to prevent them.</p>
           <p class="guide-loading" id="guide-loading" data-i18n="guideLoading">Loading the guide…</p>
           <div class="guide-content" id="guide-content" hidden>
             <p class="guide-warning" id="guide-treatment"></p>
 
-            <section class="checker" aria-labelledby="checker-title">
-              <h3 id="checker-title" data-i18n="checkerTitle">Symptom checker</h3>
-              <p class="kit-help" data-i18n="checkerHelp">Tick the signs you see on your fish. You get possible matches, not a diagnosis.</p>
+            <section class="card checker" aria-labelledby="checker-title">
+              <div class="section-head">
+                <h2 id="checker-title" data-i18n="checkerTitle">Symptom checker</h2>
+                <p class="section-help" data-i18n="checkerHelp">Tick the signs you see on your fish. You get possible matches, not a diagnosis.</p>
+              </div>
               <form class="checker-form" id="checker-form" novalidate>
                 <fieldset>
                   <legend data-i18n="checkerBody">On the body</legend>
@@ -536,18 +530,19 @@
               <div class="checker-result" id="checker-result" role="status" hidden></div>
             </section>
 
-            <section class="library" aria-labelledby="library-title">
-              <h3 id="library-title" data-i18n="libraryTitle">Disease library</h3>
-              <p class="kit-help" data-i18n="libraryHelp">Tap a disease to read more.</p>
+            <section class="card library" aria-labelledby="library-title">
+              <div class="section-head">
+                <h2 id="library-title" data-i18n="libraryTitle">Disease library</h2>
+                <p class="section-help" data-i18n="libraryHelp">Tap a disease to read more.</p>
+              </div>
               <div class="disease-library" id="disease-library"></div>
+              <details class="no-photo">
+                <summary data-i18n="noPhotoTitle">Why there's no photo check</summary>
+                <p data-i18n="noPhotoText">We tested a computer model that guesses the disease from a fish photo. The public photos are mostly aquarium fish, not carps in ponds, and the model was wrong about one time in three. That is not safe enough for your fish, so the app does not do it.</p>
+                <p><a href="https://github.com/joylandsouza2008-ops/DevHack/blob/main/docs/fish-disease-baseline.md" target="_blank" rel="noopener" data-i18n="noPhotoLink">See the test results</a></p>
+              </details>
+              <p class="disease-sources"><a href="https://github.com/joylandsouza2008-ops/DevHack/blob/main/docs/diseases.md" target="_blank" rel="noopener" data-i18n="guideSources">Sources for every entry</a></p>
             </section>
-
-            <details class="no-photo">
-              <summary data-i18n="noPhotoTitle">Why there's no photo check</summary>
-              <p data-i18n="noPhotoText">We tested a computer model that guesses the disease from a fish photo. The public photos are mostly aquarium fish, not carps in ponds, and the model was wrong about one time in three. That is not safe enough for your fish, so the app does not do it.</p>
-              <p><a href="https://github.com/joylandsouza2008-ops/DevHack/blob/main/docs/fish-disease-baseline.md" target="_blank" rel="noopener" data-i18n="noPhotoLink">See the test results</a></p>
-            </details>
-            <p class="disease-sources"><a href="https://github.com/joylandsouza2008-ops/DevHack/blob/main/docs/diseases.md" target="_blank" rel="noopener" data-i18n="guideSources">Sources for every entry</a></p>
           </div>
         </section>
       </section>
@@ -966,7 +961,6 @@
   <script src="/history.js"></script>
   <script src="/voice.js"></script>
   <script src="/weather.js"></script>
-  <script src="/scene.js"></script>
   <script src="/diseases.js"></script>
   <script src="/assistant.js"></script>
   <script src="/shop.js"></script>           <!-- Shop page and cart (this browser only); products: shop-data.json -->
@@ -974,7 +968,5 @@
   <script src="/router.js"></script>         <!-- pages: #/pond, #/alerts, ... -->
   <script src="/app.js"></script>
   <script src="/welcome.js"></script>
-  <!-- The 3D pond (pond-3d.js, Three.js) is not loaded here: pond-view.js loads it after Start,
-       so the start screen never downloads Three.js. -->
 </body>
 </html>

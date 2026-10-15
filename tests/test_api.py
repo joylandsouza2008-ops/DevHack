@@ -102,22 +102,16 @@ def test_every_status_shows_icon_and_word_not_colour_alone():
     assert "setBadge(c.badge, level, lang, `badge badge-${level}`)" in app
 
 
-def test_3d_pond_is_bundled_and_light():
-    # Loaded only after Start, by pond-view.js, so the start screen never downloads Three.js.
+def test_pond_view_is_flat_and_light():
+    # A flat 2D picture: no Three.js. 30 fps at most, stops off screen and in a hidden tab, still with "reduce motion".
     view = client.get("/pond-view.js").text
-    assert 'import("/pond-3d.js")' in view
-    js = client.get("/pond-3d.js").text
-    assert 'from "./vendor/three/three.module.min.js"' in js and "cdn" not in js.lower()
-    three = client.get("/vendor/three/three.module.min.js")
-    assert three.status_code == 200 and 'const t="170"' in three.text
-    # 30 fps cap, pixel ratio cap, stops off screen and in a hidden tab, falls back when the GPU fails.
-    for rule in ("1000 / 30", "Math.min(window.devicePixelRatio || 1, 1.5)", "IntersectionObserver",
-                 "visibilitychange", "webglcontextlost", "MAX_BUBBLES"):
-        assert rule in js, rule
-    # Weak phones, "reduce motion" or no WebGL: the 2D pond (pond-view.js) is used instead.
-    view = client.get("/pond-view.js").text
-    assert "const want3D = () => !reduce() && !lowPower;" in view
-    assert "if (!window.Pond3D.supported()) { init2D(); return; }" in view and "switchTo2D" in view
+    for rule in ("const FRAME_MS = 1000 / 30;", "IntersectionObserver", "visibilitychange", "reduce()",
+                 "const MAX_BUBBLES = 16;", "const SPEED = { safe: 1, warning: 0.5, danger: 0.25, unknown: 0.7 };"):
+        assert rule in view, rule
+    for gone in ("import(", "Pond3D", "THREE", "gradient"):
+        assert gone not in view, gone
+    assert client.get("/pond-3d.js").status_code == 404
+    assert client.get("/vendor/three/three.module.min.js").status_code == 404
 
 
 def test_start_screen_logo_is_flat_and_only_fades_in():
@@ -150,13 +144,13 @@ def test_first_screen_is_logo_name_tagline_start_and_facts():
 def test_more_oxygen_means_more_bubbles():
     import subprocess
     out = subprocess.run(["node", "--input-type=module", "-e",
-                          "const src = (await import('node:fs')).readFileSync('frontend/pond-3d.js', 'utf8');"
-                          "const fn = src.slice(src.indexOf('function bubblesFor'), src.indexOf('// options:'));"
+                          "const src = (await import('node:fs')).readFileSync('frontend/pond-view.js', 'utf8');"
+                          "const fn = 'const MAX_BUBBLES = 16;' + src.slice(src.indexOf('function bubblesFor'), src.indexOf('function build'));"
                           "const bubblesFor = new Function(fn + '; return bubblesFor;')();"
                           "console.log([0, 3, 5, 8, 12, 20].map(bubblesFor).join(','));"],
                          capture_output=True, text=True, check=True).stdout.strip()
     counts = [int(n) for n in out.split(",")]
-    assert counts == sorted(counts) and counts[0] == 4 and counts[-1] == 44, counts
+    assert counts == sorted(counts) and counts[0] == 2 and counts[-1] == 16, counts
 
 
 def test_heading_font_is_bundled():
@@ -178,7 +172,7 @@ def test_motion_never_splits_kannada_letters():
 def test_page_has_no_em_dashes():
     # design-taste-frontend rule: no em/en dashes in visible text.
     for path in ("/", "/app.js", "/ponds.js", "/welcome.js", "/motion.js", "/pond-view.js", "/gauge.js", "/do-chart.js",
-                 "/health-ring.js", "/history.js", "/voice.js", "/weather.js", "/debug.js", "/pond-3d.js"):
+                 "/health-ring.js", "/history.js", "/voice.js", "/weather.js", "/debug.js"):
         assert "—" not in client.get(path).text and "–" not in client.get(path).text, path
 
 

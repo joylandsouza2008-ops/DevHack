@@ -8,10 +8,8 @@
 
 /* Dark theme: BLACK AND WHITE only. No teal, blue or navy: every action, link,
    toggle and chart line is white or grey. The only colours are the status
-   colours (Safe / Warning / Danger), because they carry safety meaning.
-   Also used by .dark-scope, so the pictures (sky scene, pond view) are dark too. */
-:root,
-.dark-scope {
+   colours (Safe / Warning / Danger), because they carry safety meaning. */
+:root {
   color-scheme: dark;
 
   --background: #0a0a0a;
@@ -26,6 +24,9 @@
   --accent: #a10c9f;          /* magenta: part of the palette, NOT used in the interface (colour only means brand or status) */
   --on-accent: #ffffff;
   --logo: #ffffff;            /* Team Orbit logo */
+  --pond-water: #262626;      /* pond view: dark grey water, light grey fish, grey bubbles */
+  --pond-fish: #e5e5e5;
+  --pond-bubble: #a3a3a3;
   --backdrop: rgba(0, 0, 0, 0.75);   /* behind dialogs and the cart */
 
   --surface: #141414;         /* top bar, notes, inner panels */
@@ -82,6 +83,9 @@
   --accent: #a10c9f;
   --on-accent: #f8f0fb;
   --logo: #0b7a85;            /* Team Orbit logo on light backgrounds */
+  --pond-water: #cfe8ea;      /* pond view: soft teal water, deep teal fish and bubbles */
+  --pond-fish: #0b7a85;
+  --pond-bubble: #4f9ea6;
 
   --surface: #f6f7fd;
   --card: #fcfcff;
@@ -97,41 +101,7 @@
 
 }
 
-/* Light theme: the night-water pictures (sky scene, pond view) keep their deep
-   indigo colours, as they always had. (In the dark theme they are black and white.) */
-:root[data-theme="light"] .dark-scope {
-  color-scheme: dark;
-  --background: #060351;
-  --text: #def0f8;
-  --primary: #88cce6;
-  --primary-pressed: #a8daee;
-  --on-primary: #060351;
-  --secondary: #23bcd0;
-  --on-secondary: #060351;
-  --edge-on-secondary: #060351;
-  --surface: #08054a;
-  --card: #07044a;
-  --hairline: #262470;
-  --hairline-strong: #6f73b8;
-  --text-secondary: #b3c6e6;
-  --text-tertiary: #9aa9d6;
-  --muted: #6a6fa6;
-  --footer-bg: #03022c;
-  --warning-edge: transparent;
-}
 
-/* Pictures that stay dark: text inside them must use the dark tokens too
-   (text colour is inherited already worked out from <body>, so set it again). */
-.dark-scope { color: var(--text); }
-
-/* Dark theme, black and white: the sky scene and the 2D pond are drawn in colour,
-   so they are shown in greys. (The 3D pond picks grey colours itself, pond-3d.js.) */
-:root:not([data-theme="light"]) .scene-art,
-:root:not([data-theme="light"]) .pond-view:not(.is-3d) .pv-svg { filter: grayscale(1); }
-:root:not([data-theme="light"]) .scene { background: #0a0a0a; }
-:root:not([data-theme="light"]) .scene-chip { background: rgba(10, 10, 10, 0.86); border-color: #262626; }
-:root:not([data-theme="light"]) .pond-view,
-:root:not([data-theme="light"]) .pond-view.is-3d { background: #0a0a0a; }
 /* Plain links (no class) would get the browser's own blue: white instead, like every action. */
 :root:not([data-theme="light"]) a:not([class]) { color: var(--primary); }
 
@@ -350,19 +320,15 @@ main {
   100% { opacity: 0;   transform: scale(1.025); }
 }
 
-/* ---- Pond view: the 3D pond (pond-3d.js) or the 2D fallback (pond-view.js) ---- */
+/* ---- Pond view (pond-view.js): flat water, three fish, bubbles. Colours follow the theme. ---- */
 .pond-card { display: flex; flex-direction: column; gap: 1rem; }
 
-.pond-view { aspect-ratio: 16 / 10; border-radius: var(--radius-inner); overflow: hidden; background: #0c2633; }
-.pond-view.is-3d { background: #060351; }
-.pond3d-canvas { display: block; width: 100%; height: 100%; }
+.pond-view { aspect-ratio: 16 / 10; border-radius: var(--radius-card); overflow: hidden; background: var(--pond-water); }
 .pv-svg { display: block; width: 100%; height: 100%; }
-.pv-svg path:not(.pv-surface-line):not(.pv-floor):not(.pv-moon) { fill: #04161e; }
-.pv-moon { fill: var(--text); }
-.pv-eye { fill: var(--text-tertiary); }
-.pv-surface-line { fill: none; stroke: rgba(222, 240, 248, 0.45); stroke-width: 1.5; }
-.pv-floor { fill: rgba(3, 10, 14, 0.45); }
-.pv-bubble { fill: none; stroke: rgba(222, 240, 248, 0.75); stroke-width: 1; }
+.pv-water { fill: var(--pond-water); }
+.pv-fish { fill: var(--pond-fish); }
+.pv-eye { fill: var(--pond-water); }
+.pv-bubble { fill: none; stroke: var(--pond-bubble); stroke-width: 1.4; }
 .pond-caption { margin: 0; color: var(--text-secondary); font-size: var(--fs-small); }
 
 /* ---- Risk scale in the Pond health panel (gauge.js): Danger | Warning | Safe, 0 to 100 ---- */
@@ -476,20 +442,19 @@ main {
 }
 .segmented button[aria-pressed="true"] { background: var(--primary); color: var(--on-primary); }
 .segmented button:disabled { color: var(--muted); cursor: not-allowed; }
+@media (max-width: 480px) {
+  /* Phones: the switch fills the card's width; each choice shares it and may wrap to two lines. */
+  .alert-controls .segmented { display: flex; width: 100%; }
+  .alert-controls .segmented button { flex: 1 1 0; min-width: 0; padding: 0.25rem 0.5rem; line-height: 1.3; }
+}
 
-.phone {
-  width: 100%; max-width: 340px; margin: 0 auto;
-  padding: 0.75rem 0.75rem 1.25rem;
-  background: var(--footer-bg); border: 1px solid var(--hairline-strong); border-radius: 28px;
-}
-.phone-top { display: flex; justify-content: center; padding: 0.25rem 0 0.75rem; }
-.phone-speaker { width: 64px; height: 6px; border-radius: 9999px; background: var(--hairline); }
-.phone-screen {
+/* The message as the farmer would get it: a plain panel (no drawn phone). */
+.message-preview {
   display: flex; flex-direction: column; gap: 0.5rem;
-  min-height: 300px; padding: 1rem 0.875rem;
-  background: var(--surface); border-radius: 20px;
+  padding: 1rem; background: var(--surface);
+  border: 1px solid var(--hairline); border-radius: var(--radius-card);
 }
-.phone-app { font-size: 0.9375rem; font-weight: 600; color: var(--text-secondary); text-align: center; }
+.phone-app { margin: 0; font-size: 0.9375rem; font-weight: 600; color: var(--text-secondary); }
 .bubble {
   align-self: flex-start; max-width: 92%;
   padding: 0.75rem 0.875rem; border-radius: 4px var(--radius-card) var(--radius-card) var(--radius-card);
@@ -498,7 +463,7 @@ main {
 .bubble-sms { background: var(--card); color: var(--text); border: 1px solid var(--hairline-strong); }
 .bubble-whatsapp { background: var(--secondary); color: var(--on-secondary); }
 .bubble-none { background: transparent; color: var(--text-secondary); border: 1px solid var(--hairline); }
-.phone-time { align-self: flex-start; font-size: 0.9375rem; color: var(--text-tertiary); }
+.phone-time { margin: 0; align-self: flex-start; font-size: 0.9375rem; color: var(--text-tertiary); }
 
 /* ---- Manual test-kit entry ---- */
 .kit-card { display: flex; flex-direction: column; gap: 1rem; }
@@ -589,7 +554,7 @@ main {
 .assistant-head h2 { margin: 0; }
 .ai-tag { margin: 0; }
 .assistant-privacy { margin: 0; color: var(--text-secondary); font-size: 1rem; }
-.assistant-card h3 { margin: 0 0 0.5rem; font-size: 1.125rem; font-weight: 600; }
+.assistant-card h3 { margin: 0 0 0.5rem; font-family: var(--font); font-size: var(--fs-small); font-weight: 600; color: var(--text-secondary); }
 .chat-log {
   list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 1rem;
   max-height: 32rem; overflow-y: auto;
@@ -629,11 +594,10 @@ main {
 @media (max-width: 480px) { .chat-row { flex-direction: column; align-items: stretch; } }
 
 /* ---- Fish disease guide (diseases.js) ---- */
-.guide-card { display: flex; flex-direction: column; gap: 1rem; }
-.guide-card h3 { margin: 0; font-size: var(--fs-sub); font-weight: 600; line-height: 1.4; }
+.guide { display: flex; flex-direction: column; gap: 1rem; }
 .guide-intro, .guide-loading { margin: 0; color: var(--text-secondary); }
 .guide-content { display: flex; flex-direction: column; gap: 1.5rem; }
-.guide-content > .checker, .guide-content > .library, .guide-content > .no-photo { padding-top: 1.5rem; border-top: 1px solid var(--hairline); }
+
 /* Important notes (no medicines; confirm with the officer): a message, not a pond status. */
 .guide-warning, .checker-message, .guide-note {
   margin: 0; padding: 0.75rem 1rem; border-radius: var(--radius-inner);
@@ -676,6 +640,7 @@ main {
 .disease-title { display: flex; flex-direction: column; align-items: flex-start; gap: 0.25rem; min-width: 0; }
 .disease-name { font-size: 1.125rem; font-weight: 600; line-height: 1.4; }
 .disease-other { color: var(--text-secondary); font-size: 1rem; }
+.disease-cause { color: var(--text-secondary); font-size: var(--fs-caption); }
 .disease-body { display: flex; flex-direction: column; gap: 1rem; padding: 0 0 1.5rem; }
 .disease-agent { margin: 0; color: var(--text-secondary); }
 .disease-field h4 { margin: 0 0 0.25rem; font-size: 1rem; font-weight: 600; color: var(--text-secondary); }
@@ -801,74 +766,14 @@ main {
 .debug-panel .debug-grew td { background: var(--primary); color: var(--on-primary); font-weight: 700; }   /* not a status colour: dev tool */
 
 /* ================================================================
-   Sky scene and page boards (scene.js).
-   Colour rules: blues, indigo and pale pearl only. Green, amber and
-   red stay reserved for Safe / Warning / Danger and are never decoration.
+   Pond page boards. Colour rules: green, amber and red stay reserved
+   for Safe / Warning / Danger and are never decoration.
    ================================================================ */
 
 .card { position: relative; }
 
-/* ---- Day/night scene ---- */
-.scene {
-  position: relative; isolation: isolate; overflow: hidden;
-  height: clamp(180px, 24vw, 250px);
-  border-radius: var(--radius-card); border: 1px solid var(--hairline);
-  background: #03022e;
-}
-.scene-art { position: absolute; inset: 0; }
-.sky-layer, .scene-stars, .scene-land { position: absolute; inset: 0; width: 100%; height: 100%; }
-.sky-layer { will-change: opacity; }
-.scene-stars { fill: var(--text); opacity: 0; }
-.scene-stars .sc-stars-b { opacity: 0.7; }
-.scene-stars .sc-stars-c { opacity: 0.5; }
-.sc-halo { opacity: 0.18; }                 /* soft halo around the few bright stars */
-.scene-sun, .scene-moon, .scene-glint { position: absolute; top: 0; left: 0; opacity: 0; will-change: transform, opacity; }
-.scene-sun {
-  width: 96px; height: 96px; margin: -48px 0 0 -48px; border-radius: 50%;
-  background: radial-gradient(circle, #f4f9fc 0 27%, rgba(244, 249, 252, 0.4) 34%, rgba(244, 249, 252, 0) 70%);
-}
-.scene-moon {
-  width: 72px; height: 72px; margin: -36px 0 0 -36px; padding: 18px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(222, 240, 248, 0.18), rgba(222, 240, 248, 0) 68%);
-}
-.scene-moon svg { display: block; width: 100%; height: 100%; fill: var(--text); }
-.scene-glint {                     /* the sun or moon reflected on the water: broken bright lines */
-  width: 34px; height: 64px; margin-left: -17px;
-  background: repeating-linear-gradient(to bottom, rgba(222, 240, 248, 0.5) 0 2px, rgba(222, 240, 248, 0) 2px 7px);
-  -webkit-mask-image: radial-gradient(50% 50% at 50% 30%, #000 30%, transparent 100%);
-  mask-image: radial-gradient(50% 50% at 50% 30%, #000 30%, transparent 100%);
-}
-.sc-hills-far { fill: #22247a; opacity: 0.55; }
-.sc-hills-near { fill: #0e0b52; opacity: 0.85; }
-.sc-ink { fill: #04022a; }
-.sc-palm path, .sc-reeds path, .sc-pole { fill: none; stroke: #04022a; stroke-linecap: round; stroke-linejoin: round; }
-.sc-palm path { stroke-width: 4; }
-.sc-palm .sc-trunk { stroke-width: 6.5; }
-.sc-palm-far path { stroke-width: 3; }
-.sc-palm-far .sc-trunk { stroke-width: 4.5; }
-.sc-reeds path { stroke-width: 3; }
-.sc-pole { stroke-width: 2.5; }
-.sc-shimmer path { fill: none; stroke-linecap: round; stroke: var(--primary); stroke-width: 2; opacity: 0.35; }
-
-/* Clock + "Simulated data" on a solid dark chip, readable over any sky. */
-.scene-chip {
-  position: absolute; left: 1rem; top: 1rem; z-index: 1;
-  display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.75rem;
-  max-width: calc(100% - 2rem);
-  padding: 0.5rem 0.875rem;
-  background: rgba(4, 2, 40, 0.84); border: 1px solid rgba(222, 240, 248, 0.18); border-radius: var(--radius-inner);
-}
-.scene-phase { color: var(--primary); font-weight: 600; }
-/* Narrow screens: the chip becomes a strip above the picture, so it never covers the sky. */
-@media (max-width: 899px) {
-  .scene { height: auto; display: flex; flex-direction: column; }
-  .scene-chip { position: static; order: -1; max-width: none; margin: 0; border: 0; border-bottom: 1px solid var(--hairline); border-radius: 0; background: #040228; }
-  .scene-art { position: relative; height: clamp(170px, 34vw, 230px); }
-}
-@media (max-width: 480px) { .scene-chip { padding: 0.5rem 0.75rem; gap: 0.25rem 0.5rem; } }
-.scene-phase:empty { display: none; }
-
-/* The status banner sits directly under the sky it happens in: flat, no overlap or shadow. */
+/* The simulated clock: one plain line above the status ("15 Oct, 20:20, Night"), with its tag. */
+.sim-line { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.75rem; margin: 0; }
 
 /* ---- Pond dashboard: condition and trend on the left, the pond and its numbers on the right.
    Two independent columns, so a tall card on one side never leaves a gap on the other.
@@ -880,10 +785,6 @@ main {
 /* Alerts: phone preview beside the history. More: test kit beside the live sensor. */
 .board { display: grid; gap: 1.5rem; grid-template-columns: minmax(0, 1fr); align-items: start; }
 @media (min-width: 1024px) { .board-alerts, .board-more { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-
-@media (prefers-contrast: more), (forced-colors: active) {
-  .scene-glint { display: none; }
-}
 
 /* ================================================================
    Pages (router.js): Pond, Alerts, Weather, Diseases, Ask, More.
@@ -926,10 +827,12 @@ main {
 .tab[aria-current="page"] svg { background: var(--primary); color: var(--on-primary); }
 .tab:active svg { background: var(--hairline); }
 .tab[aria-current="page"]:active svg { background: var(--primary-pressed); }
-/* Phones under 480 px: 7 tabs leave about 50 px each, so long words use their
-   short form (Weather -> Sky, Diseases -> Fish). Still an icon and a word, never icon only. */
-.tab-short { display: none; }
-@media (max-width: 479px) { .tab-long { display: none; } .tab-short { display: inline; } }
+/* Phones under 480 px: 7 tabs leave about 50 px each. The words stay whole (Weather, Diseases)
+   in a smaller size; still an icon and a word, never icon only. */
+@media (max-width: 479px) {
+  .tab-bar { padding-left: 0; padding-right: 0; }
+  .tab { font-size: 0.75rem; letter-spacing: 0; }
+}
 /* Cart count on the Shop tab: on the icon's corner on phones, after the word on computers. */
 .tab-badge {
   position: absolute; top: 0.125rem; left: calc(50% + 10px);
@@ -1128,21 +1031,9 @@ main {
 .pond-form .kit-help { font-size: 0.9375rem; }
 
 /* ================================================================
-   Team Orbit touches: the loader and the credit logo. Pearl and
-   pond-blue only: never a status colour, never the magenta accent.
+   Team Orbit touches: the credit logo. Never a status colour, never
+   the magenta accent.
    ================================================================ */
-
-/* Loading: a small fish circling a water drop. */
-.orbit-loader { display: block; width: 100%; height: 100%; overflow: visible; }
-.ol-path { fill: none; stroke: var(--hairline-strong); stroke-width: 1; stroke-dasharray: 2 3; }
-.ol-drop { fill: var(--primary); }
-.ol-fish {
-  fill: var(--text);
-  transform-box: view-box; transform-origin: 20px 21px;
-  animation: ol-orbit 2.4s linear infinite;
-}
-@keyframes ol-orbit { to { transform: rotate(360deg); } }
-.weather-loader { display: block; width: 36px; height: 36px; }
 
 /* Footer credit: the Team Orbit logo (assets/team-orbit-logo.svg; the favicon is the same logo). */
 .team-credit {
@@ -1170,9 +1061,6 @@ main {
 .terms-dialog h3 { margin: 1.25rem 0 0.25rem; font-size: 1.0625rem; }
 .terms-list { margin: 0.25rem 0; padding-left: 1.25rem; display: grid; gap: 0.5rem; }
 
-@media (prefers-reduced-motion: reduce) {
-  .ol-fish { animation: none; }    /* the fish rests beside the drop */
-}
 
 /* Site footer: team, data sources, source code and a short privacy note.
    At the end of every page, on the darkest-water footer colour (DESIGN.md footer-region). */

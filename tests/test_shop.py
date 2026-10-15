@@ -87,11 +87,11 @@ def test_more_page_has_no_shop_card():
     assert "moreShop" not in APP
 
 
-def test_seven_tabs_keep_a_word_on_small_phones():
-    # Under 480 px the two long English words get short forms; never an icon alone.
-    assert 'tabWeatherShort: "Sky"' in APP and 'tabDiseasesShort: "Fish"' in APP
+def test_seven_tabs_keep_their_full_words_on_small_phones():
+    # Weather and Diseases are written out in full on phones too (no Sky / Fish); never an icon alone.
+    assert "tabWeatherShort" not in APP and "tabDiseasesShort" not in APP and "tab-short" not in HTML
+    assert 'data-i18n="tabWeather">Weather</span>' in HTML and 'data-i18n="tabDiseases">Diseases</span>' in HTML
     assert "grid-template-columns: repeat(7, minmax(0, 1fr))" in CSS
-    assert ".tab-long { display: none; } .tab-short { display: inline; }" in CSS
 
 
 def test_status_strip_stays_outside_every_page():

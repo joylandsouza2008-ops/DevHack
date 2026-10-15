@@ -26,7 +26,7 @@ KANNADA = re.compile("[\u0C80-\u0CFF]")
 # Screen headings for the frontend TEXT keys (first matching prefix wins).
 FRONTEND_SCREENS = [
     ("Welcome screen", ["appName", "welcomeTagline", "welcomeExample", "start", "teamPresents", "fact"]),
-    ("Top bar and demo controls", ["tagline", "theme", "simulated", "demoPond", "pond", "scenario", "restart", "pause",
+    ("Top bar and demo controls", ["tagline", "theme", "simulated", "demoPond", "phase", "pond", "scenario", "restart", "pause",
                                    "resume", "simTime", "connecting", "ended", "connectionLost"]),
     ("Pond view, pond health and readings", ["pondViewTitle", "pondCaption", "readings",
                                             "infoOnly"]),
@@ -195,10 +195,6 @@ def main() -> None:
     if left:
         sections.append(("Other page labels", "", [(f"app.js {k}", text["en"][k], text["kn"][k]) for k in left]))
 
-    sections.insert(1, ("Pond scene (sky label)", "Shown over the day/night pond picture.", [
-        ("scene.js PHASE_WORDS." + k, en, kn) for k, en, kn in
-        [("night", "Night", "ರಾತ್ರಿ"), ("dawn", "Sunrise", "ಸೂರ್ಯೋದಯ"),
-         ("day", "Daytime", "ಹಗಲು"), ("dusk", "Sunset", "ಸೂರ್ಯಾಸ್ತ")]]))
     sections.insert(0, ("Language and theme switches", "Button and screen-reader labels in index.html.", [
         ("index.html language button", "English", "ಕನ್ನಡ"),
         ("index.html aria-label", "Language", "ಭಾಷೆ"),

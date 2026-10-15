@@ -88,7 +88,7 @@
     const name = make("span", "disease-name", d.name[lang]);
     const otherName = make("span", "disease-other", d.name[other]);
     otherName.lang = other;
-    title.append(name, otherName, make("span", "badge badge-info", guide.cause_types[d.cause][lang]));
+    title.append(name, otherName, make("span", "disease-cause", guide.cause_types[d.cause][lang]));   // plain text, not a badge
     summary.append(title);
 
     const body = make("div", "disease-body");

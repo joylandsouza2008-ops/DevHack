@@ -103,7 +103,7 @@ All contrast ratios below are measured (WCAG 2.x formula). Text needs at least 4
 
 `tests/test_contrast.py` checks that every dark-theme colour token is a grey (red = green = blue), except the status colours and the unused magenta.
 
-### Previous dark palette (now the light theme's night pictures only)
+### Previous dark palette (kept for reference; no longer used)
 | Token | Hex | Use | Contrast |
 |---|---|---|---|
 | **Background** ({colors.background}) | `#060351` | Page background (deep indigo) | text on it 15.7:1 |
@@ -180,13 +180,13 @@ These colors are reserved for pond and fish condition: water quality, oxygen, te
 - **On Secondary** ({colors.on-secondary}): Dark text on the cyan secondary fill (8.1:1).
 
 ### Themes
-- `styles.css` defines the dark (black and white) tokens on `:root, .dark-scope` and the light overrides on `:root[data-theme="light"]`. A small script in `index.html` sets `data-theme` before the first paint: the saved choice (`localStorage` key `meenuraksha-theme`), else `prefers-color-scheme`.
-- **Pictures:** the sky scene and the pond view carry the `dark-scope` class. In the **light** theme they keep the deep indigo night palette (`:root[data-theme="light"] .dark-scope`, unchanged). In the **dark** theme they are black and white: the sky scene and the 2D pond are shown through a greyscale filter, and the 3D pond switches to grey water, a dark grey bank and a grey sky (`pond-3d.js`, it follows the theme toggle at once).
+- `styles.css` defines the dark (black and white) tokens on `:root` and the light overrides on `:root[data-theme="light"]`. A small script in `index.html` sets `data-theme` before the first paint: the saved choice (`localStorage` key `meenuraksha-theme`), else `prefers-color-scheme`.
+- **Pond view** (`pond-view.js`): a flat picture that follows the theme: a rounded rectangle of water in one flat colour, three flat fish swimming slowly, and small bubbles rising. More oxygen, more bubbles (2 at 0 mg/L, up to 16 at 12 mg/L); the fish slow down in Warning and more in Danger. Light: soft teal water (`--pond-water` #CFE8EA) with deep teal fish; dark: dark grey water (#262626) with light grey fish. No gradients and no Three.js; 30 fps at most, stops off screen or in a hidden tab, still with "reduce motion".
 - **Start page** follows the theme: light in light mode; black and white in dark mode (white logo and text, white Start button with black text, dark language box with the chosen language white).
 - **Known exception:** the sensor-kit wiring diagram in the Shop keeps its own colours (orange, blue, grey) in dark mode, because its legend uses them to tell power, control and sensor parts apart. It sits on #141414.
 - **Plain page:** the page is one flat colour. No background waves, blobs, glows or gradient washes behind the cards.
-- **The sky scene** uses its own indigo, blues, cyan, an orchid dusk and pale pearl (`SKY` in `scene.js`); sunrise and sunset are light and position, never orange, red or green.
-- `tests/test_contrast.py` checks every pair in both themes, the sky, and that the page stays flat (no waves, doodles, decorative shadows or magenta).
+- **Simulated clock:** one plain line above the status, "Simulated time: 15 Oct, 20:20, Night", with the "Simulated data" tag. No night-scene illustration.
+- `tests/test_contrast.py` checks every pair in both themes and that the page stays flat (no waves, doodles, decorative shadows, magenta, illustrations that are only decoration, or Three.js).
 
 ## Typography
 
@@ -274,7 +274,7 @@ Readings use tabular numbers; their **units are smaller and muted** (`--fs-capti
 
 ### Grid & Container
 - 1200px max-width with 24px gutters on computers; 16px minimum side padding on phones. Spacing between blocks is on an 8px grid (8, 16, 24, 32).
-- **Pond page dashboard** (1024px and wider): two independent columns, 7 : 5. Left: the sky scene with the status block under it, the oxygen chart, time until danger. Right: the pond view (3D), the Pond health panel, the latest readings. Phones: one column, left column first.
+- **Pond page dashboard** (1024px and wider): two independent columns, 7 : 5. Left: the simulated clock line, the status block, the oxygen chart, time until danger. Right: the flat pond view, the Pond health panel, the latest readings. Phones: one column, left column first.
 - My ponds: one `card-pond` per pond in a responsive grid (1-up phone → 2-up tablet → 3-up desktop).
 - Reading lines stay under ~70 characters wide, and slightly narrower for Kannada.
 
@@ -282,9 +282,8 @@ Readings use tabular numbers; their **units are smaller and muted** (`--fs-capti
 
 The system is **flat**, like still water: every surface is a solid fill with a 1px `{colors.hairline}` border, and **no card has a shadow**. Cards are never nested inside cards; inside a card, parts are separated by thin dividers or small inner panels. Dialogs get a dark backdrop, not a shadow.
 
-The only 3D in the app is deliberate and small, never a drop shadow:
-- **Pond view** (`pond-3d.js`, Three.js bundled in `frontend/vendor/three/`, never a CDN): a glass-tank pond with gently moving water, a few fish, and bubbles whose number follows dissolved oxygen (4 at 0 mg/L, up to 44 at 12 mg/L). Night and day light, moon and stars follow the simulated time. Murky blues and greys only; in Danger the water greys and the fish rise to the surface. At most 30 fps and a 1.5 pixel ratio; it stops drawing off screen or in a hidden tab. **Falls back to the 2D pond** on low-power phones, with "reduce motion", without WebGL, or if the GPU drops it.
-- **Start screen**: a light, quiet brand landing, the **same in both themes** (its own palette in `welcome.css`: background #F4F7F6, text #0F2A33, muted #4D646B, accent #0B7A85, lines #DCE5E3). Flat colours only: no gradients, light rays or fish. Top bar: the logo and "Team Orbit" on the left, the language switch on the right (white box, the chosen language dark with white text). Computers: two columns. Left: "Team Orbit presents" (small, uppercase, teal, a short teal rule before it; no capitals or letter spacing in Kannada), **AquaNexus** in Manrope 800 at about 96 px with tight letter spacing (allowed here only: the name is Latin letters, `lang="en"`), ಮೀನು ರಕ್ಷಕ in teal, the tagline in muted text, a dark Start button (12 px corners), and three short facts split by thin lines. Right: the **flat Team Orbit logo** (about 220 px) centred in two thin 1 px orbit paths, with a small teal dot on the outer one. Phones: stacked, the logo on top (about 120 px), full-width Start. **The only motion is the logo fading in once (0.6 s)**; nothing else on the start screen moves. Three.js is not loaded on the start screen (the 3D pond loads after Start). The sample Warning card sits below the first screen, smaller.
+There is no 3D in the app and no drop shadow.
+- **Start screen**: a quiet brand landing that **follows the theme**: light (its own palette in `welcome.css`: background #F4F7F6, text #0F2A33, muted #4D646B, accent #0B7A85, lines #DCE5E3), or black and white in the dark theme. Flat colours only: no gradients, light rays or fish. Top bar: the logo and "Team Orbit" on the left, the language switch on the right (white box, the chosen language dark with white text). Computers: two columns. Left: "Team Orbit presents" (small, uppercase, teal, a short teal rule before it; no capitals or letter spacing in Kannada), **AquaNexus** in Manrope 800 at about 96 px with tight letter spacing (allowed here only: the name is Latin letters, `lang="en"`), ಮೀನು ರಕ್ಷಕ in teal, the tagline in muted text, a dark Start button (12 px corners), and three short facts split by thin lines. Right: the **flat Team Orbit logo** (about 220 px) centred in two thin 1 px orbit paths, with a small teal dot on the outer one. Phones: stacked, the logo on top (about 120 px), full-width Start. **The only motion is the logo fading in once (0.6 s)**; nothing else on the start screen moves. Three.js is not loaded on the start screen (the 3D pond loads after Start). The sample Warning card sits below the first screen, smaller.
 
 ## Shapes
 
@@ -394,11 +393,9 @@ Numeric inputs for readings use `inputmode="decimal"` and show the unit as a suf
 **`cta-banner`**: bright cyan banner (`{colors.secondary}`, dark text) with a `{rounded.feature}` radius, a centered headline and a `button-primary`.
 
 **Team Orbit touches** (small, static details from the team's name; the pond stays the main identity):
-- **Night sky:** a still starfield (no twinkle, shooting stars or satellites).
-- **Loading states:** a small fish circling a water drop, shown only while loading ("Connecting…", tonight's weather).
-- **Team Orbit logo** (`frontend/assets/team-orbit-logo.svg`, exactly as the team gave it): a thick ring, an orbit line crossing it (the ring is cut where the line passes), and a moon at the line's upper-right end. One colour (`currentColor`): **#0B7A85 on light backgrounds, #8FD8E8 on dark** (`--logo` in `styles.css`). It is inlined on the start screen (top bar and the big logo), in the app header and in the footer credit; **each inline copy has its own mask id** (`to-cut-welcome-bar`, `to-cut-welcome-logo`, `to-cut-header`, `to-cut-footer`). The favicon is `team-orbit-favicon.svg`: the same logo with the two colours built in, because a browser tab has no text colour to inherit. The start screen shows "Team Orbit presents" / "ಟೀಮ್ ಆರ್ಬಿಟ್ ಪ್ರಸ್ತುತಪಡಿಸುತ್ತದೆ"; the footer says "AquaNexus by Team Orbit (Nexus Orbit)" / "AquaNexus · ನಿರ್ಮಾಣ: ಟೀಮ್ ಆರ್ಬಿಟ್ (Nexus Orbit)".
+- **Team Orbit logo** (`frontend/assets/team-orbit-logo.svg`, exactly as the team gave it): a thick ring, an orbit line crossing it (the ring is cut where the line passes), and a moon at the line's upper-right end. One colour (`currentColor`): **#0B7A85 on light backgrounds, white in the dark theme** (`--logo` in `styles.css`). It is inlined on the start screen (top bar and the big logo), in the app header and in the footer credit; **each inline copy has its own mask id** (`to-cut-welcome-bar`, `to-cut-welcome-logo`, `to-cut-header`, `to-cut-footer`). The favicon is `team-orbit-favicon.svg`: the same logo with the two colours built in, because a browser tab has no text colour to inherit. The start screen shows "Team Orbit presents" / "ಟೀಮ್ ಆರ್ಬಿಟ್ ಪ್ರಸ್ತುತಪಡಿಸುತ್ತದೆ"; the footer says "AquaNexus by Team Orbit (Nexus Orbit)" / "AquaNexus · ನಿರ್ಮಾಣ: ಟೀಮ್ ಆರ್ಬಿಟ್ (Nexus Orbit)".
 - **App name:** **AquaNexus**, written in Latin letters in both languages. On the welcome screen the Kannada tagline **ಮೀನು ರಕ್ಷಕ** ("fish protector") sits under the name, in `{colors.primary}`.
-- None of them use status colours or the magenta accent, and all of them stop with "reduce motion" (the loader's fish rests beside the drop).
+- None of them use status colours or the magenta accent.
 
 **`footer-region`** / **`footer-link`**: deep-water footer (`{colors.footer-bg}`) with `{colors.text-secondary}` links at 16px.
 
@@ -418,7 +415,8 @@ Numeric inputs for readings use `inputmode="decimal"` and show the unit as a suf
 - Don't add decorative blobs, waves, gradient washes, glows, rings, bubbles or doodles (the pond pictures are the only illustrations)
 - Don't use emoji, in the UI or in SMS / WhatsApp text: use the outline icons and words ("AquaNexus DANGER - Pond 1: ...")
 - Don't animate for decoration: no scroll reveals, word-by-word headings, cursor ripples, magnetic buttons, card tilt (except the start card) or orbiting dots
-- Don't use green, amber or red decoratively, in either theme (sky, waves, glows and doodles included)
+- Don't use green, amber or red decoratively, in either theme (pictures, waves, glows and doodles included)
+- Don't draw decoration: no drawn phone frames, loading mascots, night-scene illustrations or a badge on every list item. One clear heading per card, short helper text under it
 - Don't put an amber stripe on a light card without its dark edge ({colors.light-warning-edge})
 - Don't use status colors for decoration, branding or category tags
 - Don't use secondary ({colors.secondary}) as text or as a border; it is a fill with dark text (only 2.0:1 on the light page), and it is close to primary, so never the only difference from it

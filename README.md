@@ -49,11 +49,11 @@ Built for DevHack 2026, problem statement 1.1.
 | `docs/health_score.md` | How the 0–100 health score is worked out, with examples |
 | `docs/time_to_danger.md` | "Time until danger" method and results on real + simulated data |
 | `docs/screenshots/` | App screenshots (simulated demo) |
-| `frontend/` | The web page: `index.html`, dashboard (`styles.css`, `app.js`), welcome screen (`welcome.css`, `welcome.js`), day/night pond scene that follows the simulated time (`scene.js`). Calm, flat design: hairline borders, no decorative glows or shadows, colour only for the brand and Safe / Warning / Danger, and motion only where it means something (a level change, a number moving, the countdown, a Danger alert). Dark and light themes (one Realtime Colors palette: indigo, pond blue, cyan; toggle in the top bar). Add `?debug` to the address to see live counts |
+| `frontend/` | The web page: `index.html`, dashboard (`styles.css`, `app.js`), welcome screen (`welcome.css`, `welcome.js`), flat pond view (`pond-view.js`). Calm, flat design: hairline borders, no decorative glows or shadows, colour only for the brand and Safe / Warning / Danger, and motion only where it means something (a level change, a number moving, the countdown, a Danger alert). Dark and light themes (one Realtime Colors palette: indigo, pond blue, cyan; toggle in the top bar). Add `?debug` to the address to see live counts |
 | `frontend/assistant.js` | "Ask AquaNexus" chat card (suggested questions, speaker button per reply) |
 | `frontend/diseases.js` | Fish disease guide card: symptom checker, disease library with original SVG fish drawings |
 | `frontend/health-ring.js`, `history.js`, `voice.js` | Health score ring, alert history (saved in the browser), voice alerts (phone's own voices, only when tapped) |
-| `frontend/pond-3d.js`, `frontend/vendor/three/` | 3D pond (Three.js r170, bundled locally): moving water, bubbles that follow the oxygen, night/day light. Pond view card only, loaded after Start (the start screen never downloads Three.js); 30 fps max, pauses off screen, falls back to the 2D pond (`pond-view.js`) on weak phones, without WebGL or with "reduce motion" |
+| `frontend/pond-view.js` | Flat pond view: water, three fish, bubbles that follow the oxygen (fish slow down in Warning and Danger). No Three.js; 30 fps max, pauses off screen |
 | `frontend/assets/team-orbit-logo.svg`, `team-orbit-favicon.svg` | Team Orbit logo (one colour: #0B7A85 on light, #8FD8E8 on dark): start screen, header, footer and favicon |
 | `frontend/vendor/gsap/` | GSAP 3.15.0 animation library, bundled locally (the app works on cheap phones and slow internet) |
 | `frontend/assets/` | Sensor-kit wiring diagram shown in the Shop |

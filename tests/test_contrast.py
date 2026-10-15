@@ -37,14 +37,14 @@ def rgbas(text: str) -> dict[str, tuple[str, float]]:
     return out
 
 
-DARK_BLOCK = block(r":root,\s*\.dark-scope")
+DARK_BLOCK = block(r":root")
 LIGHT_BLOCK = block(r':root\[data-theme="light"\]')
 THEMES = {
     "dark": hexes(DARK_BLOCK),
     "light": {**hexes(DARK_BLOCK), **hexes(LIGHT_BLOCK)},   # light inherits what it doesn't redefine (status, font)
 }
 ALPHAS = {"dark": rgbas(DARK_BLOCK), "light": {**rgbas(DARK_BLOCK), **rgbas(LIGHT_BLOCK)}}
-C = THEMES["dark"]          # pictures (welcome, sky scene, pond view) are always dark
+C = THEMES["dark"]
 both = pytest.mark.parametrize("theme", ["dark", "light"])
 
 
@@ -162,15 +162,6 @@ def test_dark_theme_is_black_and_white():
         assert r == g == b, f"dark --{name} {value} is not a grey"
 
 
-def test_light_theme_pictures_keep_their_night_colours():
-    # Light mode stays as it was: the sky scene and pond view keep the deep indigo palette.
-    pictures = hexes(block(r':root\[data-theme="light"\] \.dark-scope'))
-    assert (pictures["background"], pictures["text"], pictures["primary"], pictures["secondary"]) == \
-        ("#060351", "#def0f8", "#88cce6", "#23bcd0")
-    # Dark mode: the drawn pictures are shown in greys.
-    assert ':root:not([data-theme="light"]) .scene-art,' in CSS and "filter: grayscale(1);" in CSS
-
-
 def oklab(h: str) -> tuple[float, float, float]:
     """Perceptual colour coordinates (OKLab). Distance x100 >= 15 = clearly different colours."""
     rgb = [int(h[i:i + 2], 16) / 255 for i in (1, 3, 5)]
@@ -209,6 +200,18 @@ def simulate(hex_colour: str, kind: str) -> str:
 
 def colour_distance(a: str, b: str) -> float:
     return 100 * math.dist(oklab(a), oklab(b))
+
+
+def test_pond_view_is_flat_and_follows_the_theme():
+    # Light: soft teal water, deep teal fish. Dark: dark grey water, light grey fish (greys only).
+    light, dark = THEMES["light"], THEMES["dark"]
+    assert (light["pond-water"], light["pond-fish"]) == ("#cfe8ea", "#0b7a85")
+    assert (dark["pond-water"], dark["pond-fish"]) == ("#262626", "#e5e5e5")
+    for theme in (light, dark):
+        assert contrast(theme["pond-fish"], theme["pond-water"]) >= NON_TEXT        # fish stand out from the water
+        assert contrast(theme["pond-bubble"], theme["pond-water"]) >= 2.0           # bubbles are visible
+    html = (STYLES.parent / "index.html").read_text(encoding="utf-8")
+    assert 'class="pond-view" id="pond-view"' in html and "dark-scope" not in html and "dark-scope" not in CSS
 
 
 @both
@@ -342,44 +345,13 @@ def test_danger_text_never_sits_on_the_dark_page():
         assert "var(--danger-bg)" in rule, rule
 
 
-def test_pictures_stay_dark_in_the_light_theme():
-    # The sky scene and pond view are night-water pictures: always dark tokens.
-    # (The start page is light in both themes, with its own palette: test_start_page_is_light_and_flat.)
+def test_simulated_clock_is_one_plain_line():
+    # No night-scene illustration: "Simulated time: 15 Oct, 20:20, Night" and the tag, on one line.
     html = (STYLES.parent / "index.html").read_text(encoding="utf-8")
-    for element in ('class="scene dark-scope"', 'class="pond-view dark-scope"'):
-        assert element in html
-    # Text colour is inherited already computed, so the pictures must set it again from their own tokens.
-    assert ".dark-scope { color: var(--text); }" in CSS
-
-
-# ---------------------------------------------------------------- sky scene and cursor effects
-
-SCENE = STYLES.parent / "scene.js"
-
-
-def sky_colours() -> list[str]:
-    sky = re.search(r"const SKY = \{(.*?)\};", SCENE.read_text(encoding="utf-8"), re.S).group(1)
-    return re.findall(r"#[0-9a-fA-F]{6}", sky)
-
-
-def test_sky_colours_never_look_like_a_status_colour():
-    # Sunrise and sunset are shown with light, blue and orchid tones, never orange/red/green.
-    colours = sky_colours()
-    assert len(colours) == 12
-    for colour in colours:
-        for status in ("safe", "warning", "danger"):
-            assert hue_gap(colour, C[status]) >= 45, f"sky {colour} is close in hue to {status}"
-
-
-def test_scene_clock_chip_is_readable_over_the_brightest_sky():
-    # The chip is rgba(4, 2, 40, 0.84) over the sky; check it over the lightest sky colour.
-    assert "background: rgba(4, 2, 40, 0.84)" in CSS
-    brightest = max(sky_colours(), key=luminance)
-    chip = over("#040228", brightest, 0.84)
-    assert contrast(C["text"], chip) >= TEXT
-    assert contrast(C["text-secondary"], chip) >= TEXT
-    assert contrast(C["primary"], chip) >= TEXT         # the phase word ("Night")
-    assert contrast(C["on-secondary"], C["secondary"]) >= TEXT   # "Simulated data" tag
+    line = html[html.index('<p class="sim-line" id="scene">'):]
+    line = line[:line.index("</p>\n") + 4]
+    assert 'id="sim-time"' in line and 'id="scene-phase"' in line and 'data-i18n="simulatedTag"' in line
+    assert not (STYLES.parent / "scene.js").exists() and "scene-art" not in html
 
 
 @both
@@ -404,7 +376,7 @@ def test_no_glows_or_gradient_text():
 
 # ---------------------------------------------------------------- Team Orbit touches
 
-ORBIT_CSS = CSS[CSS.index("Team Orbit touches: the loader"):]
+ORBIT_CSS = CSS[CSS.index("Team Orbit touches: the credit logo"):]
 
 
 LOGO = STYLES.parent / "assets" / "team-orbit-logo.svg"
@@ -480,26 +452,34 @@ def test_start_page_follows_the_dark_theme_in_black_and_white():
 
 
 def test_space_touches_use_no_status_or_accent_colour():
-    # Loader and logo: pearl and pond blue only.
+    # The credit logo: never a status colour or the accent.
     assert not re.search(r"var\(--(safe|warning|danger|accent)", ORBIT_CSS)
-
-
-def test_space_touches_respect_reduce_motion():
-    reduce_block = ORBIT_CSS[ORBIT_CSS.index("@media (prefers-reduced-motion: reduce)"):]
-    assert ".ol-fish { animation: none; }" in reduce_block
 
 
 # ---------------------------------------------------------------- purposeful motion only
 
 def test_only_purposeful_animations():
-    # CSS keyframes left: the Danger banner and strip (alerts) and the loading fish.
+    # CSS keyframes left: the Danger banner and strip (alerts) only.
     names = set(re.findall(r"@keyframes\s+([\w-]+)", CSS + (STYLES.parent / "welcome.css").read_text(encoding="utf-8")))
-    assert names == {"danger-breathe", "strip-breathe", "ol-orbit"}, names
+    assert names == {"danger-breathe", "strip-breathe"}, names
     # No cursor effects, scroll reveals, word-by-word headings, border trails or night sky extras.
     assert not (STYLES.parent / "cursor-fx.js").exists()
     js = "".join(p.read_text(encoding="utf-8") for p in STYLES.parent.glob("*.js"))
-    for banned in ("textEffect", "inView(", "borderTrail", "shootingStar", "satellitePass", "orbitTween", "fleeFrom", "bindMagnet"):
+    for banned in ("textEffect", "inView(", "borderTrail", "shootingStar", "satellitePass", "orbitTween", "fleeFrom",
+                   "bindMagnet", "THREE", "Pond3D", "OrbitLogo3D", "orbit-loader"):
         assert banned not in js, banned
+    # No Three.js in the project any more (the 3D pond and 3D logo are gone).
+    assert not (STYLES.parent / "vendor" / "three").exists()
+    assert not (STYLES.parent / "pond-3d.js").exists() and not (STYLES.parent / "orbit-logo-3d.js").exists()
+
+
+def test_no_illustrations_that_are_only_decoration():
+    # No drawn phone around the SMS preview, no loading animation, no badge per disease.
+    html = (STYLES.parent / "index.html").read_text(encoding="utf-8")
+    for gone in ('class="phone"', "phone-speaker", "orbit-loader", "weather-loader"):
+        assert gone not in html, gone
+    diseases = (STYLES.parent / "diseases.js").read_text(encoding="utf-8")
+    assert 'make("span", "disease-cause"' in diseases and '"badge badge-info", guide.cause_types' not in diseases
 
 
 def test_no_emoji_in_the_interface():

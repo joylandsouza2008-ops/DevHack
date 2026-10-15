@@ -39,16 +39,12 @@
     ["History entries", () => (window.MeenuRaksha && window.MeenuRaksha.historyCount ? window.MeenuRaksha.historyCount() : 0)],
     ["History items on page", () => document.querySelectorAll(".history-item").length],
     ["Page elements", () => document.getElementsByTagName("*").length],
-    ["Pond bubbles", () => document.querySelectorAll(".pv-bubble").length],
     ["GSAP animations (active)", () => (window.gsap ? window.gsap.globalTimeline.getChildren(true, true, false).filter((t) => t.isActive()).length : 0)],
     ["GSAP animations (all)", () => (window.gsap ? window.gsap.globalTimeline.getChildren(true, true, false).length : 0)],
     ["CSS animations", () => (document.getAnimations ? document.getAnimations().length : 0)],
     ["Timers: timeouts", () => timeouts.size],
     ["Timers: intervals", () => intervals.size],
-    // The sky scene: built once, so these must stay flat.
-    ["Sky stars", () => (window.Scene ? window.Scene.stats().stars : 0)],
-    ["Sky changes running", () => (window.Scene ? window.Scene.stats().moving : 0)],
-    ["Loaders spinning", () => [...document.querySelectorAll(".orbit-loader")].filter((l) => l.getClientRects().length).length],
+    ["Pond view bubbles", () => (window.PondView ? window.PondView.stats().bubbles : 0)],
     ["Saved items (localStorage, count only)", () => { try { return localStorage.length; } catch { return 0; } }],
   ];
   if (performance.memory) METRICS.push(["JS memory (MB)", () => mb(performance.memory.usedJSHeapSize)]);
