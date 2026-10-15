@@ -143,9 +143,26 @@ def test_brand_palette_is_used():
     assert (d["background"], d["card"], d["hairline"], d["text"], d["text-secondary"]) == \
         ("#0a0a0a", "#141414", "#262626", "#ffffff", "#a3a3a3")
     assert (d["primary"], d["on-primary"], d["logo"]) == ("#ffffff", "#000000", "#ffffff")   # white buttons, black text
-    # Light theme, unchanged: the Realtime Colors palette (indigo text, deepened pond blue, cyan).
-    assert (l["text"], l["background"], l["primary"], l["secondary"], l["accent"]) == \
-        ("#060351", "#eceefa", "#17698e", "#23bcd0", "#a10c9f")
+    # Light theme: the start page's palette, with one accent (teal #0B7A85).
+    assert (l["background"], l["card"], l["hairline"], l["text"], l["text-secondary"]) == \
+        ("#f4f7f6", "#ffffff", "#dce5e3", "#0f2a33", "#4d646b")
+    assert (l["primary"], l["on-primary"], l["logo"], l["pond-fish"]) == ("#0b7a85", "#ffffff", "#0b7a85", "#0b7a85")
+    # "Simulated data" tags: #E3F1F2 with teal text (a shade darker than the accent, so it reads at 4.5:1).
+    assert (l["secondary"], l["on-secondary"]) == ("#e3f1f2", "#0a7680")
+
+
+def test_light_theme_has_no_lavender_navy_or_bright_cyan():
+    # Every light colour token is a neutral, a teal or the dark slate text (hue 170-230), apart from the status
+    # colours and the unused magenta. Lavender and navy (hue 265-275) are gone.
+    for name, value in THEMES["light"].items():
+        if name in STATUS_TOKENS or name in ("accent", "on-accent", "warning-edge"):
+            continue
+        _, a, b = oklab(value)
+        if math.hypot(a, b) < 0.02:
+            continue                                  # a neutral grey or near-white
+        hue = math.degrees(math.atan2(b, a)) % 360
+        assert 170 <= hue <= 230, f"light --{name} {value} has hue {hue:.0f}"
+        assert math.hypot(a, b) <= 0.1, f"light --{name} {value} is too bright (the old cyan #23bcd0 was 0.12)"
 
 
 STATUS_TOKENS = {"safe", "safe-bg", "safe-text", "warning", "warning-bg", "warning-text", "on-warning",
@@ -257,9 +274,9 @@ def test_brand_colours_never_look_like_a_status_colour(theme):
     # Never green, amber or red as decoration: brand colours stay far in hue from all three.
     t = THEMES[theme]
     for name in ("background", "primary", "secondary", "accent", "surface", "card", "footer-bg"):
-        r, g, b = (t[name][i:i + 2] for i in (1, 3, 5))
-        if r == g == b:
-            continue                      # greys (the dark theme) have no hue at all
+        _, a, b = oklab(t[name])
+        if math.hypot(a, b) < 0.02:
+            continue                      # greys and near-neutral off-whites have no real hue
         for status in ("safe", "warning", "danger"):
             assert hue_gap(t[name], t[status]) >= 45, f"{theme} {name} {t[name]} is close in hue to {status}"
 

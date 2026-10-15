@@ -1,20 +1,20 @@
 ---
 version: alpha
 name: pond-design-system
-description: A calm, deep-water design system for a pond and fish-health app, in two themes from one Realtime Colors palette. Dark (default) puts light pond blue ({colors.primary}) on deep indigo ({colors.background}); light, for bright outdoor sunlight, puts a deepened pond blue ({colors.light-primary}) on pale indigo-white ({colors.light-background}) with the indigo as text. Bright cyan ({colors.secondary}) fills small tags and highlights with dark text; magenta ({colors.accent}) stays in the palette but is not used in the interface. A strict three-level status palette (Safe green, Warning amber, Danger red) is reserved for pond and fish condition readings only, identical in both themes. Type is set large for readability outdoors and on low-end phones, and every text style is tuned to render Kannada (ಕನ್ನಡ) script as comfortably as English.
+description: A calm, flat design system for a pond and fish-health app, in two themes. Dark (default) is black and white only: white text and white actions on near-black ({colors.background}). Light uses the start page's palette: dark slate text on a pale grey-green page ({colors.light-background}), white cards and one teal accent ({colors.light-primary}). A strict three-level status palette (Safe green, Warning amber, Danger red) is reserved for pond and fish condition only, identical in both themes, and is the only colour in the dark theme. Type is set large for readability outdoors and on low-end phones, and every text style is tuned to render Kannada (ಕನ್ನಡ) as comfortably as English.
 
 colors:
-  # Dark theme (default): the team's Realtime Colors palette, exact values
-  background: "#060351"      # deep indigo
-  text: "#def0f8"
-  primary: "#88cce6"         # light pond blue: every action
-  primary-pressed: "#a8daee"
-  on-primary: "#060351"
-  secondary: "#23bcd0"       # bright cyan fill, always with dark text
-  on-secondary: "#060351"
-  edge-on-secondary: "#060351"   # dashed borders / border trail on secondary fills
+  # Dark theme (default): black and white only (styles.css :root)
+  background: "#0a0a0a"
+  text: "#ffffff"
+  primary: "#ffffff"         # every action: white, black text on it
+  primary-pressed: "#d4d4d4"
+  on-primary: "#000000"
+  secondary: "#d4d4d4"       # light grey fill: tags, "Simulated data", black text
+  on-secondary: "#000000"
+  edge-on-secondary: "#000000"
   accent: "#a10c9f"          # magenta: kept in the palette, NOT used in the interface (see Colors)
-  on-accent: "#def0f8"
+  on-accent: "#ffffff"
   # Status: unchanged
   safe: "#1a7f37"
   safe-bg: "#e6f4ea"
@@ -27,35 +27,34 @@ colors:
   danger-bg: "#fdecea"
   danger-text: "#7f1414"
   on-status: "#ffffff"       # text on the solid Safe / Danger colours
-  # Dark-theme surfaces and text, derived from the palette (all contrast-checked)
-  surface: "#08054a"         # top bar, sections
-  canvas: "#07044a"          # cards, inputs (--card in styles.css); as dark as the page so Danger stripes keep 3:1
-  hairline: "#262470"
-  hairline-soft: "#1a1860"
-  hairline-strong: "#6f73b8"  # input and control borders (4.3:1 on canvas)
-  text-secondary: "#b3c6e6"
-  text-tertiary: "#9aa9d6"
-  muted: "#6a6fa6"           # disabled only
-  footer-bg: "#03022c"
-  # Light theme (bright sunlight), made from the same palette. Status colours above are shared, unchanged.
-  light-background: "#eceefa"
-  light-text: "#060351"      # the palette's indigo
-  light-primary: "#17698e"   # pond blue, deepened for light text on it
-  light-primary-pressed: "#0f4f6c"
-  light-on-primary: "#f4fbfe"
-  light-secondary: "#23bcd0" # same cyan: fill only on this page (2.0:1)
-  light-on-secondary: "#060351"
-  light-edge-on-secondary: "#060351"
-  light-accent: "#a10c9f"    # same magenta, not used
-  light-on-accent: "#f8f0fb"
-  light-surface: "#f6f7fd"
-  light-canvas: "#fcfcff"
-  light-hairline: "#d3d6ee"
-  light-hairline-strong: "#646a99"
-  light-text-secondary: "#2c2f6b"
-  light-text-tertiary: "#4a4e85"
-  light-muted: "#8d90b5"
-  light-footer-bg: "#dfe2f5"
+  # Dark-theme surfaces and text (all contrast-checked)
+  surface: "#141414"         # top bar, notes, inner panels
+  canvas: "#141414"          # cards, inputs (--card in styles.css)
+  hairline: "#262626"
+  hairline-strong: "#737373" # input and control borders (3.9:1 on cards)
+  text-secondary: "#a3a3a3"
+  text-tertiary: "#a3a3a3"
+  muted: "#5c5c5c"           # disabled only
+  footer-bg: "#0a0a0a"
+  # Light theme: the start page's palette, one teal accent. Status colours above are shared, unchanged.
+  light-background: "#f4f7f6"
+  light-text: "#0f2a33"
+  light-primary: "#0b7a85"   # the one accent: buttons, active tab, chosen pond, links, chart line, logo
+  light-primary-pressed: "#08616a"
+  light-on-primary: "#ffffff"
+  light-secondary: "#e3f1f2" # pale teal fill: "Simulated data" tags, info badges, WhatsApp bubble
+  light-on-secondary: "#0a7680"  # teal text on it (4.6:1)
+  light-edge-on-secondary: "#0b7a85"
+  light-accent: "#a10c9f"    # magenta, not used
+  light-on-accent: "#ffffff"
+  light-surface: "#f4f7f6"
+  light-canvas: "#ffffff"
+  light-hairline: "#dce5e3"
+  light-hairline-strong: "#78898d"
+  light-text-secondary: "#4d646b"
+  light-text-tertiary: "#4d646b"
+  light-muted: "#9aabae"
+  light-footer-bg: "#ffffff"
   light-warning-edge: "#7a4100"   # = warning-text: dark edge on amber stripes (amber is 2.0:1 on light cards)
 
 ---
@@ -65,7 +64,7 @@ colors:
 This is a calm, deep-water design system for a pond and fish-health app. It is used by pond owners and fish farmers, often outdoors, on phones, and in either Kannada or English. One Realtime Colors palette gives two themes:
 
 - **Dark (default): black and white only.** Background #0A0A0A, cards #141414, lines #262626, text #FFFFFF, muted text #A3A3A3. Every action, link, active tab, toggle and chart line is white or grey; primary buttons and the chosen language / theme are **white with black text**; the logo is white. **No teal, blue or navy anywhere.** The only colours are the status colours (Safe green, Warning amber, Danger red) on alerts, badges, the status strip, the health score and the risk scale, because they carry safety meaning. (The Indigo values in the YAML header above are the light theme's night pictures, see Themes.)
-- **Light, for bright outdoor sunlight:** pale indigo-white ({colors.light-background}) with the palette's indigo as text ({colors.light-text}). The main action is a deepened pond-blue pill ({colors.light-primary}) with light text.
+- **Light, for bright outdoor sunlight:** the same palette as the start page. Background #F4F7F6, cards #FFFFFF, lines #DCE5E3, text #0F2A33, muted text #4D646B, and **one accent, teal #0B7A85**, for buttons, the active tab, the chosen pond, links, the chart line and the logo. "Simulated data" tags are small, pale teal #E3F1F2 with teal text. No lavender, navy or bright cyan.
 
 Bright cyan ({colors.secondary}) fills small tags and highlighted items, always with dark text. **Colour only means something**: pond blue is the brand and every action, and green, amber and red are Safe, Warning and Danger. Magenta ({colors.accent}) stays in the palette but is **not used** anywhere on screen: no doodles, glows or decorative lines. The first theme follows the phone's light/dark setting; a **Light | Dark** toggle in the top bar overrides it and is remembered. The pictures (welcome pond, sky scene, pond view) show night water and stay dark in both themes.
 
@@ -115,23 +114,20 @@ All contrast ratios below are measured (WCAG 2.x formula). Text needs at least 4
 | **Edge on Secondary** ({colors.edge-on-secondary}) | `#060351` | A dark edge on a secondary fill, when one is needed | 8.1:1 on secondary |
 | **Accent** ({colors.accent}) | `#a10c9f` | **Not used in the interface** (see below) | 2.7:1 on the background |
 
-### Brand palette: light theme (bright sunlight)
-Made from the same palette: the indigo becomes the text, the pond blue is deepened so light text sits on it, and cyan and magenta are used unchanged.
+### Light theme: the start page's palette
+One accent, teal. No lavender, navy or bright cyan (`tests/test_contrast.py` checks every light colour is a neutral, a teal or the dark slate text, and never as vivid as the old cyan).
 
 | Token | Hex | Use | Contrast |
 |---|---|---|---|
-| **Background** ({colors.light-background}) | `#eceefa` | Page background | text on it 16.0:1 |
-| **Text** ({colors.light-text}) | `#060351` | Headlines and body text | 18.0:1 on cards |
-| **Primary** ({colors.light-primary}) | `#17698e` | Same jobs as dark primary | 5.3:1 on background; light text on it 5.8:1 |
-| **Primary Pressed** ({colors.light-primary-pressed}) | `#0f4f6c` | Pressed primary buttons (darker, not lighter) | light text on it 8.5:1 |
-| **On Primary** ({colors.light-on-primary}) | `#f4fbfe` | Text on primary: **light** in this theme | |
-| **Secondary** ({colors.light-secondary}) | `#23bcd0` | Fill, as in dark | dark text on it 8.1:1; **2.0:1 on the page, so fill only, never text or a border** |
-| **Edge on Secondary** ({colors.light-edge-on-secondary}) | `#060351` | Dashed borders / border trail on secondary | 8.1:1 on secondary |
-| **Accent** ({colors.light-accent}) | `#a10c9f` | Not used, as in dark | 5.9:1 on the background |
-| **Surface / Canvas** | `#f6f7fd` / `#fcfcff` | Top bar and sections / cards and inputs | |
-| **Text Secondary / Tertiary** | `#2c2f6b` / `#4a4e85` | Secondary / tertiary text | 11.9:1 / 7.5:1 on cards |
-| **Hairline / Hairline Strong** | `#d3d6ee` / `#646a99` | Dividers / control borders | strong 5.0:1 on cards |
-| **Footer** ({colors.light-footer-bg}) | `#dfe2f5` | Bottom toolbar | |
+| **Background / Surface** | `#F4F7F6` | Page, top bar, notes, inner panels | text 14.0:1 |
+| **Card** | `#FFFFFF` | Cards, inputs, footer, phone tab bar | text 15.0:1; muted 6.3:1 |
+| **Lines** | `#DCE5E3` | Hairlines, dividers | decorative |
+| **Control borders** | `#78898D` | Inputs, selects, toggles | 3.6:1 on cards |
+| **Text / Muted** | `#0F2A33` / `#4D646B` | Text / secondary text, units | |
+| **Accent (primary)** | `#0B7A85`, white text on it | Buttons, active tab, chosen pond and toggles, links, chart line, logo | 4.7:1 on the page, 5.1:1 on cards; white on it 5.1:1 |
+| **Accent pressed** | `#08616A` | Pressed buttons | white on it 7.2:1 |
+| **Tag fill (secondary)** | `#E3F1F2`, text `#0A7680` | "Simulated data" tags, info badges, WhatsApp bubble | 4.6:1 (the accent itself would be 4.4:1, just under 4.5, so the tag text is one shade darker) |
+| **Pond view** | water `#CFE8EA`, fish `#0B7A85` | The flat pond picture | |
 
 Tokens with no light value (status colours, the font) are shared by both themes.
 
