@@ -138,13 +138,37 @@ def test_status_colours_unchanged(theme):
 
 
 def test_brand_palette_is_used():
-    # Dark theme: exactly the Realtime Colors palette chosen by the team.
+    # Dark theme: black and white (DESIGN.md "Dark theme").
     d, l = THEMES["dark"], THEMES["light"]
-    assert (d["text"], d["background"], d["primary"], d["secondary"], d["accent"]) == \
-        ("#def0f8", "#060351", "#88cce6", "#23bcd0", "#a10c9f")
-    # Light theme, made from it: indigo text, deepened pond blue, same cyan and magenta.
+    assert (d["background"], d["card"], d["hairline"], d["text"], d["text-secondary"]) == \
+        ("#0a0a0a", "#141414", "#262626", "#ffffff", "#a3a3a3")
+    assert (d["primary"], d["on-primary"], d["logo"]) == ("#ffffff", "#000000", "#ffffff")   # white buttons, black text
+    # Light theme, unchanged: the Realtime Colors palette (indigo text, deepened pond blue, cyan).
     assert (l["text"], l["background"], l["primary"], l["secondary"], l["accent"]) == \
         ("#060351", "#eceefa", "#17698e", "#23bcd0", "#a10c9f")
+
+
+STATUS_TOKENS = {"safe", "safe-bg", "safe-text", "warning", "warning-bg", "warning-text", "on-warning",
+                 "danger", "danger-bg", "danger-text", "on-status"}
+
+
+def test_dark_theme_is_black_and_white():
+    # No teal, blue or navy in dark mode: every colour token is a grey, except the status
+    # colours (safety meaning) and the magenta accent, which nothing on screen uses.
+    for name, value in THEMES["dark"].items():
+        if name in STATUS_TOKENS or name in ("accent", "on-accent"):
+            continue
+        r, g, b = (value[i:i + 2] for i in (1, 3, 5))
+        assert r == g == b, f"dark --{name} {value} is not a grey"
+
+
+def test_light_theme_pictures_keep_their_night_colours():
+    # Light mode stays as it was: the sky scene and pond view keep the deep indigo palette.
+    pictures = hexes(block(r':root\[data-theme="light"\] \.dark-scope'))
+    assert (pictures["background"], pictures["text"], pictures["primary"], pictures["secondary"]) == \
+        ("#060351", "#def0f8", "#88cce6", "#23bcd0")
+    # Dark mode: the drawn pictures are shown in greys.
+    assert ':root:not([data-theme="light"]) .scene-art,' in CSS and "filter: grayscale(1);" in CSS
 
 
 def oklab(h: str) -> tuple[float, float, float]:
@@ -230,6 +254,9 @@ def test_brand_colours_never_look_like_a_status_colour(theme):
     # Never green, amber or red as decoration: brand colours stay far in hue from all three.
     t = THEMES[theme]
     for name in ("background", "primary", "secondary", "accent", "surface", "card", "footer-bg"):
+        r, g, b = (t[name][i:i + 2] for i in (1, 3, 5))
+        if r == g == b:
+            continue                      # greys (the dark theme) have no hue at all
         for status in ("safe", "warning", "danger"):
             assert hue_gap(t[name], t[status]) >= 45, f"{theme} {name} {t[name]} is close in hue to {status}"
 
@@ -409,22 +436,26 @@ def test_team_credit_on_the_welcome_screen_and_in_the_footer():
 def test_team_orbit_logo_is_the_given_svg_in_the_right_colours():
     assert LOGO.read_text(encoding="utf-8").strip() == LOGO_SVG
     fav = FAVICON.read_text(encoding="utf-8")
-    assert "svg{color:#0B7A85}" in fav and "(prefers-color-scheme:dark){svg{color:#8FD8E8}}" in fav
+    assert "svg{color:#0B7A85}" in fav and "(prefers-color-scheme:dark){svg{color:#FFFFFF}}" in fav
     assert LOGO_ORBIT_LINE in fav
-    # #0B7A85 on light backgrounds, #8FD8E8 on dark: 3:1 or better wherever the logo sits.
-    assert THEMES["light"]["logo"] == "#0b7a85" and THEMES["dark"]["logo"] == "#8fd8e8"
+    # Teal #0B7A85 in light mode, white in dark mode: 3:1 or better wherever the logo sits.
+    assert THEMES["light"]["logo"] == "#0b7a85" and THEMES["dark"]["logo"] == "#ffffff"
     for theme in ("light", "dark"):
         for bg in ("background", "surface", "footer-bg"):
             assert contrast(THEMES[theme]["logo"], THEMES[theme][bg]) >= NON_TEXT, (theme, bg)
 
 
-# The start page's own palette (welcome.css), light in both themes.
+# The start page's own palette (welcome.css): light, and black and white in the dark theme.
 WELCOME = (STYLES.parent / "welcome.css").read_text(encoding="utf-8")
-W = dict(re.findall(r"--w-([a-z]+):\s*(#[0-9a-fA-F]{6})", WELCOME))
+_W_LIGHT = re.search(r"\n\.welcome \{(.*?)\n\}", WELCOME, re.S).group(1)
+_W_DARK = re.search(r':root:not\(\[data-theme="light"\]\) \.welcome \{(.*?)\n\}', WELCOME, re.S).group(1)
+W = dict(re.findall(r"--w-([a-z-]+):\s*(#[0-9a-fA-F]{6})", _W_LIGHT))
+WD = dict(re.findall(r"--w-([a-z-]+):\s*(#[0-9a-fA-F]{6})", _W_DARK))
 
 
 def test_start_page_is_light_and_flat():
-    assert W == {"bg": "#f4f7f6", "text": "#0f2a33", "muted": "#4d646b", "accent": "#0b7a85", "line": "#dce5e3"}
+    assert W == {"bg": "#f4f7f6", "text": "#0f2a33", "muted": "#4d646b", "accent": "#0b7a85", "line": "#dce5e3",
+                 "box": "#ffffff", "on-dark": "#ffffff"}
     for banned in ("gradient(", "pond-light", "pond-caustics", ".fish", "box-shadow"):
         assert banned not in WELCOME, banned
     html = (STYLES.parent / "index.html").read_text(encoding="utf-8")
@@ -435,9 +466,17 @@ def test_start_page_text_is_readable():
     assert contrast(W["text"], W["bg"]) >= TEXT          # name, facts
     assert contrast(W["muted"], W["bg"]) >= TEXT         # tagline, fact details
     assert contrast(W["accent"], W["bg"]) >= TEXT        # "Team Orbit presents", ಮೀನು ರಕ್ಷಕ
-    assert contrast("#ffffff", W["text"]) >= TEXT        # Start button: white on the dark text colour
-    assert contrast(W["text"], "#ffffff") >= TEXT        # language switch: dark on white, and white on dark
+    assert contrast(W["on-dark"], W["text"]) >= TEXT     # Start button: white on the dark text colour
+    assert contrast(W["text"], W["box"]) >= TEXT         # language switch: dark on white, and white on dark
     assert contrast(W["accent"], W["bg"]) >= NON_TEXT    # logo, the orbit dot
+
+
+def test_start_page_follows_the_dark_theme_in_black_and_white():
+    assert WD == {"bg": "#0a0a0a", "text": "#ffffff", "muted": "#a3a3a3", "accent": "#ffffff", "line": "#262626",
+                  "box": "#141414", "on-dark": "#000000"}
+    assert contrast(WD["text"], WD["bg"]) >= TEXT and contrast(WD["muted"], WD["bg"]) >= TEXT
+    assert contrast(WD["on-dark"], WD["text"]) >= TEXT   # white Start button with black text
+    assert contrast(WD["text"], WD["box"]) >= TEXT       # language switch
 
 
 def test_space_touches_use_no_status_or_accent_colour():

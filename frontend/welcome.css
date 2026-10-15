@@ -1,5 +1,6 @@
 /*
-  Welcome screen: a light, quiet brand landing, the same in both themes.
+  Welcome screen: a quiet brand landing that follows the theme: light in the
+  light theme, black and white in the dark theme.
   Flat colours only (no gradients, light rays or fish). First screen: the
   flat Team Orbit logo in two thin orbit paths, "Team Orbit presents", the name,
   the tagline, Start and three short facts. The sample warning sits below.
@@ -17,6 +18,8 @@ body.has-welcome { overflow: hidden; }
   --w-muted: #4d646b;
   --w-accent: #0b7a85;
   --w-line: #dce5e3;
+  --w-box: #ffffff;           /* the language switch's box */
+  --w-on-dark: #ffffff;       /* text on the dark Start button and the chosen language */
   --text: var(--w-text);
   --text-secondary: var(--w-muted);
   --primary: var(--w-accent);
@@ -34,6 +37,18 @@ body.has-welcome { overflow: hidden; }
   background: var(--w-bg);
 }
 .welcome :focus-visible { outline: 3px solid var(--w-accent); outline-offset: 3px; }
+
+/* Dark theme: black and white only (no teal). */
+:root:not([data-theme="light"]) .welcome {
+  --w-bg: #0a0a0a;
+  --w-text: #ffffff;
+  --w-muted: #a3a3a3;
+  --w-accent: #ffffff;
+  --w-line: #262626;
+  --w-box: #141414;
+  --w-on-dark: #000000;
+  color-scheme: dark;
+}
 
 /* ---------------- Top bar: logo + "Team Orbit" left, language right ---------------- */
 .welcome-bar {
@@ -53,10 +68,11 @@ body.has-welcome { overflow: hidden; }
 }
 .welcome-brand-logo { width: 32px; height: 32px; flex: none; color: var(--w-accent); }
 
-/* Language switch: a white box; the chosen language dark with white text. */
-.welcome-lang { background: #ffffff; border: 1px solid var(--w-line); }
+/* Language switch: a white box, the chosen language dark with white text
+   (dark theme: a dark box, the chosen language white with black text). */
+.welcome-lang { background: var(--w-box); border: 1px solid var(--w-line); }
 .welcome-lang button { color: var(--w-text); }
-.welcome-lang button[aria-pressed="true"] { background: var(--w-text); color: #ffffff; }
+.welcome-lang button[aria-pressed="true"] { background: var(--w-text); color: var(--w-on-dark); }
 
 /* ---------------- First screen ---------------- */
 .welcome-main {
@@ -119,8 +135,8 @@ body.has-welcome { overflow: hidden; }
   gap: 0.75rem;
   border: 0;
   border-radius: var(--radius-card);
-  background: var(--w-text);                /* dark button, white text */
-  color: #ffffff;
+  background: var(--w-text);                /* dark button, white text (dark theme: white, black text) */
+  color: var(--w-on-dark);
   font: inherit;
   font-size: 1.25rem;
   font-weight: 600;
@@ -130,6 +146,7 @@ body.has-welcome { overflow: hidden; }
 }
 .welcome-start svg { width: 24px; height: 24px; flex: none; }
 .welcome-start:hover { background: #1c3f4a; }
+:root:not([data-theme="light"]) .welcome-start:hover { background: #d4d4d4; }
 .welcome-start:active { scale: 0.98; }
 
 /* Three short facts, split by thin lines. */

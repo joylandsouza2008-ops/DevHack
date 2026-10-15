@@ -1,40 +1,41 @@
 /* AquaNexus dashboard. Colours, sizes and rules come from DESIGN.md.
-   Two themes from the project palette (Realtime Colors): dark (default) and
-   light, for bright outdoor sunlight. The theme is set on <html data-theme="...">
+   Two themes: dark (default), black and white only; and light, for bright
+   outdoor sunlight, from the project palette (Realtime Colors). The theme is set on <html data-theme="...">
    by the small script in index.html (saved choice, else the phone's setting)
    and by the toggle in the top bar (app.js). Status colours (Safe / Warning /
    Danger) are the same in both themes and always used as fixed pairs.
    tests/test_contrast.py checks every pair below in BOTH themes. */
 
-/* Dark theme. Also used by .dark-scope: the pictures (welcome pond, sky scene,
-   pond view) stay dark in the light theme, because they show night water. */
+/* Dark theme: BLACK AND WHITE only. No teal, blue or navy: every action, link,
+   toggle and chart line is white or grey. The only colours are the status
+   colours (Safe / Warning / Danger), because they carry safety meaning.
+   Also used by .dark-scope, so the pictures (sky scene, pond view) are dark too. */
 :root,
 .dark-scope {
   color-scheme: dark;
 
-  /* Brand palette (exact Realtime Colors values) */
-  --background: #060351;      /* deep indigo */
-  --picture-bg: #060351;      /* behind always-dark pictures (wiring diagram), same in both themes */
-  --text: #def0f8;
-  --primary: #88cce6;         /* light pond blue: every action */
-  --primary-pressed: #a8daee;
-  --on-primary: #060351;
-  --secondary: #23bcd0;       /* bright cyan FILL: banners, tags, highlights, always with dark text */
-  --on-secondary: #060351;
-  --edge-on-secondary: #060351;   /* a dark edge on a secondary fill, when one is needed */
+  --background: #0a0a0a;
+  --picture-bg: #141414;      /* behind the wiring diagram */
+  --text: #ffffff;
+  --primary: #ffffff;         /* every action: white, with black text on it */
+  --primary-pressed: #d4d4d4;
+  --on-primary: #000000;
+  --secondary: #d4d4d4;       /* light grey FILL: "Simulated data" chips, tags, the chosen pond; black text */
+  --on-secondary: #000000;
+  --edge-on-secondary: #000000;   /* a dark edge on a secondary fill, when one is needed */
   --accent: #a10c9f;          /* magenta: part of the palette, NOT used in the interface (colour only means brand or status) */
-  --on-accent: #def0f8;
-  --logo: #8fd8e8;            /* Team Orbit logo on dark backgrounds */
+  --on-accent: #ffffff;
+  --logo: #ffffff;            /* Team Orbit logo */
+  --backdrop: rgba(0, 0, 0, 0.75);   /* behind dialogs and the cart */
 
-  /* Surfaces and text, derived from the palette (contrast-checked) */
-  --surface: #08054a;
-  --card: #07044a;            /* kept as dark as the page so the Danger stripe keeps 3:1 */
-  --hairline: #262470;
-  --hairline-strong: #6f73b8;
-  --text-secondary: #b3c6e6;
-  --text-tertiary: #9aa9d6;
-  --muted: #6a6fa6;
-  --footer-bg: #03022c;      /* darkest water: phone tab bar and footer */
+  --surface: #141414;         /* top bar, notes, inner panels */
+  --card: #141414;
+  --hairline: #262626;        /* lines and borders */
+  --hairline-strong: #737373; /* control borders: 3:1 on cards and the page */
+  --text-secondary: #a3a3a3;  /* muted text */
+  --text-tertiary: #a3a3a3;
+  --muted: #5c5c5c;           /* disabled only */
+  --footer-bg: #0a0a0a;       /* phone tab bar and footer */
 
   /* Amber has enough contrast on dark cards by itself: no extra edge. */
   --warning-edge: transparent;
@@ -63,12 +64,14 @@
   --font-display: "Manrope", "Noto Sans", "Noto Sans Kannada", "Tunga", "Nirmala UI", system-ui, sans-serif;
 }
 
-/* Light theme, made from the same palette: the indigo becomes the text, the
+/* Light theme, made from the project palette: the indigo becomes the text, the
    pond blue is deepened for buttons, cyan is used as it is. */
 :root[data-theme="light"] {
   color-scheme: light;
 
   --background: #eceefa;
+  --picture-bg: #060351;      /* behind the wiring diagram (its labels are light) */
+  --backdrop: rgba(3, 2, 44, 0.7);
   --text: #060351;
   --primary: #17698e;
   --primary-pressed: #0f4f6c;
@@ -94,9 +97,43 @@
 
 }
 
+/* Light theme: the night-water pictures (sky scene, pond view) keep their deep
+   indigo colours, as they always had. (In the dark theme they are black and white.) */
+:root[data-theme="light"] .dark-scope {
+  color-scheme: dark;
+  --background: #060351;
+  --text: #def0f8;
+  --primary: #88cce6;
+  --primary-pressed: #a8daee;
+  --on-primary: #060351;
+  --secondary: #23bcd0;
+  --on-secondary: #060351;
+  --edge-on-secondary: #060351;
+  --surface: #08054a;
+  --card: #07044a;
+  --hairline: #262470;
+  --hairline-strong: #6f73b8;
+  --text-secondary: #b3c6e6;
+  --text-tertiary: #9aa9d6;
+  --muted: #6a6fa6;
+  --footer-bg: #03022c;
+  --warning-edge: transparent;
+}
+
 /* Pictures that stay dark: text inside them must use the dark tokens too
    (text colour is inherited already worked out from <body>, so set it again). */
 .dark-scope { color: var(--text); }
+
+/* Dark theme, black and white: the sky scene and the 2D pond are drawn in colour,
+   so they are shown in greys. (The 3D pond picks grey colours itself, pond-3d.js.) */
+:root:not([data-theme="light"]) .scene-art,
+:root:not([data-theme="light"]) .pond-view:not(.is-3d) .pv-svg { filter: grayscale(1); }
+:root:not([data-theme="light"]) .scene { background: #0a0a0a; }
+:root:not([data-theme="light"]) .scene-chip { background: rgba(10, 10, 10, 0.86); border-color: #262626; }
+:root:not([data-theme="light"]) .pond-view,
+:root:not([data-theme="light"]) .pond-view.is-3d { background: #0a0a0a; }
+/* Plain links (no class) would get the browser's own blue: white instead, like every action. */
+:root:not([data-theme="light"]) a:not([class]) { color: var(--primary); }
 
 * { box-sizing: border-box; }
 /* `hidden` must always win, even over `display: flex` on a component (e.g. .kit-result, .badge). */
@@ -1121,7 +1158,7 @@ main {
   padding: 1.5rem; border: 1px solid var(--hairline); border-radius: var(--radius-card);
   background: var(--card); color: var(--text); line-height: 1.6;
 }
-.sources-dialog::backdrop { background: rgba(3, 2, 44, 0.7); }
+.sources-dialog::backdrop { background: var(--backdrop); }
 .sources-dialog h2 { margin: 0; font-size: 1.25rem; }
 .sources-dialog p { margin: 0.25rem 0; }
 .sources-head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 0.75rem; }
@@ -1233,7 +1270,7 @@ main {
   padding: 1.25rem; border: 0; border-left: 1px solid var(--hairline); border-radius: var(--radius-card) 0 0 var(--radius-card);
   background: var(--card); color: var(--text); line-height: 1.6;
 }
-.cart-drawer::backdrop { background: rgba(3, 2, 44, 0.7); }
+.cart-drawer::backdrop { background: var(--backdrop); }
 .cart-drawer h2 { margin: 0; font-size: 1.25rem; }
 @media (max-width: 480px) { .cart-drawer { border-radius: 0; border-left: 0; } }
 .cart-empty { color: var(--text-secondary); }

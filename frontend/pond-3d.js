@@ -15,6 +15,8 @@
 //     the caller shows the 2D pond instead (pond-view.js / the 2D welcome pond).
 // Water tones are murky blues and greys, never the Safe / Warning / Danger
 // colours; the status is always said in words next to the picture.
+// Dark theme (black and white): grey water, a dark grey bank and a grey sky,
+// no blue. The pond follows the theme toggle at once.
 //
 // Loaded as a module (<script type="module">). It sets window.Pond3D and
 // fires a "pond3d-ready" event, so the classic scripts can use it.
@@ -33,8 +35,29 @@ const WATER = {
   danger:  { top: 0x454d57, deep: 0x161b21 },
   unknown: { top: 0x2f5c6c, deep: 0x0e2630 },
 };
-const WATER_COLOURS = Object.fromEntries(Object.entries(WATER).map(([level, c]) =>
+// Dark theme: the same idea in greys (clearer when safe, darker and murkier when not).
+const WATER_DARK = {
+  safe:    { top: 0x6b6b6b, deep: 0x1f1f1f },
+  warning: { top: 0x575757, deep: 0x1a1a1a },
+  danger:  { top: 0x454545, deep: 0x121212 },
+  unknown: { top: 0x5e5e5e, deep: 0x1c1c1c },
+};
+const colours = (table) => Object.fromEntries(Object.entries(table).map(([level, c]) =>
   [level, { top: new THREE.Color(c.top), deep: new THREE.Color(c.deep) }]));
+const WATER_COLOURS = { light: colours(WATER), dark: colours(WATER_DARK) };
+// Everything else in the picture, per theme: pond floor (bank), pebbles, reeds, fish,
+// bubbles, the ground light, and the moon and stars.
+const PROPS = {
+  light: { floor: 0x141d27, stone: 0x2a3644, reed: 0x1c2738, fish: 0x0a1a22, bubble: 0xe6f6fc, bubbleGlow: 0x24485a,
+           ground: 0x0a0f1a, moon: 0xeef5fb, stars: 0xdef0f8, moonLight: 0xbcd2ff },
+  dark:  { floor: 0x161616, stone: 0x2a2a2a, reed: 0x222222, fish: 0x0a0a0a, bubble: 0xf2f2f2, bubbleGlow: 0x333333,
+           ground: 0x0a0a0a, moon: 0xffffff, stars: 0xffffff, moonLight: 0xffffff },
+};
+const isDark = () => document.documentElement.getAttribute("data-theme") !== "light";
+const grey = (from, to) => {               // the same brightness, without colour
+  const l = from.r * 0.2126 + from.g * 0.7152 + from.b * 0.0722;
+  return to.setRGB(l, l, l);
+};
 // Fish: swim speed, height in the tank (-1.5 floor .. 1.5 surface), nose-up tilt, tail speed.
 const FISH = {
   safe:    { speed: 1,    y: -0.3, tilt: 0,    tail: 6 },
@@ -77,7 +100,7 @@ function create(container, options = {}) {
   if (options.transparent) renderer.setClearColor(0x000000, 0);
 
   const scene = new THREE.Scene();
-  const sky = new THREE.Color(0x060351);
+  const sky = new THREE.Color(isDark() ? 0x0a0a0a : 0x060351);   // dark theme: no navy, even for a moment
   if (!options.transparent) scene.background = sky;
   const camera = new THREE.PerspectiveCamera(32, 16 / 9, 0.1, 60);
   const disposables = [];
@@ -201,6 +224,27 @@ function create(container, options = {}) {
     b.on = true;
   }
 
+  // ---- theme: light keeps the night-blue pond; dark is black and white
+  let dark = isDark();
+  const greySky = new THREE.Color(), greyHorizon = new THREE.Color();
+  function applyTheme() {
+    dark = isDark();
+    const p = PROPS[dark ? "dark" : "light"];
+    floorMat.color.setHex(p.floor);
+    stoneMat.color.setHex(p.stone);
+    reedMat.color.setHex(p.reed);
+    fishMat.color.setHex(p.fish);
+    bubbleMat.color.setHex(p.bubble);
+    bubbleMat.emissive.setHex(p.bubbleGlow);
+    hemi.groundColor.setHex(p.ground);
+    moonMat.color.setHex(p.moon);
+    haloMat.color.setHex(p.moon);
+    starMat.color.setHex(p.stars);
+  }
+  applyTheme();
+  const themeWatch = new MutationObserver(applyTheme);
+  themeWatch.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+
   // ---- state (targets are reached smoothly; nothing jumps)
   const state = {
     level: options.level || "unknown",
@@ -237,7 +281,8 @@ function create(container, options = {}) {
     const k = ease(dt, 1.2);
 
     // Water colour and sky follow their targets.
-    const target = WATER_COLOURS[state.level] || WATER_COLOURS.unknown;
+    const table = WATER_COLOURS[dark ? "dark" : "light"];
+    const target = table[state.level] || table.unknown;
     state.water.top.lerp(target.top, k);
     state.water.deep.lerp(target.deep, k);
     glassMat.color.copy(state.water.top);
@@ -246,14 +291,14 @@ function create(container, options = {}) {
     deepMat.emissive.copy(state.water.deep);
     surfaceMat.color.copy(state.water.top).offsetHSL(0, 0, 0.14);
     surfaceMat.emissive.copy(state.water.top);
-    sky.lerp(state.skyTarget, k);
-    hemi.color.copy(state.horizon);
+    sky.lerp(dark ? grey(state.skyTarget, greySky) : state.skyTarget, k);
+    hemi.color.copy(dark ? grey(state.horizon, greyHorizon) : state.horizon);
 
     // Night and day light.
     const n = state.night;
     hemi.intensity = 0.8 + (1 - n) * 0.7;
     key.intensity = 0.7 + (1 - n) * 1.1;
-    key.color.setHex(n > 0.5 ? 0xbcd2ff : 0xffffff);
+    key.color.setHex(n > 0.5 ? PROPS[dark ? "dark" : "light"].moonLight : 0xffffff);
     key.position.set(n > 0.5 ? -3 : 3, 6, 4);
     moonMat.opacity = n;
     haloMat.opacity = n * 0.08;
@@ -349,6 +394,7 @@ function create(container, options = {}) {
     stop();
     io.disconnect();
     ro.disconnect();
+    themeWatch.disconnect();
     document.removeEventListener("visibilitychange", onVisibility);
     disposables.forEach((d) => d.dispose && d.dispose());
     bubbleMesh.dispose();

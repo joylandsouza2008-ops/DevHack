@@ -64,7 +64,7 @@ colors:
 
 This is a calm, deep-water design system for a pond and fish-health app. It is used by pond owners and fish farmers, often outdoors, on phones, and in either Kannada or English. One Realtime Colors palette gives two themes:
 
-- **Dark (default):** deep indigo ({colors.background}) with light, cool text ({colors.text}). The main action is a light pond-blue pill ({colors.primary}) with dark text.
+- **Dark (default): black and white only.** Background #0A0A0A, cards #141414, lines #262626, text #FFFFFF, muted text #A3A3A3. Every action, link, active tab, toggle and chart line is white or grey; primary buttons and the chosen language / theme are **white with black text**; the logo is white. **No teal, blue or navy anywhere.** The only colours are the status colours (Safe green, Warning amber, Danger red) on alerts, badges, the status strip, the health score and the risk scale, because they carry safety meaning. (The Indigo values in the YAML header above are the light theme's night pictures, see Themes.)
 - **Light, for bright outdoor sunlight:** pale indigo-white ({colors.light-background}) with the palette's indigo as text ({colors.light-text}). The main action is a deepened pond-blue pill ({colors.light-primary}) with light text.
 
 Bright cyan ({colors.secondary}) fills small tags and highlighted items, always with dark text. **Colour only means something**: pond blue is the brand and every action, and green, amber and red are Safe, Warning and Danger. Magenta ({colors.accent}) stays in the palette but is **not used** anywhere on screen: no doodles, glows or decorative lines. The first theme follows the phone's light/dark setting; a **Light | Dark** toggle in the top bar overrides it and is remembered. The pictures (welcome pond, sky scene, pond view) show night water and stay dark in both themes.
@@ -88,7 +88,22 @@ Text is set larger than a typical web app: body text is 18px, and nothing that m
 
 All contrast ratios below are measured (WCAG 2.x formula). Text needs at least 4.5:1; borders, stripes and icons need at least 3:1.
 
-### Brand palette: dark theme (default)
+### Dark theme (default): black and white
+
+| Token | Hex | Use | Contrast |
+|---|---|---|---|
+| **Background** | `#0A0A0A` | Page, footer, phone tab bar | white text 19.8:1 |
+| **Card / Surface** | `#141414` | Cards, top bar, notes, inner panels | white text 18.4:1; muted #A3A3A3 7.3:1 |
+| **Lines** | `#262626` | Hairlines, dividers, the start page's orbit circles | decorative |
+| **Control borders** | `#737373` | Inputs, selects, toggles | 3.9:1 on cards |
+| **Text / Muted** | `#FFFFFF` / `#A3A3A3` | Text / secondary text, units | |
+| **Primary** | `#FFFFFF`, text on it `#000000` | Buttons, active tab, chosen toggle, links, focus ring, chart line | black on white 21:1 |
+| **Secondary fill** | `#D4D4D4`, text on it `#000000` | "Simulated data" chips, tags, the chosen pond | 14:1 |
+| **Status** | unchanged | Safe / Warning / Danger, as in the light theme | stripes on cards: Safe 3.6:1, Danger 3.3:1, Warning 9.0:1 |
+
+`tests/test_contrast.py` checks that every dark-theme colour token is a grey (red = green = blue), except the status colours and the unused magenta.
+
+### Previous dark palette (now the light theme's night pictures only)
 | Token | Hex | Use | Contrast |
 |---|---|---|---|
 | **Background** ({colors.background}) | `#060351` | Page background (deep indigo) | text on it 15.7:1 |
@@ -165,8 +180,10 @@ These colors are reserved for pond and fish condition: water quality, oxygen, te
 - **On Secondary** ({colors.on-secondary}): Dark text on the cyan secondary fill (8.1:1).
 
 ### Themes
-- `styles.css` defines the dark tokens on `:root, .dark-scope` and the light overrides on `:root[data-theme="light"]`. A small script in `index.html` sets `data-theme` before the first paint: the saved choice (`localStorage` key `meenuraksha-theme`), else `prefers-color-scheme`.
-- **Pictures stay dark:** the welcome pond, the sky scene and the pond view carry the `dark-scope` class, so they keep dark tokens on the light page.
+- `styles.css` defines the dark (black and white) tokens on `:root, .dark-scope` and the light overrides on `:root[data-theme="light"]`. A small script in `index.html` sets `data-theme` before the first paint: the saved choice (`localStorage` key `meenuraksha-theme`), else `prefers-color-scheme`.
+- **Pictures:** the sky scene and the pond view carry the `dark-scope` class. In the **light** theme they keep the deep indigo night palette (`:root[data-theme="light"] .dark-scope`, unchanged). In the **dark** theme they are black and white: the sky scene and the 2D pond are shown through a greyscale filter, and the 3D pond switches to grey water, a dark grey bank and a grey sky (`pond-3d.js`, it follows the theme toggle at once).
+- **Start page** follows the theme: light in light mode; black and white in dark mode (white logo and text, white Start button with black text, dark language box with the chosen language white).
+- **Known exception:** the sensor-kit wiring diagram in the Shop keeps its own colours (orange, blue, grey) in dark mode, because its legend uses them to tell power, control and sensor parts apart. It sits on #141414.
 - **Plain page:** the page is one flat colour. No background waves, blobs, glows or gradient washes behind the cards.
 - **The sky scene** uses its own indigo, blues, cyan, an orchid dusk and pale pearl (`SKY` in `scene.js`); sunrise and sunset are light and position, never orange, red or green.
 - `tests/test_contrast.py` checks every pair in both themes, the sky, and that the page stays flat (no waves, doodles, decorative shadows or magenta).
