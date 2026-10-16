@@ -205,6 +205,21 @@ def health() -> dict:
     return {"status": "ok"}
 
 
+class _SkipHealthzPings(logging.Filter):
+    """Keeps uptime-monitor pings to /healthz out of uvicorn's access log."""
+    def filter(self, record: logging.LogRecord) -> bool:
+        return "/healthz " not in record.getMessage()
+
+
+logging.getLogger("uvicorn.access").addFilter(_SkipHealthzPings())
+
+
+@app.get("/healthz", include_in_schema=False)
+def healthz() -> dict:
+    """For uptime pings. Touches nothing (no database, no weather, no Gemini), so pings stay cheap."""
+    return {"ok": True}
+
+
 @app.post("/api/risk")
 def current_risk(readings: Readings) -> dict:
     """Safe / Warning / Danger for these readings, with the reason in English and Kannada."""

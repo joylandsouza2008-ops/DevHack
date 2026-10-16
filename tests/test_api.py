@@ -20,6 +20,26 @@ def test_health():
     assert client.get("/api/health").json() == {"status": "ok"}
 
 
+def test_healthz_touches_nothing(monkeypatch):
+    import backend.main as main
+
+    def must_not_run(*args, **kwargs):
+        raise AssertionError("/healthz must not touch the database or any outside service")
+
+    monkeypatch.setattr(main, "farms", must_not_run)
+    monkeypatch.setattr(main, "provider_from_env", must_not_run)
+    r = client.get("/healthz")
+    assert r.status_code == 200
+    assert r.json() == {"ok": True}
+
+
+def test_healthz_hidden_from_access_log():
+    import logging
+    record = logging.LogRecord("uvicorn.access", logging.INFO, "", 0,
+                               '%s - "%s %s HTTP/%s" %d', ("1.2.3.4", "GET", "/healthz", "1.1", 200), None)
+    assert not any(f.filter(record) for f in logging.getLogger("uvicorn.access").filters)
+
+
 def test_risk_danger_with_reasons_in_both_languages():
     r = client.post("/api/risk", json={"dissolved_oxygen": 2.5, "ph": 7.2, "temperature": 29})
     assert r.status_code == 200
